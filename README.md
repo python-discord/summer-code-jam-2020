@@ -10,9 +10,9 @@
 
 What you do with this theme or how you interpret it is up to you, but it will be your task to come up with something fun using this theme.
 
-#### The chosen technology for this game jam is [Django](https://djangoapp.com/).
+#### The chosen technology for this game jam is [Django](https://www.djangoproject.com/).
 
-Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. It comes "batteries included" with a slew of incredibly polished features, including database migrations, an excellent CRM, access control, security features to prevent you from making expensive mistakes, and probably the best documentation on the internet.
+Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. It comes "batteries included" with a slew of incredibly polished features, including database migrations, an excellent CRM, access control, security features to prevent you from making expensive mistakes, and [probably the best documentation on the internet](https://docs.djangoproject.com/en/3.0/).
 
 #### We expect you to write a webapp.
 
@@ -55,13 +55,14 @@ If you are working as a team, you should consider learning about feature branche
 
 ## Useful Information for Participants
 
-Our website contains some pages that may help you get started:
+Here are some pages that may help you get started:
 
 - [How to use git](https://pythondiscord.com/pages/code-jams/using-git/)
 - [Making a fork, opening a pull request, & creating a GitHub webhook](https://pythondiscord.com/pages/code-jams/pull-request/)
 - [Event page](https://pythondiscord.com/pages/code-jams/code-jam-7/)
 - [Rules](#)
 - [Judging](https://pythondiscord.com/pages/code-jams/judging/)
+- [Django documentation](https://docs.djangoproject.com/en/3.0/)
 
 ## Partners
 
