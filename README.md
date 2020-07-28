@@ -53,6 +53,14 @@ The pull request you created will be automatically updated whenever you push cod
 
 If you are working as a team, you should consider learning about feature branches so that you don't all work directly on the `master` branch and cause each other a bunch of conflicts. For a short explanation of how this works, see [this video](https://www.youtube.com/watch?v=j7YDbrS9I48).
 
+### 6. Lint your code
+
+We will be running a [linter](https://realpython.com/python-code-quality/#linters) called [flake8](https://flake8.pycqa.org/en/latest/) on all the code submitted to us in your Pull Request. This will find style problems and errors in your code and leave automatic review comments on your pull request. **We highly recommend that you set up a linter locally and lint your code as you go**, to prevent your pull request absolutely drowning in linting comments.
+
+You can use a tool called [pre-commit](https://pre-commit.com/) to easily set up automatic linting before every commit, so that you will not be able to commit code that is going to fail linting. Many IDEs (like [PyCharm](https://www.jetbrains.com/pycharm/) and [Visual Studio Code](https://code.visualstudio.com/)) will also lint your code as you type it.
+
+Our max-line-length is set to 100 characters.
+
 ## Useful Information for Participants
 
 Here are some pages that may help you get started:
