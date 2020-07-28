@@ -66,4 +66,4 @@ Here are some pages that may help you get started:
 
 ## Partners
 
-[![django](django_logo.png)](https://www.djangoproject.com/) [![pydis](early_pydis_logo.png)](https://pythondiscord.com) 
+[![django](django_logo.png)](https://www.djangoproject.com/) [![pydis](early_pydis_logo.png)](https://pythondiscord.com) [![jetbrains](jetbrains_logo.png)](https://jetbrains.com)
