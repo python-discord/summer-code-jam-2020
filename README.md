@@ -87,6 +87,9 @@ Please also make sure that you follow the instructions in the [Getting Started](
 ### Write a good README
 Your project has to include documentation. At the very least, it should include instructions on how to set-up and run your projects, but keep in mind that a README is the first thing people typically see when they look at a project on GitHub. A good README includes a short description of the project, installation instructions, and often documents common usage of the application. Browse the team folders in the [Winter Code Jam 2020 repository](https://github.com/python-discord/code-jam-6) to get an idea of the kind of READMEs commonly included in Code Jam projects.
 
+### The main language of your project should be English
+As English is the only language the judges share, we require you to use English as the main language for your project. This means that your variable names, code comments, `git` commit messages, and documentation should all be in English. The text displayed in your web application should also be in English, although you are allowed to provide the user with options for internationalization and translation.
+
 ## Partners
 
 [![django](django_logo.png)](https://www.djangoproject.com/) [![pydis](early_pydis_logo.png)](https://pythondiscord.com) [![jetbrains](jetbrains_logo.png)](https://jetbrains.com)
