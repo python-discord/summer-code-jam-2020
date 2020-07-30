@@ -9,4 +9,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           failIf: new
-          args: "--isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox --max-line-length=100 ."
+          args: "--isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox --max-line-length=119 ."

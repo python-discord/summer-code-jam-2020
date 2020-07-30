@@ -32,9 +32,9 @@ These frameworks all have excellent documentation, and usually allow you to just
 
 Start by [forking this repository][3]. If you're working as a team, only one person needs to do this.
 
-### 2. Create a team folder in the repository
+### 2. Find your team folder in the repository
 
-You should come up with some team name, and then create a folder in the root of this repository with your team name. **All your project files must be contained within your team's subdirectory**. If you make any changes to files other than those in your team folder, we will not be able to merge your PR, and may have to disqualify your submission.
+The repository should already contain a subdirectory named after your team. **All your project files must be contained within your team's subdirectory**. If you make any changes to files other than those in your team folder, we will not be able to merge your PR, and may have to disqualify your submission.
 
 We are aware some CI/CD solutions require you to have configuration files/folders in the root of the repository; if you're using one of those, either try to use a unique name (e.g. prefix the configuration files with your team name) or remove the files/directories just before the end of the jam.
 
@@ -61,7 +61,7 @@ We will be running a [linter] called [flake8] on all the code submitted to us in
 
 You can use a tool called [pre-commit] to easily set up automatic linting before every commit, so that you will not be able to commit code that is going to fail linting. Many IDEs (like [PyCharm] and [Visual Studio Code]) will also lint your code as you type it.
 
-Our max-line-length is set to 100 characters.
+Our max-line-length is set to 119 characters.
 
 ## Useful Information for Participants
 
