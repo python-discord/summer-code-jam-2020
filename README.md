@@ -47,7 +47,7 @@ We have written several documents that you should read through if you haven't do
 
 ### 4. Create a pull request
 
-Open a pull request from your fork's `master` to the `master` branch of this repository in order to submit your project. **You should use the name of your team as the name of the pull request.**
+Open a pull request from your fork's `master` to the `master` branch of this repository in order to submit your project. **You should use the name of your team as the name of the pull request.** Please open you Pull Request at the start of the jam and ensure that the "Allow edits by maintainers" option is enabled. 
 
 ### 5. Commit to your master branch
 
