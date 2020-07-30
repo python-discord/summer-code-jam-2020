@@ -36,11 +36,13 @@ Start by [forking this repository](https://github.com/python-discord/summer-code
 
 You should come up with some team name, and then create a folder in the root of this repository with your team name. **All your project files must be contained within your team's subdirectory**. If you make any changes to files other than those in your team folder, we will not be able to merge your PR, and may have to disqualify your submission.
 
+We are aware that some CI/CD solutions require you to have configuration files/folders in the root of the repository; if you're using one of those, either try to use a unique name (e.g., prefix the configuration files with your team name) or remove the files/directories just before the end of the jam.
+
 ### 3. Study the guides and guidelines
 
 We have written several documents that you should read through if you haven't done so already. These can all be accessed from the sidebar on [the main event page on our website](https://pythondiscord.com/pages/code-jams/code-jam-7/). The most important pages to work through can be found here:
 
-- [Rules](#)
+- [Rules](https://pythondiscord.com/pages/code-jams/code-jam-7/rules/)
 - [Judging](https://pythondiscord.com/pages/code-jams/judging/)
 
 ### 4. Create a pull request
@@ -68,9 +70,22 @@ Here are some pages that may help you get started:
 - [How to use git](https://pythondiscord.com/pages/code-jams/using-git/)
 - [Making a fork, opening a pull request, & creating a GitHub webhook](https://pythondiscord.com/pages/code-jams/pull-request/)
 - [Event page](https://pythondiscord.com/pages/code-jams/code-jam-7/)
-- [Rules](#)
+- [Rules](https://pythondiscord.com/pages/code-jams/code-jam-7/rules/)
 - [Judging](https://pythondiscord.com/pages/code-jams/judging/)
 - [Django documentation](https://docs.djangoproject.com/en/3.0/)
+
+## Things to keep in mind
+
+### Your project should be easy to set-up
+You should make sure that your project is easy to set up for us, the reviewers. Ideally, it should not take us more than a few steps to get your project up and running and those steps should be well-documented in your project’s README file. Consider using dependency management tools, like `pipenv` and `npm`, to make installing the dependencies of your projects as easy as possible. We would also encourage you to use `docker` and `docker-compose` to containerize your project, but this isn't a requirement.
+
+### All projects will be merged into this repository
+Your project will be merged into this repository at the end of the jam. This means that your project will stay available after the jam ends and that you'll get contributions credits for this repository on your GitHub-account. Do keep in mind that this repository is licensed under the [MIT open source license](https://opensource.org/licenses/MIT), which means that all the code and assets you submit for the Code Jam should be compatible with that license. In addition, please make sure to provide credit to the source of all third-party assets, even if the license does not require you to do so. 
+
+Please also make sure that you follow the instructions in the [Getting Started](#getting-started) section. We can't merge Pull Requests that (would) create conflicts with the submissions of the other teams.
+
+### Write a good README
+Your project has to include documentation. At the very least, it should include instructions on how to set-up and run your projects, but keep in mind that a README is the first thing people typically see when they look at a project on GitHub. A good README includes a short description of the project, installation instructions, and often documents common usage of the application. Browse the team folders in the [Winter Code Jam 2020 repository](https://github.com/python-discord/code-jam-6) to get an idea of the kind of READMEs commonly included in Code Jam projects.
 
 ## Partners
 
