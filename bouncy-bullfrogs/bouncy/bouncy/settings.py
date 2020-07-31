@@ -132,3 +132,6 @@ CKEDITOR_CONFIGS = {
 
     },
 }
+
+
+APPEND_SLASH = False
