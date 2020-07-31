@@ -132,7 +132,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("mail:home"))
+    return HttpResponseRedirect(reverse("login"))
 
 
 def register(request):
