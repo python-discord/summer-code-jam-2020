@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+pre-commit = "*"
+
+[packages]
+django = "==3.0.8"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+lint = "python -m flake8"
+precommit = "pre-commit install"
