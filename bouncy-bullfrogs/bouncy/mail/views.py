@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .forms import UserRegisterForm
 # Create your views here.
 
 
@@ -113,21 +112,6 @@ def email(request, email_id):
             "error": "GET or PUT request required."
         }, status=400)
 
-def signup(request):
-    if request.method == 'POST':
-        form= UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('index')
-    else:
-        form=UserRegisterForm()
-    return render(request, 'mail/register.html', {'form':form})
-
-
 def login_view(request):
     if request.method == "POST":
 
@@ -148,7 +132,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse(""))
+    return HttpResponseRedirect(reverse("mail:home"))
 
 
 def register(request):
