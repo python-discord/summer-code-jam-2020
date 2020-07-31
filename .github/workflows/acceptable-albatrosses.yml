@@ -17,26 +17,29 @@ jobs:
               with:
                   python-version: 3.8
             - name: Install dependencies and setup
+              env:
+                  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install pipenv
                   cd acceptable-albatrosses
+                  echo DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY > .env
                   pipenv install --dev
             - name: Lint with flake8
               run: |
                   cd acceptable-albatrosses
                   # stop the build if there are Python syntax errors or undefined names
-                  pipenv run flake8 project --count --select=E9,F63,F7,F82 --show-source --statistics
-                  pipenv run flake8 project --count --statistics
+                  pipenv run flake8 albatrosses_hub --count --select=E9,F63,F7,F82 --show-source --statistics
+                  pipenv run flake8 albatrosses_hub --count --statistics
             - name: Lint with mypy (typing)
               run: |
                   cd acceptable-albatrosses
-                  pipenv run mypy project
+                  pipenv run mypy albatrosses_hub
             - name: Lint with pylint
               run: |
                   cd acceptable-albatrosses
-                  pipenv run pylint project/**/*.py
+                  pipenv run pylint albatrosses_hub/**/*.py
             - name: Lint with black (formatting)
               run: |
                   cd acceptable-albatrosses
-                  pipenv run black project --check -l 119
+                  pipenv run black albatrosses_hub --check -l 119
