@@ -1,6 +1,6 @@
 # Installation
 
-1. Clone the repository with `git clone https://github.com/fliepeltje/glossy_gorillas`
+1. Clone the repository with `git clone https://github.com/fliepeltje/summerjam-private`
 2. Install poetry:
    - All platforms, try this first, if it doesn't work use one of the commands below: `python get-poetry -y --preview`
    - Linux: `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`
