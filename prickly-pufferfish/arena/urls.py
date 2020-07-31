@@ -22,5 +22,10 @@ urlpatterns = [
     path('/', include('arena.apps.core.urls')),
 
     # This is simply for testing purposes
+<<<<<<< HEAD
     path('exec/', include('arena.apps.exec.urls'))
+=======
+    path('exec/', include("arena.apps.exec.urls")),
+    path('', include("arena.apps.core.urls")),
+>>>>>>> 4ca44e200af1b2431376b2ea67d91fd5815cd219
 ]
