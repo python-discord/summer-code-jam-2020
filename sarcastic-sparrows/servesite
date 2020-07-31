@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Requires Python 3"
+cd website
+python3 -m http.server
