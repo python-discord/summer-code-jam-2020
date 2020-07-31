@@ -1,11 +1,16 @@
 #!/bin/sh
 
 cd acceptable-albatrosses
-/usr/bin/python3 -m pipenv run flake8 albatrosses_hub --count --select=E9,F63,F7,F82 --show-source --statistics
-/usr/bin/python3 -m pipenv run flake8 albatrosses_hub --count --statistics
+echo "Checking for Python syntax errors or undefined names with flake8..."
+pipenv run flake8 albatrosses_hub --count --select=E9,F63,F7,F82 --show-source --statistics
+echo "Checking other style errors with flake8..."
+pipenv run flake8 albatrosses_hub --count --statistics
 
-/usr/bin/python3 -m pipenv run mypy albatrosses_hub
+echo "Checking static typing with mypy..."
+pipenv run mypy albatrosses_hub
 
-/usr/bin/python3 -m pipenv run pylint albatrosses_hub/**/*.py
+echo "Checking Python and style errors with pylint..."
+pipenv run pylint albatrosses_hub/**/*.py
 
-/usr/bin/python3 -m pipenv run black albatrosses_hub --check -l 119
+echo "Checking formatted code with black..."
+pipenv run black albatrosses_hub --check -l 119
