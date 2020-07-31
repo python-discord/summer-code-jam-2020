@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+
 function show_message(type, message) {
     document.querySelector('#message-box').innerHTML += `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
                             ${message}
