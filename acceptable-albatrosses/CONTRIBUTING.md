@@ -69,7 +69,21 @@
 -   CSS?
 -   JS?
 
-A (bash?) script can be added and ran before committing.
+You can add a pre-commit hook to run all tests and checks by running this:
+
+```bash
+git config core.hooksPath acceptable-albatrosses/hooks
+```
+
+You may also want to edit the executable used in the pre-commit hook locally:
+
+```bash
+# default
+pipenv run mypy project
+# specific Python executable (use "which python3" to get the path)
+/usr/bin/python3 -m pipenv run mypy project
+```
+
 GitHub Actions (or other CI/CD if needed) will also be used to run automated tests on push/PR.
 
 ## Deployment
