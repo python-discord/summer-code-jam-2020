@@ -13,5 +13,4 @@ USER python
 
 WORKDIR /django
 
-ENTRYPOINT [ "sleep", "100000000000000" ]
-# ENTRYPOINT [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+ENTRYPOINT [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

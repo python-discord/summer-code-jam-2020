@@ -11,9 +11,12 @@ services:
     environment:
       - DEBUG=TRUE
       - DJANGO_SECRET_KEY=UNSAFELYpushDEVsecretsToGitbutITSnotFORprodSOwtv
-      - POSTGRES_DB=${POSTGRES_DB-patryktech}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD-patryktech}
-      - POSTGRES_USER=${POSTGRES_USER-patryktech}
+      - POSTGRES_DB=${POSTGRES_DB-djangocities}
+      - POSTGRES_HOST=${POSTGRES_HOST-pgcities}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD-djangocities}
+      - POSTGRES_USER=${POSTGRES_USER-djangocities}
+    ports:
+      - 1234:8000
     restart: "no"
     volumes:
       - "./django/:/django"
