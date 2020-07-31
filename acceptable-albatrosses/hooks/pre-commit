@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd acceptable-albatrosses
+/usr/bin/python3 -m pipenv run flake8 albatrosses_hub --count --select=E9,F63,F7,F82 --show-source --statistics
+/usr/bin/python3 -m pipenv run flake8 albatrosses_hub --count --statistics
+
+/usr/bin/python3 -m pipenv run mypy albatrosses_hub
+
+/usr/bin/python3 -m pipenv run pylint albatrosses_hub/**/*.py
+
+/usr/bin/python3 -m pipenv run black albatrosses_hub --check -l 119
