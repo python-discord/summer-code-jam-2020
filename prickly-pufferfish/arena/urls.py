@@ -19,7 +19,8 @@ from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('/', include('arena.apps.core.urls')),
 
     # This is simply for testing purposes
-    path('exec/', include("arena.apps.exec.urls"))
+    path('exec/', include('arena.apps.exec.urls'))
 ]
