@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_DB: "thehtvms"
+      POSTGRES_PASSWORD: "thehtvms"
+      POSTGRES_USER: "thehtvms"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:5000:5000"
+    depends_on:
+      - postgres
+    tty: true
+    environment:
+      DEBUG: "${DEBUG-}"
