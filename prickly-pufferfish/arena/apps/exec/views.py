@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpRequest
 from django.http import HttpResponse
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseNotAllowed
 from django.urls import resolve
 import json
 
@@ -18,9 +17,9 @@ def index(request):
 
     else:
         error = json.dumps({
-            'status': 400,
-            'error': 'Bad Request',
+            'status': 405,
+            'error': 'Method Not Allowed',
             'message': 'Http request must be a POST request',
             'path': resolve(request.path_info).url_name
         })
-        return HttpResponseBadRequest(error)
+        return HttpResponseNotAllowed(['POST'], error)
