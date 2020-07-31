@@ -20,10 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7q5(fqwhqiq1v^poz(%_&0l!ot61k=6oyw%ct109&_guj)khd!'
+SECRET_KEY = os.environ.get('summer_jam_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+if DEBUG:
+    from .dev_settings import *
+else:
+    from .production_settings import *
 
 ALLOWED_HOSTS = []
 
@@ -71,14 +76,7 @@ WSGI_APPLICATION = 'code_jam.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
