@@ -5,12 +5,12 @@ on:
     # Only run if,
     paths:
       # Changes in python files
-      - '*.py'
+     - '**.py'
   pull_request:
     # Only run if,
     paths:
       # Changes in python files
-      - '*.py'
+      - '**.py'
       
 jobs:
   build:
