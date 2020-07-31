@@ -1,4 +1,7 @@
-# Hysterical Horses
+![Team Logo](./horsescodejamlogo.png?raw=true "Logo")  
+
+<hr>
+
 ### Installation:
 1. Clone repository
 
