@@ -1,4 +1,4 @@
-text {
+textarea {
     min-height: 400px;
 }
 
@@ -8,7 +8,7 @@ text {
     bottom: 0;
     text-align: center;
     width: 100%;
-    background: white;
+    background: transparent;
 }
 
 .media:hover {

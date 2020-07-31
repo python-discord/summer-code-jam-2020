@@ -11,7 +11,7 @@ from .forms import UserRegisterForm
 # Create your views here.
 
 
-def index(request):
+def home(request):
     if request.user.is_authenticated:
         return render(request, "mail/inbox.html")
     else:
@@ -137,7 +137,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("home"))
+            return HttpResponseRedirect(reverse("mail:home"))
         else:
             return render(request, "mail/login.html", {
                 "message": "Invalid email and/or password."
@@ -154,7 +154,6 @@ def logout_view(request):
 def register(request):
     if request.method == "POST":
         email = request.POST["email"]
-        first_name = request.POST["First Name"]
 
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -172,6 +171,6 @@ def register(request):
                 "message": "Email address already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("mail:home"))
     else:
         return render(request, "mail/register.html")
