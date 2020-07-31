@@ -3,3 +3,6 @@ from django.shortcuts import render
 # Create your views here.
 def homepage(request):
     return render(request, 'spydir/home.html')
+
+def info_view(request):
+    return render(request, 'spydir/generators/info.html')
