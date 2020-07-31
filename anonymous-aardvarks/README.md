@@ -1,2 +1,9 @@
 # Anonymous Aardvarks
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+
+`pip install -r requirements.txt`
+
+`python manage.py runserver`
+
+Project will run on:
+
+> http://localhost:8000
