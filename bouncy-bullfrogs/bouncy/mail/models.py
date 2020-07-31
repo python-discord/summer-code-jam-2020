@@ -12,7 +12,7 @@ class Email(models.Model):
     sender = models.ForeignKey(
         "User", on_delete=models.PROTECT, related_name="emails_sent")
     recipients = models.ManyToManyField("User", related_name="emails_received")
-    time = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
     subject = models.CharField(max_length=255)

@@ -126,3 +126,52 @@ def signup(request):
     else:
         form=UserRegisterForm()
     return render(request, 'mail/register.html', {'form':form})
+
+
+def login_view(request):
+    if request.method == "POST":
+
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse("home"))
+        else:
+            return render(request, "mail/login.html", {
+                "message": "Invalid email and/or password."
+            })
+    else:
+        return render(request, "mail/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse(""))
+
+
+def register(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        first_name = request.POST["First Name"]
+
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "mail/register.html", {
+                "message": "Passwords must match."
+            })
+
+        try:
+            user = User.objects.create_user(email, email, password)
+            user.save()
+        except IntegrityError as e:
+            print(e)
+            return render(request, "mail/register.html", {
+                "message": "Email address already taken."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "mail/register.html")
