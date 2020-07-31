@@ -46,8 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-
-
 function show_message(type, message) {
     document.querySelector('#message-box').innerHTML += `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
                             ${message}
@@ -223,7 +221,7 @@ function render_email_li(email) {
     html_email.innerHTML = `<img class="mr-2" src=${img} alt="email icon">
                             <div class="media-body">
                               <h5 class="mt-0 mb-2">${email.sender}  <small style="float:right">${email.timestamp}</small></h5>
-                              <b>Subject:</b> ${email.subject}                             
+                              <b>Subject:</b> ${email.subject}
                             </div>`;
     // Add response to clicking an unread email.
     html_email.addEventListener('click', () => {
