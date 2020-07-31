@@ -70,12 +70,6 @@
         </form>
     </div>
 
-    <script>
-        $("#preventDouble").on("submit", function () {
-            $(this).unbind("submit");
-            $(this).on("submit", function () { return false; });
-        });
-    </script>
     {% endblock %}
 
     {% block script %}
