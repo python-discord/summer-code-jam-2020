@@ -58,7 +58,6 @@
     <form id="compose-form">
         <div class="form-group">
             From: <input disabled class="form-control" value="{{ request.user.email }}">
-
         </div>
         <div class="form-group">
             To: <input id="compose-recipients" class="form-control">
@@ -66,8 +65,8 @@
         <div class="form-group">
             <input class="form-control" id="compose-subject" placeholder="Subject">
         </div>
-        <text class="form-control" id="compose-body" placeholder="Your Email goes here"></textarea>
-            <input type="submit" class="btn btn-primary mt-3" />
+        <textarea class="form-control" id="compose-body" placeholder="Your Email goes here"></textarea>
+        <input type="submit" class="btn btn-primary mt-3" />
     </form>
 </div>
 {% endblock %}
