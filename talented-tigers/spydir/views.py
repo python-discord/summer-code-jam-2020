@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import GeneratedPage
 
-# Create your views here.
+
 def homepage(request):
     return render(request, 'spydir/home.html')
 

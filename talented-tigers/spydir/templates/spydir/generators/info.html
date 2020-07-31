@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+
     <meta charset="UTF-8">
     <title>All About _</title>
     <link rel="stylesheet" type="text/css" href="{% static 'info\css\styles.css' %}">
@@ -9,9 +14,38 @@
         * {text-align: center}
     </style>
 </head>
+
 <body>
-    <h1>All About _</h1>
-    <h3>Welcome to my crazy new website about _!</h3>
-    <h6>By: RandomName</h6>
+    <header>
+        <div class="container">
+            <h1 style="color:blue">All About {{ topic }}</h1>
+            <h3>Welcome to my crazy new website about {{ topic }}!</h3>
+            <h6>By: {{ name }}</h6>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                <div>
+                    <p>Content Here</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <img src="default.png" alt="Pic Here">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
