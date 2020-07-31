@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sparrows_django.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sparrow_django.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
