@@ -1,3 +1,7 @@
+#
+# This code is under MIT licence, you can find the complete file here: https://github.com/electronut/pp
+#
+
 from PIL import Image
 
 
