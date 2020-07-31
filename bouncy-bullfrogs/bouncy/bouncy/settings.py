@@ -23,8 +23,6 @@ INSTALLED_APPS = [
     'mail.apps.MailConfig',
     # 3rd party
     'crispy_forms',
-    'ckeditor',
-    'ckeditor_uploader',
     # django
     'django.contrib.admin',
     'django.contrib.auth',
