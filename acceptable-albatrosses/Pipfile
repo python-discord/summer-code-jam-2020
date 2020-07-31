@@ -13,9 +13,9 @@ pylint = "*"
 pylint-django = "*"
 
 [packages]
-channels = "*"
-psycopg2 = "*"
-Django = "*"
+channels = "~=2.0"
+psycopg2 = "~=2.8"
+Django = "~=3.0"
 
 [pipenv]
 allow_prereleases = true
