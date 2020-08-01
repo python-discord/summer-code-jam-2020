@@ -1,21 +1,35 @@
 from django.db import models
+from pp_site.utils.models import TimeStampMixin
+from django import forms
 
 
-class MediaFile (models.Model):
+class MediaFile(models.Model):
     data = models.FileField()
-    isVideo = models.BooleanField()
+    is_video = models.BooleanField()
 
 
-class ForumPostOriginal (models.Model):
+class ForumPost(TimeStampMixin):
     title = models.CharField(max_length=100)
-    date = models.DateTimeField()
     author = models.CharField(max_length=30)
     description = models.TextField(blank=False)
-    content = models.ForeignKey(MediaFile, on_delete=models.CASCADE)
+    media_file = models.ForeignKey(MediaFile, on_delete=models.CASCADE, blank=True, null=True)
 
 
-class ForumPostReply (models.Model):
-    date = models.DateTimeField()
+class ForumPostForm(forms.ModelForm):
+    class Meta:
+        model = ForumPost
+        fields = ["title", "author", "description", "media_file"]
+
+
+class ForumPostReply(TimeStampMixin):
     author = models.CharField(max_length=30)
     content = models.TextField()
-    topic = models.ForeignKey(ForumPostOriginal, on_delete=models.CASCADE)
+    forum_post = models.ForeignKey(ForumPost, on_delete=models.CASCADE)
+
+
+class ForumPostReplyForm(forms.ModelForm):
+    class Meta:
+        model = ForumPostReply
+        fields = ["author", "content"]
+
+

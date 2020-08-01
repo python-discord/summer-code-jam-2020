@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>title</title>
-  	</head>
-  	<body>
-        <h3> {{ originalPost.title }} </h3>
-        {% if originalPost.content.isVideo %}
-            <video controls>
-                <source src='{{ originalPost.content.path }}' type="video/mp4">
-            </video>
-        {% else %}
-            <img src='{{ originalPost.content.path }}'>
-        {% endif %}
-        <p> {{ originalPost.description}} </p>
+{% extends 'base/base.html' %}
+{% block title %}Forum Post{% endblock %}
+
+{% block content %}
+        <h3> {{ original_post.title }} </h3>
+        <p> {{ original_post.description}} </p>
+        <p> Posted by {{ original_post.author }} on {{ original_post.created_at }} </p>
+
         <h4> Replies </h4>
         <ul>
             {% for reply in replies %}
                 <li>
                     <p> {{ reply.content }} </p>
-                    <p> Posted by {{ reply.author }} on {{ reply.date }} </p>
+                    <p> Posted by {{ reply.author }} on {{ reply.created_at }} </p>
                 </li>
             {% endfor %}
         </ul>
-  	</body>
-</html>
+
+        <form action="/forum/post_forum_reply/{{ original_post.id }}" method="POST">
+            {% csrf_token %}
+            {% for field in reply_form %}
+                <h6>{{ field.label_tag }}</h6>
+                <p>{{ field }}</p>
+            {% endfor %}
+            <input type="submit">
+        </form>
+
+
+
+{% endblock %}
