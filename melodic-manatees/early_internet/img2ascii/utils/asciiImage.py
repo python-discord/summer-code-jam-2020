@@ -71,9 +71,3 @@ class asciiImage():
 
         # return txt image
         return aimg
-
-
-if __name__ == "__main__":
-    imageFile = "/Users/elee/Desktop/test.jpeg"
-    inst = asciiImage(imageFile)
-    print(inst.convertImageToAscii(100, 1, True))
