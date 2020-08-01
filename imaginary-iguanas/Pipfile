@@ -14,5 +14,6 @@ django = "==3.0.8"
 python_version = "3.8"
 
 [scripts]
+start = "python mysite/manage.py runserver"
+migrate = "python mysite/manage.py migrate"
 lint = "python -m flake8"
-precommit = "pre-commit install"
