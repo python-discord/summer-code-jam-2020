@@ -1,6 +1,7 @@
-from django.db import models
-from pp_site.utils.models import TimeStampMixin
 from django import forms
+from django.db import models
+
+from pp_site.utils.models import TimeStampMixin
 
 
 class MediaFile(models.Model):
@@ -31,5 +32,4 @@ class ForumPostReplyForm(forms.ModelForm):
     class Meta:
         model = ForumPostReply
         fields = ["author", "content"]
-
 

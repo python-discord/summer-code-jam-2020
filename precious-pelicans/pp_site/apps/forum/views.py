@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from .models import ForumPost, ForumPostForm, ForumPostReply, ForumPostReplyForm
+from django.shortcuts import render
+
+from .models import ForumPost, ForumPostReplyForm
 
 
 def forum_post(request, post_id, form=None):
@@ -41,3 +42,4 @@ def index(request):
     }
 
     return render(request, 'forum/index.html', context)
+
