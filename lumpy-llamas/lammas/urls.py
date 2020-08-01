@@ -22,4 +22,4 @@ from core.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', index),
-]+ static(STATIC_URL, document_root=STATIC_ROOT)
+] + static(STATIC_URL, document_root=STATIC_ROOT)
