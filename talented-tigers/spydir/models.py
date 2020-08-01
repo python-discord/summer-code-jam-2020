@@ -13,16 +13,15 @@ class BlogPost(models.Model):
 class GeneratedPage(models.Model):
     page_author = models.CharField(max_length=20, blank=True)
     page_type_choices = [
-        ('BLOG', 'Blog'),
-        ('INFO', 'Information'),
-        ('BIZ', 'Business'),
-        ('FOOD', 'Food Recipe'),
-        ('SCAM', 'Scam'),
+        ("BLOG", "Blog"),
+        ("INFO", "Information"),
+        ("BIZ", "Business"),
+        ("FOOD", "Food Recipe"),
+        ("SCAM", "Scam"),
     ]
     page_type = models.CharField(max_length=4, choices=page_type_choices, blank=True)
     # The page title will be based on the page type
     page_title = models.CharField(max_length=50, blank=True)
-
 
     # Blog Fields
     blog_posts = models.ManyToManyField(BlogPost)

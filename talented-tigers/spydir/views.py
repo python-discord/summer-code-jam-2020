@@ -4,11 +4,11 @@ from .models import GeneratedPage
 
 
 def homepage(request):
-    return render(request, 'spydir/home.html')
+    return render(request, "spydir/home.html")
 
 
 def info_view(request):
-    return render(request, 'spydir/generators/info.html')
+    return render(request, "spydir/generators/info.html")
 
 
 def load_generated_page(request, pagename):
