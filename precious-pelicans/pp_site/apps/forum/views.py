@@ -42,4 +42,3 @@ def index(request):
     }
 
     return render(request, 'forum/index.html', context)
-

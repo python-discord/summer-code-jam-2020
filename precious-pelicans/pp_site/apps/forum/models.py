@@ -32,4 +32,3 @@ class ForumPostReplyForm(forms.ModelForm):
     class Meta:
         model = ForumPostReply
         fields = ["author", "content"]
-
