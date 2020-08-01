@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'a_brief_history_of_web',
+    'first_google',
+    'first_twitter',
+    'first_youtube',
+    'ninetys_blog',
+    'web_portal',
 ]
 
 MIDDLEWARE = [
