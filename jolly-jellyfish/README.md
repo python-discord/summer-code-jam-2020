@@ -6,5 +6,13 @@ This is the default README of your team's project. Please replace this by a READ
 ## Idea
 
 ## Initial Setup
+```sh
+$ pipenv install
+$ pipenv run makemigrations  # TODO: this might be optional.
+$ pipenv run migrate
+```
 
 ## Usage
+```sh
+$ pipenv run start
+```
