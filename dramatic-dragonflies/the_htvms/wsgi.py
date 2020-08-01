@@ -15,4 +15,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'the_htvms.settings')
 
 application = get_wsgi_application()
 
-raise NotImplementedError("this project does not support wsgi, please use asgi instead")
+raise SystemExit("this project does not support wsgi, please use asgi instead")

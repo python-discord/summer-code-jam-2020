@@ -6,10 +6,13 @@ verify_ssl = true
 [dev-packages]
 flake8 = "~=3.7"
 flake8-annotations = "~=2.0"
+wheel = "*"
+setuptools = "*"
 
 [packages]
 django = "==3.0.8"
 psycopg2-binary = "~=2.8"
+channels = "==2.4.0"
 
 [requires]
 python_version = "3.8"
