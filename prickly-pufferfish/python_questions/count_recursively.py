@@ -6,4 +6,3 @@ def count_recursively(lst):
     >>> count_recursively([1, 2, 3])
     3
     """
-

@@ -1,4 +1,3 @@
-import unittest
 
 
 def has_balanced_brackets(phrase):
@@ -7,4 +6,3 @@ def has_balanced_brackets(phrase):
     Given a string as input, return True or False depending on whether the
     string contains balanced (), {}, [], and/or <>.
     """
-   

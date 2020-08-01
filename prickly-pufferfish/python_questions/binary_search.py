@@ -1,4 +1,9 @@
-# In this challenge, you'll make binary search for the classic children's guessing game of "pick a number from 1 to 100".
+"""
+In this challenge, you'll make binary search for the
+classic children's guessing game
+of "pick a number from 1 to 100".
+"""
+
 
 def binary_search(val):
     """ Using binary search, find val in range 1-100. Return # of guesses.

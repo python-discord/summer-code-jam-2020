@@ -1,8 +1,10 @@
 def make_change(amount, denominations, index=0):
-    """ Write a function that, given:
-        1. an amount of money
-        2. a list of coin denominations
-        computes the number of ways to make the amount of money with coins of the available denominations.
+    """
+    Write a function that, given:
+    1. an amount of money
+    2. a list of coin denominations
+    computes the number of ways to make the amount of money
+    with coins of the available denominations.
 
     >>> make_change(amount=4, denominations=[1,2,3])
     4
@@ -18,4 +20,3 @@ def make_change(amount, denominations, index=0):
     [10,10]
 
     """
-
