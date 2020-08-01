@@ -6,7 +6,7 @@ from django.db import models
 class User(models.Model):
     name = models.CharField(max_length=150)
     join_date = models.DateTimeField()
-    is_author = models.BooleanField()
+    is_author = models.BooleanField() # can they author articles?
 
     def __str__(self):
         return self.name
