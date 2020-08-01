@@ -49,12 +49,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'sparrow_django.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sparrow_django.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
