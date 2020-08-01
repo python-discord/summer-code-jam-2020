@@ -10,7 +10,7 @@ class Profile(models.Model):
         ('Other', 'Other')
         )
     name = models.CharField(max_length=200, null=True)
-    Gender = models.CharField(max_length=200, null=True, choices=GENDER)
+    gender = models.CharField(max_length=200, null=True, choices=GENDER)
 
     def __str__(self):
         return self.name
