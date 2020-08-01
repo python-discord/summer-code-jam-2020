@@ -1,4 +1,4 @@
-"""Django settings for early_windows project."""
+"""Django settings for halfway project."""
 import random
 import string
 import os
