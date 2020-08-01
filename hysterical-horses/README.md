@@ -1,5 +1,7 @@
 ![Team Logo](./horsescodejamlogo.png?raw=true "Logo")  
 
+<img src='./horsecodejamlogo.png?raw=true'; alt='Logo'; align='center'>
+
 <hr>
 
 ### Installation:
