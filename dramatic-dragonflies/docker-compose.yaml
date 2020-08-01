@@ -18,3 +18,4 @@ services:
     tty: true
     environment:
       DEBUG: "${DEBUG-}"
+      DATABASE_URL: "postgres:5432"
