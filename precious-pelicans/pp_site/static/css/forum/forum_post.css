@@ -1,23 +1,60 @@
-.post table {
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-
+#reply-container {
+    margin-left: 20px;
 }
 
-.post th {
-    width: auto;
+.post {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: -1px;
+    position: relative;
 }
 
-.post table, th {
-    border: 1px solid black;
+.post:hover {
+    background-color: rgb(200, 200, 220);
 }
 
-.post tfoot {
-    font-size: 12px;
+.reply-post {
+    border-top-style: hidden;
 }
 
+.author-date {
+    color: white;
+    background-color: #001FBC;
+    width: 100%;
+    padding: 2px;
+    padding-right: 0px;
+    margin: 0px;
+}
+
+.text {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2px;
+    background-color: black;
+    padding: 2px;
+    align-self: flex-start;
+    width: 100%;
+}
+
+a {
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#banner {
+    width: 1000px;
+}
 /*.reply-form {*/
 /*    position: fixed;*/
 /*    bottom: 0;*/

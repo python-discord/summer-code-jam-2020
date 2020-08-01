@@ -8,48 +8,38 @@
 {% endblock %}
 
 {% block content %}
-    <div class="post" style="position: relative;top: 0">
-    <table>
-        <tr>
-            <th>{{ original_post.title }}</th>
-        </tr>
-        <tr>
-            <td>{{ original_post.description }}</td>
-        </tr>
-      <tr style="border-bottom:1px solid black">
-        <td colspan="100%"></td>
-      </tr>
-        <tfoot>
-        <tr>
-            <td>Author: {{ original_post.author }} | Posted on: {{ original_post.created_at }}</td>
-        </tr>
-        </tfoot>
-    </table>
+    <img id="banner" src="https://placeholder.com/wp-content/uploads/2018/10/placeholder-1.png">
+    <div id="header">
+        <a href="/forum">
+            &lt;&lt; Index
+        </a>
     </div>
 
     <div class="post">
-    <ul style="list-style-type:none;">
-
-    {% for reply in replies %}
-        <li>
-        <table>
-            <tr>
-                <th>RE: {{ original_post.title }}</th>
-            </tr>
-            <tr>
-                <td>{{ reply.content }}</td>
-            </tr>
-            <tfoot>
-                <tr>
-                    <td>Author: {{ reply.author }} | Posted on: {{ reply.created_at }}</td>
-                </tr>
-            </tfoot>
-        </table>
-        </li>
-    {% endfor %}
-    </ul>
+        <h3 id="post-title">
+            {{ original_post.title }}
+        </h3>
+        <p class="author-date">
+            Author: {{ original_post.author }} | Posted on: {{ original_post.created_at }}
+        </p>
+        <p class="text"> 
+            {{ original_post.description }}
+        </p>
+        <button id="reply-button" onclick="window.scrollTo(document.body.scrollHeight, 0)">Reply</button>
     </div>
 
+    <div id="reply-container">
+        {% for reply in replies %}
+            <div class="post">
+                <p class="author-date">
+                    Author: {{ reply.author }} | Posted on: {{ reply.created_at }}
+                </p>
+                <p class="text">
+                    {{ reply.content }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
 
 <div class="reply-form">
         <form action="/forum/post_forum_reply/{{ original_post.id }}" method="POST">
