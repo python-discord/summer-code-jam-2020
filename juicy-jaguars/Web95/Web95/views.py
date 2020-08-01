@@ -1,3 +1,5 @@
+"""Functions for serving pages on the site."""
+
 from django.shortcuts import render, redirect
 
 
