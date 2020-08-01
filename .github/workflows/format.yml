@@ -1,4 +1,3 @@
-name: Code Format
 on: [pull_request]
 jobs:
   format:
