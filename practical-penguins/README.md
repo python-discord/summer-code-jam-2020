@@ -19,6 +19,17 @@ cd practical-penguins
 run setup.py
 
     python setup.py install
+    
+NOTE: We have encountered installation issues when trying to isntall Pillow on windows (see [here](https://stackoverflow.com/questions/41188838/cant-install-pillow-in-windows)). 
+Try to install Pillow before the above command if there are issues relating to `Pillow`. 
+    
+initialize database 
+
+```bash
+cd trivia_tavern
+python manage.py migrate
+python manage.py makemigrations
+```
 
 ## start server locally
 run the below command

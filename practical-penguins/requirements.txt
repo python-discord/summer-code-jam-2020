@@ -1,3 +1,4 @@
 django
+wheel
 Pillow
 django-crispy-forms
