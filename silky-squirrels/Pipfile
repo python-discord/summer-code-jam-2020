@@ -13,6 +13,8 @@ black = "==18.9b0"
 flake8 = "*"
 django-crispy-forms = "*"
 pillow = "*"
+channels = "*"
+channels-redis = "*"
 
 [requires]
 python_version = "3.8"

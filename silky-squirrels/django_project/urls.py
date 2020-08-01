@@ -47,6 +47,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("", include("blog.urls")),
+    path("chat/", include("chat.urls")),
 ]
 
 

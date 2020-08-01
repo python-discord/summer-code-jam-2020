@@ -4,6 +4,8 @@ This is the default README of your team's project. Please replace this by a READ
 ## Setup
 
 ### Requirements
+- Docker
+  - [Docker Desktop on Windows 10 Home](https://docs.docker.com/docker-for-windows/install-windows-home/#install-docker-desktop-on-windows-10-home)
 - Python 3.8+ w/ Pip
 - Pipenv (https://pipenv-fork.readthedocs.io/en/latest/)
   
@@ -27,6 +29,12 @@ pipenv shell
 
 # Make Migrations
 python manage.py migrate
+
+
+# Open 2 Terminals (One for Each below)
+
+# Run Docker Containers
+docker-compose up
 
 # Run server
 python manage.py runserver
