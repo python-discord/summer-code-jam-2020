@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # This is simply for testing purposes
-    path('exec/', include("arena.apps.exec.urls")),
+    path('exec/', include(("arena.apps.exec.urls", 'exec'), namespace="exec")),
     path('', include("arena.apps.core.urls")),
 ]
 
