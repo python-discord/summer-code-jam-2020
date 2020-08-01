@@ -37,21 +37,13 @@ h1, h2, h3, h4, h5 {
 }
 
 @keyframes blink {
-  to {
-    visibility: hidden;
-  }
+  to {visibility: hidden}
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: translateX(-100%) rotate(180deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% {transform: rotate(0deg)}
+  50% {transform: translateX(-100%) rotate(180deg)}
+  100% {transform: rotate(360deg)}
 }
 
 @keyframes color-invert {
