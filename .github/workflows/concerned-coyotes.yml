@@ -21,9 +21,11 @@ jobs:
     - name: Install Dependencies
       working-directory: ./concerned-coyotes
       run: |
+        echo $PWD
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run Tests
       working-directory: ./concerned-coyotes/earlyinternet
       run: |
+        echo $PWD
         python manage.py test
