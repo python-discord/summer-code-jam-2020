@@ -1,0 +1,5 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile', '-t', 'eu.gcr.io/optimum-surface-285007/llammabbs', '.']
+images:
+  - 'eu.gcr.io/optimum-surface-285007/llammabbs'
