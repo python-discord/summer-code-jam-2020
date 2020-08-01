@@ -1,6 +1,6 @@
 from django.db import models
-from .users.models import Profile
-# I have no idea if this import is going to work or not
+from users.models import Profile
+
 # Migrations have not been run yet until Likes model is completed
 
 
@@ -12,10 +12,11 @@ class Post(models.Model):
     title = models.CharField(max_length=300, blank=False, null=False)
     content = models.TextField(blank=False, null=False)
     date_published = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.title  # or self.content
+    @property
+    def likes(self):
+        # should return the number of Likes objects belonging to this Comment
+        return
 
 
 class Comment(models.Model):
@@ -24,11 +25,13 @@ class Comment(models.Model):
     and a foreign key to the Post it is for.
     """
 
-    # Not quite sure what models.ForeignKey is. Apologies if its all wrong.
-    author = models.ForeignKey(to=Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
-    likes = models.IntegerField(default=0)
+    @property
+    def likes(self):
+        # should return the number of Likes objects belonging to this Comment
+        return
 
 
 class Likes(models.Model):
