@@ -5,8 +5,30 @@
         <title></title>
     </head>
     <body>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{ rover.username }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <div>Rover:&nbsp;{{ rover.name }}</div>
-        <div>Username:&nbsp;{{ rover.username }}</div>
         <div>Launch Date:&nbsp;{{ rover.launch_date|date:"Y-m-d H:i:s" }}</div>
         <div>Land Date:&nbsp;{{ rover.land_date|date:"Y-m-d H:i:s" }}</div>
     </body>
