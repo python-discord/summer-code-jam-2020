@@ -2,6 +2,7 @@
 
 version: "3.8"
 services:
+  # python / Django
   djangocities:
     build:
       context: django
@@ -30,3 +31,11 @@ services:
     restart: "no"
     volumes:
       - "./postgres:/var/lib/postgresql/data"
+  # Front-end
+  nodecities:
+    build:
+      context: nodecities
+      target: quasar-dev
+    restart: "no"
+    volumes:
+      - "./nodecities:/nodecities"
