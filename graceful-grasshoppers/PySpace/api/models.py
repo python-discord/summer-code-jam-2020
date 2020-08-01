@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from users.models import CustomUser
 
 
 class Like(models.Model):
