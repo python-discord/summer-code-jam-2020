@@ -13,7 +13,9 @@ def index(request):
     if request.method == 'POST':
         request_data = request.POST
 
-        return HttpResponse('Good Job!')
+        print(request_data)
+
+        return HttpResponse(request_data['code'])
 
     else:
         error = json.dumps({
