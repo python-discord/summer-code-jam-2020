@@ -56,3 +56,53 @@ Create a pull request
  - Create request
 
 
+
+# Making frontend changes
+
+## Compiling frontend
+Make sure you have either `npm` or `yarn` installed.
+Deployment will be done via yarn, so that is the recommended route
+
+Then run
+```
+yarn install
+yarn build
+```
+
+# OR
+```
+npm install
+npm build
+```
+
+
+## Create a .vue file in `frontend/js`
+
+.vue files have the specific html, css and js files in one go
+Basic structure is this
+```
+<template>
+    <div> HTML goes here</div>
+</template>
+
+<style>
+.css-goes-here {
+  color: blue;
+}
+</style>
+
+<script>
+import someModule from 'some-module';
+// Javascript goes here
+export default {
+   data() {
+     return {
+       stuff: 'things';
+     };
+   },
+}
+</script>
+```
+
+You can build the frontend with yarn
+`yarn build`
