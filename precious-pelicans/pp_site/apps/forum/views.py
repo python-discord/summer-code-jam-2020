@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import ForumPost, ForumPostReplyForm
 
 
 def forum_post(request, post_id, form=None):
-    post = ForumPost.objects.get(id=post_id)
+    post = get_object_or_404(ForumPost, id=post_id)
     reply_list = post.forumpostreply_set.all()
     context = {
         'original_post': post,
