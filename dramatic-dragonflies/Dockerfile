@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM i386/python:3.8-buster
 
 STOPSIGNAL SIGQUIT
 ENV PIP_NO_CACHE_DIR=false \
