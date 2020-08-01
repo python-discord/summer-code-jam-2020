@@ -1,5 +1,4 @@
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-<h1 style="font-family: 'VT323'; font-size: 40px;">Web95</h1>
+# Web 95
 
 ![Licence](https://img.shields.io/github/license/Juicy-Jaguars/summer-code-jam-2020)
 
