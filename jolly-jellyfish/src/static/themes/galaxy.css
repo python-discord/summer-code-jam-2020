@@ -1,0 +1,27 @@
+/**
+ * Galaxy GIF in background, images in corner.
+ * Green text with black border and white "3D" effect.
+ * Text fades in and out in very wide font.
+ * Requires "static/images/galaxy.png" and "static/images/galaxy.gif" static files.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap');
+
+body {
+  background:
+      url("static/images/galaxy.png") 10px 10px / 170px 150px no-repeat,
+      url("static/images/galaxy.png") 10px calc(100% - 10px) / 170px 150px no-repeat,
+      url("static/images/galaxy.png") calc(100% - 10px) 10px / 170px 150px no-repeat,
+      url("static/images/galaxy.png") calc(100% - 10px) calc(100% - 10px) / 170px 150px no-repeat,
+      url("static/images/galaxy.gif") top left / 25vw 14vw;
+  color: #0a0;
+  text-shadow: -1px -1px #000, -1px 1px #000, 1px -1px #000, 1px 1px #000, 2px -2px #fff, 3px -3px #fff, 4px -4px #fff;
+  padding: 0 180px;
+  font-family:  "Lexend Zetta", monospace;
+  animation: fade 5s linear infinite;
+}
+
+@keyframes fade {
+  0% {opacity: 100%}
+  50% {opacity: 50%}
+}
