@@ -1,5 +1,5 @@
 test:
-	echo "Test not ready"
+	python manage.py test
 lint:
 	flake8 .
 
