@@ -1,6 +1,8 @@
+import datetime
 import typing
 import unicodedata
 from html.parser import HTMLParser
+from time import mktime
 
 import feedparser
 
@@ -89,10 +91,15 @@ def get_wikipedia_featured_articles() -> typing.List[dict]:
         html_parser = WikipediaFeaturedArticleParser()
         html_parser.feed(entry["summary"])
 
+        # Get date of article
+        date = datetime.datetime.fromtimestamp(
+            mktime(entry["published_parsed"]))
+
         articles.append({
             "title": html_parser.title,
+            "date": date,
             "url": html_parser.article_url,
-            "content": html_parser.content
+            "content": html_parser.content,
         })
 
     return articles
