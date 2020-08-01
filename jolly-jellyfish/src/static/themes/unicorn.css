@@ -1,3 +1,9 @@
+/**
+ * A theme with a rainbow background, calligraphy font and lots of unicorn gifs.
+ * Static files "static/images/unicorn0.gif" to "static/images/unicorn9.gif"
+ * should exist.
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 body {
