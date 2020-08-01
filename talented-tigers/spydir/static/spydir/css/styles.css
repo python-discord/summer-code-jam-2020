@@ -1,8 +1,12 @@
 body{
-    background-color: black;
-    color: white;
+    background-color: #39ff14;
+    color: #bc13fe;
 }
 
  img {
     width: 10%;
+}
+
+h1 {
+    background-color: #cf0;
 }
