@@ -1,0 +1,43 @@
+{% load static %}
+{% load generator_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>All About {{ page.tab_description }}</title>
+    <style>
+        * {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: white;
+        }
+
+        .container{
+            text-align: center;
+        }
+
+        .content {
+            margin: 0 10%;
+            text-align: left;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>{{ page.page_title }} Co.</h1>
+            <img src='' alt="Company Logo">
+            <h3>{{ page.page_title }}'s official business page!</h3>
+        </div>
+    </header>
+
+    <div class="content">
+        {% for paragraph in page.page_content|split_content %}
+        <p>{{ paragraph }}</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
