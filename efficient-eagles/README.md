@@ -1,2 +1,20 @@
 # Efficient Eagles
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+
+## How to set-up
+Create web-variables.env file in the efficient-eagles/early_internet/ directory:
+```
+POSTGRES_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+```
+
+Build containers:
+
+> docker-compose build
+
+Apply migrations:
+
+> docker-compose run web python manage.py migrate 
+
+## How to run 
+> docker-compose up
