@@ -1,0 +1,12 @@
+{% extends 'dating/base.html' %}
+{% block title %}{{profile.name}}{% endblock %}
+
+{% block content %}
+
+<h1>Name: {{profile.name}}</h1>
+<h1>Gender: {{profile.gender}}</h1>
+<p><a href="{% url 'earlydating-home' %}">Home</a></p>
+
+
+
+{% endblock %}
