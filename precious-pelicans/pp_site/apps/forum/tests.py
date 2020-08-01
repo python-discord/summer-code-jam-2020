@@ -1,21 +1,19 @@
 from django.test import TestCase
-from .models import ForumPostOriginal
-from django.utils import timezone
+
+from .models import ForumPost
 
 
-class PostCreation (TestCase):
+class PostCreation(TestCase):
 
     def setUp(self):
-        ForumPostOriginal.objects.create(
-            date=timezone.now(),
+        ForumPost.objects.create(
             title="Dancing Pelicans",
             author="Peliman",
             description="A Dancing Pelican")
 
     def ReplyCreationTest(self):
-        post = ForumPostOriginal.objects.get(author="Peliman")
+        post = ForumPost.objects.get(author="Peliman")
         post.forumpostreply_set.create(
-            date=timezone.now(),
             author="Pelicant",
             content="He's just eating")
 
