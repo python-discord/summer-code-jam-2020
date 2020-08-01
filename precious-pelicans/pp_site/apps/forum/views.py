@@ -6,7 +6,7 @@ from .models import ForumPost, ForumPostReplyForm
 
 def forum_post(request, post_id):
     post = get_object_or_404(ForumPost, id=post_id)
-    reply_list = post.forumpostreply_set.all()
+    reply_list = post.forumpostreply_set.all().order_by("created_at")
 
     pages = Paginator(reply_list, 6)
 
@@ -33,7 +33,7 @@ def forum_post_reply(request, post_id):
             forum_reply.forum_post = ForumPost.objects.get(id=post_id)
             forum_reply.forum_post_id = post_id
             forum_reply.save()
-            return HttpResponseRedirect(f'/forum/{post_id}')
+            return HttpResponseRedirect(f'/forum/{post_id}?page=-1')
     else:
         form = ForumPostReplyForm()
 
