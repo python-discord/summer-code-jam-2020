@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+<<<<<<< HEAD
 from django.urls import path
 from django.conf.urls.static import static
 from lammas.settings import STATIC_URL, STATIC_ROOT
@@ -22,4 +23,14 @@ from core.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', index),
+    path('api/forum/', include('forum.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT)
+=======
+from django.urls import include, path
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/forum/', include('forum.urls'))
+]
+>>>>>>> Added str method to models
