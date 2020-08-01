@@ -5,6 +5,10 @@ from django.http.response import HttpResponse
 # Create your views here.
 
 
+def home(request):
+    return render(request, 'users/home.html')
+
+
 def register(request: ASGIRequest) -> HttpResponse:
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -13,4 +17,4 @@ def register(request: ASGIRequest) -> HttpResponse:
             return redirect('home')
     else:
         form = UserRegisterForm()
-    return render('register.html', {'form': form})
+    return render(request, 'users/register.html', {'form': form})

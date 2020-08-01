@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'if#@q-v3q9@l3v@dn%3-^u!h7lv%zgjyi&6o#$(j5qp%+3+$9t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0']
 
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['0.0.0.0']
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,3 +124,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/app/static'
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "home"
