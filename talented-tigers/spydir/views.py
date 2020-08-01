@@ -1,25 +1,24 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import GeneratedPage
+from . import generate_page
 
 
 def homepage(request):
     return render(request, "spydir/home.html")
 
 
-def info_view(request):
-    return render(request, "spydir/generators/info.html")
-
-
-def load_generated_page(request, pagename):
+def load_generated_page(request, page_name):
     """Loads either an already generated page or generates one and loads it"""
-
+    page = None
     try:
-        page = GeneratedPage.objects.get(page_title=pagename)
+        page = GeneratedPage.objects.get(page_title=page_name)
     except GeneratedPage.DoesNotExist:
-        # generate_page(pagename)
-        # page = GeneratedPage.objects.get(page_title=pagename)
-        page = None
+        generate_page.generate_page(page_name)
+        page = GeneratedPage.objects.get(page_title=page_name)
 
-    response = "<h1>This page would be about {0}.</h1>".format(pagename)
-    return HttpResponse(response)
+    ctx = {
+        'page': page
+    }
+
+    return render(request, f"spydir/generators/{page.page_type}.html", context=ctx)

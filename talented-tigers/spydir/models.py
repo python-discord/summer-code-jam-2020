@@ -11,6 +11,7 @@ class BlogPost(models.Model):
 
 
 class GeneratedPage(models.Model):
+    page_title = models.CharField(max_length=50, blank=True)
     page_author = models.CharField(max_length=20, blank=True)
     page_type_choices = [
         ("BLOG", "Blog"),
@@ -20,15 +21,15 @@ class GeneratedPage(models.Model):
         ("SCAM", "Scam"),
     ]
     page_type = models.CharField(max_length=4, choices=page_type_choices, blank=True)
-    # The page title will be based on the page type
-    page_title = models.CharField(max_length=50, blank=True)
+    page_content = models.TextField(blank=True)
+    # The page title will be based on the page type (this is the little text that appears on the tab, not the url)
+    tab_description = models.CharField(max_length=10, blank=True)
 
     # Blog Fields
-    blog_posts = models.ManyToManyField(BlogPost)
+    blog_posts = models.ManyToManyField(BlogPost, blank=True)
     blog_introduction = models.TextField(default="Welcome to my blog!", blank=True)
 
     # Information Fields
-    topic = models.CharField(max_length=20, blank=True)
 
     # Business Fields
 

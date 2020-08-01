@@ -8,7 +8,7 @@
           crossorigin="anonymous">
 
     <meta charset="UTF-8">
-    <title>All About _</title>
+    <title>All About {{ page.tab_description }}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'info\css\styles.css' %}">
     <style>
         * {text-align: center}
@@ -18,9 +18,9 @@
 <body>
     <header>
         <div class="container">
-            <h1 style="color:blue">All About {{ topic }}</h1>
-            <h3>Welcome to my crazy new website about {{ topic }}!</h3>
-            <h6>By: {{ name }}</h6>
+            <h1 style="color:blue">All About {{ page.page_title }}</h1>
+            <h3>Welcome to my crazy new website about {{ page.page_title }}!</h3>
+            <h6>By: {{ page.page_author }}</h6>
         </div>
     </header>
 
