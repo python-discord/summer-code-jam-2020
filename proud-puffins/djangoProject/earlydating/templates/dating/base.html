@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<!-- This is a basic example of a Django parent template. -->
+<!-- It adds a favicon to the page. -->
+<!-- The title is set by overriding the "title" block. -->
+<!-- Body content is added by overriding the "content" block. -->
+<!-- Tweak this parent template to meet your project's needs. -->
+
+{% load static %}
+
+<html lang="en">
+  {% block head %}
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images\favicon.ico' %}" />
+  </head>
+  {% endblock %}
+
+  <body>
+    {% block content %}
+    {% endblock %}
+  </body>
+
+</html>
