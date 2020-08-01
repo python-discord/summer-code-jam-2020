@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  mysteriousmice:
+    image: mysteriousmice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: /bin/bash
+    command: -c "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 spacebook/manage.py runserver 0.0.0.0:8000 --nothreading --noreload"
+    ports:
+      - 8000
+      - 5678:5678
+
