@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Forum Post{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/forum/forum_post.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="post" style="position: relative;top: 0">
+    <table>
+        <tr>
+            <th>{{ original_post.title }}</th>
+        </tr>
+        <tr>
+            <td>{{ original_post.description }}</td>
+        </tr>
+      <tr style="border-bottom:1px solid black">
+        <td colspan="100%"></td>
+      </tr>
+        <tfoot>
+        <tr>
+            <td>Author: {{ original_post.author }} | Posted on: {{ original_post.created_at }}</td>
+        </tr>
+        </tfoot>
+    </table>
+    </div>
+
+    <div class="post">
+    <ul style="list-style-type:none;">
+
+    {% for reply in replies %}
+        <li>
+        <table>
+            <tr>
+                <th>RE: {{ original_post.title }}</th>
+            </tr>
+            <tr>
+                <td>{{ reply.content }}</td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>Author: {{ reply.author }} | Posted on: {{ reply.created_at }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        </li>
+    {% endfor %}
+    </ul>
+    </div>
+
+
+<div class="reply-form">
+        <form action="/forum/post_forum_reply/{{ original_post.id }}" method="POST">
+            {% csrf_token %}
+            {% for field in reply_form %}
+                <h6>{{ field.label_tag }}</h6>
+                <p>{{ field }}</p>
+            {% endfor %}
+            <input type="submit">
+        </form>
+</div>
+
+
+{% endblock %}
