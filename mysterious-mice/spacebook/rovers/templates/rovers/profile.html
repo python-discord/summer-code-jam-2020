@@ -1,8 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <link rel="stylesheet" href="{% static 'rovers/main.css' %}">
+        <title>{{ rover.username }}'s Profile</title>
     </head>
     <body>
         <table>
@@ -18,18 +21,69 @@
                                 </tr>
                                 <tr>
                                     <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <!-- profile picture -->
+                                                        <img src="{{ rover.image.url }}" class="profile-picture">
+                                                    </td>
+                                                    <td>
+                                                        <!-- status -->
+                                                        "{{ rover.status }}"
+                                                        <br> <br>
+                                                        <!-- location -->
+                                                        Mars
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        About {{ rover.username }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Launch Date:
+                                    </td>
+                                    <td>
+                                        {{ rover.launch_date|date:"Y-m-d" }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Land Date:
+                                    </td>
+                                    <td>
+                                        {{ rover.land_date|date:"Y-m-d" }}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </td>
+                    <td style="width:20px">
+                    </td>
                     <td>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{ rover.username }}'s Top 8 Photos
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div>Rover:&nbsp;{{ rover.name }}</div>
-        <div>Launch Date:&nbsp;{{ rover.launch_date|date:"Y-m-d H:i:s" }}</div>
-        <div>Land Date:&nbsp;{{ rover.land_date|date:"Y-m-d H:i:s" }}</div>
     </body>
 </html>
