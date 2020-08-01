@@ -67,5 +67,5 @@ Now it should run before your commit :)
 
 ## [MIT license](../LICENSE)
 
-## [Credits and sources](Credits and sources.md)
+## [Credits and sources](Credits%20and%20sources.md)
 
