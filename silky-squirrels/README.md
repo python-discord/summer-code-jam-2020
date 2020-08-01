@@ -25,7 +25,7 @@ pipenv install
 # Enter into virtual environment
 pipenv shell
 
-# Apply migrations
+# Make Migrations
 python manage.py migrate
 
 # Run server
