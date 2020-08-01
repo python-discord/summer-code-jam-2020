@@ -1,2 +1,28 @@
-# Practical Penguins
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+# Trivia Tavern by Practical Penguins
+
+## about
+This django web application allows people to create and organize trivia events. Participants can then answer trivia question using their phones.
+
+## installation requirement
+* python 3.8
+* git
+
+## installation
+git clone and cd to this project with:
+
+```bash
+git clone https://github.com/kkawabat/summer-code-jam-2020.git
+cd summer-code-jam-2020
+cd practical-penguins
+```
+
+run setup.py
+
+    python setup.py install
+
+## start server locally
+run the below command
+
+    python manage.py runserver
+
+then go to ` http://127.0.0.1:8000/` in your web browser
