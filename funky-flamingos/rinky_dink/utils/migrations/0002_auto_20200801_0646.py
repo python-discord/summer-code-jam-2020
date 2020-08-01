@@ -6,21 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('utils', '0001_initial'),
+        ("utils", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='File',
+            name="File",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=255)),
-                ('document', models.FileField(upload_to='documents/')),
-                ('hash_val', models.CharField(max_length=200)),
-                ('uploaded_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(blank=True, max_length=255)),
+                ("document", models.FileField(upload_to="documents/")),
+                ("hash_val", models.CharField(max_length=200)),
+                ("uploaded_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
-        migrations.DeleteModel(
-            name='Upload',
-        ),
+        migrations.DeleteModel(name="Upload",),
     ]

@@ -6,12 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('utils', '0002_auto_20200801_0646'),
+        ("utils", "0002_auto_20200801_0646"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='file',
-            name='document',
-        ),
+        migrations.RemoveField(model_name="file", name="document",),
     ]
