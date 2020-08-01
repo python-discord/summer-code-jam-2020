@@ -1,26 +1,43 @@
-{% load static %}
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>{{ page.page_author }}'s blog</title>
+    <style>
+        * {
+            font-family: 'Times New Roman', Times, serif;
+        }
 
-  <title>{{ page.page_title }}</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
+        #header {
+            text-align: center;
+        }
 
-  <style>
+        #post-container {
+            padding: 1% 10%;
+        }
 
-  </style>
-
+        .post {
+            text-align: left;
+            background-color: pink;
+            padding: 1% 2%;
+            margin: 3%;
+        }
+    </style>
 </head>
-
-<h1>Welcome to SpydirWeb!</h1>
-<p>The new way to surf the web.</p>
-<img src="{% static 'spydir\img\coollogo.gif' %}">
-<img src="{% static 'spydir\img\websurf.gif' %}">
-
 <body>
-  <script src="js/scripts.js"></script>
+    <div id="header">
+        <h1>welcome to {{ page.page_author }}'s blog!</h1>
+        <p>{{ page.blog_introduction }}</p>
+    </div>
+
+    <div id="post-container">
+        {% for post in page.blog_posts.all %}
+        <div class="post">
+            <h3>{{ post.title }}</h3>
+            <p style="background-color: coral;">{{ post.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
 </body>
 </html>
