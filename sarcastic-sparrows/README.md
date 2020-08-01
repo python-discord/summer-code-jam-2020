@@ -1,5 +1,11 @@
 # Sarcastic Sparrows
 
+## Overview
+...
+
+## Using ```pipenv```
+...
+
 ## Running using docker-compose
 
 Run the app using docker-compose:
