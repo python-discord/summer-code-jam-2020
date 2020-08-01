@@ -25,7 +25,8 @@ SECRET_KEY = 'wo6#v8w^maq0+$pk@t8&1j&@f!-f-i3efuhti*u0e7q^m)fhr4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["charlottegaskell.ddns.net"]
+ALLOWED_HOSTS = ["localhost",
+                 "charlottegaskell.ddns.net"]
 
 
 # Application definition
