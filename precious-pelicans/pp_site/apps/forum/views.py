@@ -13,7 +13,7 @@ def forum_post(request, post_id, form=None):
         'reply_form': form or ForumPostReplyForm
     }
 
-    return render(request, 'forum/post-template.html', context)
+    return render(request, 'forum/forum_post.html', context)
 
 
 def forum_post_reply(request, post_id):

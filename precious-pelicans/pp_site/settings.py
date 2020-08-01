@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_simple_bulma'
+    #  'django_simple_bulma'
 ]
 
 MIDDLEWARE = [
@@ -52,10 +52,9 @@ MIDDLEWARE = [
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django_simple_bulma.finders.SimpleBulmaFinder',
+    # 'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
-STATIC_ROOT = 'pp_site/static'
 ROOT_URLCONF = 'pp_site.urls'
 
 TEMPLATES = [
@@ -119,5 +118,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'pp_site/static/')]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'pp_site/static/')
