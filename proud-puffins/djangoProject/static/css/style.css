@@ -1,0 +1,16 @@
+
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: Courier, monospace, Serif;
+    padding: 0;
+    color: purple;
+}
+
+.home_h1 {
+    background-color: #003366;
+    color: #f5dd5d;
+    height: 2em;
+    text-align: center;
+    vertical-align: bottom;
+    padding-top: 0.5em;
+}
