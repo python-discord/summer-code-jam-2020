@@ -56,3 +56,35 @@ Create a pull request
  - Create request
 
 
+
+# Making frontend changes
+## Create a .vue file in `frontend/js`
+
+.vue files have the specific html, css and js files in one go
+Basic structure is this
+```
+<template>
+    <div> HTML goes here</div>
+</template>
+
+<style>
+.css-goes-here {
+  color: blue;
+}
+</style>
+
+<script>
+import someModule from 'some-module';
+// Javascript goes here
+export default {
+   data() {
+     return {
+       stuff: 'things';
+     };
+   },
+}
+</script>
+```
+
+You can build the frontend with yarn
+`yarn build`
