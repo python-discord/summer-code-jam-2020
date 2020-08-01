@@ -5,7 +5,7 @@
  * Static files "/static/images/win95-toolbar.png" and "/static/images/win95-close.png" should also exist.
  */
 
- @import url('https://fonts.googleapis.com/css2?family=News+Cycle&display=swap';
+ @import url('https://fonts.googleapis.com/css2?family=News+Cycle&display=swap');
 
  @font-face {
      font-family: 'hellovetica';
