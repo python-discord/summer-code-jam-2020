@@ -13,11 +13,11 @@
   font-weight: normal;
   font-style: normal;
 }
- 
+
 html {
   background: #008081 url("/static/images/win95-toolbar.png") center bottom / 100% auto no-repeat;
 }
- 
+
 body {
   background: #c0c0c0;
   padding: 5px 10px;
@@ -27,10 +27,9 @@ body {
   box-shadow: -2px -2px 5px #000 inset, 2px 2px 5px #fff inset;
   margin: 30px auto 60px auto;
 }
- 
+
 h1, h2, h3, h4, h5 {
   background: #010080 url("/static/images/win95-close.png") calc(100% - 10px) center no-repeat;
   color: #fff;
   padding: 5px;
 }
- 
