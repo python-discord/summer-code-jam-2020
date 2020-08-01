@@ -26,12 +26,13 @@ SECRET_KEY = 'if#@q-v3q9@l3v@dn%3-^u!h7lv%zgjyi&6o#$(j5qp%+3+$9t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False)
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'terminal',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ASGI_APPLICATION = 'the_htvms.routing.application'
 
-#TODO: Use redis instead of this, this is unviable in production
+# TODO: Use redis instead of this, this is unviable in production
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer'
