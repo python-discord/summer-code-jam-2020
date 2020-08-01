@@ -1,10 +1,12 @@
 import player
 
+
 def login():
     username = input('Username:')
     password = input('Password?')
     ##need to add DB Lookup to validate credentials.
-    return
+    _acitveplayer = player.Player(username,password)
+    return _acitveplayer
 
 def createPlayer():
     username = input('What is your username?')
@@ -18,8 +20,10 @@ def main():
     print('Hello welcome to MUD\n') 
 
     if input('Are you a new Player? (Y/N)') is 'Y':
-        print(createPlayer())
+        currentPlayer = createPlayer()
     else:
-        login()
+        currentPlayer = login()
+    print(currentPlayer.checkStats())
+    
 
 main()
