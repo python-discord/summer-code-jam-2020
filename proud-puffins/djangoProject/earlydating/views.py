@@ -12,6 +12,6 @@ def home(request):
                         '<a href="admin">Admin page</a>'
                         '</p>')
 
+
 def about(request):
     return HttpResponse('<h1>Early Dating Home Page -- About</h1>')
-
