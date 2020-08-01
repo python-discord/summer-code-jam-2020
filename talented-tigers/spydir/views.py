@@ -11,7 +11,13 @@ def info_view(request):
 
 def load_generated_page(request, pagename):
     """Loads either an already generated page or generates one and loads it"""
-    if(GeneratedPage.objects.get(page_title=pagename)): print("LOL")
+
+    try:
+        page = GeneratedPage.objects.get(page_title=pagename)
+    except GeneratedPage.DoesNotExist:
+        #generate_page(pagename)
+        #page = GeneratedPage.objects.get(page_title=pagename)
+        page = None
 
     response = "<h1>This page would be about {0}.</h1>".format(pagename)
     return HttpResponse(response)
