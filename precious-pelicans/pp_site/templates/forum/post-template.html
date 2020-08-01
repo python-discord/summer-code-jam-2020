@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>title</title>
+  	</head>
+  	<body>
+        <h3> {{ originalPost.title }} </h3>
+        {% if originalPost.content.isVideo %}
+            <video controls>
+                <source src='{{ originalPost.content.path }}' type="video/mp4">
+            </video>
+        {% else %}
+            <img src='{{ originalPost.content.path }}'>
+        {% endif %}
+        <p> {{ originalPost.description}} </p>
+        <h4> Replies </h4>
+        <ul>
+            {% for reply in replies %}
+                <li>
+                    <p> {{ reply.content }} </p>
+                    <p> Posted by {{ reply.author }} on {{ reply.date }} </p>
+                </li>
+            {% endfor %}
+        </ul>
+  	</body>
+</html>

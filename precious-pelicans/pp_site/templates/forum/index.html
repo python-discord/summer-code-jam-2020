@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>title</title>
+  	</head>
+  	<body>
+		  <h1> All Posts</h1>
+		  <div>
+			<ul id='post-list'>
+				{% for post in postList%}
+				<li onclick='location.href = "/forum/{{ post.id }}"'>
+					<h6>{{ post.title}}</h6>
+					<p>{{ post.description }}</p>
+				</li>
+				{% endfor %}
+			</ul>
+		  </div>
+  
+  	</body>
+</html>
