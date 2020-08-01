@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import Textarea
 from django.db import models
 
 from pp_site.utils.models import TimeStampMixin
@@ -32,3 +33,6 @@ class ForumPostReplyForm(forms.ModelForm):
     class Meta:
         model = ForumPostReply
         fields = ["author", "content"]
+        widgets = {
+            "content": Textarea(attrs={'width': '100%', 'height': '3em'})
+        }
