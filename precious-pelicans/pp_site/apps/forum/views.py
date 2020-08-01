@@ -1,16 +1,22 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-
+from django.core.paginator import Paginator
 from .models import ForumPost, ForumPostReplyForm
 
 
-def forum_post(request, post_id, form=None):
+def forum_post(request, post_id):
     post = get_object_or_404(ForumPost, id=post_id)
-    reply_list = post.forumpostreply_set.all()
+    reply_list = post.forumpostreply_set.all().order_by("created_at")
+
+    pages = Paginator(reply_list, 6)
+
+    page_number = request.GET.get('page', 1)
+    page_obj = pages.get_page(page_number)
+
     context = {
         'original_post': post,
-        'replies': reply_list,
-        'reply_form': form or ForumPostReplyForm
+        'reply_form': ForumPostReplyForm,
+        'page_obj': page_obj
     }
 
     return render(request, 'forum/forum_post.html', context)
@@ -27,7 +33,7 @@ def forum_post_reply(request, post_id):
             forum_reply.forum_post = ForumPost.objects.get(id=post_id)
             forum_reply.forum_post_id = post_id
             forum_reply.save()
-            return HttpResponseRedirect(f'/forum/{post_id}')
+            return HttpResponseRedirect(f'/forum/{post_id}?page=-1')
     else:
         form = ForumPostReplyForm()
 

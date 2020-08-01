@@ -55,7 +55,7 @@ body {
 #banner {
     width: 1000px;
 }
-/*.reply-form {*/
-/*    position: fixed;*/
-/*    bottom: 0;*/
-/*}*/
+
+#page-selector a {
+    color: black;
+}
