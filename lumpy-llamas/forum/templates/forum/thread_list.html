@@ -1,0 +1,8 @@
+<h1>Threads</h1>
+<ul>
+{% for thread in object_list %}
+    <li><a href="/api/forum/{{thread.id}}">{{ thread.created_date|date }} - {{ thread.title }}</a></li>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+</ul>

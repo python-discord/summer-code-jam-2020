@@ -27,10 +27,11 @@ urlpatterns = [
 ] + static(STATIC_URL, document_root=STATIC_ROOT)
 =======
 from django.urls import include, path
-
+from forum.views import ThreadListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/forum/', include('forum.urls'))
+    path('api/forum/', include('forum.urls')),
+    path('api/forum/thread-list', ThreadListView.as_view(), name='article-list'),
 ]
 >>>>>>> Added str method to models
