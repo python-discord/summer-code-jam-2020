@@ -6,35 +6,33 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
 )
 from .models import Post
 
 
 def home(request):
-    context = {
-        'posts': Post.objects.all()
-    }
-    return render(request, 'blog/home.html', context)
+    context = {"posts": Post.objects.all()}
+    return render(request, "blog/home.html", context)
 
 
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
+    template_name = "blog/home.html"  # <app>/<model>_<viewtype>.html
+    context_object_name = "posts"
+    ordering = ["-date_posted"]
     paginate_by = 5
 
 
 class UserPostListView(ListView):
     model = Post
-    template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
+    template_name = "blog/user_posts.html"  # <app>/<model>_<viewtype>.html
+    context_object_name = "posts"
     paginate_by = 5
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_posted')
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        return Post.objects.filter(author=user).order_by("-date_posted")
 
 
 class PostDetailView(DetailView):
@@ -43,7 +41,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ["title", "content"]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -52,7 +50,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ["title", "content"]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -67,7 +65,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = '/'
+    success_url = "/"
 
     def test_func(self):
         post = self.get_object()
@@ -77,4 +75,4 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 def about(request):
-    return render(request, 'blog/about.html', {'title': 'About'})
+    return render(request, "blog/about.html", {"title": "About"})
