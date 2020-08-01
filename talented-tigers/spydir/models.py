@@ -1,4 +1,5 @@
 from django.db import models
+import random
 
 
 class BlogPost(models.Model):
@@ -37,7 +38,8 @@ class GeneratedPage(models.Model):
     # Information Fields
 
     # Business Fields
-
+    phonenumber = models.CharField(max_length=10, blank=True)
+    email = models.CharField(max_length=30, blank=True)
     # Food Recipe Fields
 
     # Scam Fields
