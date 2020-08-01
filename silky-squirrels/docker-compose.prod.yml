@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  redis:
+    image: "redis:5"
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    command: pipenv run python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
