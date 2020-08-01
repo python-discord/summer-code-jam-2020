@@ -1,0 +1,39 @@
+:root {
+  --global-font-size: 14pt;
+  /* The Base font size */
+  /* --global-line-height */
+  /* The base line height. Modify this to achieve the best readability. */
+  /* --font-stack */
+  /* The fonts for the website. */
+  /* Use @font-face or any other font provider to include your custom fonts. */
+  /* --mono-font-stack */
+  /* Same as above but for code. */
+  --background-color: #262626;
+  /* The page background color */
+  --font-color: #f1f1f1;
+  /* The base font color for text, headlines, blockquotes, lists, etc. */
+  --invert-font-color: #262626;
+  /* Sometimes text appears on a colored background. Adjust this color to improve readability. */
+  --primary-color: #1793d0;
+  /* The primary color is used for links and buttons. */
+  --secondary-color: #124571;
+  /* The secondary color is more subtle then the primary color. It's used for code highlighting and image captions. */
+  --error-color: orange;
+  /* Used for error alerts and form validation. */
+  --progress-bar-background: #f1f1f1;
+  /* The background color of progress bars. */
+  --progress-bar-fill: #f1f1f1;
+  /* The fill color, indicating the progress in progress bars. */
+  --code-bg-color: #black;
+  /* The background color of <code> elements. */
+  /* --input-style */
+  /* The style of input element borders. Possible values are: */
+  /* none, solid, dotted, dashed, double, groove, ridge, inset, outset, hidden, inherit, initial, unset */
+  /* --display-h1-decoration */
+  /* Show a double dash below h1 elements. Possible values are: */
+  /* block, none */
+}
+
+#content {
+  margin-top: 2em;
+}

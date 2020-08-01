@@ -12,7 +12,8 @@ const proxyEntries = {
 };
 
 module.exports = (env) => {
-  const proxy = proxyEntries[env.PROXY];
+  const isDev = env.COMMAND === 'serve';
+  const proxy = proxyEntries.local;
   return {
     context: __dirname,
     mode: 'development',
@@ -33,12 +34,17 @@ module.exports = (env) => {
       },
     },
     output: {
-      path: path.resolve('./build/'),
-      publicPath: '/',
-      filename: '[name].js',
+      path: path.resolve('./lammas/static/'),
+      publicPath: isDev ? '' : '/static/',
+      filename: '[name].[contentHash].js',
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin({
+        cleanAfterEveryBuildPatterns: [
+          'lammas/static/img',
+          'lammas/static/*.js',
+        ],
+      }),
       new VueLoaderPlugin(),
       new WebpackBuildNotifierPlugin({
         title: 'Webpack',
@@ -50,11 +56,11 @@ module.exports = (env) => {
         chunks: ['main', 'styles_head'],
       }),
       new HtmlWebpackInjector(),
-      new FaviconWebpackPlugin({
-        logo: path.resolve(__dirname, 'frontend/img/favicon.svg'),
-        prefix: 'img/favicons-[hash]/',
-        title: 'Llama',
-      }),
+      // new FaviconWebpackPlugin({
+      //   logo: path.resolve(__dirname, 'frontend/img/favicon.svg'),
+      //   prefix: 'img/favicons-[hash]/',
+      //   title: 'Llama',
+      // }),
     ],
     module: {
       rules: [
