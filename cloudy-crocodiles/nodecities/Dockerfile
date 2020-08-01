@@ -14,6 +14,4 @@ WORKDIR /nodecities/
 
 ## Development stage
 FROM quasar-base AS quasar-dev
-# Temporary entrypoint to allow me to docker exec bash and start a quasar app
-ENTRYPOINT ["sleep", "1000000000"]
-# ENTRYPOINT ["quasar", "dev"]
+ENTRYPOINT ["quasar", "dev"]
