@@ -10,7 +10,14 @@ We be Puffins, and we be proud!
 * XPOjabar
 * rr
 
-###This is test to see if I can Push
+
+## Dev stuff
+
+### [Populating profiles database](https://docs.djangoproject.com/en/3.0/howto/initial-data/)
+- Add new entries into `earlydating/fixtures/profiles.json`
+- Run migrations to setup Profile database
+- Run ```python3 manage.py loaddata profiles.json```
+- Run server :)
 
 
 ### Code organisation

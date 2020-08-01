@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+# from django.http import HttpResponse
+from .models import Profile
 
 
 # Create your views here.
@@ -9,3 +10,9 @@ def home(request):
 
 def about(request):
     return render(request, 'dating/about.html')
+
+
+def your_profile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    context = {'profile': profile}
+    return render(request, 'dating/YourProfile.html', context)
