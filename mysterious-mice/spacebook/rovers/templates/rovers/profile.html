@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div>Rover:&nbsp;{{ rover.name }}</div>
+        <div>Username:&nbsp;{{ rover.username }}</div>
+        <div>Launch Date:&nbsp;{{ rover.launch_date|date:"Y-m-d H:i:s" }}</div>
+        <div>Land Date:&nbsp;{{ rover.land_date|date:"Y-m-d H:i:s" }}</div>
+    </body>
+</html>
