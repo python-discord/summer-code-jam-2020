@@ -14,8 +14,7 @@ def load_generated_page(request, page_name):
     try:
         page = GeneratedPage.objects.get(page_title=page_name)
     except GeneratedPage.DoesNotExist:
-        generate_page.generate_page(page_name)
-        page = GeneratedPage.objects.get(page_title=page_name)
+        page = generate_page.generate_page(page_name)
 
     ctx = {
         'page': page
