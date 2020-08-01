@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from lammas.settings import STATIC_URL, STATIC_ROOT
 from django.conf.urls.static import static
+from lammas.settings import STATIC_URL, STATIC_ROOT
+from core.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'', index),
 ]+ static(STATIC_URL, document_root=STATIC_ROOT)
