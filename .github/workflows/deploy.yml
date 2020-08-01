@@ -1,0 +1,34 @@
+# TODO Remove before pr
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+            python-version: '3.8'
+      - name: Install flake8
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+      - name: Lint with flake8
+        run: flake8 . --isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox --max-line-length=119
+  deploy:
+    runs-on: google/cloud-sdk
+    steps:
+      - name: get key
+        env:
+          CI_DEPLOY_KEY: ${{ secrets.GCP_DEPLOY_KEY }}
+        run: echo $CI_DEPLOY_KEY > /tmp/CI_DEPLOY_KEY.json
+      - name: authenticate
+        run: gcloud auth activate-service-account --keyfile /tmp/CI_DEPLOY_KEY.json
+      - name: build
+        run: gcloud builds submit . --config cloudbuild.yml --project optimum-surface-285007
+      - name: deploy
+        run: gcloud --project optimum-surface-285007 run deploy llamma --image eu.gcr.io/optimum-surface-285007/llammabbs --platform managed --region europe-west1 --quiet
