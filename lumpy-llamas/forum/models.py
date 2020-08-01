@@ -18,6 +18,6 @@ class ThreadMessage(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return (f'Message by {self.user} created {self.date}'
+        return (f'Message by {self.user} created {self.date} | '
                 f'{self.message}'
                 )
