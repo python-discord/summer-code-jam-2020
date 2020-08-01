@@ -1,4 +1,4 @@
-# Web 95
+![Logo](https://fontmeme.com/permalink/200801/cd2508072b5c9939039984343156dca6.png)
 
 ![Licence](https://img.shields.io/github/license/Juicy-Jaguars/summer-code-jam-2020)
 
