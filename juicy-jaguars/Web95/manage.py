@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    """Main Function."""
+    """Check arguments, load settings, and run the appropriavte command."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Web95.settings')
     try:
         from django.core.management import execute_from_command_line
