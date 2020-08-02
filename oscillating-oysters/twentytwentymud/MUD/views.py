@@ -4,17 +4,20 @@ from django.views.decorators.csrf import csrf_exempt
 import datetime
 
 from terminal.terminal_tools import colorize
+
+
 BANNER = """
- #####    ###    #####    ###      #     # #     # ######  
-#     #  #   #  #     #  #   #     ##   ## #     # #     # 
-      # #     #       # #     #    # # # # #     # #     # 
- #####  #     #  #####  #     #    #  #  # #     # #     # 
-#       #     # #       #     #    #     # #     # #     # 
-#        #   #  #        #   #     #     # #     # #     # 
-#######   ###   #######   ###      #     #  #####  ######  
-                Welcome to == 2020 MUD ==
-                Where the future is NOW.
-                Type "help" for a list of commands
+           #####    ###    #####    ###      #     # #     # ######  
+          #     #  #   #  #     #  #   #     ##   ## #     # #     # 
+                # #     #       # #     #    # # # # #     # #     # 
+           #####  #     #  #####  #     #    #  #  # #     # #     # 
+          #       #     # #       #     #    #     # #     # #     # 
+          #        #   #  #        #   #     #     # #     # #     # 
+          #######   ###   #######   ###      #     #  #####  ######  
+
+                          Welcome to == 2020 MUD ==
+                          Where the future is NOW.
+                          Type "help" for a list of commands
 """.replace('\n', '\r\n')
 
 
