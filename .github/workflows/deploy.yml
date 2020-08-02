@@ -21,26 +21,19 @@ jobs:
         run: flake8 . --isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox --max-line-length=119
   deploy:
     runs-on: ubuntu-latest
-    container: google/cloud-sdk
     steps:
       - uses: actions/checkout@v2
-      - name: check
-        run: |
-          echo $(ls -l)
-          echo $(pwd)
-      - name: check_ls
-        run: |
-          echo $(ls -l)
-      - name: fail
-        run: exit 1
-      - name: get key
-        env:
-          CI_DEPLOY_KEY: ${{ secrets.GCP_DEPLOY_KEY }}
-        run: echo "$CI_DEPLOY_KEY" | base64 -d > /tmp/CI_DEPLOY_KEY.json
-      - name: authenticate
-        run: gcloud auth activate-service-account --key-file /tmp/CI_DEPLOY_KEY.json
       - name: build
-        run: gcloud builds submit . --config cloudbuild.yml --project optimum-surface-285007
-        working-directory: lumpy-llamas
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: optimum-surface-285007
+          APPLICATION_CREDENTIALS: ${{ secrets.GCP_DEPLOY_KEY }}
+        with:
+          args: builds submit lumpy-llamas/ --config lumpy-llamas/cloudbuild.yml
       - name: deploy
-        run: gcloud --project optimum-surface-285007 run deploy llamma --image eu.gcr.io/optimum-surface-285007/llammabbs --platform managed --region europe-west1 --quiet
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: optimum-surface-285007
+          APPLICATION_CREDENTIALS: ${{ secrets.GCP_DEPLOY_KEY }}
+        with:
+          args: run deploy llamma --image eu.gcr.io/optimum-surface-285007/llammabbs --platform managed --region europe-west1 --quiet
