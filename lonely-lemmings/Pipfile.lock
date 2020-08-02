@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "22243b60ed48779434163d8b74409d78079093f21fd0ebe849f677a6a394a1bf"
+            "sha256": "5052bf3666a9f4607f0aa6aea4136cbdb69a642e4418eb13cccae6a7e8dde7c9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -21,6 +21,7 @@
                 "sha256:7e51911ee147dd685c3c8b805c0ad0cb58d360987b56953878f8c06d2d1c6f1a",
                 "sha256:9fc6fb5d39b8af147ba40765234fa822b39818b12cc80b35ad9b0cef3a476aed"
             ],
+            "markers": "python_version >= '3.5'",
             "version": "==3.2.10"
         },
         "django": {
@@ -30,6 +31,13 @@
             ],
             "index": "pypi",
             "version": "==3.0.8"
+        },
+        "django-mediagenerator": {
+            "hashes": [
+                "sha256:fd63687da3cb5abfe05c79813d7ff93ba7dcc0175ef26915a17dbfa45835e622"
+            ],
+            "index": "pypi",
+            "version": "==1.12"
         },
         "pytz": {
             "hashes": [
@@ -43,6 +51,7 @@
                 "sha256:022fb9c87b524d1f7862b3037e541f68597a730a8843245c349fc93e1643dc4e",
                 "sha256:e162203737712307dfe78860cc56c8da8a852ab2ee33750e33aeadf38d12c548"
             ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==0.3.1"
         }
     },
@@ -67,6 +76,7 @@
                 "sha256:2295e7b2f6b5bd100585ebcb1f616591b652db8a741695b3d8f5d28bdc934367",
                 "sha256:c58a7d2815e0e8d7972bf1803331fb0152f867bd89adf8a01dfd55085434192e"
             ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.6.0"
         },
         "pyflakes": {
@@ -74,6 +84,7 @@
                 "sha256:0d94e0e05a19e57a99444b6ddcf9a6eb2e5c68d3ca1e98e90707af8152c90a92",
                 "sha256:35b2d75ee967ea93b55750aa9edbbf72813e06a66ba54438df2cfac9e3c27fc8"
             ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.2.0"
         }
     }

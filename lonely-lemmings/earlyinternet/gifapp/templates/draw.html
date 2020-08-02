@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./draw.css">
+    <script src="./canvas.js"></script>
+    <title>Canvas</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="toolbar">
+            <a class="selected" href="#" id="open" onclick="OpenImage()">
+                <img src="file-open.png">
+            </a>
+            <a href="#" id="save" onclick="SaveImage()">
+                <img src="save.png">
+            </a>
+            <a href="#" id="undo" onclick="Undo()">
+                <img src="undo.png">
+            </a>
+            <a href="#" id="select" onclick="ChangeTool('select')">
+                <img src="select.png">
+            </a>
+            <a href="#" id="eraser" onclick="ChangeTool('eraser')">
+                <img src="eraser.png">
+            </a>
+            <a href="#" id="brush" onclick="ChangeTool('brush')">
+                <img src="pencil.png">
+            </a>
+            <a href="#" id="line" onclick="ChangeTool('line')">
+                <img src="line.png">
+            </a>
+            <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
+                <img src="rectangle.png">
+            </a>
+            <a href="#" id="triangle" onclick="ChangeTool('triangle')">
+                <img src="triangle.png">
+            </a>
+            <a href="#" id="circle" onclick="ChangeTool('circle')">
+                <img src="circle.jpg">
+            </a>
+            <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
+                <img src="ellipse.png">
+            </a>
+            <a href="#" id="polygon" onclick="ChangeTool('polygon')">
+                <img src="polygon.png">
+            </a>
+        </div><br>
+
+        <canvas id="my-canvas" width="600" height="600"></canvas>
+
+        <div id="img-data-div">
+            <a href="#" id="img-file" download="image.png">Download Image</a>
+        </div>
+    </div>
+    <div class="customizer">
+        <a class="red"></a>
+        <a class="green"></a>
+        <a class="blue"></a>
+        <a class="color"></a>
+        <a class="width"></a>
+        <a class="sides"></a>
+    </div>
+
+</body>
+</html>

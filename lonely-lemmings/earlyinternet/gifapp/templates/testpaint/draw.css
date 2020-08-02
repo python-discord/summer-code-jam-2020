@@ -1,0 +1,21 @@
+body{
+    margin: 0px;
+    background-color: brown;
+}
+
+.toolbox{
+    height: 100vh;
+    position: absolute;
+    background-color: white;
+}
+
+.toolbox.left{
+    left: 0px;
+    top: 0px;
+}
+
+.toolbox.bottom{
+    right: 0px;
+    top: 0px;
+}
+
