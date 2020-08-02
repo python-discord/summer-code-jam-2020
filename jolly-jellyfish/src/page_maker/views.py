@@ -5,8 +5,10 @@ from django.views.generic import (
 
 from .forms import UserRegisterForm
 
+
 class MainView(TemplateView):
     template_name = "page_maker/main.html"
+
 
 class UserRegister(FormView):
     template_name = 'registration/register.html'
