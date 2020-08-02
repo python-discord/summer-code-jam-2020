@@ -13,9 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.http import HttpResponseRedirect
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
+    path('game/', include('game.urls')),
     path('admin/', admin.site.urls),
+    path('', lambda _: HttpResponseRedirect('/game/'))
 ]
