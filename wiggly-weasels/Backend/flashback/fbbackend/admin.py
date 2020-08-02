@@ -22,7 +22,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = [
-        'creator',
+        'creatr',
         'messages',
         'identification'
     ]
