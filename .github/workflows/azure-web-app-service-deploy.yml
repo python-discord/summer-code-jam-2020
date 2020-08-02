@@ -27,7 +27,7 @@ jobs:
       - uses: Azure/webapps-deploy@v1
         with:
           app-name: 'silky-squirrels'
-          images: 'kmui2/silky-squirrels:${{ github.sha }}'
+          images: 'kmui2/silky-squirrels:latest'
           configuration-file: './silky-squirrels/docker-compose.prod.yml'
 
       - name: Azure logout
