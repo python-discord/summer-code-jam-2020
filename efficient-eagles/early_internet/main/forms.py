@@ -1,11 +1,6 @@
 from django import forms
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from.models import CustomUser
-
-
-User = get_user_model()
+from main.models import CustomUser
 
 
 class LoginForm(forms.Form):
@@ -15,12 +10,12 @@ class LoginForm(forms.Form):
 
 class CustomUserCreationForm(UserCreationForm):
 
-    class Meta(UserCreationForm):
+    class Meta:
         model = CustomUser
-        fields = ('username','password')
+        fields = ('username', 'password1', 'password2')
     
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username','password')
+        fields = ('username', 'password')
