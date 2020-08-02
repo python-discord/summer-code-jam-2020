@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'glossy_gorillas.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "glossy_gorillas.settings")
 
 application = get_asgi_application()

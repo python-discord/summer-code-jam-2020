@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'glossy_gorillas.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "glossy_gorillas.settings")
 
 application = get_wsgi_application()
