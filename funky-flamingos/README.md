@@ -41,7 +41,7 @@ http://localhost:8000
 ```
 # Current Features!
   - Upload a file to http://localhost:8000/file/upload
-  - Checks if the file with the same name was previously uploaded
-  - Checks changes made to uploaded the file if file with the same name was previously uploaded
-  -
+  - Checks if the file with the same name was previously uploaded if the file with same name is their and calculate the hash of both the file and discard the file to   save on sever. If hash value has been changed then save that file with new name. 
+  - Checks changes made to uploaded file if file with the same name was previously uploaded
+  
 ##
