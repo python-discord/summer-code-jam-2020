@@ -16,9 +16,8 @@
     ```bash
     git clone https://github.com/charliedua/code-jam-7.git
     ```
-2. Before starting work, some stuff that was not originally on GitHub (i.e. dependencies) may need setup.<br>
-   TBA: virtualenv? poetry? pipenv? (Docker should only be one way of easy setup in the final app)<br>
-   What about for HTML, CSS and JS? npm, yarn?<br>
+2. Before starting work, dependencies need to be setup.<br>
+   Please see `README.md` and install development dependencies.
    You may need to install or update new dependencies throughout the project.
 
 ## Git workflow
