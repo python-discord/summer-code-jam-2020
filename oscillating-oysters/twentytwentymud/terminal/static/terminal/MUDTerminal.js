@@ -21,7 +21,6 @@ class MUDTerminal {
     this.sender = this.sendByPOST;
 
     this.printWelcome();
-    this.printPrompt();
   }
 
   onInputEvent(event) {
@@ -41,7 +40,7 @@ class MUDTerminal {
   }
 
   sendBuffer() {
-    this.sender(this.buffer);
+    this.sender(this.buffer.join(''));
     this.buffer = []
   }
 
@@ -53,9 +52,7 @@ class MUDTerminal {
   }
 
   printWelcome() {
-    this.terminal.writeln('Welcome to == 2020 MUD ==');
-    this.terminal.writeln('Where the future is now.');
-    this.terminal.writeln('Type "help" for a list of commands');
+    this.sendByPOST('welcome');
   }
   
   printPrompt() {
@@ -76,7 +73,7 @@ class MUDTerminal {
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = this.callback;
-    xhttp.open("POST", "command/" + message.join('') +"/");
+    xhttp.open("POST", "command/" + message +"/");
     xhttp.send("");
   }
 
