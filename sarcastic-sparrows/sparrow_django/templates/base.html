@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+    {% block css %}
+    <link href="{% static 'css/project.css' %}" rel="stylesheet"/>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+{% endblock %}
+{# Put JS at end of file to load page faster #}
+{% block js %}
+{% endblock %}
+</body>
+</html>
