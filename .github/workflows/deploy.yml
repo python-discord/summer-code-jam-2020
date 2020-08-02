@@ -26,9 +26,9 @@ jobs:
       - name: get key
         env:
           CI_DEPLOY_KEY: ${{ secrets.GCP_DEPLOY_KEY }}
-        run: echo $CI_DEPLOY_KEY > /tmp/CI_DEPLOY_KEY.json
+        run: echo $CI_DEPLOY_KEY > creds.json
       - name: authenticate
-        run: gcloud auth activate-service-account --key-file /tmp/CI_DEPLOY_KEY.json
+        run: gcloud auth activate-service-account --key-file creds.json
       - name: build
         run: gcloud builds submit . --config cloudbuild.yml --project optimum-surface-285007
         working-directory: lumpy-llammas
