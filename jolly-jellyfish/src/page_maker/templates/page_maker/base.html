@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if title %}
+        <title>Page Maker - {{ title }}</title>
+    {% else %}
+        <title>Early Internet Page Maker</title>
+    {% endif %}
+  </head>
+  <body>
+        <header>
+            Hello!
+            {% if user.is_authenticated %}
+                {{ user.username }}, 
+                <a href="{% url 'logout' %}">logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </header>
+
+        <main>
+          {% if error %}
+          <div>
+            <p>{{ error.text }}</p>
+          </div>
+          {% endif %}
+          <div>
+            {% block content %}
+            {% endblock %}
+          </div>
+        </main>
+  </body>
+</html>
