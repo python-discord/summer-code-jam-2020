@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rovers.apps.RoversConfig",
+    "mars_weather.apps.MarsWeatherConfig",
 ]
 
 MIDDLEWARE = [
