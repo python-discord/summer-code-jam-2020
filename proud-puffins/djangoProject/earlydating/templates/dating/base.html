@@ -12,15 +12,39 @@
   {% block head %}
   <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+
+
+    <!-- need to passes title as variables in the functions -->
+    {% if title %}
+        <title>Early Dating | {{ title }}</title>
+    {% else %}
+        <title> Early Dating </title>
+    {% endif %}
     <link rel="shortcut icon" type="image/png" href="{% static 'images\favicon.ico' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
   </head>
   {% endblock %}
 
-  <body>
+  <BODY BGCOLOR=#FFF6F0 TEXT=#000000 LINK=#C00000 VLINK=#800000 ALINK=#FF00FF>
+    <H1 ALIGN=CENTER ><FONT FACE="COMIC SANS, COMIC RELIEF, PAPYRUS, CURSIVE"><BLINK><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></BLINK></FONT></H1>
+    <!-- <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
+    <PARAM NAME=FileName VALUE=sound.mp3
+    <OBJECT TYPE=audio/mpeg DATA=sounds\510954__theojt__romantic-song.mp3 HEIGHT=0PX>
+    <!-- <PARAM NAME=controller VALUE=rue /> -->
+    <!-- <PARAM NAME=autoplay VALUE=true />
+  </OBJECT> -->
+  
     {% block content %}
+   
     {% endblock %}
+  
   </body>
+  
+  <footer>
+    <audio src=static/sounds/romantic-song.mp3 preload="auto" controls autoplay loop></audio>
+  </footer> 
 
+  <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
+    <PARAM NAME=FileName VALUE=sound.mp3 />
+ 
 </html>

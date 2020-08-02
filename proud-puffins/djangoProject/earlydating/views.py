@@ -10,8 +10,10 @@ def home(request):
 def about(request):
     return render(request, 'dating/about.html')
 
+
 def DateMatcher(request):
-    return render(request,'dating/DateMatcher.html')
+    return render(request, 'dating/DateMatcher.html')
+
 
 def your_profile(request, pk):
     profile = Profile.objects.get(id=pk)
