@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albatrosses Hub</title>
-</head>
-<body>
-    Hello World!
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock styles %}
+
+
+{% block content %}
+    <p id="homepage-content">
+        Albatrosses Hub is a fun website where you can spend your time playing Mafia Game
+        or discussing about something in the forum. You also can access some hot news by using
+        the newsletter feature.
+    </p>
+{% endblock content %}

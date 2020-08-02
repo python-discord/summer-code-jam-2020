@@ -1,0 +1,12 @@
+body {
+    background-color: #abadb3;;
+}
+
+footer {
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

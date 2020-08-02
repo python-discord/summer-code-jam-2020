@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Use base css file -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    {% block styles %}
+
+    {% endblock styles %}
+
+
+    <title>Albatrosses Hub</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #abadb3;">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'img/albatrosses-logo.png' %}" alt="LOGO" width="64" height="64">
+            </a>
+            <a class="navbar-brand" href="#">GAME</a>
+            <a class="navbar-brand" href="#">FORUM</a>
+            <a class="navbar-brand" href="#">ABOUT US</a>
+        </nav>
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
+
+    <footer>
+        <p>Acceptable Albatrosses © 2020</p>
+    </footer>
+</body>
+</html>
