@@ -8,10 +8,16 @@ ENV PIP_NO_CACHE_DIR=false \
 ENTRYPOINT ["python"]
 CMD ["manage.py", "run"]
 
+RUN apt-get -y update \
+    && apt-get install -y \
+        npm=5.8.* \
+    && rm -rf /var/lib/apt/lists/*
 RUN pip install -U pipenv
 
 WORKDIR /app
-COPY Pipfile* ./
+COPY Pipfile* package.json ./
+
+RUN npm install && apt-get --purge -y autoremove npm
 RUN pipenv install --system --deploy
 
 COPY . .
