@@ -1,13 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
-class ForumUser(AbstractBaseUser):
-    username = models.TextField()
-    nickname = models.TextField(default=username)
+class ForumUser(AbstractUser):
+    username = models.TextField(unique=True)
+    nickname = models.TextField(default=username.__str__())
+    email = models.EmailField(default='none@smth.com')
     avatar = models.URLField()  # link to the image of the user's discord avatar
     acc_token = models.TextField()  # discord access token
     refresh_token = models.TextField()  # discord refresh token
-    token_exp_date = models.DateTimeField()  # token expiration date
+    token_exp_date = models.DateTimeField(null=True)  # token expiration date
     discord_id = models.TextField()
 
     def __str__(self):  # maybe a better string repr?

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from enum_field import Enum, EnumField
 from user.models import ForumUser
 
@@ -8,7 +9,7 @@ class Thread(models.Model):
     the model for a thread/conversation
     """
     title = models.TextField()
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(ForumUser, models.DO_NOTHING)
 
 
