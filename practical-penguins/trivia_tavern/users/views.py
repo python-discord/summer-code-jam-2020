@@ -4,7 +4,11 @@ from django.contrib import messages
 from .forms import UserRegisterForm, PhoneNumberForm
 from twilio_messenger.views import sms_send
 
-sample_question = 'What is the airspeed velocity of an unladen swallow?'
+sample_question = {
+    'quiz_id': 1,
+    'question': 'What is the airspeed velocity of an unladen swallow?',
+    'answers': '1) 3m/s 2) 6m/s 3) 9.81m/s 4) Not enough info'
+}
 
 def register(request):
     if request.method == 'POST':
@@ -29,8 +33,11 @@ def send(request):
         send_form = PhoneNumberForm(request.POST, instance=request.user)
         if send_form.is_valid():
             send_form.save()
+            # in the future, we will have multiple form inputs, and this will
+            # be a list
             phonenumbers = send_form.cleaned_data.get('phone_number').__str__()
-            sms_send(sample_question, [phonenumbers])
+            sms_send(sample_question['question'], [phonenumbers])
+            sms_send(sample_question['answer'], [phonenumbers])
             messages.success(request, 'Your quiz has been sent!')
             return render(request, 'users/results.html',
                 {'phonenumbers' : phonenumbers})
