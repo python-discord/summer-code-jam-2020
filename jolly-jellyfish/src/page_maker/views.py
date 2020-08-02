@@ -141,6 +141,7 @@ class WebpageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class TemplateCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/template_create.html'
     form_class = TemplateForm
+    success_url = '/'
 
     # TODO validate and sanitize style sheet
     def form_valid(self, form):

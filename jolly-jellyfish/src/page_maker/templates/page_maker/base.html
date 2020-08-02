@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    {% if title %}
-      <title>Page Maker - {{ title }}</title>
+    {% if webpage %}
+      <link rel="stylesheet" type="text/css" href="{{ webpage.template_used.style_sheet.url }}">
+      <title>{{ webpage.user_title }}</title>
     {% else %}
       <title>Early Internet Page Maker</title>
     {% endif %}
@@ -21,6 +22,7 @@
         <a href="{% url 'login' %}">Login</a>
         <a href="{% url 'register' %}">Register</a>
       {% endif %}
+      <a href="{% url 'home' %}">home</a>
     </header>
 
     <main>

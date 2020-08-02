@@ -6,7 +6,11 @@
     <a href="{% url 'webpage-view' pagename=webpage.name %}">
       <p>{{ webpage.user_title }}</p>
     </a>
-    <img src="/user_media/{{ webpage.thumbnail.url }}">
+    {% if webpage.thumbnail %}
+    <img src="{{ webpage.thumbnail.url }}">
+    {% else %}
+    no thumbnail
+    {% endif %}
   </div>
 {% endfor %}
 {% endblock %}
