@@ -31,5 +31,6 @@ jobs:
         run: gcloud auth activate-service-account --key-file /tmp/CI_DEPLOY_KEY.json
       - name: build
         run: gcloud builds submit . --config cloudbuild.yml --project optimum-surface-285007
+        working-directory: lumpy-llammas
       - name: deploy
         run: gcloud --project optimum-surface-285007 run deploy llamma --image eu.gcr.io/optimum-surface-285007/llammabbs --platform managed --region europe-west1 --quiet
