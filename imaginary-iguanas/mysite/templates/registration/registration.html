@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <h1>
+        Registration Placeholder
+    </h1>
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join today</legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Signup</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="ml-2", href="#">Already have an Account?</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
