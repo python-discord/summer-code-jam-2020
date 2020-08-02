@@ -7,14 +7,15 @@ from twilio.rest import Client
 # Create your views here.
 
 answers = {
+    'answer': '4',
     'correct': 'Correct!',
     'incorrect': 'How could you know? We didn\'t tell you what kind!'
 }
 
 def sms_send(msg, recipients):
     """sms_send will send a message 'msg' to a list of recipients 'recipients'
-        This is not really a view method, but a help method for other classes
-        and views (for example the user views)
+    This is not really a view method, but a help method for other classes
+    and views (for example the user views)
     """
     twilio_account_sid = os.getenv('TWILIO_ACCOUNT_SID')
     twilio_auth_token = os.getenv('TWILIO_AUTH_TOKEN')
@@ -35,9 +36,11 @@ def sms_reply(request):
 
     #response = twiml.Response()
 
-    if body == '4':
+    if body == answers['answer']:
         msg = answers['correct']
     else:
         msg = answers['incorrect']
     sms_send(msg, [recipients])
+    # This will need to be changed to track response for errors, but not sure
+    # exactly how to implement since twiml.response doesn't seem to work
     return HttpResponse(200)
