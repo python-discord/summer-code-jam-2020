@@ -15,7 +15,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
           image_name: kmui2/silky-squirrels
-          dockerfile: './silky-squirrels/'
+          dockerfile: './silky-squirrels/Dockerfile'
 
       - uses: azure/webapps-deploy@v2
         with:
