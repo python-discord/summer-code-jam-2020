@@ -4,7 +4,7 @@ on:
       - master
 
 jobs:
-  lint:
+  Build and Deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - run: |
-          docker build . -t kmui2/silky-squirrels:${{ github.sha }}
+          docker build ./silky-squirrels -t kmui2/silky-squirrels:${{ github.sha }}
           docker push kmui2/silky-squirrels:${{ github.sha }} 
           
       - uses: azure/webapps-container-deploy@v1
