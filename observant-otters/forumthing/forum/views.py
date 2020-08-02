@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
 
+
 def home(request):
     return redirect("threads-all")
+
 
 def threads(request, id=None):
     if request.method == "GET":
         if id is None:
             return render(request, 'forum/home.html', {})
         else:
-            p= request.GET.get("p", default=1)
-            data= {
+            p = request.GET.get("p", default=1)
+            data = {
                 "id": id,
                 "page": p,
 
@@ -21,9 +23,9 @@ def threads(request, id=None):
 
     elif request.method == "POST":
         if id is None:
-            pass # @TODO: Handle new thread creation
+            pass  # @TODO: Handle new thread creation
         else:
-            pass # @TODO: Handle new thread reply creation
+            pass  # @TODO: Handle new thread reply creation
 
     elif request.method == "DELETE":
         assert id is not None, "Thread deletion without id"
@@ -31,4 +33,4 @@ def threads(request, id=None):
 
     elif request.method == "PATCH":
         assert id is not None, "Thread edit without id"
-        # @TODO: Handle thread deletion
+        # @TODO: Handle thread edit
