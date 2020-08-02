@@ -22,7 +22,7 @@ jobs:
           repository: kmui2/silky-squirrels
           tag_with_ref: true
           tag_with_sha: true
-          path: './silky-squirrels/
+          path: './silky-squirrels/'
 
       - uses: azure/webapps-container-deploy@v1
         with:
