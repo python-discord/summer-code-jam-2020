@@ -14,6 +14,15 @@ class PageImage(models.Model):
     image = models.ImageField()
 
 
+# These 2 following classes are for the food recipies
+class Ingredient(models.Model):
+    ingredient = models.CharField(max_length=35)
+
+
+class Step(models.Model):
+    step = models.TextField()
+
+
 class GeneratedPage(models.Model):
     page_title = models.CharField(max_length=50, blank=True)
     page_author = models.CharField(max_length=20, blank=True)
@@ -39,5 +48,7 @@ class GeneratedPage(models.Model):
     # Business Fields
 
     # Food Recipe Fields
+    ingredients = models.ManyToManyField(Ingredient, blank=True)
+    steps = models.ManyToManyField(Step, blank=True)
 
     # Scam Fields
