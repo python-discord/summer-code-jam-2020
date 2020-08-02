@@ -6,7 +6,7 @@ from time import mktime
 
 import feedparser
 
-from .helpers import create_url_with_parameters
+from .helpers import create_url_query_parameters
 
 
 class WikipediaFeaturedArticleParser(HTMLParser):
@@ -78,7 +78,7 @@ def get_wikipedia_featured_articles() -> typing.List[dict]:
         "feed": "featured",
         "feedformat": "rss"
     }
-    url = create_url_with_parameters(base_url, parameters)
+    url = create_url_query_parameters(base_url, parameters)
 
     # Get the feed and parse it
     feed = feedparser.parse(url)
