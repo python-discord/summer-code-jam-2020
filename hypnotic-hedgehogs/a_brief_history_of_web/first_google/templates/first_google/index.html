@@ -1,16 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Title</title>
 </head>
 <body>
-<div class="container">
+<div class="container section-vertical">
     <!--logo-->
-    <div class="logo"></div>
+    <div class="logo">
+        <img src="https://via.placeholder.com/600x150">
+    </div>
     <!--search area-->
-    <div class="search">
-        <div class="search-area">
+    <div class="search section-vertical">
+        <div class="search-area section-vertical">
             <label for="search-box">Search the web using Google!</label>
             <input id="search-box" type="text">
         </div>
@@ -20,23 +24,25 @@
         </div>
     </div>
     <!--others-->
-    <div class="others">
-        <div class="special-searches">
+    <div class="others section-horizontal">
+        <div class="others-item section-vertical">
             <div>Special Searches</div>
             <a href="">Stanford Search</a>
             <a href="">Linux Search</a>
         </div>
-        <div class="helps">
+        <div class="others-item section-vertical">
             <a href="">Help!</a>
             <a href="">About Google!</a>
             <a href="">Company Info</a>
             <a href="">Google! Logos</a>
         </div>
-        <div class="subscribe">
+        <div class="others-item section-vertical">
             <label for="email">Get Google! updates monthly:</label>
             <input id="email" type="text">
-            <button>Subscribe</button>
-            <a href="">Archive</a>
+            <div class="section-horizontal">
+                <button>Subscribe</button>
+                <a href="">Archive</a>
+            </div>
         </div>
     </div>
     <footer> Copyright &copy1998 Google Inc.</footer>
