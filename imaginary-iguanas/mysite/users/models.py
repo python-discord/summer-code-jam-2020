@@ -10,6 +10,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.CharField(max_length=50)
+    image = models.ImageField(default="default_pfp.jpg", upload_to="profile_pics")
     gender = models.CharField(null=True, max_length=1, choices=GENDER_CHOICES)
     country = models.CharField(null=True, max_length=2, help_text="ISO 639 country code.")
     city = models.CharField(null=True, max_length=50)
