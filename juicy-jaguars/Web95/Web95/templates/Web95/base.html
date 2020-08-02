@@ -9,14 +9,10 @@
         .draggable {
             position: absolute;
         }
-        
         .draggable-header {
             cursor: move;
         }
         </style>
-        <script>
-        loadDraggableElements("draggable");
-        </script>
     </head>
 
     <body style="background: {{bg}} no-repeat center center fixed; background-size: cover;">
@@ -24,3 +20,7 @@
         {% endblock %}
     </body>
 </html>
+
+<script>
+loadDraggableElements("draggable");
+</script>
