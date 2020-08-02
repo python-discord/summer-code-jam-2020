@@ -1,0 +1,37 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: whoan/docker-build-with-cache-action@v5
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          image_name: kmui2/silky-squirrels
+          context: './silky-squirrels'
+
+      - name: Copy Production Docker Compose to VM
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: azureuser
+          key: ${{ secrets.PRIVATE_KEY }}
+          source: "./silky-squirrels/docker-compose.prod.yml"
+          target: "~/"
+          overwrite: true
+          
+      - name: Run Production Docker Compose in VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: azureuser
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: cd ~/silky-squirrels && docker-compose -f docker-compose.prod.yml up -d
+
