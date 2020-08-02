@@ -1,0 +1,19 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+<div>
+    <h2>Morning spirit</h2>
+    <section>
+        <h1>The project</h1>
+        <p>Play music (maybe integrate spotify)</p>
+    </section>
+    <section>
+        <h1>Create Post Page</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit">add new song</button>
+        </form>
+    </section>
+</div>
+{% endblock content %}

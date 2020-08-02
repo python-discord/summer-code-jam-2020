@@ -1,0 +1,42 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+<div>
+    <h2>Morning spirit</h2>
+    <section>
+        <h1>The project</h1>
+        <p>Play music (maybe integrate spotify)</p>
+    </section>
+    <section>
+        <h1>Music_player</h1>
+    </section>
+    <!-- {% for song in song_list %}
+        <tr>
+            <td>{{ song.song_title }}</td>
+            <td>{{ song.album.artist }}</td>
+            <td>
+                <audio controls="controls">
+                    <source src="{{ song.audio_file.url }}" type="audio/ogg" />
+                    <source src="{{ song.audio_file.url }}" type="audio/mpeg" />
+                    <source src="{{ song.audio_file.url }}" type="audio/wav" />
+                    Your browser does not support the audio element.
+                    </audio>
+            </td>
+            <td>
+                <a href="{% url 'music:detail' song.album.id %}">
+                    <img src="{{ song.album.album_logo.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                </a>
+                <a href="{% url 'music:detail' song.album.id %}">{{ song.album.album_title }}</a>
+            </td>
+            <td>
+                <a href="{% url 'music:favorite' song.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if song.is_favorite %}active{% endif %}"></span></a>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        {% endfor %}
+ -->
+
+</div>
+{% endblock content %}
