@@ -3,6 +3,7 @@ from django.db import models
 from djangocities.cities.models import City
 from djangocities.user.models import CustomUser as User
 
+
 class Site(models.Model):
     class Meta:
         verbose_name_plural = "sites"
@@ -14,6 +15,7 @@ class Site(models.Model):
 
     def __str__(self):
         return f"{self.city}/{self.address}"
+
 
 class Page(models.Model):
     class Meta:
