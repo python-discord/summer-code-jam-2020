@@ -12,6 +12,8 @@
   {% block head %}
   <head>
     <meta charset="UTF-8">
+
+
     <!-- need to passes title as variables in the functions -->
     {% if title %}
         <title>Early Dating | {{ title }}</title>
@@ -31,10 +33,13 @@
     <!-- <PARAM NAME=controller VALUE=rue /> -->
     <!-- <PARAM NAME=autoplay VALUE=true />
   </OBJECT> -->
- 
-  {% block content %}
+  
+    {% block content %}
+   
     {% endblock %}
+  
   </body>
+  
   <footer>
     <audio src=static/sounds/romantic-song.mp3 preload="auto" controls autoplay loop></audio>
   </footer> 

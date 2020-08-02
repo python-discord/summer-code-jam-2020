@@ -14,3 +14,28 @@ body, h1, h2, h3, h4, h5, h6 {
     vertical-align: bottom;
     padding-top: 0.5em;
 }
+
+html { 
+    background: url(../../../static/images/homebg.gif) no-repeat center center fixed;
+    background-repeat: repeat;
+  }
+
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: red;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: pink;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: plum;
+  }
