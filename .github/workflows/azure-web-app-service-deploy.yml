@@ -10,14 +10,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build and push Docker images
-        uses: docker/build-push-action@v1
+        uses: whoan/docker-build-with-cache-action@v5
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-          repository: kmui2/silky-squirrels
-          path: './silky-squirrels/'
-          cache_froms: kmui2/silky-squirrels:latest
-          tags: latest
+          image_name: kmui2/silky-squirrels
+          dockerfile: './silky-squirrels/'
 
       - uses: azure/webapps-deploy@v2
         with:
