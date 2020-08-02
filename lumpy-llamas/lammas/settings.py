@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "asdadad")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'llamma-xbiguwvyua-ew.a.run.app',
+    'localhost',
+]
 
 
 # Application definition
@@ -118,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'lammas', 'static'),
 )
