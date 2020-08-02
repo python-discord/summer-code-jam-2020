@@ -19,7 +19,27 @@ html {
     background: url(../../../static/images/homebg.gif) no-repeat center center fixed;
     background-repeat: repeat;
   }
-
+.columnleft {
+  float: left;
+  float:top;
+  width: 250;
+}
+.columnright {
+  float: right;
+  float:top;
+  width: 250;
+}
+.columncenter {
+  float:top;
+  width:auto;
+  padding-right:250px;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 15px;
