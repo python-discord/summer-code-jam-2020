@@ -5,8 +5,7 @@ services:
     ports:
       - "6379:6379"
   web:
-    build: kmui2/silky-squirrels:latest
-    command: pipenv run python manage.py runserver 0.0.0.0:8000
+    image: "kmui2/silky-squirrels:latest"
     volumes:
       - .:/code
     ports:
