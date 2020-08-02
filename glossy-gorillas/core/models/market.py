@@ -2,7 +2,13 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 from core.models.product import Product
-from core.models.trader import InventoryRecord
+from core.models.trader import InventoryRecord, Trader
+
+
+class TradeStatus(models.TextChoices):
+    NEGOTIATING = "N", _("In Negotiations")
+    SCHEDULED = "S", _("Agreed and Scheduled")
+    FINALIZED = "F", _("Finalized")
 
 
 class Listing(models.Model):
@@ -39,4 +45,19 @@ class Listing(models.Model):
     # Offer field
     allow_offers = models.BooleanField(
         verbose_name=_("Allow user barter offers"), default=False
+    )
+
+
+class Trade(models.Model):
+    """A record of a trade between 2 users"""
+
+    listing = models.ForeignKey(
+        Listing, verbose_name=_("Trade Listing"), on_delete=models.CASCADE
+    )
+    buyer = models.ForeignKey(Trader, verbose_name=_("Buyer"), on_delete=models.CASCADE)
+    status = models.CharField(
+        verbose_name=_("Trade Status"),
+        max_length=3,
+        choices=TradeStatus.choices,
+        default=TradeStatus.NEGOTIATING,
     )
