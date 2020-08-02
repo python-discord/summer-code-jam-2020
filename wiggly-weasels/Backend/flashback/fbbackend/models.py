@@ -32,6 +32,7 @@ class Message(models.Model):
     '''
     writer = models.CharField(max_length=100)  # The ID of the User
     content = models.CharField(max_length=1000)  # The Content
+    identification = models.CharField(max_length=100, default=uuid4().hex)
 
     def __str__(self):  # Returns "content" when using the str() function
         return self.content
@@ -42,7 +43,9 @@ class Group(models.Model):
 
     creator: creator of the chatroom
     identification: A randomly generated Unique ID
-    messages: A list of current messages on the channel
+    messages: An array containing an array for each message.
+        ar[0] = Creator ID
+        ar[1] = Content
     name: The name of group
 
     '''
@@ -56,3 +59,28 @@ class Group(models.Model):
     )
 
     name = models.CharField(max_length=20)
+
+
+class Post(models.Model):
+    '''
+
+    creator: The user who posts the thread
+    identification: A randomly generated Unique ID
+    comments: An array containing an array for each message.
+        ar[0] = Commenter ID
+        ar[1] = Content
+    title: The title of the thread
+
+    '''
+
+    identification = models.CharField(max_length=100, default=uuid4().hex)
+    creator = models.CharField(max_length=100)
+    content = models.CharField(max_length=1000)
+    title = models.CharField(max_length=35)
+
+    comments = ArrayField(  # ArrayField Containing Messages
+        ArrayField(
+            models.CharField(max_length=1000),
+            size=2
+        )
+    )

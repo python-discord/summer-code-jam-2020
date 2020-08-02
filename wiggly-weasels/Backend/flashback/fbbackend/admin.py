@@ -1,5 +1,5 @@
 from django.contrib import admin
-from fbbackend.models import Account, Message, Group
+from fbbackend.models import Account, Message, Group, Post
 # Register your models here.
 
 
@@ -23,11 +23,21 @@ class MessageAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = [
         'creator',
-        'messages',
         'identification'
+    ]
+
+
+class PostAdmin(admin.ModelAdmin):
+    list_display = [
+        'identification',
+        'creator',
+        'content',
+        'title',
+        'comments'
     ]
 
 
 admin.site.register(Account, AccountAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Group, GroupAdmin)
+admin.site.register(Post, PostAdmin)
