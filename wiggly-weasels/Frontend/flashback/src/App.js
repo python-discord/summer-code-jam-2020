@@ -32,8 +32,8 @@ const App = () => (
     <GlobalStyles />
     <ThemeProvider theme={original}>
       <List>
-        <ListItem>🎤 Sing</ListItem>
-        <ListItem>💃🏻 Dance</ListItem>
+        <ListItem>🧯 FIRE!</ListItem>
+        <ListItem>🧻 Toilet Paper Crisis(2020)</ListItem>
         <Divider />
         <ListItem disabled>😴 Sleep</ListItem>
       </List>
