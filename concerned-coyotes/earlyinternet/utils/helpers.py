@@ -6,5 +6,4 @@ def create_url_query_parameters(base_url: str, params: dict) -> str:
                                 for key, value in params.items())
     url = f"{base_url}?{parameter_string}"
 
-    # skip the last character as it is a &
-    return url[:-1]
+    return url
