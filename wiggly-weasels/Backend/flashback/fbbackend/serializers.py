@@ -5,25 +5,25 @@ from fbbackend import models
 Serializers for the "Model" objects located in Models.py
 '''
 
-class AccountSerializer(serializers.ModelSerializer):
+class AccountSerializer(serializers.ModelSerializer): #Serializer for accounts
     class Meta:
         model = models.Account
-        fields = ('email', 'hashed_pass', 'identification', 'nickname', 'bot')
+        fields = ('email', 'hashed_pass', 'nickname', 'bot')
 
-class MessageSerializer(serializers.ModelSerializer):
+class MessageSerializer(serializers.ModelSerializer): #Serializer for Messages
     class Meta:
         model = models.Message
-        fields = ('writer', 'content', 'identification')
+        fields = ('writer', 'content')
 
 
-class GroupSerializer(serializers.ModelSerializer):
+class GroupSerializer(serializers.ModelSerializer): #Serializer for Groups
     class Meta:
         model = models.Group
-        fields = ('creator', 'identification', 'messages', 'name')
+        fields = ('creator', 'messages', 'name')
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer): #Serializer for Posts
     class Meta:
         model = models.Post
-        fields = ('creator', 'content', 'identification', 'title', 'comments')
+        fields = ('creator', 'content', 'title', 'comments')
 
