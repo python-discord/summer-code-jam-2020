@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "djangocities.user",
     "djangocities.cities",
+    "djangocities.sites"
 ]
 
 MIDDLEWARE = [
