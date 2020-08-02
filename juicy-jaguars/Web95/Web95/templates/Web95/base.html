@@ -5,8 +5,10 @@
 <html>
 
     <head>
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/pixel.css' %}" >
         <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}" >
+        <script src="{% static 'javascript/drag.js' %}"></script>
 
     </head>
 
@@ -18,3 +20,21 @@
     </body>
 
 </html>
+
+<style>
+
+.draggable {
+    position: absolute;
+}
+
+.draggable-header {
+    cursor: move;
+}
+
+</style>
+
+<script>
+
+loadDraggableElements("draggable");
+
+</script>
