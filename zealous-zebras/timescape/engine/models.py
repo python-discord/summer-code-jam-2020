@@ -6,10 +6,11 @@ class SearchResult(models.Model):
     title = models.CharField(max_length=50)
     htmlTitle = models.CharField(max_length=75)
     link = models.CharField(max_length=150)
-    snippets = models.CharField(max_length=300)
+    snippet = models.CharField(max_length=300)
 
     def __repr__(self):
-        return f"<{str(self.id)} {self.title} {self.htmlTitle} {self.link} {self.snippets}>"
+        return f"<id={str(self.id)!r} title={self.title!r} htmlTitle={self.htmlTitle!r} link={self.link!r} \
+snippet={self.snippet!r}>"
 
 
 class Search(models.Model):
@@ -18,4 +19,4 @@ class Search(models.Model):
     results = models.ManyToManyField(SearchResult, related_name="search")
 
     def __repr__(self):
-        return f"<{self.query} {str(self.created_at)}>"
+        return f"<quete={self.query!r} created_at={str(self.created_at)!r}>"
