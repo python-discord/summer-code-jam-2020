@@ -1,0 +1,18 @@
+jobs:
+  - job: lint
+    displayName: 'Linting'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: UsePythonVersion@0
+        displayName: 'Set Python version'
+        name: python
+        inputs:
+          versionSpec: '3.8.x'
+          addToPath: true
+
+      - script: pip install flake8
+        displayName: 'Install Flake8'
+
+      - script: flake8 . --isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox --max-line-length=119
+        displayName: 'Run linting'
