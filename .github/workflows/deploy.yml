@@ -23,6 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     container: google/cloud-sdk
     steps:
+      - name: check
+        run: ls
+      - name: fail
+        run: exit 1
       - name: get key
         env:
           CI_DEPLOY_KEY: ${{ secrets.GCP_DEPLOY_KEY }}
