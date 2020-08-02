@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='earlydating-home'),
-    path('DateMatcher/',views.DateMatcher,name='earlydating-DateMatcher'),
+    path('register/', views.register, name='earlydating-register'),
+    path('login/', views.login, name='earlydating-login'),
+    path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher'),
     path('about/', views.about, name='earlydating-about'),
     path('YourProfile/<str:pk>/', views.your_profile, name='earlydating-yourprofile')
 ]

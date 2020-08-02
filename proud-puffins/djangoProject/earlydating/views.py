@@ -7,6 +7,14 @@ def home(request):
     return render(request, 'dating/home.html')
 
 
+def login(request):
+    return render(request, 'dating/login.html')
+
+
+def register(request):
+    return render(request, 'dating/register.html')
+
+
 def about(request):
     return render(request, 'dating/about.html')
 
