@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='main-page'),
@@ -25,4 +27,4 @@ urlpatterns = [
     path('first_google', include('first_google.urls', namespace='first_google')),
     path('first_twitter', include('first_twitter.urls', namespace='first_twitter')),
     path('first_youtube', include('first_youtube.urls', namespace='first_youtube')),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
