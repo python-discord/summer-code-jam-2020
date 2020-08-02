@@ -1,0 +1,9 @@
+<h1>Threads</h1>
+<ul>
+{% for message in object_list %}
+    <p>{{message.user}}</p>
+    <p>{{message.message}}</p>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+</ul>
