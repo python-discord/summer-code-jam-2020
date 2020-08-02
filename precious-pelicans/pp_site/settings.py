@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'pp_site.apps.users',
     'pp_site.apps.forum',
     'django.contrib.admin',
     'django.contrib.auth',
