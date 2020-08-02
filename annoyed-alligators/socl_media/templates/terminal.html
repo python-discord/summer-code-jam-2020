@@ -1,0 +1,112 @@
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  {% comment %} <script type='text/javascript'>
+    var people = {{ items|safe }};
+  </script> {% endcomment %}
+
+  <div id="app">
+    {% comment %} <input type="text" v-model="command">
+    <button @click="run_command">Submit</button>
+    <br>
+    
+    <br> {% endcomment %}
+
+    <div id="terminal">
+      <div id="terminal-window">
+        <div id="terminal-output" v-html="response">
+        </div>
+      </div>
+      <div id="terminal-input"> 
+        ~ $ <input type="text" 
+              class="terminal-input" 
+              autofocus="autofocus" 
+              @keyup.enter="run_command" 
+              @keyup.38="populate_previous"
+              @keyup.40="clear_previous"
+              v-model="command">
+      </div>
+    </div>
+
+  </div>
+
+  
+
+  <script>
+    var app = new Vue({
+      delimiters: ['[[', ']]'],
+      el: '#app',
+      data: {
+        command: '',
+        previous_command_array: [],
+        current_command: 0,
+        response: '',
+      },
+
+      methods: {
+        populate_previous: function(){
+          if(this.current_command < this.previous_command_array.length){
+            this.command = this.previous_command_array[this.current_command];
+            this.current_command += 1;
+          }
+        },
+        clear_previous: function(){
+          if(this.current_command > 0){
+            this.current_command -= 1;
+            this.command = this.previous_command_array[this.current_command-1];
+          }
+        },
+        run_command: function(){
+          axios.get(`/terminal/command?c=${this.command}`)
+          .then(res =>{
+            this.response = this.response + res.data + "<br>"
+          }, (error) =>{
+            console.log(error)
+          }) 
+          this.previous_command = this.command;
+          this.previous_command_array.unshift(this.command)
+          this.command = '';
+          console.log(this.previous_command_array)
+        }
+      }
+    });
+  </script>
+
+  <style>
+    table, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    td {
+      width: 60px;
+    }
+    #terminal {
+      background-color: #000000;
+      width: 500px;
+      height: 300px;
+      color: #ccc;
+      font: 1rem Inconsolate, monospace;
+      padding-left: 6px;
+      position: relative;
+    }
+    #terminal-window {
+      height: 90%; 
+      width: 98%; 
+      display: flex; 
+      align-items: flex-end;
+    }
+    #terminal-output{
+      overflow-y: hidden;
+      max-height: 270px;
+    }
+    .terminal-input{
+      background-color: black;
+      color: #ccc;
+      font: 1rem Inconsolate, monospace;
+      border: 0px;
+      width: 460px;
+    }
+    input:focus, textarea:focus, select:focus{
+        outline: none;
+    }
+  </style>
+
