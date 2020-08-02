@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     container: google/cloud-sdk
     steps:
+      - uses: actions/checkout@v2
       - name: check
         run: |
           echo $(ls -l)
