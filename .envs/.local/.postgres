@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=shiny_sheep
+POSTGRES_USER=DERLTQCBodvoCQGGWWDUIDOfVsCnhEiM
+POSTGRES_PASSWORD=gQPHg89TeXmUkNxwW4u4QtmRBM6x1YOwfv16smwvwKWIoCzDP2qWC4p7aUqn7w4o
