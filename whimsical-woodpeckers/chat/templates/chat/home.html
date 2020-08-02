@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-    </head>
-
-    <body>
-        <h1>Chat Home</h1>
-    </body>
-</html>
+{% extends "chat/base.html" %}
+{% block content %}
+    {% for message in messages %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ message.author }}</a>
+                <small class="text-muted">{{ message.date_sent }}</small>
+            </div>
+            <p class="article-content">{{ message.content }}</p>
+            </div>
+        </article>
+    {% endfor%}
+{% endblock content %}
