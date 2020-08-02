@@ -15,4 +15,4 @@ class Profile(models.Model):
     gender = models.CharField(max_length=200, null=True, choices=GENDER)
 
     def __str__(self):
-        return self.name
+        return f"{self.first_name} {self.last_name}"
