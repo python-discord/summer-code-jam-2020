@@ -1,4 +1,5 @@
 import Home from './home-page.vue';
+import Forum from './thread-list.vue';
 
 const routes = [
   {
@@ -6,6 +7,12 @@ const routes = [
     alias: '/',
     name: 'home_page',
     component: Home,
+  },
+  {
+    path: '/forum',
+    alias: '/f',
+    name: 'forum',
+    component: Forum,
   },
 ];
 
