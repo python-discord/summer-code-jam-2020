@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: index.docker.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - run: |
+          docker build . -t kmui2/silky-squirrels:${{ github.sha }}
+          docker push kmui2/silky-squirrels:${{ github.sha }} 
+          
+      - uses: azure/webapps-container-deploy@v1
+        with:
+          app-name: 'silky-squirrels'
+          images: 'kmui2/silky-squirrels:${{ github.sha }}'
+          configuration-file: './silky-squirrels/docker-compose.prod.yml'
+
+      - name: Azure logout
+        run: |
+          az logout
