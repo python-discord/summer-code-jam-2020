@@ -23,6 +23,7 @@ urlpatterns = [
     path("", include("rovers.urls")),
     path("", include("posts.urls")),
     path("", include("mars_weather.urls")),
+    path("guestbook/", include("guestbook.urls")),
 ]
 
 if settings.DEBUG:
