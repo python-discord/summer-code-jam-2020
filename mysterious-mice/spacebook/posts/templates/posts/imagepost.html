@@ -1,0 +1,19 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{% static 'rovers/main.css' %}">
+        <title></title>
+    </head>
+    <body>
+        <img src="{{ imagepost.image.url }}" class="imagepost-detail">
+        <br>
+        Posted by
+        <a href="{% url 'rovers:rover-profile' imagepost.rover.username %}">{{ imagepost.rover.username }}</a>
+        on {{ imagepost.date|date:"Y-m-d" }}
+        <br>
+        {{ imagepost.description }}
+    </body>
+</html>
