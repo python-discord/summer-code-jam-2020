@@ -23,7 +23,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: azureuser
           key: ${{ secrets.PRIVATE_KEY }}
-          source: "docker-compose.prod.yml"
+          source: "./silky-squirrels/docker-compose.prod.yml"
           target: "~/"
           overwrite: true
           
