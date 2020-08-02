@@ -10,5 +10,5 @@ Setup info coming soon. Changed to enable opening a pull request.
 5. start pipenv shell _pipenv shell_
 6. If not already on master switch to the pipenv-setup branch _git checkout origin/pipenv-setup_
 7. go to the django project folder _cd fancy-falcons-proj_
-8. start the server _python3 manager.py runserver_
-9. When you open the browser and go to _localhos:8000_ you should see a "Hello world!"
+8. start the server _python3 manage.py runserver_
+9. When you open the browser and go to _localhost:8000_ you should see a "Hello world!"
