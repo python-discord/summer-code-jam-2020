@@ -5,8 +5,22 @@ This is the default README of your team's project. Please replace this by a READ
 
 ### Requirements
 - Python 3.8
-- Django 3.0
-- Node 10 / NPM
+- Node 10+ / NPM
+
+### Setup python venv
+
+```shell
+pipenv install
+```
+
+### Build front-end
+
+```shell
+cd www
+npm install
+npm run prod // See package.json for all build modes
+cd ..
+```
 
 ### Generate a secret key to use with Django
 ```python
@@ -19,13 +33,8 @@ print(get_random_secret_key())
 SECRET_KEY=YOUR-SECRET-KEY
 DEBUG=False
 ```
-Place .env in this directory (whimsical-woodpeckers/.env)
+
+### Run Django
 ```shell
-pipenv install
-cd www
-npm install
-npm run build
-cd ..
-cd mysite
 pipenv run python manage.py runserver
 ```
