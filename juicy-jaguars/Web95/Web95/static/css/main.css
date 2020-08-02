@@ -8,3 +8,22 @@ body {
     margin: 0 !important;
     bottom: 0;
 }
+
+.header-icon {
+    height: 16px;
+    width: auto;
+}
+
+.window-btn {
+    height: 20px;
+    width: 20px;
+    margin: -2px 2px -2px 2px;
+    padding: 0;
+    float:right;
+    border-width: 0;
+}
+
+.window-btn-text {
+    padding: 0;
+    border-width: 0;
+}
