@@ -36,8 +36,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "dashboard.apps.DashboardConfig",
     "blogs.apps.BlogsConfig",
     "users.apps.UsersConfig",
+    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -93,6 +95,20 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+# channels settings for websocket
+
+# ASGI for channels
+ASGI_APPLICATION = "code_jam.routing.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)]
+        }
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -112,3 +128,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+
