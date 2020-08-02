@@ -29,7 +29,6 @@ jobs:
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_DEPLOY_KEY }}
         with:
           args: builds submit . --config cloudbuild.yml
-        run: gcloud 
       - name: deploy
         uses: actions-hub/gcloud@master
         env:
