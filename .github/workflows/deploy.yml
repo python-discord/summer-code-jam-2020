@@ -26,7 +26,7 @@ jobs:
       - name: get key
         env:
           CI_DEPLOY_KEY: ${{ secrets.GCP_DEPLOY_KEY }}
-        run: echo $CI_DEPLOY_KEY | base64 -d > /tmp/CI_DEPLOY_KEY.json
+        run: echo "$CI_DEPLOY_KEY" | base64 -d > /tmp/CI_DEPLOY_KEY.json
       - name: authenticate
         run: gcloud auth activate-service-account --keyfile /tmp/CI_DEPLOY_KEY.json
       - name: build
