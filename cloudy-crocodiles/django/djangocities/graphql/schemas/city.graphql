@@ -1,0 +1,6 @@
+type City {
+    id: Int!
+    name: String!
+    description: String
+    slug: String!
+}
