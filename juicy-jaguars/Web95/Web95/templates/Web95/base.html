@@ -1,40 +1,28 @@
-{% load static %}
-
 <!DOCTYPE html>
-
 <html>
-
     <head>
-
+        {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/pixel.css' %}" >
         <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}" >
         <script src="{% static 'javascript/drag.js' %}"></script>
-
+        <style>
+        .draggable {
+            position: absolute;
+        }
+        
+        .draggable-header {
+            cursor: move;
+        }
+        </style>
+        <script>
+        loadDraggableElements("draggable");
+        </script>
     </head>
 
     <body style="background: {{bg}} no-repeat center center fixed; background-size: cover;">
-
         {% block content %}
         {% endblock %}
-
     </body>
-
 </html>
 
-<style>
 
-.draggable {
-    position: absolute;
-}
-
-.draggable-header {
-    cursor: move;
-}
-
-</style>
-
-<script>
-
-loadDraggableElements("draggable");
-
-</script>
