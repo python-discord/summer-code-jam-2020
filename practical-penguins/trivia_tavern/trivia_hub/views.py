@@ -1,5 +1,11 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+
+from trivia_builder.models import TriviaQuiz
 
 
-def main_hub(request):
-    return render(request, 'home.html')
+class TriviaQuizListView(ListView):
+    model = TriviaQuiz
+    template_name = 'trivia_hub/home.html'
+    context_object_name = 'trivia_quiz'
+    ordering = ['-date_posted']
+    paginate_by = 10
