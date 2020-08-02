@@ -20,11 +20,11 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
           repository: kmui2/silky-squirrels
-          tag_with_ref: true
-          tag_with_sha: true
           path: './silky-squirrels/'
+          cache_froms: kmui2/silky-squirrels:latest
+          tags: latest
 
-      - uses: azure/webapps-container-deploy@v1
+      - uses: Azure/webapps-deploy@v1
         with:
           app-name: 'silky-squirrels'
           images: 'kmui2/silky-squirrels:${{ github.sha }}'
