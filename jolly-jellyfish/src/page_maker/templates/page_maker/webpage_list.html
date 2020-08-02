@@ -1,0 +1,12 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+{% for webpage in webpages %}
+  <div>
+    <a href="{% url 'webpage-view' pagename=webpage.name %}">
+      <p>{{ webpage.user_title }}</p>
+    </a>
+    <img src="/user_media/{{ webpage.thumbnail.url }}">
+  </div>
+{% endfor %}
+{% endblock %}

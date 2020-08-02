@@ -9,6 +9,9 @@ class Template(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     style_sheet = models.FileField(null=False, blank=False, upload_to='styles/')
 
+    def __str__(self):
+        return self.name
+
 
 def user_directory_path(instance, filename):
     return f'thumbnails/{instance.name}/{filename}'
@@ -39,6 +42,9 @@ class Webpage(models.Model):
 
     # todo: for tameTNT's reference: https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/
 
+    def __str__(self):
+        return self.name
+
 
 class Comment(models.Model):
     parent_page = models.ForeignKey(Webpage, on_delete=models.CASCADE)
@@ -46,3 +52,6 @@ class Comment(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=500)
     date_created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
