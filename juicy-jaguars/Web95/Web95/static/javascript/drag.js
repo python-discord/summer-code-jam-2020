@@ -3,7 +3,7 @@ function dragElement(elmnt_class, elmnt_index) {
     elmnt = document.getElementsByClassName(elmnt_class)[elmnt_index];
     elmnt_header = document.getElementsByClassName(elmnt_class+"-header")[elmnt_index];
 
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    var deltaX = 0, deltaY = 0, mouseX = 0, mouseY = 0;
 
     elmnt_header.onmousedown = dragMouseDown;
 
@@ -13,8 +13,8 @@ function dragElement(elmnt_class, elmnt_index) {
         e.preventDefault();
 
         // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
 
         document.onmouseup = closeDragElement;
 
@@ -28,14 +28,14 @@ function dragElement(elmnt_class, elmnt_index) {
         e.preventDefault();
 
         // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
+        deltaX = e.clientX - mouseX;
+        deltaY = e.clientY - mouseY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
 
         // set the element's new position:
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        e.target.parentElement.style.left = (e.target.parentElement.offsetLeft + deltaX) + "px";
+        e.target.parentElement.style.top = (e.target.parentElement.offsetTop + deltaY) + "px";
 
     }
 
