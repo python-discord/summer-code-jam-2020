@@ -2,62 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Temp page</title>
+    <title>{{ webpage.name }}</title>
 </head>
 <body>
-<h1><span><span>Lorem Ipsum</span></span></h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam blandit imperdiet dui, a rutrum
-    massa facilisis nec. Mauris lectus ligula, euismod tempor lobortis vitae, hendrerit quis ante.
-    Ut lobortis urna sit amet condimentum varius. Maecenas consequat elit a diam congue, et
-    facilisis mi aliquam. Praesent a lectus non nulla vestibulum faucibus et vitae dui. Quisque at
-    augue lobortis, gravida massa sed, lacinia ipsum. Sed vulputate dignissim justo, sed condimentum
-    risus vestibulum id. Vivamus iaculis mauris ut mi auctor euismod.</p>
-<p>Praesent cursus, dolor nec venenatis gravida, orci augue convallis lorem, in dapibus nibh purus
-    ut nulla. Sed rhoncus dictum mauris, vel egestas justo placerat sit amet. Vivamus ligula enim,
-    aliquam sit amet interdum non, iaculis id lorem. Morbi accumsan ut justo eget bibendum. Mauris
-    vestibulum sapien elit. Morbi a pulvinar lectus. Fusce quis tempus lectus. Aenean laoreet tempus
-    consequat. Donec in tortor eu nibh aliquam lobortis. Phasellus posuere, ante eget lobortis
-    varius, nisi est placerat libero, eu feugiat tellus justo eu urna. Cras eget elit vel velit
-    lobortis vehicula ut vel ipsum. Pellentesque et nibh vel nisl placerat congue at sed lacus. Nam
-    tincidunt neque sit amet nunc feugiat, a ultricies mauris lobortis. Vivamus luctus diam sapien,
-    nec pulvinar sapien porta at. Nunc fermentum lectus ac felis mattis fringilla. Sed eget augue ut
-    dui porttitor malesuada.</p>
-<p>Etiam in faucibus magna. Morbi at lobortis mi, quis imperdiet quam. Nam odio metus, vulputate
-    vitae risus in, dapibus venenatis nisl. Orci varius natoque penatibus et magnis dis parturient
-    montes, nascetur ridiculus mus. Donec posuere maximus iaculis. Nullam aliquet, mauris a sagittis
-    elementum, leo risus venenatis sapien, sed varius augue libero sed lectus. Proin dapibus justo
-    dapibus sem posuere vestibulumlacinia ipsum. Sed vulputate dignissim justo, sed condimentum
-    risus vestibulum id. Vivamus iaculis mauris ut mi auctor euismod.</p>
-<p>Praesent cursus, dolor nec venenatis gravida, orci augue convallis lorem, in dapibus nibh purus
-    ut nulla. Sed rhoncus dictum mauris, vel egestas justo placerat sit amet. Vivamus ligula enim,
-    aliquam sit amet interdum non, iaculis id lorem. Morbi accumsan ut justo eget bibendum. Mauris
-    vestibulum sapien elit. Morbi a pulvinar lectus. Fusce quis tempus lectus. Aenean laoreet tempus
-    consequat. Donec in tortor eu nibh aliquam lobortis. Phasellus posuere, ante eget lobortis
-    varius, nisi est placerat libero, eu feugiat tellus justo eu urna. Cras eget elit vel velit
-    lobortis vehicula ut vel ipsum. Pellentesque et nibh vel nisl placerat congue at sed lacus. Nam
-    tincidunt neque sit amet nunc feugiat, a ultricies mauris lobortis. Vivamus luctus diam sapien,
-    nec pulvinar sapien porta at. Nunc fermentum lectus ac felis mattis fringilla. Sed eget augue ut
-    dui porttitor malesuada.</p>
-<p>Etiam in faucibus magna. Morbi at lobortis mi, quis imperdiet quam. Nam odio metus, vulputate
-    vitae risus in, dapibus venenatis nisl. Orci varius natoque penatibus et magnis dis parturient
-    montes, nascetur ridiculus mus. Donec posuere maximus iaculis. Nullam aliquet, mauris a sagittis
-    elementum, leo risus venenatis sapien, sed varius augue libero sed lectus. Proin dapibus justo
-    dapibus sem posuere vestibulum sit amet eget diam. Vestibulum eros neque, pellentesque ut justo
-    vel, gravida dapibus erat. Curabitur tempor, nunc sit amet ultricies ornare, nisi tortor
-    ultricies nunc, et tincidunt lacus libero nec purus. Morbi nec imperdiet massa, nec interdum
-    nulla. Pellentesque eu scelerisque urna, sit amet laoreet libero.</p>
-<p>Sed cursus, est a volutpat tempus, odio dui porta augue, eget lacinia nibh tortor eget leo.
-    Curabitur id ligula quam. Suspendisse ultrices semper finibus. Nulla ac lorem sed odio egestas
-    faucibus ac non purus. Suspendisse potenti. Suspendisse potenti. Nulla eu nunc eget mi ornare
-    interdum sed ut nulla. Vivamus ultricies vel mi id posuere.</p>
-<p>Cras at fermentum lectus. Phasellus ipsum tortor, interdum id aliquam in, tincidunt in justo.
-    Vestibulum posuere sit amet velit id iaculis. Vestibulum posuere varius facilisis. Aliquam
-    sapien velit, finibus ut molestie vel, imperdiet in massa. Nunc condimentum condimentum rutrum.
-    Curabitur efficitur iaculis turpis, id euismod tortor condimentum sed. Duis non vulputate augue.
-    Mauris dictum convallis mauris sit amet volutpat. Donec gravida convallis lacus, sit amet varius
-    magna congue vel. Cras sapien nibh, porta id arcu ac, molestie interdum tortor. In fermentum leo
-    quis odio egestas, non tincidunt nisl lacinia. Sed viverra cursus eros, sit amet sodales nisl
-    molestie in. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse dictum lorem
-    tortor, a tincidunt arcu iaculis sed</p>
+<h1><span><span>{{ webpage.user_title }}</span></span></h1>
+<p>
+    {{ webpage.user_text_1 }}
+
+    {% if webpage.user_image_1 %}
+    <img src="{{ webpage.user_image_1.url }}">
+    {% endif %}
+<p>
+    {{ webpage.user_text_2 }}
+
+    {% if webpage.user_image_2 %}
+    <img src="{{ webpage.user_image_2.url }}">
+    {% endif %}
+<p>
+    {{ webpage.user_text_3 }}
+
+    {% if webpage.user_image_3 %}
+    <img src="{{ webpage.user_image_3.url }}">
+    {% endif %}
 </body>
 </html>

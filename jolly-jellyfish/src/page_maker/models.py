@@ -42,6 +42,7 @@ class Webpage(models.Model):
     votes = models.IntegerField(default=0)
 
     user_title = models.CharField(max_length=100, verbose_name='page title')
+    # todo: does text input need validation/sanitization? (e.g. removing < >)
     user_text_1 = models.TextField(verbose_name='subtitle paragraph')
     user_text_2 = models.TextField(verbose_name='main body paragraph')
     user_text_3 = models.TextField(verbose_name='closing paragraph')
