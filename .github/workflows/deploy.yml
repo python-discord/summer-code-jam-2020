@@ -28,7 +28,8 @@ jobs:
           PROJECT_ID: optimum-surface-285007
           APPLICATION_CREDENTIALS: ${{ secrets.GCP_DEPLOY_KEY }}
         with:
-          args: builds submit . --config cloudbuild.yml
+          args: builds submit lumpy-llamas/ --config lumpy-llamas/cloudbuild.yml
+        run: gcloud 
       - name: deploy
         uses: actions-hub/gcloud@master
         env:
