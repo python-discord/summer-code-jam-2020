@@ -8,11 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        
-      - name: 'Login via Azure CLI'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v1
@@ -24,9 +19,10 @@ jobs:
           cache_froms: kmui2/silky-squirrels:latest
           tags: latest
 
-      - uses: Azure/webapps-deploy@v1
+      - uses: azure/webapps-deploy@v2
         with:
           app-name: 'silky-squirrels'
+          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           images: 'kmui2/silky-squirrels:latest'
           configuration-file: './silky-squirrels/docker-compose.prod.yml'
 
