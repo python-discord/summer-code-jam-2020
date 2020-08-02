@@ -1,11 +1,24 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+from .managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
+    username = models.CharField(max_length=20,unique=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(default=timezone.now)
     bio = models.TextField(max_length=100, default='Hi, I am a HoneyFeed User')
-    pass
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.username
 
 
 class Post(models.Model):
