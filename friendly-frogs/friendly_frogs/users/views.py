@@ -12,4 +12,4 @@ def register(request):
             messages.success(request, f"Account successfully created for {username}")
     else:
         form = UserRegisterForm()
-    return render(request, "register.html", {'form': form})
+    return render(request, "users/register.html", {'form': form})
