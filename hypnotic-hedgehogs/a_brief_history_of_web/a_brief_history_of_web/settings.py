@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     'first_youtube',
     'ninetys_blog',
     'web_portal',
+
+    # Third-party apps
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
