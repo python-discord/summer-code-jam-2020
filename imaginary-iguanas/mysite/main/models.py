@@ -1,36 +1,24 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
-
-
-class User(AbstractBaseUser):
-    GENDER_CHOICES = (
-        ("M", "Male"),
-        ("F", "Female"),
-    )
-
-    username = models.CharField(max_length=50, unique=True)
-    email = models.CharField(max_length=50)
-    gender = models.CharField(null=True, max_length=1, choices=GENDER_CHOICES)
-    country = models.CharField(null=True, max_length=2, help_text="ISO 639 country code.")
-    city = models.CharField(null=True, max_length=50)
-    date_of_birth = models.DateField(null=True)
-
-    USERNAME_FIELD = 'username'
-    EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
+from users.models import UserProfile
 
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=1000)
     creation_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"BlogPost {self.title} : {self.description}"
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.SET_NULL)
+    author = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
     comment = models.CharField(max_length=500)
     creation_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.author.user.username} content: {self.comment}"
 
 
 class BlogComment(Comment):
@@ -38,4 +26,4 @@ class BlogComment(Comment):
 
 
 class ProfileComment(Comment):
-    user_profile = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

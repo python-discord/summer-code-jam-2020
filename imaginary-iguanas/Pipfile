@@ -9,6 +9,7 @@ pre-commit = "*"
 
 [packages]
 django = "==3.0.8"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
