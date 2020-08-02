@@ -27,6 +27,9 @@ jobs:
         run: |
           echo $(ls)
           echo $(pwd)
+      - name: check_ls
+        run: |
+          echo $(ls)
       - name: fail
         run: exit 1
       - name: get key
