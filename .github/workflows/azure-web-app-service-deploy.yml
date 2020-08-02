@@ -33,5 +33,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: azureuser
           key: ${{ secrets.PRIVATE_KEY }}
-          script: cd ~/silky-squirrels && docker-compose -f docker-compose.prod.yml up
+          script: cd ~/silky-squirrels && docker-compose -f docker-compose.prod.yml up -d
 
