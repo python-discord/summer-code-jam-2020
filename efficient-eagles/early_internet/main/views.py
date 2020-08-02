@@ -1,7 +1,6 @@
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 
 from main.forms import CustomUserCreationForm
 

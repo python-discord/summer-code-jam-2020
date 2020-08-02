@@ -1,8 +1,8 @@
 from django.contrib import admin
-from main.models import CustomUser
 from django.contrib.auth.admin import UserAdmin
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from main.models import Post
+
+from main.forms import CustomUserCreationForm, CustomUserChangeForm
+from main.models import CustomUser, Post
 
 
 class CustomUserAdmin(UserAdmin):
@@ -24,5 +24,6 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username',)
     ordering = ('username',)
 
-admin.site.register(CustomUser,CustomUserAdmin)
+
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Post)

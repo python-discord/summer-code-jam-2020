@@ -13,12 +13,11 @@
 <div class="w3-bar w3-black">
   <a class='w3-btn' href="{% url 'home' %}">Feed</a>
   {% if user.is_authenticated %}
-  <a class='w3-btn' style="float: right;" href="{% url 'logout' %}">Log out</a>
-  <a class='w3-btn' style="float: right;" href="#">{{ user }}</a>
+    <a class='w3-btn' style="float: right;" href="{% url 'logout' %}">Log out</a>
+    <a class='w3-btn' style="float: right;" href="#">{{ user }}</a>
   {% else %}
-  <a class='w3-btn' style="float: right;" href="{% url 'login' %}">Login</a><a class='w3-btn' style='float right;' href="{% url 'signup' %}">Sign up</a>
+    <a class='w3-btn' style="float: right;" href="{% url 'login' %}">Login</a><a class='w3-btn' style='float right;' href="{% url 'register' %}">Sign up</a>
   {% endif %}
-
 </div>
 
   <div class="container"> 
