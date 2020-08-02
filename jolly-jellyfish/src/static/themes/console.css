@@ -3,7 +3,8 @@
  * Every paragraph begins with "> " and every header with ">>> ".
  * The final paragraph ends with a blinking cursor, as well as every header.
  * Headers are constantly deleted and rewritten, and must be written as:
- *     <h1><span><span>Header Text</span</span></h1>
+ *     <h1><span>Header Text</span></h1>
+ * (Compatible with hotdog theme)
  */
 
 body {
@@ -16,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
 }
 
-h1 > span > span, h2 > span > span, h3 > span > span, h4 > span > span, h5 > span > span, h6 > span > span {
+h1 > span, h2 > span, h3 > span, h4 > span, h5 > span, h6 > span {
   overflow: hidden;
   white-space: nowrap;
   animation: typing 20s steps(100, end) infinite;
