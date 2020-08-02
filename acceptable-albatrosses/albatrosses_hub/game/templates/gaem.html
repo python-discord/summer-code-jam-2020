@@ -1,36 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mafia Gaem</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-</head>
+{% block head %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+{% endblock head %}
 
-<body>
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-7">
-                <!-- this is another thing -->
-                <canvas id="gaem" width=600 height=600 style="border: 1px solid black; margin-top: 2em;"></canvas>
-            </div>
-            <div class="col-lg-5">
-                <img src="https://cdn.discordapp.com/attachments/737278507524161566/739491338550247464/albatrosses-logo.png"
-                    alt="" width="200">
-                <div>
-                    <div style="padding: 350px 0px 7px 7px; border: solid 1px black;">
-                        <hr />
-                        <form action="#" method="GET">
-                            <!-- <label for="chatbox-input"></label> -->
-                            <input type="text" id="chatbox-input" name="chatbox-input" placeholder="Type a message...">
-                            <input type="submit" value=">">
-                        </form>
-                    </div>
+
+{% block content %}
+<div class="container">
+    <div class="row no-gutters">
+        <div class="col-lg-7">
+            <!-- this is another thing -->
+            <canvas id="gaem" width=600 height=600 style="border: 1px solid black; margin-top: 2em;"></canvas>
+        </div>
+        <div class="col-lg-5">
+            <img src="https://cdn.discordapp.com/attachments/737278507524161566/739491338550247464/albatrosses-logo.png"
+                alt="" width="200">
+            <div>
+                <div style="padding: 350px 0px 7px 7px; border: solid 1px black;">
+                    <hr />
+                    <form action="#" method="GET">
+                        <!-- <label for="chatbox-input"></label> -->
+                        <input type="text" width="100%" id="chatbox-input" name="chatbox-input" placeholder="Type a message...">
+                        <input type="submit" value=">">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock content %}
