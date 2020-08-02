@@ -1,0 +1,18 @@
+{% extends "posts/base.html" %}
+
+{% block title %}Rovers{% endblock %}
+
+{% block body %}
+    Rovers
+    <table><tbody><tr>
+        {% for rover in rovers %}
+            <td>
+                <a href="{% url 'rovers:rover-profile' rover.username %}">
+                    <img src="{{ rover.image.url }}" class="imagepost-thumbnail">
+                <br>
+                {{ rover.username }}
+                </a>
+            </td>
+        {% endfor %}
+    </tr></tbody></table>
+{% endblock %}
