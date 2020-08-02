@@ -1,11 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import ListView
-from .models import Thread, ThreadMessage
-from django.utils import timezone
-from django.core import serializers
-from django.contrib.staticfiles.views import serve
-from django.http import HttpResponse
+from django.db.models import F, Func, Value, CharField
 from django.http import JsonResponse
+
+from .models import Thread, ThreadMessage
 
 
 # Create your views here.
@@ -18,12 +14,10 @@ def list_threads(request):
     :return: Serialized json data
     """
 
-    context = {
-        "name": "threads",
-        "serialized_data": serializers.serialize("json", Thread.objects.all()),
-        "count": Thread.objects.all().count()
-    }
-    return JsonResponse(context, status=201)
+    qs = Thread.objects.values().order_by('pk')
+    data = list(qs)
+
+    return JsonResponse(data, status=201, safe=False)
 
 
 def post_thread(response):
@@ -39,9 +33,6 @@ def thread_details(request, thread_id):
     :return: Serialized json
     """
 
-    context = {
-        "name": "threads",
-        "serialized_data": serializers.serialize("json", ThreadMessage.objects.filter(pk=thread_id)),
-        "count": ThreadMessage.objects.all().count()
-    }
-    return JsonResponse(context, status=201)
+    qs = ThreadMessage.objects.values().order_by('pk')
+    data = list(qs)
+    return JsonResponse(data, status=201)

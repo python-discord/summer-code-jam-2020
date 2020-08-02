@@ -3,10 +3,10 @@
 
     <h2 class="some-heading">Hello and welcome to Angry LLamas Forum</h2>
 
-    <h2 class="some-heading">Threads</h2>
+    <h2 class="some-heading">Messages</h2>
     <ul>
       <li v-for="item in myStuff">
-         <router-link :to="{ name: 'thread-view', params: {id: item.pk}}">{{item.title}} - Posted: {{Date(item.created_date)}}</router-link>
+
       </li>
     </ul>
     # Links can be done like this
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get('/api/forum').then((response) => {
+      axios.get('/api/forum/view-1').then((response) => {
         this.myStuff = response.data;
         this.ready = true;
       });
