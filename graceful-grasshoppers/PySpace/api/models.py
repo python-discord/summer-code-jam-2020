@@ -10,8 +10,8 @@ class Like(models.Model):
     date_liked = models.DateTimeField(default=timezone.now)
     user_liked = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-    def __str__(self):  # string representation of the model
-        return f"{self.val} likes"
+    def __str__(self):
+        return f"{self.user_liked}'s like"
 
 
 class Dislike(models.Model):
@@ -20,8 +20,8 @@ class Dislike(models.Model):
     date_disliked = models.DateTimeField(default=timezone.now)
     user_disliked = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-    def __str__(self):  # string representation of the model
-        return f"{self.val} dislikes"
+    def __str__(self):
+        return f"{self.user_disliked}'s dislike"
 
 
 class Post(models.Model):
@@ -36,5 +36,4 @@ class Post(models.Model):
     dislikes = models.ManyToManyField(Dislike)
 
     def __str__(self):
-        # The string representation of the post
         return f"{self.title} by {self.author}"
