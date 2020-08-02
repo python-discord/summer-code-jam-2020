@@ -25,7 +25,11 @@ SECRET_KEY = 'yy8e)*^wqx6ci!4o#7biu159(ke3^2s1ga%pl0c_08#g_n++^$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.ngrok.io',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
@@ -34,6 +38,8 @@ INSTALLED_APPS = [
     'trivia_builder.apps.TriviaBuilderConfig',
     'trivia_hub.apps.TriviaHubConfig',
     'users.apps.UsersConfig',
+    'twilio_messenger.apps.TwilioMessengerConfig',
+    'phonenumber_field',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
