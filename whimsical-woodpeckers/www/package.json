@@ -18,7 +18,10 @@
     "py-loader": "github:pmdevita/python-webpack-loader",
     "source-map-loader": "^1.0.1",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue": "^2.6.11"
+  }
 }
