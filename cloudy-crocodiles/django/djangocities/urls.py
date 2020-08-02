@@ -19,8 +19,11 @@ from django.contrib import admin
 from django.urls import path
 
 from djangocities.graphql.schema import schema
+import djangocities.home.views as views
 
 urlpatterns = [
-    path("graphql/admin/", admin.site.urls),
+    path('', views.index, name='home'),
+    path("admin/", admin.site.urls),
+    # path("graphql/admin/", admin.site.urls),
     path("graphql/", GraphQLView.as_view(schema=schema), name="graphql"),
 ]
