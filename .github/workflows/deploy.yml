@@ -24,7 +24,9 @@ jobs:
     container: google/cloud-sdk
     steps:
       - name: check
-        run: ls
+        run: |
+          echo $(ls)
+          echo $(pwd)
       - name: fail
         run: exit 1
       - name: get key
