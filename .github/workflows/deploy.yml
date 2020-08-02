@@ -25,11 +25,11 @@ jobs:
     steps:
       - name: check
         run: |
-          echo $(ls)
+          echo $(ls -l)
           echo $(pwd)
       - name: check_ls
         run: |
-          echo $(ls)
+          echo $(ls -l)
       - name: fail
         run: exit 1
       - name: get key
