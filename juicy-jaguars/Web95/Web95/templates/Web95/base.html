@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/pixel.css' %}" >
+        <script src="{% static 'javascript/pixel.js' %}"></script>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" >
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}" >
+        <script src="{% static 'javascript/drag.js' %}"></script>
+        <style>
+        .draggable {
+            position: absolute;
+        }
+        .draggable-header {
+            cursor: move;
+        }
+        </style>
+    </head>
+
+    <body style="background: {{bg}} no-repeat center center fixed; background-size: cover;">
+        {% block content %}
+        {% endblock %}
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between mb-3 taskbar">
+            <ul class="navbar-nav navbar-nav-hover flex-row align-items-center">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" role="button">
+                        <span class="nav-link-inner-text">
+                            <img src="{% static 'images/start.svg' %}" height="20px" margin=auto>
+                            Start
+                        </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link" role="button">
+                        <span class="nav-link-inner-text">
+                            Start
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </body>
+</html>
+
+<script>
+loadDraggableElements("draggable");
+</script>
