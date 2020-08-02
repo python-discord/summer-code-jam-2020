@@ -6,7 +6,16 @@ from twilio import twiml
 from twilio.rest import Client
 # Create your views here.
 
+answers = {
+    'correct': 'Correct!',
+    'incorrect': 'How could you know? We didn\'t tell you what kind!'
+}
+
 def sms_send(msg, recipients):
+    """sms_send will send a message 'msg' to a list of recipients 'recipients'
+        This is not really a view method, but a help method for other classes
+        and views (for example the user views)
+    """
     twilio_account_sid = os.getenv('TWILIO_ACCOUNT_SID')
     twilio_auth_token = os.getenv('TWILIO_AUTH_TOKEN')
     twilio_number = os.getenv('TWILIO_NUMBER')
@@ -21,6 +30,14 @@ def sms_send(msg, recipients):
 
 @csrf_exempt
 def sms_reply(request):
-    response = twiml.Response()
-    msg = response.message("Hello world!")
-    return HttpResponse(str(response))
+    recipients = request.POST.get('From', None)
+    body = request.POST.get('Body', None)
+
+    #response = twiml.Response()
+
+    if body == '4':
+        msg = answers['correct']
+    else:
+        msg = answers['incorrect']
+    sms_send(msg, [recipients])
+    return HttpResponse(200)

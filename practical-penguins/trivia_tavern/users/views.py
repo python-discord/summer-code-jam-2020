@@ -37,7 +37,7 @@ def send(request):
             # be a list
             phonenumbers = send_form.cleaned_data.get('phone_number').__str__()
             sms_send(sample_question['question'], [phonenumbers])
-            sms_send(sample_question['answer'], [phonenumbers])
+            sms_send(sample_question['answers'], [phonenumbers])
             messages.success(request, 'Your quiz has been sent!')
             return render(request, 'users/results.html',
                 {'phonenumbers' : phonenumbers})

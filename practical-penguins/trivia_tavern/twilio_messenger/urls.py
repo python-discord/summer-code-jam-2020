@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import sms_send
+from .views import sms_reply
 
 urlpatterns = [
-    path('', sms_send, name='sms_send')
+    path('', sms_reply, name='sms_reply')
 ]
