@@ -10,6 +10,7 @@ django = "~=3.0"
 psycopg2-binary = "~=2.8"
 dj-database-url = "~=0.5"
 gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.8"
