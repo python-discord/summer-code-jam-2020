@@ -14,16 +14,16 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - uses: azure/docker-login@v1
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
         with:
-          login-server: index.docker.io
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+          repository: kmui2/silky-squirrels
+          tag_with_ref: true
+          tag_with_sha: true
+          path: './silky-squirrels/
 
-      - run: |
-          docker build ./silky-squirrels -t kmui2/silky-squirrels:${{ github.sha }}
-          docker push kmui2/silky-squirrels:${{ github.sha }} 
-          
       - uses: azure/webapps-container-deploy@v1
         with:
           app-name: 'silky-squirrels'
