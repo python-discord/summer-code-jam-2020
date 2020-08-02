@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 flake8 = "*"
 pillow = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
