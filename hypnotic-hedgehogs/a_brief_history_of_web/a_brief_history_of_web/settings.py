@@ -28,12 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local apps
-    'a_brief_history_of_web',
-    'first_google',
-    'first_twitter',
-    'first_youtube',
-    'ninetys_blog',
-    'web_portal',
+    'first_twitter_users.apps.FirstTwitterUsersConfig',
+    'first_twitter.apps.FirstTwitterConfig',
 
     # Third-party apps
     'crispy_forms',
