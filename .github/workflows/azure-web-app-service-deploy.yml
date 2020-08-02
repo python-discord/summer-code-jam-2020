@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          repository: kmui2/silky-squirrels
+          tag_with_ref: true
+          tag_with_sha: true
+          path: './silky-squirrels/
+
+      - uses: azure/webapps-container-deploy@v1
+        with:
+          app-name: 'silky-squirrels'
+          images: 'kmui2/silky-squirrels:${{ github.sha }}'
+          configuration-file: './silky-squirrels/docker-compose.prod.yml'
+
+      - name: Azure logout
+        run: |
+          az logout
