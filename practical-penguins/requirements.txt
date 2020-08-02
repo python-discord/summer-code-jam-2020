@@ -2,3 +2,6 @@ django
 wheel
 Pillow
 django-crispy-forms
+django-phonenumber-field
+phonenumbers
+twilio
