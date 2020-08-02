@@ -1,4 +1,4 @@
-![Team Logo](./horsescodejamlogo.png?raw=true "Logo")  
+[![Team Logo](./horsescodejamlogo.png?raw=true "Logo")](#)  
 
 <hr>
 
