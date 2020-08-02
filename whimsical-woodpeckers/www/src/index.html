@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-
+<div id="app1">
+    <span v-on:click="next">{{messages[current]}}</span>
+    <input v-model="textbox">
+    <input v-on:click="add" type="button" value="Add">
+</div>
+<div id="app2">
+    <span v-on:click="next">{{messages[current]}}</span>
+    <input v-model="textbox">
+    <input v-on:click="add" type="button" value="Add">
+</div>
 </body>
 </html>
