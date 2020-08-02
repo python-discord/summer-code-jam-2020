@@ -52,3 +52,9 @@ class GeneratedPage(models.Model):
     steps = models.ManyToManyField(Step, blank=True)
 
     # Scam Fields
+    scam_type_choices = [
+        ("MED", "medicine"),
+        ("ROMANCE", "hot singles in your area"),
+        ("WIN", "fake winnings")
+    ]
+    scam_type = models.CharField(max_length=10, choices=scam_type_choices, blank=True)
