@@ -2,26 +2,53 @@
  * Galaxy GIF in background, images in corner.
  * Green text with black border and white "3D" effect.
  * Text fades in and out in very wide font.
+ * Headers stretch and shrink.
  * Requires "static/images/galaxy.png" and "static/images/galaxy.gif" static files.
+ * Headers must be written as:
+ *      <h1><span>Header Text</span></h1>
+ * (Compatible with hotdog requirement.)
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap');
 
 body {
-  background:
-      url("static/images/galaxy.png") 10px 10px / 170px 150px no-repeat,
-      url("static/images/galaxy.png") 10px calc(100% - 10px) / 170px 150px no-repeat,
-      url("static/images/galaxy.png") calc(100% - 10px) 10px / 170px 150px no-repeat,
-      url("static/images/galaxy.png") calc(100% - 10px) calc(100% - 10px) / 170px 150px no-repeat,
-      url("static/images/galaxy.gif") top left / 25vw 14vw;
+  background: url("static/images/galaxy.png") 10px 10px / 170px 150px no-repeat,
+              url("static/images/galaxy.png") 10px calc(100% - 10px) / 170px 150px no-repeat,
+              url("static/images/galaxy.png") calc(100% - 10px) 10px / 170px 150px no-repeat,
+              url("static/images/galaxy.png") calc(100% - 10px) calc(100% - 10px) / 170px 150px no-repeat,
+              url("static/images/galaxy.gif") top left / 25vw 14vw;
   color: #0a0;
   text-shadow: -1px -1px #000, -1px 1px #000, 1px -1px #000, 1px 1px #000, 2px -2px #fff, 3px -3px #fff, 4px -4px #fff;
   padding: 0 180px;
   font-family:  "Lexend Zetta", monospace;
-  animation: fade 5s linear infinite;
 }
 
-@keyframes fade {
+body *:nth-child(even) {
+  animation: fade1 5s linear infinite;
+}
+
+body *:nth-child(odd) {
+  animation: fade2 5s linear infinite;
+}
+
+h1 > span, h2 > span, h3 > span, h4 > span, h5 > span {
+  animation: stretch 2s linear infinite;
+  transform-origin: left center;
+  display: inline-block;
+}
+
+@keyframes fade1 {
   0% {opacity: 100%}
   50% {opacity: 50%}
+}
+
+@keyframes fade2 {
+  0% {opacity: 50%}
+  50% {opacity: 100%}
+}
+
+@keyframes stretch {
+  0% {transform: scale(2, 1)}
+  50% {transform: scale(0.5, 1)}
+  100% {transform: scale(2, 1)}
 }
