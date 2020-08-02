@@ -31,7 +31,7 @@ h1 > span, h2 > span, h3 > span, h4 > span, h5 > span, h6 > span {
   100% {max-width: 0}
 }
 
-h1::before, h2::before, h3::before, h4::before, h5::before {
+h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
   content: ">>> ";
 }
 
@@ -44,7 +44,7 @@ body > *:nth-last-child(1)::after {
   animation: blink 1s infinite steps(1);
 }
 
-h1::after, h2::after, h3::after, h4::after, h5::after {
+h1::after, h2::after, h3::after, h4::after, h5::after, h6::before {
   content: "_";
   animation: blink 0.8s infinite steps(1);
 }
