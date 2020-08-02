@@ -14,4 +14,4 @@ WORKDIR /nodecities/
 
 ## Development stage
 FROM quasar-base AS quasar-dev
-ENTRYPOINT ["quasar", "dev"]
+ENTRYPOINT ["bash", "./startdev.sh"]
