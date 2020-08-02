@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import User
+from user.models import ForumUser
 
 class Thread(models.Model):
     """
@@ -7,7 +7,7 @@ class Thread(models.Model):
     """
     title = models.TextField()
     date_created = models.DateTimeField()
-    author = models.OneToOneField(User, models.CASCADE)
+    author = models.ForeignKey(ForumUser, models.DO_NOTHING)
 
 
 class Message(models.Model):
@@ -16,7 +16,7 @@ class Message(models.Model):
     """
     content = models.TextField()
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
-    author = models.OneToOneField(User, models.DO_NOTHING)  # it's either this or models.PROTECT
+    author = models.ForeignKey(ForumUser, models.DO_NOTHING)  # it's either this or models.PROTECT
     date_posted = models.DateTimeField()
     date_edited = models.DateTimeField(default=date_posted)
 
@@ -28,4 +28,4 @@ class UserThreadEvent(models.Model):
     """
     type = models.BooleanField()  # idk, true would be create, and false would be view?
     thread = models.ForeignKey(Thread, on_delete=models.DO_NOTHING)
-    user = models.OneToOneField(User, models.DO_NOTHING)
+    user = models.OneToOneField(ForumUser, models.DO_NOTHING)
