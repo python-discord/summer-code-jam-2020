@@ -5,6 +5,7 @@ __pragma__ ('noalias', 'default')
 
 JSVue = VuePkg.default
 
+
 def clone_data(data):
     if isinstance(data, dict):
         new_data = dict(data)
@@ -23,20 +24,15 @@ def clone_data(data):
 
 class Vue:
     data = {}
-    methods = {}
 
     def __init__(self, el):
-        # self.state = self.state.copy()
         self.el = el
         self.data = clone_data(self.data)
+        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
         self._vue = __new__(JSVue({
             "el": self.el,
             "data": self.data,
-            "methods": self.methods
+            "methods": methods
         }))
-
-
-# def Vue(options):
-#     return __new__(JSVue(options))
 
 

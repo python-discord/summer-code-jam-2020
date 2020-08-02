@@ -1,18 +1,6 @@
 from pyvue import Vue
 
 
-def next_message():
-    # For right now, to access data in components you have to use this
-    this.current += 1
-    if this.current > len(this.messages) - 1:
-        this.current = 0
-
-
-def add_message():
-    this.messages.append(this.textbox)
-    this.textbox = ""
-
-
 class MessageList(Vue):
     data = {
         "current": 0,
@@ -23,10 +11,15 @@ class MessageList(Vue):
             "Hope it goes well for you!"
         ]
     }
-    methods = {
-        "next": next_message,
-        "add": add_message
-    }
+
+    def next_message(self):
+        self.data['current'] += 1
+        if self.data['current'] > len(self.data['messages']) - 1:
+            self.data['current'] = 0
+
+    def add_message(self):
+        self.data['messages'].append(self.data['textbox'])
+        self.data['textbox'] = ""
 
 
 test2 = MessageList("#app1")
