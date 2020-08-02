@@ -6,8 +6,11 @@ import sys
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cuddly_chameleons.settings')
+    os.environ.setdefault('ADMIN_USERNAME', 'admin')
+    os.environ.setdefault('ADMIN_PASSWORD', 'admin')
     try:
         import django
+        from django.contrib.auth import get_user_model
         from django.core.management import call_command, execute_from_command_line
     except ImportError as exc:
         raise ImportError(
@@ -19,6 +22,15 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "run":
         django.setup()
         call_command("migrate")
+
+        name = os.getenv('ADMIN_USERNAME')
+        password = os.getenv('ADMIN_PASSWORD')
+        user = get_user_model()
+
+        if not user.objects.filter(username=name).exists():
+            user.objects.create_superuser(name, '', password)
+            print("Created superuser 'admin'")
+
         call_command("runserver", "0.0.0.0:8000")
     else:
         execute_from_command_line(sys.argv)
