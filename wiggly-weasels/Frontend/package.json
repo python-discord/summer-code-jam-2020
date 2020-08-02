@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react95": "^3.0.1",
+    "styled-components": "^5.1.1"
+  }
+}
