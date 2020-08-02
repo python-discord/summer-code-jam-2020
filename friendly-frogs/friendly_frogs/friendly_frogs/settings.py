@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'morning.apps.MorningConfig',
+    'users.apps.UsersConfig',
     'django_simple_bulma',
     'django.contrib.admin',
     'django.contrib.auth',
