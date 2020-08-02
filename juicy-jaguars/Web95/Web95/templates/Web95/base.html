@@ -2,7 +2,10 @@
 <html>
     <head>
         {% load static %}
+        <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/pixel.css' %}" >
+        <script src="{% static 'javascript/pixel.js' %}"></script>
+
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" >
         <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}" >
         <script src="{% static 'javascript/drag.js' %}"></script>
@@ -20,8 +23,8 @@
         {% block content %}
         {% endblock %}
 
-        <!--
-        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between mb-3 ">
+
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between mb-3 taskbar">
             <ul class="navbar-nav navbar-nav-hover flex-row align-items-center">
                 <li class="nav-item">
                     <a href="#" class="nav-link" role="button">
@@ -41,10 +44,25 @@
                 </li>
             </ul>
         </nav>
-        -->
+
     </body>
 </html>
 
 <script>
 loadDraggableElements("draggable");
 </script>
+
+<style>
+
+body {
+    padding-bottom: 0;
+}
+
+.taskbar {
+    position: absolute;
+    width: 100%;
+    margin: 0 !important;
+    bottom: 0;
+}
+
+</style>
