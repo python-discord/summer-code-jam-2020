@@ -9,6 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Build and push Docker images
         uses: whoan/docker-build-with-cache-action@v5
         with:
@@ -20,7 +25,6 @@ jobs:
       - uses: azure/webapps-deploy@v2
         with:
           app-name: 'silky-squirrels'
-          publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           images: 'kmui2/silky-squirrels:latest'
           configuration-file: './silky-squirrels/docker-compose.prod.yml'
 
