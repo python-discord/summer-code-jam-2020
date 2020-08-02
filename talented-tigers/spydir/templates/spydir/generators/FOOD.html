@@ -2,9 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>How to make {{ page.page_title }}</title>
+    <style>
+        * {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #header {
+            text-align: center;
+        }
+
+        #ingredients {
+            padding: 0 40%
+        }
+
+        #steps {
+            background-color: darkgoldenrod;
+            margin: 0 10%;
+            padding: 1%;
+        }
+
+        .post {
+            text-align: left;
+            background-color: pink;
+            padding: 1% 2%;
+            margin: 3%;
+        }
+    </style>
 </head>
 <body>
+    <div id="header">
+        <h1>How to make {{ page.page_title }}:</h1>
+    </div>
+
+    <div id="ingredients">
+        <h2>Ingredients:</h2>
+        <ul>
+            {% for ingredient in page.ingredients.all %}
+            <li>{{ ingredient.ingredient }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div id="steps">
+        <h2>Steps:</h2>
+        <ol>
+            {% for step in page.steps.all %}
+            <li>{{ step.step }}</li>
+            {% endfor %}
+        </ol>
+    </div>
 
 </body>
 </html>
