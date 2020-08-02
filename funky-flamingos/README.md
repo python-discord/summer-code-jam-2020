@@ -1,12 +1,5 @@
 # Funky Flamingos
 
-This is the default README of your team's project. Please replace
-this by a README with more information on your project. At the very
-least, your README should contain information on how to set-up and run
-your project.
-
-##
-
 ## Setup
 
 ###
@@ -17,19 +10,38 @@ your project.
 
 ###
 
-### Installing Packages/Dependencies
+### Installation
+Go to the project folder
+```python
+cd rinky_dink
+```
 
-cd into rinky_dink/
+Install the dependencies/packages
+
+```python
 pip install -r requirements.txt
+```
 
 ###
 
 ### Usage Instructions
 
-
-# Make The Migrations First
+```python
+# Make Migrations First
 python manage.py migrate
+```
+
+
+```python
 # Run server
 python manage.py runserver
+
 Project will run on:
->http://localhost:8000
+http://localhost:8000
+```
+# Current Features!
+  - Upload a file to http://localhost:8000/file/upload
+  - Checks if the file with the same name was previously uploaded
+  - Checks changes made to uploaded the file if file with the same name was previously uploaded
+  -
+##
