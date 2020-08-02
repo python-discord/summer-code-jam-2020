@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Arena: CODE</title>
+    <title>Arena</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -12,18 +12,24 @@
 </head>
 
 <body>
-    <div class="m-5 text-center">
-        <h1>Arena: CODE</h1>
+    <div class="hero-unit m-5">
+        <div class="m-5 text-center">
+            <h1 style="font-size: xx-large">Arena</h1>
+        </div>
+
+        <div class="row m-5">
+            <p>Code your solution below for the following problem in Python. Assume that the input data will be passed
+                in in
+                a variable called "input_data". Good luck!</p>
+            <p>You will have a limited amount of time to submit your solution. Look at the timer below to see how much
+                time you have left!</p>
+        </div>
     </div>
 
-    <div class="row m-5">
-        <h2>Code your solution below for the following problem:</h2>
-    </div>
-
-    <div class="row m-5 center">
+    <div class="m-5">
         <form action="{% url 'exec:index' %}" method="post">
             <h3>Code</h3>
-            <textarea name="code" style="width: 100%; max-width: 100%;" rows="20" cols="80"></textarea>
+            <textarea name="code" style="width: 100%; max-width: 100%;" rows="20" cols="60"></textarea>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
