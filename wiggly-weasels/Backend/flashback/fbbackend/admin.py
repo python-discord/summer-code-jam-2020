@@ -7,7 +7,6 @@ class AccountAdmin(admin.ModelAdmin):
     list_display = [
         'email',
         'hashed_pass',
-        'identification',
         'nickname',
         'bot'
     ]
@@ -23,7 +22,6 @@ class MessageAdmin(admin.ModelAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = [
         'creator',
-        'identification'
     ]
 
 

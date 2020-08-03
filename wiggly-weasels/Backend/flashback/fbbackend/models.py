@@ -16,10 +16,9 @@ class Account(models.Model):  # A model containing user information
     # Technical Information
     email = models.EmailField(max_length=100)
     hashed_pass = models.CharField(max_length=64)
-    identification = models.CharField(max_length=100, default=uuid4().hex, primary_key=True)
 
     # Display
-    nickname = models.CharField(max_length=20)
+    nickname = models.CharField(max_length=20, primary_key=True)
     bot = models.BooleanField(default=False)
 
 
@@ -32,7 +31,7 @@ class Message(models.Model):
     '''
     writer = models.CharField(max_length=100)  # The ID of the User
     content = models.CharField(max_length=1000)  # The Content
-    identification = models.CharField(max_length=100, default=uuid4().hex, blank=True)
+    identification = models.CharField(max_length=100, default=uuid4().hex, primary_key=True)
 
     def __str__(self):  # Returns "content" when using the str() function
         return self.content
@@ -50,7 +49,6 @@ class Group(models.Model):
 
     '''
     creator = models.CharField(max_length=100)  # The ID of the User
-    identification = models.CharField(max_length=100, default=uuid4().hex, blank=True)
     messages = ArrayField(  # ArrayField Containing Messages
         ArrayField(
             models.CharField(max_length=1000),
@@ -58,7 +56,7 @@ class Group(models.Model):
         )
     )
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, primary_key=True)
 
 
 class Post(models.Model):
@@ -73,7 +71,7 @@ class Post(models.Model):
 
     '''
 
-    identification = models.CharField(max_length=100, default=uuid4().hex, blank=True)
+    identification = models.CharField(max_length=100, default=uuid4().hex, blank=True, primary_key=True)
     creator = models.CharField(max_length=100)
     content = models.CharField(max_length=1000)
     title = models.CharField(max_length=35)
