@@ -22,6 +22,4 @@ def signup(request):
             return redirect('home')
     else:
         form = UserCreationForm()
-
-    context = {'form': form}
-    return render(request, 'users/signup.html', context)
+    return render(request, 'signup.html', {'form': form})
