@@ -52,5 +52,10 @@ def search_query(search: str, format_text: bool =True):
 
 def engine_results(request):
     """ Renders a page for the request  """
-    return render(request, 'dashboard/search-engine/results.html')
+    search_text = 'india'
+    context = {
+        'search': search_text,
+        'results': search_query(search_text),
+    }
+    return render(request, 'dashboard/search-engine/results.html', context=context)
 

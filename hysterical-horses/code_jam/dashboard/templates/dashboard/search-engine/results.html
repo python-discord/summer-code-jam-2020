@@ -1,11 +1,66 @@
-<!DOCTYPE html>
-<head>
-    <title> Search Engine Results  </title>
-</head>
-<body>
-    <h2>Your top {} search results</h2>
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/search-engine/results.css' %}">
+<link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+{% endblock extra_css %}
+
+<h1 id="engine-results-header", align="center">Results for search: "{{ search }}" </h1>
+
+<hr>
+
+<div id="engine-res">
+{% for res in results  %}
+    {% if 'description' in res.keys  %}
+    <button id="main-desc" class="nes-btn is-primary">{{ res.description  }}</button>
+    {% else  %}
+    {% if res.tags.0 in '#1,#2,#3'  %}
+    <section>
+        <button  id="top-res" class="nes-btn is-success search-res" align="center" onclick="document.getElementById('{{ res.title  }}').showModal();">{{ res.title  }}</button>
+        <dialog class="nes-dialog" id='{{ res.title  }}'>
+            <form method="dialog">
+                <p class="title is-primary nes-text">{{ res.title  }}</p>
+                <p>{{ res.info  }}</p>
+                <menu class="dialog-menu">
+                    <button class="nes-btn is-error">Go Back</button>
+                    <a href='{{ res.further_info  }}' target="_blank"><button class="nes-btn is-primary">Learn More</button></a>
+                </menu>
+            </form>
+        </dialog>
+    </section>
+    {% else  %}
+    <section>
+        <button id="other-res" class="nes-btn search-res" align="center" onclick="document.getElementById('{{ res.title  }}').showModal();">{{ res.title  }}</button>
+        <dialog class="nes-dialog" id='{{ res.title  }}'>
+            <form method="dialog">
+                <p class="title is-primary">{{ res.title  }}</p>
+                <p>{{ res.info  }}</p>
+                <menu class="dialog-menu">
+                    <button class="nes-btn is-error">Go Back</button>
+                    <a href='{{ res.further_info  }}' target="_blank"><button class="nes-btn is-primary">Learn More</button></a>
+                </menu>
+            </form>
+        </dialog>
+    </section> 
+    {% endif %}
+    {% endif  %}
+{% endfor  %}
+</div>
+
+<br><br>
+{% if results|length == 0  %}
+<h3 id='no-results-found' align="center">No search results found.</h3>
+{% endif  %}
+
+{% endblock content  %}
+
+{% block extra_scripts %}
+
+<script src="jquery-3.5.1.min.js"></script>
 
 
-</body>
-
-</html>
+{% endblock  %}
