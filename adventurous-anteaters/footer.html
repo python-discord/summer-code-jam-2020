@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  * {margin: 0; padding: 0;}
+  .container {height: 100%; width:100%; font-size:0;}
+  #txt,#left, #middle1,#middle2,#middle3,#middle4,#middle5,#right{display: inline-block; *display: inline; zoom: 1; vertical-align: top;font-size: 13px;min-height=15px;}
+  #left {width: 71%;vertical-align: middle;height:18px;}
+  #middle1 {width:2%;vertical-align: middle;height:18px;}
+  #middle2 {width:2%;vertical-align: middle;height:18px;}
+  #middle3 {width:2%;vertical-align: middle;height:18px;}
+  #right {width: 14.5%;vertical-align: middle;height:18px;}
+  </style>
+  <script>
+   function startTime()
+  {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('txt').innerHTML =
+    h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);
+  }
+  function checkTime(i)
+  {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+  }
+</script>
+  <title>Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/98.css@0.1.16/dist/98.css" />
+</head>
+
+<body onload="startTime()">
+  <div class="window">
+  <div class="title-bar">
+    <div class="title-bar-text">A Window With Stuff In It</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <p>There's so much room for activities!</p>
+  </div>
+    <div class="container">
+      <div id="left" style="border-style: inset;"><img src="e.png" align="left" style="width:12px; height:15px;display: block;float: left">Done</div>
+      <div id="middle1" style="border-style: inset; min-height=100px"></div>
+      <div id="middle2" style="border-style: inset;"></div>
+      <div id="middle3" style="border-style: inset;"></div>
+      <div id="right" style="border-style: inset;"><img src="earth.png" align="left" style="width:15px; height:16px;display: block;float: left"> Internet</div>
+      <div id="txt" align="center" style="border-style: inset;width:5%;min-width:48px;vertical-align: middle;height:18px;"></div>
+
+    </div>
+</div>
+</body>
+</html>
