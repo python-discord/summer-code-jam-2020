@@ -1,12 +1,3 @@
-@font-face {
-    font-family: 'Segoe MDL2 Assets';
-    src: url('../fonts/SegoeMDL2Assets.woff2') format('woff2'),
-        url('../fonts/SegoeMDL2Assets.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
 body {
     padding-bottom: 0;
 }
@@ -38,12 +29,6 @@ body {
 
 .window-btn-pressed-active::before {
     border-width: 0px;
-}
-
-.window-btn-text {
-    padding: 0;
-    border-width: 0;
-    font-family: 'Segoe MDL2 Assets', sans-serif;
 }
 
 .navbar-sep {
