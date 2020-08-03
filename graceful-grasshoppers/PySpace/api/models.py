@@ -28,7 +28,7 @@ class Post(models.Model):
     '''A model for the post a user makes'''
 
     title = models.CharField(max_length=150)
-
+    date_posted = models.DateTimeField(default=timezone.now)
     content = models.TextField()
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
