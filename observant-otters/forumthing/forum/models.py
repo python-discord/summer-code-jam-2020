@@ -37,4 +37,4 @@ class UserThreadEvent(models.Model):
     """
     type = EnumField(EVENT_TYPES)  # idk, true would be create, and false would be view?
     thread = models.ForeignKey(Thread, on_delete=models.DO_NOTHING)
-    user = models.OneToOneField(ForumUser, models.DO_NOTHING)
+    user = models.ForeignKey(ForumUser, models.DO_NOTHING)
