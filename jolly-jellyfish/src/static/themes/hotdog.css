@@ -32,23 +32,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 img {
-    max-width: 40vw;
-    max-height: 40vh;
-    animation: red-yellow-filter 2s steps(2, jump-none) infinite;
-    padding: 10px;
+  max-width: 40vw;
+  max-height: 40vh;
+  animation: red-yellow-filter 2s steps(2, jump-none) infinite;
+  padding: 10px;
 }
 
 img:nth-of-type(even) {
-    float: left;
+  float: left;
 }
 
 img:nth-of-type(odd) {
-    float: right;
+  float: right;
 }
 
 @keyframes red-yellow-filter {
-    0% {filter: url("../filters.svg#yellow")}
-    100% {filter: url("../filters.svg#red")}
+  0% {filter: url("../filters.svg#yellow")}
+  100% {filter: url("../filters.svg#red")}
 }
 
 @keyframes move {

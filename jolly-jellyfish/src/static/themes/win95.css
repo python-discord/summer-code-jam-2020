@@ -30,17 +30,17 @@ body {
 }
 
 img {
-    width: 100%;
-    height: 100px;
-    overflow: hidden;
-    object-fit: none;
-    filter: saturate(30%);
-    transition: height 1s, filter 1s;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  object-fit: none;
+  filter: saturate(30%);
+  transition: height 1s, filter 1s;
 }
 
 img:hover {
-    filter: saturate(100%);
-    height: 100%;
+  filter: saturate(100%);
+  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {

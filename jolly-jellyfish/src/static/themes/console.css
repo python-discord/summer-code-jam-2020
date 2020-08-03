@@ -14,40 +14,40 @@ body {
 }
 
 img {
-    width: 30px;
-    height: 30px;
-    padding-left: 1ch;
+  width: 30px;
+  height: 30px;
+  padding-left: 1ch;
 }
 
 .img-wrapper {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .img-wrapper::before {
-    content: ">";
+  content: ">";
 }
 
 .img-wrapper:hover img {
-    width: auto;
-    height: auto;
-    max-width: 90vw;
-    max-height: 90vh;
-    margin: auto;
-    z-index: 10;
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  margin: auto;
+  z-index: 10;
 }
 
 .img-wrapper:hover {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    z-index: 5;
-    background: #000d;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 5;
+  background: #000d;
 }
 
 .img-wrapper:hover::before {
-    content: "<";
+  content: "<";
 }
 
 h1, h2, h3, h4, h5, h6 {
