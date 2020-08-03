@@ -71,3 +71,9 @@ class Trade(models.Model):
         Listing, verbose_name=_("Trade Listing"), on_delete=models.CASCADE
     )
     buyer = models.ForeignKey(Trader, verbose_name=_("Buyer"), on_delete=models.CASCADE)
+
+    date_traded = models.DateTimeField(
+        verbose_name=_("Time and date of trade"),
+        default=timezone.now
+    )
+    
