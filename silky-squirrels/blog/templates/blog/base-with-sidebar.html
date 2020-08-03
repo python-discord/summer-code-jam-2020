@@ -7,7 +7,7 @@
         <div class="card card-tertiary">
             <div class="card-header">
                 {% if user.is_authenticated %}
-                    Welcome, {user.username}!
+                    Welcome, {{ user.username }}!
                 {% else %}
                     You are not signed in!
                 {% endif %}
