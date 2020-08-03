@@ -20,15 +20,15 @@ body {
     margin: -2px 2px -2px 2px;
     padding: 0;
     float:right;
-    border-width: 0;
-}
-
-.window-btn::before {
     border-width: 1px;
 }
 
+.window-btn::before {
+    border-style: solid;
+}
+
 .window-btn::before:active {
-    border-width: 0;
+    border-style: none;
 }
 
 .window-btn-text {
