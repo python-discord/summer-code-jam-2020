@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 pillow = "*"
 imgkit = "*"
+django-relativefilepathfield = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,15 +1,26 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<div><h1>{{ webpage.user_title }}</h1></div>
-<img src="{{ webpage.user_image_1.url }}">
-<div>{{ webpage.user_text_1 }}</div>
-<img src="{{ webpage.user_image_2.url }}">
-<div>{{ webpage.user_text_2 }}</div>
-<img src="{{ webpage.user_image_3.url }}">
-<div>{{ webpage.user_text_3 }}</div>
-<img src="{{ webpage.user_image_4.url }}">
+<h1><span><span>{{ webpage.user_title }}</span></span></h1>
 <p>
-  <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
+    {{ webpage.user_text_1 }}
+<p>
+    {% if webpage.user_image_1 %}
+    <img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image">
+    {% endif %}
+<p>
+    {{ webpage.user_text_2 }}
+<p>
+    {% if webpage.user_image_2 %}
+    <img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image">
+    {% endif %}
+<p>
+    {{ webpage.user_text_3 }}
+<p>
+    {% if webpage.user_image_3 %}
+    <img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image">
+    {% endif %}
+<p>
+    <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
 </p>
 {% endblock %}
