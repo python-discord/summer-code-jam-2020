@@ -1,2 +1,4 @@
 Django==3.0.8
 flake8==3.8.3
+channels==2.4.0
+channels_redis==3.0.1

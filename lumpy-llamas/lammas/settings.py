@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'randomstring')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
@@ -28,12 +28,15 @@ DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
 ALLOWED_HOSTS = [
     'llamma-xbiguwvyua-ew.a.run.app',
     'localhost',
+    '127.0.0.1',
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,3 +128,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'lammas', 'static'),
 )
+
+
+ASGI_APPLICATION = 'lammas.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
