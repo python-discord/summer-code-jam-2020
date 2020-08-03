@@ -15,6 +15,7 @@ class MUDTerminal {
     this.terminal.onData((e) => {
       this.onInputEvent(e);
     });
+    this.terminal.attachCustomKeyEventHandler(this.keyEventFilter);
 
     const ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     const ws_path =
@@ -44,10 +45,26 @@ class MUDTerminal {
     this.buffer = [];
   }
 
+  keyEventFilter(event) {
+    /* Block xterm.js from using the arrow keys to move the cursor. */
+    switch(event.key) {
+      case "ArrowUp":
+      case "ArrowDown":
+      case "ArrowLeft":
+      case "ArrowRight":
+        return false;
+      default:
+        return true;
+    }
+  }
+
   onInputEvent(event) {
     switch (event) {
       case "\r": // Enter
+      case "\n": // Ctrl-J
         this.sendBuffer();
+        this.terminal.write("\r\n");
+        this.printPrompt();
         break;
       case "\u007F": // Backspace
         if (this.buffer.length > 0) {
