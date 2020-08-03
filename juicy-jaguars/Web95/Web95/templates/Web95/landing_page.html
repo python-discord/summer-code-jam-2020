@@ -8,14 +8,14 @@
 
 <p>Site is under maintenance</p>
 
-<div class="card card-tertiary draggable" id="test01" style="max-width: 200px;" tabindex="0">
+<div class="card card-tertiary draggable" id="test01" style="width: 200px;" tabindex="0" maximised="false">
     <div class="card-header draggable-header">
         Question
 
         <button class="btn btn-sm btn-primary window-btn">
             <span class="btn-text window-btn-text"> X </span>
         </button>
-        <button class="btn btn-sm btn-primary window-btn">
+        <button class="btn btn-sm btn-primary window-btn" onclick="wm_maximise('test01');">
             <span class="btn-text window-btn-text"> O </span>
         </button>
         <button class="btn btn-sm btn-primary window-btn" onclick="wm_minimise('test01');">
@@ -43,7 +43,7 @@
         <button class="btn btn-sm btn-primary window-btn">
             <span class="btn-text window-btn-text"> X </span>
         </button>
-        <button class="btn btn-sm btn-primary window-btn">
+        <button class="btn btn-sm btn-primary window-btn" onclick="wm_maximise('test02');">
             <span class="btn-text window-btn-text"> O </span>
         </button>
         <button class="btn btn-sm btn-primary window-btn" onclick="wm_minimise('test02');">
