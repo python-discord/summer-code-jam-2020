@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -36,17 +35,3 @@ def profile(request):
             pform = ProfileUpdateForm(instance=request.user.profile)
 
     return render(request, 'first_twitter_users/profile.html', {'uform': uform, 'pform': pform})
-
-
-@login_required
-def search_view(request):
-    if request.method == 'POST':
-        kerko = request.POST.get('search')
-        print(kerko)
-
-        results = User.objects.filter(username__contains=kerko)
-        context = {
-            'results': results
-        }
-
-        return render(request, 'first_twitter_users/search_result.html', context)
