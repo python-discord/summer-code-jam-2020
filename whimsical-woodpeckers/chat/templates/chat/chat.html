@@ -6,7 +6,7 @@
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="#">{{ text.author }}</a>
-                <small class="text-muted">{{ text.date_sent|date:"D g:i" }}</small>
+                <a href="{% url 'chat-detail' text.id %}"><small class="text-muted">{{ text.date_sent|date:"D g:i" }}</small></a>
             </div>
             <p class="article-content">{{ text.content }}</p>
             </div>

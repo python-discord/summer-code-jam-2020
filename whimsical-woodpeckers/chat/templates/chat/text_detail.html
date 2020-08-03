@@ -1,0 +1,19 @@
+{% extends "chat/base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_sent|date:"D g:i" }}</small>
+            {% if object.author == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'chat-update' object.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'chat-delete' object.id %}">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+        <p class="article-content">{{ object.content }}</p>
+        </div>
+    </article>
+{% endblock content %}
