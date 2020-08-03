@@ -1,11 +1,9 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
-from .models import UserProfile
-
 import pycountry
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.shortcuts import render, redirect
 
+from .models import UserProfile
 
 
 from .forms import MySiteUserCreationForm
