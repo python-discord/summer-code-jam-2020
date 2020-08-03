@@ -91,6 +91,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "user.CustomUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -122,6 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "/cdn/"
 
-AUTH_USER_MODEL = "user.CustomUser"
+STATICFILES_DIRS = [
+    '/cdn'
+]
+
+MEDIA_ROOT = '/cdn'
+MEDIA_URL = '/'
