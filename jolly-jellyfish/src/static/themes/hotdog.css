@@ -15,18 +15,18 @@ body {
   overflow-x: hidden;
 }
 
-h1 > span, h2 > span, h3 > span, h4 > span, h5 > span {
+h1 > span, h2 > span, h3 > span, h4 > span, h5 > span, h6 > span {
   transform-origin: center;
   animation: spin 5s linear infinite;
   display: inline-block;
 }
 
-h1 > span > span, h2 > span > span, h3 > span > span, h4 > span > span, h5 > span > span {
+h1 > span > span, h2 > span > span, h3 > span > span, h4 > span > span, h5 > span > span, h6 > span > span {
   display: inline-block;
   padding: 50% 0;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   animation: move 5s linear infinite;
   max-width: 100%;
 }
