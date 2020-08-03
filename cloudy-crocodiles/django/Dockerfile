@@ -13,4 +13,4 @@ USER python
 
 WORKDIR /django
 
-ENTRYPOINT [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+ENTRYPOINT ["bash", "./startdev.sh"]
