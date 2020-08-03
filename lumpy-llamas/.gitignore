@@ -249,3 +249,6 @@ ENV
 build/*
 lammas/static/*
 static/
+
+# vs code
+.vscode
