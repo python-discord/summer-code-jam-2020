@@ -1,0 +1,34 @@
+.Settings {
+  .DetailsSection {
+    display: flex;
+    flex-direction: column;
+    > div {
+      margin: 4px 0px;
+    }
+    &__settings {
+      flex-direction: row;
+    }
+  }
+  .Checkbox {
+    margin: 4px;
+  }
+  .Radio {
+    margin: auto 2px;
+  }
+
+  .ButtonForm {
+    padding: auto 4px;
+  }
+
+  &__background-config {
+    display: flex;
+    >div>div{
+      margin-top: 8px;
+    }
+  }
+  &__background-update {
+    .ButtonForm {
+      margin-right: 4px;
+    }
+  }
+}
