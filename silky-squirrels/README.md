@@ -17,7 +17,7 @@ This is the default README of your team's project. Please replace this by a READ
 ### Install Dependencies/Packages
 
 ```shell script
-cd silly-squirrels/
+cd silky-squirrels/
 pipenv install
 ```
 
