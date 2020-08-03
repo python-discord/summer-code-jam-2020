@@ -9,22 +9,6 @@
 {% load static %}
 
 <html lang="en">
-<<<<<<< HEAD
-    {% block head %}
-    <head>
-        <meta charset="UTF-8">
-
-        <!-- need to passes title as variables in the functions -->
-        {% if title %}
-            <title>Early Dating | {{ title }}</title>
-        {% else %}
-            <title> Early Dating </title>
-        {% endif %}
-
-        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-    </head>
-=======
   {% block head %}
   <head>
     <meta charset="UTF-8">
@@ -97,21 +81,23 @@
         <!-- <PARAM NAME=autoplay VALUE=true />
         </OBJECT> -->
         <!--  BASE.HTML BEFORE CONTENT  -->
+{% load random_image %}
+    <div class="row">
 
-<div class="row">
-  <div class="columnleft" >
-    <img src="https://www.datingsitesreviews.com/images/articles/dating-history-match-com-2000.png"width="250" height="1000" ></img>
- </div>
-  <div class="columnright" >
-    <img src="https://cdn.cnn.com/cnnnext/dam/assets/180606133407-mi-all-merican-ads-90s-hc-p613-1804181642-id-1187535.jpg"width=250" height="1000"></img>
-  </div>
+        <div class="columnleft">
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+        </div>
+
+        <div class="columnright">
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+        </div>
 
     <div class="columncenter" >
         {% block content %}
         {% endblock %}
   </div>
 
-</div>
+    </div>
   </body>
   
   <footer>
