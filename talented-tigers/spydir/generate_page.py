@@ -34,27 +34,32 @@ def authorize_page(page_name):
 def generate_information(page_name):
     try:
         # First tries to go to the page url
-        result = wikipedia.summary(page_name)
-        return parse_result(result)
+        result = wikipedia.summary(page_name, auto_suggest=False)
+        print('THE PAGE EXISTS')
+
     except wikipedia.exceptions.DisambiguationError as e:
         # If the page it enters is a wikipedia "disambiguation" page
-        print(e.options[0])
-        result = wikipedia.summary(e.options[0])
-        return parse_result(result)
+        result = wikipedia.summary(e.options[0], auto_suggest=False)
+        print('THE PAGE EXISTS BUT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK')
+
     except wikipedia.exceptions.PageError:
         # If the page doesnt exist, performs a search
+        print('THE PAGE DOESNT EXIST, USING THE WIKIPEDIA SEARCHBAR')
         search = wikipedia.search(page_name, results=1)
 
-    # Tries to return the contents of the first search result
-    try:
-        result = wikipedia.summary(search[0])
-    except IndexError:
-        # If the search yielded no results
-        result = "Under Construction"
-    except wikipedia.exceptions.DisambiguationError as e:
-        # If the page it enters is a wikipedia "disambiguation" page
-        print(e.options[0])
-        result = wikipedia.summary(e.options[0])
+        try:
+            result = wikipedia.summary(search[0], auto_suggest=False)
+            print('GETTING THE FIRST SEARCH RESULT')
+
+        except IndexError:
+            # If the search yielded no results
+            print('NO RESULTS AFTER SEARCH')
+            result = "Under Construction"
+
+        except wikipedia.exceptions.DisambiguationError as e:
+            # If the page exists it enters is a wikipedia "disambiguation" page
+            result = wikipedia.summary(e.options[0], auto_suggest=False)
+            print('THE FIRST RESULT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK')
 
     return parse_result(result)
 
