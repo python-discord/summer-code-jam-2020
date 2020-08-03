@@ -1,6 +1,10 @@
+from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from .forms import Guestbook
+from .models import Guestbook as GbModel
+
 
 def guestbook(request):
     # if this is a POST request we need to process the form data
@@ -12,11 +16,16 @@ def guestbook(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            print('======1===============')
+            GbModel.objects.create(author='test', text='hello', email='smartcameron@gmail.com')
+            print('======2===============')
+            GbModel.publish()
+            #return HttpResponseRedirect('/thanks/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = Guestbook()
 
-    return render(request, 'guestbook/guestbook.html', {'form': form})
+    comments = GbModel.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'guestbook/guestbook.html', {'form': form, "comments": comments})
 

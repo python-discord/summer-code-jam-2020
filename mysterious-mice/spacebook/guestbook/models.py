@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class Guestbook(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.TextField()
     text = models.TextField()
     email = models.EmailField()
     published_date = models.DateTimeField(blank=True, null=True)
@@ -14,4 +14,4 @@ class Guestbook(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.text

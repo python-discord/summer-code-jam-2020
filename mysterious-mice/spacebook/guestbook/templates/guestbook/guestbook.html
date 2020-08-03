@@ -11,14 +11,13 @@ http://www.maplecity.com/homepage/guest.html
 
 
 <hr>
-<form action = "/test" method = "post" >{% csrf_token %}
-<input type=hidden name=fields value="Name,Email,Comments">
-Name: <input type=text name=Name><br>
-Email Address: <input type=text name=Email><br>
-Comments: <br><textarea name=Comments rows=5 cols=60>
-</textarea><br>
+
+<form action = "/guestbook/" method = "post" >
+    {% csrf_token %}
+    {{ form }}
 <input type=submit value="Submit">
 </form>
+
 <hr noshade>
 
 <!--GUESTBOOK-OPTIONS: maxEntries=10-->
@@ -29,3 +28,13 @@ Comments: <br><textarea name=Comments rows=5 cols=60>
 
 </body>
 </html>
+
+<!--
+
+<input type=hidden name=fields value="Name,Email,Comments">
+Name: <input type=text name=Name><br>
+Email Address: <input type=text name=Email><br>
+Comments: <br><textarea name=Comments rows=5 cols=60>
+</textarea><br>
+
+-->
