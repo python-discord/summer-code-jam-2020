@@ -27,7 +27,7 @@ module.exports = {
     // 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
-    'airbnb-base'
+    // 'airbnb-base'
 
   ],
 
@@ -52,10 +52,10 @@ module.exports = {
     'no-param-reassign': 'off',
 
     'import/first': 'off',
-    'import/named': 'error',
-    'import/namespace': 'error',
-    'import/default': 'error',
-    'import/export': 'error',
+    // 'import/named': 'error',
+    // 'import/namespace': 'error',
+    // 'import/default': 'error',
+    // 'import/export': 'error',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
