@@ -28,7 +28,7 @@ body {
 }
 
 .window-btn-pressed-active::before {
-    border-width: 0;
+    border-width: 0px;
 }
 
 .window-btn-text {
