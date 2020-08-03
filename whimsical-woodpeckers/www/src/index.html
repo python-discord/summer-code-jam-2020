@@ -1,19 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>Starter Template · Bootstrap</title>
+
+    <!--Template based on URL below-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Place your stylesheet here-->
+    <!-- <link href="./style.css" rel="stylesheet" type="text/css"> -->
+
 </head>
+<style>
+#message-container{
+  padding-top: 10px;
+  padding-left:200px;
+  width: 100%;
+}
+
+#message-input{
+  width: 100%;
+}
+
+#chat-name{
+  background: #ffffff;
+  width: 100%;
+}
+
+.app{
+  height: 100vh;
+}
+
+#logo{
+
+  height: 300px;
+  width: 100%;
+/*  margin: 50px;*/
+/*  background: red;*/
+  background-image:
+/*    url('https://media.discordapp.net/attachments/737282857327788042/739220722194317322/Asset_26x.png?width=571&height=677');*/
+/*  url('https://media.discordapp.net/attachments/737282857327788042/739220747582439494/Asset_16x.png?width=918&height=677');*/
+    url('https://media.discordapp.net/attachments/737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center;
+}
+
+#login{
+  text-align: center;
+}
+
+#login *{
+  width: 100%;
+  padding: 20px;
+}
+
+#chat-window{
+/*  position: absolute;*/
+  height: 90vh;
+  background: #f0f0f0;
+  overflow-y: scroll;
+}
+
+body{
+  overflow-y: hidden;
+}
+</style>
+
+
 <body>
-<div id="app1">
-    <span v-on:click="next_message">{{messages[current]}}</span>
-    <input v-model="textbox">
-    <input v-on:click="add_message" type="button" value="Add">
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div id="login" class="col-lg-3 app">
+      <div id="logo">
+      </div>
+      <div id="login-form">
+        <input v-model="username" placeholder="Username">
+        <br>
+        <input v-model="password" placeholder="Password" type="password">
+        <br>
+        <button v-on:click="login">SUBMIT</button>
+        <textarea v-model="testArea"></textarea>
+      </div>
+    </div>
+
+    <div id="chat" class="col-lg-6 app">
+      <div id="chat-name" class="text-center">
+        <h2>Tutorial Bot</h2>
+      </div>
+      <div id="chat-window">
+<!--        Used to test overflow scrolling -->
+       <div style="height: 200vh;"></div>
+<!--        Used to test overflow scrolling -->
+      </div>
+      <div id="message-container">
+        <input id="message-input" type="text">
+      </div>
+    </div>
+    <div id="contacts" class="col-lg-3 app text-center">
+      <h2>Friends</h2>
+    </div>
+  </div>
 </div>
-<div id="app2">
-    <span v-on:click="next_message">{{messages[current]}}</span>
-    <input v-model="textbox">
-    <input v-on:click="add_message" type="button" value="Add">
-</div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>

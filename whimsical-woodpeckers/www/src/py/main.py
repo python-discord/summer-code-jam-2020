@@ -22,7 +22,21 @@ class MessageList(Vue):
         self.data['textbox'] = ""
 
 
+class Login(Vue):
+    data = {
+        "username": "",
+        "password": "",
+        "testArea": "",
+    }
+
+    def login(self):
+        self.data['testArea'] = self.data['username']
+        self.data['testArea'] += ":"
+        self.data['testArea'] += self.data['password']
+
+
+test_login = Login("#login")
+
 test2 = MessageList("#app1")
 
 test3 = MessageList("#app2")
-
