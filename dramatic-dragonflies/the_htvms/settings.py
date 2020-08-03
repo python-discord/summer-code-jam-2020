@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['0.0.0.0']
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
+    'vmachine.apps.VmachineConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

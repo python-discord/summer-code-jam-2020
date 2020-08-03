@@ -5,7 +5,7 @@ from django.http.response import HttpResponse
 # Create your views here.
 
 
-def home(request):
+def home(request: ASGIRequest) -> HttpResponse:
     return render(request, 'users/home.html')
 
 

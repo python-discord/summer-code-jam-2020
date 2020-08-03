@@ -22,4 +22,3 @@ urlpatterns = [
     path('', home, name="home"),
     path('users/', include('users.urls'))
 ]
-
