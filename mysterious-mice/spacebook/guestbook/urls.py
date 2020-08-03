@@ -3,6 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.guestbook, name='guestbook'),
-    path('guestbook/', views.comment, name='comment'),
 
 ]
