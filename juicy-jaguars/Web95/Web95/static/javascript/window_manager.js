@@ -1,13 +1,25 @@
-function wm_minimise(divclass) {
-    var x = document.getElementsByClassName(divclass);
+function wm_minimise(divId) {
+    var x = document.getElementsById(divId);
+    x.style.display = "none";
+}
+
+function wm_restore(divId) {
+    var x = document.getElementsById(divId);
+    x.style.display = "block";
+}
+
+/*
+function wm_minimise(divClass) {
+    var x = document.getElementsByClassName(divClass);
     for (var i = 0; i < x.length; i++) {
         x[i].style.display = "none";
     }
 }
 
-function wm_restore(divclass) {
-    var x = document.getElementsByClassName(divclass);
+function wm_restore(divClass) {
+    var x = document.getElementsByClassName(divClass);
     for (var i = 0; i < x.length; i++) {
         x[i].style.display = "block";
     }
 }
+*/
