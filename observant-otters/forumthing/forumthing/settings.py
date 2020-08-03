@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'forum.apps.ForumConfig',
+    'user.apps.UserConfig',
     'django.contrib.sites',  # django-allauth dep
 
     # django-allauth config
