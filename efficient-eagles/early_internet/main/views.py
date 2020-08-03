@@ -1,7 +1,9 @@
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
-from .models import Topic, Post
+from django.db import IntegrityError
+
+from main.models import Topic, Post
 from main.forms import CustomUserCreationForm, TopicCreationForm
 
 
@@ -14,30 +16,31 @@ class TopicView(TemplateView):
 
     def get(self, request, topic_name):
         topic = Topic.objects.get(topic_name=topic_name.lower())
-        posts = Post.objects.filter(topic=topic.id)
+        posts = topic.post_set.all()
+        
         context = {'posts': posts}
         return render(request, self.template_name, context)
 
 
 class CreateTopicView(TemplateView):
     template_name = 'create_topic.html'
+    form_class = TopicCreationForm
 
     def get(self, request):
-        form = TopicCreationForm
-        return render(request, self.template_name, {'form': form})
+        form = self.form_class()
+        context = {'form': form}
+        return render(request, self.template_name, context)
 
     def post(self, request):
         form = TopicCreationForm(request.POST)
         topic_name = form.data.get('topic_name')
         if form.is_valid():
-            topic = get_object_or_404(Topic, topic_name=topic_name)
-            if topic.topic_name == topic_name:
-                context = {'form': form, 'error': 'Topic already Exists'}
-                return render(request, self.template_name, context)
-            else:
-                t = Topic(topic_name=topic_name.lower())
-                t.save()
-                return redirect('topic/{}'.format(t.topic_name))
+            try:
+                Topic.objects.create(topic_name=topic_name)
+            except IntegrityError:
+                pass
+                
+            return redirect('topic', topic_name=topic_name)
 
 
 class InfoView(TemplateView):
@@ -46,9 +49,8 @@ class InfoView(TemplateView):
     def get(self, request, topic_name, slug):
         topic = Topic.objects.get(topic_name=topic_name)  # keep these here for the meantime
         post = Post.objects.get(slug=slug)
-        context = {
-            'post': post
-            }
+        context = {'post': post}
+        
         return render(request, self.template_name, context)
 
 
