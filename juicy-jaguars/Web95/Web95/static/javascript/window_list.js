@@ -14,13 +14,13 @@ function get_window_list (class_name) {
     return [window_titles, window_ids];
 }
 
-function create_window_btn (navbar, name) {
+function create_window_btn (navbar, name, windowid) {
     var btn = document.createElement("li");
     btn.classList = ["nav-item"];
 
     var link = document.createElement("a");
     link.classList = ["nav-link"];
-    link.onclick = "wm_restore(" + name + ")"
+    link.onclick = "wm_restore(" + windowid + ")"
 
     var span = document.createElement("span");
     span.classList = ["nav-link-inner-text"];
@@ -36,7 +36,7 @@ function create_buttons(navbar, class_name) {
     var window_titles = windowsinfo[0]
     var window_ids = windowsinfo[1]
 
-    for (var i = 0; i < windows.length; i++) {
+    for (var i = 0; i < window_titles.length; i++) {
         create_window_btn(navbar, window_titles[i], window_ids[i]);
     }
 }
