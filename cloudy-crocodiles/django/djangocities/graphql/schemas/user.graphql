@@ -1,0 +1,14 @@
+# Authentication
+
+type LogIn {
+  token: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+type User {
+    username: String!
+}

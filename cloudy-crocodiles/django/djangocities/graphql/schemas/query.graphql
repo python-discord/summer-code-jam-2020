@@ -1,3 +1,4 @@
 type Query {
+    allUsers: [User!]!
     allCities: [City!]!
 }
