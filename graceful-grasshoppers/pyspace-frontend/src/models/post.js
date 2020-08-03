@@ -1,3 +1,9 @@
 export default class Post {
-  // code ...
+  constructor(id, content, author, likes, dislikes) {
+    this.id = id;
+    this.content = content;
+    this.author = author;
+    this.likes = likes;
+    this.dislikes = dislikes;
+  }
 }

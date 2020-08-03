@@ -9,7 +9,10 @@
         <router-link to="/login">Login</router-link>
       </div>
       <div style="display: inline-block;" v-if="loggedIn">
-        <router-link to="/profile">Profile</router-link>
+        <router-link to="/profile">Profile</router-link>|
+      </div>
+      <div style="display: inline-block;" v-if="loggedIn">
+        <router-link to="/create-post">New Post</router-link>
       </div>
       <button v-if="loggedIn" style="float: right;" v-on:click="logout">Logout</button>
     </div>
