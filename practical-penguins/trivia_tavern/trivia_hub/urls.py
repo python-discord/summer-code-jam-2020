@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+
+from trivia_hub.views import TriviaQuizListView
 
 
 urlpatterns = [
-    path('', views.main_hub, name='main_hub'),
+    path('', TriviaQuizListView.as_view(), name='main_hub'),
 ]
