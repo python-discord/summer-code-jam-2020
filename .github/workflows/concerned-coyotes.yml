@@ -27,6 +27,7 @@ jobs:
     - name: Run migrations
       working-directory: ./concerned-coyotes/earlyinternet
       run: |
+        python manage.py makemigrations
         python manage.py migrate
     - name: Run Tests
       working-directory: ./concerned-coyotes/earlyinternet
