@@ -1,6 +1,5 @@
-from django.db.models import F, Func, Value, CharField
 from django.http import JsonResponse
-
+import logging
 from .models import Thread, ThreadMessage
 
 # Create your views here.
@@ -20,7 +19,7 @@ def list_threads(request):
 
 
 
-def post_thread(response):
+def post_thread(request):
     pass
 
 
@@ -30,9 +29,9 @@ def thread_details(request, thread_id):
 
     :param request:
     :param thread_id: ID of thread to filter on
-    :return: Serialized json
+    :return: JsonResponse
     """
-    qs = ThreadMessage.objects.values().order_by('pk')
+    qs = ThreadMessage.objects.filter(thread=thread_id).values()
     data = list(qs)
     return JsonResponse(data, status=201)
 

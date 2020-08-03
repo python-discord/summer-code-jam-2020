@@ -6,7 +6,8 @@
     <h2 class="some-heading">Messages</h2>
     <ul>
       <li v-for="item in myStuff">
-
+        {{item}} --
+        {{item.message}} test
       </li>
     </ul>
     # Links can be done like this
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get('/api/forum/view-1').then((response) => {
+      axios.get(`/api/forum/${this.$route.params.id}/`).then((response) => {
         this.myStuff = response.data;
         this.ready = true;
       });
