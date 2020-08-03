@@ -20,7 +20,7 @@ function create_window_btn (navbar, name, windowid) {
 
     var link = document.createElement("a");
     link.classList = ["nav-link"];
-    link.onclick = "wm_restore(" + windowid + ")"
+    link.onclick = function() { wm_restore(windowid); };
 
     var span = document.createElement("span");
     span.classList = ["nav-link-inner-text"];
@@ -44,7 +44,7 @@ function create_buttons(navbar, class_name) {
 console.log(get_window_list("draggable"));
 
 // <li class="nav-item">
-//     <a href="#" class="nav-link" role="button">
+//     <a href="" class="nav-link" role="button">
 //         <span class="nav-link-inner-text">
 //             <img src="{% static 'images/start.svg' %}" height="20px" margin=auto>
 //             Start
