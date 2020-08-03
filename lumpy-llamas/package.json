@@ -34,6 +34,7 @@
     "html-webpack-injector": "^1.1.4",
     "terminal.css": "^0.7.1",
     "vue": "^2.6.11",
+    "vue-moment": "^4.1.0",
     "vue-router": "^3.3.4",
     "vuex": "^3.5.1"
   }

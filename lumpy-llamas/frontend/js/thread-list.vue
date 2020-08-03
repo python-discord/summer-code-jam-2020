@@ -6,7 +6,9 @@
     <h2 class="some-heading">Threads</h2>
     <ul>
       <li v-for="item in myStuff">
-         <router-link :to="{ name: 'thread-view', params: {id: item.pk}}">{{item.title}} - Posted: {{Date(item.created_date)}}</router-link>
+        <router-link :to="{ name: 'thread-view', params: {id: item.pk}}">{{ item.title }} - Posted:
+          {{ item.created_date | moment("DD MM YY, hh:mm")  }}
+        </router-link>
       </li>
     </ul>
     # Links can be done like this
@@ -22,6 +24,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   data() {
     return {

@@ -39,6 +39,8 @@ export default {
         this.ready = true;
       });
     },
-  }
+
+  },
+
 }
 </script>
