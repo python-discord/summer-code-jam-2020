@@ -76,6 +76,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "shiny_sheep.users.apps.UsersConfig",
+    "shiny_sheep.frontend",
+    "shiny_sheep.chat",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
