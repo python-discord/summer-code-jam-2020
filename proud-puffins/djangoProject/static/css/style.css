@@ -39,7 +39,7 @@ a:active {
 }
 
 html { 
-    background: url(../../../static/images/homebg.gif) no-repeat center center fixed;
+    background: url(/static/images/homebg.gif) no-repeat center center fixed;
     background-repeat: repeat;
   }
 .columnleft {
