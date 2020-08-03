@@ -11,7 +11,8 @@ http://www.maplecity.com/homepage/guest.html
 
 
 <hr>
-<form method=post action="">
+<form name = "form" action = "{% url 'guestbook.views.comment' %}"
+        method = "POST" >{% csrf_token %}
 <input type=hidden name=fields value="Name,Email,Comments">
 Name: <input type=text name=Name><br>
 Email Address: <input type=text name=Email><br>
