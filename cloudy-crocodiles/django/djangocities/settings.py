@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "ariadne.contrib.django",
     "djangocities.user",
     "djangocities.cities",
-    "djangocities.sites"
+    "djangocities.sites",
+    "djangocities.user_media"
 ]
 
 MIDDLEWARE = [
