@@ -50,11 +50,23 @@ body {
 }
 
 .app-bar li {
-    display: inline;
+    display: inline-block;
 }
 
 .app-bar-underline {
     margin: 2px 0 1px 0;
     border-style: inset;
     border-width: 1px;
+}
+
+.ie-btn-sq {
+    height: 22px;
+    width: 22px;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
+.ie-spacer {
+    width: 5px;
 }
