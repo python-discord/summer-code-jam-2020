@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class UserProfile(User):
+class Profile(User):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -21,4 +21,4 @@ class UserProfile(User):
         return f'{self.username}\'s profile'
 
     def __repr__(self):
-        return f'<UserProfile> {repr(self.username)} {repr(self.email)} {repr(self.image)} {repr(self.gender)} {repr(self.country)} {repr(self.city)} {repr(self.date_of_birth)}'
+        return f'<Profile> {repr(self.username)} {repr(self.email)} {repr(self.image)} {repr(self.gender)} {repr(self.country)} {repr(self.city)} {repr(self.date_of_birth)}'

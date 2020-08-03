@@ -1,12 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import UserProfile
+from .models import Profile
 
 
 class MySiteUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
-        model = UserProfile
+        model = Profile
         fields = (
             'username',
             'email',

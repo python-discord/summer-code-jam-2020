@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.shortcuts import render, redirect
 
-from .models import UserProfile
+from .models import Profile
 
 
 from .forms import MySiteUserCreationForm
@@ -21,7 +21,7 @@ def home(request):
 
 def user(request, user_id):
     try:
-        user_prof_obj = UserProfile.objects.get(id=user_id)
+        user_prof_obj = Profile.objects.get(id=user_id)
         return render(request, 'users/user.html', {'user_prof': {'username': user_prof_obj.username,
                                                                  'email': user_prof_obj.email,
                                                                  'image': user_prof_obj.image,
@@ -30,6 +30,6 @@ def user(request, user_id):
                                                                  'city': user_prof_obj.city,
                                                                  'date_of_birth': user_prof_obj.date_of_birth},
                                                    'title': user_prof_obj})
-    except UserProfile.DoesNotExist:
+    except Profile.DoesNotExist:
         # PyCharm flags this as Unknown Attribute Reference but it still does what it's supposed to
         return redirect('users-home')
