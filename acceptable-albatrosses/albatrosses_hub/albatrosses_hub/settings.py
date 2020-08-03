@@ -29,7 +29,6 @@ DEBUG = True
 ALLOWED_HOSTS = ["localhost", "albatrosses_hub.com"]
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
