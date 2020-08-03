@@ -1,8 +1,53 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    What chat room would you like to enter?<br>
-    <label for="room-name-input"></label><input style="margin: 10px 0 0 0" id="room-name-input" type="text" size="50"><br>
-    <input style="margin: 10px 0 0 0" id="room-name-submit" type="button" value="Enter">
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="pchat-tab" data-toggle="tab" href="#pchat" role="tab" aria-controls="pchat" aria-selected="true">Public Chat</a>
+	</li>
+	<li class="nav-item">
+	    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#fchat" role="tab" aria-controls="fchat" aria-selected="false">Friend Chat</a>
+    </li>
+
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane show active" id="pchat" role="tabpanel" aria-labelledby="pchat-tab">
+        <p>
+            Type the name of the Public Chat Room to enter.<br>
+            <label for="room-name-input"></label><input style="margin: 10px 0 0 0" id="room-name-input" type="text" size="50"> <br>
+            <button class="btn btn-sm mr-2 btn-primary border-dark" style="margin: 10px 0 -20px 0" id="room-name-submit" type="button">
+                <span>Enter</span>
+            </button>
+        </p>
+    </div>
+
+    <div class="tab-pane" id="fchat" role="tabpanel" aria-labelledby="fchat-tab">
+        <p>
+        [placeholder]
+        <!-- if there are friends, we show a list of friends to chat with, otherwise, notify no friends -->
+        <!-- 
+        {% if friends %}
+            <p>Your Friends:</p>
+            <ul>
+                {% for friend in friends %}
+                <li>{{friend.username}}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p> You don't have any friends yet! Join a Public Chat room to find one.
+        {% endif %}
+        -->
+        </p>
+        <button class="btn btn-sm mr-2 btn-secondary border-dark" type="button">
+        <span class="btn-text"><a href=".#fchat">Join a Public Room</a></span>
+        </button>
+    </div>
+
+
+
+</div>
+
 
     <script>
         document.querySelector('#room-name-input').focus();
