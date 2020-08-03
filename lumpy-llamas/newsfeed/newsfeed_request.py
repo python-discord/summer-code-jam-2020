@@ -47,7 +47,7 @@ def retrieve_articles(url_api, stories_list, number_articles):
     if test_api_connection(url_api):
         while index < number_articles:
             api_response = requests.get(f'{url_api}item/{stories_list[index]}.json').json()
-            print('getting a story')
+            print('getting a story', index)
             if api_response.get("url") is not None:
                 filtered_dict = {
                     "url": api_response.get("url"),
@@ -56,6 +56,7 @@ def retrieve_articles(url_api, stories_list, number_articles):
                 articles.append(dict(filtered_dict))
                 index += 1
             else:
+                index += 1
                 number_articles += 1
     else:
         return {"url": None, "title": "Error retrieving latest stories"}
