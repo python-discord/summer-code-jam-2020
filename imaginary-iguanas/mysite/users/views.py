@@ -17,7 +17,7 @@ def signup(request):
             profile = profile_form.save(commit=False)
             profile.user = new_user
             profile.save()
-            messages.success(request, f'Account created! You can now login')
+            messages.success(request, 'Account created! You can now login')
             return redirect('login')
         else:
             messages.error(request, 'Please correct the error below.')
