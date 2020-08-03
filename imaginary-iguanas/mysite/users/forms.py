@@ -1,19 +1,14 @@
-from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from django.contrib.auth.forms import UserCreationForm as _UserCreationForm
 
 from .models import Profile
 
 
-class MySiteUserCreationForm(UserCreationForm):
+class UserCreateForm(_UserCreationForm):
+    pass
 
-    class Meta(UserCreationForm):
+
+class ProfileCreateForm(forms.ModelForm):
+    class Meta:
         model = Profile
-        fields = (
-            'username',
-            'email',
-            'gender',
-            'country',
-            'city',
-            'date_of_birth')  # It needs to be formatted exactly this way, otherwise an Exception will be thrown
-
-
-
+        fields = ['image', 'gender', 'country', 'city', 'date_of_birth']
