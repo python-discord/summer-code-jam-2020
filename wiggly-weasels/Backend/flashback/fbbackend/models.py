@@ -22,20 +22,6 @@ class Account(models.Model):  # A model containing user information
     bot = models.BooleanField(default=False)
 
 
-class Message(models.Model):
-    '''
-
-    writer: the creator of the message
-    content: the content within the message
-
-    '''
-    writer = models.CharField(max_length=100)  # The ID of the User
-    content = models.CharField(max_length=1000)  # The Content
-    identification = models.CharField(max_length=100, default=uuid4().hex, primary_key=True)
-
-    def __str__(self):  # Returns "content" when using the str() function
-        return self.content
-
 
 class Group(models.Model):
     '''
@@ -43,7 +29,7 @@ class Group(models.Model):
     creator: creator of the chatroom
     identification: A randomly generated Unique ID
     messages: An array containing an array for each message.
-        ar[0] = Creator ID
+        ar[0] = Name
         ar[1] = Content
     name: The name of group
 

@@ -10,10 +10,6 @@ class AccountSerializer(serializers.ModelSerializer): #Serializer for accounts
         model = models.Account
         fields = ('email', 'hashed_pass', 'nickname', 'bot')
 
-class MessageSerializer(serializers.ModelSerializer): #Serializer for Messages
-    class Meta:
-        model = models.Message
-        fields = ('writer', 'content', 'identification')
 
 
 class GroupSerializer(serializers.ModelSerializer): #Serializer for Groups

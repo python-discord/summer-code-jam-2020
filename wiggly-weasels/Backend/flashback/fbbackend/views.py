@@ -17,9 +17,6 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
     queryset = models.Group.objects.all()
     serializer_class = serializers.GroupSerializer
 
-class Message_View(viewsets.ModelViewSet): #Allow you to view all Messages and Create New ones
-    queryset = models.Message.objects.all()
-    serializer_class = serializers.MessageSerializer
 
 class Post_View(viewsets.ModelViewSet): #Allow you to view all Posts and Create New ones
     queryset = models.Post.objects.all()

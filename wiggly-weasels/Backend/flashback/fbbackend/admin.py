@@ -1,5 +1,5 @@
 from django.contrib import admin
-from fbbackend.models import Account, Message, Group, Post
+from fbbackend.models import Account, Group, Post
 # Register your models here.
 
 
@@ -36,6 +36,5 @@ class PostAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Account, AccountAdmin)
-admin.site.register(Message, MessageAdmin)
 admin.site.register(Group, GroupAdmin)
 admin.site.register(Post, PostAdmin)
