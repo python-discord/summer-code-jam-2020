@@ -33,7 +33,6 @@ class Location{
     }
 }
 
-let shapeBoundingBox = new ShapeBoundingBox(0,0,0,0);
 let mousedown = new MouseDownPos(0,0);
 let loc = new Location(0,0);
 
@@ -70,41 +69,33 @@ function GetMousePosition(x,y){
       };
 }
 
-function DrawBrush(x, y, isDown){
-    if (isDown) {
-        ctx.lineJoin = "round";
-        ctx.moveTo(lastX, lastY);
+function DrawBrush(x, y){
+    if (usingBrush) {
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = line_Width;
+        ctx.lineCap = "round";
         ctx.lineTo(x, y);
-        ctx.closePath();
         ctx.stroke();
         ctx.beginPath();
+        ctx.moveTo(x, y);
     }
-    lastX = x; lastY = y;
+    lastX = x;
+    lastY = y;      
 }
  
 function ReactToMouseDown(e){
-    canvas.style.cursor = "crosshair";
-    loc = GetMousePosition(e.clientX, e.clientY);
-    //SaveCanvasImage();
-    mousedown.x = loc.x;
-    mousedown.y = loc.y;
-    dragging = true;
     usingBrush = true;
-    DrawBrush(mousedown.x, mousedown.y, false);
-    
+    loc = GetMousePosition(e.clientX, e.clientY);
+    DrawBrush(loc.x, loc.y);
 };
  
 function ReactToMouseMove(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
-    DrawBrush(mousedown.x, mousedown.y, true);
+    DrawBrush(loc.x, loc.y);
 };
  
 function ReactToMouseUp(e){
-    canvas.style.cursor = "default";
-    loc = GetMousePosition(e.clientX, e.clientY);
-    //RedrawCanvasImage();
-    dragging = false;
     usingBrush = false;
     ctx.beginPath();
 }
