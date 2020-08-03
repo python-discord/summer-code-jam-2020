@@ -1,3 +1,4 @@
 Django>=3
 Pillow>=7
 pathlib>=1
+django-random-image-from-folder>=0.0.3
