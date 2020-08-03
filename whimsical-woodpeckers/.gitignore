@@ -1,3 +1,4 @@
 node_modules
 __target__
 .env
+.vscode
