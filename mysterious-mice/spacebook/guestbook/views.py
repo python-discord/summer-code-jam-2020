@@ -17,9 +17,10 @@ def guestbook(request):
             # ...
             # redirect to a new URL:
             print('======1===============')
-            GbModel.objects.create(author='test', text='hello', email='smartcameron@gmail.com')
+            print(request.POST['author'])
+            GbModel.objects.create(author=request.POST['author'], text=request.POST['text'], email=request.POST['email'], published_date=timezone.now())
             print('======2===============')
-            GbModel.publish()
+            #GbModel.publish()
             #return HttpResponseRedirect('/thanks/')
 
     # if a GET (or any other method) we'll create a blank form
