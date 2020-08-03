@@ -14,7 +14,7 @@ snippet={self.snippet!r}>"
 
 
 class Search(models.Model):
-    query = models.CharField(max_length=100)
+    query = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     results = models.ManyToManyField(SearchResult, related_name="search")
 
