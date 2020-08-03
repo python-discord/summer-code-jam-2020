@@ -1,6 +1,20 @@
 from django.conf import settings
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
+BANNER = """
+           #####    ###    #####    ###      #     # #     # ######  
+          #     #  #   #  #     #  #   #     ##   ## #     # #     # 
+                # #     #       # #     #    # # # # #     # #     # 
+           #####  #     #  #####  #     #    #  #  # #     # #     # 
+          #       #     # #       #     #    #     # #     # #     # 
+          #        #   #  #        #   #     #     # #     # #     # 
+          #######   ###   #######   ###      #     #  #####  ######  
+
+                          Welcome to == 2020 MUD ==
+                          Where the future is NOW.
+                          Type "help" for a list of commands
+""".replace('\n', '\r\n')
+
 
 class MudConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
@@ -10,6 +24,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             # Accept the connection
             await self.accept()
             await self.join_room()
+            await self.send_welcome()
 
     async def receive_json(self, content):
         command = content.get("command", None)
@@ -30,6 +45,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             await self.leave_group()
         except Exception:
             pass
+
+    async def send_welcome(self):
+            await self.send_json({'message': BANNER})
 
     async def send_unknown(self, command):
         await self.send_json({

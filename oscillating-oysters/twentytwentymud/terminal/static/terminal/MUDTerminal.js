@@ -23,11 +23,25 @@ class MUDTerminal {
     this.terminal.writeln("Connecting to " + ws_path);
     this.socket = new ReconnectingWebSocket(ws_path);
 
-    this.buffer = [];
+    /* Set up a message handler */
+    var t = this;
+    this.socket.onmessage = function (message) {
+      var data = JSON.parse(message.data);
+
+      // todo: have a better parsing system, maybe a service
+      if (data.leave) {
+        t.printReply("Leaving: " + data.leave);
+      } else if (data.msg_type == "ENTER") {
+        t.printReply(
+          "Server: " + data.username + " has entered the DuNgEoN!!!"
+        );
+      }
+      t.printReply("Server: " + data.message);
+    };
 
     this.sender = this.sendByWebSocket;
 
-    this.printWelcome();
+    this.buffer = [];
   }
 
   onInputEvent(event) {
@@ -54,14 +68,7 @@ class MUDTerminal {
   printReply(reply) {
     this.terminal.write("\r\n");
     this.terminal.write(reply);
-    this.terminal.write("\r\n");
     this.printPrompt();
-  }
-
-  printWelcome() {
-    this.terminal.writeln("Welcome to == 2020 MUD ==");
-    this.terminal.writeln("Where the future is now.");
-    this.terminal.writeln('Type "help" for a list of commands');
   }
 
   printPrompt() {
@@ -69,21 +76,6 @@ class MUDTerminal {
   }
 
   sendByWebSocket(message) {
-    var t = this;
-    this.socket.onmessage = function (message) {
-      var data = JSON.parse(message.data);
-
-      // todo: have a better parsing system, maybe a service
-      if (data.leave) {
-        t.printReply("Leaving: " + data.leave);
-      } else if (data.msg_type == "ENTER") {
-        t.printReply(
-          "Server: " + data.username + " has entered the DuNgEoN!!!"
-        );
-      }
-      t.printReply("Server: " + data.message);
-    };
-
     var cmd;
     message = message.join("");
     var split = message.split(" ");
