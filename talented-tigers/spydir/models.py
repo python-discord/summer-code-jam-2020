@@ -25,6 +25,7 @@ class Step(models.Model):
 
 class GeneratedPage(models.Model):
     page_title = models.CharField(max_length=50, blank=True)
+    is_generated = models.BooleanField(default=False)
     page_author = models.CharField(max_length=20, blank=True)
     page_type_choices = [
         ("BLOG", "Blog"),

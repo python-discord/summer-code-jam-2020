@@ -13,8 +13,10 @@ def load_generated_page(request, page_name):
     page = None
     try:
         page = GeneratedPage.objects.get(page_title=page_name)
+        if(page.is_generated == False):
+            page = generate_page.generate_page(page_name)
     except GeneratedPage.DoesNotExist:
-        page = generate_page.generate_page(page_name)
+        return render(request, "spydir/404.html")
 
     ctx = {
         'page': page

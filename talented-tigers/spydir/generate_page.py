@@ -4,10 +4,16 @@ import requests, wikipedia
 
 # This is where the text will be scraped. Right now, this function only generates an info page with a title
 def generate_page(page_name):
-    page_author = generate_name()
-    page_content = generate_information(page_name)
-    return GeneratedPage.objects.create(page_title=page_name, page_content=page_content, page_author=page_author,
-                                        page_type='INFO', scam_type='ROMANCE')
+    """Gets a page object which only has a title, then populates it with scraped information"""
+    page_object = GeneratedPage.objects.get(page_title=page_name)
+    page_object.page_content = generate_information(page_name)
+    page_object.page_author = generate_name()
+    page_object.page_type = "INFO"
+    page_object.scam_type = "ROMANCE"
+    page_object.is_generated = True
+    page_object.save()
+    
+    return page_object
 
 
 # Returns a randomly generated name
