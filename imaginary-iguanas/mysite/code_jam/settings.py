@@ -125,6 +125,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+# TODO LOGIN_REDIRECT_URL should maybe go to user profile page?
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-# TODO: 'home' url doesn't exist yet
