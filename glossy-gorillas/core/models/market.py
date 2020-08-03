@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from core.models.product import Product
@@ -52,6 +53,11 @@ class Listing(models.Model):
         max_length=3,
         choices=ListingStatus.choices,
         default=ListingStatus.AVAILABLE,
+    )
+
+    date_listed = models.DateTimeField(
+        verbose_name=_("Time and date listed"),
+        default=timezone.now
     )
 
     def __str__(self) -> str:
