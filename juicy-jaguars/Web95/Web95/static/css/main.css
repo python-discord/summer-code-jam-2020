@@ -23,6 +23,14 @@ body {
     border-width: 0;
 }
 
+.window-btn::before {
+    border-width: 1px;
+}
+
+.window-btn::before:active {
+    border-width: 0;
+}
+
 .window-btn-text {
     padding: 0;
     border-width: 0;
