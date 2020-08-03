@@ -19,20 +19,6 @@ let canvasHeight = 600;
 //is brush currently used
 let usingBrush = false;
 
-//brush coordinates
-let brushPoints = new Array();
-
-//represents a brush point
-class BrushPoint{
-    constructor(xCoord, yCoord, color, width, brushDown) {
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
-        this.color = color;
-        this.width = width;
-        this.brushDown = brushDown;
-    }
-}
-
 //represents box that shape is drawn in
 class ShapeBoundingBox{
     constructor(left, top, width, height) {
@@ -177,9 +163,7 @@ function drawRubberbandShape(loc){
     ctx.strokeStyle = strokeColor;
     ctx.fillStyle = fillColor;
     ctx.lineWidth = line_Width;
-    if(currentTool === "brush"){
-        DrawBrush();
-    } else if(currentTool === "line"){
+    if(currentTool === "line"){
         ctx.beginPath();
         ctx.moveTo(mousedown.x, mousedown.y);
         ctx.lineTo(loc.x, loc.y);
@@ -231,12 +215,7 @@ function ReactToMouseDown(e){
 
     if(currentTool === 'brush'){
         usingBrush = true;
-        if(onCanvas(loc)){
-            lastX = loc.x;
-            lastY = loc.y;
-            DrawBrush(loc.x, loc.y)
-        }
-        AddBrushPoint(loc.x, loc.y);
+        DrawBrush(loc.x, loc.y);
     }
 };
  
@@ -244,11 +223,9 @@ function ReactToMouseMove(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
 
-    if(currentTool === 'brush' && dragging && usingBrush){
-        if(onCanvas(loc)){
-            AddBrushPoint(loc.x, loc.y, true);
-            DrawBrush(loc.x, loc.y);
-        }
+    if(currentTool === 'brush'){
+        DrawBrush(loc.x, loc.y);
+        SaveCanvasImage();
     } else {
         if(dragging){
             RedrawCanvasImage();
@@ -264,6 +241,9 @@ function ReactToMouseUp(e){
     UpdateRubberbandOnMove(loc);
     dragging = false;
     usingBrush = false;
+    if(currentTool === 'brush') {
+        ctx.beginPath();
+    }
 }
 
 function onCanvas(loc){
