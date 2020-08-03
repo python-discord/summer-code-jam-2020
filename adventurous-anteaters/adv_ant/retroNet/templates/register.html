@@ -1,0 +1,14 @@
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST" class="form-group">
+	{% csrf_token %}
+	{{ form.as_p }}
+    	<button type="submit" class="btn btn-success">Register</button>
+    </form>
+</body>
+</html>
