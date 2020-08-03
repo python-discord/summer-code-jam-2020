@@ -1,0 +1,9 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+username: {{ viewed_user.username }}
+{% if request.user == viewed_user %}
+<a href="{% url 'user-update' pk=viewed_user.id %}">update</a>
+<a href="{% url 'user-delete' pk=viewed_user.id %}">delete</a>
+{% endif %}
+{% endblock %}
