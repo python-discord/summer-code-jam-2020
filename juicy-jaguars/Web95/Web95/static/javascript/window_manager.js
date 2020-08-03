@@ -1,19 +1,23 @@
 function wm_minimise(divId) {
     var x = document.getElementById(divId);
     x.style.display = "none";
+    x.windowstate = "minimised";
 }
 
 function wm_restore(divId) {
     var x = document.getElementById(divId);
     x.style.display = "block";
+    x.windowstate = "focused";
 }
 
 function wm_restore_minimise_toggle(divId) {
     var x = document.getElementById(divId);
     if (x.style.display === "none") {
         x.style.display = "block";
+        x.windowstate = "focused";
     } else {
         x.style.display = "none";
+        x.windowstate = "minimised";
     }
 }
 
@@ -26,8 +30,6 @@ function wm_maximise(divId) {
         x.style.height = x.oldheight.toString()+"px";
 
         x.maximised = "false";
-
-        console.log("unmax");
     } else {
         x.oldtop = x.style.top, x.oldleft = x.style.left;
         x.style.top = "0px", x.style.left = "0px";
@@ -39,8 +41,6 @@ function wm_maximise(divId) {
         x.maximised = "true";
 
         console.log(window.innerWidth.toString()+"px");
-
-        console.log("max");
     }
 }
 
