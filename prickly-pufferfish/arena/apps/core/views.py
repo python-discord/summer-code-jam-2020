@@ -6,3 +6,7 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request, "base.html")
+
+
+def battle_page(request):
+    return render(request, "battle.html")

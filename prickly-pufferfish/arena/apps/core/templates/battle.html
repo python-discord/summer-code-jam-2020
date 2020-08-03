@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="hero-unit m-5">
+    <div class="m-5 text-center">
+        <h1 style="font-size: xx-large">Arena</h1>
+    </div>
+
+    <div class="row m-5">
+        <p>Code your solution below for the following problem in Python. Assume that the input data will be passed
+            in in
+            a variable called "input_data". Please note that you will not be able to use any libraries that are not
+            included in the default installation of your selected language. Good luck!</p>
+        <p>You will have a limited amount of time to submit your solution. Look at the timer below to see how much
+            time you have left!</p>
+    </div>
+</div>
+
+<div class="m-5">
+    <form action="{% url 'exec:index' %}" method="post">
+        <h4>Programming language:</h4>
+        <select name="lang">
+            <option value="python">Python</option>
+            <option value="c">C</option>
+            <option value="c++">C++</option>
+            <option value="perl">Perl</option>
+        </select>
+        <h4>Code:</h4>
+        <textarea name="code" style="width: 100%; max-width: 100%;" rows="20" cols="60"></textarea>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -12,27 +12,10 @@
 </head>
 
 <body>
-    <div class="hero-unit m-5">
-        <div class="m-5 text-center">
-            <h1 style="font-size: xx-large">Arena</h1>
-        </div>
 
-        <div class="row m-5">
-            <p>Code your solution below for the following problem in Python. Assume that the input data will be passed
-                in in
-                a variable called "input_data". Good luck!</p>
-            <p>You will have a limited amount of time to submit your solution. Look at the timer below to see how much
-                time you have left!</p>
-        </div>
-    </div>
+    {% block content %}
 
-    <div class="m-5">
-        <form action="{% url 'exec:index' %}" method="post">
-            <h3>Code</h3>
-            <textarea name="code" style="width: 100%; max-width: 100%;" rows="20" cols="60"></textarea>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+    {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
