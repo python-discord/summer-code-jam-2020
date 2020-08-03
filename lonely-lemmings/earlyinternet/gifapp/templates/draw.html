@@ -40,25 +40,26 @@
                     <button></button>
                 </div>
                 <div class="color">
-                    <p>RED</p>
-                    <input type="range" min="0" max="255" value="0" class="slider" id="red">
+                    <p>RED <span id="red_value"></span></p>
+                    <input type="range" min="0" max="255" value="0" class="slider" id="redSlider">
                 </div>
                 <div class="color">
-                    <p>GREEN</p>
-                    <input type="range" min="0" max="255" value="0" class="slider" id="green">
+                    <p>GREEN <span id="green_value"></span></p>
+                    <input type="range" min="0" max="255" value="0" class="slider" id="greenSlider">
                 </div>
                 <div class="color">
-                    <p>BLUE</p>
-                    <input type="range" min="0" max="255" value="0" class="slider" id="blue">
+                    <p>BLUE <span id="blue_value"></span></p>
+                    <input type="range" min="0" max="255" value="0" class="slider" id="blueSlider">
                 </div>
                 <div class="color">
-                    <p>WIDTH(2)</p>
-                    <input type="range" min="2" max="60" value="2" class="slider" id="lineWidth">
+                    <p>WIDTH <span id="width_value"></span></p>
+                    <input type="range" min="2" max="60" value="2" class="slider" id="lineWidthSlider">
                 </div>
                 <div class="color">
-                    <p>POLYGON(3)</p>
-                    <input type="range" min="3" max="10" value="3" class="slider" id="polygonSide">
+                    <p>POLYGON<span id="polygon_value"></span></p>
+                    <input type="range" min="3" max="10" value="3" class="slider" id="polygonSideSlider">
                 </div>
+                <script src="slider.js"></script>
             </div>
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
