@@ -8,6 +8,15 @@ function wm_restore(divId) {
     x.style.display = "block";
 }
 
+function wm_restore_minimise_toggle(divId) {
+    var x = document.getElementById(divId);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
 function wm_maximise(divId) {
     var x = document.getElementById(divId);
 

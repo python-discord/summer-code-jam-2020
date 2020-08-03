@@ -20,7 +20,7 @@ function create_window_list_btn (navbar, name, windowid) {
 
     var link = document.createElement("a");
     link.classList = ["nav-link"];
-    link.onclick = function() { wm_restore(windowid); };
+    link.onclick = function() { wm_restore_minimise_toggle(windowid); };
 
     var span = document.createElement("span");
     span.classList = ["nav-link-inner-text"];
