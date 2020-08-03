@@ -15,7 +15,7 @@ from users.models import CustomUser
 @csrf_exempt
 def get_posts(request):
     posts = Post.objects.all()
-    user_id = request.query_params.get('user', None)
+    user_id = request.query_params.get("user", None)
     if user_id is not None:
         posts = posts.filter(author=user_id)
     serializer = PostSerializer(posts, many=True)
@@ -52,8 +52,22 @@ def create_post(request):
 @api_view(["DELETE"])
 @csrf_exempt
 @permission_classes([IsAuthenticated])
-def delete_post(request):
-    pass
+def delete_post(request, post_id):
+    user = request.user
+    try:
+        post = Post.objects.get(id=post_id, author=user.id)
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except ObjectDoesNotExist as e:
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went wrong!"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
 
 @api_view(["PATCH"])
