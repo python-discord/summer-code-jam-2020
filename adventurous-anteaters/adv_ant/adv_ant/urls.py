@@ -18,5 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("retroNet.urls"))
+    path('', include("retroNet.urls")),
+    path('retroNet/', include('django.contrib.auth.urls'))
+
 ]
