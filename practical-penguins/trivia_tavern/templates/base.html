@@ -30,6 +30,10 @@
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'main_hub' %}">Home</a>
+              {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'main_hub' %}">Run Quiz</a>
+                <a class="nav-item nav-link" href="{% url 'quiz-create' %}">Create Quiz</a>
+              {% endif %}
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
