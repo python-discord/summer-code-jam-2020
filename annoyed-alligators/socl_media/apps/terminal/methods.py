@@ -1,17 +1,21 @@
 class TerminalCommand():
     """Container for terminal all terminal commands"""
 
-    def __init__(self, option):
+    def __init__(self, option: str):
         self.specified_method = option.split()[0]
         self.params = option[option.find(" ") + 1:]
 
     def run(self):
-        method_to_call = getattr(self, self.specified_method)
-        response = method_to_call(self.params)
+        try:
+            method_to_call = getattr(self, self.specified_method)
+            response = method_to_call(self.params)
+        except AttributeError as e:
+            response = f"{self.specified_method}: command not found"
+            print(e)
         return response
 
     @staticmethod
-    def message(params=None):
+    def message(params: str=None):
         help_text = "message: use this to send messages<br><br>"\
             "Usage: message username [args] [message text]<br>"\
             "options:<br>"\
