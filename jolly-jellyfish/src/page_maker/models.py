@@ -42,7 +42,7 @@ class Webpage(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     # todo: default to imgkit generated thumbnail
-    thumbnail = models.ImageField(null=True, blank=True, default=None,
+    thumbnail = models.ImageField(null=True, blank=True, default='thumbnails/placeholder_img.png',
                                   upload_to='thumbnails/',
                                   validators=[validate_image_file_extension])
     template_used = models.ForeignKey(Template, on_delete=models.DO_NOTHING)

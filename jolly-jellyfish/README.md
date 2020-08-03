@@ -17,8 +17,8 @@ The most liked sites appear on the front page, along with the most liked users a
 
 ## Initial Setup
 ### wkhtmltoimage
-In order to generate page thumbnails wkhtmltoimage.exe is required for python package `imgkit`.
-Download from [https://wkhtmltopdf.org/downloads.html][1] and set the system environment variable **WKHTML_TO_IMAGE** to the executable's path.
+In order to generate page thumbnails, a wkhtmltoimage binary is required for python package `imgkit`.
+Download the image from [https://wkhtmltopdf.org/downloads.html][1] and set the system environment variable **WKHTML_TO_IMAGE** to the binary's path.
 
 E.g. On Windows (admin) with a .exe file, this is done with:
 ```batch
@@ -33,7 +33,7 @@ Therefore, only one executable would need to be download to the src directory an
 ```shell script
 $ pipenv install
 $ pipenv shell
-(venv) $ python manage.py makemigrations  # TODO: this might be optional.
+(venv) $ python manage.py makemigrations  # TODO: this might be optional, depends on pipenv script section.
 (venv) $ python manage.py migrate
 ```
 

@@ -4,13 +4,24 @@
 {% if webpages %}
 {% for webpage in webpages %}
 <div>
-    <a href="{% url 'webpage-view' pagename=webpage.name %}">
+    {% url 'webpage-view' pagename=webpage.name as location %}
+
+    {# If the webpage does not yet have a thumbnail associated with it... #}
+    {# loads custom template tags to call thumbnail generation functions. #}
+
+    {% if 'placeholder_img' in webpage.thumbnail.url %}
+    {% load render_img_thumbnail %}
+    {% get_dest_url request location as page_full_url %}
+    {% request_img_gen page_full_url webpage %}
+    {% endif %}
+
+    <a href="{{ location }}">
         <p>{{ webpage.user_title }}</p>
     </a>
-    {% if webpage.thumbnail %}
+    {% if webpage.thumbnail.url %}
     <img src="{{ webpage.thumbnail.url }}">
     {% else %}
-    no thumbnail
+    No thumbnail yet generated for '{{ webpage.user_title }}'.
     {% endif %}
 </div>
 {% endfor %}
