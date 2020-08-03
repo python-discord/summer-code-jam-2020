@@ -25,6 +25,8 @@ def threads(request, id=None):
         thread = get_object_or_404(Thread, id=int(id))  # don't want them to get a thread that doesn't exist now
         p = request.GET.get("p", default=1)
         data = {
+                "thread": thread,
+                "messages": thread.message_set.all(),
                 "id": id,
                 "page": p,
 
