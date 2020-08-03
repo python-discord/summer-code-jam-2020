@@ -12,6 +12,8 @@
         <script src="{% static 'javascript/window_list.js' %}"></script>
         <script src="{% static 'javascript/window_manager.js' %}"></script>
         <script src="{% static 'javascript/window_btns.js' %}"></script>
+        <script src="{% static 'javascript/window_ids.js' %}"></script>
+        <script src="{% static 'javascript/window_setup.js' %}"></script>
 
         <style>
         .draggable {
@@ -45,8 +47,5 @@
 </html>
 
 <script>
-loadDraggableElements("draggable");
-window.onload = function(){var navbar = document.getElementsByClassName("navbar-nav")[0];
-create_buttons(navbar, "draggable");
-loadButtonEffects();};
+window.onload = function(){window_setup()};
 </script>

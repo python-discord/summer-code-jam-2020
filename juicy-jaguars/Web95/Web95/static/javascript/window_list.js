@@ -8,13 +8,13 @@ function get_window_list (class_name) {
     for (var i = 0; i < windows.length; i++) {
         titlebar = windows[i].getElementsByClassName(class_name+"-header")[0];
         window_titles[i] = [].reduce.call(titlebar.childNodes, function(a, b) { return a + (b.nodeType === 3 ? b.textContent : ''); }, '').trim();
-        window_ids[i] = windows[i].id
+        window_ids[i] = windows[i].id;
     }
 
     return [window_titles, window_ids];
 }
 
-function create_window_btn (navbar, name, windowid) {
+function create_window_list_btn (navbar, name, windowid) {
     var btn = document.createElement("li");
     btn.classList = ["nav-item"];
 
@@ -31,23 +31,15 @@ function create_window_btn (navbar, name, windowid) {
     navbar.appendChild(btn);
 }
 
-function create_buttons(navbar, class_name) {
+function create_window_list(navbar_class, class_name) {
+    var navbar = document.getElementsByClassName(navbar_class)[0];
+
     var windowsinfo = get_window_list(class_name);
-    var window_titles = windowsinfo[0]
-    var window_ids = windowsinfo[1]
+
+    var window_titles = windowsinfo[0];
+    var window_ids = windowsinfo[1];
 
     for (var i = 0; i < window_titles.length; i++) {
-        create_window_btn(navbar, window_titles[i], window_ids[i]);
+        create_window_list_btn(navbar, window_titles[i], window_ids[i]);
     }
 }
-
-console.log(get_window_list("draggable"));
-
-// <li class="nav-item">
-//     <a href="" class="nav-link" role="button">
-//         <span class="nav-link-inner-text">
-//             <img src="{% static 'images/start.svg' %}" height="20px" margin=auto>
-//             Start
-//         </span>
-//     </a>
-// </li>

@@ -35,6 +35,15 @@ function wm_maximise(divId) {
     }
 }
 
+function setupWindowButtons(class_name) {
+    var windows = getElementsByClassName(className);
+
+    for (var i = 0; i < windows.length; i++) {
+        windows.getElementsByClassName("window-btn-minimise").onclick = wm_minimise(windows[i].id);
+        windows.getElementsByClassName("window-btn-maximise").onclick = wm_maximise(windows[i].id);
+    }
+}
+
 /*
 function wm_minimise(divClass) {
     var x = document.getElementsByClassName(divClass);
