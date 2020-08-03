@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'first_google/css/style.css' %}">
     <title>Title</title>
 </head>
 <body>
 <div class="container section-vertical">
     <!--logo-->
     <div class="logo">
-        <img src="https://via.placeholder.com/600x150">
+        <img id="logo-image" src="{% static 'first_google/image/old-google-logo.png' %}">
     </div>
     <!--search area-->
     <div class="search section-vertical">
@@ -25,22 +25,22 @@
     </div>
     <!--others-->
     <div class="others section-horizontal">
-        <div class="others-item section-vertical">
+        <div class="special-search section-vertical">
             <div>Special Searches</div>
             <a href="">Stanford Search</a>
             <a href="">Linux Search</a>
         </div>
-        <div class="others-item section-vertical">
+        <div class="helps section-vertical">
             <a href="">Help!</a>
             <a href="">About Google!</a>
             <a href="">Company Info</a>
             <a href="">Google! Logos</a>
         </div>
-        <div class="others-item section-vertical">
+        <div class="subscribe section-vertical">
             <label for="email">Get Google! updates monthly:</label>
             <input id="email" type="text">
             <div class="section-horizontal">
-                <button>Subscribe</button>
+                <button id="subscribe-button">Subscribe</button>
                 <a href="">Archive</a>
             </div>
         </div>
