@@ -1,13 +1,13 @@
 {% extends "chat/base.html" %}
 {% block content %}
-    {% for message in messages %}
+    {% for text in texts %}
         <article class="media content-section">
             <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="#">{{ message.author }}</a>
-                <small class="text-muted">{{ message.date_sent }}</small>
+                <a class="mr-2" href="#">{{ text.author }}</a>
+                <small class="text-muted">{{ text.date_sent|date:"D g:i" }}</small>
             </div>
-            <p class="article-content">{{ message.content }}</p>
+            <p class="article-content">{{ text.content }}</p>
             </div>
         </article>
     {% endfor%}
