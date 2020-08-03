@@ -9,6 +9,8 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" >
         <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}" >
         <script src="{% static 'javascript/drag.js' %}"></script>
+        <script src="{% static 'javascript/window_list.js' %}"></script>
+
         <style>
         .draggable {
             position: absolute;
@@ -34,14 +36,6 @@
                         </span>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link" role="button">
-                        <span class="nav-link-inner-text">
-                            Start
-                        </span>
-                    </a>
-                </li>
             </ul>
         </nav>
 
@@ -50,4 +44,6 @@
 
 <script>
 loadDraggableElements("draggable");
+window.onload = function(){var navbar = document.getElementsByClassName("navbar-nav")[0];
+create_buttons(navbar, "draggable");};
 </script>
