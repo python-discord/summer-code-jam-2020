@@ -19,7 +19,7 @@ class CustomUser(AbstractUser):
         return self.username
 
 
-class Post(models.Model):
+class Post(TimeStampedModel):
     title = models.CharField(max_length=255,
                              default='',
                              blank=True)
@@ -55,7 +55,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
 
-class Topic(models.Model):
+class Topic(TimeStampedModel):
     pass
 
 
