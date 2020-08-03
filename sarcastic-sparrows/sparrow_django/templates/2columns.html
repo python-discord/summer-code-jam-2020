@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col ignore">
+{% block column1 %}
+{% endblock column1 %}
+</div>
+<div class="col ignore">
+{% block column2 %}
+{% endblock column2 %}
+</div>
+</div>
+</div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/project.js' %}"></script>
+{% endblock js %}

@@ -1,9 +1,26 @@
 /* Project CSS files */
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 button {
     border-radius: 0;
     border-color: #DFDFDF #808080 #808080 #DFDFDF;
     background-color: #C0C0C0;
     border-width: 2px;
+}
+
+iframe {
+    padding: 0;
+    margin: 0;
 }
 
 input:not([type="file"]), textarea {
@@ -16,10 +33,6 @@ input:not([type="file"]), textarea {
 
 body {
     background-color: #C0C0C0;
-}
-
-* {
-    margin-bottom: .5em;
 }
 
 input[type="checkbox"] {
@@ -39,9 +52,14 @@ input[type="radio"]:checked {
     content: url("../images/radio-on.png");
 }
 
+div.col.ignore, div.ignore[class*="col-"] {
+    outline: initial;
+    margin: initial;
+}
+
 div.col, div[class*="col-"] {
     outline: 1px solid black;
-    margin: 1em;
+    margin: .3em;
 }
 
 div.col div.header {
