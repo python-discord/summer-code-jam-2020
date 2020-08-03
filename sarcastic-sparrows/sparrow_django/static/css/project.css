@@ -1,1 +1,40 @@
 /* Project CSS files */
+button {
+    border-radius: 0;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    background-color: #C0C0C0;
+    border-width: 2px;
+}
+
+input:not([type="file"]), textarea {
+    border-radius: 0;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    border-style: outset;
+    border-width: 2px;
+    background-color: white;
+}
+
+body {
+    background-color: #C0C0C0;
+}
+
+* {
+    margin-bottom: .5em;
+}
+
+input[type="checkbox"] {
+    content: url("../images/checkbox-unchecked.png");
+}
+
+input[type="checkbox"]:checked {
+    content: url("../images/checkbox-checked.png");
+}
+
+input[type="radio"] {
+    content: url("../images/radio-off.png");
+    
+}
+
+input[type="radio"]:checked {
+    content: url("../images/radio-on.png");
+}
