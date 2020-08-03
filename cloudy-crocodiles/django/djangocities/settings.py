@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "ariadne.contrib.django",
     "djangocities.user",
     "djangocities.cities",
-    "djangocities.sites"
+    "djangocities.sites",
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "djangocities.urls"
@@ -124,3 +127,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "user.CustomUser"
+
+# corsheaders
+CORS_ORIGIN_ALLOW_ALL = True
