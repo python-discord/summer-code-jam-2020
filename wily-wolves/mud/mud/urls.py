@@ -20,5 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('game/', include('game.urls')),
     path('admin/', admin.site.urls),
-    path('', lambda _: HttpResponseRedirect('/game/'))
+    path('', lambda _: HttpResponseRedirect('game/'))
 ]
