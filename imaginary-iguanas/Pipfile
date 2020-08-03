@@ -10,6 +10,7 @@ pre-commit = "*"
 [packages]
 django = "==3.0.8"
 pillow = "*"
+pycountry = "*"
 
 [requires]
 python_version = "3.8"
