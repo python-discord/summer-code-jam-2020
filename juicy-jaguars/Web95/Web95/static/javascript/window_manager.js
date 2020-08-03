@@ -36,11 +36,12 @@ function wm_maximise(divId) {
 }
 
 function setupWindowButtons(class_name) {
-    var windows = getElementsByClassName(className);
+    var windows = document.getElementsByClassName(class_name);
+    console.log(windows.length);
 
     for (var i = 0; i < windows.length; i++) {
-        windows.getElementsByClassName("window-btn-minimise").onclick = wm_minimise(windows[i].id);
-        windows.getElementsByClassName("window-btn-maximise").onclick = wm_maximise(windows[i].id);
+        windows[i].getElementsByClassName("window-btn-minimise")[0].onclick = function(e) {wm_minimise(e.target.parentElement.parentElement.id)};
+        windows[i].getElementsByClassName("window-btn-maximise")[0].onclick = function(e) {wm_maximise(e.target.parentElement.parentElement.id)};
     }
 }
 
