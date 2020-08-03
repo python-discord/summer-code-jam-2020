@@ -54,4 +54,3 @@ def engine_results(request):
     """ Renders a page for the request  """
     return render(request, 'dashboard/search-engine/results.html')
 
-print(search_query('dogs'))
