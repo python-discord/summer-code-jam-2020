@@ -1,19 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for quiz in active_quizzes %}
+    {% for quiz in quizzes %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="{% url 'user-quizzes' quiz.author.username %}">{{ quiz.author }}</a>
-              <small class="text-muted">Quiz started: {{ quiz.start_time|date:"F d, Y" }}</small>
             </div>
             <h2><a class="article-title" href="{% url 'quiz-detail' quiz.id %}">{{ quiz.name }}</a></h2>
             <p class="article-content">Number of questions: {{ quiz.triviaquestion_set.count }}</p>
           </div>
         </article>
     {% empty %}
-    <h2>No active trivia being played</h2>
+    <h2>No trivia pack exists, <a class="ml-2" href="{% url 'quiz-create' %}">create new one?</a></h2>
     {% endfor %}
     {% if is_paginated %}
 

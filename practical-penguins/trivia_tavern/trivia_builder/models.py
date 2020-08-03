@@ -6,6 +6,7 @@ from django.urls import reverse
 class TriviaQuiz(models.Model):
     name = models.CharField(max_length=30)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(auto_now_add=True, )
 
     def __str__(self):
         return self.name

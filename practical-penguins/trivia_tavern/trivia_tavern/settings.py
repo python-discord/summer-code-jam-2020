@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'trivia_builder.apps.TriviaBuilderConfig',
     'trivia_hub.apps.TriviaHubConfig',
+    'trivia_runner.apps.TriviaRunnerConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
     'django.contrib.admin',
