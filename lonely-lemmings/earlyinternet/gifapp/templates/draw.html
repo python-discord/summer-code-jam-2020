@@ -1,81 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="./draw.css">
-    <script src="./canvas.js"></script>
-    <title>Canvas</title>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="toolbar">
-            <a class="selected" href="#" id="open" onclick="OpenImage()">
-                <img src="file-open.png">
-            </a>
-            <a href="#" id="save" onclick="SaveImage()">
-                <img src="save.png">
-            </a>
-            <a href="#" id="undo" onclick="Undo()">
-                <img src="undo.png">
-            </a>
-            <a href="#" id="select" onclick="ChangeTool('select')">
-                <img src="select.png">
-            </a>
-            <a href="#" id="eraser" onclick="ChangeTool('eraser')">
-                <img src="eraser.png">
-            </a>
-            <a href="#" id="brush" onclick="ChangeTool('brush')">
-                <img src="pencil.png">
-            </a>
-            <a href="#" id="line" onclick="ChangeTool('line')">
-                <img src="line.png">
-            </a>
-            <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
-                <img src="rectangle.png">
-            </a>
-            <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
-                <img src="ellipse.png">
-            </a>
-            <a href="#" id="polygon" onclick="ChangeTool('polygon')">
-                <img src="polygon.png">
-            </a>
-        </div>
-        <div class="customizer">
-            <div class="color-container">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width = device-width, initial-scale = 1">
+        <title>JavaScript Paint App</title>
+        <link rel="stylesheet" type="text/css" href="draw.css">
+        <script src="canvas.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="toolbar">
+                <a class="selected" href="#" id="open" onclick="OpenImage()">
+                    <img src="file-open.png">
+                </a>
+                <a href="#" id="save" onclick="SaveImage()">
+                    <img src="save.png">
+                </a>
+                <a href="#" id="undo" onclick="SaveImage()">
+                    <img src="undo.png">
+                </a>
+                <a href="#" id="brush" onclick="ChangeTool('brush')">
+                    <img src="pencil.png">
+                </a>
+                <a href="#" id="line" onclick="ChangeTool('line')">
+                    <img src="line.png">
+                </a>
+                <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
+                    <img src="rectangle.png">
+                </a>
+                <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
+                    <img src="ellipse.png">
+                </a>
+                <a href="#" id="polygon" onclick="ChangeTool('polygon')">
+                    <img src="polygon.png">
+                </a>
+            </div>
+            <div class="customizer">
                 <div class="color">
                     <button></button>
                 </div>
                 <div class="color">
                     <p>RED</p>
-                    <input type="range" min="0" max="255" value="100" class="slider" id="redSlider">
+                    <input type="range" min="0" max="255" value="0" class="slider" id="red">
                 </div>
                 <div class="color">
                     <p>GREEN</p>
-                    <input type="range" min="0" max="255" value="100" class="slider" id="greenSlider">
+                    <input type="range" min="0" max="255" value="0" class="slider" id="green">
                 </div>
                 <div class="color">
                     <p>BLUE</p>
-                    <input type="range" min="0" max="255" value="100" class="slider" id="blueSlider">
+                    <input type="range" min="0" max="255" value="0" class="slider" id="blue">
                 </div>
                 <div class="color">
-                    <p>LINE WIDTH (2)</p>
-                    <input type="range" min="2" max="100" value="30" class="slider" id="lineWidth">
+                    <p>WIDTH(2)</p>
+                    <input type="range" min="2" max="60" value="2" class="slider" id="lineWidth">
                 </div>
                 <div class="color">
-                    <p>POLYGON SIDES (6)</p>
-                <input type="range" min="3" max="10" value="6" class="slider" id="polygonSides">
+                    <p>POLYGON(3)</p>
+                    <input type="range" min="3" max="10" value="3" class="slider" id="polygonSide">
                 </div>
             </div>
+            <br>
+            <canvas id="my-canvas" width="600" height="600"></canvas>
+            <div id="img-data-div">
+                <a href="#" id="img-file" download="image.png">download image</a>
+            </div>
         </div>
-        <br>
-
-        <canvas id="my-canvas" width="600" height="600"></canvas>
-
-        <div id="img-data-div">
-            <a href="#" id="img-file" download="image.png">Download Image</a>
-        </div>
-    </div>
-</body>
+    </body>
 </html>

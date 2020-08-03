@@ -1,20 +1,34 @@
+// JavaScript Paint App JavaScript Canvas API
+
+// Reference to the canvas element
 let canvas;
+// Context provides functions used for drawing and
+// working with Canvas
 let ctx;
+// Stores previously drawn image data to restore after
+// new drawings are added
 let savedImageData;
+// Stores whether I'm currently dragging the mouse
 let dragging = false;
 let strokeColor = 'black';
 let fillColor = 'black';
 let line_Width = 2;
 let polygonSides = 3;
+// Tool currently using
 let currentTool = 'brush';
 let canvasWidth = 600;
 let canvasHeight = 600;
+
+// Stores whether I'm currently using brush
 let usingBrush = false;
+// Stores line x & ys used to make brush lines
 let brushXPoints = new Array();
 let brushYPoints = new Array();
+// Stores whether mouse is down
 let brushDownPos = new Array();
 
-//represents a rectangular box that encloses a shape
+// Stores size data used to create rubber band shapes
+// that will redraw as the user moves the mouse
 class ShapeBoundingBox{
     constructor(left, top, width, height) {
         this.left = left;
@@ -24,7 +38,7 @@ class ShapeBoundingBox{
     }
 }
 
-//represents the x, y location of where the mouse is clicked down
+// Holds x & y position where clicked
 class MouseDownPos{
     constructor(x,y) {
         this.x = x,
@@ -32,7 +46,7 @@ class MouseDownPos{
     }
 }
 
-//represents the current location x, y of the mouse
+// Holds x & y location of the mouse
 class Location{
     constructor(x,y) {
         this.x = x,
@@ -40,20 +54,23 @@ class Location{
     }
 }
 
-//represents a point on a polygon
+// Holds x & y polygon point values
 class PolygonPoint{
     constructor(x,y) {
         this.x = x,
         this.y = y;
     }
 }
-
+// Stores top left x & y and size of rubber band box
 let shapeBoundingBox = new ShapeBoundingBox(0,0,0,0);
+// Holds x & y position where clicked
 let mousedown = new MouseDownPos(0,0);
+// Holds x & y location of the mouse
 let loc = new Location(0,0);
- 
+
+// Call for our function to execute when page is loaded
 document.addEventListener('DOMContentLoaded', setupCanvas);
- 
+
 function setupCanvas(){
     // Get reference to canvas element
     canvas = document.getElementById('my-canvas');
@@ -68,14 +85,13 @@ function setupCanvas(){
     // Execute ReactToMouseUp when the mouse is clicked
     canvas.addEventListener("mouseup", ReactToMouseUp);
 }
- 
+
 function ChangeTool(toolClicked){
     document.getElementById("open").className = "";
     document.getElementById("save").className = "";
     document.getElementById("brush").className = "";
     document.getElementById("line").className = "";
     document.getElementById("rectangle").className = "";
-    document.getElementById("circle").className = "";
     document.getElementById("ellipse").className = "";
     document.getElementById("polygon").className = "";
     // Highlight the last selected tool on toolbar
@@ -91,47 +107,47 @@ function GetMousePosition(x,y){
         y: (y - canvasSizeData.top)  * (canvas.height / canvasSizeData.height)
       };
 }
- 
+
 function SaveCanvasImage(){
     // Save image
     savedImageData = ctx.getImageData(0,0,canvas.width,canvas.height);
 }
- 
+
 function RedrawCanvasImage(){
     // Restore image
     ctx.putImageData(savedImageData,0,0);
 }
- 
+
 function UpdateRubberbandSizeData(loc){
     // Height & width are the difference between were clicked
     // and current mouse position
     shapeBoundingBox.width = Math.abs(loc.x - mousedown.x);
     shapeBoundingBox.height = Math.abs(loc.y - mousedown.y);
- 
+
     // If mouse is below where mouse was clicked originally
     if(loc.x > mousedown.x){
- 
+
         // Store mousedown because it is farthest left
         shapeBoundingBox.left = mousedown.x;
     } else {
- 
+
         // Store mouse location because it is most left
         shapeBoundingBox.left = loc.x;
     }
- 
+
     // If mouse location is below where clicked originally
     if(loc.y > mousedown.y){
- 
+
         // Store mousedown because it is closer to the top
         // of the canvas
         shapeBoundingBox.top = mousedown.y;
     } else {
- 
+
         // Otherwise store mouse position
         shapeBoundingBox.top = loc.y;
     }
 }
- 
+
 // Returns the angle using x and y
 // x = Adjacent Side
 // y = Opposite Side
@@ -140,10 +156,10 @@ function UpdateRubberbandSizeData(loc){
 function getAngleUsingXAndY(mouselocX, mouselocY){
     let adjacent = mousedown.x - mouselocX;
     let opposite = mousedown.y - mouselocY;
- 
+
     return radiansToDegrees(Math.atan2(opposite, adjacent));
 }
- 
+
 function radiansToDegrees(rad){
     if(rad < 0){
         // Correct the bottom error by adding the negative
@@ -154,25 +170,24 @@ function radiansToDegrees(rad){
         return (rad * (180 / Math.PI)).toFixed(2);
     }
 }
- 
- 
+
 // Converts degrees to radians
 function degreesToRadians(degrees){
     return degrees * (Math.PI / 180);
 }
- 
+
 function getPolygonPoints(){
     // Get angle in radians based on x & y of mouse location
     let angle =  degreesToRadians(getAngleUsingXAndY(loc.x, loc.y));
- 
+
     // X & Y for the X & Y point representing the radius is equal to
     // the X & Y of the bounding rubberband box
     let radiusX = shapeBoundingBox.width;
     let radiusY = shapeBoundingBox.height;
     // Stores all points in the polygon
     let polygonPoints = [];
- 
-    // Each point in the polygon is found by breaking the 
+
+    // Each point in the polygon is found by breaking the
     // parts of the polygon into triangles
     // Then I can use the known angle and adjacent side length
     // to find the X = mouseLoc.x + radiusX * Sin(angle)
@@ -180,15 +195,15 @@ function getPolygonPoints(){
     for(let i = 0; i < polygonSides; i++){
         polygonPoints.push(new PolygonPoint(loc.x + radiusX * Math.sin(angle),
         loc.y - radiusY * Math.cos(angle)));
- 
+
         // 2 * PI equals 360 degrees
-        // Divide 360 into parts based on how many polygon 
-        // sides you want 
+        // Divide 360 into parts based on how many polygon
+        // sides you want
         angle += 2 * Math.PI / polygonSides;
     }
     return polygonPoints;
 }
- 
+
 // Get the polygon points and draw the polygon
 function getPolygon(){
     let polygonPoints = getPolygonPoints();
@@ -199,7 +214,7 @@ function getPolygon(){
     }
     ctx.closePath();
 }
- 
+
 // Called to draw the line
 function drawRubberbandShape(loc){
     ctx.strokeStyle = strokeColor;
@@ -216,13 +231,6 @@ function drawRubberbandShape(loc){
     } else if(currentTool === "rectangle"){
         // Creates rectangles
         ctx.strokeRect(shapeBoundingBox.left, shapeBoundingBox.top, shapeBoundingBox.width, shapeBoundingBox.height);
-												   
-    } else if(currentTool === "circle"){
-        // Create circles
-        let radius = shapeBoundingBox.width;
-        ctx.beginPath();
-        ctx.arc(mousedown.x, mousedown.y, radius, 0, Math.PI * 2);
-        ctx.stroke();
     } else if(currentTool === "ellipse"){
         // Create ellipses
         // ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle)
