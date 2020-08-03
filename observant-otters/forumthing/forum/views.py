@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Thread, Message
@@ -19,6 +19,10 @@ class NewThread(CreateView):
 
 def threads(request, id=None):
     if request.method == "GET":
+        if id is None:
+            return render(request, 'forum/home.html')
+
+        thread = get_object_or_404(Thread, id=int(id))  # don't want them to get a thread that doesn't exist now
         p = request.GET.get("p", default=1)
         data = {
                 "id": id,
