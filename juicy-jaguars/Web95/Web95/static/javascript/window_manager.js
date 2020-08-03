@@ -44,6 +44,18 @@ function wm_maximise(divId) {
     }
 }
 
+function wm_focus(divId) {
+    var x = document.getElementById(divId);
+
+    x.windowstate = "focused";
+}
+
+function wm_unfocus(divId) {
+    var x = document.getElementById(divId);
+
+    x.windowstate = "unfocused";
+}
+
 function setupWindowButtons(class_name) {
     var windows = document.getElementsByClassName(class_name);
     console.log(windows.length);
