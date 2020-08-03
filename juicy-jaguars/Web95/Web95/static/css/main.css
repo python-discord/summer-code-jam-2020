@@ -67,6 +67,51 @@ body {
     border-width: 0;
 }
 
+.ie-btn-sm {
+    height: 18px;
+    width: 20px;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    float:right;
+    margin: -18px 0 0 0;
+}
+
 .ie-spacer {
     width: 5px;
+}
+
+.ie-address-bar {
+    display: inline;
+    margin: 0 10px 0 10px;
+}
+
+.ie-address-bar-label {
+    display: inline;
+    margin: 0 5px 0 0;
+    width: 10%;
+}
+
+.ie-address-bar-container {
+    border: 2px inset grey;
+    background-color: white;
+    width:90%;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+
+.ie-address-bar-field {
+    display: block;
+    height: 18px;
+    border: 0;
+    margin: 0;
+
+}
+
+.ie-content {
+    border-width: 2px;
+    border-style: inset;
+    margin: 3px;
 }
