@@ -1,10 +1,10 @@
 function wm_minimise(divId) {
-    var x = document.getElementsById(divId);
+    var x = document.getElementById(divId);
     x.style.display = "none";
 }
 
 function wm_restore(divId) {
-    var x = document.getElementsById(divId);
+    var x = document.getElementById(divId);
     x.style.display = "block";
 }
 
