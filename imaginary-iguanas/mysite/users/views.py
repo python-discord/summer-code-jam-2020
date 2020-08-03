@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
+# from django.contrib import messages
+# from django.contrib.auth.decorators import login_required
 
-from .forms import MySiteUserCreationForm
+from .forms import MySiteUserCreationForm, MySiteUserProfileSettingsForm
 
 
 class SignUpView(CreateView):
@@ -17,5 +19,22 @@ def user(request, user_id):
     return render(request, 'users/user.html')
 
 
+# @login_required
 def user_settings(request):
-    return render(request, 'users/settings.html')
+
+    '''
+        if request.method == 'POST':
+        update_form = MySiteUserProfileSettingsForm(request.POST, request.FILES, instance=request.user)
+        if update_form.isvalid():
+            update_form.save()
+            messages.success(request, f'Your profile has been updated successfully :)')
+            return redirect('profile')
+    else:
+        update_form = MySiteUserProfileSettingsForm(instance=request.user)
+    '''
+    update_form = MySiteUserProfileSettingsForm()
+
+    context = {
+        'update_form': update_form
+    }
+    return render(request, 'settings.html', context)
