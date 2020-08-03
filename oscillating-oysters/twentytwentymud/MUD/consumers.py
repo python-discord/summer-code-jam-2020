@@ -1,6 +1,9 @@
 from django.conf import settings
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
+from terminal.terminal_tools import colorize
+
+
 BANNER = """
            #####    ###    #####    ###      #     # #     # ######  
           #     #  #   #  #     #  #   #     ##   ## #     # #     # 
@@ -47,11 +50,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             pass
 
     async def send_welcome(self):
-            await self.send_json({'message': BANNER})
+        await self.send_json( {'message': colorize('brightBlue', BANNER)} )
 
     async def send_unknown(self, command):
         await self.send_json({
-            'message': f"I don't understand {command}, try help."
+            'message': f"I don't understand `{command}`, try " + colorize('brightYellow', "help") + "."
         })
     
     async def send_help(self):

@@ -20,7 +20,7 @@ COLOR = {
     'brightWhite': '\x1b[1;37m',
 }
 
-def colorize(text, color):
+def colorize(color, text):
     """Prefixes an ANSI color escape and resets color after."""
 
     return COLOR[color] + text + COLOR['reset']
