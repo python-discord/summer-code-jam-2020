@@ -2,7 +2,7 @@
  * Yellow on red / red on yellow, switches every 5 seconds.
  * Comic Sans, or Comic Neue from google fonts if Comic Sans not available.
  * Headers all spin and move, and must be written as:
- *      <h1><span><span>Header Text</span</span></h1>
+ *      <h1><span><span>Header Text</span></span></h1>
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
