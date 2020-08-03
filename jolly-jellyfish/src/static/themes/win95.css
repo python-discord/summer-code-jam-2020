@@ -28,7 +28,7 @@ body {
   margin: 30px auto 60px auto;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   background: #010080 url("/static/images/win95-close.png") calc(100% - 10px) center no-repeat;
   color: #fff;
   padding: 5px;
