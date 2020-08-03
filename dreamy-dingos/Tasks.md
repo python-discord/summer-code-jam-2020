@@ -1,15 +1,14 @@
-Global list of tasks:
+# Tasks
 
-Frontend
-User management
-Channel management
-Realtime chat
-Message editing and deleting
-Keeping messages in a database
-Write documentation
+## Current tasks
 
-Current tasks:
-
-Frontend - earth418
-User management - everythingajw
-Channel management - Evolost
+- Frontend
+  - `earth418`
+- User management
+  - `everythingajw`
+- Channel management
+  - `Evolost`
+- Realtime chat
+- Message editing and deleting
+- Keeping messages in a database
+- Write documentation
