@@ -7,6 +7,8 @@ let fillColor = 'black';
 let line_Width = 2;
 let polygonSides = 3;
 
+var lastX, lastY;
+
 //currently used tool
 let currentTool = 'brush';
 
@@ -18,11 +20,18 @@ let canvasHeight = 600;
 let usingBrush = false;
 
 //brush coordinates
-let brushXPoints = new Array();
-let brushYPoints = new Array();
+let brushPoints = new Array();
 
-//list of mouse down or up
-let brushDownPos = new Array();
+//represents a brush point
+class BrushPoint{
+    constructor(xCoord, yCoord, color, width, brushDown) {
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        this.color = color;
+        this.width = width;
+        this.brushDown = brushDown;
+    }
+}
 
 //represents box that shape is drawn in
 class ShapeBoundingBox{
@@ -195,23 +204,21 @@ function UpdateRubberbandOnMove(loc){
 }
 
 function AddBrushPoint(x, y, mouseDown){
-    brushXPoints.push(x);
-    brushYPoints.push(y);
-    brushDownPos.push(mouseDown);
+    brushPoints.push(new BrushPoint(x,y,ctx.strokeStyle, ctx.lineWidth, mouseDown));
 }
 
-function DrawBrush(){
-    for(let i = 1; i < brushXPoints.length; i++){
+function DrawBrush(x, y){
+    if (usingBrush) {
         ctx.beginPath();
-        if(brushDownPos[i]){
-            ctx.moveTo(brushXPoints[i-1], brushYPoints[i-1]);
-        } else {
-            ctx.moveTo(brushXPoints[i]-1, brushYPoints[i]);
-        }
-        ctx.lineTo(brushXPoints[i], brushYPoints[i]);
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = line_Width;
+        ctx.lineJoin = "round";
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
         ctx.closePath();
         ctx.stroke();
     }
+    lastX = x; lastY = y;
 }
  
 function ReactToMouseDown(e){
@@ -224,6 +231,11 @@ function ReactToMouseDown(e){
 
     if(currentTool === 'brush'){
         usingBrush = true;
+        if(onCanvas(loc)){
+            lastX = loc.x;
+            lastY = loc.y;
+            DrawBrush(loc.x, loc.y)
+        }
         AddBrushPoint(loc.x, loc.y);
     }
 };
@@ -233,11 +245,10 @@ function ReactToMouseMove(e){
     loc = GetMousePosition(e.clientX, e.clientY);
 
     if(currentTool === 'brush' && dragging && usingBrush){
-        if(loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight){
+        if(onCanvas(loc)){
             AddBrushPoint(loc.x, loc.y, true);
+            DrawBrush(loc.x, loc.y);
         }
-        RedrawCanvasImage();
-        DrawBrush();
     } else {
         if(dragging){
             RedrawCanvasImage();
@@ -253,6 +264,10 @@ function ReactToMouseUp(e){
     UpdateRubberbandOnMove(loc);
     dragging = false;
     usingBrush = false;
+}
+
+function onCanvas(loc){
+    return (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight);
 }
 
 function SaveImage(){
