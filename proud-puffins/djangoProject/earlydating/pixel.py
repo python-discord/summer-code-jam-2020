@@ -22,5 +22,5 @@ def pixelate(filename):
 directory = Path.cwd().resolve().parent.joinpath('djangoProject', 'static', 'users_large')
 
 
-# for filename in os.listdir(directory):
-#     pixelate(filename)
+for filename in os.listdir(directory):
+    pixelate(filename)

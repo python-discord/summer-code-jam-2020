@@ -9,6 +9,7 @@
 {% load static %}
 
 <html lang="en">
+<<<<<<< HEAD
     {% block head %}
     <head>
         <meta charset="UTF-8">
@@ -23,6 +24,47 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     </head>
+=======
+  {% block head %}
+  <head>
+    <meta charset="UTF-8">
+
+
+    <!-- need to passes title as variables in the functions -->
+    {% if title %}
+        <title>Early Dating | {{ title }}</title>
+    {% else %}
+        <title> Early Dating </title>
+    {% endif %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'images\favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  </head>
+  {% endblock %}
+
+  <BODY BGCOLOR=#FFF6F0 TEXT=#000000 LINK=#C00000 VLINK=#800000 ALINK=#FF00FF>
+    <H1 ALIGN=CENTER ><FONT FACE="COMIC SANS, COMIC RELIEF, PAPYRUS, CURSIVE"><BLINK><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></BLINK></FONT></H1>
+    <!-- <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
+    <PARAM NAME=FileName VALUE=sound.mp3
+    <OBJECT TYPE=audio/mpeg DATA=sounds\510954__theojt__romantic-song.mp3 HEIGHT=0PX>
+    <PARAM NAME=controller VALUE=rue/>
+    <PARAM NAME=autoplay VALUE=true/>
+    </OBJECT> -->
+    {% load random_image %}
+    <div class="columnleft">
+      <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+    </div>
+
+    <div class="columnright">
+      <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+    </div>
+
+    <div class="columncenter">
+      <img src="../../../static/images/Proud_Puffin_banner.png" alt="UserImage" height="40" width="1000">
+    </div>
+    
+    {% block content %}
+   
+>>>>>>> 728620928a8b74a682640c93e43aadf65eaa8fcf
     {% endblock %}
 
     {# Moved bg image into body  #}
