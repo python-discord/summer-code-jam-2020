@@ -3,16 +3,39 @@
 body, h1, h2, h3, h4, h5, h6 {
     font-family: Courier, monospace, Serif;
     padding: 0;
-    color: purple;
+    margin: 0;
+    color: black;
 }
 
 .home_h1 {
-    background-color: #003366;
+    background-color: #003388;
     color: #f5dd5d;
-    height: 2em;
-    text-align: center;
+    height: 60px;
+    text-align: left;
     vertical-align: bottom;
-    padding-top: 0.5em;
+    padding-top: 0.0em;
+}
+
+.headerlink:link, .headerlink:visited, .headerlink:active   {
+  color: white;
+}
+
+a {
+  color: #C00000;
+}
+
+a:visited {
+  color: #800000;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: #FF00FF;
 }
 
 html { 
@@ -30,15 +53,19 @@ html {
   width: 250;
 }
 .columncenter {
-  float:top;
-  width:auto;
-  padding-right:250px;
+
 }
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
+}
+
+.centerimage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* width */
 ::-webkit-scrollbar {
