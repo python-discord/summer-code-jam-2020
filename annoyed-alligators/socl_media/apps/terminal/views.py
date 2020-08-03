@@ -1,24 +1,11 @@
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
-
-import random
-import json
+from django.http import HttpResponse
 
 from .methods import TerminalCommand
 # Create your views here.
 
-def index(request):
-    # names = ("bob", "dan", "jack", "lizzy", "susan")
-    # items = []
-    # for i in range(100):
-    #     items.append({
-    #         "name": random.choice(names),
-    #         "age": random.randint(20, 80),
-    #         "url": "https://example.com",
-    #     })
 
-    # context = {}
-    # context["items"] = json.dumps(items)
+def index(request):
     return render(request, 'terminal.html')
 
 
