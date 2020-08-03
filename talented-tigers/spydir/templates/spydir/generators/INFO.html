@@ -35,9 +35,7 @@
     </header>
 
     <div class="content">
-        {% for paragraph in page.page_content|split_content %}
-        <p>{{ paragraph }}</p>
-        {% endfor %}
+    {{ page.page_content|safe }}
     </div>
 
 </body>
