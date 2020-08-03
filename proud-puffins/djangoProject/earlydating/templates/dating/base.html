@@ -30,10 +30,22 @@
     <!-- <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
     <PARAM NAME=FileName VALUE=sound.mp3
     <OBJECT TYPE=audio/mpeg DATA=sounds\510954__theojt__romantic-song.mp3 HEIGHT=0PX>
-    <!-- <PARAM NAME=controller VALUE=rue /> -->
-    <!-- <PARAM NAME=autoplay VALUE=true />
-  </OBJECT> -->
-  
+    <PARAM NAME=controller VALUE=rue/>
+    <PARAM NAME=autoplay VALUE=true/>
+    </OBJECT> -->
+    {% load random_image %}
+    <div class="columnleft">
+      <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+    </div>
+
+    <div class="columnright">
+      <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+    </div>
+
+    <div class="columncenter">
+      <img src="../../../static/images/Proud_Puffin_banner.png" alt="UserImage" height="40" width="1000">
+    </div>
+    
     {% block content %}
    
     {% endblock %}

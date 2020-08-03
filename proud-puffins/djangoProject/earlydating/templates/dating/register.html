@@ -1,1 +1,24 @@
 <h3>register</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.username.label}}
+    {{form.username}}
+    
+    {{form.email.label}}
+    {{form.email}}
+    
+    {{form.first_name.label}}
+    {{form.first_name}}
+
+    {{form.last_name.label}}
+    {{form.last_name}}
+    
+    {{form.password1.label}}
+    {{form.password1}}
+    
+    {{form.password2.label}}
+    {{form.password2}}                
+    <input type="submit" name="Sign Up" value="Sign Up">
+ </form>   
+ 
