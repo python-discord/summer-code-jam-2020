@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost",
                  "charlottegaskell.ddns.net",
+                 "web95.dgil.xyz",
                  "127.0.0.1"]
 
 
