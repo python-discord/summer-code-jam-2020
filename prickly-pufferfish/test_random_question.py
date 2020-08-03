@@ -42,7 +42,7 @@ class TestQuestion(unittest.TestCase):
     if name == 'make_change.py':
         def test_make_change(self):
             self.assertEqual(make_change(amount=4, denominations=[1, 2, 3]), 4)
-            self.assertEqual(make_change(amount=20, denominations=[5,10]), 3)
+            self.assertEqual(make_change(amount=20, denominations=[5, 10]), 3)
     if name == 'merge_ranges.py':
         def test_merge_ranges(self):
             self.assertEqual(merge_ranges([(3, 5), (4, 8), (10, 12), (9, 10), (0, 1)]), [(0, 1), (3, 8), (9, 12)])
