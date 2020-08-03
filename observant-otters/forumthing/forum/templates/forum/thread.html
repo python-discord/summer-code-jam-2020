@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Only one group, up to homomorphism</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
+</head>
+<body>
+Single-thread page
+    <blockquote>
+        thread_id: {{ id }}
+        <br>
+        thread_page: {{ page }}
+    </blockquote>
+<a href="/forum/threads/{{ id }}?p={{ next_page }}">Next Page</a>
+<br>
+<a href="/forum/threads/{{ next_id }}?p={{ page }}">Next Thread</a>
+<br>
+<a href="/">Home</a>
+</body>
+</html>
