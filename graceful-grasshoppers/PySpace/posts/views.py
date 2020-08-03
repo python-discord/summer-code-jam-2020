@@ -14,6 +14,7 @@ from users.models import CustomUser
 @api_view(["GET"])
 @csrf_exempt
 def get_posts(request):
+    """Returns a list of posts, can be restricted to a particular user via the `user` query parameter"""
     posts = Post.objects.all()
     user_id = request.query_params.get("user", None)
     if user_id is not None:
@@ -26,6 +27,7 @@ def get_posts(request):
 @csrf_exempt
 @permission_classes([IsAuthenticated])
 def create_post(request):
+    """Creates a post with the authenticated user as the author"""
     payload = request.data
     user = request.user
     try:
@@ -53,6 +55,7 @@ def create_post(request):
 @csrf_exempt
 @permission_classes([IsAuthenticated])
 def delete_post(request, post_id):
+    """Deletes the post with the given post id"""
     user = request.user
     try:
         post = Post.objects.get(id=post_id, author=user.id)
@@ -73,5 +76,25 @@ def delete_post(request, post_id):
 @api_view(["PATCH"])
 @csrf_exempt
 @permission_classes([IsAuthenticated])
-def update_post(request):
-    pass
+def update_post(request, post_id):
+    """Given a post id, updates the post with given data"""
+    payload = request.data
+    user = request.user
+    try:
+        post_item = Post.objects.filter(id=post_id, author=user.id)
+        post_item.update(**payload)  # returns 0 or 1
+        post = Post.objects.get(id=post_id)
+        serializer = PostSerializer(post)
+        return JsonResponse(
+            {"post": serializer.data}, safe=False, status=status.HTTP_200_OK
+        )
+    except ObjectDoesNotExist as e:
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went wrong"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
