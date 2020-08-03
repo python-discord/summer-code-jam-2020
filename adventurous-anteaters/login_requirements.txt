@@ -1,0 +1,8 @@
+To implement a basic login system based around Django Auth. 
+- Step 1: User should be able to sign up & login using simple Email ID, & Password. 
+- Step 2: Password should have some logic to add security, ex, 8 chars + 1 capital + 1 number
+- Step 3: Add Username field (which can work in place of email id)
+- [Optional] Step 4: Add [optional] Name Field.
+- Step 5: Add capability to login using Google/Facebook/Twitter using Oauth. 
+- Step 6: A JWT based implementation (I think we may need it for the FidoNet Idea.)
+
