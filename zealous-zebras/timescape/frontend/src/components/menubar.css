@@ -1,0 +1,24 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+
+.menu-box {
+  background-color: white;
+  box-shadow: 0 0px 4px rgba(0,0,0,0.16), 1px 3px 7px rgba(0, 0, 0, 0.15);
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.handle:hover {
+  cursor: grab;
+}
+
+.handle:active {
+  cursor: grabbing;
+}

@@ -11,6 +11,7 @@
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-draggable": "^4.4.3",
     "react-redux": "^7.2.1",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
