@@ -19,7 +19,13 @@ def threads(request, id=None):
                 "next_page": int(p)+1,
                 "next_id": int(id)+1
             }
-            return render(request, 'forum/thread.html', data)
+
+        if int(p) > 1:
+            data.update({"prev_page": int(p) - 1})
+        if int(id) > 1:
+            data.update({"prev_id": int(id) - 1})
+
+        return render(request, 'forum/thread.html', data)
 
     elif request.method == "POST":
         if id is None:

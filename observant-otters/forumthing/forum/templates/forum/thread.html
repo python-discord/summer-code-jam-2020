@@ -11,9 +11,17 @@ Single-thread page
         <br>
         thread_page: {{ page }}
     </blockquote>
+
 <a href="/forum/threads/{{ id }}?p={{ next_page }}">Next Page</a>
+{% if prev_page %}
+    <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Thread</a>
+{% endif %}
 <br>
+
 <a href="/forum/threads/{{ next_id }}?p={{ page }}">Next Thread</a>
+{% if prev_id %}
+    <a href="/forum/threads/{{ prev_id }}?p={{ page }}">Previous Thread</a>
+{% endif %}
 <br>
 <a href="/">Home</a>
 </body>
