@@ -17,4 +17,9 @@ urlpatterns = [
       views.threads,
       name='threads-single'
     ),
+    path(
+        'forum/threads/new',
+        views.NewThread.as_view(),
+        name="new-thread"
+    ),
 ]

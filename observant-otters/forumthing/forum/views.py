@@ -1,24 +1,26 @@
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView
 
 
 def home(request):
-    return redirect("threads-all")
+    return render(request, 'forum/home.html', {})
+
+
+class NewThread(CreateView):
+    pass
 
 
 def threads(request, id=None):
     if request.method == "GET":
-        if id is None:
-            return render(request, 'forum/home.html', {})
-        else:
-            p = request.GET.get("p", default=1)
-            data = {
+        p = request.GET.get("p", default=1)
+        data = {
                 "id": id,
                 "page": p,
 
                 # @TODO: Remove debug values
                 "next_page": int(p)+1,
                 "next_id": int(id)+1
-            }
+        }
 
         if int(p) > 1:
             data.update({"prev_page": int(p) - 1})
