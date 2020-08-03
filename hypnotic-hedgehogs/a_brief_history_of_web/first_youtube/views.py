@@ -19,10 +19,16 @@ def index(request):
         'comments': all_comments,
         'first_page': first_page,
         'page_range': page_range,
-        'paginatorr': paginator,
+        'paginator': paginator,
         'total_comment': total_comments,
-        'videos' : all_videos
+        'videos': all_videos
     }
+
+    if request.method == 'POST' and 'page_n' in request.POST:
+        page_n = request.POST.get('page_n', None)
+        results = list(paginator.page(page_n).object_list.values('id', 'content','publish_date'))
+        return JsonResponse({"results": results})
+
     if request.is_ajax():
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
