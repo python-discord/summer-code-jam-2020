@@ -1,9 +1,12 @@
-from .models import GeneratedPage
 import re
-import requests, wikipedia
+
+import requests
+import wikipedia
+
+from .models import GeneratedPage
 
 
-# This is where the text will be scraped. Right now, this function only generates an info page with a title
+# TODO: Make the requests asynchronous
 def generate_page(page_name):
     """Gets a page object which only has a title, then populates it with scraped information"""
     page_object = GeneratedPage.objects.get(page_title=page_name)
@@ -19,8 +22,12 @@ def generate_page(page_name):
 
 def generate_name():
     """Returns a randomly generated name"""
-    person = requests.get('https://api.namefake.com/')
-    return person.json()['name']
+    try:
+        person = requests.get('https://api.namefake.com/', timeout=3)
+        return person.json()['name']
+    except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
+        # if the request is taking longer than 3 seconds:
+        return 'Anonymous'
 
 
 def authorize_page(page_name):
