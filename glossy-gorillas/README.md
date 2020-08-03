@@ -14,6 +14,10 @@
 ## Windows users
 I haven't worked with windows in a while, so I would not be able to give very good support for that. If you want your environment to have more resemblance to linux, you could follow this [guide](https://www.laptopmag.com/articles/use-bash-shell-windows-10) - it will allow you to use `bash` on windows and if anything goes wrong in installation I can probably be of more use.
 
+## Loading example data
+You can run `./manage.py create_sample_db` to generate a set of randomized data to populate the database. 
+
+You can also run `make reset_db` to flush the database and reload the randomized data.
 
 # Meetings
 1. [2020-07-30 - 16:15 UTC + 1 - Agenda](meetings/2020_07_30.md) 
