@@ -7,9 +7,8 @@
 <body>
 <form method="POST" class="form-group">
 	{% csrf_token %}
-	{{ form|crispy }}
+	{{ form.as_p }}
     	<button type="submit" class="btn btn-success">Register</button>
-
     </form>
 </body>
 </html>
