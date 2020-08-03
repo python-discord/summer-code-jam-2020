@@ -38,3 +38,21 @@ input[type="radio"] {
 input[type="radio"]:checked {
     content: url("../images/radio-on.png");
 }
+
+div.col, div[class*="col-"] {
+    outline: 1px solid black;
+    margin: 1em;
+}
+
+div.col div.header {
+    background-color: #000080;
+    color: white;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: -18px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: large;
+}
