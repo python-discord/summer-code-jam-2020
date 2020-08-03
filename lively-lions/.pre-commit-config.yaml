@@ -9,7 +9,7 @@
     hooks:
     - id: pytest
       name: Check pytest unit tests pass
-      entry: pipenv run pytest
+      entry: bash -c "cd lively-lions/MUD && pipenv run pytest"
       pass_filenames: false
       language: system
       types: [python]
