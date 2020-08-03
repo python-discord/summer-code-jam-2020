@@ -20,9 +20,13 @@ http://www.maplecity.com/homepage/guest.html
 
 <hr noshade>
 
-<!--GUESTBOOK-OPTIONS: maxEntries=10-->
-<!--GUESTBOOK-->
-<!--GUESTBOOK-->
+{% for comment in comments %}
+    <div>
+        <h2><a href="">{{ comment.author }}</a></h2>
+        <p>published: {{ comment.published_date }}</p>
+        <p>{{ comment.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}
 
 <hr noshade>
 
