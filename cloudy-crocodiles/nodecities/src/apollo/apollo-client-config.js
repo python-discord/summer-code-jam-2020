@@ -9,7 +9,8 @@ export default function (/* { app, router, store, ssrContext, urlPath, redirect 
         // `GRAPHQL_URI=https://prod.example.com/graphql quasar build`
         // `GRAPHQL_URI=https://dev.example.com/graphql quasar dev`
         // uri: process.env.GRAPHQL_URI || 'http://localhost:1234/graphql/'
-        //uri: 'http://localhost:1234/graphql/'
+        // uri: process.env.GRAPHQL_URI
+        uri: 'http://localhost:1234/graphql/'
       },
 
       // 'apollo-cache-inmemory' config
