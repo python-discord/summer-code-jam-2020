@@ -29,7 +29,6 @@ if SECRET_KEY is None:
     SECRET_KEY = get_random_secret_key()
     with open('.env', 'a+') as envfile:
         envfile.write(f'SECRET_KEY="{SECRET_KEY}"\n')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -38,7 +37,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-PREQ_APPS = [
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
