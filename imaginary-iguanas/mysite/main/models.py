@@ -14,7 +14,7 @@ class BlogPost(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(UserProfile, on_delete=models.SET_NULL)
+    author = models.ForeignKey(UserProfile, null=True, on_delete=models.SET_NULL)
     comment = models.CharField(max_length=500)
     creation_date = models.DateTimeField(auto_now_add=True)
 
