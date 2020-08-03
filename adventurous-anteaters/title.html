@@ -2,44 +2,18 @@
 <html lang="en">
 
 <head>
-  <style>
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f1f1f1;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
-
-
-    .dropdown-content a {
-      float: none;
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      text-align: left;
-    }
-
-    .show {
-      display: block;
-    }
-  </style>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://unpkg.com/98.css">
-  <title></title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <title>RetroNet</title>
 </head>
 
 <body>
+
   <div class="window" style="width: 100%">
     <div class="title-bar">
-      <div class="title-bar-text">Site Name</div>
+      <div class="title-bar-text">Welcome to RetroNet!</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize"></button>
         <button aria-label="Maximize"></button>
@@ -50,96 +24,52 @@
     <!-- Main menu -->
     <div class="window-body">
       <div class="dropdown">
-        <button class="dropbtn" onclick="myFunction()">File</button>
-        <div class="dropdown-content" id="mydrop">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+        <button class="dropbtn" onclick="open_dropdown('dd_file')">File</button>
+        <div class="dropdown-content" id="dd_file">
+          <a href="#">Open</a>
+          <a href="#">Close</a>
+          <a href="#">Settings</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn" onclick="myFunction2()">Edit</button>
-        <div class="dropdown-content" id="mydrop2">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+        <button class="dropbtn" onclick="open_dropdown('dd_edit')">Edit</button>
+        <div class="dropdown-content" id="dd_edit">
+          <a href="#">Cut</a>
+          <a href="#">Copy</a>
+          <a href="#">Paste</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn">View</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+        <button class="dropbtn" onclick="open_dropdown('dd_view')">View</button>
+        <div class="dropdown-content" id="dd_view">
+          <a href="#">Toggle CSS</a>
+          <a href="#">Toggle Javascript</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn">Tools</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+        <button class="dropbtn" onclick="open_dropdown('dd_tools')">Tools</button>
+        <div class="dropdown-content" id="dd_tools">
+          <a href="#">Not Decided</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn">Favourties</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+        <button class="dropbtn" onclick="open_dropdown('dd_favorite')">Favourties</button>
+        <div class="dropdown-content" id="dd_favorite">
+          <a href="#">Add New Favorite</a>
+          <a href="#">Add this Page to Favorites</a>
+          <a href="#">Show Favorites</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn">Help</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+        <button class="dropbtn" onclick="open_dropdown('dd_help')">Help</button>
+        <div class="dropdown-content" id="dd_help">
+          <a
+            href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md">README</a>
         </div>
       </div>
-
-
     </div>
   </div>
 
-  <script>
-
-    function myFunction() {
-      console.log('dd', myDropdown);
-      var myDropdown = document.getElementById("mydrop");
-      myDropdown.style.display = 'block';
-      var myDropdown = document.getElementById("mydrop2");
-      console.log('dd2', myDropdown);
-      myDropdown.style.display = 'none';
-    }
-
-    function myFunction2() {
-      console.log('dd2', myDropdown);
-      var myDropdown = document.getElementById("mydrop2");
-      myDropdown.style.display = 'block';
-      var myDropdown = document.getElementById("mydrop");
-      console.log('dd', myDropdown);
-      myDropdown.style.display = 'none';
-      document.getElementById("mydrop2").classList.toggle("show");
-    }
-
-    // Close the dropdown if the user clicks outside of it
-    window.onclick = function (e) {
-      if (!e.target.matches('.dropbtn')) {
-        var myDropdown = document.getElementById("mydrop");
-        var myDropdown2 = document.getElementById("mydrop2");
-        myDropdown.style.display = 'none';
-        myDropdown2.style.display = 'none';
-        if (myDropdown.classList.contains('show')) {
-          myDropdown.classList.remove('show');
-        }
-        if (myDropdown2.classList.contains('show')) {
-          myDropdown2.classList.remove('show');
-        }
-      }
-    }
-
-  </script>
 </body>
 
 </html>
