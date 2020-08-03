@@ -10,10 +10,9 @@ def index(request):
 
 
 @jsonbody
-def register(request, data):
+def register_endpoint(request, data):
     user = User.create_user(
         data['username'],
-        email=data['email'],
         password=data['password'],
     )
     login(request, user)

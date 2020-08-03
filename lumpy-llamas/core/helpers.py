@@ -1,6 +1,6 @@
 import json
 from functools import wraps
-from django.views.decorators import require_http_methods
+from django.views.decorators.http import require_http_methods
 
 
 def jsonbody(func):
@@ -10,3 +10,4 @@ def jsonbody(func):
     def wrapper(request, *args, **kwargs):
         data = json.loads(request.body.decode())
         return func(request, data, *args, **kwargs)
+    return wrapper
