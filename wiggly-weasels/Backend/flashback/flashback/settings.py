@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fbbackend.apps.FbbackendConfig',
-    'rest_framework'
+    'rest_framework',
+    'django.contrib.postgres'
 ]
 
 MIDDLEWARE = [

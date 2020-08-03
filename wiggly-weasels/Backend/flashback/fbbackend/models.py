@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, JSONField
 
 
 class Account(models.Model):  # A model containing user information
@@ -28,20 +28,20 @@ class Group(models.Model):
 
     creator: creator of the chatroom
     identification: A randomly generated Unique ID
-    messages: An array containing an array for each message.
-        ar[0] = Name
-        ar[1] = Content
+    messages: An array containing a Dictionary:
+    {
+        "sender": "",
+        "content"
+    }
+
     name: The name of group
 
     '''
     creator = models.CharField(max_length=100)  # The ID of the User
     messages = ArrayField(  # ArrayField Containing Messages
-        ArrayField(
-            models.CharField(max_length=1000),
-            size=2
-        )
-    )
+        JSONField()
 
+    )
     name = models.CharField(max_length=20, primary_key=True)
 
 
