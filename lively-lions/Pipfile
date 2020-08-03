@@ -4,9 +4,17 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
+pre-commit = "*"
 
 [packages]
-django = "*"
+django = "~=3.0"
+djangorestframework = "~=3.11"
+channels = "~=2.4"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+precommit = "pre-commit install"
