@@ -235,7 +235,15 @@ function drawRubberbandShape(loc){
         // Create polygons
         getPolygon();
         ctx.stroke();
+    } else if(currentTool === "triangle"){
+        drawTriangle();
     }
+}
+
+function drawTriangle(){
+    ctx.beginPath();
+    ctx.moveTo(shapeBoundingBox.left, shapeBoundingBox.top + shapeBoundingBox.height);
+    ctx.lineTo()
 }
  
 function UpdateRubberbandOnMove(loc){

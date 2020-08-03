@@ -47,7 +47,32 @@
             <a href="#" id="polygon" onclick="ChangeTool('polygon')">
                 <img src="polygon.png">
             </a>
-        </div><br>
+        </div>
+
+        <div class="customizer">
+            <div class="color-container">
+                <div class="color">
+                    <button></button>
+                </div>
+                <div class="color">
+                    <p>RED</p>
+                    <input type="range" min="0" max="255" value="100" class="slider" id="redSlider">
+                </div>
+                <div class="color">
+                    <p>GREEN</p>
+                    <input type="range" min="0" max="255" value="100" class="slider" id="greenSlider">
+                </div>
+                <div class="color">
+                    <p>BLUE</p>
+                    <input type="range" min="0" max="255" value="100" class="slider" id="blueSlider">
+                </div>
+                <div class="color">
+                    <p>LINE WIDTH (2)</p>
+                    <input type="range" min="2" max="100" value="30" class="slider" id="lineWidth">
+                </div>
+            </div>
+        </div>
+        <br>
 
         <canvas id="my-canvas" width="600" height="600"></canvas>
 
@@ -55,14 +80,5 @@
             <a href="#" id="img-file" download="image.png">Download Image</a>
         </div>
     </div>
-    <div class="customizer">
-        <a class="red"></a>
-        <a class="green"></a>
-        <a class="blue"></a>
-        <a class="color"></a>
-        <a class="width"></a>
-        <a class="sides"></a>
-    </div>
-
 </body>
 </html>
