@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LogoutView
 from .forms import UserRegistrationForm
 
 # Create your views here.
@@ -22,3 +23,8 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
+
+
+def user_logout(request):
+    messages.info(request, 'You have been logged out')
+    return LogoutView.as_view(template_name='main/main-base')(request)
