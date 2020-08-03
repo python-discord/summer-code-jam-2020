@@ -20,6 +20,7 @@ from nchan import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('nchan/get_boards', views.get_boards),
     path('nchan/', views.index),
     path('', views.index)
 ]
