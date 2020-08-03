@@ -67,13 +67,15 @@ class MUDTerminal {
   }
 
   printReply(reply) {
+     /* \x9B1M deletes current line (the prompt) which we overwrite, and then
+      * print a new prompt */
+    this.terminal.write("\x9B1M" + reply);
     this.terminal.write("\r\n");
-    this.terminal.write(reply);
     this.printPrompt();
   }
 
   printPrompt() {
-    this.terminal.write("\r\n$ ");
+    this.terminal.write("$ " + this.buffer.join(""));
   }
 
   sendByWebSocket(message) {
