@@ -41,7 +41,7 @@ class TestQuestion(unittest.TestCase):
             self.assertFalse(has_balanced_brackets("<{Not Ok>}"))
     if name == 'make_change.py':
         def test_make_change(self):
-            self.assertEqual(make_change(amount=4, denominations=[1, 2, 3]), 4)   
+            self.assertEqual(make_change(amount=4, denominations=[1, 2, 3]), 4)
             self.assertEqual(make_change(amount=20, denominations=[5,10]),3)
     if name == 'merge_ranges.py':
         def test_merge_ranges(self):
@@ -63,8 +63,7 @@ class TestQuestion(unittest.TestCase):
             self.assertEqual(valid_parens_perms(1), ['()'])
             self.assertEqual(valid_parens_perms(2), ['(())', '()()'])
             self.assertEqual(valid_parens_perms(3), ['((()))', '(()())', '(())()', '()(())', '()()()'])
-            self.assertEqual(valid_parens_perms(4), ['(((())))', '((()()))', '((())())', '((()))()', '(()(()))', '(()()())', '(()())()', '(())(())', '(())()()', '()((()))', '()(()())', '()(())()', '()()(())', '()()()()'])
-    
+            self.assertEqual(valid_parens_perms(4), ['(((())))', '((()()))', '((())())', '((()))()', '(()(()))','(()()())', '(()())()', '(())(())', '(())()()', '()((()))', '()(()())', '()(())()', '()()(())', '()()()()'])
     if name == 'zig_zag.py':
         def test_zig_zag(self):
             self.assertEqual(zigzag([9, 8, 8, 5, 3, 5, 3, 2, 8, 6]), 4)

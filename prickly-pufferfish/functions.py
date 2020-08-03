@@ -1,4 +1,3 @@
-
 def add_to_zero(nums):
     """ Given list of ints, return True if any two nums sum to 0.
 
@@ -63,7 +62,7 @@ def has_balanced_brackets(phrase):
     Given a string as input, return True or False depending on whether the
     string contains balanced (), {}, [], and/or <>.
     """
-    
+
 
 def make_change(amount, denominations, index=0):
     """
@@ -85,12 +84,7 @@ def make_change(amount, denominations, index=0):
     [5,5,5,5]
     [5,5,10]
     [10,10]
-
     """
-
-
-
-
 
 
 def merge_ranges(lst):
@@ -120,8 +114,6 @@ def merge_ranges(lst):
     """
 
 
-
-
 def get_max_profit(prices):
     """ Finds the maximum profit for buying and selling stock within a day.
 
@@ -149,10 +141,12 @@ def get_max_profit(prices):
     >>> get_max_profit(stock_prices_yesterday)
     0
     """
+
+
 def valid_parens_perms(num):
     pass
 
-    
+
 def zigzag(a):
     """
     >> > zigzag([9, 8, 8, 5, 3, 5, 3, 2, 8, 6])
