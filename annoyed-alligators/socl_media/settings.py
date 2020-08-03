@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Third-Party Apps
 
     # Django default Apps
+    'socl_media.apps.chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
