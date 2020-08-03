@@ -59,3 +59,7 @@ class GeneratedPage(models.Model):
         ("WIN", "fake winnings")
     ]
     scam_type = models.CharField(max_length=10, choices=scam_type_choices, blank=True)
+
+    def __str__(self):
+        return self.page_title
+

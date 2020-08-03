@@ -1,4 +1,5 @@
 from .models import GeneratedPage
+import re
 import requests, wikipedia
 
 
@@ -16,14 +17,21 @@ def generate_page(page_name):
     return page_object
 
 
-# Returns a randomly generated name
 def generate_name():
+    """Returns a randomly generated name"""
     person = requests.get('https://api.namefake.com/')
     return person.json()['name']
 
+def authorize_page(page_name):
+    """Authorizes page to be generated and served on request, adding the page to the index"""
+    try:
+        page = GeneratedPage.objects.get(page_title=page_name)
+    except GeneratedPage.DoesNotExist:
+        page = GeneratedPage.objects.create(page_title=page_name)
 
-# This function will be used to generate text for the info style pages. For now, it downloads from wikipedia
+
 def generate_information(page_name):
+    """This function will be used to generate text for the info style pages. For now, it downloads from wikipedia"""
     # First searches noun in wikipedia search
     search = wikipedia.search(page_name, results=1)
 
@@ -36,4 +44,17 @@ def generate_information(page_name):
     except wikipedia.DisambiguationError as e:
         # If the page it enters is a wikipedia "disambiguation" page
         result = wikipedia.summary(e.options[0])
-    return result
+
+    wordlist = result.split()
+    information = ""
+    for i in range(0, len(wordlist)):
+        #Checks if word is capitalized and not the first word in a sentence.
+        if(i > 0 and wordlist[i][0].isupper() and wordlist[i - 1][len(wordlist[i - 1]) - 1] != '.'): 
+            without_punctuation = re.sub(r'[^\w\s]','', wordlist[i])
+            information += "<a href=../../page/{0}>{1}</a>".format(without_punctuation, wordlist[i])
+            authorize_page(without_punctuation)
+        else:
+            information += wordlist[i]
+        information += ' '
+    
+    return information
