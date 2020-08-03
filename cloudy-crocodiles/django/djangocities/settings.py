@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "djangocities.user",
     "djangocities.cities",
     "djangocities.sites",
-    "djangocities.user_media"
+    "djangocities.user_media",
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "djangocities.urls"
@@ -131,3 +134,8 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = '/cdn'
 MEDIA_URL = '/'
+
+AUTH_USER_MODEL = "user.CustomUser"
+
+# corsheaders
+CORS_ORIGIN_ALLOW_ALL = True
