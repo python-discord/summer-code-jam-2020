@@ -21,17 +21,16 @@
         <title> Early Dating </title>
     {% endif %}
     <link rel="shortcut icon" type="image/png" href="{% static 'images\favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
   </head>
   {% endblock %}
 
-  <BODY BGCOLOR=#FFF6F0 TEXT=#000000 LINK=#C00000 VLINK=#800000 ALINK=#FF00FF>
-    
     {# Moved bg image into body  #}
-    <body style="background-image: url(../../../static/images/homebg.gif);">
+    <body style="background-image: url(/static/images/homebg.gif);">
         <div class="home_h1">
             <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
-            <img src="/static/images/Proud_Puffin_motion.gif"; width="40"; height="32"; align="Left">
+            <img src="/static/images/Proud_Puffin_motion.gif";  height="40"; align="Left">
                 <span style="text-align: start; font-size: 2.5em">&nbsp;PAGE TITLE GOES HERE</span>
 
                 <span style="text-align: end; font-size: 1.0em" >
@@ -50,11 +49,13 @@
     <div class="row">
 
         <div class="columnleft">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" ></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" ></img>
         </div>
 
         <div class="columnright">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" ></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" ></img>
         </div>
 
     <div class="columncenter" >
@@ -63,13 +64,13 @@
   </div>
 
     </div>
-  </body>
-  
+
   <footer>
-    <audio src=static/sounds/romantic-song.mp3 preload="auto" controls autoplay loop></audio>
+    <audio src=/static/sounds/romantic-song.mp3 preload="auto" controls autoplay loop></audio>
   </footer> 
 
   <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
-    <PARAM NAME=FileName VALUE=sound.mp3 />
- 
+    <PARAM NAME=FileName VALUE=sound.mp3></PARAM>
+  </body>
+
 </html>
