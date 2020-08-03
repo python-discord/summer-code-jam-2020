@@ -1,24 +1,15 @@
-<h3>register</h3>
+{% extends 'dating/base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h3>Register</h3>
 
 <form method="POST" action="">
     {% csrf_token %}
-    {{form.username.label}}
-    {{form.username}}
-    
-    {{form.email.label}}
-    {{form.email}}
-    
-    {{form.first_name.label}}
-    {{form.first_name}}
-
-    {{form.last_name.label}}
-    {{form.last_name}}
-    
-    {{form.password1.label}}
-    {{form.password1}}
-    
-    {{form.password2.label}}
-    {{form.password2}}                
+    {{form.as_p}}             
     <input type="submit" name="Sign Up" value="Sign Up">
- </form>   
- 
+ </form>
+{{form.errors}}
+<div>
+    Already have an account? <a href="{% url 'earlydating-login' %}">Login</a>
+</div>   
+{% endblock %}

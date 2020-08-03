@@ -1,1 +1,19 @@
+{% extends 'dating/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
 <h3>login</h3>
+<form method="POST" action="">
+    {% csrf_token %}
+
+    {{form.as_p}}			
+	<input type="submit" name="login" value="login">					
+</form>
+					
+{% for message in messages %}
+    <p id="messages">{{message}}</p>
+{% endfor %}							
+<div>
+    Don't have an account? <a href="{% url 'earlydating-register' %}">Sign Up</a>
+</div>
+{% endblock %}

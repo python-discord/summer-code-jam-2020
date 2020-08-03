@@ -1,14 +1,13 @@
 {% extends 'dating/base.html' %}
-{% block title %}{{profile.name}}{% endblock %}
+{% block title %}{{user.username}}{% endblock %}
 
 {% block content %}
 
-<h1>First Name: {{profile.first_name}}</h1>
-<h1>Last Name: {{profile.last_name}}</h1>
-<h1>Age: {{profile.age}}</h1>
-<h1>Gender: {{profile.gender}}</h1>
+<h1>First Name: {{user.first_name}}</h1>
+<h1>Last Name: {{user.last_name}}</h1>
+<h1>Age: {{user.profile.age}}</h1>
 <p><a href="{% url 'earlydating-home' %}">Home</a></p>
-
+<p ><a  class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
 
 
 {% endblock %}

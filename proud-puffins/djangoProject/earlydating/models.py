@@ -1,22 +1,18 @@
 from django.db import models
-from . import puffin_functions as pf
+from django.contrib.auth.models import User
+# from . import puffin_functions as pf
 
 # Create your models here.
+User._meta.get_field('email')._unique = True
+User._meta.get_field('email').blank = False
+User._meta.get_field('email').null = False
 
 
 class Profile(models.Model):
-    GENDER = (
-        ('Male', 'Male'),
-        ('Female', 'Female'),
-        ('Other', 'Other')
-        )
-
-    first_name = models.CharField(max_length=200, null=True)
-    last_name = models.CharField(max_length=200, null=True)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     age = models.PositiveSmallIntegerField(null=True)
-    gender = models.CharField(max_length=200, null=True, choices=GENDER)
-    img = models.ImageField(upload_to='static/user_pixel', null=True)
-    greeting = models.CharField(max_length=200,null=True, default="Greeting")
+    img = models.ImageField(upload_to='static/user_pixel', null=True, blank=True)
+    greeting = models.CharField(max_length=200, null=True, default="Greeting")
     activity = models.CharField(max_length=200, null=True, default="Activity")
     adjective1 = models.CharField(max_length=200, null=True, default="Adjective")
     verb0 = models.CharField(max_length=200, null=True, default="Verb")
@@ -37,10 +33,11 @@ class Profile(models.Model):
     verb5 = models.CharField(max_length=200, null=True, default="Verb")
     SignOff = models.CharField(max_length=200, null=True, default="Name")
 
-
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return str(self.user)
 
+    '''
     def save(self, *args, **kwargs):
         self.img = pf.imageTrans(self.img)
         super().save(*args, **kwargs)
+    '''
