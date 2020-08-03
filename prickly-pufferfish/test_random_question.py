@@ -42,14 +42,14 @@ class TestQuestion(unittest.TestCase):
     if name == 'make_change.py':
         def test_make_change(self):
             self.assertEqual(make_change(amount=4, denominations=[1, 2, 3]), 4)
-            self.assertEqual(make_change(amount=20, denominations=[5,10]),3)
+            self.assertEqual(make_change(amount=20, denominations=[5,10]), 3)
     if name == 'merge_ranges.py':
         def test_merge_ranges(self):
-            self.assertEqual(merge_ranges([(3, 5), (4, 8), (10, 12), (9, 10), (0, 1)]),[(0, 1), (3, 8), (9, 12)])
-            self.assertEqual(merge_ranges([(0, 3), (3, 5), (4, 8), (10, 12), (9, 10)]),[(0, 8), (9, 12)])
-            self.assertEqual(merge_ranges([(0, 3), (3, 5)]),[(0, 5)])
-            self.assertEqual(merge_ranges([(0, 3), (3, 5), (7, 8)]),[(0, 5), (7, 8)])
-            self.assertEqual(merge_ranges([(1, 5), (2, 3)]),[(1, 5)])
+            self.assertEqual(merge_ranges([(3, 5), (4, 8), (10, 12), (9, 10), (0, 1)]), [(0, 1), (3, 8), (9, 12)])
+            self.assertEqual(merge_ranges([(0, 3), (3, 5), (4, 8), (10, 12), (9, 10)]), [(0, 8), (9, 12)])
+            self.assertEqual(merge_ranges([(0, 3), (3, 5)]), [(0, 5)])
+            self.assertEqual(merge_ranges([(0, 3), (3, 5), (7, 8)]), [(0, 5), (7, 8)])
+            self.assertEqual(merge_ranges([(1, 5), (2, 3)]), [(1, 5)])
     if name == 'stock-price.py':
         def test_stock_price(self):
             self.assertEqual(get_max_profit([10, 7, 5, 8, 11, 9]), 6)
@@ -63,7 +63,7 @@ class TestQuestion(unittest.TestCase):
             self.assertEqual(valid_parens_perms(1), ['()'])
             self.assertEqual(valid_parens_perms(2), ['(())', '()()'])
             self.assertEqual(valid_parens_perms(3), ['((()))', '(()())', '(())()', '()(())', '()()()'])
-            self.assertEqual(valid_parens_perms(4), ['(((())))', '((()()))', '((())())', '((()))()', '(()(()))','(()()())', '(()())()', '(())(())', '(())()()', '()((()))', '()(()())', '()(())()', '()()(())', '()()()()'])
+            self.assertEqual(valid_parens_perms(4), ['(((())))', '((()()))', '((())())', '((()))()', '(()(()))', '(()()())', '(()())()', '(())(())', '(())()()', '()((()))', '()(()())', '()(())()', '()()(())', '()()()()'])
     if name == 'zig_zag.py':
         def test_zig_zag(self):
             self.assertEqual(zigzag([9, 8, 8, 5, 3, 5, 3, 2, 8, 6]), 4)
