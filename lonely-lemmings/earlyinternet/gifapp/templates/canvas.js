@@ -5,7 +5,7 @@ let dragging = false;
 let strokeColor = 'black';
 let fillColor = 'black';
 let line_Width = 2;
-let polygonSides = 6;
+let polygonSides = 3;
 let currentTool = 'brush';
 let canvasWidth = 600;
 let canvasHeight = 600;
@@ -235,15 +235,7 @@ function drawRubberbandShape(loc){
         // Create polygons
         getPolygon();
         ctx.stroke();
-    } else if(currentTool === "triangle"){
-        drawTriangle();
     }
-}
-
-function drawTriangle(){
-    ctx.beginPath();
-    ctx.moveTo(shapeBoundingBox.left, shapeBoundingBox.top + shapeBoundingBox.height);
-    ctx.lineTo()
 }
  
 function UpdateRubberbandOnMove(loc){

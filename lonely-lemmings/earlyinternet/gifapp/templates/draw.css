@@ -4,7 +4,7 @@
 }
 
 .toolbar {
-	width: 45%;
+	width: 37%;
 	float: left;
 	background-color: #444;
 	overflow: auto;
@@ -55,3 +55,4 @@
 .customizer {
     float: right;
 }
+

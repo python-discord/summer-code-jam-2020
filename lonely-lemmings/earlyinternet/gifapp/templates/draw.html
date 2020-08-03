@@ -35,12 +35,6 @@
             <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
                 <img src="rectangle.png">
             </a>
-            <a href="#" id="triangle" onclick="ChangeTool('triangle')">
-                <img src="triangle.png">
-            </a>
-            <a href="#" id="circle" onclick="ChangeTool('circle')">
-                <img src="circle.jpg">
-            </a>
             <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
                 <img src="ellipse.png">
             </a>
@@ -48,7 +42,6 @@
                 <img src="polygon.png">
             </a>
         </div>
-
         <div class="customizer">
             <div class="color-container">
                 <div class="color">
@@ -69,6 +62,10 @@
                 <div class="color">
                     <p>LINE WIDTH (2)</p>
                     <input type="range" min="2" max="100" value="30" class="slider" id="lineWidth">
+                </div>
+                <div class="color">
+                    <p>POLYGON SIDES (6)</p>
+                <input type="range" min="3" max="10" value="6" class="slider" id="polygonSides">
                 </div>
             </div>
         </div>
