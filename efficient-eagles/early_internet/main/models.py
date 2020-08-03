@@ -1,14 +1,30 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+
+
+class TimeStampedModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 class CustomUser(AbstractUser):
-    profile_img = models.ImageField(upload_to ='profile_imgs/', null=True)
-    bio = models.TextField(max_length=100, default='Hi, I am a HoneyFeed User')
+    profile_img = models.ImageField(upload_to='profile_imgs/', null=True)
+    bio = models.TextField(max_length=100, default='Hi, I am a HoneyFeed User', null=True)
 
     def __str__(self):
         return self.username
+
+
+class Topic(models.Model):
+    topic_name = models.CharField(max_length=20, default='', blank=False, unique=True)
+
+    def __str__(self):
+        return self.topic_name
 
 
 class Post(models.Model):
@@ -16,6 +32,7 @@ class Post(models.Model):
                              default='',
                              blank=True)
 
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     body = models.TextField(default='',
@@ -32,12 +49,19 @@ class Post(models.Model):
     comments = models.PositiveIntegerField(default=0)
 
     @property
+    def get_topic(self):
+        return self.topic
+
+    @property
     def url(self):
         return '{}'.format(self.id)
 
+    def get_absolute_url(self):
+        return reverse('topic', slug=self.slug)
+
     @property
     def comment_url(self):
-        return '/comments/{}'.format(self.id)
+        return '{}/comments/'.format(self.slug)
 
     def __str__(self):
         return self.title
@@ -47,9 +71,11 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
 
-class Topic(models.Model):
-    pass
+class Comment(TimeStampedModel):
+    upvotes = models.PositiveIntegerField(default=0)
+    downvotes = models.PositiveIntegerField(default=0)
+    body = models.CharField(max_length=10000, default='')
 
-
-class Comment(models.Model):
-    pass
+    author = models.ForeignKey(CustomUser, null=True, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
+    comment_thread = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)

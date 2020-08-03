@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% for post in posts %}
+<div class='w3-card-4'>
+<h1>{{post.title}}</h1>
+<h6>Topic: {{post.topic.topic_name}}</h6>
+<p>{{post.body}}</p>
+</div>
+{% endfor %}
+{% endblock %}
