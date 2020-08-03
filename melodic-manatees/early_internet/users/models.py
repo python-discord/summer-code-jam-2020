@@ -10,7 +10,7 @@ class UserProfile(models.Model):
 
 
 class UserPreferences(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # Weather preference for the weather section, choices, to avoid bad inputs.
     COLD = 'COLD'

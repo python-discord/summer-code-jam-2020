@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
 from .forms import UserRegistrationForm
 
+from.models import UserPreferences
+
 # Create your views here.
 
 
@@ -22,7 +24,10 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    context = {
+        'pref': UserPreferences.objects.get(user=request.user)
+    }
+    return render(request, 'users/profile.html', context)
 
 
 def user_logout(request):
