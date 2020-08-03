@@ -3,7 +3,12 @@ import os
 import imgkit
 from django.template.loader import render_to_string
 
-CONFIG = imgkit.config(wkhtmltoimage=os.environ['WKHTML_TO_IMAGE'])
+try:
+    CONFIG = imgkit.config(wkhtmltoimage=os.environ['WKHTML_TO_IMAGE'])
+except KeyError:
+    raise KeyError('WKHTML_TO_IMAGE system environment variable not found.\n'
+                   'Check the README for details on setting it.\n'
+                   'If you have already done so and this error persists, try restarting your PC')
 
 
 def render_img_thumbnail(webpage, css, config=CONFIG):
