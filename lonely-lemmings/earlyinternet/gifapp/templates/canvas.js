@@ -7,17 +7,16 @@ let fillColor = 'black';
 let line_Width = 2;
 let polygonSides = 3;
 
-var lastX, lastY;
+let lastX, lastY;
 
 //currently used tool
 let currentTool = 'brush';
 
-//canvas dimensions
-let canvasWidth = 600;
-let canvasHeight = 600;
-
 //is brush currently used
 let usingBrush = false;
+
+//save states
+let SaveStates = [];
 
 //represents box that shape is drawn in
 class ShapeBoundingBox{
@@ -32,7 +31,7 @@ class ShapeBoundingBox{
 //represents x,y coordinates of mouse down location
 class MouseDownPos{
     constructor(x,y) {
-        this.x = x,
+        this.x = x;
         this.y = y;
     }
 }
@@ -40,7 +39,7 @@ class MouseDownPos{
 //represents x,y coordinate of current mouse position
 class Location{
     constructor(x,y) {
-        this.x = x,
+        this.x = x;
         this.y = y;
     }
 }
@@ -48,7 +47,7 @@ class Location{
 // represents a point on a polygon
 class PolygonPoint{
     constructor(x,y) {
-        this.x = x,
+        this.x = x;
         this.y = y;
     }
 }
@@ -65,6 +64,7 @@ function setupCanvas(){
     ctx = canvas.getContext('2d');
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = line_Width;
+    SaveStates.push(ctx.getImageData(0,0,canvas.width,canvas.height));
     //add mouse listeners
     canvas.addEventListener("mousedown", ReactToMouseDown);
     canvas.addEventListener("mousemove", ReactToMouseMove);
@@ -79,6 +79,7 @@ function ChangeTool(toolClicked){
     document.getElementById("rectangle").className = "";
     document.getElementById("ellipse").className = "";
     document.getElementById("polygon").className = "";
+    document.getElementById("eraser").className = "";
     document.getElementById(toolClicked).className = "selected";
     currentTool = toolClicked;
 }
@@ -187,14 +188,10 @@ function UpdateRubberbandOnMove(loc){
     drawRubberbandShape(loc);
 }
 
-function AddBrushPoint(x, y, mouseDown){
-    brushPoints.push(new BrushPoint(x,y,ctx.strokeStyle, ctx.lineWidth, mouseDown));
-}
-
-function DrawBrush(x, y){
+function DrawBrush(x, y, color){
     if (usingBrush) {
         ctx.beginPath();
-        ctx.strokeStyle = strokeColor;
+        ctx.strokeStyle = color;
         ctx.lineWidth = line_Width;
         ctx.lineJoin = "round";
         ctx.moveTo(lastX, lastY);
@@ -215,24 +212,31 @@ function ReactToMouseDown(e){
 
     if(currentTool === 'brush'){
         usingBrush = true;
-        DrawBrush(loc.x, loc.y);
+        DrawBrush(loc.x, loc.y, strokeColor);
     }
-};
+    else if (currentTool === 'eraser'){
+        usingBrush = true;
+        DrawBrush(loc.x, loc.y, "white");
+    }
+}
  
 function ReactToMouseMove(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
 
     if(currentTool === 'brush'){
-        DrawBrush(loc.x, loc.y);
+        DrawBrush(loc.x, loc.y, strokeColor);
         SaveCanvasImage();
-    } else {
+    } else if (currentTool === 'eraser') {
+        DrawBrush(loc.x, loc.y, "white");
+        SaveCanvasImage();
+    }else {
         if(dragging){
             RedrawCanvasImage();
             UpdateRubberbandOnMove(loc);
         }
     }
-};
+}
  
 function ReactToMouseUp(e){
     canvas.style.cursor = "default";
@@ -241,17 +245,15 @@ function ReactToMouseUp(e){
     UpdateRubberbandOnMove(loc);
     dragging = false;
     usingBrush = false;
-    if(currentTool === 'brush') {
+    if(currentTool === 'brush' || currentTool === "eraser") {
         ctx.beginPath();
     }
-}
-
-function onCanvas(loc){
-    return (loc.x > 0 && loc.x < canvasWidth && loc.y > 0 && loc.y < canvasHeight);
+    SaveCanvasImage();
+    SaveStates.push(savedImageData);
 }
 
 function SaveImage(){
-    var imageFile = document.getElementById("img-file");
+    let imageFile = document.getElementById("img-file");
     imageFile.setAttribute('download', 'image.png');
     imageFile.setAttribute('href', canvas.toDataURL());
 }
@@ -263,4 +265,12 @@ function OpenImage(){
         ctx.drawImage(img,0,0);
     }
     img.src = 'image.png';
+}
+
+function Undo(){
+    if(SaveStates.length > 1){
+        SaveStates.pop();
+        let saveState = SaveStates[SaveStates.length - 1];
+        ctx.putImageData(saveState,0,0);
+    }
 }

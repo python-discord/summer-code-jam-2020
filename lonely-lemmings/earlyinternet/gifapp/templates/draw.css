@@ -1,11 +1,11 @@
 .wrapper {
 	max-width: 1000px;
 	margin: auto;
-	font-family: "Arial"
+	font-family: Arial;
 }
 
 .toolbar {
-	width: 41%;
+	width: 46%;
 	float: left;
 	background-color: #444;
 	overflow: auto;
@@ -45,7 +45,7 @@
 
 .color {
     float: left;
-    padding: 0px 5px;
+    padding: 0 5px;
 }
 
 #color-button{
