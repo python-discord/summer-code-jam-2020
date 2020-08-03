@@ -24,6 +24,11 @@ jobs:
         echo $PWD
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run migrations
+      working-directory: ./concerned-coyotes/earlyinternet
+      run: |
+        python manage.py makemigrations
+        python manage.py migrate
     - name: Run Tests
       working-directory: ./concerned-coyotes/earlyinternet
       run: |
