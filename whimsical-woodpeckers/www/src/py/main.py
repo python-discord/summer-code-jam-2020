@@ -1,5 +1,36 @@
 from pyvue import Vue
 
+logo = {}
+
+logo['messenger'] = 'https://media.discordapp.net/attachments/' \
+    '737282857327788042/739220722194317322/Asset_26x.png?width=571&height=677'
+
+logo['aol'] = 'https://media.discordapp.net/attachments/' \
+    '737282857327788042/739220747582439494/Asset_16x.png?width=918&height=677'
+
+logo['irc'] = 'https://www.plutora.com/wp-content/uploads/2018/11/irc_internet_relay_chat.png'
+
+logo['woodpeckers'] = 'https://media.discordapp.net/attachments/' \
+    '737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590'
+
+logo['current'] = logo['messenger']
+
+
+class App(Vue):
+    data = {
+        "username": "",
+        "password": "",
+        "testArea": "",
+        "styleObject": {
+            "backgroundImage": "url(" + logo['current'] + ")"},
+        "friendListName": "Friends",
+        "chatName": "John Doe",
+    }
+
+    def login(self):
+        # send login info
+        pass
+
 
 class MessageList(Vue):
     data = {
@@ -21,22 +52,9 @@ class MessageList(Vue):
         self.data['messages'].append(self.data['textbox'])
         self.data['textbox'] = ""
 
-
-class Login(Vue):
-    data = {
-        "username": "",
-        "password": "",
-        "testArea": "",
-    }
-
-    def login(self):
-        self.data['testArea'] = self.data['username']
-        self.data['testArea'] += ":"
-        self.data['testArea'] += self.data['password']
+# test2 = MessageList("#app1")
+#
+# test3 = MessageList("#app2")
 
 
-test_login = Login("#login")
-
-test2 = MessageList("#app1")
-
-test3 = MessageList("#app2")
+app = App("#app")

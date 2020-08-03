@@ -7,10 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
-    <title>Starter Template · Bootstrap</title>
-
-    <!--Template based on URL below-->
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+    <title>Chat with friends!</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -19,6 +16,7 @@
     <!-- <link href="./style.css" rel="stylesheet" type="text/css"> -->
 
 </head>
+
 <style>
 #message-container{
   padding-top: 10px;
@@ -40,19 +38,16 @@
 }
 
 #logo{
-
   height: 300px;
   width: 100%;
-/*  margin: 50px;*/
-/*  background: red;*/
-  background-image:
-/*    url('https://media.discordapp.net/attachments/737282857327788042/739220722194317322/Asset_26x.png?width=571&height=677');*/
-/*  url('https://media.discordapp.net/attachments/737282857327788042/739220747582439494/Asset_16x.png?width=918&height=677');*/
-    url('https://media.discordapp.net/attachments/737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590');
+  padding-top: 30px;
+  padding-bottom: 20px;
   background-size: contain;
   background-repeat: no-repeat;
   background-origin: content-box;
   background-position: center;
+  /*  Placeholder image*/
+  background-image: url('https://media.discordapp.net/attachments/737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590');
 }
 
 #login{
@@ -61,7 +56,7 @@
 
 #login *{
   width: 100%;
-  padding: 20px;
+
 }
 
 #chat-window{
@@ -79,37 +74,41 @@ body{
 
 <body>
 
-<div class="container-fluid">
+<div class="container-fluid" id="app">
   <div class="row">
 
     <div id="login" class="col-lg-3 app">
-      <div id="logo">
+      <div :style="styleObject" id="logo">
       </div>
       <div id="login-form">
-        <input v-model="username" placeholder="Username">
+        <input v-model="username" placeholder="Username" class="form-control">
         <br>
-        <input v-model="password" placeholder="Password" type="password">
+        <input v-model="password" placeholder="Password" type="password" class="form-control">
         <br>
-        <button v-on:click="login">SUBMIT</button>
-        <textarea v-model="testArea"></textarea>
+        <button v-on:click="login" class="btn btn-primary">Login</button>
       </div>
     </div>
 
     <div id="chat" class="col-lg-6 app">
       <div id="chat-name" class="text-center">
-        <h2>Tutorial Bot</h2>
+        <h2>{{ chatName }}</h2>
       </div>
       <div id="chat-window">
 <!--        Used to test overflow scrolling -->
        <div style="height: 200vh;"></div>
 <!--        Used to test overflow scrolling -->
       </div>
-      <div id="message-container">
-        <input id="message-input" type="text">
+      
+      <div id="message-input" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button id="send-message" class="btn btn-secondary" type="button">Send Message</button>
+        </div>
+        <input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
       </div>
+  
     </div>
     <div id="contacts" class="col-lg-3 app text-center">
-      <h2>Friends</h2>
+      <h2>{{ friendListName }}</h2>
     </div>
   </div>
 </div>
