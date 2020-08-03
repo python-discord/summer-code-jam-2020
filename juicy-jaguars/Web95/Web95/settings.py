@@ -26,7 +26,8 @@ SECRET_KEY = 'wo6#v8w^maq0+$pk@t8&1j&@f!-f-i3efuhti*u0e7q^m)fhr4'
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost",
-                 "charlottegaskell.ddns.net"]
+                 "charlottegaskell.ddns.net",
+                 "127.0.0.1"]
 
 
 # Application definition
