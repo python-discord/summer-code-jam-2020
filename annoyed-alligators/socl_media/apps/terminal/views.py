@@ -9,7 +9,7 @@ def index(request):
     return render(request, 'terminal.html')
 
 
-def terminal_command(request):
+def run_terminal_command(request):
     command = request.GET.get('c', None)
     if command is None:
         response = "No command was specified"

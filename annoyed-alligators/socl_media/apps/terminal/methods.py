@@ -15,7 +15,7 @@ class TerminalCommand():
         return response
 
     @staticmethod
-    def message(params: str=None):
+    def message(params: str = None):
         help_text = "message: use this to send messages<br><br>"\
             "Usage: message username [args] [message text]<br>"\
             "options:<br>"\
