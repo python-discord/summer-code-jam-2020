@@ -1,4 +1,5 @@
 {% load static %}
+{% load index_tag %}
 <!doctype html>
 
 <html lang="en">
@@ -15,10 +16,33 @@
 <body>
     <script src="js/scripts.js"></script>
     <img class="center" src="{% static 'spydir\img\coollogo.gif' %}">
-    <h1>Welcome to SpydirWeb!</h1>
-    <p>The new way to surf the web.</p>
-    
-    <img src="{% static 'spydir\img\websurf.gif' %}">
+
+ 
+
+    <div class="center">
+      <table width="100%" style="border-spacing: 10px;">
+      <thead>
+        <tr>
+          <th>Blogs</th>
+          <th>Food</th>
+          <th>Information</th>
+          <th>Businesses</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% with ''|center:MAX_LENGTH as range %}
+          {% for _ in range %}
+            <tr>
+              {% if forloop.counter <= BIZ_LENGTH %} <td><a href="http://google.com/"> {{ BLOG|index:forloop.counter0 }} </a></td> {% endif %}
+              {% if forloop.counter <= FOOD_LENGTH %} <td><a href="http://google.com/"> {{ FOOD|index:forloop.counter0 }} </a></td> {% endif %}
+              {% if forloop.counter <= INFO_LENGTH %} <td><a href="http://google.com/"> {{ INFO|index:forloop.counter0 }} </a></td> {% endif %}
+              {% if forloop.counter <= BIZ_LENGTH %} <td><a href="http://google.com/"> {{ BIZ|index:forloop.counter0 }} </a></td>  {% endif %}
+            </tr>
+          {% endfor %}
+          {% endwith %}
+      </tbody>
+      </table>
+    </div>
 
 </body>
 

@@ -11,7 +11,7 @@ class BlogPost(models.Model):
 
 
 class PageImage(models.Model):
-    image = models.ImageField()
+    image = models.TextField(blank=True)
 
 
 # These 2 following classes are for the food recipies

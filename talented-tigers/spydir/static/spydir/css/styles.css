@@ -3,20 +3,28 @@ html {
 }
 
 body{
-    background-color: #39ff14;
-    color: #bc13fe;
-    padding: 25px;
-    border-style: solid;
-    border-width: 3px;
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-color: #ff0000;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 img {
     width: 10%;
 }
 
-h1 {
-    background-color: #cf0;
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+div {
+    width: 320px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 0;
+}
+
+td {
+    text-align: center;
 }
