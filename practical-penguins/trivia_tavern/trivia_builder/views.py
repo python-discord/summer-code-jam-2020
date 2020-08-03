@@ -36,6 +36,8 @@ class UserTriviaQuizListView(ListView):
 
 class TriviaQuizDetailView(DetailView):
     model = TriviaQuiz
+    context_object_name = 'quiz'
+    template_name = 'trivia_builder/triviaquiz_detail.html'
 
 
 class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, CreateView):
