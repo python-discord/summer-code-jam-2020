@@ -12,9 +12,9 @@ urlpatterns = [
         views.threads,
         name="threads-all"
     ),
-    re_path(
-        r"^forum/threads/(?P<id>\d+)/$",
-        views.threads,
-        name="threads-single"
-    )
+    path(
+      'forum/threads/<int:id>',
+      views.threads,
+      name='threads-single'
+    ),
 ]
