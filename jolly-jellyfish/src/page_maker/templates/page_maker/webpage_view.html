@@ -10,6 +10,9 @@
 <div>{{ webpage.user_text_3 }}</div>
 <img src="{{ webpage.user_image_4.url }}">
 <p>
+  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
+</p>
+<p>
   <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
 </p>
 {% endblock %}
