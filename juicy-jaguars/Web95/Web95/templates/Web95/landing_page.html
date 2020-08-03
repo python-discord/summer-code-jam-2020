@@ -9,7 +9,7 @@
 <p>Site is under maintenance</p>
 
 <div class="card card-tertiary draggable" style="max-width: 200px;" tabindex="0">
-    <div class="card-header draggable-header">
+    <div class="card-header draggable-header" id="test01">
         Question
 
         <button class="btn btn-sm btn-primary window-btn">
@@ -36,11 +36,11 @@
 </div>
 
 <div class="card card-tertiary draggable" style="width: 700px; height: 500px; left: 300px; top: 150px;" tabindex="0">
-    <div class="card-header draggable-header">
+    <div class="card-header draggable-header" id="test02">
         <img class="header-icon" src="{% static 'images/icons/Logos/SMALL.ico' %}" height=20px>
         Internet Explorer
 
-        <button class="btn btn-sm btn-primary window-btn">
+        <button class="btn btn-sm btn-primary window-btn" onclick="toggleShow('test02');">
             <span class="btn-text window-btn-text"> X </span>
         </button>
         <button class="btn btn-sm btn-primary window-btn">
