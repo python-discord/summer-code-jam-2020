@@ -50,7 +50,7 @@ class MUDTerminal {
         this.sendBuffer();
         break;
       case "\u007F": // Backspace
-        if (this.terminal._core.buffer.x > 2) {
+        if (this.buffer.length > 0) {
           this.terminal.write("\b \b");
           this.buffer.pop();
         }
