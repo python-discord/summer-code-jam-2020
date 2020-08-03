@@ -1,3 +1,11 @@
-# from django.shortcuts import render
+import requests
+from django.http import HttpResponse
 
-# Create your views here.
+
+def stock(request, stock_ticker):
+    r = requests.get(
+        "https://raw.githubusercontent.com/rdcox/dotcom-data/master/txt/"
+        + str(stock_ticker)
+        + ".us.txt"
+    )
+    return HttpResponse(r.content)

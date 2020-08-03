@@ -19,6 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path("stock/", include("public.urls")),
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="index.html"), name="home"),
 ]
