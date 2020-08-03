@@ -1,8 +1,19 @@
-from django import forms
-from .models import Song
+from django.forms import ClearableFileInput
+from .models import SongData, SongFile
 
 
-class UploadFileForm(forms.ModelForm):
+class TitleUploadForm(forms.ModelForm):
     class Meta:
-        model = Song
-        fields = ('song_title', 'song_songfile')
+        model = SongData
+        fields = ('song_title')
+
+class FileUploadForm(forms.ModelForm):
+    class Meta:
+        model = SongFile
+        fields = ('song_songfile')
+        widgets = {
+            'song_songfile': ClearableFileInput(attrs={
+                'multiple':True,
+                'required'=True
+                })
+            }
