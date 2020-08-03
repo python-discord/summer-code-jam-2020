@@ -1,6 +1,8 @@
 import Home from './home-page.vue';
 import Forum from './thread-list.vue';
+
 import Thread from './thread-view.vue';
+
 
 const routes = [
   {
