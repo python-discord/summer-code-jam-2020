@@ -56,7 +56,7 @@ function wm_unfocus(divId) {
     x.windowstate = "unfocused";
 }
 
-function setupWindowButtons(class_name) {
+function setupWindowManagement(class_name) {
     var windows = document.getElementsByClassName(class_name);
     console.log(windows.length);
 

@@ -7,5 +7,5 @@ function window_setup () {
 
     loadButtonEffects();
 
-    setupWindowButtons("draggable");
+    setupWindowManagement("draggable");
 }
