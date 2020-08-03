@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Thread, Message
 
 
 def home(request):
@@ -7,7 +9,12 @@ def home(request):
 
 
 class NewThread(CreateView):
-    pass
+    model = Thread
+    fields = ['title']
+
+    def form_valid(self, form):
+        form.initial.author = self.request.user
+        return super().form_valid(form)
 
 
 def threads(request, id=None):
