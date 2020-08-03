@@ -1,0 +1,16 @@
+{% extends 'main/main-base.html' %}
+{% block content %}
+    <div>
+        <p>Testing</p>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Register Now</legend>
+                {{ form }}
+            </fieldset>
+            <div>
+                <button>Sign Up</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
