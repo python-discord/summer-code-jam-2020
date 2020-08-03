@@ -14,3 +14,10 @@ Where we'll track where we got data from.
 * [Men](https://pixnio.com/photos/people/male-men)
 * [Women](https://pixnio.com/photos/people/female-women)
 * License - High quality copyright free pictures, no rights reserved and without any restriction.
+
+#### Noralize.css
+* https://github.com/necolas/normalize.css/
+* MIT License
+* Creates standard initial conditions across browsers as a base for our CSS. 
+Simplifying development and testing.
+
