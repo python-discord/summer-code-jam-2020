@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page padding>
     <div>
       <q-list class="menu-list">
         <q-item v-for="city in allCities" :key="city.slug" :to="`/cities/${city.slug}`">
