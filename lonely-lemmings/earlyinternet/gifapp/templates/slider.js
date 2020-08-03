@@ -1,21 +1,30 @@
 //slider scripts
 //button color values
-var buttonRed = "0";
-var buttonGreen = "0";
-var buttonBlue = "0";
+var buttonRed = "00";
+var buttonGreen = "00";
+var buttonBlue = "00";
+
+document.getElementById("color-button").style.backgroundColor = "#000000";
 
 //REQUIRES: color to be "red", "green", "blue", 0<= value <=255
 function setButtonColor(value, color){
-    if(color === "red") {
-        buttonRed = value;
-    } else if (color === "green") {
-        buttonGreen = value;
-    } else if (color === "blue") {
-        buttonBlue = value;
+    //fill in blank values during hex conversion
+    function pad(n){
+      return (n.length<2) ? "0"+n : n;
     }
 
-    document.getElementById("color-button").style.backgroundColor =
-    'rgb(' + buttonRed + ',' + buttonGreen + ',' + buttonBlue + ')';
+    if(color === "red") {
+        buttonRed = parseInt(value, 10).toString(16);
+    } else if (color === "green") {
+        buttonGreen = parseInt(value, 10).toString(16);
+    } else if (color === "blue") {
+        buttonBlue = parseInt(value, 10).toString(16);
+    }
+    hex = "#" + pad(buttonRed) + pad(buttonGreen) + pad(buttonBlue);
+
+    document.getElementById("color-button").style.backgroundColor = hex;
+    strokeColor = hex;
+    fillColor = hex;
 }
 
 //red slider
@@ -55,6 +64,7 @@ widthOutput.innerHTML = widthSlider.value;
 
 widthSlider.oninput = function() {
     widthOutput.innerHTML = this.value;
+    line_Width = this.value;
 }
 
 //polygon slider
@@ -64,4 +74,5 @@ polygonOutput.innerHTML = polygonSlider.value;
 
 polygonSlider.oninput = function() {
     polygonOutput.innerHTML = this.value;
+    polygonSides = this.value;
 }

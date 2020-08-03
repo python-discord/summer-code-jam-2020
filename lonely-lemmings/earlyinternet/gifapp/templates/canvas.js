@@ -167,6 +167,7 @@ function getPolygon(){
 function drawRubberbandShape(loc){
     ctx.strokeStyle = strokeColor;
     ctx.fillStyle = fillColor;
+    ctx.lineWidth = line_Width;
     if(currentTool === "brush"){
         DrawBrush();
     } else if(currentTool === "line"){
