@@ -13,9 +13,11 @@ from users.models import CustomUser
 
 @api_view(["GET"])
 @csrf_exempt
-@permission_classes([IsAuthenticated])
 def get_posts(request):
     posts = Post.objects.all()
+    user_id = request.query_params.get('user', None)
+    if user_id is not None:
+        posts = posts.filter(author=user_id)
     serializer = PostSerializer(posts, many=True)
     return JsonResponse({"posts": serializer.data})
 
