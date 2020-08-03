@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("rovers.urls")),
     path("", include("posts.urls")),
+    path("", include("mars_weather.urls")),
 ]
 
 if settings.DEBUG:
