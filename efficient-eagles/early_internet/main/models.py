@@ -20,14 +20,14 @@ class CustomUser(AbstractUser):
         return self.username
 
 
-class Topic(models.Model):
+class Topic(TimeStampedModel):
     topic_name = models.CharField(max_length=20, default='', blank=False, unique=True)
 
     def __str__(self):
         return self.topic_name
 
 
-class Post(models.Model):
+class Post(TimeStampedModel):
     title = models.CharField(max_length=255,
                              default='',
                              blank=True)
