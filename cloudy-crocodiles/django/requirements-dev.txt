@@ -3,3 +3,4 @@ django-cors-headers
 ariadne>=0.11,<0.12
 psycopg2-binary
 pytest-django
+Pillow

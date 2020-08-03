@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "djangocities.user",
     "djangocities.cities",
     "djangocities.sites",
+    "djangocities.user_media",
     "corsheaders"
 ]
 
@@ -93,6 +94,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "user.CustomUser"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -124,7 +126,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "/cdn/"
+
+STATICFILES_DIRS = [
+    '/cdn'
+]
+
+MEDIA_ROOT = '/cdn'
+MEDIA_URL = '/'
 
 AUTH_USER_MODEL = "user.CustomUser"
 

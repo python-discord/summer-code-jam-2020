@@ -21,6 +21,7 @@ services:
     restart: "no"
     volumes:
       - "./django/:/django"
+      - "./cdn/:/cdn"
   # Database
   pgcities:
     image: postgres:12.3
