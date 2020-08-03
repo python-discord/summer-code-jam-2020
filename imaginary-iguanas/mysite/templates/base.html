@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
 
     {% if title %}
         <title>{{ title }}</title>
@@ -16,8 +16,8 @@
         <title>mysite</title>
     {% endif %}
 </head>
-<body>
 
+<body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
@@ -27,13 +27,13 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/user/">Users</a>
+              <a class="nav-item nav-link" href="/users/">Users</a>
                 <a class="nav-item nav-link" href="/Lorem-Ipsum/">Lorem Ipsum</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/user/login">Login</a>
-              <a class="nav-item nav-link" href="/user/register">Register</a>
+              <a class="nav-item nav-link" href="/users/login">Login</a>
+              <a class="nav-item nav-link" href="/users/signup">Sign Up</a>
             </div>
           </div>
         </div>
