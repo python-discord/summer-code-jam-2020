@@ -27,29 +27,55 @@
 
   <BODY BGCOLOR=#FFF6F0 TEXT=#000000 LINK=#C00000 VLINK=#800000 ALINK=#FF00FF>
     <H1 ALIGN=CENTER ><FONT FACE="COMIC SANS, COMIC RELIEF, PAPYRUS, CURSIVE"><BLINK><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></BLINK></FONT></H1>
-    <!-- <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
-    <PARAM NAME=FileName VALUE=sound.mp3
-    <OBJECT TYPE=audio/mpeg DATA=sounds\510954__theojt__romantic-song.mp3 HEIGHT=0PX>
-    <PARAM NAME=controller VALUE=rue/>
-    <PARAM NAME=autoplay VALUE=true/>
-    </OBJECT> -->
-    {% load random_image %}
-    <div class="columnleft">
-      <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
-    </div>
 
-    <div class="columnright">
-      <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
-    </div>
-
-    <div class="columncenter">
-      <img src="../../../static/images/Proud_Puffin_banner.png" alt="UserImage" height="40" width="1000">
-    </div>
     
-    {% block content %}
-   
-    {% endblock %}
-  
+    {# Moved bg image into body  #}
+    <body style="background-image: url(../../../static/images/homebg.gif);">
+        <div class="home_h1">
+            <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
+            <img src="../../../static/images/Proud_Puffin_motion4.gif"; width="40"; height="32"; align="Left">
+                <span style="text-align: start; font-size: 2.5em">&nbsp;PAGE TITLE GOES HERE</span>
+
+                <span style="text-align: end; font-size: 1.0em" >
+                    <!-- (Page menus go here) -->
+                    <a class="headerlink"; href="../">Home</a> |
+                    <a class="headerlink"; href="../DateMatcher">DateMatcher</a> |
+                    <a class="headerlink"; href="../about">About page</a> |
+                    <a class="headerlink"; href="../admin">Admin page</a>
+                </span>
+
+        </div>
+
+
+
+        {# <h1 class="home_h1"> Early Dating Home </h1> #}
+
+
+        <!-- background-color: transparent; class="home_h1" -->
+        <!-- <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
+        <PARAM NAME=FileName VALUE=sound.mp3
+        <OBJECT TYPE=audio/mpeg DATA=sounds\510954__theojt__romantic-song.mp3 HEIGHT=0PX>
+        <PARAM NAME=controller VALUE=rue /> -->
+        <!-- <PARAM NAME=autoplay VALUE=true />
+        </OBJECT> -->
+        <!--  BASE.HTML BEFORE CONTENT  -->
+{% load random_image %}
+    <div class="row">
+
+        <div class="columnleft">
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+        </div>
+
+        <div class="columnright">
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="1000"></img>
+        </div>
+
+    <div class="columncenter" >
+        {% block content %}
+        {% endblock %}
+  </div>
+
+    </div>
   </body>
   
   <footer>
