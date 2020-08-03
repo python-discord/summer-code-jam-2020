@@ -1,4 +1,4 @@
-![Team Logo](./horsescodejamlogo.png?raw=true "Logo")  
+[![Team Logo](./horsescodejamlogo.png?raw=true "Logo")](#)  
 
 <hr>
 
@@ -18,3 +18,5 @@ variable name == summer_jam_secret_key, variable value == (use secret key that s
 
 6. run `python manage.py migrate` in order for the site to behave properly (the database
 file will be ignored when committing to avoid merge conflicts)
+
+7. (*optional in dev, required for full functionality*) run `docker-compose up` in cmd in /docker to start redis for the instant messenger.
