@@ -9,6 +9,10 @@ body {
     bottom: 0;
 }
 
+.nav-link-icon {
+    padding: 0 !important;
+}
+
 .header-icon {
     height: 16px;
     width: auto;

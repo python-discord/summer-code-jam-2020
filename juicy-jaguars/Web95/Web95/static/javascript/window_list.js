@@ -26,6 +26,12 @@ function create_window_list_btn (navbar, name, windowid) {
     span.classList = ["nav-link-inner-text"];
     span.appendChild(document.createTextNode(name));
 
+    if (document.getElementById(windowid).getElementsByClassName("header-icon").length > 0) {
+        var icon = document.getElementById(windowid).getElementsByClassName("header-icon")[0].cloneNode(true);
+        icon.classList = ["nav-link-icon"];
+        link.appendChild(icon);
+    }
+
     link.appendChild(span);
     btn.appendChild(link);
     navbar.appendChild(btn);
