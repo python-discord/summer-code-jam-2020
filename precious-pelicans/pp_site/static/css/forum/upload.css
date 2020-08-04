@@ -1,0 +1,6 @@
+#error-info {
+    border-width: 2px;
+    border-color: red;
+    badding: 10px;
+    box-sizing: border-box;
+}

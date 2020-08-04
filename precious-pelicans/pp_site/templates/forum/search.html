@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/forum/search.css" %}">
+{% endblock %}
+
+{% block content %}
+    <h3> Results for "{{ search_string }}" </h3>
+    <div id='results-container'>
+        {% for result in search_results %}
+            <div class='post'>
+                <h5> {{ result.title }} </h5>
+                <p> {{ result.description }} </p>
+                <p> Posted by {{ result.author }} on {{ result.created_at }} </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

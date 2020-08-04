@@ -1,0 +1,7 @@
+{% extends 'forum/upload.html' %}
+
+{% block error %}
+    {% for error in errors %}
+        <p> {{ error }} </p>
+    {% endfor %}
+{% endblock %}
