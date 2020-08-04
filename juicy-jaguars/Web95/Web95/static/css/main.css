@@ -10,6 +10,7 @@
 body {
     padding-bottom: 0;
     overflow: hidden;
+    height: 100vh;
 }
 
 .taskbar {
