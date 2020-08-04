@@ -23,7 +23,8 @@ class NewMessage(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        print(self.request.path)
+        thread_path = self.request.path.replace('/new', '')
+        form.instance.thread = Thread.objects.filter(pk=int(thread_path[thread_path.rfind('/') + 1:])).first()
         # TODO: somehow get the thread from the current url
         return super().form_valid(form)
 

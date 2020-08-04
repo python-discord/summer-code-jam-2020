@@ -14,12 +14,13 @@ Single-thread page
     </blockquote>
 
 <h1>{{ thread.title }}</h1>
-<a href={% url "new-message" thread.id %}>Create New Thread</a><br>
 {% for s in messages %}
     {{ s.author }}:
     {{ s.content }}
     <br>
 {% endfor %}
+
+<a href={% url "new-message" thread.id %}>Post A Message</a><br>
 
 <br><br>
 {% if prev_page %}
