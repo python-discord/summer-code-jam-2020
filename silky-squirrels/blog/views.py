@@ -6,6 +6,7 @@ from .models import Post
 from users.models import FriendRequest, Profile
 
 
+# Home View
 class PostListView(ListView):
     model = Post
     template_name = "blog/home.html"  # <app>/<model>_<viewtype>.html
@@ -16,6 +17,7 @@ class PostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         profile = Profile.objects.get(user=self.request.user)
+        context["profile"] = profile
         context["posts"] = Post.objects.all()
         context["allusers"] = User.objects.exclude(username=self.request.user)
         context["frequests"] = FriendRequest.objects.filter(to_user=profile)

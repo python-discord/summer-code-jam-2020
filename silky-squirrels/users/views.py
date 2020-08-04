@@ -48,8 +48,8 @@ def send_request(request, id):
 @login_required
 def accept_request(request, id):
     frequest = FriendRequest.objects.get(id=id)
-    user1 = request.user
-    user2 = frequest.from_user
+    user1 = Profile.objects.get(user=request.user)
+    user2 = frequest.from_user  # this from_user is a profile
     user1.friends.add(user2)
     user2.friends.add(user1)
     return redirect("blog-home")
