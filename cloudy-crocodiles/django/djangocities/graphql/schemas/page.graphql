@@ -1,0 +1,7 @@
+type Page {
+    id: ID!
+    site: Site!
+    filename: String!
+    version: String!
+    content: String!
+}

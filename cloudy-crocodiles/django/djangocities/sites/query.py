@@ -1,6 +1,7 @@
-from djangocities.graphql import query
 from djangocities.cities.models import City
-from djangocities.sites.models import Site
+from djangocities.graphql import query
+from djangocities.sites.models import Page, Site
+
 
 @query.field("allSites")
 def resolve_all_sites(*_):
@@ -16,3 +17,8 @@ def resolve_city_sites(*_, id):
 @query.field("site")
 def resolve_site(*_, slug):
     return Site.objects.get(slug=slug)
+
+
+@query.field("allPages")
+def resolve_all_pages(*_):
+    return Page.objects.all()
