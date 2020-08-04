@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'arena.apps.exec',
     'arena.apps.core',
+    'arena.apps.users',
 
 ]
 

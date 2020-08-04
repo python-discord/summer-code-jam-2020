@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from arena.apps.users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # This is simply for testing purposes
     path('exec/', include(("arena.apps.exec.urls", 'exec'), namespace="exec")),
     path('', include("arena.apps.core.urls")),
+    path('register/', user_views.register, name='register'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
