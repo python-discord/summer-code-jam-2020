@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+  <h1>Trivia Name: {{ quiz.name }}</h1>
+
+  <p><strong>Author:</strong> <a href="">{{ quiz.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>created on:</strong> {{ quiz.date_posted }}</p>
+  <p><strong>number of questions:</strong> {{ quiz.triviaquestion_set.count }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Questions</h4>
+
+    {% for question in quiz.triviaquestion_set.all %}
+      <hr>
+      <p><strong>questions:</strong> {{ question.question_text }}</p>
+      <p><strong>answer:</strong> {{ question.question_answer }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
+<!--modeled from https://whoisnicoleharris.com/2015/01/06/implementing-django-formsets.html-->

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div class="content-section">
+       <form method="post">
+            {% csrf_token %}
+
+            {{ quiz_form|crispy }}
+
+            {{ question_formset.management_form }}
+            {% for question_form in question_formset %}
+                <div class="panel panel-default">
+                    {{ question_form.as_table }}
+                </div>
+            {% endfor %}
+            <input type="submit" value="Create Quiz" class="button"/>
+        </form>
+    </div>
+{% endblock content %}
+<!--modeled from https://whoisnicoleharris.com/2015/01/06/implementing-django-formsets.html-->

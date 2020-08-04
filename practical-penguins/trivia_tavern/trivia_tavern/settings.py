@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'trivia_builder.apps.TriviaBuilderConfig',
     'trivia_hub.apps.TriviaHubConfig',
+    'trivia_runner.apps.TriviaRunnerConfig',
     'users.apps.UsersConfig',
     'twilio_messenger.apps.TwilioMessengerConfig',
     'crispy_forms',
@@ -132,6 +133,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
