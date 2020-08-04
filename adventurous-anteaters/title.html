@@ -3,33 +3,9 @@
 
 <head>
       <style>
-        fieldset{
-            background-color: rgb(177, 171, 171);
-            width: 99%;
-        }
-
-        fieldset p{
-            display: inline;
-        }
-
-        fieldset select{
-            width: 99%;
-        }
-
-        fieldset svg{
-            position: relative;
-            top: 5px;
-        }
-
-        fieldset input {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
-
         .fa-arrow-right{
             background-color: rgb(14, 177, 14);
-            padding: 3px;
+            padding: 1px;
             color: white;
             border: 1px solid white;
             border-radius: 2px;
@@ -53,8 +29,7 @@
 
         ul, ul li{
             display: inline;
-            margin: 10px;
-            padding:4px;
+            margin-right: 8px;
         }
 
         .fas{
@@ -170,6 +145,16 @@
       vertical-align: middle;
       height: 18px;
     }
+    .vertical-line{
+
+
+        overflow: hidden;
+        border-style: inset;
+        border-width: 1px;
+        border-left: 1px solid #ccc;
+        height: 18px
+
+    }
   </style>
   <script>
     function startTime() {
@@ -201,7 +186,7 @@
 <body onload="startTime()">
 
   <div class="window" style="width: 100%">
-    <div class="title-bar">
+    <div class="title-bar" style=" height: 18px;">
       <div class="title-bar-text">Welcome to RetroNet!</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize"></button>
@@ -210,59 +195,60 @@
       </div>
     </div>
 
+
     <!-- Main menu -->
     <div class="window-body">
+        <span class="vertical-line"></span>
       <div class="dropdown">
-        <button  onclick="open_dropdown('dd_file')" style="border: 5px hidden;;padding: 0;all: revert" class="dropbtn">File</button>
-        <div class="dropdown-content Frame" id="myDropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_file')" style="box-shadow: none;">File</button>
+        <div class="dropdown-content Frame" id="dd_file">
           <a href="#" >Open</a>
           <a href="#">Close</a>
           <a href="#">Settings</a>
         </div>
-
+        <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_edit')">Edit</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_edit')" style="box-shadow: none">Edit</button>
         <div class="dropdown-content Frame" id="dd_edit">
           <a href="#">Cut</a>
           <a href="#">Copy</a>
           <a href="#">Paste</a>
         </div>
       </div>
+          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_view')">View</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_view')" style="box-shadow: none">View</button>
         <div class="dropdown-content Frame" id="dd_view">
           <a href="#">Toggle CSS</a>
           <a href="#">Toggle Javascript</a>
         </div>
       </div>
+          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_tools')">Tools</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_tools')" style="box-shadow: none">Tools</button>
         <div class="dropdown-content Frame" id="dd_tools">
           <a href="#">Not Decided</a>
         </div>
       </div>
+          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')">Favourties</button>
+        <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')" style="box-shadow: none">Favourties</button>
         <div class="dropdown-content Frame" id="dd_favorite">
           <a href="#">Add New Favorite</a>
           <a href="#">Add this Page to Favorites</a>
           <a href="#">Show Favorites</a>
         </div>
       </div>
+          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_help')">Help</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_help')" style="box-shadow: none">Help</button>
         <div class="dropdown-content Frame" id="dd_help">
           <a
             href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md">README</a>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
         </div>
-||||||| merged common ancestors
-  </div>
-=======
->>>>>>> b88fc2d7046bc0edfe8dbeea2dda8e1486bcb6c7
 
       <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
 
@@ -271,7 +257,7 @@
 
       <div class="menu">
         <ul class="first">
-          <li><i class="fas fa-arrow-circle-left"></i>  Back</li>
+          <li><i class="fas fa-arrow-circle-left" style="margin-left: 25px;"></i>  Back</li>
           <li><i class="fas fa-caret-down"></i></li>
           <li><i class="fas fa-arrow-circle-right"></i></li>
           <li><i  class="fas fa-caret-down grey-caret-down"></i></li>
@@ -289,20 +275,11 @@
           <li><img class="print" src="icons/ie-print-min.png" alt=""></li>
           <li><img class='views' src="icons/views-min.png" alt=""></li>
         </ul>
-<<<<<<< HEAD
     </div>
       <br>
         <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
-||||||| merged common ancestors
-    </fieldset>
-    <fieldset>
-=======
-    </fieldset>
-        </div>
 
-    <fieldset>
->>>>>>> b88fc2d7046bc0edfe8dbeea2dda8e1486bcb6c7
-       <p>Address</p>
+      <p><span class="vertical-line"></span>Address</p>
 
         <select>
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
@@ -323,10 +300,11 @@
 
 
 
-        <button id="go"><img src="icons/ie-go-min.png" alt=""></i>
+        <button id="go" style="box-shadow: none"><img src="icons/ie-go-min.png" alt=""></i>
             Go
         </button>
-        <button id="links">Links<i class="fas fa-angle-double-right"></i></button>
+      <span class="vertical-line"></span>
+        <button id="links" style="box-shadow: none">Links<i class="fas fa-angle-double-right"></i></button>
 
         <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
         <div class="window-body" style="background-color: #e5e9e7;">
