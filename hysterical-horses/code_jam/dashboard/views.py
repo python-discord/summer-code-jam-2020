@@ -4,6 +4,8 @@ from typing import List
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import textwrap
+import string
+import clipboard # for some debugging
 
 
 @login_required()
@@ -16,6 +18,7 @@ def search_query(search: str, format_text: bool =True):
     base_url = 'https://api.duckduckgo.com/'
     payload = {"q": search, "format": "json", "pretty": "1"}
     results = requests.get(base_url, params = payload).json()
+    clipboard.copy(str(results)) # REMEMBER TO COMMENT IN AFTER DEBUGGING
     
     if format_text:  # formats response
         # NOTE:
@@ -30,8 +33,11 @@ def search_query(search: str, format_text: bool =True):
             """ Formats a single entry  """
             pat = r'>(.*)</a>(.*)'
             text_search = re.search(pat, entry['Result'])
+            punc = string.punctuation
+
+            # js-freindly-title makes sure the element does not have a punctuation in the id (')
             return {'title': text_search.group(1),
-                    'info': text_search.group(2),
+                    'info': text_search.group(2).replace('<br>', ""),
                     'img_url': entry['Icon']['URL'],
                     'further_info': entry['FirstURL'],
                     'tags': tags}
@@ -58,7 +64,8 @@ def search_query(search: str, format_text: bool =True):
 @login_required()
 def engine_results(request):
     """ Renders a page for the request  """
-    search_text = 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch' # search query
+    # search_text = 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch' # search query
+    search_text = 'some random dude'
 
     # prevent long searches from overflowing
     wrapper = textwrap.TextWrapper(width=43)
@@ -75,7 +82,7 @@ def engine_results(request):
         if 'tags' in r.keys():
             if r['tags'][0] in ['#1', '#2', '#3']:
                 top_results.append(r)
-            elif r['tags'][0] not in ['#1', '#2', '#3']:
+            else:
                 other_results.append(r)
         elif 'description' in r.keys():
             desc = r['description']

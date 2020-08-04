@@ -22,8 +22,8 @@
         <p class="title nes-text is-success">Top Results</p>
         {% for t in top_results  %}
         <section>
-            <button  id="top-res" class="nes-btn is-success search-res" align="center" onclick="document.getElementById('{{ t.title }}').showModal();">{{ t.title  }}</button>
-            <dialog class="nes-dialog" id='{{ t.title  }}'>
+            <button  id="top-res" class="nes-btn is-success search-res" align="center" onclick="document.getElementById('{{ forloop.counter0 }}').showModal();">{{ t.title  }}</button>
+            <dialog class="nes-dialog" id='{{  forloop.counter0  }}'>
                 <form method="dialog">
                     <p class="title is-primary nes-text">{{ t.title  }}</p>
                     <p>{{ t.info  }}</p>
@@ -43,8 +43,8 @@
         <p class="title nes-text">Related Topics</p>
         {% for o in other_results  %}
         <section>
-            <button id="other-res" class="nes-btn search-res" align="center" onclick="document.getElementById('{{ o.title }}').showModal();">{{ o.title  }}</button>
-            <dialog class="nes-dialog" id='{{ o.title  }}'>
+            <button id="other-res" class="nes-btn search-res" align="center" onclick="document.getElementById('{{ forloop.counter0|add:3 }}').showModal();">{{ o.title  }}</button>
+            <dialog class="nes-dialog" id='{{  forloop.counter0|add:3  }}'>
                 <form method="dialog">
                     <p class="title is-primary">{{ o.title  }}</p>
                     <p>{{ o.info  }}</p>
@@ -58,6 +58,10 @@
         {% endfor  %}
     </div>
     {% endif %}
+    
+    {% if other_results|length == 0 and top_results|length == 0 %}
+    <h3 id='no-results-found' align="center">No search results found.</h3>
+    {% endif  %}
 
     <div>
         <a href="https://duckduckgo.com/" target="_blank">Results from DuckDuckGo</a>
@@ -67,10 +71,7 @@
     
 </div>
 
-<br><br>
-{% if other_results|length == 0 and top_results|length == 0 %}
-<h3 id='no-results-found' align="center">No search results found.</h3>
-{% endif  %}
+
 
 
 {% endblock content  %}
