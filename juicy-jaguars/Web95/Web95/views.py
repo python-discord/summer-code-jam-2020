@@ -11,9 +11,12 @@ def landing_page(request):
     themes = os.listdir(os.path.join(BASE_DIR,
                                      "Web95/static/images/wallpapers"))
 
-    if request.GET["theme"] in themes:
-        theme = request.GET["theme"]
-    else:
+    try:
+        if request.GET["theme"] in themes:
+            theme = request.GET["theme"]
+        else:
+            theme = "Win95"
+    except:
         theme = "Win95"
 
     wallpaper_path = os.path.join(BASE_DIR,
