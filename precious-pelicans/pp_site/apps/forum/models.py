@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import Textarea
 from django.db import models
-from pathlib import Path
+
 
 from pp_site.utils.models import TimeStampMixin
 
