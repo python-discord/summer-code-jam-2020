@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from fbbackend import models, serializers
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 '''
 Views for our Rest API.
@@ -17,10 +17,17 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
     queryset = models.Group.objects.all()
     serializer_class = serializers.GroupSerializer
 
-
-
-
-
+    @action(detail=False, methods=['post'])
+    def new_message(self, request, pk=None):
+        group = self.get_object()
+        serializer = serializers.MessageSerializer(data=request.data)
+        if serializer.is_valid():
+            print(serializer.data)
+            group.messages.append(serializer.data)
+            return Response({'status': 'password set'})
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 
