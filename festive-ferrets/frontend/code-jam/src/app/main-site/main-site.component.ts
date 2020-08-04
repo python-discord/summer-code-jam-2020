@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {BoardsService} from '../services/boards.service';
+import {Board} from '../interfaces/board';
 
 @Component({
   selector: 'app-main-site',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainSiteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private boardsService: BoardsService) {
+  }
+
+  boards: Board[] = [];
 
   ngOnInit(): void {
+    this.boardsService.getBoards().subscribe(x => this.boards = x);
   }
+
 
 }
