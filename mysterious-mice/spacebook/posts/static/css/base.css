@@ -1,5 +1,7 @@
 body {
-    /* color: #CCCCCC; */
+    color: #CCCCCC;
+    /* background image from https://1-background.com/stars_1.htm */
+    background: url("../images/beautiful-blue-stars-fill.jpg")
 }
 
 a, a:visited, a:hover, a:active{
