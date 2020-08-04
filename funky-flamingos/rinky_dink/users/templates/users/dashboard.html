@@ -3,7 +3,7 @@
 {% block content%}
     <h1> Welcome {{ request.user }}</h1>
 <a href="{% url 'logout' %}">Logout</a><br>
-<a href="{% url 'utils:upload' %}">upload a file</a><br>
+<a href="{% url 'upload' %}">upload a file</a><br>
 <h1>Files Uploaded</h1>
 {% for record in file %}
   <h2>{{record.title}}</h2>
