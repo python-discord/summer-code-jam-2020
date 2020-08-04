@@ -45,11 +45,11 @@ function wm_setup(elem) {
                 windows[i].classList.remove("card-tertiary");
 
                 if (windows[i].style.zIndex > x.style.zIndex) {
-                    windows[i].style.zIndex = (parseInt(windows[i].style.zIndex)-2).toString();
+                    windows[i].style.zIndex = (parseInt(windows[i].style.zIndex)-1).toString();
 
                     children = windows[i].children;
                     for (var j = 0; j < children.length; j++) {
-                        children[j].style.zIndex = (parseInt(windows[i].style.zIndex)-2).toString();
+                        children[j].style.zIndex = (parseInt(windows[i].style.zIndex)-1).toString();
                     }
                 }
             }
