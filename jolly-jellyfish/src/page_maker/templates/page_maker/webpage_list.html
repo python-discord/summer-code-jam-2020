@@ -8,10 +8,11 @@
 
     {# If the webpage does not yet have a thumbnail associated with it... #}
     {# loads custom template tags to call thumbnail generation function. #}
+
     {% if 'placeholder_img' in webpage.thumbnail.url %}
-    {% load render_img_thumbnail %}
-    {# 'as none' used below to stop None being printed onto page #}
-    {% request_img_gen request destination_pg webpage as none %}
+        {% load render_img_thumbnail %}
+        {# 'as none' used below to stop None being printed onto page #}
+        {% request_img_gen request destination_pg webpage as none %}
     {% endif %}
 
     <a href="{{ destination_pg }}">
