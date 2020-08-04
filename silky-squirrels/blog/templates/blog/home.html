@@ -21,6 +21,24 @@
       </div>
   </div>
 
+  {% if user.is_authenticated %}
+      hello {{ user }}
+      {% for frequest in frequests %}
+          <a href="{% url 'accept' frequest.id %}">Accept {{frequest.from_user}} as friend</a>
+      {% endfor %}
+      <br>
+      friends 
+      {{user.friends.all}}
+      {{allusers}}
+      <br>
+      Add someone!
+      {% for user in allusers %}
+
+          {{user}}
+          <a href="{% url 'add-friend' user.id %}">Add {{user}} +</a>
+      {% endfor %}
+  {% endif %}
+
   {% for post in posts %}
       <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">

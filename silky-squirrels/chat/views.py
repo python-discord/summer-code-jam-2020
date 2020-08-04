@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from chat.forms import RoomCreationForm
 from chat.models import Room, RoomMember, Message
 
+
 @login_required
 def index(request):
     # Post-Friends model implementation:
