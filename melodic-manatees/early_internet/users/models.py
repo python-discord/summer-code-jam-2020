@@ -39,4 +39,4 @@ class UserPreferences(models.Model):
     display_music = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'{self.user.username} preferences'
+        return f'{self.user.username} Preferences'
