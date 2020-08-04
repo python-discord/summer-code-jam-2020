@@ -3,6 +3,7 @@
  * A static file "/static/fonts/hellovetica.woff2" should exist,
  * but it will fall back on "News Cycle" from Google Fonts if not.
  * Static files "/static/images/win95-toolbar.png" and "/static/images/win95-close.png" should also exist.
+ * Requires that images be wrapped in divs.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=News+Cycle&display=swap');
@@ -26,6 +27,20 @@ body {
   max-width: 800px;
   box-shadow: -2px -2px 5px #000 inset, 2px 2px 5px #fff inset;
   margin: 30px auto 60px auto;
+}
+
+img {
+  width: 100%;
+  height: 6em;
+  overflow: hidden;
+  object-fit: none;
+  filter: saturate(30%);
+  transition: height 1s, filter 1s;
+}
+
+img:hover {
+  filter: saturate(100%);
+  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
