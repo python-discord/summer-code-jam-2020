@@ -105,7 +105,7 @@ def search_posts(request):
         return render(request, 'forum/search_no_results.html')
 
     context = {
-        'results': list(result_set),
+        'search_results': result_set,
         'search_string': request.POST['search_string']
     }
 
