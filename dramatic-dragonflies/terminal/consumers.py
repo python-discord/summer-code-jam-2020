@@ -15,7 +15,7 @@ class TerminalConsumer(AsyncWebsocketConsumer):
             './process_watch bash', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.task_err = asyncio.tasks.create_task(
             self.handle_sending(self.process.stderr))
-        self.test_out = asyncio.tasks.create_task(
+        self.task_out = asyncio.tasks.create_task(
             self.handle_sending(self.process.stdout))
 
     async def disconnect(self, code: Optional[int]) -> None:
