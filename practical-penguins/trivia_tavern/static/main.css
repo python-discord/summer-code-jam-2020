@@ -1,10 +1,17 @@
 body {
-  background: #fafafa;
+  /* background: #fafafa; */
+  background-image: url("../media/logs.jpg");
+  background-repeat: repeat;
   color: #333333;
   margin-top: 5rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #444444;
 }
 
@@ -14,6 +21,12 @@ ul {
 
 .bg-steel {
   background-color: #5f788a;
+  
+}
+
+.bg-brown {
+  background-color: #663300;
+  font-family: 'Pirata One', cursive;
 }
 
 .site-header .navbar-nav .nav-link {
