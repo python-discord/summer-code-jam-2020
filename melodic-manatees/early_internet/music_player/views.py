@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 
 def music_player(request):
     song_list = MusicFile.objects.filter(music_owner=request.user.userprofile)
-    # for song in song_list:
-    #     print(object.song,url)
+    for song in song_list:
+        print(song.music_musicfile)
     return render(
         request,
         'music_player/music_player.html',
