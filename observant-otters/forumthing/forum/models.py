@@ -12,6 +12,9 @@ class Thread(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(ForumUser, models.DO_NOTHING)
 
+    def __str__(self):
+        return f'Thread with title {self.title} created on {self.date_created}'
+
 
 class Message(models.Model):
     """
@@ -20,8 +23,11 @@ class Message(models.Model):
     content = models.TextField()
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     author = models.ForeignKey(ForumUser, models.DO_NOTHING)  # it's either this or models.PROTECT
-    date_posted = models.DateTimeField()
-    date_edited = models.DateTimeField(default=date_posted)
+    date_posted = models.DateTimeField(default=timezone.now)
+    date_edited = models.DateTimeField(default=timezone.now)  # same as above anyways
+
+    def __str__(self):
+        return f'Message posted on {self.date_posted} with content {self.content}'
 
 
 EVENT_TYPES = Enum(

@@ -1,0 +1,12 @@
+<!DOCTYPE html>  <!-- so ig more of our website will follow the format provided in this part -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>forumthing</title>
+</head>
+<body>
+<a href={% url "new-thread" %}>Create New Thread</a>
+<br>
+{% block content %}{% endblock %}
+</body>
+</html>
