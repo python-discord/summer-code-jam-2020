@@ -129,6 +129,13 @@ body {
 
 .app-bar li {
     display: inline-block;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+.app-bar li:hover {
+    background-color: #000181;
+    color: white;
 }
 
 .app-bar-underline {
