@@ -4,7 +4,7 @@ from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Post
+from .models import Post, Like, Dislike
 from .serializers import PostSerializer
 from users.models import CustomUser
 
@@ -98,3 +98,78 @@ def update_post(request, post_id):
             safe=False,
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
+@api_view(["POST"])
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+def like_post(request, post_id):
+    """Adds a like to a post attributed to the authenticated user"""
+    user = request.user
+    try:
+        post = Post.objects.get(id=post_id)
+
+        # Check if the user has previously disliked the post, if so, remove the dislike
+        dislikes = post.dislikes.filter(user_disliked=user.id)
+        for dislike in dislikes:
+            dislike.delete()
+
+        # Return if the user has already liked this post
+        likes = post.likes.filter(user_liked=user.id)
+        if likes.count() > 0:
+            return JsonResponse({"posts": None}, safe=False, status=status.HTTP_200_OK)
+
+        like = Like(user_liked=user)
+        like.save()
+        post.likes.add(like)
+
+        serializer = LikeSerializer(like, many=True)
+        return JsonResponse({"posts": serializer.data}, safe=False, status=status.HTTP_200_OK)
+    except ObjectDoesNotExist as e:
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went wrong"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+
+@api_view(["POST"])
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+def dislike_post(request, post_id):
+    """Adds a dislike to a post attributed to the authenticated user"""
+    user = request.user
+    try:
+        post = Post.objects.get(id=post_id)
+
+        # Check if the user has previously liked the post, if so, remove the like
+        likes = post.likes.filter(user_liked=user.id)
+        for like in likes:
+            like.delete()
+
+        # Return if the user has already disliked this post
+        dislikes = post.dislikes.filter(user_disliked=user.id)
+        if dislikes.count() > 0:
+            return JsonResponse({"posts": None}, safe=False, status=status.HTTP_200_OK)
+
+        dislike = Dislike(user_disliked=user)
+        dislike.save()
+        post.dislikes.add(dislike)
+
+        serializer = DislikeSerializer(like, many=True)
+        return JsonResponse({"posts": serializer.data}, safe=False, status=status.HTTP_200_OK)
+    except ObjectDoesNotExist as e:
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went wrong"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
