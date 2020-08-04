@@ -96,7 +96,6 @@ class WebpageView(DetailView):
     slug_url_kwarg = 'pagename'
 
 
-
 class WebpageDetailView(DetailView):
     """
     Display webpage details and comment section
@@ -128,7 +127,13 @@ class WebpageListView(ListView):
 
 class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Webpage
-    tempalate_name = 'page_maker/webpage_update.html'
+    template_name = 'page_maker/webpage_update.html'
+    slug_field = 'name'
+    slug_url_kwarg = 'pagename'
+    fields = [
+        'template_used', 'user_title', 'user_text_1', 'user_text_2', 'user_text_3',
+        'user_image_1', 'user_image_2', 'user_image_3', 'user_image_4'
+    ]
 
     def test_func(self):
         webpage = self.get_object()
@@ -136,24 +141,22 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-    def get_queryset(self):
-        webpage_name = self.kwargs.get('pagename')
-        return Webpage.objects.filter(name=webpage_name)
+    def get_success_url(self):
+        return reverse_lazy('webpage-view', kwargs={'pagename': self.kwargs['pagename']})
 
 
 class WebpageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Webpage
     template_name = 'page_maker/webpage_delete.html'
+    slug_field = 'name'
+    slug_url_kwarg = 'pagename'
+    success_url = '/'
 
     def test_func(self):
         webpage = self.get_object()
         if webpage.author == self.request.user or self.request.user.is_superuser:
             return True
         return False
-
-    def get_queryset(self):
-        webpage_name = self.kwargs.get('pagename')
-        return Webpage.objects.filter(name=webpage_name)
 
 
 class TemplateCreateView(LoginRequiredMixin, FormView):
@@ -171,6 +174,7 @@ class TemplateCreateView(LoginRequiredMixin, FormView):
 class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Template
     template_name = 'page_maker/template_delete.html'
+    success_url = '/'
 
     def test_func(self):
         template = self.get_object()
@@ -180,7 +184,7 @@ class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, FormView):
-    http_method_names = ['post'] # POST request only
+    http_method_names = ['post']  # POST request only
     form_class = CommentForm
 
     def form_valid(self, form):
@@ -189,7 +193,7 @@ class CommentCreateView(LoginRequiredMixin, FormView):
         form.instance.parent_page = parent_page
         form.save()
         return super().form_valid(form)
-    
+
     def get_success_url(self):
         pagename = self.kwargs.get('pagename')
         return reverse_lazy('webpage-detail', kwargs={'pagename': pagename})
@@ -204,3 +208,12 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if comment.author == self.request.user or self.request.user.is_superuser:
             return True
         return False
+
+    def delete(self, request, *args, **kwargs):
+        # save pagename for success url
+        comment = self.get_object()
+        self.pagename = comment.parent_page.name
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('webpage-detail', kwargs={'pagename': self.pagename})

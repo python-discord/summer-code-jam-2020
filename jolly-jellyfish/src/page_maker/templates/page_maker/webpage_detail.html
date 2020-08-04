@@ -6,6 +6,14 @@
   {% for comment in comments %}
   <div>
     <p>{{ comment.author.username }}: {{ comment.title }}</p>
+    <p>
+      {% if comment.author == user or user.is_superuser %}
+      <form method="POST" action="{% url 'comment-delete' pk=comment.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete comment</button>
+      </form>
+      {% endif %}
+    </p>
     <p>{{ comment.content }}</p>
   </div>
   {% endfor %}

@@ -18,7 +18,7 @@ def user_directory_path(instance, filename):
 
 
 class Webpage(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     thumbnail = models.ImageField(null=True, blank=True, upload_to='thumbnails/')
