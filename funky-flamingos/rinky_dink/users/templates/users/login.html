@@ -2,23 +2,32 @@
 
 {% block content %}
 
-<div>
-  <h2>Login</h2>
-
-  <form action="{% url 'login'%}" method="POST">
-	{% csrf_token %}
-	<div>
-	<label for="username">Username</label>
-	<input type="text" name="username"  required>
+<div class="window-center">
+	<div class="window" style="width: 300px">
+		<div class="title-bar">
+		<div class="title-bar-text">Login</div>
+		<div class="title-bar-controls">
+			<a href="{% url 'index' %}"><button aria-label="Close"></button></a>
+		</div>
+		</div>
+		<div class="window-body">
+			<form action="{% url 'login'%}" method="POST">
+				{% csrf_token %}
+				<table>
+					<tbody>
+						<tr>
+							<td><label for="username">Username</label></td><td><input type="text" name="username"  required></td>
+						</tr>
+						<tr>
+							<td><label for="password">Password</label></td><td><input type="password" name="password" equired></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<button type="submit" class="btn-my-1">Login</button>
+			</form>
+		</div>
 	</div>
-
-	<div>
-	<label for="password">Password</label>
-	<input type="password" name="password" equired>
-	</div>
-
-	<input type="submit" value="Login" >
-</form>
 
 </div>
 
