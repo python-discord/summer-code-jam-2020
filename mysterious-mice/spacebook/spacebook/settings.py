@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "rovers.apps.RoversConfig",
     "posts.apps.PostsConfig",
     "mars_weather.apps.MarsWeatherConfig",
+    "guestbook.apps.GuestbookConfig",
 ]
 
 MIDDLEWARE = [
