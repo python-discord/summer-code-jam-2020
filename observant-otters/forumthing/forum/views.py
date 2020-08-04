@@ -17,6 +17,16 @@ class NewThread(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class NewMessage(LoginRequiredMixin, CreateView):
+    model = Message
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        # TODO: somehow get the thread from the current url
+        return super().form_valid(form)
+
+
 def threads(request, id=None):
     if request.method == "GET":
         if id is None:

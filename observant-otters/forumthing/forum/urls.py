@@ -22,4 +22,9 @@ urlpatterns = [
         views.NewThread.as_view(),
         name="new-thread"
     ),
+    path(
+        'forum/threads/<int:id>/new',
+        views.NewMessage.as_view(),
+        name="new-message"
+    ),
 ]

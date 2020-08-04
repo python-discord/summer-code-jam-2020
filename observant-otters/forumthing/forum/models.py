@@ -33,6 +33,9 @@ class Message(models.Model):
     def __str__(self):
         return f'Message posted on {self.date_posted} with content {self.content}'
 
+    def get_absolute_url(self):
+        return reverse('threads-single', kwargs={'id': self.thread.pk})
+
 
 EVENT_TYPES = Enum(
     ('create-message', 'CREATE'),

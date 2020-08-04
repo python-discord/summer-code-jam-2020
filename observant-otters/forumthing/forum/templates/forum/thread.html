@@ -14,7 +14,7 @@ Single-thread page
     </blockquote>
 
 <h1>{{ thread.title }}</h1>
-
+<a href={% url "new-message" thread.id %}>Create New Thread</a><br>
 {% for s in messages %}
     {{ s.author }}:
     {{ s.content }}
