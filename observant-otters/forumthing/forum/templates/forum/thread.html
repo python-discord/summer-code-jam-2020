@@ -31,7 +31,7 @@ Single-thread page
     <a href="/forum/threads/{{ prev_id }}?p={{ page }}">Previous Thread</a>
 {% endif %}
 
-{% if next_exists %}  <!-- check if a forum with the next id actually exists -->
+{% if next_id %}  <!-- check if a forum with the next id actually exists -->
     <a href="/forum/threads/{{ next_id }}?p={{ page }}">Next Thread</a>
 {% endif %}
 <br>

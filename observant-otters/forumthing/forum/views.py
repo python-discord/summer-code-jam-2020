@@ -33,15 +33,14 @@ def threads(request, id=None):
         if id is None:
             return render(request, 'forum/home.html')
 
-        all_threads = list(map(lambda model: model.id, Thread.objects.all()))
-
-        next_exists = all_threads[-1] != int(id)
-        next_page = all_threads[all_threads.index(int(id)) + 1] if next_exists else None
-        prev_exists = all_threads[0] != int(id)
-        prev_page = all_threads[all_threads.index(int(id)) - 1] if prev_exists else None
+        id = int(id)
+        next_page = Thread.objects.filter(pk__gt=id).first()  # note: gt means greater than
+        next_exists = bool(next_page)
+        prev_page = Thread.objects.filter(pk__lt=id).last()  # and lt means less than
+        prev_exists = bool(prev_page)
 
         thread = get_object_or_404(Thread, id=int(id))  # don't want them to get a thread that doesn't exist now
-        p = request.GET.get("p", default=1)
+        p = int(request.GET.get("p", default=1))
         data = {
                 "thread": thread,
                 "messages": thread.message_set.all(),
@@ -49,15 +48,15 @@ def threads(request, id=None):
                 "page": p,
 
                 # @TODO: Remove debug values
-                "next_exists": next_exists,
-                "next_page": int(p)+1,
-                "next_id": next_page,  # really next THREAD
+                "next_page": p+1,
         }
 
-        if int(p) > 1:
-            data.update({"prev_page": int(p) - 1})
+        if p > 1:
+            data.update({"prev_page": p - 1})
         if prev_exists:
-            data.update({"prev_id": prev_page})
+            data.update({"prev_id": prev_page.pk})
+        if next_exists:
+            data.update({"next_id": next_page.pk})
 
         return render(request, 'forum/thread.html', data)
 
