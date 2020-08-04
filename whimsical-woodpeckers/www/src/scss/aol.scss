@@ -54,6 +54,10 @@ $enable-transitions: false;
   width: 100%;
 }
 
+#prepend-input{
+  display: none;
+}
+
 #chat-name{
   background-color: teal;
   width: 100%;

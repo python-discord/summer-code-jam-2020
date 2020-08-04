@@ -21,8 +21,6 @@ class App(Vue):
         "username": "",
         "password": "",
         "testArea": "",
-        "styleObject": {
-            "backgroundImage": "url(" + logo['current'] + ")"},
         "friendListName": "Friends",
         "chatName": "John Doe",
     }

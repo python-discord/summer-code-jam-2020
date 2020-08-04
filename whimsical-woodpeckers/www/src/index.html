@@ -20,7 +20,7 @@
   <div class="row">
 
     <div id="login" class="col-lg-3 app">
-      <div :style="styleObject" id="logo">
+      <div id="logo">
       </div>
       <div id="login-form">
         <input v-model="username" placeholder="Username" class="form-control">
@@ -38,7 +38,7 @@
       <div id="chat-window">
 <!--        Used to test overflow scrolling -->
 <!--       <div style="height: 200vh;"></div>-->
-        <p style="font-size: 16pt;"></p>
+        <p></p>
 <!--        Used to test overflow scrolling -->
       </div>
 
@@ -46,7 +46,15 @@
         <div class="input-group-prepend">
           <button id="send-message" class="btn btn-primary" type="button">Send Message</button>
         </div>
-        <span id="prepend-input">>&nbsp;</span><input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>
+<!--        Comment out next line for IRC -->
+<!--        <input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>-->
+<!--        Uncomment next line for IRC -->
+        <span id="prepend-input">>&nbsp;</span><input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" onblur="this.focus()" autofocus>
+<!--
+TODO: Add vue if statement to add this if on IRC app:
+
+<span id="prepend-input">>&nbsp;</span><input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" onblur="this.focus()" autofocus
+>-->
       </div>
 
     </div>
