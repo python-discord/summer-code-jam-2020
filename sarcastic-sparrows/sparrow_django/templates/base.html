@@ -8,6 +8,20 @@
     {% block css %}
     <link href="{% static 'css/project.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/bootstrap-grid.css' %}" rel="stylesheet"/>
+    <style>
+        div.col div.header {
+            background-color: #{{ user.background }};
+            color: #{{ user.color }};
+            margin-left: -16px;
+            margin-right: -16px;
+            margin-top: -18px;
+            padding-left: 16px;
+            padding-right: 16px;
+            text-overflow: ellipsis;
+            font-weight: bold;
+            font-size: large;
+        }
+    </style>
     {% endblock %}
 </head>
 <body>

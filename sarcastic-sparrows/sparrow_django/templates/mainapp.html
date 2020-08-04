@@ -56,3 +56,47 @@
         </div>
     </div>
 {% endblock column2 %}
+
+{# Taking advantage of the JS block to add div (for customization) that is hidden by default #}
+{% block js %}
+    <div class="container">
+        <div class="row">
+            <div class="col center ignore">
+                <button onclick="showColorSelector()">Change Color Scheme</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="select-color">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="background-color:#C0C0C0;">
+                    <div class="header">
+                        <p>Change Colors</p>
+                    </div>
+                    <div class="row">
+                        <div class="col ignore">
+                            <label for="bg-color-picker">Header Background</label>
+                        </div>
+                        <div class="col ignore">
+                            <label for="fg-color-picker">Header Text Color</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col ignore">
+                            <input type="color" id="bg-color-picker" value="#{{ user.background }}"></input>
+                        </div>
+                        <div class="col ignore">
+                            <input type="color" id="fg-color-picker" value="#{{ user.color }}"></input>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <button onclick="updateColors()">Set Colors</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/project.js' %}"></script>
+{% endblock js %}
