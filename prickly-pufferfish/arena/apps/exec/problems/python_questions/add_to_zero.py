@@ -18,7 +18,4 @@ def add_to_zero(nums):
         for i, n2 in enumerate(nums):
             if n + n2 == 0 and i != j:
                 return True
-    
     return False
-
-
