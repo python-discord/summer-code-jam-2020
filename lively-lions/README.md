@@ -8,8 +8,7 @@ This is the default README of your team's project. Please replace this by a READ
 ## Features
 
 - Django-based backend
-  - someting..
-
+  - someting.
 
 ## Requirements
 Requires python 3.8+ (with pip)
