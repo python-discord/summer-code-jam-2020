@@ -15,6 +15,8 @@ def register(request: ASGIRequest) -> HttpResponse:
         if form.is_valid():
             form.save()
             return redirect('home')
+        else:
+            return render(request, 'users/register.html', {'form': form})
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})

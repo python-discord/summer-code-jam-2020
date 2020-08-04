@@ -1,17 +1,18 @@
 {% extends 'users/base.html' %}
-	{% block content%} <div id = "main">
-		<div class = "login-grid">
-			<div class = "disk-item1"> 
-					<p style="text-align: center;"> Login </p>
-					<form> 
-					 <label for = "username"> Username </label>
-					 <input type = "text" id = "usernamelogin" name = "unamelogin" placeholder="username">
-					 <label for = password> Password </label>
-					 <input type = "password" id = "passwordlogin" name = "passlogin" placeholder="password">
-					 <input type = "submit" id = "submit" value = "Login">
-					</form>
 
-			</div>
-	</div>
-{% endblock %}
-<!--- --->
+{% block content %}
+
+				<div id = "main">
+						<div class = "login-grid">
+							<div class = "disk-item1">
+								<p style="text-align: center;"> Login </p>
+								<form method="post">
+									{% csrf_token %}
+									{{ form.as_p }}
+									 <input type = "submit" id = "submit" value = "Login">
+								</form>
+
+							</div>
+						</div>
+				</div>
+{% endblock content %}

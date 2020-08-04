@@ -1,19 +1,21 @@
+{% load static %}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../../static/users/template.css">
-    <title>The HTMV's</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/template.css' %}">
+    <title>The HTMVs</title>
 </head>
 <body>
     <ul>
-        <li><a class="active"  href="index.html">Home</a></li>
-          <li><a href="disks.html">Disks</a></li>
-          <li><a href="terminal.html">Terminal</a></li>
-          <li style="float:right"><a href="logout.html">Logout</a></li>
-          <li style="float:right"><a href="register.html">Register</a></li>
-          <li style="float:right"><a href="login.html">Login</a></li>
-
+        <li><a href="{% url 'home' %}" {% if request.resolver_match.url_name == "home" %}class="active"{% endif %}>Home</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="#" {% if request.resolver_match.url_name == "disks" %}class"active"{% endif %} >Disks</a></li>
+            <li style="float:right"><a href="{% url 'logout' %}"  {% if request.resolver_match.url_name == "logout" %}class="active"{% endif %} >Logout</a></li>
+        {% else %}
+              <li style="float:right"><a href="{% url 'login' %}"  {% if request.resolver_match.url_name == "login" %}class="active"{% endif %}>Login</a></li>
+              <li style="float:right"><a href="{% url 'register' %}"  {% if request.resolver_match.url_name == "register" %}class="active"{% endif %}>Register</a></li>
+        {% endif %}
     </ul> 
 
    {% block content%}{% endblock %}
