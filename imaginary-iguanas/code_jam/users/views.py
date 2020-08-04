@@ -1,9 +1,7 @@
 from django.contrib import messages
-from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
 
-from .forms import UserCreateForm, ProfileCreateForm, ProfileSettingsForm
+from .forms import UserUpdateForm, ProfileUpdateForm
 
 
 def home(request):
@@ -12,8 +10,8 @@ def home(request):
 
 def signup(request):
     if request.method == 'POST':
-        user_form = UserCreateForm(request.POST)
-        profile_form = ProfileCreateForm(request.POST)
+        user_form = UserUpdateForm(request.POST)
+        profile_form = ProfileUpdateForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             new_user = user_form.save()
             profile = profile_form.save(commit=False)
@@ -24,8 +22,8 @@ def signup(request):
         else:
             messages.error(request, 'Please correct the error below.')
     else:
-        user_form = UserCreateForm()
-        profile_form = ProfileCreateForm()
+        user_form = UserUpdateForm()
+        profile_form = ProfileUpdateForm()
 
     context = {'user_form': user_form, 'profile_form': profile_form}
     return render(request, 'users/signup.html', context)
@@ -43,9 +41,8 @@ def user_settings(request):
     else:
         update_form = MySiteUserProfileSettingsForm(instance=request.user)
     """
-    update_form = ProfileSettingsForm()
+    user_form = UserUpdateForm()
+    profile_form = ProfileUpdateForm()
 
-    context = {
-        'update_form': update_form
-    }
-    return render(request, 'settings.html', context)
+    context = {'user_form': user_form, 'profile_form': profile_form}
+    return render(request, 'users/settings.html', context)

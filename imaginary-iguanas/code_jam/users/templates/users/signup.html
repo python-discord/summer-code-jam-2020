@@ -1,7 +1,7 @@
 {% extends "myplace/base.html" %}
 {% block content %}
     <h2>Sign up</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
