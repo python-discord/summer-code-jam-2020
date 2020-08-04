@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'channels',
     'terminal',
     'MUD',
+    'twentytwentymud',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'twentytwentymud/templates'),
+            os.path.join(BASE_DIR, 'twentytwentymud/templates/twentytwentymud'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
