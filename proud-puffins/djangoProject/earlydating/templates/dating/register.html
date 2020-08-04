@@ -3,11 +3,10 @@
 {% block title %}Register{% endblock %}
 {% block content %}
 <div class="UserSign">
-    <h3>Register</h3>
 
-    <form method="POST" action="">
+    <h1><form method="POST" action="">Register</form></h1>
         {% csrf_token %}
-        {{ form|crispy }}
+        <h1>{{ form|crispy }}</h1>
         <input type="submit" name="Sign Up" value="Sign Up">
      </form>
     <div>
