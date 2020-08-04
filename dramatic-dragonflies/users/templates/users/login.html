@@ -1,39 +1,17 @@
-<!DOCTYPE html>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="../../static/users/template.css">
-	<title>The HTMV's</title>
-</head>
-<body>
-	<ul>
-		<li><a href="index.html">Home</a></li>
-  		<li><a href="disks.html">Disks</a></li>
-  		<li><a href="terminal.html">Terminal</a></li>
-  		<li style="float:right"><a href="logout.html">Logout</a></li>
-  		<li style="float:right"><a href="register.html">Register</a></li>
-  		<li style="float:right"><a class="active" href="login.html">Login</a></li>
-
-	</ul> 
-
-
-	<div id = "main">
+{% extends 'users/base.html' %}
+	{% block content%} <div id = "main">
 		<div class = "login-grid">
 			<div class = "disk-item1"> 
-					<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login </p>
+					<p style="text-align: center;"> Login </p>
 					<form> 
 					 <label for = "username"> Username </label>
 					 <input type = "text" id = "usernamelogin" name = "unamelogin" placeholder="username">
 					 <label for = password> Password </label>
 					 <input type = "password" id = "passwordlogin" name = "passlogin" placeholder="password">
 					 <input type = "submit" id = "submit" value = "Login">
-
+					</form>
 
 			</div>
 	</div>
-
-</body>
-</html>
+{% endblock %}
 <!--- --->
