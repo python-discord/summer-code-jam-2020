@@ -3,3 +3,4 @@ __target__
 .env
 .vscode
 .DS_Store
+db.sqlite3
