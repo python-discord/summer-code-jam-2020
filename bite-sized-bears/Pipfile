@@ -6,7 +6,10 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
+django = "==3.0.7"
+django-environ = "*"
+flake8 = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"
