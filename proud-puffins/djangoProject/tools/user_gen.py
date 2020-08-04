@@ -1,8 +1,14 @@
-from pprint import pprint
+from numpy.random import choice
 import json
 import sys
 
 password = 'pbkdf2_sha256$180000$rIY0NVmswzaj$CHEAdXxSdOcKF6m1McG51wWWNrJ6Ynl6nGLxEnhqqoA='
+
+
+MG = ['Male', 'Other']
+FG = ['Female', 'Other']
+
+PREF = ['Male', 'Female', 'Other', 'Both']
 
 with open('raw.json', 'r') as f:
     raw = json.load(f)
@@ -27,13 +33,18 @@ def genusers():
 
 
 def genprofiles():
-    for row in raw:
+    for ind, row in enumerate(raw):
+        if ind < 200:
+            row['fields']['sex'] = MG[choice(2, 1, p=[0.8, 0.2])[0]]
+            row['fields']['preference'] = PREF[choice(4, 1, p=[0.2, 0.6, 0.1, 0.1])[0]]
+        else:
+            row['fields']['sex'] = FG[choice(2, 1, p=[0.8, 0.2])[0]]
+            row['fields']['preference'] = PREF[choice(4, 1, p=[0.6, 0.2, 0.1, 0.1])[0]]
         del row['fields']['first_name']
         del row['fields']['last_name']
         del row['fields']['gender']
         row['pk'] += 1
-        row['fields']['user'] = row['pk']      
-
+        row['fields']['user'] = row['pk']
     with open('profiles.json', 'w') as f:
         json.dump(raw, f, indent=4)
 
