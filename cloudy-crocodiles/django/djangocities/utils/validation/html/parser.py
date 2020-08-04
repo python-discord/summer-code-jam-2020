@@ -36,6 +36,7 @@ def extract_active_tags(html: str) -> list:
     in_comment = False
 
     tag_positions = find_tag_positions(html)
+    comment_tag_positions = []
 
     for p in tag_positions:
         if html[p] == "<":
@@ -45,6 +46,7 @@ def extract_active_tags(html: str) -> list:
                 if in_comment:
                     raise HtmlCommentError("nested comments are not allowed")
                 in_comment = True
+                comment_tag_positions.append(p)
                 continue
             if in_tag:
                 raise NestedHtmlTagError("nested tag found)")
@@ -56,6 +58,8 @@ def extract_active_tags(html: str) -> list:
                         "cannot close comment when no comment opened"
                     )
                 in_comment = False
+                comment_tag_positions.append(p)
+            in_tag = False
 
     # Should not be in an unclosed tag or comment after looping through the
     # entire list
@@ -63,3 +67,24 @@ def extract_active_tags(html: str) -> list:
         raise InvalidHtmlTagError("file cannot end with unclosed tag")
     if in_comment:
         raise HtmlCommentError("file cannot end with an open comment tag")
+
+    return [tag for tag in tag_positions if tag not in comment_tag_positions]
+
+
+sample_html = """
+<!-- this is a comment -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+</body>
+</html>
+"""
+
+print(extract_active_tags(sample_html))
