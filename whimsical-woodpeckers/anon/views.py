@@ -6,17 +6,14 @@ from anon.models import AnonUser
 # Create your views here.
 
 
-def get_user(request):
-    print(request.session)
-    id = request.session.get("ID")
-    if not id:
-        user = AnonUser.objects.create(last_seen=datetime.datetime.now())
-        request.session['ID'] = user.id
-    else:
-        user = AnonUser.objects.get(id=id)
+def get_user(user_id):
+    try:
+        return AnonUser.objects.get(id=user_id)
+    except AnonUser.DoesNotExist:
+        return None
 
-
-    return HttpResponse("hello" + str(vars(user)))
+def test(request):
+    return HttpResponse(vars(request))
 
 
 

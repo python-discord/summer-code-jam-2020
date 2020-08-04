@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mysite.force_login.force_authenticate'
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -103,6 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'anon.AnonUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -125,7 +127,6 @@ STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = [
        'anon.backends.AnonBackend',
-       'django.contrib.auth.backends.ModelBackend',
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
