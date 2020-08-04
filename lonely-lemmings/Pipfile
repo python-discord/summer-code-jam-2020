@@ -8,6 +8,7 @@ flake8 = "*"
 
 [packages]
 django = "==3.0.*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
