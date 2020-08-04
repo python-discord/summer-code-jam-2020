@@ -5,6 +5,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{% static 'rovers/main.css' %}">
+        {% block extrahead %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
