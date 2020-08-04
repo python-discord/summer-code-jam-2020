@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from djangocities.cities.models import City
+from .models import Site, Page
 
-# Create your views here.
+def index(request, slug, address):
+    city = City.objects.get(slug=slug)
+    site = Site.objects.get(city=city, address=address)
+    page = Page.objects.get(site=site, filename="index.html")
+    html = page.content
+    return HttpResponse(html)
