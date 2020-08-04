@@ -24,10 +24,17 @@ def landing_page(request):
 
     bg = choice(os.listdir(wallpaper_path))
 
+    themelist = []
+
+    for n in themes:
+        themelist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" + n
+                         + "'>" + n + "</n></li>")
+
     return render(request,
                   "Web95/landing_page.html",
                   {"bg": "url(\"static/images/wallpapers/" + theme + "/"
                    + bg + "\")",
+                   "themes": "\n".join(themelist),
                    },
                   )
 

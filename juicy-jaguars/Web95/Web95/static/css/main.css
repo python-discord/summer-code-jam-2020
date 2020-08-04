@@ -116,6 +116,27 @@ body {
     margin-bottom: 0;
 }
 
+.start-lvl3 {
+    position: absolute;
+    width: 150px;
+}
+
+.start-lvl3 ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.start-lvl3-item {
+    height: 20px;
+    padding: 0 2px 0 10px;
+    border-bottom: 1px inset;
+}
+
+.start-lvl3-item:hover {
+    border: 1px outset grey;
+}
+
 .nav-link-icon {
     padding: 0 !important;
     opacity: 1 !important;
