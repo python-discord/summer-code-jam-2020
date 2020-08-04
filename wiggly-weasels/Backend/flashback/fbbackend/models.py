@@ -31,7 +31,7 @@ class Group(models.Model):
     messages: An array containing a Dictionary:
     {
         "sender": "",
-        "content"
+        "content": ""
     }
 
     name: The name of group
@@ -44,27 +44,3 @@ class Group(models.Model):
     )
     name = models.CharField(max_length=20, primary_key=True)
 
-
-class Post(models.Model):
-    '''
-
-    creator: The user who posts the thread
-    identification: A randomly generated Unique ID
-    comments: An array containing an array for each message.
-        ar[0] = Commenter ID
-        ar[1] = Content
-    title: The title of the thread
-
-    '''
-
-    identification = models.CharField(max_length=100, default=uuid4().hex, blank=True, primary_key=True)
-    creator = models.CharField(max_length=100)
-    content = models.CharField(max_length=1000)
-    title = models.CharField(max_length=35)
-
-    comments = ArrayField(  # ArrayField Containing Messages
-        ArrayField(
-            models.CharField(max_length=1000),
-            size=2
-        )
-    )

@@ -18,9 +18,5 @@ class GroupSerializer(serializers.ModelSerializer): #Serializer for Groups
         fields = ('creator', 'messages', 'name')
 
 
-class PostSerializer(serializers.ModelSerializer): #Serializer for Posts
-    class Meta:
-        model = models.Post
-        fields = ('creator', 'content', 'title', 'comments', 'identification')
 
 
