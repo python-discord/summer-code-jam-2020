@@ -13,13 +13,14 @@ class ProfileCreateForm(forms.ModelForm):
         model = Profile
         fields = ['image', 'gender', 'country', 'city', 'date_of_birth']
 
-class MySiteUserProfileSettingsForm(forms.ModelForm):
+
+class ProfileSettingsForm(forms.ModelForm):
     email = forms.EmailField()
     image = forms.ImageField()
     audio_track = forms.FileField()
 
     class Meta:
-        model = UserProfile
+        model = Profile
         fields = (
             'username',
             'email',

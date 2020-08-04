@@ -1,18 +1,9 @@
-import pycountry
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 
-from .models import UserProfile
-from .forms import UserCreateForm, ProfileCreateForm
-from .forms import MySiteUserCreationForm, MySiteUserProfileSettingsForm
-
-
-class SignUpView(CreateView):
-    form_class = MySiteUserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+from .forms import UserCreateForm, ProfileCreateForm, ProfileSettingsForm
 
 
 def home(request):
@@ -42,18 +33,17 @@ def signup(request):
 
 # @login_required
 def user_settings(request):
-
-    '''
-        if request.method == 'POST':
-        update_form = MySiteUserProfileSettingsForm(request.POST, request.FILES, instance=request.user)
-        if update_form.isvalid():
-            update_form.save()
-            messages.success(request, f'Your profile has been updated successfully :)')
-            return redirect('profile')
+    """
+    if request.method == 'POST':
+    update_form = MySiteUserProfileSettingsForm(request.POST, request.FILES, instance=request.user)
+    if update_form.isvalid():
+        update_form.save()
+        messages.success(request, f'Your profile has been updated successfully :)')
+        return redirect('profile')
     else:
         update_form = MySiteUserProfileSettingsForm(instance=request.user)
-    '''
-    update_form = MySiteUserProfileSettingsForm()
+    """
+    update_form = ProfileSettingsForm()
 
     context = {
         'update_form': update_form
