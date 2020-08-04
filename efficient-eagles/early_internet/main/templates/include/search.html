@@ -1,0 +1,15 @@
+<td>
+  <div class='w3-container w3-white w3-margin' style='float: right;'>
+  <form  method='POST'>
+    {% csrf_token %}
+    <input placeholder='Search' name='query' id='query'></input>
+    <button type='submit'>Search</button><br>
+  </form>
+
+  <button><a href='{% url "create_post" %}?next={{request.path}}'>Create Post</a></button>
+  {% if topic %}
+    <h1><a href="/topic/{{topic.name}}">{{topic.name}}</a></h1>
+  {% endif %}
+
+  </div>
+</td>

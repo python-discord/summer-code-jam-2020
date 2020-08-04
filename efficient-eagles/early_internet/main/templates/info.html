@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class='w3-container w3-white' style='width: 1000px; height: 320px;'>
+
+<h5>{{post.title}}</h5>
+{% if user.is_authenticated and user == post.author %}
+  <form method='POST'  action='url'>
+    {% csrf_token %}
+      <input type="hidden" name="post_id" value="{{post.id}}" />
+      <button type='submit'  name='delete' style='float:right;'>Delete</button>
+  </form>
+{% endif %}
+<h6>submitted by <a style='color:blue;'>{{post.author}}</a> on {{post.created}}</h6>
+<textarea  style='resize: none; width: 100%; height: 200px;' disabled>{{post.body}}</textarea>
+
+<textarea style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
+</div>
+
+{% endblock %}
