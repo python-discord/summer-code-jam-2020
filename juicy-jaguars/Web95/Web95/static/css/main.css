@@ -84,6 +84,7 @@ body {
 
 .nav-link-icon {
     padding: 0 !important;
+    opacity: 1 !important;
 }
 
 .header-icon {
