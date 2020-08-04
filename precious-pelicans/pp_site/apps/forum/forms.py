@@ -6,8 +6,7 @@ class PostSearchForm(forms.Form):
 
 
 class MediaUploadForm(forms.Form):
-    file_label = 'file'
     title = forms.CharField(max_length=100)
     author = forms.CharField(max_length=30)
     description = forms.CharField(max_length=1000)
-    media_file = forms.FileField(label=file_label)
+    media_file = forms.FileField(label='File')

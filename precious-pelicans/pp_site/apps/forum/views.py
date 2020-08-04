@@ -60,7 +60,7 @@ def enter_media(requestObj):
         '.mp4',
         '.mov'
     )
-    uploadedFile = requestObj.FILES[MediaUploadForm.file_label]
+    uploadedFile = requestObj.FILES['media_file']
 
     media_entry = MediaFile.objects.create(
         data=uploadedFile,

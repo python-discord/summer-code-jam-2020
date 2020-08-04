@@ -7,7 +7,7 @@ from pp_site.utils.models import TimeStampMixin
 
 
 class MediaFile(models.Model):
-    data = models.FileField(upload_to=Path('uploads/%Y/%m/%d'))
+    data = models.FileField()
     is_video = models.BooleanField()
 
 
