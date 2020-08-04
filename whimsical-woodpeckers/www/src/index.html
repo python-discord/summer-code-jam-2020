@@ -8,72 +8,17 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
     <title>Chat with friends!</title>
+  
+    <!-- Default stylesheet-->
+     <link href="./style.css" rel="stylesheet" type="text/css"> 
+    
+    <!-- Modern Messenger Bootstrap stylesheet -->
+    <link href="./messenger_bootstrap.css" rel="stylesheet" type="text/css">
+  
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- Place your stylesheet here-->
-    <!-- <link href="./style.css" rel="stylesheet" type="text/css"> -->
 
 </head>
-
-<style>
-#message-container{
-  padding-top: 10px;
-  padding-left:200px;
-  width: 100%;
-}
-
-#message-input{
-  width: 100%;
-}
-
-#chat-name{
-  background: #ffffff;
-  width: 100%;
-}
-
-.app{
-  height: 100vh;
-}
-
-#logo{
-  height: 300px;
-  width: 100%;
-  padding-top: 30px;
-  padding-bottom: 20px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-origin: content-box;
-  background-position: center;
-  /*  Placeholder image*/
-  background-image: url('https://media.discordapp.net/attachments/737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590');
-}
-
-#login{
-  text-align: center;
-}
-
-#login *{
-  width: 100%;
-
-}
-
-#chat-window{
-/*  position: absolute;*/
-  height: 90vh;
-  background: #f0f0f0;
-  overflow-y: scroll;
-}
-
-body{
-  overflow-y: hidden;
-}
-</style>
-
-
 <body>
-
 <div class="container-fluid" id="app">
   <div class="row">
 
@@ -101,7 +46,7 @@ body{
       
       <div id="message-input" class="input-group mb-3">
         <div class="input-group-prepend">
-          <button id="send-message" class="btn btn-secondary" type="button">Send Message</button>
+          <button id="send-message" class="btn btn-primary" type="button">Send Message</button>
         </div>
         <input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
       </div>
