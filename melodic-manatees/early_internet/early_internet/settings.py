@@ -138,11 +138,11 @@ STATICFILES_FINDERS = [
     'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
 
-# Currently saves static files to melodic-manatees/static/
-STATIC_ROOT = '../static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join('assets'), )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_URL = 'login'

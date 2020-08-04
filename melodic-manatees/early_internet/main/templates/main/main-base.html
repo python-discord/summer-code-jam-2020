@@ -6,6 +6,7 @@
     <!-- Bulma CSS -->
     {% load django_simple_bulma %}
     {% bulma %}
+    {% load static %}
 
     <title>Main Base Template</title>
     <style>
@@ -23,6 +24,23 @@ fieldset {
 
 .errorlist {
     color: red;
+}
+
+.hero.has-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-background.is-transparent {
+  opacity: 0.5;
 }
 
     </style>
@@ -53,14 +71,34 @@ fieldset {
             </div>
         </nav>
     </header>
+    <div class="hero is-fullheight is-light has-background">
+        <img class="hero-background" src="{% static 'images/sunrise.jpg' %}" alt="Sunrise Over Mountains" />
+        
+        {% if '/login/' not in request.path %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-{{ message.tags }} is-light">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        
+        {% block herocontent %}
+            
+        {% endblock herocontent %}
+    </div>
     <section class="section">
-        <h1 class="title">this is the main base template</h1>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="notification is-{{ message.tags }} is-light">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        
+        <!-- this is the main base template -->
+        {% if '/login/' in request.path %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-{{ message.tags }} is-light">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endif %}
     
     {% block content %}
