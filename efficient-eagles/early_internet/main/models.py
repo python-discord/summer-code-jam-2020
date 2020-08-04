@@ -86,6 +86,6 @@ class Comment(TimeStampedModel):
     downvotes = models.PositiveIntegerField(default=0)
     body = models.CharField(max_length=10000, default='')
 
-    author = models.ForeignKey(CustomUser, null=True, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
     comment_thread = models.ForeignKey('self', null=True, on_delete=models.SET_NULL)
