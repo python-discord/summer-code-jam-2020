@@ -87,6 +87,35 @@ body {
     border: 1px inset;
 }
 
+.start-lvl2 {
+    position: absolute;
+    width: 150px;
+}
+
+.start-lvl2 ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.start-lvl2-item {
+    height: 20px;
+    padding: 0 2px 0 10px;
+    border-bottom: 1px inset;
+}
+
+.start-lvl2-item:hover {
+    border: 1px outset grey;
+}
+
+.start-more-2 {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .nav-link-icon {
     padding: 0 !important;
     opacity: 1 !important;
