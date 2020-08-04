@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 style="text-align: center;">Register</h3>
+    <h3 style="">Register</h3>
     <RegisterForm />
   </div>
 </template>

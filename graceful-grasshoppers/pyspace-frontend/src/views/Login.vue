@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 style="text-align: center;">Login</h3>
+    <h3 style="">Login</h3>
     <LoginForm />
   </div>
 </template>
