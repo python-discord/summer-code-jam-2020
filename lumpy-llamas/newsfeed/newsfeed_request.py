@@ -18,7 +18,7 @@ def test_api_connection(url_api):
 # Function to get the new stories from the API, the output of this is a list with numbers
 # each number represents a new story, there are maximum 500 newstories
 def get_new_stories(url_api) -> list:
-    # newstories.json? refers to the last item in the API
+    # newstories.json? refers to the new stories in the API
     if test_api_connection(url_api):
         response = requests.get(f'{url_api}newstories.json?')
         return response.json()
@@ -27,12 +27,14 @@ def get_new_stories(url_api) -> list:
 # Function to get the best stories from the API, the output of this is a list with numbers
 # each number represents a top story, there are maximum 500 best stories
 def get_best_stories(url_api) -> list:
-    # beststories.json? refers to the last item in the API
+    # beststories.json? refers to the best stories in the API
     if test_api_connection(url_api):
         response = requests.get(f'{url_api}beststories.json?')
         return response.json()
 
 
+# Function to retrieve the articles, this can either be the new stories or the best stories
+# the output of this function depends on the input of the arguments
 def retrieve_articles(url_api, stories_list, number_articles):
     # define an empty list and set index to 0
     articles = []
@@ -47,7 +49,6 @@ def retrieve_articles(url_api, stories_list, number_articles):
     if test_api_connection(url_api):
         while index < number_articles:
             api_response = requests.get(f'{url_api}item/{stories_list[index]}.json').json()
-            print('getting a story', index)
             if api_response.get("url") is not None:
                 filtered_dict = {
                     "url": api_response.get("url"),
