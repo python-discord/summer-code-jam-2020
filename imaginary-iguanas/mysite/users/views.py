@@ -3,12 +3,13 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .models import UserProfile
+# from django.contrib import messages
+# from django.contrib.auth.decorators import login_required
 
 import pycountry
 
 
-
-from .forms import MySiteUserCreationForm
+from .forms import MySiteUserCreationForm, MySiteUserProfileSettingsForm
 
 
 class SignUpView(CreateView):
@@ -35,3 +36,24 @@ def user(request, user_id):
     except UserProfile.DoesNotExist:
         # PyCharm flags this as Unknown Attribute Reference but it still does what it's supposed to
         return redirect('users-home')
+
+
+# @login_required
+def user_settings(request):
+
+    '''
+        if request.method == 'POST':
+        update_form = MySiteUserProfileSettingsForm(request.POST, request.FILES, instance=request.user)
+        if update_form.isvalid():
+            update_form.save()
+            messages.success(request, f'Your profile has been updated successfully :)')
+            return redirect('profile')
+    else:
+        update_form = MySiteUserProfileSettingsForm(instance=request.user)
+    '''
+    update_form = MySiteUserProfileSettingsForm()
+
+    context = {
+        'update_form': update_form
+    }
+    return render(request, 'settings.html', context)

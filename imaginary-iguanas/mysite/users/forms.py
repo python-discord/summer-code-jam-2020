@@ -17,4 +17,18 @@ class MySiteUserCreationForm(UserCreationForm):
             'date_of_birth')  # It needs to be formatted exactly this way, otherwise an Exception will be thrown
 
 
+class MySiteUserProfileSettingsForm(forms.ModelForm):
+    email = forms.EmailField()
+    image = forms.ImageField()
 
+    class Meta:
+        model = UserProfile
+        fields = (
+            'username',
+            'email',
+            'image',
+            'gender',
+            'country',
+            'city',
+            'date_of_birth'
+        )
