@@ -1,15 +1,17 @@
 {% extends 'dating/base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<h3>Register</h3>
+<div class="UserSign">
+    <h3>Register</h3>
 
-<form method="POST" action="">
-    {% csrf_token %}
-    {{form.as_p}}             
-    <input type="submit" name="Sign Up" value="Sign Up">
- </form>
-{{form.errors}}
-<div>
-    Already have an account? <a href="{% url 'earlydating-login' %}">Login</a>
-</div>   
-{% endblock %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" name="Sign Up" value="Sign Up">
+     </form>
+    <div>
+        Already have an account? <a href="{% url 'earlydating-login' %}">Login</a>
+    </div>
+</div>
+    {% endblock %}

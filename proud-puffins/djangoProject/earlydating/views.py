@@ -13,7 +13,6 @@ from django.contrib.auth.forms import AuthenticationForm
 def home(request):
     return render(request, 'dating/home.html')
 
-
 @unauthenticated_user
 def login_page(request):
     if request.method == 'POST':
@@ -28,7 +27,6 @@ def login_page(request):
     context = {'form': AuthenticationForm()}
     return render(request, 'dating/login.html', context)
 
-
 @unauthenticated_user
 def register_page(request):
     form = CreateUserForm(request.POST)
@@ -42,6 +40,18 @@ def register_page(request):
     context = {'form': form}
     return render(request, 'dating/register.html', context)
 
+# MADE TO AUTOMATICALLY PUT SIGNED USERS IN MAYBE SIMPLER
+# def register(request):
+#     if request.method == 'Post':
+#         form = CreateUserForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             messages.success(request, f'Account Made | Get Loving {username}!')
+#             return redirect('earlydating-DateMatcher')
+#         else:
+#             form= CreateUserForm()
+#         return redirect('earlydating-DateMatcher')
 
 def logoutUser(request):
     logout(request)
