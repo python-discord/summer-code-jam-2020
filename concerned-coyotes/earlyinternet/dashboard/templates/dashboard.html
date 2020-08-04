@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+  {{block.super}}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block js %}
+  {{block.super}}
+  <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+  <div class="content-wrapper">
+    <div class="datetime-wrapper">
+      <span id="time" class="time"></span>
+      <span id="date" class="date"></span>
+    </div>
+    <div class="grid">
+
+      <!--Weather-->
+      <section class="grid-item weather">
+        <span class="section-header">Weather</span>
+        <span class="degree-label">{{weather.degree_celsius}}°C / {{weather.degree_fahrenheit}}°F</span>
+        <span class="location-label">in Germany</span>
+        <dl class="astral-information">
+          <dt>Sunrise (UTC)</dt>
+          <dd>{{weather.astral_information.sunrise}}</dd>
+          <dt>Sunset (UTC)</dt>
+          <dd>{{weather.astral_information.sunset}}</dd>
+        </dl>
+      </section>
+
+      <!--Wikipedia Article-->
+      <section class="grid-item wikipedia-article">
+        <span class="section-header">Wikipedia Article of the Day</span>
+        <article>
+          <span class="article-header">{{wikipedia_article.title}}</span>
+          <p class="article-content">{{wikipedia_article.content}}</p>
+          <a target="_blank" href="{{wikipedia_article.url}}" class="read-more-btn" role="button">Read more</a>
+        </article>
+      </section>
+
+      <!--Todo-->
+      <section class="grid-item todo">
+        <span class="section-header">To-Do</span>
+        <ul class="todo-list">
+          {% for todo in todos %}
+            <li>{{todo}}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!--News-->
+      <section class="grid-item news">
+        <span class="section-header">News</span>
+        <div class="article-list">
+          {% for article in news_articles %}
+            <article>
+              <span class="article-header">{{article.title}}</span>
+              <p class="article-content">{{article.content}}</p>
+              <a target="_blank" href="{{article.url}}" class="read-more-btn" role="button">Read more</a>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+
+    </div>
+  </div>
+{% endblock %}

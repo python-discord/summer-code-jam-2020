@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wikipedia.apps.WikipediaConfig'
+    'wikipedia.apps.WikipediaConfig',
+    'dashboard',
 ]
 
 MIDDLEWARE = [

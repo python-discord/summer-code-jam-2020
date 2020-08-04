@@ -1,0 +1,82 @@
+/* Clock */
+.datetime-wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  border-bottom: 1px solid #cacaca;
+  padding-bottom: 1.2rem;
+  width: 100%;
+}
+
+.datetime-wrapper .time {
+  font-size: 7rem;
+}
+
+.datetime-wrapper .date {
+  font-size: 2rem;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  width: 100%;
+  column-gap: 0.5rem;
+  row-gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 1rem;
+}
+
+.grid .grid-item {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+/* Section */
+section .section-header {
+  text-align: center;
+  margin-bottom: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* Weather */
+.weather .degree-label {
+  font-size: 1.2rem;
+}
+
+.weather dl dt::after {
+  content: ":";
+}
+
+/* Article */
+.article-header {
+  font-size: 1.2rem;
+  border-bottom: 1px solid #cacaca;
+}
+
+.article-content {
+  margin-top: 0.3rem;
+  text-align: justify;
+}
+
+.read-more-btn {
+  color: dodgerblue;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.article-list article:not(:first-child) {
+  margin-top: 1rem;
+}
+
+/* Todo */
+ul.todo-list {
+  margin: 0;
+  padding: 0;
+}
+
+ul.todo-list li:not(:first-child) {
+  margin-top: 0.5rem;
+}
