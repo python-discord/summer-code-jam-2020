@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db import transaction, IntegrityError
+from django.forms import modelformset_factory
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.generic import (
@@ -12,7 +14,7 @@ from django.views.generic import (
     DeleteView
 )
 
-from trivia_builder.forms import TriviaQuizForm, TriviaQuestionFormSet
+from trivia_builder.forms import TriviaQuizForm, TriviaQuestionForm
 from trivia_builder.models import TriviaQuiz, TriviaQuestion
 
 
@@ -47,6 +49,7 @@ class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, Creat
 
     def post(self, request, *args, **kwargs):
         quiz_form = TriviaQuizForm(request.POST)
+        TriviaQuestionFormSet = modelformset_factory(TriviaQuestion, form=TriviaQuestionForm)
         question_formset = TriviaQuestionFormSet(request.POST)
         new_questions = []
         if quiz_form.is_valid() and question_formset.is_valid():
@@ -56,6 +59,7 @@ class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, Creat
                 question_form.instance.quiz = quiz
                 question = question_form.save()
                 new_questions.append(question)
+            question_formset.save()
 
             try:
                 with transaction.atomic():
@@ -64,13 +68,16 @@ class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, Creat
 
                     # And notify our users that it worked
                     messages.success(request, 'You have created your quiz.')
+                    return HttpResponseRedirect(reverse('quiz-list'))
 
             except IntegrityError:  # If the transaction failed
                 messages.error(request, 'There was an error saving your profile.')
-                return redirect(reverse('main_hub'))
+                return redirect(reverse('quiz-list'))
+        return render(request, self.template_name, {'quiz_form': quiz_form, 'question_formset': question_formset})
 
     def get(self, request, *args, **kwargs):
         quiz_form = TriviaQuizForm()
+        TriviaQuestionFormSet = modelformset_factory(TriviaQuestion, form=TriviaQuestionForm)
         question_formset = TriviaQuestionFormSet()
         return render(request, self.template_name, {'quiz_form': quiz_form, 'question_formset': question_formset})
 

@@ -10,12 +10,21 @@
 
             {{ question_formset.management_form }}
             {% for question_form in question_formset %}
-                <div class="panel panel-default">
+                <div class="panel panel-default question-formset">
                     {{ question_form.as_table }}
                 </div>
             {% endfor %}
             <input type="submit" value="Create Quiz" class="button"/>
         </form>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="{% static 'jquery.formset.js' %}"></script>
+        <script>
+            $('.question-formset').formset({
+                addText: 'add link',
+                deleteText: 'remove'
+            });
+        </script>
     </div>
 {% endblock content %}
 <!--modeled from https://whoisnicoleharris.com/2015/01/06/implementing-django-formsets.html-->
