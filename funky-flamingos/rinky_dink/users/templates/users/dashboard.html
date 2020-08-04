@@ -6,7 +6,7 @@
 <a href="{% url 'upload' %}">upload a file</a><br>
 <h1>Files Uploaded</h1>
 {% for record in file %}
-  <h2>{{record.title}}</h2>
+  <a href="{% url 'fhandler' name=record.title %}">{{record.title}}</a>
   <h3>{{record.uploaded_at}}</h3>
     {% endfor %}
 {% if messages %}

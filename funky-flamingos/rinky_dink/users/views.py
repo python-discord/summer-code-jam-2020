@@ -1,15 +1,27 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from users.forms import RegistrationForm
-from django.contrib import messages, auth
-from django.contrib.auth.decorators import login_required
-from .models import File
 import hashlib
 import os
 import random
+
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib import messages, auth
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
+
+from users.forms import RegistrationForm
+from .models import File
+
+
+def fhandler(request, name):
+    path = "/".join(os.path.dirname(os.path.realpath(__file__)).split("/")[:-1])
+    new_path = path + '/media/' + name
+    with open(new_path, 'rb') as f:
+        text = f.read()
+        print(text)
+
+    return render(request, 'users/file.html', {'text': text.decode('utf-8')})
 
 
 def index(request):
