@@ -1,6 +1,7 @@
 from django.http import JsonResponse
-import logging
+from django.core import serializers
 from .models import Thread, ThreadMessage
+from django.db.models import F
 
 # Create your views here.
 
@@ -31,7 +32,9 @@ def thread_details(request, thread_id):
     :param thread_id: ID of thread to filter on
     :return: JsonResponse
     """
-    qs = ThreadMessage.objects.select_related('thread').filter(thread_id=thread_id).values()
+    qs = ThreadMessage.objects.filter(thread_id=thread_id).values('date', 'message', 'user', title=F('thread__title'))
+    print(str(qs.query))
     data = list(qs)
+    print(data)
     return JsonResponse(data, status=201, safe=False)
 

@@ -1,11 +1,11 @@
 <template>
   <div v-if="ready">
 
-    <h2 class="some-heading">Thread Title</h2>
+    <h2 class="some-heading">Thread {{myStuff[0].title}} </h2>
 
     <h2 class="some-heading">Messages</h2>
     <div v-for="item in myStuff">
-        <h3 class="message-heading">Message by {{item.user_id}} on {{item.date | moment("DD/MM/YY/hh:mm")}}</h3>
+        <h3 class="message-heading">Message by {{item.user}} on {{item.date | moment("DD/MM/YY/hh:mm")}}</h3>
         <p>{{item.message}}</p>
     </div>
   </div>
