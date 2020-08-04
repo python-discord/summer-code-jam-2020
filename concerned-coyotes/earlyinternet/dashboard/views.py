@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 import datetime
 
 
-# @login_required
 def index(request):
 
     # TODO Replace this big hardcoded dictionay by the functions
