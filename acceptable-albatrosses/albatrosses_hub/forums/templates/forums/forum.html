@@ -20,11 +20,28 @@
             <small class="text-muted d-block">{{ board.description }}</small>
           </td>
 
-          <td class="align-middle">0</td>
+          <td class="align-middle">{{ board.posts.count }}</td>
 
-          <td class="align-middle">0</td>
+          <td class="align-middle">{{ board.get_comments_count }}</td>
 
-          <td class="align-middle">0</td>
+          <td class="align-middle">
+            {% with comment=board.get_last_comment %}
+                {% if comment %}
+                  <small>
+                      <a href="{% url 'board-detail' board.pk comment.post.pk %}">
+                          {{ comment.message }}
+                      </a>
+                      By <a class="mr-2" href="{% url 'user-posts' comment.created_by.username %}"> {{ comment.created_by.username }}
+                      </a>
+                      at {{ comment.created_at }}
+                  </small>
+                {% else %}
+                   <small class="text-muted">
+                      <em>No activity yet.</em>
+                  </small>
+                {% endif %}
+            {% endwith %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>

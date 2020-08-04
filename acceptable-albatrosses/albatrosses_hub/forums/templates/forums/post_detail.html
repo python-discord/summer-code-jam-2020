@@ -1,0 +1,88 @@
+{% extends 'forums_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block forumheader %}
+    <li class="breadcrumb-item">
+        <a href="/forums/{{ object.board.name }}">{{ object.board.name }}</a>
+    </li>
+        <li class="breadcrumb-item active">
+        <a href="">{{ object.subject }}</a>
+    </li>
+{% endblock forumheader %}
+
+
+{% block forumcontent %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="text-muted">Created on: {{ object.created_at }} by
+       <a class="mr-2" href="{% url 'user-posts' object.created_by.username %}">@{{ object.created_by }}</a>
+        <div>
+          {% if object.updated_at is not None %}
+              Updated on: {{ object.updated_at }}
+          {% endif %}
+        </div>
+          </small>
+   </div>
+    <h2>{{ object.subject }}              {% if object.created_by == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1 py-0" href="{% url 'post-update' object.board.name object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1 py-0" href="{% url 'post-delete' object.board.name object.id %}">Delete</a>
+          {% endif %}</h2>
+
+
+    <p class="article-content">{{ object.message }}</p>
+
+  </div>
+</article>
+
+  <div class="mb-4">
+    <a href="{% url 'comment-create' object.board.name object.id %}" class="btn btn-primary btn-sm py-0">New comment</a>
+  </div>
+
+  {% for comment in comments %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <small class="text-muted">
+            Created on: {{ comment.created_at }} by
+              <a class="mr-2" href="{% url 'user-posts' object.created_by.username %}">@{{ comment.created_by }}</a>
+              {% if comment.updated_at is not None %}
+                  Updated on: {{ comment.updated_at }}
+              {% endif %}
+          </small>
+
+                      {% if object.created_by == user %}
+        <a class="btn btn-secondary btn-sm py-0" href="{% url 'comment-update' object.board.name object.id comment.id %}">Update</a>
+        <a class="btn btn-danger btn-sm py-0" href="{% url 'comment-delete' object.board.name object.id comment.id %}">Delete</a>
+      {% endif %}
+        </div>
+        <p class="article-content">{{ comment.message }}</p>
+      </div>
+    </article>
+
+{% if is_paginated %}
+  <div class="pagination">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+              <a class="btn btn-outline-info mb-4" href="?page=1">&laquo; First</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">next</a>
+              <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+{% endif %}
+  {% endfor %}
+
+{% endblock forumcontent %}
