@@ -1,11 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>The HTVMs</title>
+    <link rel="stylesheet" type="text/css" href="../../static/users/template.css">
+    <title>The HTMV's</title>
 </head>
 <body>
+    <ul>
+        <li><a class="active"  href="index.html">Home</a></li>
+          <li><a href="disks.html">Disks</a></li>
+          <li><a href="terminal.html">Terminal</a></li>
+          <li style="float:right"><a href="logout.html">Logout</a></li>
+          <li style="float:right"><a href="register.html">Register</a></li>
+          <li style="float:right"><a href="login.html">Login</a></li>
 
-{% block main %}{% endblock %}
+    </ul> 
+
+   {% block content%}{% endblock %}
+
 </body>
 </html>
