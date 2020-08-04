@@ -13,13 +13,16 @@
 
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane show active" id="pchat" role="tabpanel" aria-labelledby="pchat-tab">
-        <p>
-            Type the name of the Public Chat Room to enter.<br>
-            <label for="room-name-input"></label><input style="margin: 10px 0 0 0" id="room-name-input" type="text" size="50"> <br>
-            <button class="btn btn-sm mr-2 btn-primary border-dark" style="margin: 10px 0 -20px 0" id="room-name-submit" type="button">
-                <span>Enter</span>
-            </button>
-        </p>
+      <form method="POST">
+          {% csrf_token %}
+          <label for="{{ form.name.id_for_label }}">
+              <h4 style="color: white">What chat room would you like to enter?</h4>
+              <input required autofocus style="margin: 10px 0 0 0; font-size: 2em;" id="room-name-input"
+                     type="{{ form.name.type }}" name="{{ form.name.name }}" size="50">
+          </label>
+          <br />
+          <input style="margin: 10px 0 0 0" type="submit" value="Enter">
+      </form>
     </div>
 
     <div class="tab-pane" id="fchat" role="tabpanel" aria-labelledby="fchat-tab">
@@ -46,21 +49,4 @@
 
 
 </div>
-
-
-    <script>
-        document.querySelector('#room-name-input').focus();
-        document.querySelector('#room-name-input').onkeyup = function (e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#room-name-submit').click();
-            }
-        };
-
-        document.querySelector('#room-name-submit').onclick = function (e) {
-            var roomName = document.querySelector('#room-name-input').value;
-            if (roomName != "") {
-                window.location.pathname = `/chat/${roomName}/`;
-            }
-        };
-    </script>
 {% endblock content %}
