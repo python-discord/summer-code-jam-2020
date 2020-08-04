@@ -1,9 +1,9 @@
 from django.conf.urls import url, include
-from gifapp.views import dashboard
+from .views import paint
 
 urlpatterns = [
-    url(r"^$", edit, name="edit"),
-    url(r"^files/", files, name="files"),
-    url("r^search/", search, name="search")
+    url(r"^$", paint),
+    #url(r"^files/", files, name="files"),
+    #url("r^search/", search, name="search")
 ]
 

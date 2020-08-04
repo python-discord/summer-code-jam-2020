@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def paint(request):
+    return render(request, "draw.html")
