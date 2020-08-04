@@ -1,0 +1,33 @@
+{% extends 'forums_base.html' %}
+{% block forumcontent %}
+<div class="container">
+  <table class="table">
+
+    <thead class="thead-inverse">
+      <tr>
+        <th>Message Boards</th>
+        <th>Posts</th>
+        <th>Comments</th>
+        <th>Last Activity</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for board in boards %}
+        <tr>
+          <td>
+            <a href="{{ board.name }}">{{ board.name }}</a>
+            <small class="text-muted d-block">{{ board.description }}</small>
+          </td>
+
+          <td class="align-middle">0</td>
+
+          <td class="align-middle">0</td>
+
+          <td class="align-middle">0</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock forumcontent %}

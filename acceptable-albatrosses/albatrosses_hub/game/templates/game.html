@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container">
     <div class="row no-gutters">
         <div class="col-lg-7">
             <!-- this is another thing -->
-            <canvas id="gaem" width=600 height=600 style="border: 1px solid black; margin-top: 2em;"></canvas>
+            <canvas id="game" width=600 height=600 style="border: 1px solid black; margin-top: 2em;"></canvas>
         </div>
         <div class="col-lg-5">
             <img src="{% static 'img/albatrosses-logo.png' %}"
