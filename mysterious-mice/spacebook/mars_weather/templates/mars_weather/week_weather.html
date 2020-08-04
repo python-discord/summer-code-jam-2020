@@ -1,5 +1,7 @@
-<html>
-    <body>
-        <p>{{ day_one }}</p>
-    </body>
-</html>
+{% extends "posts/base.html" %}
+
+{% block title %}Weekly Weather{% endblock %}
+
+{% block body %}
+    <p>{{ day_one }}</p>
+{% endblock %}
