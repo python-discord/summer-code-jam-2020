@@ -1,48 +1,28 @@
-import datetime
-
 from django.db import models
-
-
-class User(models.Model):
-    name = models.CharField(max_length=150)
-    join_date = models.DateTimeField()
-    is_author = models.BooleanField() # can they author articles?
-
-    def __str__(self):
-        return self.name
+from django.contrib.auth import get_user_model
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=150)
-    text = models.CharField(max_length=30000)
+    title = models.CharField(max_length=255)
+    slug = models.SlugField()
+    headline = models.TextField()
+    body = models.TextField()
     publication_date = models.DateTimeField()
-    author = models.ForeignKey(User, on_delete=models.SET(None))
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET(None))
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "".join(
-            [
-                "title=",
-                repr(self.title),
-                " author=",
-                repr(self.author),
-                " publication_date=",
-                repr(self.publication_date.isoformat()),
-            ]
-        )
+        return f"{self.title=} {self.author=} {self.publication_date=}"
 
 
 class Comment(models.Model):
-    text = models.CharField(max_length=8000)
+    text = models.TextField()
     publication_date = models.DateTimeField()
-    author = models.ForeignKey(User, on_delete=models.SET(None))
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET(None))
     parent_post = models.ForeignKey(Article, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "".join(
-            [
-                "author=",
-                repr(self.author),
-                " publication_date=",
-                repr(self.publication_date.isoformat()),
-            ]
-        )
+        return f"{self.text=} {self.author=} {self.publication_date=}"
