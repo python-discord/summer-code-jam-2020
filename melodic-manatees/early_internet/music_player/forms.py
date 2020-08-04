@@ -3,10 +3,6 @@ from .models import MusicFile
 
 
 class FileUploadForm(forms.ModelForm):
-    music_musicfile = forms.FileField(
-        label='upload track')
-    music_title = forms.CharField(
-        label='track name')
 
     class Meta:
         model = MusicFile
