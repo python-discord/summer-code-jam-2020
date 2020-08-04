@@ -1,0 +1,44 @@
+<!-- 
+Guestbook html taken from here 
+
+http://www.maplecity.com/homepage/guest.html
+
+ -->
+
+<html>
+<body bgcolor=8888FF>
+<h2> Guestbook</h2>
+
+
+<hr>
+
+<form action = "/guestbook/" method = "post" >
+    {% csrf_token %}
+    {{ form }}
+<input type=submit value="Submit">
+</form>
+
+<hr noshade>
+
+{% for comment in comments %}
+    <div>
+        <h2><a href="">{{ comment.author }}</a></h2>
+        <p>published: {{ comment.published_date }}</p>
+        <p>{{ comment.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+
+<hr noshade>
+
+</body>
+</html>
+
+<!--
+
+<input type=hidden name=fields value="Name,Email,Comments">
+Name: <input type=text name=Name><br>
+Email Address: <input type=text name=Email><br>
+Comments: <br><textarea name=Comments rows=5 cols=60>
+</textarea><br>
+
+-->
