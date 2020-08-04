@@ -1,0 +1,135 @@
+body {
+	background-image: url('matrix-size_restricted.gif');
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+}
+
+input[id=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+.disk-container { 
+  display: grid; 
+  grid-template-columns: 1fr 0.5fr 0.5fr; 
+  grid-template-rows: repeat(3, 1fr); 
+  place-items:center;
+} 
+.disk-container img {
+	display: block;
+	position: relative;
+	left: 50px; 
+}
+
+.disk-item1 { 
+  grid-column-start: 1; 
+  grid-column-end: 1; 
+  grid-row-start: 1; 
+  grid-row-end: 1;
+}
+.login-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	place-items:center; 
+	grid-column-gap: 50px;
+  max-height: 100vh;
+  height: 55vh;
+}
+
+
+#main {
+	position: absolute;
+	display: inline-block;
+	color: black;
+	background: aquamarine;
+	width: 85vw ;
+	left: 5vw;
+	height: inherit; ;
+	top: 10vh;
+	max-width: 100%;
+	overflow: auto;
+	z-index: -1
+
+}
+#cwindow {
+	position: static;
+	color: white;
+	background: black;
+	width: 85vw;
+	height: 62vh;
+}
+#ctext {
+	margin-top: auto;
+
+}
+.maintext {
+	font-size: 30px;
+	font-family: sans-serif;
+	font-variant: "Helvetica";
+}
+
+.active {
+  background-color: aquamarine;
+}
+.button {
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+
+}
+.button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

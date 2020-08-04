@@ -1,8 +1,65 @@
-{% extends "users/base.html" %}
-{% block main %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Register</button>
-    </form>
-{% endblock %}
+<!DOCTYPE html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/users/template.css">
+	<title>The HTMV's</title>
+</head>
+<body>
+	<ul>
+  		<li><a href="index.html">Home</a></li>
+  		<li><a href="disks.html">Disks</a></li>
+  		<li><a href="terminal.html">Terminal</a></li>
+  		<li><a>Current disk: &lt;some id here&gt; </a> </li>
+  		<li><a>Settings of disk &lt;some id here&gt; </a> </li>
+  		<li style="float:right"><a href="logout.html">Logout</a></li>
+  		<li style="float:right"><a class="active" href="register.html">Register</a></li>
+  		<li style="float:right"><a href="login.html">Login</a></li>
+
+
+	</ul> 
+
+	<div id = "main">
+		<div class = "login-grid">
+			<div class = "disk-item1"> 
+					<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Register </p>
+					<form method="POST">
+            <input type="hidden" name="csrfmiddlewaretoken" value="">
+                <tr>	
+                	<th>	
+                		<label for="id_username">Username:</label>	
+                	</th>
+                	<td><input type="text" name="username" autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" placeholder="Username"></td>
+                </tr>
+				<tr>
+					<th>
+						<label for="id_password">Password:</label>
+					</th>
+					<td><input type="password" name="password" autocomplete="current-password" required id="id_password" placeholder="******"></td>
+				</tr>
+				<input type="checkbox" onclick="showpassword()">Show Password
+				<br>
+				<br>
+				<input type = "submit" id = "submit" value = "Register">
+        </form>
+		    </div>
+	</div>
+<script>
+function showpassword() {
+  var x = document.getElementById("id_password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+} 
+window.onload = check 
+function check() {
+
+}
+</script>
+
+</body>
+</html>
