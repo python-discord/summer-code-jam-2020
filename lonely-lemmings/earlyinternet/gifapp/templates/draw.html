@@ -5,38 +5,38 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width = device-width, initial-scale = 1">
         <title>GIF App</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/draw.css'%}">
-        <script src="{% static 'javascript/canvas.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/draw.css'%}">
+        <script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="toolbar">
                 <a class="selected" href="#" id="open" onclick="OpenImage()">
-                    <img src="{% static 'icons/file-open.png' %}" alt="open file">
+                    <img src="{% static 'gifapp/icons/file-open.png' %}" alt="open file">
                 </a>
                 <a href="#" id="save" onclick="SaveImage()">
-                    <img src="{% static 'icons/save.png' %}" alt="save">
+                    <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
                 </a>
                 <a href="#" id="undo" onclick="Undo()">
-                    <img src="{% static 'icons/undo.png' %}" alt="undo">
+                    <img src="{% static 'gifapp/icons/undo.png' %}" alt="undo">
                 </a>
                 <a href="#" id="eraser" onclick="ChangeTool('eraser')">
-                    <img src="{% static 'icons/eraser.png' %}" alt="erase">
+                    <img src="{% static 'gifapp/icons/eraser.png' %}" alt="erase">
                 </a>
                 <a href="#" id="brush" onclick="ChangeTool('brush')">
-                    <img src="{% static 'icons/pencil.png' %}" alt="pencil">
+                    <img src="{% static 'gifapp/icons/pencil.png' %}" alt="pencil">
                 </a>
                 <a href="#" id="line" onclick="ChangeTool('line')">
-                    <img src="{% static 'icons/line.png' %}" alt="line">
+                    <img src="{% static 'gifapp/icons/line.png' %}" alt="line">
                 </a>
                 <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
-                    <img src="{% static 'icons/rectangle.png' %}" alt="rectangle">
+                    <img src="{% static 'gifapp/icons/rectangle.png' %}" alt="rectangle">
                 </a>
                 <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
-                    <img src="{% static 'icons/ellipse.png' %}" alt="ellipse">
+                    <img src="{% static 'gifapp/icons/ellipse.png' %}" alt="ellipse">
                 </a>
                 <a href="#" id="polygon" onclick="ChangeTool('polygon')">
-                    <img src="{% static 'icons/polygon.png' %}" alt="polygon">
+                    <img src="{% static 'gifapp/icons/polygon.png' %}" alt="polygon">
                 </a>
             </div>
             <div class="customizer">
@@ -63,7 +63,7 @@
                     <p>POLYGON<span id="polygon_value"></span></p>
                     <input type="range" min="3" max="10" value="3" class="slider" id="polygonSideSlider">
                 </div>
-                <script src="{%  static 'javascript/slider.js' %}"></script>
+                <script src="{%  static 'gifapp/javascript/slider.js' %}"></script>
             </div>
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
