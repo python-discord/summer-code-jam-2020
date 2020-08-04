@@ -1,12 +1,14 @@
 <template>
   <q-page padding>
     <div class="card-column">
-      <q-card v-for="city in allCities" :key="city.slug">
+      <q-card v-for="site in allSites" :key="site.slug">
         <q-card-section>
-          <a :href="`/${city.slug}`">{{ city.name }}</a>
+          <a :href="`/sites/${site.slug}`">
+            {{ city.name + site.address }}
+          </a>
         </q-card-section>
         <q-card-section>
-          {{ city.description }}
+          {{ site.description }}
         </q-card-section>
       </q-card>
     </div>
@@ -16,25 +18,25 @@
 <script>
 import gql from 'graphql-tag';
 
-const citiesQuery = gql`
-query citiesQuery {
-  allCities {
-    name,
-    slug,
+const sitesQuery = gql`
+query sitesQuery {
+  allSites {
+    address,
     description
   }
 }
 `;
 
 export default {
-  name: 'PageIndex',
+  name: 'Sites',
+  props: ['city'],
   data() {
     return {
     };
   },
   apollo: {
-    allCities: {
-      query: citiesQuery,
+    allSites: {
+      query: sitesQuery,
       prefetch: false,
       fetchPolicy: 'network-only',
     },

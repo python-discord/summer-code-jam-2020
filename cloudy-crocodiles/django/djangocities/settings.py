@@ -94,7 +94,6 @@ DATABASES = {
     }
 }
 
-# Custom user model
 AUTH_USER_MODEL = "user.CustomUser"
 
 # Password validation
@@ -127,10 +126,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# TODO: This looks awfully wrong but it works.  @kfields
+
 STATIC_URL = "/cdn/"
+
+STATICFILES_DIRS = [
+    '/cdn'
+]
 
 MEDIA_ROOT = '/cdn'
 MEDIA_URL = '/'
+
+AUTH_USER_MODEL = "user.CustomUser"
 
 # corsheaders
 CORS_ORIGIN_ALLOW_ALL = True

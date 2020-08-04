@@ -1,4 +1,11 @@
 type Query {
     allUsers: [User!]!
+
     allCities: [City!]!
+    city(slug: String!): City!
+
+    allSites: [Site!]!
+    citySites(id: ID!): [Site!]!
+    site(id: ID!): Site!
+
 }
