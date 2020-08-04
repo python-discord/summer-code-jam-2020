@@ -1,5 +1,18 @@
-<h1>{{ object.headline }}</h1>
-<p>{{ object.body }}</p>
-<p>Reporter: {{ object.author }}</p>
-<p>Published: {{ object.publication_date|date }}</p>
-<p>Date: {{ now|date }}</p>
+{% extends 'base.html' %}
+
+{% block title %}
+ - {{ object.headline }}
+{%  endblock %}
+
+{% block extra_heads %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "/wired_app/article_detail.css" %}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{ object.headline }}</h1>
+    <p>{{ object.body }}</p>
+    <p>Reporter: {{ object.author }}</p>
+    <p>Published: {{ object.publication_date|date }}</p>
+    <p>Date: {{ now|date }}</p>
+{% endblock %}

@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 
 
 class Article(models.Model):
@@ -13,7 +13,7 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.title=} {self.author=} {self.publication_date=}"
+        return f"Article({self.title=}, {self.author=}, {self.publication_date=})"
 
 
 class Comment(models.Model):
@@ -25,4 +25,4 @@ class Comment(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.text=} {self.author=} {self.publication_date=}"
+        return f"Comment(post={self.parent_post.id}, {self.text=}, {self.author=}, {self.publication_date=})"
