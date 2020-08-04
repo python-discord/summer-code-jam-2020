@@ -6,11 +6,11 @@ password = 'pbkdf2_sha256$180000$rIY0NVmswzaj$CHEAdXxSdOcKF6m1McG51wWWNrJ6Ynl6nG
 
 with open('raw.json', 'r') as f:
     raw = json.load(f)
-    
-  
+
+
 def email_gen(first_name, last_name):
     pass
-    
+
 
 def genusers():
     for row in raw:
@@ -21,11 +21,11 @@ def genusers():
         row['fields']['username'] = f"{row['fields']['first_name']} {row['fields']['last_name']}"
         row['fields']['password'] = password
         row['fields']['email'] = f"{row['fields']['first_name']}{row['fields']['last_name']}@aol.com"
-    
+
     with open('users.json', 'w') as f:
         json.dump(raw, f, indent=4)
-        
-        
+
+
 def genprofiles():
     for row in raw:
         del row['fields']['first_name']
@@ -33,11 +33,11 @@ def genprofiles():
         del row['fields']['gender']
         row['pk'] += 1
         row['fields']['user'] = row['pk']      
-    
+
     with open('profiles.json', 'w') as f:
         json.dump(raw, f, indent=4)
-        
-        
+
+
 if __name__ == '__main__':
     if sys.argv[1] == '-u':
         genusers()

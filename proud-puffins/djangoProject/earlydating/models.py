@@ -8,6 +8,7 @@ User._meta.get_field('email').blank = False
 User._meta.get_field('email').null = False
 
 Gender_Choices = (('Male', 'M'), ('Female', 'F'), ('OTHER', 'OTHER'))
+Pref_Choices = (('Male', 'M'), ('Female', 'F'), ('OTHER', 'OTHER'), ('BOTH', 'BOTH'))
 
 
 class Profile(models.Model):
@@ -16,7 +17,7 @@ class Profile(models.Model):
     img = models.ImageField(upload_to='static/user_pixel', validators=[pf.validate_file_size], \
                             null=True, default="/static/images/Proud_Puffin_default_user.jpg")
     sex = models.CharField(max_length=10, null=True, blank=True, choices=Gender_Choices)
-    preference = models.CharField(max_length=10, null=True, blank=True, choices=Gender_Choices)
+    preference = models.CharField(max_length=10, null=True, blank=True, choices=Pref_Choices)
     lower_age = models.PositiveSmallIntegerField(null=True)
     upper_age = models.PositiveSmallIntegerField(null=True)
     greeting = models.CharField(max_length=200, null=True, default="Greeting")
@@ -51,7 +52,7 @@ class Profile(models.Model):
 class UserVote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     voter = models.ForeignKey(User, related_name='given_vote', on_delete=models.CASCADE)
-    vote = models.BooleanField(default=False)
+    vote = models.BooleanField(default='')
 
     class Meta:
         unique_together = (('user', 'voter'))

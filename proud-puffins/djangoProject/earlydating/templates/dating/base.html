@@ -37,13 +37,15 @@
                     <a class="headerlink"; href="../">Home</a> |
                     <a class="headerlink"; href="../about">About page</a> |
                     <a class="headerlink"; href="../DateMatcher">DateMatcher</a> |
-                    <a class="headerlink"; href="../admin">Admin page</a>
+                    <a class="headerlink"; href="../admin">Admin page</a> |
                     {% if user.is_authenticated %}
+                    <a class="headerlink"; href="../YourProfile">YourProfile</a> |
                     <a class="headerlink"; href="../logout">Logout</a>
                     {% else %}
-                    <a class="headerlink"; href="../login">Login</a>
-                    {% endif %}
+                    <a class="headerlink"; href="../login">Login</a> |
                     <a href="{% url 'earlydating-register' %}">Sign Up</a>
+                    {% endif %}
+                    
                 </span>
 
         </div>
