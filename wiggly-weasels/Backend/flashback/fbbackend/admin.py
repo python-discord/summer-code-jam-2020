@@ -11,14 +11,6 @@ class AccountAdmin(admin.ModelAdmin):
         'bot'
     ]
 
-
-class MessageAdmin(admin.ModelAdmin):
-    list_display = [
-        'writer',
-        'content'
-    ]
-
-
 class GroupAdmin(admin.ModelAdmin):
     list_display = [
         'creator',
