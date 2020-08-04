@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
 from .forms import UserRegistrationForm, UserPreferencesForm
-
 from.models import UserPreferences
 
 # Create your views here.
@@ -40,7 +39,6 @@ def profile(request):
         'form': form
     }
     return render(request, 'users/profile.html', context)
-
 
 
 def user_logout(request):
