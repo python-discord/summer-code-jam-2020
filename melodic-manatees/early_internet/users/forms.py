@@ -19,11 +19,8 @@ class UserPreferencesForm(ModelForm):
 
     class Meta:
         model = UserPreferences
-        fields = '__all__'
+        exclude = ['user']
         labels = {
             'weather_preference': "Weather Clothing Suggestions:",
             'name_preference': 'Display Name:'
         }
-
-    def submit_preferences(self):
-        pass

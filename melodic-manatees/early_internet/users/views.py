@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserPreferencesForm
 
 from.models import UserPreferences
 
@@ -24,10 +24,23 @@ def register(request):
 
 @login_required
 def profile(request):
+    session = UserPreferences.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = UserPreferencesForm(instance=session, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Preferences Updated!')
+            return redirect('profile')
+    else:
+        form = UserPreferencesForm()
+
     context = {
-        'pref': UserPreferences.objects.get(user=request.user)
+        'pref': UserPreferences.objects.get(user=request.user),
+        'form': form
     }
     return render(request, 'users/profile.html', context)
+
 
 
 def user_logout(request):
