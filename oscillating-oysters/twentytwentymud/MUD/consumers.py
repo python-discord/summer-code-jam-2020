@@ -1,7 +1,10 @@
 from django.conf import settings
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from channels.db import database_sync_to_async
 
 from terminal.terminal_tools import colorize
+
+from MUD.models import Room, Player
 
 
 BANNER = """
@@ -38,6 +41,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                 await self.send_room(content["message"])
             elif command == "help":
                 await self.send_help()
+            elif command == "look":
+                await self.send_room_description()
             else:
                 await self.send_unknown(command)
         except Exception as e:
@@ -56,11 +61,39 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json({
             'message': f"I don't understand `{command}`, try " + colorize('brightYellow', "help") + "."
         })
-    
+
     async def send_help(self):
         await self.send_json({
-            'message': 'options: help, send, leave' # we should have a set() of commands/options
+            'message': 'options: help, send, leave, look' # we should have a set() of commands/options
         })
+
+    async def send_room_description(self):
+        message = await self.get_current_room_description()
+        await self.send_json({
+            'message': message
+        })
+
+    @database_sync_to_async
+    def get_current_room_description(self):
+        """ Returns a string with the description of the current room.  """
+
+        player = Player.objects.get(user=self.scope["user"])
+        room_name = colorize('brightGreen', player.room.name)
+        description = player.room.description
+
+        # TODO this can likely be cleaned up a bit
+        exits = list(player.room.connections.all())
+        exit_names = []
+        for exit in exits:
+            exit_names.append(colorize('brightGreen', exit.name))
+        exits_string = ", ".join(exit_names)
+
+        message = "You are in " + room_name + "\r\n\n" + description + "\r\n\nExits: " + exits_string
+        return message
+
+    @database_sync_to_async
+    def move_to_room(self):
+        pass
 
     async def join_room(self):
         if not self.scope['user'].is_authenticated:
