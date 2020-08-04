@@ -1,1 +1,76 @@
 /* Project CSS files */
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+button {
+    border-radius: 0;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    background-color: #C0C0C0;
+    border-width: 2px;
+}
+
+iframe {
+    padding: 0;
+    margin: 0;
+}
+
+input:not([type="file"]), textarea {
+    border-radius: 0;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    border-style: outset;
+    border-width: 2px;
+    background-color: white;
+}
+
+body {
+    background-color: #C0C0C0;
+}
+
+input[type="checkbox"] {
+    content: url("../images/checkbox-unchecked.png");
+}
+
+input[type="checkbox"]:checked {
+    content: url("../images/checkbox-checked.png");
+}
+
+input[type="radio"] {
+    content: url("../images/radio-off.png");
+    
+}
+
+input[type="radio"]:checked {
+    content: url("../images/radio-on.png");
+}
+
+div.col.ignore, div.ignore[class*="col-"] {
+    outline: initial;
+    margin: initial;
+}
+
+div.col, div[class*="col-"] {
+    outline: 1px solid black;
+    margin: .3em;
+}
+
+div.col div.header {
+    background-color: #000080;
+    color: white;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: -18px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: large;
+}
