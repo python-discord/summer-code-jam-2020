@@ -53,7 +53,28 @@ def search_query(search: str, format_text: bool =True):
 
 def engine_results(request):
     """ Renders a page for the request  """
-    return render(request, 'dashboard/search-engine/results.html')
+    search_text = '' # search query
+
+    res = search_query(search_text)
+    top_results = []
+    other_results = []
+    desc = ''
+    for r in res:
+        if 'tags' in r.keys():
+            if r['tags'][0] in ['#1', '#2', '#3']:
+                top_results.append(r)
+            elif r['tags'][0] not in ['#1', '#2', '#3']:
+                other_results.append(r)
+        elif 'description' in r.keys():
+            desc = r['description']
+        
+    context = {
+        'search': search_text,
+        'top_results': top_results,
+        'other_results':  other_results,
+        'description': desc,
+    }
+    return render(request, 'dashboard/search-engine/results.html', context=context)
 
 
 def chat_room(request, room_name):
