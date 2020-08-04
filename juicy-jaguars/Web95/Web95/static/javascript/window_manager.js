@@ -46,8 +46,18 @@ function wm_setup(elem) {
             if (windows[i] != x) {
                 windows[i].windowstate = "unfocused";
                 windows[i].classList.remove("card-tertiary");
+
+                if (windows[i].style.zIndex > x.style.zIndex) {
+                    windows[i].style.zIndex = (parseInt(windows[i].style.zIndex)-1).toString();
+
+                    children = windows[i].children;
+                    for (var j = 0; j < children.length; j++) {
+                        children[j].style.zIndex = (parseInt(windows[i].style.zIndex)-1).toString();
+                    }
+                }
             }
         }
+        x.style.zIndex = (windows.length - 1).toString();
     }
 
     function wm_unfocus(e) {
@@ -63,6 +73,7 @@ function wl_setup(elem, w_id) {
         if (x.style.display === "none") {
             x.style.display = "block";
             x.windowstate = "focused";
+            x.onmousedown("");
         } else {
             x.style.display = "none";
             x.windowstate = "minimised";
@@ -74,7 +85,11 @@ function setupWindowManagement(class_name) {
     var windows = document.getElementsByClassName(class_name);
 
     for (var i = 0; i < windows.length; i++) {
-        wm_setup(windows[i])
+        wm_setup(windows[i]);
+    }
+
+    for (var i = 0; i < windows.length; i++) {
+        windows[i].onmousedown("");
     }
 }
 
