@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div >
+  <h2>Form Team</h2>
+
+  <form id="my_form" method="POST">
+    {% csrf_token %}
+    <br>
+        {% for field in form %}
+         <div>
+           <label>{{ field.label_tag }}</label>
+           {{ field }}
+           {% for error in field.errors %}
+               <div>
+                 {{ error }}
+                 </div>
+            {% endfor %}
+         </div>
+       {% endfor %}
+<a href="javascript:{}" onclick="document.getElementById('my_form').submit();">Register Team</a>
+  </form>
+</div>
+
+{% endblock content%}

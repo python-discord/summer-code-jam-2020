@@ -6,8 +6,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-from .models import File
+from users.models import File
 
 
 def index(request):
@@ -68,10 +69,8 @@ def save_on_server(uploaded_file):
     return path + url
 
 
+@login_required(login_url='/login/')
 def upload(request):
-    """
-
-    """
     context = {}
     if request.method == "POST":
         uploaded_file = request.FILES["document"]
@@ -79,7 +78,7 @@ def upload(request):
             messages.success(request, "New file save successfully.")
             path = save_on_server(uploaded_file)
             hash_val = hash_file(path)
-            form = File(title=uploaded_file.name, hash_val=hash_val)
+            form = File(title=uploaded_file.name, hash_val=hash_val, user=request.user)
             form.save()
         else:
             # flash message that A similar file is already present  if hash value matches
@@ -90,15 +89,15 @@ def upload(request):
                 messages.warning(request, "A similar file is already present")
                 os.remove(path)
 
-            # hash value matches so no need to upload. if not uploade it with different file name
+            # hash value matches so no need to upload. if not, uploade it with different file name
             else:
                 # save file on server with new name{version}
                 title = path.split("/")[-1]
-                form = File(title=title, hash_val=hash_val)
+                form = File(title=title, hash_val=hash_val, user=request.user)
                 form.save()
                 messages.warning(
                     request,
                     "file with same name is already present adding it with new version ",
                 )
 
-    return render(request, "utils/upload.html", context)
+    return render(request, 'users/upload.html', context)
