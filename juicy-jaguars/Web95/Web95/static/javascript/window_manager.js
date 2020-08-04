@@ -3,6 +3,7 @@ function wm_setup(elem) {
 
     x.getElementsByClassName("window-btn-minimise")[0].onclick = wm_minimise;
     x.getElementsByClassName("window-btn-maximise")[0].onclick = wm_maximise;
+    x.onmousedown = wm_focus;
 
     function wm_minimise(e) {
         x.style.display = "none";
@@ -38,6 +39,15 @@ function wm_setup(elem) {
     function wm_focus(e) {
         x.windowstate = "focused";
         x.classList.add("card-tertiary");
+
+        var windows = document.getElementsByClassName("draggable");
+
+        for (var i = 0; i < windows.length; i++) {
+            if (windows[i] != x) {
+                windows[i].windowstate = "unfocused";
+                windows[i].classList.remove("card-tertiary");
+            }
+        }
     }
 
     function wm_unfocus(e) {
