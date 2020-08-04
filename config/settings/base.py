@@ -141,12 +141,16 @@ MIDDLEWARE = [
 
 # STATIC
 # ------------------------------------------------------------------------------
+# https://medium.com/a-layman/build-single-page-application-with-react-and-django-part-8-implement-a-static-rendering-website-3b85aa8cfc0f#c615
+
+REACT_APP_DIR = APPS_DIR / "frontend"
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+STATIC_ROOT = str(REACT_APP_DIR / "out")
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-STATIC_URL = "/static/"
+STATIC_URL = "/_next/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR / "static")]
+STATICFILES_DIRS = [str(REACT_APP_DIR / "out" / "_next")]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -287,4 +291,5 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-ASGI_APPLICATION = "config.channels_routing.applicationa"
+ASGI_APPLICATION = "config.channels_routing.application"
+
