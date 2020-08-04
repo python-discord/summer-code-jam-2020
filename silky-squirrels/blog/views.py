@@ -19,7 +19,7 @@ class PostListView(ListView):
         profile = Profile.objects.get(user=self.request.user)
         context["profile"] = profile
         context["posts"] = Post.objects.all()
-        context["allusers"] = User.objects.exclude(username=self.request.user)
+        context["allusers"] = User.objects.exclude(id=self.request.user.id)
         context["frequests"] = FriendRequest.objects.filter(to_user=profile)
         return context
 

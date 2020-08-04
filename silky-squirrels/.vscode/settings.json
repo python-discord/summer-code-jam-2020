@@ -1,5 +1,4 @@
 {
 	"editor.formatOnSave": true,
 	"python.formatting.provider": "black",
-	"python.pythonPath": "C:\\Users\\caleb\\.virtualenvs\\silky-squirrels-Q9e-qDbz\\Scripts\\python.exe"
 }
