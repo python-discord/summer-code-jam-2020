@@ -26,9 +26,9 @@ class Message(models.Model):
     """
     content = models.TextField()
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
-    author = models.ForeignKey(ForumUser, models.DO_NOTHING)  # it's either this or models.PROTECT
+    author = models.ForeignKey(ForumUser, models.DO_NOTHING)
     date_posted = models.DateTimeField(default=timezone.now)
-    date_edited = models.DateTimeField(default=timezone.now)  # same as above anyways
+    date_edited = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'Message posted on {self.date_posted} with content {self.content}'

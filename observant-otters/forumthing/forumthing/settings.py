@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Other project-level config
-DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
+DISCORD_CLIENT_ID = int(os.getenv("DISCORD_CLIENT_ID"))
 DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

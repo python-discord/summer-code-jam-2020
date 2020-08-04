@@ -12,4 +12,4 @@ class ForumUserChangeForm(UserChangeForm):
 
     class Meta:
         model = ForumUser
-        fields = ('nickname', 'email')  # username is permanent, but you can change you email
+        fields = ('nickname', 'email', 'avatar')  # username is permanent, but you can change you email

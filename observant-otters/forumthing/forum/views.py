@@ -22,8 +22,8 @@ class NewMessage(LoginRequiredMixin, CreateView):
     fields = ['content']
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        thread_path = self.request.path.replace('/new', '')
+        form.instance.author = self.request.user  # set the author to user
+        thread_path = self.request.path.replace('/new', '')  # parse which thread this was posted in
         form.instance.thread = Thread.objects.filter(pk=int(thread_path[thread_path.rfind('/') + 1:])).first()
         return super().form_valid(form)
 
