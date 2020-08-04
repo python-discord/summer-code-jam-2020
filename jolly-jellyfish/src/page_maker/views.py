@@ -1,13 +1,12 @@
-from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import (
     TemplateView,
     FormView,
     DetailView,
     UpdateView,
     DeleteView,
-    CreateView,
     ListView
 )
 
@@ -73,7 +72,6 @@ class WebpageCreateView(LoginRequiredMixin, FormView):
     # success_url = '/pages'
 
     # TODO validate and sanitize text and images
-    # TODO create thumbnail
     def form_valid(self, form):
         self.form = form
         form.instance.author = self.request.user
@@ -179,7 +177,7 @@ class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, FormView):
-    http_method_names = ['post'] # POST request only
+    http_method_names = ['post']  # POST request only
     form_class = CommentForm
 
     def form_valid(self, form):

@@ -2,29 +2,20 @@
 
 {% block content %}
 {% if webpages %}
-{% for webpage in webpages %}
-<div>
-    {% url 'webpage-view' pagename=webpage.name as destination_pg %}
-
-    {# If the webpage does not yet have a thumbnail associated with it... #}
-    {# loads custom template tags to call thumbnail generation function. #}
-
-    {% if 'placeholder_img' in webpage.thumbnail.url %}
-        {% load render_img_thumbnail %}
-        {# 'as none' used below to stop None being printed onto page #}
-        {% request_img_gen request destination_pg webpage as none %}
-    {% endif %}
-
-    <a href="{{ destination_pg }}">
-        <p>{{ webpage.user_title }}</p>
-    </a>
-    {% if webpage.thumbnail.url %}
-    <img src="{{ webpage.thumbnail.url }}">
-    {% else %}
-    No thumbnail yet generated for '{{ webpage.user_title }}'.
-    {% endif %}
-</div>
-{% endfor %}
+    {% for webpage in webpages %}
+    <div>
+        {% url 'webpage-view' pagename=webpage.name as user_pg %}
+        <a href="{{ user_pg }}">
+            <p>{{ webpage.user_title }}</p>
+        </a>
+        {% if webpage.thumbnail.url %}
+            <img src="{{ webpage.thumbnail.url }}">
+        {% else %}
+            To generate a thumbnail for '{{ webpage.user_title }}', go to
+            <a href="{{ user_pg }}">the page itself.</a>
+        {% endif %}
+    </div>
+    {% endfor %}
 {% else %}
 <p>No sites have been created yet!</p>
 {% endif %}

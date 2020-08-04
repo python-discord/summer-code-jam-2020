@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from django.conf import settings
@@ -40,11 +41,15 @@ def get_user_dir_path(instance, filename):
 class Webpage(models.Model):
     name = models.CharField(max_length=80, unique=True)
     date_created = models.DateTimeField(default=timezone.now)
+    last_edit_date = models.DateTimeField(editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # todo: default to imgkit generated thumbnail
-    thumbnail = models.ImageField(null=True, blank=True, default='thumbnails/placeholder_img.png',
-                                  upload_to='thumbnails/',
+    # null=False and blank=False enforce there always being a thumbnail image associated
+    thumbnail = models.ImageField(null=False, blank=False,
+                                  verbose_name="thumbnail (leave empty-generated automatically)",
+                                  default='thumbnails/placeholder_img.png', upload_to='thumbnails/',
                                   validators=[validate_image_file_extension])
+    # Implausible date is just to signify it does not yet have a thumbnail
+    thumbnail_edit_date = models.DateTimeField(default=datetime(1, 1, 1), editable=False)
     template_used = models.ForeignKey(Template, on_delete=models.DO_NOTHING)
     votes = models.IntegerField(default=0)
 
@@ -69,6 +74,13 @@ class Webpage(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        """Trigger timestamp updates when object is edited"""
+        if not self.id:
+            self.date_created = timezone.now()
+        self.last_edit_date = timezone.now()
+        return super(Webpage, self).save(*args, **kwargs)
 
 
 class Comment(models.Model):
