@@ -4,32 +4,33 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="{% static 'rovers/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% block extrahead %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
         <!-- Start Navigation -->
-        <table><tbody>
+        <div class="header-div"><table class="header-table nav nav-table"><tbody>
             <tr>
-                <td colspan=4><a href="{% url 'posts-home' %}">
-                    SpaceBook
+                <td colspan=4 class="nav nav-logo"><a href="{% url 'posts-home' %}">
+                    Spacebook
                 </a></td>
             </tr>
             <tr>
-                <td><a href="{% url 'posts-home' %}">
+                <td class="nav nav-link"><a href="{% url 'posts-home' %}">
                     Home
                 </a></td>
-                <td><a href="{% url 'rovers:rover-list' %}">
+                <td class="nav nav-link nav-lborder"><a href="{% url 'rovers:rover-list' %}">
                     Rovers
                 </a></td>
-                <td><a href="#">
+                <td class="nav nav-link nav-lborder"><a href="{% url 'mars_weather:current_weather' %}">
                     Weather
                 </a></td>
-                <td><a href="#">
+                <td class="nav nav-link nav-lborder"><a href="{% url 'guestbook:guestbook' %}">
                     Guestbook
                 </a></td>
             </tr>
-        </tbody></table>
+        </tbody></table></div>
         <!-- End Navigation -->
 
         {% block body %}{% endblock %}

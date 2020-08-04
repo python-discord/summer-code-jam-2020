@@ -1,6 +1,10 @@
 {% extends "posts/base.html" %}
 
+{% load static %}
+
 {% block title %}Spacebook Home{% endblock %}
+
+{% block extrahead %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock %}
 
 {% block body %}
     Latest Posts

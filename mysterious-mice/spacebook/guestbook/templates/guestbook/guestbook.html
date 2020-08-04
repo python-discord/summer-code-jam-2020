@@ -1,12 +1,17 @@
-<!-- 
-Guestbook html taken from here 
+{% extends "posts/base.html" %}
+
+{% block title %}Spacebook Guestbook{% endblock %}
+
+{% block body %}
+<!--
+Guestbook html taken from here
 
 http://www.maplecity.com/homepage/guest.html
 
  -->
 
-<html>
-<body bgcolor=8888FF>
+<!-- <html>
+<body bgcolor=8888FF> -->
 <h2> Guestbook</h2>
 
 
@@ -30,8 +35,8 @@ http://www.maplecity.com/homepage/guest.html
 
 <hr noshade>
 
-</body>
-</html>
+<!-- </body>
+</html> -->
 
 <!--
 
@@ -42,3 +47,4 @@ Comments: <br><textarea name=Comments rows=5 cols=60>
 </textarea><br>
 
 -->
+{% endblock %}
