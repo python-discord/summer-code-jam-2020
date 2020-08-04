@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Post, Like, Dislike
-from .serializers import PostSerializer
+from .serializers import PostSerializer, DislikeSerializer, LikeSerializer
 from users.models import CustomUser
 
 # Create your views here.
@@ -14,7 +14,8 @@ from users.models import CustomUser
 @api_view(["GET"])
 @csrf_exempt
 def get_posts(request):
-    """Returns a list of posts, can be restricted to a particular user via the `user` query parameter"""
+    """Returns a list of posts, can be restricted to a particular
+    user via the `user` query parameter"""
     posts = Post.objects.all()
     user_id = request.query_params.get("user", None)
     if user_id is not None:
@@ -114,7 +115,7 @@ def like_post(request, post_id):
         for dislike in dislikes:
             dislike.delete()
 
-        # Return if the user has already liked this post
+        # Don't go any further if the user has already liked this post
         likes = post.likes.filter(user_liked=user.id)
         if likes.count() > 0:
             return JsonResponse({"posts": None}, safe=False, status=status.HTTP_200_OK)
@@ -124,7 +125,9 @@ def like_post(request, post_id):
         post.likes.add(like)
 
         serializer = LikeSerializer(like, many=True)
-        return JsonResponse({"posts": serializer.data}, safe=False, status=status.HTTP_200_OK)
+        return JsonResponse(
+            {"posts": serializer.data}, safe=False, status=status.HTTP_200_OK
+        )
     except ObjectDoesNotExist as e:
         return JsonResponse(
             {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
@@ -151,7 +154,7 @@ def dislike_post(request, post_id):
         for like in likes:
             like.delete()
 
-        # Return if the user has already disliked this post
+        # Don't go any further if the user has already disliked this post
         dislikes = post.dislikes.filter(user_disliked=user.id)
         if dislikes.count() > 0:
             return JsonResponse({"posts": None}, safe=False, status=status.HTTP_200_OK)
@@ -160,8 +163,10 @@ def dislike_post(request, post_id):
         dislike.save()
         post.dislikes.add(dislike)
 
-        serializer = DislikeSerializer(like, many=True)
-        return JsonResponse({"posts": serializer.data}, safe=False, status=status.HTTP_200_OK)
+        serializer = DislikeSerializer(dislike, many=True)
+        return JsonResponse(
+            {"posts": serializer.data}, safe=False, status=status.HTTP_200_OK
+        )
     except ObjectDoesNotExist as e:
         return JsonResponse(
             {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
@@ -172,4 +177,3 @@ def dislike_post(request, post_id):
             safe=False,
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-
