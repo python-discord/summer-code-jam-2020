@@ -141,7 +141,7 @@
     }
 
     #left {
-      width: 100%;
+      width: 65%;
       vertical-align: middle;
       height: 18px;
     }
@@ -188,6 +188,7 @@
     }
   </script>
   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/98.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="98style.css">
@@ -196,8 +197,7 @@
     <script src="https://kit.fontawesome.com/f9cc65cae5.js" crossorigin="anonymous"></script>
   <title>RetroNet</title>
 </head>
-
-<body>
+<body onload="startTime()">
 
   <div class="window" style="width: 100%">
     <div class="title-bar">
@@ -212,13 +212,13 @@
     <!-- Main menu -->
     <div class="window-body">
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_file')">File</button>
-        <div class="dropdown-content Frame" id="dd_file">
-          <a href="#">Open</a>
+        <button  onclick="open_dropdown('dd_file')" style="border: 5px hidden;;padding: 0;all: revert" class="dropbtn">File</button>
+        <div class="dropdown-content Frame" id="myDropdown">
+          <a href="#" >Open</a>
           <a href="#">Close</a>
           <a href="#">Settings</a>
         </div>
-      </div>
+
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_edit')">Edit</button>
         <div class="dropdown-content Frame" id="dd_edit">
@@ -256,12 +256,16 @@
         </div>
       </div>
     </div>
-  </div>
+        </div>
+
+      <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
 
 
-      <fieldset class="menu">
+
+
+      <div class="menu">
         <ul class="first">
-          <li><i class="fas fa-arrow-circle-left"></i> Back</li>
+          <li><i class="fas fa-arrow-circle-left"></i>  Back</li>
           <li><i class="fas fa-caret-down"></i></li>
           <li><i class="fas fa-arrow-circle-right"></i></li>
           <li><i  class="fas fa-caret-down grey-caret-down"></i></li>
@@ -279,8 +283,9 @@
           <li><img class="print" src="icons/ie-print-min.png" alt=""></li>
           <li><img class='views' src="icons/views-min.png" alt=""></li>
         </ul>
-    </fieldset>
-    <fieldset>
+    </div>
+      <br>
+        <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
        <p>Address</p>
 
         <select>
@@ -290,7 +295,7 @@
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
         </select>
-        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="16" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M15 0H0V1V16H1V1H15V0Z" fill="#DFDFDF"/>
             <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H1V15H2V2H14V1H2Z" fill="white"/>
             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 17H15H0V16H15V0H16V17Z" fill="black"/>
@@ -307,30 +312,26 @@
         </button>
         <button id="links">Links<i class="fas fa-angle-double-right"></i></button>
 
-    </fieldset>
-
-  <div class="window">
-<!--    <div class="title-bar">-->
-<!--      <div class="title-bar-text">A Window With Stuff In It</div>-->
-<!--      <div class="title-bar-controls">-->
-<!--        <button aria-label="Minimize"></button>-->
-<!--        <button aria-label="Maximize"></button>-->
-<!--        <button aria-label="Close"></button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="window-body">-->
-<!--      <p>There's so much room for activities!</p>-->
-<!--    </div>-->
+        <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
+        <div class="window-body" style="background-color: #e5e9e7;">
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>There's so much room for activities!</p>
+            <br>
+            <br>
+            <br>
+            <br>
+    </div>
     <div class="container">
       <div id="left" style="border-style: inset;"><img src="e.png" align="left"
           style="width:12px; height:15px;display: block;float: left">Done</div>
       <div id="middle1" style="border-style: inset;"></div>
       <div id="middle2" style="border-style: inset;"></div>
       <div id="middle3" style="border-style: inset;"></div>
-      <div id="right" style="border-style: inset;"><img src="earth.png" align="left"
-          style="width:15px; height:16px;display: block;float: left"> Internet</div>
-      <div id="txt" align="center"
-        style="border-style: inset;width:5%;min-width:48px;vertical-align: middle;height:18px;"></div>
+      <div id="right" style="border-style: inset;"><img src="earth.png" align="left" style="width:15px; height:16px;display: block;float: left"> Internet</div>
+      <div id="txt" align="center" style="border-style: inset;width:10%;min-width:48px;vertical-align: middle;height:18px;"></div>
 
     </div>
   </div>
