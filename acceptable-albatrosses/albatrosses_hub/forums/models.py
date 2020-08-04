@@ -7,9 +7,9 @@ from django.utils.text import Truncator
 
 
 class Board(models.Model):
-    '''
+    """
     Class for message boards.
-    '''
+    """
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
 
@@ -21,22 +21,22 @@ class Board(models.Model):
         return self.name
 
     def get_comments_count(self):
-        '''
+        """
         returns number of comments belonging to the board.
-        '''
+        """
         return Comment.objects.filter(post__board=self).count()
 
     def get_last_comment(self):
-        '''
+        """
         return the last comment belonging to the board.
-        '''
+        """
         return Comment.objects.filter(post__board=self).order_by('-created_at').first()
 
 
 class Post(models.Model):
-    '''
+    """
     Class for post
-    '''
+    """
     subject = models.CharField(max_length=255)
     message = models.TextField(max_length=4000)
     board = models.ForeignKey(Board, related_name='posts',
@@ -58,17 +58,17 @@ class Post(models.Model):
         return self.subject
 
     def get_absolute_url(self):
-        '''
+        """
         returns url to post
-        '''
+        """
         return reverse('board-detail',
                        kwargs={'board': self.board.name, 'pk': self.pk})
 
 
 class Comment(Post):
-    '''
+    """
     Class for comments
-    '''
+    """
     post = models.ForeignKey(Post, related_name='comments',
                              on_delete=models.CASCADE)
 
@@ -77,9 +77,9 @@ class Comment(Post):
         return truncated_message.chars(30)
 
     def get_absolute_url(self):
-        '''
+        """
         returns url to post
-        '''
+        """
         return reverse('comment-detail',
                        kwargs={'board': self.post.board.name,
                                'post_pk': self.post.pk, 'pk': self.pk})
