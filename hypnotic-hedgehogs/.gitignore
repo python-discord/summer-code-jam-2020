@@ -16,6 +16,3 @@ __pycache__/
 
 # Migrations
 migrations/
-
-# Media
-media/

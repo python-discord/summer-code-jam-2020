@@ -1,0 +1,16 @@
+{% extends 'first_twitter/base.html' %}
+
+{% block content %}
+{% for post in posts %}
+    <div class="posts p-2">
+        <div class="examplePost d-flex justify-content start" >
+            <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" width="50" height="50">
+            <span style="font-size: 14px;" class="ml-3">
+            <a class="publisher" style="text-decoration: underline;">{{ post.author }}</a>
+            <span class="tweetText">{{ post.text }}</span>
+            <span class="publishDate" style="text-decoration: underline;">1 minute ago</span>
+            </span>
+        </div>
+    </div>
+{% endfor %}
+{% endblock content %}
