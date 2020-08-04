@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from enum_field import Enum, EnumField
 from user.models import ForumUser
 
@@ -14,6 +15,9 @@ class Thread(models.Model):
 
     def __str__(self):
         return f'Thread with title {self.title} created on {self.date_created}'
+
+    def get_absolute_url(self):
+        return reverse('threads-single', kwargs={'pk': self.pk})
 
 
 class Message(models.Model):

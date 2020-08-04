@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Only one group, up to homomorphism</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
 </head>
+{% block content %}
 <body>
 Single-thread page
     <blockquote>
@@ -22,7 +23,7 @@ Single-thread page
 
 <br><br>
 {% if prev_page %}
-    <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Thread</a>
+    <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
 {% endif %}
 <a href="/forum/threads/{{ id }}?p={{ next_page }}">Next Page</a>
 <br>
@@ -36,4 +37,5 @@ Single-thread page
 <br>
 <a href="/">Home</a>
 </body>
+{% endblock %}
 </html>

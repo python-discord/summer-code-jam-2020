@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Thread, Message
@@ -8,12 +8,12 @@ def home(request):
     return render(request, 'forum/home.html', {})
 
 
-class NewThread(CreateView):
+class NewThread(LoginRequiredMixin, CreateView):
     model = Thread
     fields = ['title']
 
     def form_valid(self, form):
-        form.initial.author = self.request.user
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 
@@ -23,7 +23,7 @@ def threads(request, id=None):
             return render(request, 'forum/home.html')
 
         try:
-            thread = Thread.objects.get(pk=int(id))
+            thread = Thread.objects.get(pk=int(id) + 1)
             next_exists = True
         except Thread.DoesNotExist:
             next_exists = False

@@ -7,6 +7,7 @@ class ForumUserCreationForm(UserCreationForm):
         model = ForumUser
         fields = ('username', 'nickname', 'email')
 
+
 class ForumUserChangeForm(UserChangeForm):
 
     class Meta:
