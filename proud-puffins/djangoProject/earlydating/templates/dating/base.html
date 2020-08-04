@@ -20,13 +20,18 @@
     {% else %}
         <title> Early Dating </title>
     {% endif %}
+
     <link rel="shortcut icon" type="image/png" href="{% static 'images\favicon.ico' %}" />
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+
   </head>
   {% endblock %}
 
-    <body>
+    <body id="bootstrap-overrides">
         <div class="home_h1">
             <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
             <img src="/static/images/Proud_Puffin_motion.gif";  height="40"; align="Left">
@@ -37,15 +42,13 @@
                     <a class="headerlink"; href="../">Home</a> |
                     <a class="headerlink"; href="../about">About page</a> |
                     <a class="headerlink"; href="../DateMatcher">DateMatcher</a> |
-                    <a class="headerlink"; href="../admin">Admin page</a> |
+                    <a class="headerlink"; href="../admin">Admin page</a>
                     {% if user.is_authenticated %}
-                    <a class="headerlink"; href="../YourProfile">YourProfile</a> |
                     <a class="headerlink"; href="../logout">Logout</a>
                     {% else %}
-                    <a class="headerlink"; href="../login">Login</a> |
-                    <a href="{% url 'earlydating-register' %}">Sign Up</a>
+                    <a class="headerlink"; href="../login">Login</a>
                     {% endif %}
-                    
+                    <a href="{% url 'earlydating-register' %}">Sign Up</a>
                 </span>
 
         </div>
@@ -56,8 +59,8 @@
     <div class="row">
 
         <div class="columnleft">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="450"></img><br>
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="450" ></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="400"></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="400" ></img>
         </div>
 
         <div class="columnright">
@@ -78,6 +81,7 @@
 
   <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
     <PARAM NAME=FileName VALUE=sound.mp3></PARAM>
+
   </body>
 
 </html>
