@@ -8,4 +8,6 @@ function window_setup () {
     loadButtonEffects();
 
     setupWindowManagement("draggable");
+
+    setup_start();
 }

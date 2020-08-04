@@ -1,5 +1,15 @@
+@font-face {
+    font-family: 'Microsoft Sans Serif';
+    src: url('static/fonts/MicrosoftSansSerif.woff2') format('woff2'),
+        url('static/fonts/MicrosoftSansSerif.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 body {
     padding-bottom: 0;
+    overflow: hidden;
 }
 
 .taskbar {
@@ -7,6 +17,69 @@ body {
     width: 100%;
     margin: 0 !important;
     bottom: 0;
+}
+
+#start-menu {
+    width: 250px;
+    height: 350px;
+    position: absolute;
+}
+
+.start-table {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.start-banner {
+    font-family: "Microsoft Sans Serif", sans-serif;
+    font-size: 30px;
+    -moz-transform: rotate(180deg);
+    writing-mode: vertical-lr;
+    width: 45px;
+    height: 100%;
+    background-color: #7f817e;
+    color: white;
+    vertical-align: top;
+}
+
+.start-banner b {
+    color: #bbb;
+    font-weight: 900;
+}
+
+.start-item {
+    vertical-align: middle;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+    height: 49px;
+}
+
+.start-item p {
+    margin: 0;
+    display: inline-block;
+    height: 100%;
+    vertical-align: center;
+}
+
+.start-level1-thumbnail {
+    display: inline-block;
+    height: 47px;
+}
+
+.start-more {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-top: 13.5px;
+    margin-bottom: 13.5px;
+}
+
+.start-level1-sep {
+    margin: 0;
+    border: 1px inset;
 }
 
 .nav-link-icon {

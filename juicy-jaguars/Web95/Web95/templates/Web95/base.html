@@ -17,6 +17,7 @@
         <script src="{% static 'javascript/window_btns.js' %}"></script>
         <script src="{% static 'javascript/window_ids.js' %}"></script>
         <script src="{% static 'javascript/window_setup.js' %}"></script>
+        <script src="{% static 'javascript/start_menu.js' %}"></script>
 
         <style>
         .draggable {
@@ -37,8 +38,8 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark justify-content-between mb-3 taskbar" id="taskbar">
             <ul class="navbar-nav navbar-nav-hover flex-row align-items-center">
-                <li class="nav-item">
-                    <a href="" class="nav-link" role="button">
+                <li class="nav-item" id="start-button">
+                    <a class="nav-link" role="button" onclick="toggle_start()">
                         <span class="nav-link-inner-text">
                             <img src="{% static 'images/start.svg' %}" height="20px" margin=auto>
                             Start
@@ -53,6 +54,61 @@
                 <span class="time text-uppercase">0:00 PM</span>
             </div>
         </nav>
+
+        <div id="start-menu" class="card" style="">
+            <table class="start-table">
+                <tr>
+                    <td class="start-banner" rowspan="7">
+                        <b>Windows</b>95
+                    </td>
+                    <td class="start-item start-level1">
+                        <img src="{% static 'images/icons/Folders/Program Folder (16x16px & 24x24px).ico' %}" class="start-level1-thumbnail">
+                        <p><u>P</u>rograms</p>
+                        <img src="{% static 'images/icons/more.png' %}" class="start-more">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="start-item start-level1">
+                        <img src="{% static 'images/icons/Folders/Documents Folder.ico' %}" class="start-level1-thumbnail">
+                        <p><u>D</u>ocuments</p>
+                        <img src="{% static 'images/icons/more.png' %}" class="start-more">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="flex-row start-item start-level1">
+                        <img src="{% static 'images/icons/Settings/Settings.ico' %}" class="start-level1-thumbnail">
+                        <p><u>S</u>ettings</p>
+                        <img src="{% static 'images/icons/more.png' %}" class="start-more">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="start-item start-level1">
+                        <img src="{% static 'images/icons/Sheets/Search in sheet (16x16px & 24x24px).ico' %}" class="start-level1-thumbnail">
+                        <p><u>F</u>ind</p>
+                        <img src="{% static 'images/icons/more.png' %}" class="start-more">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="start-item start-level1">
+                        <img src="{% static 'images/icons/Help/Help book.ico' %}" class="start-level1-thumbnail">
+                        <p><u>H</u>elp</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="start-item start-level1">
+                        <img src="{% static 'images/icons/Programs/Program wait.ico' %}" class="start-level1-thumbnail">
+                        <p><u>R</u>un...</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="start-item start-level1">
+                        <hr class="start-level1-sep">
+                        <img src="{% static 'images/icons/Computers/Turn Off Computer (display only).ico' %}" class="start-level1-thumbnail">
+                        <p>Sh<u>u</u>t Down...</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
     </body>
 </html>
