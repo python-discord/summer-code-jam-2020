@@ -1,14 +1,10 @@
-{% extends "base.html" %}
+{% extends "myplace/base.html" %}
 {% block content %}
-<!-- views.user passes in a dict of all UserProfile variables as user_prof.
+<!-- views.user passes in a dict of all Profile variables as user_prof.
      This can be used via {{ user_prof.variable_name }} anywhere in this file. -->
-
-
     {% for k, v in user_prof.items %}
         <h1>
             {{ k }}: {{ v }}
         </h1>
     {% endfor %}
-
-
 {% endblock content %}
