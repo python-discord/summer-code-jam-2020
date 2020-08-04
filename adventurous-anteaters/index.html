@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/f9cc65cae5.js" crossorigin="anonymous"></script>
+    <style>
+        fieldset{
+            background-color: rgb(177, 171, 171);
+            width: 800px;
+        }
+
+        fieldset p{
+            display: inline;
+        }
+
+        fieldset select{
+            width: 70%;
+        }
+
+        fieldset svg{
+            position: relative;
+            top: 5px;
+        }
+
+        fieldset input {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .fa-arrow-right{
+            background-color: rgb(14, 177, 14);
+            padding: 3px;
+            color: white;
+            border: 1px solid white;
+            border-radius: 2px;
+        }
+
+        .fa-angle-double-right{
+            position: relative;
+            font-size: 12px;
+            top: -3px;
+        }
+
+        .menu{
+            width: 37%;
+            text-align: justify;
+        }
+
+        .menu ul{
+            list-style: none;
+            margin-left: -25px;
+        }
+
+        ul, ul li{
+            display: inline;
+            margin-right: 8px;
+        }
+
+        .fas{
+            font-size: 16px;
+        }
+
+        .fa-arrow-circle-left{
+            color: green;
+        }
+
+        .refresh{
+            position: relative;
+            top: 4px;
+        }
+
+        .fa-arrow-circle-right, .grey-caret-down{
+            opacity: .7;
+            color: grey;
+        }
+
+        .fa-file-excel{
+            color: red;
+        }
+
+        .fa-home{
+            color: rgb(136, 97, 24);
+        }
+        
+        .fa-search{
+            color: rgb(64, 139, 238);
+        }
+
+        .fa-star{
+            color: rgb(241, 241, 23);
+        }
+
+        .undo{
+            width: 16px;
+        }
+
+        .open-folder{
+            position: relative;
+            top: 3px;
+            width: 20px;
+            right: 3px;
+        }
+
+        .print{
+            position: relative;
+            top: 3px;
+        }
+
+        .views{
+            position: relative;
+            top: 3px;
+        }
+        
+    </style>
+</head>
+<body>
+    <fieldset class="menu">
+        <ul class="first">
+          <li><i class="fas fa-arrow-circle-left"></i> Back</li>
+          <li><i class="fas fa-caret-down"></i></li>
+          <li><i class="fas fa-arrow-circle-right"></i></li>
+          <li><i  class="fas fa-caret-down grey-caret-down"></i></li>
+          <li><i class="fas fa-file-excel"></i></li>
+          <li><img class="refresh" src="icons/ie-refresh-min.png" alt=""></li>
+          <li><i class="fas fa-home"></i></li>
+        </ul>
+        <ul class="second">
+          <li><i class="fas fa-search"></i> Search</li>
+          <li><i class="fas fa-star"></i> Favorites</li>
+          <li><img class="undo" src="icons/undo-min.png" alt=""></li>
+        </ul>
+        <ul class="third">
+          <li><img class="open-folder" src="icons/folderOpen24-min.png" alt=""><i class="fas fa-caret-down"></i></li>
+          <li><img class="print" src="icons/ie-print-min.png" alt=""></li>
+          <li><img class='views' src="icons/views-min.png" alt=""></li>
+        </ul>
+    </fieldset>
+    <fieldset>
+       <p>Address</p> 
+       
+        <select>
+            <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
+            <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/padraigfl/packard-belle-desktop/tree/master/src/icons</option>
+            <option><img src="icons/htmlFile16-min.png" alt="no">https://thenextweb.com/dd/2020/04/22/windows-98-css-library-html/</option>
+            <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
+            <option><img src="icons/htmlFile16-min.png" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
+        </select>
+        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 0H0V1V16H1V1H15V0Z" fill="#DFDFDF"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M2 1H1V15H2V2H14V1H2Z" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 17H15H0V16H15V0H16V17Z" fill="black"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1H14V15H1V16H14H15V1Z" fill="#808080"/>
+            <rect x="2" y="2" width="12" height="13" fill="#C0C0C0"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11 6H4V7H5V8H6V9H7V10H8V9H9V8H10V7H11V6Z" fill="black"/>
+        </svg>
+            
+      
+
+    
+        <button id="go"><img src="icons/ie-go-min.png" alt=""></i>
+            Go
+        </button>
+        <button id="links">Links<i class="fas fa-angle-double-right"></i></button>
+        
+    </fieldset>
+</body>
+</html>
