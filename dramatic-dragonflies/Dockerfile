@@ -11,7 +11,9 @@ CMD ["manage.py", "run"]
 RUN pip install -U pipenv
 
 WORKDIR /app
-COPY Pipfile* package.json package-lock.json terminal/term_handler.c ./
+COPY Pipfile*  terminal/term_handler.c ./
+RUN mkdir -p ../build/
+COPY package.json package-lock.json ../build/
 RUN pipenv install --system --deploy
 
 RUN apt-get -y update \
@@ -21,8 +23,8 @@ RUN apt-get -y update \
     #vim just for testing the terminal, we should remove it later
     vim \
     && rm -rf /var/lib/apt/lists/* \
-    && npm install \
-    && gcc -o process_watch term_handler.c -O3 -Wall -Wextra -lutil\
+    && npm install --prefix ../build/ \
+    && gcc -o ../build/process_watch term_handler.c -O3 -Wall -Wextra -lutil\
     && apt-get --purge -y autoremove npm gcc
 
 COPY . .

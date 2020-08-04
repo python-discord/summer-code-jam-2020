@@ -12,7 +12,7 @@ class TerminalConsumer(AsyncWebsocketConsumer):
     async def connect(self) -> None:
         await self.accept()
         self.process = await subprocess.create_subprocess_shell(
-            './process_watch bash', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            '../build/process_watch bash', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.task_err = asyncio.tasks.create_task(
             self.handle_sending(self.process.stderr))
         self.task_out = asyncio.tasks.create_task(
