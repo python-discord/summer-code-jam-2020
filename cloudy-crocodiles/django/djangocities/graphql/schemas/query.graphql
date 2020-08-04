@@ -8,4 +8,7 @@ type Query {
     citySites(id: ID!): [Site!]!
     site(id: ID!): Site!
 
+    allPages: [Page!]!
+    page(id: ID!): Page!
+
 }
