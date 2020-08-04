@@ -4,7 +4,7 @@ from users.models import CustomUser
 
 
 class Like(models.Model):
-    '''A model for the likes a post got'''
+    """A model for the likes a post got"""
 
     date_liked = models.DateTimeField(default=timezone.now)
     user_liked = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -14,7 +14,7 @@ class Like(models.Model):
 
 
 class Dislike(models.Model):
-    '''A model for the dislikes a post got'''
+    """A model for the dislikes a post got"""
 
     date_disliked = models.DateTimeField(default=timezone.now)
     user_disliked = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -24,7 +24,7 @@ class Dislike(models.Model):
 
 
 class Post(models.Model):
-    '''A model for the post a user makes'''
+    """A model for the post a user makes"""
 
     title = models.CharField(max_length=150)
     date_posted = models.DateTimeField(default=timezone.now)
