@@ -37,9 +37,6 @@ function wm_setup(elem) {
     }
 
     function wm_focus(e) {
-        x.windowstate = "focused";
-        x.classList.add("card-tertiary");
-
         var windows = document.getElementsByClassName("draggable");
 
         for (var i = 0; i < windows.length; i++) {
@@ -57,12 +54,18 @@ function wm_setup(elem) {
                 }
             }
         }
+
+        console.log("focusing");
+        x.windowstate = "focused";
+        x.classList.add("card-tertiary");
         x.style.zIndex = (windows.length - 1).toString();
     }
 
     function wm_unfocus(e) {
-        x.windowstate = "unfocused";
-        x.classList.remove("card-tertiary");
+        if (e.target == document.body) {
+            x.windowstate = "unfocused";
+            x.classList.remove("card-tertiary");
+        }
     }
 }
 
@@ -78,6 +81,17 @@ function wl_setup(elem, w_id) {
             x.style.display = "none";
             x.windowstate = "minimised";
         }
+    }
+}
+
+function unfocus_wins(e) {
+    var start = document.getElementById("start-menu");
+
+    for (var i = 0; i < windows.length; i++) {
+        windows[i].windowstate = "unfocused";
+        windows[i].classList.remove("card-tertiary");
+
+        start.style.display = "none";
     }
 }
 

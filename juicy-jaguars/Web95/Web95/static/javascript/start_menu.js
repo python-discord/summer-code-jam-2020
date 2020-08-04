@@ -12,7 +12,7 @@ function setup_start() {
 }
 
 function toggle_start() {
-    var start = document.getElementById("start-menu")
+    var start = document.getElementById("start-menu");
 
     if (start.style.display == "none") {
         start.style.display = "block";

@@ -10,4 +10,6 @@ function window_setup () {
     setupWindowManagement("draggable");
 
     setup_start();
+
+    document.body.onmousedown = unfocus_wins;
 }
