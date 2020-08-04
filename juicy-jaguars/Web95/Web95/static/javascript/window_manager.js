@@ -85,13 +85,16 @@ function wl_setup(elem, w_id) {
 }
 
 function unfocus_wins(e) {
-    var start = document.getElementById("start-menu");
+    if (e.target == document.body) {
+        console.log("unfocused");
+        var start = document.getElementById("start-menu");
 
-    for (var i = 0; i < windows.length; i++) {
-        windows[i].windowstate = "unfocused";
-        windows[i].classList.remove("card-tertiary");
+        for (var i = 0; i < windows.length; i++) {
+            windows[i].windowstate = "unfocused";
+            windows[i].classList.remove("card-tertiary");
 
-        start.style.display = "none";
+            start.style.display = "none";
+        }
     }
 }
 
