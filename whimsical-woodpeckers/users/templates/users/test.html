@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-        <form method="POST" action="{% url 'test %}">
+        <form method="POST" action="{% url 'test' %}">
             {% csrf_token %}    
             <input type="text" name="email" value=""/>
             <button type="submit">Valider</button>

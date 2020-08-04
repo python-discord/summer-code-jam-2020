@@ -9,6 +9,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 def test(request):
     email = ''
     if 'email' in request.POST:
+        print(email)
         email = request.POST.get('email')
         if not User.objects.filter(email=email):
             User.objects.create(email=email)
