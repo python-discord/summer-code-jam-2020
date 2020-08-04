@@ -1,7 +1,13 @@
 body {
     color: #CCCCCC;
     /* background image from https://1-background.com/stars_1.htm */
-    background: url("../images/beautiful-blue-stars-fill.jpg")
+    background: url("../images/beautiful-blue-stars-fill.jpg");
+    animation: animatedBackground 15s linear infinite;
+}
+
+@keyframes animatedBackground {
+    from {background-position: 0 0;}
+    to {background-position: 402px 0;}
 }
 
 a, a:visited, a:hover, a:active{
