@@ -6,24 +6,30 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('users', '0002_profile_status'),
-    ]
+    dependencies = [("users", "0002_profile_status")]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='friends',
-            field=models.ManyToManyField(blank=True, related_name='_profile_friends_+', to='users.Profile'),
+            model_name="profile",
+            name="friends",
+            field=models.ManyToManyField(blank=True, related_name="_profile_friends_+", to="users.Profile"),
         ),
         migrations.CreateModel(
-            name='FriendRequest',
+            name="FriendRequest",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('from_user', models.ForeignKey(
-                    on_delete=django.db.models.deletion.CASCADE, related_name='from_user', to='users.Profile')),
-                ('to_user', models.ForeignKey(
-                    on_delete=django.db.models.deletion.CASCADE, related_name='to_user', to='users.Profile')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "from_user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="from_user", to="users.Profile"
+                    ),
+                ),
+                (
+                    "to_user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, related_name="to_user", to="users.Profile"
+                    ),
+                ),
             ],
         ),
     ]
