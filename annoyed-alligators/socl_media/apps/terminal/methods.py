@@ -51,6 +51,8 @@ class TerminalCommand():
         detail = None
         if start_date is not None and end_date is not None:
             googlenews.setTimeRange(start_date, end_date)
+        if topic.split()[0] == '--help':
+            return {'response': help_text}
         if topic.count('~') > 0:
             followup = topic.split('~')[1]
             if followup.split()[0] == 'n':
@@ -65,7 +67,8 @@ class TerminalCommand():
         if detail is not None:
             news_details = news_results[detail + 1]
             print(news_details)
-            details = f'{news_details["title"]}<br>{news_details["desc"]}<br><a href="{news_details["link"]}" target="_blank">Read full article</a>'
+            details = f'{news_details["title"]}<br>{news_details["desc"]}<br>'\
+                '<a href="{news_details["link"]}" target="_blank">Read full article</a>'
             return {'response': details}
         articles = []
         start_num = (page_num - 1) * 3
@@ -75,4 +78,4 @@ class TerminalCommand():
             article_summary = (serial_number, f"{article['date']}, {article['media']}", article['title'])
             articles.append(article_summary)
         all_articles = "<br>".join([", ".join(i) for i in articles])
-        return {'response': all_articles, 'followup':True}
+        return {'response': all_articles, 'followup': True}
