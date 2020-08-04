@@ -26,6 +26,9 @@ class Topic(TimeStampedModel):
     def __str__(self):
         return self.topic_name
 
+    def get_topic(topicname):
+        return Topic.objects.get(pk=topicname)
+
 
 class Post(TimeStampedModel):
     title = models.CharField(max_length=255,
@@ -67,8 +70,15 @@ class Post(TimeStampedModel):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+        super(Post, self).save()
+        if not self.slug:
+            slug = slugify(self.title)
+            try:
+                slug += "-" + str(self.id)
+            except Post.DoesNotExist:
+                pass
+            self.slug = slug
+            self.save()
 
 
 class Comment(TimeStampedModel):

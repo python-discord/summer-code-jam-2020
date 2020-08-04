@@ -2,10 +2,13 @@
 {% block content %}
 
 {% for post in posts %}
-<div class='w3-card-4'>
-<h1>{{post.title}}</h1>
-<h6>Topic: {{post.topic.topic_name}}</h6>
-<p>{{post.body}}</p>
+<div class='w3-card' style='width:100%; overflow-x: auto; overflow-y: hidden; margin-left:90px;'>
+<header class='w3-container'>
+<h5><a href="/topic/{{post.topic.topic_name}}/{{post.slug}}" style='color: blue;'>{{post.title}}</a></h5>
+</header>
+<div class='oneline'>
+<h6>submitted by <a style='color:blue;'>{{post.author}}</a> on {{post.created}}</h6>
+</div>
 </div>
 {% endfor %}
 {% endblock %}

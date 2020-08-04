@@ -1,25 +1,63 @@
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
+from django.urls import reverse
 from django.db import IntegrityError
-
 from main.models import Topic, Post
-from main.forms import CustomUserCreationForm, TopicCreationForm
+from main.forms import CustomUserCreationForm, TopicCreationForm, PostForm
+import random
 
 
 class HomeView(TemplateView):
     template_name = 'index.html'
+
+    def get(self, request):
+        posts = Post.objects.values_list('id', flat=True)
+        random_profiles_id_list = random.sample(list(posts), min(len(posts), 10))
+        query_set = Post.objects.filter(id__in=random_profiles_id_list)
+        context = {'posts': query_set}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        query = request.POST['query']
+        return redirect(reverse('search', args=[query]))
+
+
+class CreatePostView(TemplateView):
+    template_name = 'create_post.html'
+    form_class = PostForm
+
+    def get(self, request):
+        form = self.form_class()
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            topic_id = request.POST.get('topic')
+            title = request.POST.get('title')
+            body = request.POST.get('body')
+            author = request.user
+            p = Post(title=title, author=author, body=body, topic=Topic.get_topic(topic_id))
+            p.save()
+            return redirect('topic', topic_name=Topic.objects.get(pk=topic_id))
 
 
 class TopicView(TemplateView):
     template_name = 'topic.html'
 
     def get(self, request, topic_name):
-        topic = Topic.objects.get(topic_name=topic_name.lower())
+        topic = get_object_or_404(Topic, topic_name=topic_name.lower())
         posts = topic.post_set.all()
-        
-        context = {'posts': posts}
+
+        context = {'posts': posts, 'topic': topic}
         return render(request, self.template_name, context)
+
+    def post(self, request):
+        if 'query' in request.POST:
+            query = request.POST['query']
+            return redirect(reverse('search', args=[query]))
 
 
 class CreateTopicView(TemplateView):
@@ -36,22 +74,34 @@ class CreateTopicView(TemplateView):
         topic_name = form.data.get('topic_name')
         if form.is_valid():
             try:
-                Topic.objects.create(topic_name=topic_name)
+                t = Topic(topic_name=topic_name.lower())
+                t.save()
             except IntegrityError:
-                pass
-                
+                context = {'form': form, 'error': 'Topic already exists'}
+                return render(request, self.template_name, context)
+
             return redirect('topic', topic_name=topic_name)
 
 
 class InfoView(TemplateView):
     template_name = 'info.html'
 
-    def get(self, request, topic_name, slug):
-        topic = Topic.objects.get(topic_name=topic_name)  # keep these here for the meantime
-        post = Post.objects.get(slug=slug)
-        context = {'post': post}
-        
+    def get(self, request, *args, **kwargs):
+        topic = Topic.objects.get(topic_name=kwargs['topic_name'].lower())
+        post = Post.objects.get(slug=kwargs['slug'])
+        context = {'post': post, 'topic': topic}
+
         return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if 'query' in request.POST:
+            query = request.POST['query']
+            return redirect(reverse('search', args=[query]))
+
+        elif 'delete' in request.POST:
+            post_id = get_object_or_404(Post, id=request.POST.get('post_id'))
+            post_id.delete()
+            return redirect('topic', topic_name=kwargs['topic_name'])
 
 
 class LoginView(TemplateView):
@@ -100,3 +150,17 @@ class LogoutView(View):
     def get(self, request):
         auth.logout(request)
         return redirect('home')
+
+
+class SearchView(TemplateView):
+
+    template_name = 'search.html'
+
+    def get(self, request, q):
+        posts = Post.objects.filter(title__contains=q)
+        context = {'posts': posts}
+        return render(request, self.template_name, context)
+
+    def post(self, request, q):
+        query = request.POST['query']
+        return redirect(reverse('search', args=[query]))

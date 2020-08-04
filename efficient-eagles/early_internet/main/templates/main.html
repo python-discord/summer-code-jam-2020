@@ -8,27 +8,50 @@
   <meta name="description" content="Amazing social media website">
   <meta name="author" content="Efficient Eagles">
   <link rel='stylesheet' href="{% static 'css/style.css' %}">
+  <style>a {text-decoration: none;}
+  .oneline{
+    display: flex;
+    justify-content: space-between;  
+    
+    }
+    
+  </style>
 </head>
-<body>
-<div class="w3-bar w3-black">
-  <a class='w3-btn' href="{% url 'home' %}">Feed</a>
-  <a class='w3-btn' href="{% url 'create_topic' %}">Create new Topic</a>
+<body style='background-color: #F3F3F3'>
+<div class="w3-bar" style='margin-bottom: 50px;'>
+  <a class='' href="{% url 'home' %}">Feed</a> ·
+  <a class='' href="{% url 'create_topic' %}">New Topic</a>
   {% if user.is_authenticated %}
-    <a class='w3-btn' style="float: right;" href="{% url 'logout' %}">Log out</a>
+    <a class='w3-btn' style="float: right;" href="{% url 'logout' %}?next={{request.path}}">Log out</a>
     <a class='w3-btn' style="float: right;" href="#">{{ user }}</a>
   {% else %}
     <a class='w3-btn' style="float: right;" href="{% url 'login' %}">Login</a><a class='w3-btn' style='float right;' href="{% url 'register' %}">Sign up</a>
   {% endif %}
 </div>
-
-  <div class="container"> 
+<table style='width: 100%;'>
+<tr><td>  
+<div class="container"> 
 
     {% block content %}
 
     {% endblock %}
 
-  </div>
-    
+  </div></td>
+  {% if request.path != '/login/' and request.path != '/create/post' and request.path != '/create/topic' and request.path != '/register/' %}
+  <td>
+<div class='w3-container w3-white w3-margin' style='float: right;'>
+<form  method='POST'>
+{% csrf_token %}
+<input placeholder='Search' name='query' id='query'></input>
+<button type='submit'>Search</button><br>
+</form>
+<button><a href='{% url "create_post" %}?next={{request.path}}'>Create Post</a></button>
+{% if topic %}
+<h1><a href="/topic/{{topic.topic_name}}">{{topic.topic_name}}</a></h1>
+{% endif %}
 
+</div>
+</td>{% endif %}</tr>
+</table>
 </body>
 </html>
