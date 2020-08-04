@@ -41,8 +41,8 @@
                             {{ post.title }}
                         </div>
                         <div class="post-description">
-							{% if post.description|wordcount > 50 %}
-								{{ post.description|truncatewords:20 }}...
+							{% if post.description|wordcount > 30 %}
+								{{ post.description|truncatewords:30 }}...
 							{% else %}
 								{{ post.description }}
 							{% endif %}
