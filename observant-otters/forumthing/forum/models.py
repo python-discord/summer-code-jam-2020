@@ -17,7 +17,7 @@ class Thread(models.Model):
         return f'Thread with title {self.title} created on {self.date_created}'
 
     def get_absolute_url(self):
-        return reverse('threads-single', kwargs={'pk': self.pk})
+        return reverse('threads-single', kwargs={'id': self.pk})
 
 
 class Message(models.Model):
