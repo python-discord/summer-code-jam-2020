@@ -55,7 +55,7 @@ html {
   width: 250;
 }
 .columncenter {
-
+  float: top
 }
 /* Clear floats after the columns */
 .row:after {
