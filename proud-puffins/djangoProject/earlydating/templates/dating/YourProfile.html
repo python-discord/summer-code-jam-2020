@@ -6,8 +6,9 @@
 <h1>First Name: {{user.first_name}}</h1>
 <h1>Last Name: {{user.last_name}}</h1>
 <h1>Age: {{user.profile.age}}</h1>
+<img src="../{{ user.profile.img.url }}">
 <p><a href="{% url 'earlydating-home' %}">Home</a></p>
-<p ><a  class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
+<p><a class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
 
 
 {% endblock %}

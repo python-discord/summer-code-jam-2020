@@ -1,5 +1,6 @@
 from PIL import Image
 from django.core.files import File
+from django.core.exceptions import ValidationError
 from io import BytesIO
 import os
 
@@ -25,3 +26,12 @@ def imageTrans(image):
 
     except Exception:
         return image
+
+
+def validate_file_size(value):
+    filesize = value.size
+
+    if filesize > 10485760:
+        raise ValidationError("The maximum file size that can be uploaded is 10MB")
+    else:
+        return value
