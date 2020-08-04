@@ -3,6 +3,7 @@ import re
 from typing import List
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+import textwrap
 
 
 @login_required()
@@ -57,8 +58,15 @@ def search_query(search: str, format_text: bool =True):
 @login_required()
 def engine_results(request):
     """ Renders a page for the request  """
-    search_text = 'cern' # search query
+    search_text = 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch' # search query
 
+    # prevent long searches from overflowing
+    wrapper = textwrap.TextWrapper(width=43)
+    shortened = wrapper.wrap(text=search_text)[0]
+    if shortened != search_text:
+        shortened += '...'
+
+    
     res = search_query(search_text)
     top_results = []
     other_results = []
@@ -74,6 +82,7 @@ def engine_results(request):
         
     context = {
         'search': search_text,
+        'shortened': shortened,
         'top_results': top_results,
         'other_results':  other_results,
         'description': desc,

@@ -34,12 +34,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     "dashboard.apps.DashboardConfig",
     "blogs.apps.BlogsConfig",
     "users.apps.UsersConfig",
-    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
