@@ -1,0 +1,7 @@
+type Site {
+    id: ID!
+    city: City!
+    user: User!
+    address: Int!
+    description: String!
+}

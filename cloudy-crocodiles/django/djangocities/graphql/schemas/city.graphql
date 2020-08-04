@@ -1,5 +1,5 @@
 type City {
-    id: Int!
+    id: ID!
     name: String!
     description: String
     slug: String!
