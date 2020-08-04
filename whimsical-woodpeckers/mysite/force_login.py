@@ -6,7 +6,7 @@ def force_authenticate(get_response):
     # One-time configuration and initialization.
 
     def middleware(request):
-        if not request.user.is_auth enticated:
+        if not request.user.is_authenticated:
             user = authenticate(request)
             if user:
                 login(request, user)
