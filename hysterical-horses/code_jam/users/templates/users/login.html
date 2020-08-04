@@ -1,10 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+{% endblock extra_css %}
+
 
 {% block content %}
-    <h1>Login</h1>
-    <form class="site-form login-form" action="" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Login">
-    </form>
-{% endblock %}
+{% load custom_filters %}
+
+
+
+{% endblock content %}
