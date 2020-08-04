@@ -1,6 +1,7 @@
 {% extends 'first_twitter/base.html' %}
 
 {% block content %}
+<div class="all-posts d-none">
 {% for post in posts %}
     <div class="posts p-2">
         <div class="examplePost d-flex justify-content start" >
@@ -13,4 +14,6 @@
         </div>
     </div>
 {% endfor %}
+    
+</div>
 {% endblock content %}
