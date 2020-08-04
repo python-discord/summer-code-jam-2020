@@ -1,5 +1,16 @@
 {% extends 'layout.html' %}
 
 {% block content%}
-    {{text}}
+<div class="window">
+  <div class="title-bar">
+    <div class="title-bar-text">Command Prompt</div>
+    <div class="title-bar-controls">
+      <a href="{% url 'dashboard'%}"><button aria-label="Close"></button></a>
+    </div>
+  </div>
+  <div class="window-body" background-color="black">
+    <pre >{{text}}</pre>
+  </div>
+</div>
+
 {% endblock %}

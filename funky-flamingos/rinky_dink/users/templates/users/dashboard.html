@@ -1,14 +1,42 @@
 {% extends 'layout.html' %}
-
 {% block content%}
-    <h1> Welcome {{ request.user }}</h1>
-<a href="{% url 'logout' %}">Logout</a><br>
-<a href="{% url 'upload' %}">upload a file</a><br>
-<h1>Files Uploaded</h1>
-{% for record in file %}
-  <a href="{% url 'fhandler' name=record.title %}">{{record.title}}</a>
-  <h3>{{record.uploaded_at}}</h3>
-    {% endfor %}
+
+<div class="window-center">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+      <div class="title-bar-text">Dashboard</div>
+      <div class="title-bar-controls">
+      <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <h4> Welcome {{ request.user }}</h4>
+      Files that you have uploaded till now are
+      <ul class="tree-view" style="font-size:12px">
+        {% for record in file %}
+          {% if "_" not in record.title %}
+            </details>
+          {%endif%}
+
+          {% if "_" not in record.title %}
+            <details closed>
+              <summary>{{record.title}}</summary>
+                <li><a href="{% url 'fhandler' name=record.title %}"><strong>{{record.title}}</strong></a>
+                  <span style="margin-left: 13px">Date Updated: {{record.uploaded_at}}</span></li>
+          {% else %}
+            <li><a href="{% url 'fhandler' name=record.title %}">{{record.title}}</a>
+              {{record.uploaded_at}}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+      <a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a>
+      <a href="{% url 'upload' %}"><button style=" margin-left: 140px">Upload a file</button></a>
+  </div>
+</div>
+
+
+
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
