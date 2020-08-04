@@ -70,13 +70,22 @@ def enter_media(requestObj):
 
     return media_entry
 
+def remove_excess_fields(requestPOST, fieldClass):
+    post_copy = dict(requestPOST)
+    for key in requestPOST:
+        if not key in fieldClass.__dict__:
+            del post_copy[key]
+    
+    return post_copy
 
 def upload_post(request):
     if request.method == "POST":
-        form = MediaUploadForm(request.POST)
+        form = MediaUploadForm(request.POST, request.FILES)
         if form.is_valid():
             media_entry = enter_media(request)
-            entry = ForumPost.objects.create(media_file=media_entry, **request.POST)
+            post_params = remove_excess_fields(request.POST, ForumPost)
+
+            entry = ForumPost.objects.create(media_file=media_entry, **post_params)
             entry.save()
 
             if ForumPost.objects.get(pk=entry.id):
