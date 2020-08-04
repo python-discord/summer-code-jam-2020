@@ -12,6 +12,6 @@ class ImplementationError(BaseException):
 
     def __str__(self):
         if self.error_msg:
-            return f"ImplementationError: {self.error_msg}"
+            return self.error_msg
         else:
             return "ImplementationError raised"

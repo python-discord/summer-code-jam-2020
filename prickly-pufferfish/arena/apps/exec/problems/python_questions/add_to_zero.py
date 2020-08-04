@@ -13,3 +13,12 @@ def add_to_zero(nums):
     >>> add_to_zero([1, 2, 3, -2])
     True
     """
+
+    for j, n in enumerate(nums):
+        for i, n2 in enumerate(nums):
+            if n + n2 == 0 and i != j:
+                return True
+    
+    return False
+
+
