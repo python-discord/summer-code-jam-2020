@@ -23,6 +23,7 @@ class NewMessage(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        print(self.request.path)
         # TODO: somehow get the thread from the current url
         return super().form_valid(form)
 
@@ -32,11 +33,12 @@ def threads(request, id=None):
         if id is None:
             return render(request, 'forum/home.html')
 
-        try:
-            thread = Thread.objects.get(pk=int(id) + 1)
-            next_exists = True
-        except Thread.DoesNotExist:
-            next_exists = False
+        all_threads = list(map(lambda model: model.id, Thread.objects.all()))
+
+        next_exists = all_threads[-1] != int(id)
+        next_page = all_threads[all_threads.index(int(id)) + 1] if next_exists else None
+        prev_exists = all_threads[0] != int(id)
+        prev_page = all_threads[all_threads.index(int(id)) - 1] if prev_exists else None
 
         thread = get_object_or_404(Thread, id=int(id))  # don't want them to get a thread that doesn't exist now
         p = request.GET.get("p", default=1)
@@ -49,13 +51,13 @@ def threads(request, id=None):
                 # @TODO: Remove debug values
                 "next_exists": next_exists,
                 "next_page": int(p)+1,
-                "next_id": int(id)+1
+                "next_id": next_page,  # really next THREAD
         }
 
         if int(p) > 1:
             data.update({"prev_page": int(p) - 1})
-        if int(id) > 1:
-            data.update({"prev_id": int(id) - 1})
+        if prev_exists:
+            data.update({"prev_id": prev_page})
 
         return render(request, 'forum/thread.html', data)
 
