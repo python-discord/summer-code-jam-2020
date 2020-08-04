@@ -1,5 +1,5 @@
-from django.views.generic import DetailView
 from django.utils import timezone
+from django.views.generic import DetailView
 from wired_app.models import Article
 
 

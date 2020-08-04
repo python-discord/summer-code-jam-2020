@@ -1,5 +1,3 @@
-from django.http import HttpResponse
+from . import detail, homepage
 
-
-def compose(request):
-    return HttpResponse("XXX TODO")
+__all__ = ["detail", "homepage"]
