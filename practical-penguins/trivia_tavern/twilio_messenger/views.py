@@ -32,6 +32,12 @@ def register(phone_number):
         number=phone_number,
     )
 
+def start_quiz(quiz, player):
+    question1 = TriviaQuestion.objects.filter(quiz=fetch_quiz)[0]
+    msg = question1.question_text
+    sms_send(msg, player.phone_number)
+
+
 @csrf_exempt
 def sms_reply(request):
     """sms_reply is a handler method that triggers when the url 'sms' is
@@ -53,7 +59,8 @@ def sms_reply(request):
         fetch_quiz = TriviaQuiz.objects.filter(pk=qid)[0]
         welcome = f'Thanks for playing, "{fetch_quiz.name}" will begin soon!'
         sms_send(welcome, recipient)
-        register(recipient)
+        new_player = register(recipient)
+        start_quiz(fetch_quiz, new_player)
         # This logic should be moved to the quizmaster side actually
         #new_quiz = ActiveTriviaQuiz.objects.filter(trivia_quiz=fetch_quiz)
         #if new_quiz.exists():
@@ -70,8 +77,10 @@ def sms_reply(request):
                                                 #testing only, real value
                                                 #should be from the newly
                                                 # made active quiz
-        question1 = TriviaQuestion.objects.filter(quiz=fetch_quiz)[0]
-        msg = question1.question_text
+
+    elif Player.objects.filter(phone_number=recipient).exists():
+        # if quiz started, interpret as answer
+        # else tell the player the quiz hasn't started yet
 
     else:
         msg = ( 'This number has not started any quizzes. '
