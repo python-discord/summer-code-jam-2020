@@ -31,7 +31,7 @@ body {
 
 img {
   width: 100%;
-  height: 100px;
+  height: 6em;
   overflow: hidden;
   object-fit: none;
   filter: saturate(30%);
