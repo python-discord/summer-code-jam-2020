@@ -18,6 +18,7 @@ const cityQuery = gql`
 query cityQuery($slug: String!) {
   city(slug: $slug) {
     id,
+    slug,
     name,
     description
   }

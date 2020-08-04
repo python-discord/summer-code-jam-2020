@@ -16,15 +16,15 @@ Including another URLconf
 from ariadne.contrib.django.views import GraphQLView
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 from django.views.decorators.csrf import csrf_exempt
 
 from djangocities.graphql.schema import schema
-import djangocities.home.views as views
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('', include('djangocities.home.urls')),
     path("admin/", admin.site.urls),
-    # path("graphql/admin/", admin.site.urls),
     path("graphql/", csrf_exempt(GraphQLView.as_view(schema=schema)), name="graphql"),
+    # This needs to be last
+    path('', include('djangocities.sites.urls')),
 ]
