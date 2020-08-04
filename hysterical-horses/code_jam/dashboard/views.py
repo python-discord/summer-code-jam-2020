@@ -14,7 +14,7 @@ def search_query(search: str, format_text: bool =True):
     payload = {"q": search, "format": "json", "pretty": "1"}
     results = requests.get(base_url, params = payload).json()
     
-    if format_text: # formats response
+    if format_text:  # formats response
         # NOTE:
         # returns as a list of entries
         # each entry is a dict with keys:
@@ -50,6 +50,7 @@ def search_query(search: str, format_text: bool =True):
 
     else:
         return results # else return results as is
+
 
 def engine_results(request):
     """ Renders a page for the request  """
