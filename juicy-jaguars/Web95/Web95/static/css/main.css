@@ -58,6 +58,10 @@ body {
     height: 49px;
 }
 
+.start-item:hover {
+    border: 2px outset grey;
+}
+
 .start-item p {
     margin: 0;
     display: inline-block;
