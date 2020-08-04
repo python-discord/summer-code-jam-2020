@@ -7,6 +7,7 @@ from trivia_builder.models import TriviaQuiz
 class Player(models.Model):
     name = models.CharField(max_length=24)
     number = models.CharField(max_length=12)
+    active_quiz = None
 
 class ActiveTriviaQuiz(models.Model):
     trivia_quiz = models.ForeignKey(TriviaQuiz, on_delete=models.CASCADE)

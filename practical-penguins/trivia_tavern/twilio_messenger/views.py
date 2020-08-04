@@ -26,6 +26,11 @@ def sms_send(msg, recipient):
         to=recipient
     )
 
+def register(phone_number):
+    return Player.objects.create(
+        name='name',
+        number=phone_number,
+    )
 
 @csrf_exempt
 def sms_reply(request):
@@ -46,9 +51,11 @@ def sms_reply(request):
     if body.split('/')[0].upper() == 'START':
         qid = int(body.split('/')[1])
         fetch_quiz = TriviaQuiz.objects.filter(pk=qid)[0]
-        welcome = f'Thanks for playing, "{fetch_quiz.name}" will begin now!'
+        welcome = f'Thanks for playing, "{fetch_quiz.name}" will begin soon!'
         sms_send(welcome, recipient)
-        new_quiz = ActiveTriviaQuiz.objects.filter(trivia_quiz=fetch_quiz)
+        register(recipient)
+        # This logic should be moved to the quizmaster side actually
+        #new_quiz = ActiveTriviaQuiz.objects.filter(trivia_quiz=fetch_quiz)
         #if new_quiz.exists():
         #    new_quiz.players.append(recipient)
         #else:
@@ -74,4 +81,4 @@ def sms_reply(request):
     sms_send(msg, recipient)
 
     # no page to display, redirect to another
-    return HttpResponse(200)
+    return redirect('home')
