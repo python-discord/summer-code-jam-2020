@@ -16,7 +16,7 @@ def landing_page(request):
             theme = request.GET["theme"]
         else:
             theme = "Win95"
-    except:
+    except KeyError:
         theme = "Win95"
 
     wallpaper_path = os.path.join(BASE_DIR,
