@@ -4,10 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Thread, Message
 
 
-def home(request):
-    return render(request, 'forum/home.html', {})
-
-
 class NewThread(CreateView):
     model = Thread
     fields = ['title']
@@ -17,37 +13,47 @@ class NewThread(CreateView):
         return super().form_valid(form)
 
 
-def threads(request, id=None):
+def home(request):
+    return render(request, 'forum/home.html', {})
+
+
+def threads(request, t_id=None):
     if request.method == "GET":
-        if id is None:
-            return render(request, 'forum/home.html')
+        return _threads_no_auth(request, t_id=t_id)
+    else:
+        return _threads_auth(request, t_id=t_id)
 
-        try:
-            thread = Thread.objects.get(pk=int(id))
-            next_exists = True
-        except Thread.DoesNotExist:
-            next_exists = False
 
-        thread = get_object_or_404(Thread, id=int(id))  # don't want them to get a thread that doesn't exist now
-        p = request.GET.get("p", default=1)
-        data = {
-                "thread": thread,
-                "messages": thread.message_set.all(),
-                "id": id,
-                "page": p,
+def _threads_no_auth(request, t_id=None):
+    if t_id is None:
+        return render(request, 'forum/home.html')
 
-                # @TODO: Remove debug values
-                "next_exists": next_exists,
-                "next_page": int(p)+1,
-                "next_id": int(id)+1
-        }
+    try:
+        thread = Thread.objects.get(pk=int(t_id))
+        next_exists = True
+    except Thread.DoesNotExist:
+        next_exists = False
 
-        if int(p) > 1:
-            data.update({"prev_page": int(p) - 1})
-        if int(id) > 1:
-            data.update({"prev_id": int(id) - 1})
+    thread = get_object_or_404(Thread, id=int(t_id))  # don't want them to get a thread that doesn't exist now
+    p = request.GET.get("p", default=1)
+    data = {
+            "thread": thread,
+            "messages": thread.message_set.all(),
+            "id": t_id,
+            "page": p,
 
-        return render(request, 'forum/thread.html', data)
+            # @TODO: Remove debug values
+            "next_exists": next_exists,
+            "next_page": int(p)+1,
+            "next_id": int(t_id)+1
+    }
+
+    if int(p) > 1:
+        data.update({"prev_page": int(p) - 1})
+    if int(t_id) > 1:
+        data.update({"prev_id": int(t_id) - 1})
+
+    return render(request, 'forum/thread.html', data)
 
     elif request.method == "POST":
         if id is None:
