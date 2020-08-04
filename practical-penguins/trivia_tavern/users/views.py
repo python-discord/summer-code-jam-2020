@@ -28,30 +28,5 @@ def profile(request):
     return render(request, 'users/profile.html')
 
 @login_required
-def send(request):
-    """Core logic of the send view. If the user posts a valid phone number,
-    send quiz and answers, otherwise reload the form
-    """
-    if request.method == 'POST':
-        send_form = PhoneNumberForm(request.POST, instance=request.user)
-        if send_form.is_valid():
-            send_form.save()
-            # in the future, we will have multiple form inputs, and this will
-            # be a list
-            phonenumbers = send_form.cleaned_data.get('phone_number').__str__()
-            # @[phonenumbers] temporary hack so numbers are processed as a list
-            sms_send(sample_question['question'], [phonenumbers])
-            sms_send(sample_question['answers'], [phonenumbers])
-            messages.success(request, 'Your quiz has been sent!')
-            return render(request, 'users/results.html',
-                {'phonenumbers' : phonenumbers})
-        else:
-            return render(request, 'users/send.html', {'send_form': send_form})
-    else:
-        send_form = PhoneNumberForm()
-        return render(request, 'users/send.html', {'send_form': send_form} )
-
-
-@login_required
 def results(request):
     return render(request, 'users/results.html')

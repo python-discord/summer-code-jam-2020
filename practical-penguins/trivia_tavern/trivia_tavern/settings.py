@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'trivia_hub.apps.TriviaHubConfig',
     'users.apps.UsersConfig',
     'twilio_messenger.apps.TwilioMessengerConfig',
-    'phonenumber_field',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
