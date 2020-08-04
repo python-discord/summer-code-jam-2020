@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 django = "*"
 django-simple-bulma = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"
