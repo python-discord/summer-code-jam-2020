@@ -26,5 +26,4 @@ def add_board(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         Board(name=data["name"], post_num=data["post_num"]).save()
-
     return HttpResponse("OK")
