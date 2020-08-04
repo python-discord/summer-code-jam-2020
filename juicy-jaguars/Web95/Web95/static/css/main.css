@@ -129,11 +129,14 @@ body {
 
 .app-bar li {
     display: inline-block;
+}
+
+.app-bar-text-btn {
     padding-right: 3px;
     padding-left: 3px;
 }
 
-.app-bar li:hover {
+.app-bar-text-btn:hover {
     background-color: #000181;
     color: white;
 }
@@ -147,8 +150,10 @@ body {
 .ie-btn-sq {
     height: 22px;
     width: 22px;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 0 0 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     border-width: 0;
 }
 
