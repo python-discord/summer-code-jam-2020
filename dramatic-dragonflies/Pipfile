@@ -8,6 +8,7 @@ flake8 = "~=3.7"
 flake8-annotations = "~=2.0"
 wheel = "*"
 setuptools = "*"
+autoflake = "*"
 
 [packages]
 django = "==3.0.8"
