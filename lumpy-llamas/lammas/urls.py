@@ -22,7 +22,7 @@ from core.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/forum', include('forum.urls'))
+    path('api/forum/', include('forum.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
     re_path(r'^.*/$', index, name='unmatched'),

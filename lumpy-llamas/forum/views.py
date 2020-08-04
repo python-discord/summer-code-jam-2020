@@ -31,7 +31,7 @@ def thread_details(request, thread_id):
     :param thread_id: ID of thread to filter on
     :return: JsonResponse
     """
-    qs = ThreadMessage.objects.filter(thread=thread_id).values()
+    qs = ThreadMessage.objects.select_related('thread').filter(thread_id=thread_id).values()
     data = list(qs)
-    return JsonResponse(data, status=201)
+    return JsonResponse(data, status=201, safe=False)
 

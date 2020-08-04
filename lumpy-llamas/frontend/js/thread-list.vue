@@ -6,8 +6,8 @@
     <h2 class="some-heading">Threads</h2>
     <ul>
       <li v-for="item in myStuff">
-        <router-link :to="{ name: 'thread-view', params: {id:item.id}}">{{ item.title }} {{item.id}} - Posted:
-          {{ item.created_date | moment("DD MM YY, hh:mm")  }}
+        <router-link :to="{ name: 'thread-view', params: {id:item.id}}">{{ item.title }} - Posted:
+          {{ item.created_date | moment("DD MM YY, hh:mm")  }} by {{item.created_by_id}}
         </router-link>
       </li>
     </ul>

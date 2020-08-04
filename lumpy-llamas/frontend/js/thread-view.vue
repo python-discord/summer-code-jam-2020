@@ -1,16 +1,13 @@
 <template>
   <div v-if="ready">
 
-    <h2 class="some-heading">Hello and welcome to Angry LLamas Forum</h2>
+    <h2 class="some-heading">Thread Title</h2>
 
     <h2 class="some-heading">Messages</h2>
-    <ul>
-      <li v-for="item in myStuff">
-        {{item}} --
-        {{item.message}} test
-      </li>
-    </ul>
-    # Links can be done like this
+    <div v-for="item in myStuff">
+        <h3 class="message-heading">Message by {{item.user_id}} on {{item.date | moment("DD/MM/YY/hh:mm")}}</h3>
+        <p>{{item.message}}</p>
+    </div>
   </div>
 </template>
 
@@ -18,6 +15,14 @@
 .some-heading {
   font-size: xx-large;
   color: pink;
+}
+
+.message-heading {
+  color: aquamarine;
+}
+
+p {
+  margin-bottom: 2em;
 }
 </style>
 
