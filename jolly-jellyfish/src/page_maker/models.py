@@ -49,9 +49,9 @@ class Webpage(models.Model):
     votes = models.IntegerField(default=0)
 
     user_title = models.CharField(max_length=100, verbose_name='page title')
-    user_text_1 = models.TextField(verbose_name='subtitle paragraph')
+    user_text_1 = models.TextField(verbose_name='subtitle paragraph', blank=True)
     user_text_2 = models.TextField(verbose_name='main body paragraph')
-    user_text_3 = models.TextField(verbose_name='closing paragraph')
+    user_text_3 = models.TextField(verbose_name='closing paragraph', blank=True)
 
     # todo: support for background images with custom templates
     user_image_1 = models.ImageField(

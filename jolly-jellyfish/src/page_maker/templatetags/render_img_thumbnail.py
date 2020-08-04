@@ -16,7 +16,7 @@ except KeyError:
 
 
 @register.simple_tag(name='request_img_gen')
-def render_img_thumbnail(url, webpage_obj, example=False):
+def render_img_thumbnail(request, destination_pg, webpage_obj, example=False):
     """
     todo: documentation
     :return: Path to generated thumbnail image
@@ -31,6 +31,7 @@ def render_img_thumbnail(url, webpage_obj, example=False):
         context = {}
         temp_example.delete()'''
 
+    url = request.build_absolute_uri(destination_pg)
     image_path = Path('thumbnails') / f'{str(webpage_obj)}.png'
     imgkit.from_url(url, output_path=str(base_dir / media_dir / image_path), config=CONFIG)
     # todo: verbosity issues?
@@ -40,9 +41,3 @@ def render_img_thumbnail(url, webpage_obj, example=False):
     #  Rendering (2/2)'
     webpage_obj.thumbnail = f'{image_path}'
     webpage_obj.save()
-    # Seem to return None on first call
-
-
-@register.simple_tag()
-def get_dest_url(request, location):
-    return request.build_absolute_uri(location)

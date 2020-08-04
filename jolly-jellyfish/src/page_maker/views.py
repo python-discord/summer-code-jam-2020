@@ -5,12 +5,11 @@ from django.views.generic import (
     DetailView,
     UpdateView,
     DeleteView,
-    CreateView,
     ListView
 )
 
-from .models import User, Webpage, Template
 from .forms import UserRegisterForm, WebpageForm, TemplateForm
+from .models import User, Webpage, Template
 
 
 class MainView(TemplateView):
@@ -110,7 +109,7 @@ class WebpageListView(ListView):
 
 class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Webpage
-    tempalate_name = 'page_maker/webpage_update.html'
+    template_name = 'page_maker/webpage_update.html'
 
     def test_func(self):
         webpage = self.get_object()
