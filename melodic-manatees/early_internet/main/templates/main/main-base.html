@@ -2,33 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- Bulma CSS -->
+    {% load django_simple_bulma %}
+    {% bulma %}
+
     <title>Main Base Template</title>
+    <style>
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 624px) 1fr
+}
+
+.grid * { grid-column: 2/3; }
+
+    </style>
 </head>
 <body>
     <header>
         <!-- Navbar in here-->
-        <div></div>
-        <!--Right side nav bar-->
-        <div>
-            {% if user.is_authenticated %}
-              <a href="{% url 'profile' %}">Profile</a>
-              <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-              <a href="{% url 'login' %}">Login</a>
-              <a href="{% url 'register' %}">Register</a>
-            {% endif %}
-        </div>
-    </header>
-    <h1>this is the main base template</h1>
-    {% if messages %}
-        {% for message in messages %}
-            <div>
-                {{ message }}
+        <nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">DASHBOARD LOGO HERE</a>
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="right_nav">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
-        {% endfor %}
-    {% endif %}
+        <!--Right side nav bar-->
+            <div id="right_nav" class="navbar-menu">
+                <div class="navbar-end">
+                    {% if user.is_authenticated %}
+                    <a class="navbar-item" href="{% url 'profile' %}">Profile</a>
+                    <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a class="navbar-item" href="{% url 'login' %}">Login</a>
+                    <a class="navbar-item" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section class="section">
+        <h1 class="title">this is the main base template</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="notification is-{{ message.tags }} is-light">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    
     {% block content %}
 
     {% endblock content%}
+    </section>
 </body>
 </html>
