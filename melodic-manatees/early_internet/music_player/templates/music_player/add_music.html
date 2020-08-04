@@ -2,13 +2,9 @@
 
 {% block content%}
 <div>
-    <h2>Morning spirit</h2>
+    <h1>Morning spirit</h1>
     <section>
-        <h1>The project</h1>
-        <p>Play music (maybe integrate spotify)</p>
-    </section>
-    <section>
-        <h1>Create Post Page</h1>
+        <h1>Add music page</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}

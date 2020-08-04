@@ -1,17 +1,18 @@
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+# from users.models import UserProfile
 
 
-# Create your models here.
-class SongData(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    song_title = models.CharField(blank=False, max_length=100)
-
-    def __str__(self):
-        return f'{self.song_title} on profile: {self.user}'
-
-class SongFile(models.Model):
-    song_songfile = models.FileField(upload_to='songs')
-    song_data = models.ForeignKey(Song, on_delete=models.CASCADE)
+class MusicFile(models.Model):
+    music_musicfile = models.FileField(upload_to='songs')
+    music_title = models.CharField(max_length=100)
+    # music_owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.song_title
+        return self.music_title
+
+
+@receiver(post_delete, sender=MusicFile)
+def submission_delete(sender, instance, **kwargs):
+    instance.MusicFile.delete(False)

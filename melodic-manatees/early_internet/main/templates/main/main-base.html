@@ -19,7 +19,6 @@
             {% endif %}
         </div>
     </header>
-    <h1>this is the main base template</h1>
     {% if messages %}
         {% for message in messages %}
             <div>
@@ -28,7 +27,7 @@
         {% endfor %}
     {% endif %}
     {% block content %}
-
+        <h1>this is the main base template</h1>
     {% endblock content%}
 </body>
 </html>
