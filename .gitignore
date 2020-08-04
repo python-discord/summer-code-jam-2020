@@ -130,3 +130,7 @@ dmypy.json
 
 # PyCharm Project folder
 .idea/
+
+# Project
+*db.sqlite3
+*.vscode/
