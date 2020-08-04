@@ -1,8 +1,22 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+
+def test(request):
+    email = ''
+    if 'email' in request.POST:
+        email = request.POST.get('email')
+        if not User.objects.filter(email=email):
+            User.objects.create(email=email)
+        user = authenticate(username=email)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+    return HttpResponseRedirect(reverse('chat-home'))
 
 def register(request):
     if request.method == 'POST':
