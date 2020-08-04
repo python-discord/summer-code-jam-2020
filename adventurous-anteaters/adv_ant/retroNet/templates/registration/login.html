@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <link rel="stylesheet" href="https://unpkg.com/98.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-{% load crispy_forms_tags %}
  <form method="post" class="from-group">
 	{% csrf_token %}
 	{{form.as_p}}
