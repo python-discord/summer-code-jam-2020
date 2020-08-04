@@ -9,7 +9,14 @@
 {% endblock extra_css %}
 
 
+<div class="row ml-3">
+    <div class="col">
+        <a class="text-primary" href="{% url 'chat-room' room_name='lobby' %}">Messenger</a>
+    </div>
 
-<h1 class="text-primary">Messenger</h1>
+    <div class="col">
+        <a class="text-primary" href="{% url 'engine-results' %}">Default Search Engine</a>
+    </div>
+</div>
 
 {% endblock content %}

@@ -5,8 +5,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/search-engine/results.css' %}">
-<link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 {% endblock extra_css %}
 
 <h1 id="engine-results-header", align="center">Results for search: "{{ search }}" </h1>
@@ -60,6 +58,12 @@
         {% endfor  %}
     </div>
     {% endif %}
+
+    <div>
+        <a href="https://duckduckgo.com/" target="_blank">Results from DuckDuckGo</a>
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/88/DuckDuckGo_logo.svg/1200px-DuckDuckGo_logo.svg.png" style="height: 50px;">
+        <p style="font-size: 10px">Thank you so much DuckDuckGo for having the only free search engine, you are all MVPs in our book <3</p>
+    </div>
     
 </div>
 
