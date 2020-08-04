@@ -22,3 +22,8 @@ def resolve_site(*_, slug):
 @query.field("allPages")
 def resolve_all_pages(*_):
     return Page.objects.all()
+
+
+@query.field("page")
+def resolve_page(*_, id):
+    return Page.objects.get(id=id)
