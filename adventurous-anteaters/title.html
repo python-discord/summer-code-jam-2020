@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="98style.css">
+  <script src="script.js"></script>
+  <title>RetroNet</title>
+</head>
+
+<body>
+
+  <div class="window" style="width: 100%">
+    <div class="title-bar">
+      <div class="title-bar-text">Welcome to RetroNet!</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+
+    <!-- Main menu -->
+    <div class="window-body">
+      <div class="dropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_file')">File</button>
+        <div class="dropdown-content Frame" id="dd_file">
+          <a href="#">Open</a>
+          <a href="#">Close</a>
+          <a href="#">Settings</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_edit')">Edit</button>
+        <div class="dropdown-content Frame" id="dd_edit">
+          <a href="#">Cut</a>
+          <a href="#">Copy</a>
+          <a href="#">Paste</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_view')">View</button>
+        <div class="dropdown-content Frame" id="dd_view">
+          <a href="#">Toggle CSS</a>
+          <a href="#">Toggle Javascript</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_tools')">Tools</button>
+        <div class="dropdown-content Frame" id="dd_tools">
+          <a href="#">Not Decided</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')">Favourties</button>
+        <div class="dropdown-content Frame" id="dd_favorite">
+          <a href="#">Add New Favorite</a>
+          <a href="#">Add this Page to Favorites</a>
+          <a href="#">Show Favorites</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_help')">Help</button>
+        <div class="dropdown-content Frame" id="dd_help">
+          <a
+            href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md">README</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
