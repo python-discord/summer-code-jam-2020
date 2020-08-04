@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, PhoneNumberForm
+from .forms import UserRegisterForm
 from twilio_messenger.views import sms_send
 
 sample_question = {
