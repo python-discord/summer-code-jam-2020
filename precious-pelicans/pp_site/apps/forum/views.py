@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import ForumPost, ForumPostReplyForm
+from .models import MediaFile, ForumPost, ForumPostReplyForm
 from .forms import MediaUploadForm, PostSearchForm
 
 
@@ -42,7 +42,7 @@ def forum_post_reply(request, post_id):
 
 
 def index(request):
-    #TODO: confirm if dates in descending order mean newest first
+    # TODO: confirm if dates in descending order mean newest first
     post_list = ForumPost.objects.order_by('-created_at')
     context = {
         'post_list': post_list,
@@ -51,6 +51,7 @@ def index(request):
     }
 
     return render(request, 'forum/index.html', context)
+
 
 def enter_media(requestObj):
     """ Helper for upload_post(), process media uploads for post creation """
@@ -69,6 +70,7 @@ def enter_media(requestObj):
 
     return media_entry
 
+
 def upload_post(request):
     if request.method == "POST":
         form = MediaUploadForm(request.POST)
@@ -82,19 +84,20 @@ def upload_post(request):
             else:
                 return HttpResponseRedirect('/')
         else:
-            return render(request, 'forum/upload_error.html', { 'errors': form.errors })
-    
+            return render(request, 'forum/upload_error.html', {'errors': form.errors})
+
     else:
-        return render(request, 'forum/upload.html', { 'upload_form' : MediaUploadForm() })
+        return render(request, 'forum/upload.html', {'upload_form': MediaUploadForm()})
+
 
 def search_posts(request):
-    search_parameters = [ fieldname for fieldname in ForumPost.fields() ]
+    search_parameters = [fieldname for fieldname in ForumPost.fields()]
     result_set = set()
 
     for keyword in search_parameters:
-        kwarg = { f'{keyword}__icontains' : request.POST['search_string'] }
+        kwarg = {f'{keyword}__icontains': request.POST['search_string']}
         intermediate_result = ForumPost.objects.filter(**kwarg)
-        
+
         for post in intermediate_result:
             result_set.add(post)
 
@@ -108,22 +111,23 @@ def search_posts(request):
 
     return render(request, 'forum/search.html', context)
 
+
 def vote_post(request, post_id, vote_up):
-    #TODO: needs to be implemented into the template
+    # TODO: needs to be implemented into the template
     post = get_object_or_404(ForumPost, id=post_id)
     if vote_up:
         post.rating += 1
     else:
         post.rating -= 1
-    
-    pages = Paginator(reply_list, 6)
+
+    pages = Paginator(post.objects.forumpostreply_set, 6)
 
     page_number = request.GET.get('page', 1)
     page_obj = pages.get_page(page_number)
 
     context = {
         'original_post': post,
-        'reply_form' : ForumPostReplyForm,
+        'reply_form': ForumPostReplyForm,
         'page_obj': page_obj
     }
 
