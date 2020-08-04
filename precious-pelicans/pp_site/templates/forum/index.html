@@ -42,7 +42,7 @@
                         </div>
                         <div class="post-description">
 							{% if post.description|wordcount > 50 %}
-								{{ post.description|truncatewords:50 }}...
+								{{ post.description|truncatewords:20 }}...
 							{% else %}
 								{{ post.description }}
 							{% endif %}

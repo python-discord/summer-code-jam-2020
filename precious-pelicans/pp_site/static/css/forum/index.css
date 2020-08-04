@@ -44,6 +44,7 @@ main {
 .post {
     box-sizing: border-box;
     width: 500px;
+    height: 10em;
     display: flex;
     flex-direction: row;
     padding: 5px;
@@ -58,6 +59,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-shrink: 0;
 }
 
 .rating-container span {
@@ -68,6 +70,7 @@ main {
     border-style: solid;
     border-width: 1px;
     border-color: gainsboro;
+    flex-grow: 1;
 }
 
 .post-title {
@@ -80,11 +83,12 @@ main {
 .post-description {
     color: rgb(40, 40, 40);
     padding: 3px;
+    flex-grow: 1;
 }
 
 .author-date {
     padding: 2px 0px 2px 2px;
-    background-color: lightblue
+    background-color: lightblue;
 }
 
 top-post-container {
