@@ -17,6 +17,8 @@ class GroupSerializer(serializers.ModelSerializer): #Serializer for Groups
         model = models.Group
         fields = ('creator', 'messages', 'name')
 
-
+class MessageSerializer(serializers.Serializer):
+    sender = serializers.CharField()
+    content = serializers.CharField()
 
 
