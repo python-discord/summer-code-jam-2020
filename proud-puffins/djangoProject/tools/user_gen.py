@@ -1,4 +1,3 @@
-from pprint import pprint
 import json
 import sys
 
@@ -32,7 +31,7 @@ def genprofiles():
         del row['fields']['last_name']
         del row['fields']['gender']
         row['pk'] += 1
-        row['fields']['user'] = row['pk']      
+        row['fields']['user'] = row['pk']
 
     with open('profiles.json', 'w') as f:
         json.dump(raw, f, indent=4)

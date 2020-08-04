@@ -13,6 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm
 def home(request):
     return render(request, 'dating/home.html')
 
+
 @unauthenticated_user
 def login_page(request):
     if request.method == 'POST':
@@ -26,6 +27,7 @@ def login_page(request):
             messages.info(request, 'Username OR password is incorrect')
     context = {'form': AuthenticationForm()}
     return render(request, 'dating/login.html', context)
+
 
 @unauthenticated_user
 def register_page(request):
@@ -52,6 +54,7 @@ def register_page(request):
 #         else:
 #             form= CreateUserForm()
 #         return redirect('earlydating-DateMatcher')
+
 
 def logoutUser(request):
     logout(request)
