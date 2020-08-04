@@ -2,7 +2,6 @@ from django.db import models
 from uuid import uuid4
 from django.contrib.postgres.fields import ArrayField, JSONField
 
-
 class Account(models.Model):  # A model containing user information
     '''
 
