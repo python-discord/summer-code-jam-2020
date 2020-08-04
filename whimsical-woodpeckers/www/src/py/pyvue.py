@@ -1,5 +1,3 @@
-
-__pragma__ ('js', "console.log('test');")
 __pragma__ ('js', "{}", "import * as VuePkg from 'vue';")
 __pragma__ ('noalias', 'default')
 
