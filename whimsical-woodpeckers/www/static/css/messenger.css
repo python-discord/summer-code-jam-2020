@@ -9942,7 +9942,7 @@ h3 {
   background-origin: content-box;
   background-position: center;
   /*  Placeholder image*/
-  background-image: url("https://media.discordapp.net/attachments/737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590");
+  background-image: url("../img/messenger.png");
 }
 
 #login {
