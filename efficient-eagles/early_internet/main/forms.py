@@ -21,7 +21,7 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class TopicCreationForm(forms.Form):
-    topic_name = forms.CharField(label="Topic Name", max_length=20)
+    name = forms.CharField(label="Topic Name", max_length=20)
 
 
 class PostForm(forms.ModelForm):

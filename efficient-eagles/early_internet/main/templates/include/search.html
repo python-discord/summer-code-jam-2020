@@ -8,7 +8,7 @@
 
   <button><a href='{% url "create_post" %}?next={{request.path}}'>Create Post</a></button>
   {% if topic %}
-    <h1><a href="/topic/{{topic.topic_name}}">{{topic.topic_name}}</a></h1>
+    <h1><a href="/topic/{{topic.name}}">{{topic.name}}</a></h1>
   {% endif %}
 
   </div>

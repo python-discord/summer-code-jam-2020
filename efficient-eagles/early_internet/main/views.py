@@ -44,14 +44,14 @@ class CreatePostView(TemplateView):
 
             topic = Topic.objects.get(pk=topic_id)
             Post.objects.create(title=title, author=author, body=body, topic=topic)
-            return redirect("topic", topic_name=topic.title)
+            return redirect("topic", name=topic.name)
 
 
 class TopicView(TemplateView):
     template_name = "topic.html"
 
-    def get(self, request, topic_name):
-        topic = get_object_or_404(Topic, topic_name=topic_name.lower())
+    def get(self, request, name):
+        topic = get_object_or_404(Topic, name=name.lower())
         posts = topic.post_set.all()
 
         context = {"posts": posts, "topic": topic}
@@ -74,22 +74,22 @@ class CreateTopicView(TemplateView):
 
     def post(self, request):
         form = TopicCreationForm(request.POST)
-        topic_name = form.data.get("topic_name")
+        name = form.data.get("name")
         if form.is_valid():
             try:
-                Topic.objects.create(topic_name=topic_name.lower())
+                Topic.objects.create(name=name.lower())
             except IntegrityError:
                 context = {"form": form, "error": "Topic already exists"}
                 return render(request, self.template_name, context)
 
-            return redirect("topic", topic_name=topic_name)
+            return redirect("topic", name=name)
 
 
 class InfoView(TemplateView):
     template_name = "info.html"
 
     def get(self, request, *args, **kwargs):
-        topic = Topic.objects.get(topic_name=kwargs["topic_name"].lower())
+        topic = Topic.objects.get(name=kwargs["name"].lower())
         post = Post.objects.get(slug=kwargs["slug"])
         context = {"post": post, "topic": topic}
 
@@ -103,7 +103,7 @@ class InfoView(TemplateView):
         elif "delete" in request.POST:
             post_id = get_object_or_404(Post, id=request.POST.get("post_id"))
             post_id.delete()
-            return redirect("topic", topic_name=kwargs["topic_name"])
+            return redirect("topic", name=kwargs["name"])
 
 
 class LoginView(TemplateView):

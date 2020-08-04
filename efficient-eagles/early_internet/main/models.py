@@ -23,10 +23,10 @@ class CustomUser(AbstractUser):
 
 
 class Topic(TimeStampedModel):
-    topic_name = models.CharField(max_length=20, default="", blank=False, unique=True)
+    name = models.CharField(max_length=20, default="", blank=False, unique=True)
 
     def __str__(self):
-        return self.topic_name
+        return self.name
 
 
 class Post(TimeStampedModel):
@@ -39,7 +39,6 @@ class Post(TimeStampedModel):
 
     slug = models.SlugField(max_length=255, default="", blank=True, unique=True)
 
-    models.DateTimeField(auto_now_add=True)
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
     comments = models.PositiveIntegerField(default=0)
