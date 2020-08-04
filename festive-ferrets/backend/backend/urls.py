@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from nchan import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('nchan/get_boards', views.get_boards),
+    path('nchan/add_board',views.add_board),
+    path('nchan/', views.index),
+    path('', views.index)
 ]
