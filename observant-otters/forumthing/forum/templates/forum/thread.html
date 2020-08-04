@@ -5,38 +5,39 @@
     <title>Only one group, up to homomorphism</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
 </head>
 {% block content %}
-<body>
-Single-thread page
-    <blockquote>
-        thread_id: {{ id }}
+    <a href={% url "new-thread" %}>Create New Thread</a>
+    <body>
+    Single-thread page
+        <blockquote>
+            thread_id: {{ id }}
+            <br>
+            thread_page: {{ page }}
+        </blockquote>
+
+    <h1>{{ thread.title }}</h1>
+    {% for s in messages %}
+        {{ s.author }}:
+        {{ s.content }}
         <br>
-        thread_page: {{ page }}
-    </blockquote>
+    {% endfor %}
 
-<h1>{{ thread.title }}</h1>
-{% for s in messages %}
-    {{ s.author }}:
-    {{ s.content }}
+    <a href={% url "new-message" thread.id %}>Post A Message</a><br>
+
+    <br><br>
+    {% if prev_page %}
+        <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
+    {% endif %}
+    <a href="/forum/threads/{{ id }}?p={{ next_page }}">Next Page</a>
     <br>
-{% endfor %}
+    {% if prev_id %}
+        <a href="/forum/threads/{{ prev_id }}?p={{ page }}">Previous Thread</a>
+    {% endif %}
 
-<a href={% url "new-message" thread.id %}>Post A Message</a><br>
-
-<br><br>
-{% if prev_page %}
-    <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
-{% endif %}
-<a href="/forum/threads/{{ id }}?p={{ next_page }}">Next Page</a>
-<br>
-{% if prev_id %}
-    <a href="/forum/threads/{{ prev_id }}?p={{ page }}">Previous Thread</a>
-{% endif %}
-
-{% if next_id %}  <!-- check if a forum with the next id actually exists -->
-    <a href="/forum/threads/{{ next_id }}?p={{ page }}">Next Thread</a>
-{% endif %}
-<br>
-<a href="/">Home</a>
-</body>
+    {% if next_id %}  <!-- check if a forum with the next id actually exists -->
+        <a href="/forum/threads/{{ next_id }}?p={{ page }}">Next Thread</a>
+    {% endif %}
+    <br>
+    <a href="/">Home</a>
+    </body>
 {% endblock %}
 </html>
