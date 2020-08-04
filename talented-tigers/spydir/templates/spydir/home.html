@@ -33,10 +33,10 @@
           {% with ''|center:MAX_LENGTH as range %}
           {% for _ in range %}
             <tr>
-              {% if forloop.counter <= BIZ_LENGTH %} <td><a href="../page/{{ BLOG|index:forloop.counter0 }}"> {{ BLOG|index:forloop.counter0 }} </a></td> {% endif %}
-              {% if forloop.counter <= FOOD_LENGTH %} <td><a href="../page/{{ FOOD|index:forloop.counter0 }}"> {{ FOOD|index:forloop.counter0 }} </a></td> {% endif %}
-              {% if forloop.counter <= INFO_LENGTH %} <td><a href="../page/{{ INFO|index:forloop.counter0 }}"> {{ INFO|index:forloop.counter0 }} </a></td> {% endif %}
-              {% if forloop.counter <= BIZ_LENGTH %} <td><a href="../page/{{ BIZ|index:forloop.counter0 }}"> {{ BIZ|index:forloop.counter0 }} </a></td>  {% endif %}
+              {% if forloop.counter <= BIZ_LENGTH %} <td><a href="../page/{{ BLOG|index:forloop.counter0 }}">{{ BLOG|index:forloop.counter0 }}</a></td> {% endif %}
+              {% if forloop.counter <= FOOD_LENGTH %} <td><a href="../page/{{ FOOD|index:forloop.counter0 }}">{{ FOOD|index:forloop.counter0 }}</a></td> {% endif %}
+              {% if forloop.counter <= INFO_LENGTH %} <td><a href="../page/{{ INFO|index:forloop.counter0 }}">{{ INFO|index:forloop.counter0 }}</a></td> {% endif %}
+              {% if forloop.counter <= BIZ_LENGTH %} <td><a href="../page/{{ BIZ|index:forloop.counter0 }}">{{ BIZ|index:forloop.counter0 }}</a></td>  {% endif %}
             </tr>
           {% endfor %}
           {% endwith %}
