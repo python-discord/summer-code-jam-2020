@@ -16,6 +16,9 @@ def run_terminal_command(request):
         status = 400
     else:
         run_command = TerminalCommand(command)
-        response = run_command.run()
+        result = run_command.run()
         status = 200
-    return HttpResponse(response, status=status)
+        response = HttpResponse(result['response'], status=status)
+        if 'followup' in result:
+            response['followup'] = True
+    return response

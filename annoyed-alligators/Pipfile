@@ -7,5 +7,6 @@ name = "pypi"
 django = "==3.0.8"
 python-dotenv = "*"
 flake8 = "*"
+googlenews = "*"
 
 [dev-packages]
