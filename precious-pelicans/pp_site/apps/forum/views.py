@@ -70,13 +70,15 @@ def enter_media(requestObj):
 
     return media_entry
 
+
 def remove_excess_fields(requestPOST, fieldClass):
     post_copy = dict(requestPOST)
     for key in requestPOST:
-        if not key in fieldClass.__dict__:
+        if key not in fieldClass.__dict__:
             del post_copy[key]
-    
+
     return post_copy
+
 
 def upload_post(request):
     if request.method == "POST":
