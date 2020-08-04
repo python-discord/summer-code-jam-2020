@@ -8,16 +8,21 @@ ENV PIP_NO_CACHE_DIR=false \
 ENTRYPOINT ["python"]
 CMD ["manage.py", "run"]
 
-RUN apt-get -y update \
-    && apt-get install -y \
-        npm=5.8.* \
-    && rm -rf /var/lib/apt/lists/*
 RUN pip install -U pipenv
 
 WORKDIR /app
-COPY Pipfile* package.json ./
-
-RUN npm install && apt-get --purge -y autoremove npm
+COPY Pipfile* package.json package-lock.json terminal/term_handler.c ./
 RUN pipenv install --system --deploy
+
+RUN apt-get -y update \
+    && apt-get install -y \
+    npm=5.8.* \
+    gcc \
+    #vim just for testing the terminal, we should remove it later
+    vim \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install \
+    && gcc -o process_watch term_handler.c -O3 -Wall -Wextra -lutil\
+    && apt-get --purge -y autoremove npm gcc
 
 COPY . .
