@@ -3,8 +3,10 @@ import random
 import string
 from pprint import pprint
 
+
 class typing:
     pass
+
 
 class Generator:
     """
@@ -28,15 +30,14 @@ class Generator:
                 print(var_type)
                 var_case = {}
 
-
                 if var_type == 'int':
                     var_case['type'] = 'int'
                     var_case['value'] = i
-                
+
                 elif var_type == 'str':
                     var_case['type'] = 'string'
                     var_case['value'] = self.gen_string()
-                
+
                 elif var_type == 'list[int]':
                     len = random.randint(1, 500)
                     int_list = [random.randint(1, 500) for x in range(len)]
@@ -44,7 +45,6 @@ class Generator:
                     var_case['type'] = 'list'
                     var_case['value'] = int_list
 
-                
                 current_case.append(var_case)
 
             testcases.append(current_case)
@@ -52,13 +52,12 @@ class Generator:
         with open('inputs.json', 'w', encoding='utf-8') as f:
             json.dump(json_obj, f, ensure_ascii=False, indent=4)
 
-
     def gen_int(self, min_val=0, max_val=65535):
         return random.randint(min_val, max_val)
-    
+
     def gen_float(self, min_val=0, max_val=65535):
         return random.uniform(min_val, max_val)
-    
+
     def gen_string(self, length=10):
         return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))
 

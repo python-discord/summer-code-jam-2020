@@ -10,5 +10,6 @@ def index(request):
 def battle_page(request):
     return render(request, "battle.html")
 
+
 def about_page(request):
-    return render(request,"about_page.html")
+    return render(request, "about_page.html")
