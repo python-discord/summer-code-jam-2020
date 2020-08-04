@@ -4,7 +4,8 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="{% static 'rovers/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% block extrahead %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
