@@ -63,7 +63,7 @@
                 <i class="fas fa-caret-down fa-4x" style="color:#EFEFED;"></i>
             </div>
                 <div style="width: 100%;margin-top: -40px;" class="d-flex justify-content-center">
-                    <input type="button" value="Update" style="width: 80px;height: 24px;border-radius: 3px;background-color: #F6F6FB;border: 0.5px gray solid; font-weight: bold;">
+                    <input onlick="showPost()" type="button" value="Update" style="width: 80px;height: 24px;border-radius: 3px;background-color: #F6F6FB;border: 0.5px gray solid; font-weight: bold;">
             </div>
             <div class="d-flex justify-content-end mt-4">
                 <div class="mx-1 px-4 py-1" style="background-color: #EBF0F4;text-decoration: underline;">Archive</div>
@@ -127,6 +127,9 @@
 });
 
 });
+      
+      function showPost(){
+        $(".all-posts").removeClass("d-none");
     </script>
 </body>
 </html>
