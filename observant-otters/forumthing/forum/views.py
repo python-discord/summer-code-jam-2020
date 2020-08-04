@@ -22,6 +22,12 @@ def threads(request, id=None):
         if id is None:
             return render(request, 'forum/home.html')
 
+        try:
+            thread = Thread.objects.get(pk=int(id))
+            next_exists = True
+        except Thread.DoesNotExist:
+            next_exists = False
+
         thread = get_object_or_404(Thread, id=int(id))  # don't want them to get a thread that doesn't exist now
         p = request.GET.get("p", default=1)
         data = {
@@ -31,6 +37,7 @@ def threads(request, id=None):
                 "page": p,
 
                 # @TODO: Remove debug values
+                "next_exists": next_exists,
                 "next_page": int(p)+1,
                 "next_id": int(id)+1
         }
