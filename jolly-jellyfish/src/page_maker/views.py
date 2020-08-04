@@ -171,6 +171,19 @@ class TemplateCreateView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 
+class TemplateDetailView(DetailView):
+    model = Template
+    template_name = 'page_maker/template_detail.html'
+    context_object_name = 'template'
+
+
+class TemplateListView(ListView):
+    model = Template
+    template_name = 'page_maker/template_list.html'
+    context_object_name = 'templates'
+    paginate_by = 10
+
+
 class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Template
     template_name = 'page_maker/template_delete.html'
