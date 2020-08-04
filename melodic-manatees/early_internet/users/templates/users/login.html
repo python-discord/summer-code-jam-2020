@@ -8,16 +8,21 @@
                 <legend class="subtitle">Log In</legend>
                 {% for field in form %}
                     <div class="field">
-                        {{ field.errors }}
+                        <p class="help is-danger">{{ field.errors }}</p>
                         <label class="label">
                             {{ field.label_tag }}
                         </label>
-                        {{ field|add_class:"input" }}
+                        {% if form.errors %}
+                            {{ field|add_class:"input is-danger" }}
+                        {% else %}
+                            {{ field|add_class:"input" }}
+                        {% endif %}
                         {% if field.help_text %}
                             <p class="help">{{ field.help_text|safe }}</p>
                         {% endif %}
                     </div>
                 {% endfor %}
+                <p class="help is-danger">{{ form.non_field_errors }}</p>
             </fieldset>
             <div class="field">
                 <div class="control">
