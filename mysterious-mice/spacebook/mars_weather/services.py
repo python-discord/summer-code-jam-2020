@@ -20,11 +20,16 @@ def get_current_weather(request):
 
     current_sol = weather_data["sol_keys"][-1]
 
-    return {
-        "atmospheric_temperature": weather_data[current_sol]["AT"]["av"],
-        "atmospheric_pressure": weather_data[current_sol]["PRE"]["av"],
-        "horizontal_wind_speed": weather_data[current_sol]["HWS"]["av"],
-    }
+    context = dict.fromkeys(["AT", "PRE", "HWS"])
+
+    for measurement in context.keys():
+        if weather_data["validity_checks"][current_sol][measurement]["valid"]:
+            context[measurement] = weather_data[current_sol][measurement]
+
+    context["season"] = weather_data[current_sol]["Season"]
+
+    print(context)
+    return context
 
 
 def get_week_weather(request):
