@@ -1,5 +1,9 @@
 /* Project CSS files */
 
+.header p {
+    margin-block-end: 0.1em;
+}
+
 .center {
     display: flex;
     justify-content: center;
@@ -62,15 +66,24 @@ div.col, div[class*="col-"] {
     margin: .3em;
 }
 
-div.col div.header {
-    background-color: #000080;
-    color: white;
-    margin-left: -16px;
-    margin-right: -16px;
-    margin-top: -18px;
-    padding-left: 16px;
-    padding-right: 16px;
-    text-overflow: ellipsis;
-    font-weight: bold;
-    font-size: large;
+#select-color {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-image: url("../images/half.png");
+    background-repeat: repeat;
+}
+
+#select-color .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
 }
