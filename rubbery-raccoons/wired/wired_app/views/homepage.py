@@ -1,5 +1,5 @@
-from django.views.generic.list import ListView
 from django.utils import timezone
+from django.views.generic.list import ListView
 from wired_app.models import Article
 
 
