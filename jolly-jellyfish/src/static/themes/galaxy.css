@@ -14,12 +14,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap');
 
 body {
-  background:
-    url("../images/galaxy.png") 10px 10px / 170px 150px no-repeat,
-    url("../images/galaxy.png") 10px calc(100% - 10px) / 170px 150px no-repeat,
-    url("../images/galaxy.png") calc(100% - 10px) 10px / 170px 150px no-repeat,
-    url("../images/galaxy.png") calc(100% - 10px) calc(100% - 10px) / 170px 150px no-repeat,
-    url("../images/galaxy.gif") top left / 25vw 14vw;
+  background: url("../images/galaxy.png") 10px 10px / 170px 150px no-repeat,
+              url("../images/galaxy.png") 10px calc(100% - 10px) / 170px 150px no-repeat,
+              url("../images/galaxy.png") calc(100% - 10px) 10px / 170px 150px no-repeat,
+              url("../images/galaxy.png") calc(100% - 10px) calc(100% - 10px) / 170px 150px no-repeat,
+              url("../images/galaxy.gif") top left / 25vw 14vw;
   color: #0a0;
   text-shadow: -1px -1px #000, -1px 1px #000, 1px -1px #000, 1px 1px #000, 2px -2px #fff, 3px -3px #fff, 4px -4px #fff;
   padding: 0 180px;
