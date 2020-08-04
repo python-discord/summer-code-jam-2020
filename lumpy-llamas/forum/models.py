@@ -7,9 +7,9 @@ class Thread(models.Model):
     """
     Model representing a forum thread
     """
-
     created_date = models.DateTimeField('Date created', auto_now_add=True)
     title = models.CharField(max_length=120)
+    created_by = models.ForeignKey(User, on_delete=models.SET('Deleted'), to_field='username')
 
     def __str__(self):
         return self.title
@@ -21,7 +21,8 @@ class ThreadMessage(models.Model):
     """
 
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET('Deleted'))
+    user = models.ForeignKey(User, on_delete=models.SET('Deleted'), to_field='username')
+    #user_n = user.to_field("username")
     date = models.DateTimeField('Date created', auto_now_add=True)
     message = models.TextField()
 
