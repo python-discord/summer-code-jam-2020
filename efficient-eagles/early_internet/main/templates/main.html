@@ -8,13 +8,15 @@
   <meta name="description" content="Amazing social media website">
   <meta name="author" content="Efficient Eagles">
   <link rel='stylesheet' href="{% static 'css/style.css' %}">
-  <style>a {text-decoration: none;}
-  .oneline{
-    display: flex;
-    justify-content: space-between;  
-    
+  <style>
+    a {
+      text-decoration: none;
     }
-    
+
+    .oneline{
+      display: flex;
+      justify-content: space-between;    
+    }
   </style>
 </head>
 <body style='background-color: #F3F3F3'>
@@ -29,29 +31,22 @@
   {% endif %}
 </div>
 <table style='width: 100%;'>
-<tr><td>  
-<div class="container"> 
+  <tr>
+    <td>
+      <div class="container"> 
 
-    {% block content %}
+        {% block content %}
+
+        {% endblock %}
+
+      </div>
+    </td>
+
+    {% block search_block %}
 
     {% endblock %}
-
-  </div></td>
-  {% if request.path != '/login/' and request.path != '/create/post' and request.path != '/create/topic' and request.path != '/register/' %}
-  <td>
-<div class='w3-container w3-white w3-margin' style='float: right;'>
-<form  method='POST'>
-{% csrf_token %}
-<input placeholder='Search' name='query' id='query'></input>
-<button type='submit'>Search</button><br>
-</form>
-<button><a href='{% url "create_post" %}?next={{request.path}}'>Create Post</a></button>
-{% if topic %}
-<h1><a href="/topic/{{topic.topic_name}}">{{topic.topic_name}}</a></h1>
-{% endif %}
-
-</div>
-</td>{% endif %}</tr>
+  
+  </tr>
 </table>
 </body>
 </html>
