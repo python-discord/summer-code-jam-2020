@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Microsoft Sans Serif';
-    src: url('static/fonts/MicrosoftSansSerif.woff2') format('woff2'),
-        url('static/fonts/MicrosoftSansSerif.woff') format('woff');
+    src: url('/static/fonts/MicrosoftSansSerif.woff2') format('woff2'),
+        url('/static/fonts/MicrosoftSansSerif.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
