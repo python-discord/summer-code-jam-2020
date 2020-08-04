@@ -60,8 +60,19 @@
         <div class="col-md-8">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
+
+                    <div class="col-12 col-lg-6 mb-1 mb-lg-0">
+                        <div class="card card-tertiary">
+                            <div class="card-header">
+                                <span class="icon icon-xs w95-folder"></span>
+                                <span class="ml-4">You Have a New Message!</span>
+                            </div>
+                            <div class="card-body bg-white">
+                                <p class="text-{{ message.tags }}">
+                                    {{ message }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             {% endif %}

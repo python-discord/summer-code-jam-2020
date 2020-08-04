@@ -21,6 +21,31 @@
       </div>
   </div>
 
+  {% if user.is_authenticated %}
+      <h4>Hello {{ user }}</h4>
+      {% if frequests %}
+        {% for frequest in frequests %}
+            <a href="{% url 'accept' frequest.id %}">Accept {{frequest.from_user}} as friend</a>
+            <br>
+        {% endfor %}
+      {% else %}
+        You have no friend requests!
+        <br>
+      {% endif %}
+      <br>
+      <h4>Your Friends</h4> 
+      {% for friend in profile.friends.all %}
+        {{ friend.user }}
+        <br>
+      {% endfor %}
+      <br>
+      <h4>Add someone!</h4>
+      {% for user in allusers %}
+          <a href="{% url 'add-friend' user.id %}">{{user}} +</a>
+          <br>
+      {% endfor %}
+  {% endif %}
+
   {% for post in posts %}
       <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">

@@ -1,13 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
 from chat.forms import RoomCreationForm
 from chat.models import Room, RoomMember, Message
 
 
 @login_required
 def index(request):
+    # Post-Friends model implementation:
+    # context = {"friends": Friends.objects.all()}
+    # return render(request, "blog/home.html", context)
     if request.method == "POST":
         form = RoomCreationForm(request.POST)
         if form.is_valid():
