@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'if#@q-v3q9@l3v@dn%3-^u!h7lv%zgjyi&6o#$(j5qp%+3+$9t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 INSTALLED_APPS = [
     'terminal',
     'channels',
+    'users.apps.UsersConfig',
+    'vmachine.apps.VmachineConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -141,3 +143,5 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'npm.finders.NpmFinder',
 ]
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "home"

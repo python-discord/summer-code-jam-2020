@@ -1,0 +1,36 @@
+{% extends 'users/base.html' %}
+
+
+	{% block content%}
+<div id = "main">
+{% if is_empty %}
+	<div class = "disk-container">
+		<p>You haven't got any Virtual Machines</p>
+	</div>
+	{% else %}
+	{% for vm in object_list %}
+	<form name="diskform" method="get" action="{{ vm.first_action }}">
+		<div class = "disk-container">
+			<div class = "disk-item1"> <img src="{% static 'floppydisk.png' %}"/> <p> {{vm.name}} </p> </div>
+			<div class = "disk-item2"> <button class = "button" type="submit"> Start Virtual Machine </button> </div>
+			<div class = "disk-item3"> <a style= "float:right" href="{% url 'add_disk' vm.pk %}"> +(disk) </a>
+				<select name="settings" id = "settings">
+				{% for storage_id, name in vm.add_zips%}
+				<option value="{% url 'terminal_non_socket_url' storage_id vm.pk %}">{{ name }}</option>
+				</select>
+
+				{% endfor %}
+			</div>
+</div>
+	</form>
+		</div>
+	{% endfor %}
+{% endif %}
+</div>
+<script>
+document.getElementById('diskform').settings.onchange = function() {
+    var new_action = this.value;
+    document.getElementById('diskform').action = newaction;
+};
+</script>
+{% endblock %}

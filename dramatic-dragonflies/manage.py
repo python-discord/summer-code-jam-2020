@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 """Django's command-line utility."""
 import os
+import re
+import socket
 import sys
+import time
 from typing import List
 
 import django
 from django.core.management import call_command
+
+
+DATABASE_RETIES = 10
+DATABASE_WAIT = 0.5
 
 
 class SiteManager:
@@ -51,9 +58,37 @@ class SiteManager:
         print('Running security checks.')
         call_command('check', '--deploy', '--fail-level', 'WARNING')
 
+    @staticmethod
+    def wait_for_database() -> None:
+        """Wait for the PostgreSQL database specified in DATABASE_URL."""
+
+        # Get database URL based on environmental variable passed in compose
+        database_url = os.environ["DATABASE_URL"]
+        match = re.search(r"([\w.]+):(\d+)", database_url)
+        if not match:
+            raise OSError("Valid DATABASE_URL environmental variable not found.")
+        domain = match.group(1)
+        port = int(match.group(2))
+
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        for _ in range(DATABASE_RETIES):
+            try:
+                s.connect((domain, port))
+                s.shutdown(socket.SHUT_RDWR)
+                print("Database is ready.")
+                return
+            except socket.error:
+                print("Database not ready, retrying.")
+                time.sleep(DATABASE_WAIT)
+        else:
+            print("ERROR: Database could not be found.")
+            sys.exit(1)
+
     def run_server(self) -> None:
         """Prepare and run the web server."""
         in_reloader = os.environ.get('RUN_MAIN') == 'true'
+        self.wait_for_database()
 
         if in_reloader:
             self.prepare_server()
