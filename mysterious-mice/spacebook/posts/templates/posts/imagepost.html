@@ -1,13 +1,19 @@
 {% extends "posts/base.html" %}
 
+{% load static %}
+
 {% block title %}{{ imagepost.rover.username }}'s Photo{% endblock %}
 
+{% block extrahead %}<link rel="stylesheet" href="{% static 'css/imagepost.css' %}">{% endblock %}
+
 {% block body %}
-    <img src="{{ imagepost.image.url }}" class="imagepost-detail">
-    <br>
-    Posted by
-    <a href="{% url 'rovers:rover-profile' imagepost.rover.username %}">{{ imagepost.rover.username }}</a>
-    on {{ imagepost.date|date:"Y-m-d" }}
-    <br>
-    {{ imagepost.description }}
+    <div class="body-div full-width">
+        <img src="{{ imagepost.image.url }}" class="imagepost-detail">
+        <br>
+        Posted by
+        <a href="{% url 'rovers:rover-profile' imagepost.rover.username %}">{{ imagepost.rover.username }}</a>
+        on {{ imagepost.date|date:"Y-m-d" }}
+        <br>
+        {{ imagepost.description }}
+    </div>
 {% endblock %}

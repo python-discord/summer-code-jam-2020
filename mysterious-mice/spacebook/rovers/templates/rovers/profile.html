@@ -1,95 +1,94 @@
 {% extends "posts/base.html" %}
 
+{% load static %}
+
 {% block title %}{{ rover.username }}'s Profile{% endblock %}
 
+{% block extrahead %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
+
 {% block body %}
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {{ rover.username }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <!-- profile picture -->
-                                                    <img src="{{ rover.image.url }}" class="profile-picture">
-                                                </td>
-                                                <td>
-                                                    <!-- status -->
-                                                    {% if rover.status %}
-                                                        "{{ rover.status }}"
-                                                    {% else %}
-                                                        &nbsp;
-                                                    {% endif %}
-                                                    <br> <br>
-                                                    <!-- location -->
-                                                    Mars
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td colspan="2">
-                                    About {{ rover.username }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Launch Date:
-                                </td>
-                                <td>
-                                    {{ rover.launch_date|date:"Y-m-d" }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Land Date:
-                                </td>
-                                <td>
-                                    {{ rover.land_date|date:"Y-m-d" }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td style="width:20px">
-                </td>
-                <td>
-                    <table>
-                        <tbody>
-                            <tr><td>
-                                    {{ rover.username }}'s Top 8 Photos
-                            </td></tr>
-                            <tr><td><table><tbody><tr>
-                                    {% for image in images %}
-                                        {% if forloop.counter == 5 %}
-                                            </tr><tr>
-                                        {% endif %}
-                                        <td><a href="{% url 'posts-detail' image.pk %}">
-                                            <img src="{{ image.image.url }}" class="top8-thumbnail">
-                                        </a></td>
-                                    {% endfor %}
-                            </tr></tbody></table></td></tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="profile-div"><table><tbody><tr>
+        <td class="profile-column">
+            <div class="body-div"><table>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{ rover.username }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <!-- profile picture -->
+                                            <img src="{{ rover.image.url }}" class="profile-picture">
+                                        </td>
+                                        <td>
+                                            <!-- status -->
+                                            {% if rover.status %}
+                                                "{{ rover.status }}"
+                                            {% else %}
+                                                &nbsp;
+                                            {% endif %}
+                                            <br> <br>
+                                            <!-- location -->
+                                            Mars
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table></div>
+            <br>
+            <div class="body-div"><table>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            About {{ rover.username }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Launch Date:
+                        </td>
+                        <td>
+                            {{ rover.launch_date|date:"Y-m-d" }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Land Date:
+                        </td>
+                        <td>
+                            {{ rover.land_date|date:"Y-m-d" }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </td>
+        <td class="spacer-column"></td>
+        <td class="profile-div">
+            <div class="body-div"><table>
+                <tbody>
+                    <tr><td>
+                            {{ rover.username }}'s Top 8 Photos
+                    </td></tr>
+                    <tr><td><table><tbody><tr>
+                            {% for image in images %}
+                                {% if forloop.counter == 5 %}
+                                    </tr><tr>
+                                {% endif %}
+                                <td><a href="{% url 'posts-detail' image.pk %}">
+                                    <img src="{{ image.image.url }}" class="top8-thumbnail">
+                                </a></td>
+                            {% endfor %}
+                    </tr></tbody></table></td></tr>
+                </tbody>
+            </table></div>
+        </td>
+    </tr></tbody></table></div>
 {% endblock %}

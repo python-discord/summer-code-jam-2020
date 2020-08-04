@@ -1,18 +1,24 @@
 {% extends "posts/base.html" %}
 
+{% load static %}
+
 {% block title %}Rovers{% endblock %}
 
+{% block extrahead %}<link rel="stylesheet" href="{% static 'css/rovers.css' %}">{% endblock %}
+
 {% block body %}
-    Rovers
-    <table><tbody><tr>
-        {% for rover in rovers %}
-            <td>
-                <a href="{% url 'rovers:rover-profile' rover.username %}">
-                    <img src="{{ rover.image.url }}" class="imagepost-thumbnail">
-                <br>
-                {{ rover.username }}
-                </a>
-            </td>
-        {% endfor %}
-    </tr></tbody></table>
+    <div class="body-div full-width">
+        <span class="page-header">Rovers</span>
+        <table><tbody><tr>
+            {% for rover in rovers %}
+                <td>
+                    <a href="{% url 'rovers:rover-profile' rover.username %}">
+                        <img src="{{ rover.image.url }}" class="rover-thumbnail">
+                    <br>
+                    {{ rover.username }}
+                    </a>
+                </td>
+            {% endfor %}
+        </tr></tbody></table>
+    </div>
 {% endblock %}

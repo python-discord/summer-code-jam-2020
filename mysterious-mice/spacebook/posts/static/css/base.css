@@ -1,15 +1,31 @@
 body {
-    /* color: #CCCCCC; */
+    color: #CCCCCC;
+    /* background image from https://1-background.com/stars_1.htm */
+    background: url("../images/beautiful-blue-stars-fill.jpg");
+    animation: animatedBackground 15s linear infinite;
+}
+
+@keyframes animatedBackground {
+    from {background-position: 0 0;}
+    to {background-position: 402px 0;}
 }
 
 a, a:visited, a:hover, a:active{
     color: #CC8888;
 }
 
-.header-div {
-    width: 900px;
+td {
+    vertical-align: top;
+}
+
+.header-div, .body-div {
     margin: auto;
     background-color: #333355;
+    padding: 10px;
+}
+
+.full-width {
+    width: 900px;
 }
 
 .nav {
@@ -28,17 +44,6 @@ a, a:visited, a:hover, a:active{
     border-left: 1px solid #CCCCCC;
 }
 
-.profile-picture {
-    max-width: 150px;
-    max-height: 150px;
-}
-
-.imagepost-thumbnail {
-    max-width: 250px;
-    max-height: 250px;
-}
-
-.top8-thumbnail {
-    max-width: 150px;
-    max-height: 150px;
+.page-header {
+    font-size: large;
 }
