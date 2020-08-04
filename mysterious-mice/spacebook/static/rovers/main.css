@@ -1,3 +1,33 @@
+body {
+    color: #CCCCCC;
+}
+
+a, a:visited, a:hover, a:active{
+    color: #CC8888;
+}
+
+.header-div {
+    width: 900px;
+    margin: auto;
+    background-color: #333355;
+}
+
+.nav {
+}
+
+.nav-logo {
+    font-size: x-large;
+}
+
+.nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-lborder {
+    border-left: 1px solid #CCCCCC;
+}
+
 .profile-picture {
     max-width: 150px;
     max-height: 150px;

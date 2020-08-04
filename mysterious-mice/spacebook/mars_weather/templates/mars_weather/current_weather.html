@@ -1,5 +1,7 @@
-<html>
-    <body>
-        <p>Average Temp: {{ atmospheric_temperature }}, Average Pressure: {{ atmospheric_pressure }}.</p>
-    </body>
-</html>
+{% extends "posts/base.html" %}
+
+{% block title %}Current Weather{% endblock %}
+
+{% block body %}
+    <p>Average Temp: {{ atmospheric_temperature }}, Average Pressure: {{ atmospheric_pressure }}.</p>
+{% endblock %}
