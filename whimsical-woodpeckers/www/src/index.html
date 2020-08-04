@@ -8,14 +8,11 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
     <title>Chat with friends!</title>
-  
-    <!-- Default stylesheet-->
-     <link href="./style.css" rel="stylesheet" type="text/css"> 
-    
-    <!-- Modern Messenger Bootstrap stylesheet -->
-    <link href="./messenger_bootstrap.css" rel="stylesheet" type="text/css">
-  
 
+  <!-- App specific stylesheet -->
+    <link href="./css/irc.css" rel="stylesheet" type="text/css">
+<!--    <link href="./css/aol.css" rel="stylesheet" type="text/css">-->
+<!--    <link href="./css/messenger.css" rel="stylesheet" type="text/css">-->
 
 </head>
 <body>
@@ -40,17 +37,18 @@
       </div>
       <div id="chat-window">
 <!--        Used to test overflow scrolling -->
-       <div style="height: 200vh;"></div>
+<!--       <div style="height: 200vh;"></div>-->
+        <p style="font-size: 16pt;"></p>
 <!--        Used to test overflow scrolling -->
       </div>
-      
+
       <div id="message-input" class="input-group mb-3">
         <div class="input-group-prepend">
           <button id="send-message" class="btn btn-primary" type="button">Send Message</button>
         </div>
-        <input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+        <span id="prepend-input">>&nbsp;</span><input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>
       </div>
-  
+
     </div>
     <div id="contacts" class="col-lg-3 app text-center">
       <h2>{{ friendListName }}</h2>

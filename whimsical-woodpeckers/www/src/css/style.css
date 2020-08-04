@@ -1,4 +1,3 @@
-<style>
 #message-container{
   padding-top: 10px;
   padding-left:200px;
@@ -10,7 +9,7 @@
 }
 
 #chat-name{
-  background: #ffffff;
+/*  background: #ffffff;*/
   width: 100%;
 }
 
@@ -43,11 +42,10 @@
 #chat-window{
 /*  position: absolute;*/
   height: 90vh;
-  background: #f0f0f0;
+/*  background: #f0f0f0;*/
   overflow-y: scroll;
 }
 
 body{
   overflow-y: hidden;
 }
-</style>
