@@ -77,7 +77,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
     def get_current_room_description(self):
         """ Returns a string with the description of the current room.  """
 
-        player = Player.objects.get(user=self.scope["user"])
+        try:
+            player = Player.objects.get(user=self.scope["user"])
+        except Player.DoesNotExist:
+            return "Current user does not have a Player!"
+
         room_name = colorize('brightGreen', player.room.name)
         description = player.room.description
 
