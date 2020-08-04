@@ -67,3 +67,13 @@ function toggle_start_themes() {
         start_themes.style.display = "none";
     }
 }
+
+function hide_start() {
+    var start = document.getElementById("start-menu");
+    var start_settings = document.getElementsByClassName("start-settings")[0];
+    var start_themes = document.getElementsByClassName("start-themes")[0];
+
+    start.style.display = "none";
+    start_settings.style.display = "none";
+    start_themes.style.display = "none";
+}
