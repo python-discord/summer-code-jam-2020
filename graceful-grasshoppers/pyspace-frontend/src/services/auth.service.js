@@ -3,7 +3,7 @@ import axios from "../http-common";
 class AuthService {
   login(user) {
     return axios
-      .post("/rest-auth/login", {
+      .post("/rest-auth/login/", {
         username: user.username,
         password: user.password,
       })
@@ -25,7 +25,7 @@ class AuthService {
 
   register(user, confirmPassword) {
     return axios
-      .post("/rest-auth/registration", {
+      .post("/rest-auth/registration/", {
         username: user.username,
         email: user.email,
         password1: user.password,
