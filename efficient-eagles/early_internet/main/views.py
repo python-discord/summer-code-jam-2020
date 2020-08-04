@@ -1,11 +1,13 @@
+import random
+
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.urls import reverse
 from django.db import IntegrityError
+
 from main.models import Topic, Post
 from main.forms import CustomUserCreationForm, TopicCreationForm, PostForm
-import random
 
 
 class HomeView(TemplateView):
@@ -39,9 +41,10 @@ class CreatePostView(TemplateView):
             title = request.POST.get('title')
             body = request.POST.get('body')
             author = request.user
-            p = Post(title=title, author=author, body=body, topic=Topic.get_topic(topic_id))
-            p.save()
-            return redirect('topic', topic_name=Topic.objects.get(pk=topic_id))
+
+            topic = Topic.objects.get(pk=topic_id)
+            Post.objects.create(title=title, author=author, body=body, topic=topic)
+            return redirect('topic', topic_name=topic.title)
 
 
 class TopicView(TemplateView):
@@ -74,8 +77,7 @@ class CreateTopicView(TemplateView):
         topic_name = form.data.get('topic_name')
         if form.is_valid():
             try:
-                t = Topic(topic_name=topic_name.lower())
-                t.save()
+                Topic.objects.create(topic_name=topic_name.lower())
             except IntegrityError:
                 context = {'form': form, 'error': 'Topic already exists'}
                 return render(request, self.template_name, context)
@@ -153,7 +155,6 @@ class LogoutView(View):
 
 
 class SearchView(TemplateView):
-
     template_name = 'search.html'
 
     def get(self, request, q):

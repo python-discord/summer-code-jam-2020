@@ -26,9 +26,6 @@ class Topic(TimeStampedModel):
     def __str__(self):
         return self.topic_name
 
-    def get_topic(topicname):
-        return Topic.objects.get(pk=topicname)
-
 
 class Post(TimeStampedModel):
     title = models.CharField(max_length=255,
@@ -50,10 +47,6 @@ class Post(TimeStampedModel):
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
     comments = models.PositiveIntegerField(default=0)
-
-    @property
-    def get_topic(self):
-        return self.topic
 
     @property
     def url(self):
