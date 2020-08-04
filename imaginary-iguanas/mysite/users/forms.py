@@ -20,6 +20,7 @@ class MySiteUserCreationForm(UserCreationForm):
 class MySiteUserProfileSettingsForm(forms.ModelForm):
     email = forms.EmailField()
     image = forms.ImageField()
+    audio_track = forms.FileField()
 
     class Meta:
         model = UserProfile
@@ -30,5 +31,6 @@ class MySiteUserProfileSettingsForm(forms.ModelForm):
             'gender',
             'country',
             'city',
-            'date_of_birth'
+            'date_of_birth',
+            'audio_track'
         )

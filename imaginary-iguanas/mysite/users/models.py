@@ -17,6 +17,7 @@ class UserProfile(User):
     country = models.CharField(null=True, max_length=2, choices=COUNTRY_CHOICES)
     city = models.CharField(null=True, max_length=50)
     date_of_birth = models.DateField(null=True)
+    audio_track = models.FileField(null=True, upload_to="profile_audio")
 
     def __str__(self):
         return f"{self.username}'s profile"
