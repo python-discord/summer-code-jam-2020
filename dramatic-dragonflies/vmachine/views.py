@@ -1,11 +1,10 @@
 from django.shortcuts import render, reverse
 from vmachine.models import VMachine
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.handlers.asgi import ASGIRequest
-from django.http.response import HttpResponse
+from django.http import HttpResponse, HttpRequest
 
 
-def vmachine_list(request: ASGIRequest) -> HttpResponse:
+def vmachine_list(request: HttpRequest) -> HttpResponse:
 
     # Checks if the user has any VMachines,
     # if not it will add an additional context field, that the template will handle.

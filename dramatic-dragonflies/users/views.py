@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
-from django.core.handlers.asgi import ASGIRequest
-from django.http.response import HttpResponse
+from django.http import HttpRequest, HttpResponse
 # Create your views here.
 
 
-def home(request: ASGIRequest) -> HttpResponse:
+def home(request: HttpRequest) -> HttpResponse:
     return render(request, 'users/home.html')
 
 
-def register(request: ASGIRequest) -> HttpResponse:
+def register(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():

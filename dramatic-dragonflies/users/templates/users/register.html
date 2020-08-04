@@ -8,12 +8,18 @@
 							{% if form.errors %}
 							{% for field in form %}
 								{% for error in field.errors %}
-								<b>{{ error|escape }}</b>
+								<ul>
+									<li>{{ error|escape }}</li>
+								</ul>
 								{% endfor %}
 						{% endfor %}
 
 					{% for error in form.non_field_errors %}
-							<b>{{ error|escape }}</b>
+							<ul>
+								<li>
+									{{ error|escape }}
+								</li>
+							</ul>
 					{% endfor %}
 				{% endif %}
 

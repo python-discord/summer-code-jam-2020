@@ -16,7 +16,7 @@
 			<div class = "disk-item3"> <a style= "float:right" href="{% url 'add_disk' vm.pk %}"> +(disk) </a>
 				<select name="settings" id = "settings">
 				{% for storage_id, name in vm.add_zips%}
-				<option value="{% url 'terminal_non_socket_url' storage_id vm.pk %}">{{ name }}</option>
+				<option value="{% url 'index' storage_id vm.pk %}">{{ name }}</option>
 				</select>
 
 				{% endfor %}
