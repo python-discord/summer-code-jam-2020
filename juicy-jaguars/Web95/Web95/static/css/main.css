@@ -87,6 +87,10 @@ body {
     opacity: 1 !important;
 }
 
+.start-icon {
+    opacity: 1 !important;
+}
+
 .header-icon {
     height: 16px;
     width: auto;
