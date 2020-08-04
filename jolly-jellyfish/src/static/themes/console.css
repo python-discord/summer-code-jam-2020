@@ -5,6 +5,8 @@
  * Headers are constantly deleted and rewritten, and must be written as:
  *     <h1><span>Header Text</span></h1>
  * (Compatible with hotdog theme)
+ * Images are displayed as thumbnails that open into a full page modal when hovered, and must be written as:
+ *     <div class="img-wrapper"><img .../></div>
  */
 
 body {

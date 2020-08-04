@@ -7,6 +7,8 @@
  * Headers must be written as:
  *      <h1><span>Header Text</span></h1>
  * (Compatible with hotdog requirement.)
+ * Images have a border, constantly blur and un-blur, and must be written as:
+ *     <div class="img-wrapper"><img .../></div>
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap');
