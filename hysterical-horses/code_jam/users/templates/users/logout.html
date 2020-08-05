@@ -1,0 +1,14 @@
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/logout.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+<h1>Logout Form Placeholder, you should now be logged out</h1>
+<a href="{% url 'login' %}">Login In</a>
+
+
+{% endblock content %}

@@ -3,9 +3,22 @@
 {% block content %}
 
 {% block extra_css %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/index.css' %}">
+
 {% endblock extra_css %}
 
-<h1 class="text-primary">Messenger</h1>
+<div class="row ml-3">
+    <h3>{{ user.username }}'s score: {{ user.profile.score }}</h3>
+</div>
+<div class="row ml-3">
+    <div class="col">
+        <a class="text-primary" href="{% url 'chat-room' room_name='lobby' %}">Messenger</a>
+    </div>
+
+    <div class="col">
+        <a class="text-primary" href="{% url 'engine-results' search_text='CERN' %}">Default Search Engine</a>
+    </div>
+</div>
 
 {% endblock content %}

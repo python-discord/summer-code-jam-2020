@@ -1,0 +1,33 @@
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+{% load custom_filters %}
+
+<div class="nes-container with-title signup-form">
+    <span class="title signup-form-title">Welcome, user!</span>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="nes-field is-inline signup-input" align="center">
+            <label>{{ field.label }}</label>
+            {{ field|addclass:"nes-input" }}
+        </div>
+
+        {% for error in field.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+
+        <input class="nes-btn is-success" type="submit" value="Signup">
+    </form>
+</div>
+
+{% endblock content %}
