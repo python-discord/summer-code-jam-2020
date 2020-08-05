@@ -8,7 +8,8 @@
   - `everythingajw`
 - Channel management
   - `Evolost`
-- Realtime chat
+- Message listing on the page
+- Message storing
   - `MrGeorgeOwl`
   - `YulkyTulky`
 - Message editing and deleting
