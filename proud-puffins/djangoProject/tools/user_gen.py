@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 from numpy.random import choice
->>>>>>> 924db6d93e1102b8476e464e7718fda9cc1c5188
 import json
 import sys
 
@@ -30,7 +27,6 @@ def genusers():
         row['fields']['username'] = f"{row['fields']['first_name']} {row['fields']['last_name']}"
         row['fields']['password'] = password
         row['fields']['email'] = f"{row['fields']['first_name']}{row['fields']['last_name']}@aol.com"
-
     with open('users.json', 'w') as f:
         json.dump(raw, f, indent=4)
 
@@ -48,10 +44,6 @@ def genprofiles():
         del row['fields']['gender']
         row['pk'] += 1
         row['fields']['user'] = row['pk']
-<<<<<<< HEAD
-
-=======
->>>>>>> 924db6d93e1102b8476e464e7718fda9cc1c5188
     with open('profiles.json', 'w') as f:
         json.dump(raw, f, indent=4)
 
