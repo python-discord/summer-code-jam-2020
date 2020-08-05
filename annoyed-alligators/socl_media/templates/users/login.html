@@ -26,9 +26,8 @@
           </tr>
         </table>
         <input type="submit" value="login" />
+        <a href="{% url 'password_reset' %}">Forgot Password?</a>
         <input type="hidden" name="next" value="{{ next }}" />
-        <!-- {{ form.as_p }} -->
-        <!-- <button type="submit">Login</button> -->
       </form>
 			
 {% endblock content %}
