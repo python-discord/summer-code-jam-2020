@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .models import Post
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 
+@login_required
 def feed(request):
     posts_object = Post.objects.all()
     posts_list = []
