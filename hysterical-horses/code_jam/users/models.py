@@ -56,7 +56,7 @@ class Account(AbstractBaseUser):
     """
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = models.CharField(max_length=30, unique=True)
-    password = models.CharField(blank=False)
+    password = models.CharField(blank=False, max_length=30)
 
     points = models.IntegerField(default=0)
     searches_made = models.IntegerField(default=0)
