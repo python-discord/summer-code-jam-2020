@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import MediaFile, ForumPost, ForumPostReplyForm
+from .models import MediaFile, ForumPost, ForumPostReplyForm, ForumPostForm
 from .forms import MediaUploadForm, PostSearchForm
 
 
@@ -14,6 +14,7 @@ def forum_post(request, post_id):
     page_number = request.GET.get('page', 1)
     page_obj = pages.get_page(page_number)
 
+    print(post.author)
     context = {
         'original_post': post,
         'reply_form': ForumPostReplyForm,
@@ -35,8 +36,6 @@ def forum_post_reply(request, post_id):
             forum_reply.forum_post_id = post_id
             forum_reply.save()
             return HttpResponseRedirect(f'/forum/{post_id}?page=-1')
-    else:
-        form = ForumPostReplyForm()
 
     return render(request, f'forum/{post_id}')
 
@@ -71,34 +70,17 @@ def enter_media(requestObj):
     return media_entry
 
 
-def remove_excess_fields(requestPOST, fieldClass):
-    post_copy = dict(requestPOST)
-    for key in requestPOST:
-        if key not in fieldClass.__dict__:
-            del post_copy[key]
-
-    return post_copy
-
-
 def upload_post(request):
     if request.method == "POST":
-        form = MediaUploadForm(request.POST, request.FILES)
+        form = ForumPostReplyForm(request.POST, request.FILES)
         if form.is_valid():
-            media_entry = enter_media(request)
-            post_params = remove_excess_fields(request.POST, ForumPost)
+            post = form.save(commit=False)
+            post.media_file = enter_media(request)
+            post.save()
 
-            entry = ForumPost.objects.create(media_file=media_entry, **post_params)
-            entry.save()
-
-            if ForumPost.objects.get(pk=entry.id):
-                return HttpResponseRedirect(f'/forum/{entry.id}?page=-1')
-            else:
-                return HttpResponseRedirect('/')
-        else:
-            return render(request, 'forum/upload_error.html', {'errors': form.errors})
-
-    else:
-        return render(request, 'forum/upload.html', {'upload_form': MediaUploadForm()})
+            return HttpResponseRedirect(f'/forum/{post.id}')
+        return render(request, 'forum/upload_error.html', {'errors': form.errors})
+    return render(request, 'forum/upload.html', {'upload_form': MediaUploadForm()})
 
 
 def search_posts(request):
