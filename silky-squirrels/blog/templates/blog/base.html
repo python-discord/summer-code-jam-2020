@@ -13,7 +13,10 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/windows-95-ui-kit/css/w95.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.9.2/video-js.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/6.5.1/video.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.min.js"></script>
     {% if title %}
         <title>Django Blog - {{ title }}</title>
     {% else %}
