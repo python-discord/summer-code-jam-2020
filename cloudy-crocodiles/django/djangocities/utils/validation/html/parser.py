@@ -62,7 +62,7 @@ def extract_active_tags(html: str) -> list:
                 in_comment = False
                 continue
             in_tag = False
-            active_tags.append(html[tag_start:p+1])
+            active_tags.append(html[tag_start : p + 1])
 
     # Should not be in an unclosed tag or comment after looping through the
     # entire list
