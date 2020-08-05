@@ -82,7 +82,7 @@
                                 {% if forloop.counter == 5 %}
                                     </tr><tr>
                                 {% endif %}
-                                <td><a href="{% url 'posts-detail' image.pk %}">
+                                <td><a href="{% url 'posts-detail' image.pk %}?username={{ rover.username }}">
                                     <img src="{{ image.image.url }}" class="top8-thumbnail">
                                 </a></td>
                             {% endfor %}

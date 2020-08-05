@@ -8,7 +8,12 @@
 
 {% block body %}
     <div class="body-div full-width">
-        <img src="{{ imagepost.image.url }}" class="imagepost-detail">
+        <a href="{{ next_image_pk }}{{ username_get }}">
+            <img src="{{ imagepost.image.url }}" class="imagepost-detail">
+        </a>
+        <br>
+        <a href="{{ prev_image_pk }}{{ username_get }}">Previous</a>
+        <a href="{{ next_image_pk }}{{ username_get }}">Next</a>
         <br>
         Posted by
         <a href="{% url 'rovers:rover-profile' imagepost.rover.username %}">{{ imagepost.rover.username }}</a>
