@@ -29,3 +29,7 @@ class TestInvalidHtmlTags:
     def test_unopened_comment(self):
         with pytest.raises(HtmlCommentError):
             _ = extract_active_tags("-->")
+
+    def test_closing_unopened_tag(self):
+        with pytest.raises(InvalidHtmlTagError):
+            _ = extract_active_tags("><p>My paragraph")
