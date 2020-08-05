@@ -1,0 +1,36 @@
+name: Django CI
+
+on: [pull_request]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      working-directory: ./concerned-coyotes
+      run: |
+        echo $PWD
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run migrations
+      working-directory: ./concerned-coyotes/earlyinternet
+      run: |
+        python manage.py makemigrations
+        python manage.py migrate
+    - name: Run Tests
+      working-directory: ./concerned-coyotes/earlyinternet
+      run: |
+        echo $PWD
+        python manage.py test
