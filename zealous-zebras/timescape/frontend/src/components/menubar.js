@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import { Slider, Grid } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import './menubar.css'
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import './menubar.css';
 
 const theme = createMuiTheme({
   palette: {
@@ -49,7 +49,7 @@ class MenuBar extends Component {
   menuContent() {
     return (
       <div className="row d-flex align-items-center">
-        <div className="col-1 handle draggable-icon">
+        <div className="col-1 handle d-flex draggable-icon align-items-center">
           <img src={require("../icons/draggable-handle.svg")} draggable="false" alt="::" height="17px" />
         </div>
         <div className="col pl-3 pr-1" id="currentYearLabel">
