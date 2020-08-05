@@ -72,8 +72,12 @@ fieldset {
         </nav>
     </header>
     <div class="hero is-fullheight is-light has-background">
+        {% if user.is_authenticated %}
+        <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background" />
+        {% else %}
         <img class="hero-background" src="{% static 'images/sunrise.jpg' %}" alt="Sunrise Over Mountains" />
-        
+        {% endif %}
+
         {% if '/login/' not in request.path %}
             {% if messages %}
                 {% for message in messages %}
