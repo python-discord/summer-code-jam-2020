@@ -27,3 +27,9 @@ def signup(request):
     return render(request, 'users/signup.html', context)
 
 # def login_user
+
+
+def profile_view(request):
+    context = {'user': None}
+
+    return render(request, "users/profile.html", context)
