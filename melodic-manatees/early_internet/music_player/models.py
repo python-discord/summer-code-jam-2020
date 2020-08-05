@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -12,7 +13,11 @@ class MusicFile(models.Model):
     def __str__(self):
         return self.music_title
 
+def _delete_file(path):
+    if os.path.isfile(path):
+        os.remove(path)
 
 @receiver(post_delete, sender=MusicFile)
 def submission_delete(sender, instance, **kwargs):
-    instance.MusicFile.delete(False)
+    if instance.music_musicfile:
+        _delete_file(instance.music_musicfile.url)

@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 def music_player(request):
     song_list = MusicFile.objects.filter(music_owner=request.user.userprofile)
-    for song in song_list:
-        print(song.music_musicfile)
+    print(len(song_list))
     return render(
         request,
         'music_player/music_player.html',
@@ -36,8 +35,12 @@ def add_music(request):
         'form': form
         })
 
-# @login_required(login_url='login')
-# def delete_music(request, music_url):
-
-#     if request.method == 'POST':
+@login_required(login_url='login')
+def delete_music(request, pk):
+    to_be_deleted_music_file = MusicFile.objects.get(pk=pk)
+    print(to_be_deleted_music_file.pk)
+    if request.method == 'POST':
+        to_be_deleted_music_file.delete()
+        return redirect('music-home')
+    return redirect('music-home')
 

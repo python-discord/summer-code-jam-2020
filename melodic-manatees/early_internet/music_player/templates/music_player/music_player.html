@@ -11,11 +11,11 @@
         <h1>Music_player</h1>
         {% for song in song_list %}
             <h2>bruh</h2>
-            <img src="{{ song.pk }}" alt="No file">
-            <!-- <form action="{% url 'music-delete' song.music_musicfile.url %}" method="POST">
+            <img src="{{ song.music_musicfile.url }}" alt="No file">
+            <form action="{% url 'music-delete' song.pk %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" value="delete">
-            </form> -->
+            </form>
         {% endfor %}
     </section>
 </div>
