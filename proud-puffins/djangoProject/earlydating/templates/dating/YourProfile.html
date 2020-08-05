@@ -3,12 +3,16 @@
 
 {% block content %}
 
-<h1>First Name: {{user.first_name}}</h1>
-<h1>Last Name: {{user.last_name}}</h1>
-<h1>Age: {{user.profile.age}}</h1>
 {% if user.profile.img %}
     <img src="../{{ user.profile.img.url }}">
 {% endif %}
+<h1>First Name: {{user.first_name}}</h1>
+<h1>Last Name: {{user.last_name}}</h1>
+<h1>Age: {{user.profile.age}}</h1>
+<h1>Sex: {{user.profile.sex}}</h1>
+<h1>Bio:</h1>
+<p>{{user.profile.bio}</p>
+
 <p><a href="{% url 'earlydating-home' %}">Home</a></p>
 <p><a class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
 
