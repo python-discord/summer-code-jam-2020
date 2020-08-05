@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<h1>Trivia quiz templates</h1>
     {% for quiz in quizzes %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
