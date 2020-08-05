@@ -2,14 +2,15 @@
 {% block content %}
     {% for quiz in active_quizzes %}
         <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
+          <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
-              <a class="mr-2" href="{% url 'user-quizzes' quiz.author.username %}">{{ quiz.author }}</a>
+              <a class="mr-2" href="{% url 'user-quizzes' quiz.session_master.username %}">{{ quiz.author }}</a>
               <small class="text-muted">Quiz started: {{ quiz.start_time|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'quiz-detail' quiz.id %}">{{ quiz.name }}</a></h2>
+            <h2><a class="article-title" href="{% url 'activequiz-setup' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>
             <p class="article-content">Number of questions: {{ quiz.triviaquestion_set.count }}</p>
+            <p class="article-content">Session code: {{ quiz.session_code }}</p>
           </div>
         </article>
     {% empty %}
