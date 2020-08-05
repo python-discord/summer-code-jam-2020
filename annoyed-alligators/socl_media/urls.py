@@ -26,5 +26,6 @@ urlpatterns = [
     path('signup/', users_views.signup, name="signup"),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('admin/', admin.site.urls),
-    path('terminal/', include('socl_media.apps.terminal.urls'))
+    path('terminal/', include('socl_media.apps.terminal.urls')),
+    path('message-box/', include('socl_media.apps.chat.urls'))
 ]

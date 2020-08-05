@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for message in Chat %}
+        <h2>Sent by: {{message.Sender}}</h3>
+        <h8>{{message.Sent_at}}</h5>
+        <p>{{message.Body}}</p>
+    {% endfor %}
+{% endblock content %}
