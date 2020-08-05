@@ -1,3 +1,7 @@
-from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+
+class CustomUser(AbstractUser):
+    """Extend default user for case when we need to add something to this."""
+
+    pass
