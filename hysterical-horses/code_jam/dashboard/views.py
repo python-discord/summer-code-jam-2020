@@ -32,13 +32,28 @@ def search_query(search: str, format_text: bool =True):
         def format_entry(entry: dict, tags: List):
             """ Formats a single entry  """
             pat = r'>(.*)</a>(.*)'
+            duckduckgo_cryptic = {}
             text_search = re.search(pat, entry['Result'])
             title = text_search.group(1)
+            info = text_search.group(2).replace('<br>', "").replace(',', '')
+            if '<a>' in title or '</a>' in title:
+                print('\n\n')
+                print(entry['FirstURL'])
+                print('\n\n')
+                url = entry['FirstURL']
+                title  = url[::-1][:url[::-1].index('/')][::-1] # need to fix this up: DONE
+                for k in duckduckgo_cryptic:
+                    title.replace(k, duckduckgo_cryptic[k])
+                print(title)
+                base_url = 'https://api.duckduckgo.com/'
+                payload_crypt_info = {"q": title, "format": "json", "pretty": "1"}
+                crypt_info_json = requests.get(base_url, params = payload_crypt_info).json() 
+                print(info)
             punc = string.punctuation
 
             # js-freindly-title makes sure the element does not have a punctuation in the id (')
-            return {'title': text_search,
-                    'info': text_search.group(2).replace('<br>', "").replace(',', ''),
+            return {'title': title,
+                    'info': info,
                     'img_url': entry['Icon']['URL'],
                     'further_info': entry['FirstURL'],
                     'tags': tags}
@@ -65,9 +80,9 @@ def search_query(search: str, format_text: bool =True):
 @login_required()
 def engine_results(request):
     """ Renders a page for the request  """
-    search_text = 'Thalassery' # search query
+    search_text = 'Beaches of Kerala' # search query
     # queries that have some problems:
-    # "Thalissery"
+    # "Thalassery"
    
 
     # prevent long searches from overflowing
@@ -111,4 +126,5 @@ def chat_room(request, room_name):
 
 
 # things to do:
-# if not enough info is given for a single entry call the entry as a query and send results
+# if not enough info is given for a single entry call the entry as a query and send results (for example: llanfair)
+
