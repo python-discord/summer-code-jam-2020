@@ -48,16 +48,22 @@ class MenuBar extends Component {
 
   menuContent() {
     return (
-      <div className="row d-flex align-items-center">
-        <div className="col-1 handle d-flex draggable-icon align-items-center">
-          <img src={require("../icons/draggable-handle.svg")} draggable="false" alt="::" height="17px" />
+      <div className="row menu-box mx-auto align-items-center">
+        <div className="menu-section col-auto pl-1">
+          <div className="handle p-2 d-flex draggable-icon align-items-center">
+            <img src={require("../icons/draggable-handle.svg")} draggable="false" alt="::" height="17px" />
+          </div>
+          <div className="col-auto align-items-center" style={{ width: "200px" }}>
+            {this.InputSlider()}
+          </div>
+          <div className="col px-0" id="currentYearLabel">
+            <p className="my-auto year-label" style={{ width: "60px" }}>{this.state.selectedYear}</p>
+          </div>
         </div>
-        <div className="col pl-3 pr-1" id="currentYearLabel">
-          <p className="my-auto year-label" style={{ width: "50px" }}>{this.state.selectedYear}</p>
-        </div>
-        <div className="col-auto pl-0 align-items-center" style={{ width: "200px" }}>
-          {this.InputSlider()}
-        </div>
+        <div className="verticalLine" />
+        <a href="/account" className="menu-section menu-link col">
+          <img src={require("../icons/profile-link.svg")} draggable="false" alt="::" height="19px" />
+        </a>
       </div>
     )
   }
@@ -68,9 +74,7 @@ class MenuBar extends Component {
         <Draggable handle=".handle">
           <div className="overlay">
             <div className="d-flex fixed-bottom">
-              <div className="menu-box mx-auto align-items-center">
-                {this.menuContent()}
-              </div>
+              {this.menuContent()}
             </div>
           </div>
         </Draggable>
