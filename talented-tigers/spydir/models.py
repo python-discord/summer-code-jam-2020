@@ -12,10 +12,10 @@ class BlogPost(models.Model):
 
 
 class PageImage(models.Model):
-    image = models.ImageField()
+    image = models.TextField(blank=True)
 
 
-# These 2 following classes are for the food recipies
+# These 2 following classes are for the food recipes
 class Ingredient(models.Model):
     ingredient = models.CharField(max_length=35)
 
@@ -27,6 +27,7 @@ class Step(models.Model):
 class GeneratedPage(models.Model):
     page_title = models.CharField(max_length=50, blank=True)
     is_generated = models.BooleanField(default=False)
+    css_seed = models.IntegerField()
     page_author = models.CharField(max_length=20, blank=True)
     page_type_choices = [
         ("BLOG", "Blog"),
@@ -36,16 +37,16 @@ class GeneratedPage(models.Model):
         ("SCAM", "Scam"),
     ]
     page_type = models.CharField(max_length=4, choices=page_type_choices, blank=True)
-    page_content = models.TextField(blank=True)
     page_images = models.ManyToManyField(PageImage, blank=True)
-    # The tab description will be based on the page type (this is the little text that appears on the tab, not the url)
-    tab_description = models.CharField(max_length=10, blank=True)
 
     # Blog Fields
     blog_posts = models.ManyToManyField(BlogPost, blank=True)
-    blog_introduction = models.TextField(default="Welcome to my blog!", blank=True)
+    # 4 digit number to randomize css
+    blogger_age = models.IntegerField(blank=True, null=True)
+    blogger_location = models.CharField(max_length=20, blank=True)
 
     # Information Fields
+    page_content = models.TextField(blank=True)
 
     # Business Fields
     phonenumber = models.CharField(max_length=10, blank=True)

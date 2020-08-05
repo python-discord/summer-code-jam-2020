@@ -12,6 +12,7 @@ pillow = "*"
 requests = "*"
 wikipedia = "*"
 randomwords = "*"
+faker = "*"
 
 [requires]
 python_version = "3.8"

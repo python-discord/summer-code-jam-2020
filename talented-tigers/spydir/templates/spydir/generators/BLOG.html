@@ -26,8 +26,10 @@
 </head>
 <body>
     <div id="header">
-        <h1>welcome to {{ page.page_author }}'s blog!</h1>
-        <p>{{ page.blog_introduction }}</p>
+        <h1>Welcome to {{ page.page_author }}'s blog about {{ page.page_title }}!</h1>
+        <p>Hello, My name is {{ page.page_author }}. I am a {{ page.blogger_age }} year old from
+            {{ page.blogger_location }}. I really love {{ page.page_title }}, and I hope you like my blog about
+            {{ page.page_title }}!</p>
     </div>
 
     <div id="post-container">
