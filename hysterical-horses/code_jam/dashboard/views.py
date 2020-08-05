@@ -33,10 +33,11 @@ def search_query(search: str, format_text: bool =True):
             """ Formats a single entry  """
             pat = r'>(.*)</a>(.*)'
             text_search = re.search(pat, entry['Result'])
+            title = text_search.group(1)
             punc = string.punctuation
 
             # js-freindly-title makes sure the element does not have a punctuation in the id (')
-            return {'title': text_search.group(1),
+            return {'title': text_search,
                     'info': text_search.group(2).replace('<br>', "").replace(',', ''),
                     'img_url': entry['Icon']['URL'],
                     'further_info': entry['FirstURL'],
@@ -64,8 +65,9 @@ def search_query(search: str, format_text: bool =True):
 @login_required()
 def engine_results(request):
     """ Renders a page for the request  """
-    search_text = ''
-    search_text = 'llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch' # search query
+    search_text = 'Thalassery' # search query
+    # queries that have some problems:
+    # "Thalissery"
    
 
     # prevent long searches from overflowing
@@ -104,5 +106,9 @@ def chat_room(request, room_name):
     return render(request, 'dashboard/chat_room.html', context)
 
 
-# things to do for search-engine:
-# "Learn More" button is not working
+# fixes:
+# 
+
+
+# things to do:
+# if not enough info is given for a single entry call the entry as a query and send results
