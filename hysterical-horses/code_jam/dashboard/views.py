@@ -37,18 +37,13 @@ def search_query(search: str, format_text: bool =True):
             title = text_search.group(1)
             info = text_search.group(2).replace('<br>', "").replace(',', '')
             if '<a>' in title or '</a>' in title:
-                print('\n\n')
-                print(entry['FirstURL'])
-                print('\n\n')
                 url = entry['FirstURL']
                 title  = url[::-1][:url[::-1].index('/')][::-1] # need to fix this up: DONE
                 for k in duckduckgo_cryptic:
                     title.replace(k, duckduckgo_cryptic[k])
-                print(title)
                 base_url = 'https://api.duckduckgo.com/'
                 payload_crypt_info = {"q": title, "format": "json", "pretty": "1"}
                 crypt_info_json = requests.get(base_url, params = payload_crypt_info).json() 
-                print(info)
             punc = string.punctuation
 
             # js-freindly-title makes sure the element does not have a punctuation in the id (')
@@ -78,13 +73,10 @@ def search_query(search: str, format_text: bool =True):
 
 
 @login_required()
-def engine_results(request):
+def engine_results(request, search_text: str):
     """ Renders a page for the request  """
-    search_text = 'Beaches of Kerala' # search query
     # queries that have some problems:
-    # "Thalassery"
    
-
     # prevent long searches from overflowing
     wrapper = textwrap.TextWrapper(width=43)
     shortened = wrapper.wrap(text=search_text)[0]
