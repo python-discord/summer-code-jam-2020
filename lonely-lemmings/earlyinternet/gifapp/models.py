@@ -1,51 +1,68 @@
 from django.db import models
+from djrichtextfield.models import RichTextField
 
 
-class Project(models.Model):
-    name = models.CharField(max_length=100)
-    author = None
-    date_created = models.DateTimeField()
-    date_last_modified = None
-    picture = None
-
-    class Meta:
-        abstract = True
-
-    def get_absolute_url(self):
-        pass
-
-
-class GifProject(Project):
-    image_list = None
-    image_gif = None
+class User(models.Model):
+    """represents an app user"""
+    registration_date = models.DateTimeField()
+    profile_picture = models.ImageField()
 
     def __str__(self):
         pass
 
-    def compile_images(self):
-        pass
+
+class ProjectType(models.Model):
+    """represents a possible project type out of gif and still"""
+    GIF = "GIF"
+    IMG = "IMG"
+
+    PROJECT_TYPES = (
+        (GIF, 'gif project'),
+        (IMG, 'image project')
+    )
+
+    project_type = models.CharField(max_length=25, choices=PROJECT_TYPES)
 
 
-class ImageProject(Project):
+class Project(models.Model):
+    """represents a project that an user can do, can either be a gif or still image project"""
+    name = models.CharField(max_length=50)
+    user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    date_created = models.DateTimeField()
+    preview_version = models.ImageField()
+    upload_version = models.ImageField()
+
     def __str__(self):
         pass
 
 
 class Image(models.Model):
-    project = None
+    """represents an image that can be inside a project"""
+    project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
     image_name = models.CharField(max_length=50)
     image_data = models.ImageField()
+    date_created = models.DateTimeField()
+    date_last_modified = models.DateTimeField()
 
     def __str__(self):
         pass
 
 
-class User(models.Model):
-    projects = None
-    registration_date = None
+class Post(models.Model):
+    """represents a post that can be added to a feed"""
+    title = models.TextField(max_length=50)
+    project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
 
     def __str__(self):
         pass
 
-    def new_project(self):
+
+class Comment(models.Model):
+    """represents a comment on a post or another comment"""
+    content = RichTextField()
+    post_id = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    parent_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
         pass

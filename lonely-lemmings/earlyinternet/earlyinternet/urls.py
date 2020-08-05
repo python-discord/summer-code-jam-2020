@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('gifapp.urls'))  # add gifapp to main website
+    path("", include('gifapp.urls')),  # add gifapp to main website
+    path('djrichtextfield/', include('djrichtextfield.urls'))  # add richtext
 ]
