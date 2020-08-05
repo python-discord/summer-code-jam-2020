@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from .settings import BASE_DIR
 import os
 import urllib.parse
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 
 def landing_page(request):
@@ -59,6 +60,7 @@ def index(request):
     return redirect(landing_page)
 
 
+@xframe_options_sameorigin
 def page(request, url):
     """Handle /page urls. Used to serve pages to IE."""
     content = "<h1>Testing</h1><p>"+url+"</p>"
