@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 
 from main.models import Topic, Post
-from main.forms import CustomUserCreationForm, TopicCreationForm, PostForm
+from main.forms import CustomUserCreationForm, TopicCreationForm, PostForm, CustomUser
 
 
 class HomeView(TemplateView):
@@ -109,6 +109,10 @@ class InfoView(TemplateView):
 class LoginView(TemplateView):
     template_name = "registration/login.html"
 
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('/')
+
     def post(self, request):
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -126,6 +130,8 @@ class RegisterView(View):
     template_name = "register.html"
 
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('/')
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
 
@@ -164,3 +170,14 @@ class SearchView(TemplateView):
     def post(self, request, q):
         query = request.POST["query"]
         return redirect(reverse("search", args=[query]))
+
+
+class UserView(TemplateView):
+    template_name = 'profile.html'
+
+    def get(self, request, *args, **kwargs):
+        user = get_object_or_404(CustomUser, username=kwargs['user'])
+        user_id = CustomUser.objects.get(id=user.get_id)
+        posts = Post.objects.filter(author=user_id)
+        context = {'user': user, 'posts': posts}
+        return render(request, self.template_name, context)

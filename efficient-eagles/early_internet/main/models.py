@@ -21,6 +21,10 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+    @property
+    def get_id(self):
+        return self.id
+
 
 class Topic(TimeStampedModel):
     name = models.CharField(max_length=20, default="", blank=False, unique=True)

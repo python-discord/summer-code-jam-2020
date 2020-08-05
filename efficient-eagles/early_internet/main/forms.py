@@ -28,7 +28,7 @@ class PostForm(forms.ModelForm):
     title = forms.CharField(label="Title", widget=forms.TextInput(), max_length=30)
     body = forms.CharField(label="Body", widget=forms.Textarea())
     topic = forms.ModelChoiceField(
-        label="Topic", queryset=Topic.objects.all(), initial=0
+        label="Topic", queryset=Topic.objects.all()
     )
 
     class Meta:

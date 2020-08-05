@@ -9,6 +9,7 @@ from main.views import (
     InfoView,
     CreatePostView,
     SearchView,
+    UserView,
 )
 
 
@@ -22,4 +23,6 @@ urlpatterns = [
     path("topic/<str:name>/<slug:slug>", InfoView.as_view(), name="info"),
     path("create/post", CreatePostView.as_view(), name="create_post"),
     path("search/<str:q>", SearchView.as_view(), name="search"),
+    path('user/<str:user>', UserView.as_view(), name='profile'),
+    path('user/<str:user>/posts', UserView.as_view())
 ]
