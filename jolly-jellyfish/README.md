@@ -17,17 +17,18 @@ The most liked sites appear on the front page, along with the most liked users a
 
 ## Initial Setup
 ### wkhtmltoimage
-In order to generate page thumbnails, a wkhtmltoimage binary is required for python package `imgkit`.
-Download the image from [https://wkhtmltopdf.org/downloads.html][1] and set the system environment variable **WKHTML_TO_IMAGE** to the binary's path.
+In order to generate page thumbnails (using `selenium`), a (platform specific) browser driver binary is required (we use the _Chrome_ driver).
+Download the image for your Chrome version (most likely '_Current stable release_') from [https://sites.google.com/a/chromium.org/chromedriver/home][1] and set the system environment variable **SELENIUM_DRIVER** to the binary's path.
+(This is obviously assuming you have Google Chrome installed)
 
-E.g. On Windows (admin) with a .exe file, this is done with:
-```batch
-...\> setx WKHTML_TO_IMAGE D:\Path\to\wkhtmltox\bin\wkhtmltoimage.exe /m
+E.g. On Windows (admin) with the .exe file, this is done with:
+```
+...\> setx SELENIUM_DRIVER "C:\Path\to\chromedriver.exe" /m
 ```
 (Use `SETENV` command on UNIX)
 
 In a production environment, this process would obviously not be needed as the server would be running a known OS.
-Therefore, only one executable would need to be download to the src directory and then hard linked within the code, rather than having to use `os.environ`.
+Therefore, only one executable would need to be download to the src directory and then hard linked within the code; rather than having to use `os.environ`.
 
 ### pipenv
 ```shell script
@@ -42,4 +43,4 @@ $ pipenv shell
 (venv) $ python manage.py runserver
 ```
 
-[1]: https://wkhtmltopdf.org/downloads.html
+[1]: https://sites.google.com/a/chromium.org/chromedriver/home

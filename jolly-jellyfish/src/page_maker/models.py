@@ -10,7 +10,7 @@ from relativefilepathfield.fields import RelativeFilePathField
 
 
 def get_theme_path():
-    return str(Path(settings.BASE_DIR) / 'static')
+    return str(Path(settings.BASE_DIR) / 'static' / 'themes')
 
 
 class Template(models.Model):
