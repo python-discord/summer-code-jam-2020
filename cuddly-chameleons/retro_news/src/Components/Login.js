@@ -51,7 +51,6 @@ class Login extends React.Component {
 
         return (
             <Container>
-                {this.response}
                 <h3>Login</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label>Username: <TextInput name="username" value={this.state.username} onChange={this.handleChange} /></label>
