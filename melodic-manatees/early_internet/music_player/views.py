@@ -22,7 +22,6 @@ def add_music(request):
         user = request.user
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            print(request.FILES.__dir__())
             files = request.FILES.get('music_musicfile')
             title = request.POST.get('music_title')
             file_instance = MusicFile(music_musicfile=files, music_title=title, music_owner=request.user.userprofile)
@@ -41,6 +40,15 @@ def delete_music(request, pk):
     print(to_be_deleted_music_file.pk)
     if request.method == 'POST':
         to_be_deleted_music_file.delete()
+        return redirect('music-home')
+    return redirect('music-home')
+
+
+@login_required(login_url='login')
+def use_music(request, pk):
+    to_be_used_music_file = MusicFile.objects.get(pk=pk)
+    if request.method == 'POST':
+        print(f'music file to be used {to_be_used_music_file.music_title}')
         return redirect('music-home')
     return redirect('music-home')
 

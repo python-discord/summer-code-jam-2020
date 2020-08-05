@@ -16,6 +16,10 @@
                 {% csrf_token %}
                 <input type="submit" value="delete">
             </form>
+            <form action="{% url 'music-use' song.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="use">
+            </form>
         {% endfor %}
     </section>
 </div>
