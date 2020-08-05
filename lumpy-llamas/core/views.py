@@ -2,16 +2,19 @@ from django.contrib.staticfiles.views import serve
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.middleware.csrf import get_token
 from core.helpers import jsonbody
 
 
 def index(request):
-    return serve(request, 'index.html')
+    res = serve(request, 'index.html')
+    res.set_cookie('csrftoken', get_token(request))
+    return res
 
 
 @jsonbody
 def register_endpoint(request, data):
-    user = User.create_user(
+    user = User.objects.create_user(
         data['username'],
         password=data['password'],
     )

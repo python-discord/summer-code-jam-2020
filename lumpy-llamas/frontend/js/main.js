@@ -2,9 +2,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
+// import Cookie from 'js-cookie';
+import axios from 'axios';
 import routes from './routes';
 import KeyboardInput from './input.vue';
 import KeyboardHandler from './keyboard-handler';
+
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+axios.defaults.xsrfCookieName = 'csrftoken';
+// const csrftoken = Cookie.get('csrftoken');
 
 Vue.use(Vuex);
 Vue.use(VueRouter);

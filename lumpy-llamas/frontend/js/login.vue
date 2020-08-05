@@ -63,10 +63,10 @@ export default {
       this.inputUsername();
     },
     goToRegister() {
-      this.$cmd.reset();
       this.stage = USERNAME_STATE;
       this.mode = 'register';
-      this.$cmd.onUnknown(this.inputUsername);
+      this.$cmd.reset();
+      this.inputUsername();
     },
     inputUsername() {
       this.$cmd.input('username: ').then((username) => {
@@ -81,8 +81,15 @@ export default {
         this.password = password;
         this.stage = PROCESS_STAGE;
         this.$cmd.reset();
-        this.login();
+        this.loginOrRegister();
       });
+    },
+    loginOrRegister() {
+      if (this.mode === 'register') {
+        this.register();
+      } else {
+        this.login();
+      }
     },
     login() {
       axios.post('/api/login', {
@@ -92,6 +99,7 @@ export default {
         this.$store.commit('login', res.data.id, res.data.username);
         this.$router.push('/');
       }).catch((err) => {
+        this.stage = START_STAGE;
         console.log(err); // eslint-disable-line no-console
       });
     },
@@ -99,9 +107,11 @@ export default {
       axios.post('/api/register', {
         username: this.username,
         password: this.password,
-      }).then(() => {
+      }).then((res) => {
+        this.$store.commit('login', res.data.id, res.data.username);
         this.$router.push('/');
       }).catch((err) => {
+        this.stage = START_STAGE;
         console.log(err); // eslint-disable-line no-console
       });
     },
