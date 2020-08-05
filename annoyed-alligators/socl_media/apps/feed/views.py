@@ -15,4 +15,4 @@ def feed(request):
                        'Date': post.post_date_posted}
         posts_list.append(post_struct)
     context = {"Feed": posts_list}
-    return render(request, 'feed.html', context=context)
+    return render(request, 'feed/home.html', context=context)
