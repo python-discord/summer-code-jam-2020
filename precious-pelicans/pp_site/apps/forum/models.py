@@ -1,38 +1,42 @@
 from django import forms
-from django.forms import Textarea
 from django.db import models
-
+from django.forms import Textarea, ValidationError
+from django.template.defaultfilters import filesizeformat
 
 from pp_site.utils.models import TimeStampMixin
 
 
-class MediaFile(models.Model):
-    data = models.FileField()
-    is_video = models.BooleanField()
+class ForumMedia(models.FileField):
+    image_types = ("image/gif", "image/jpeg", "image/png")
+    video_types = ("video/mp4", "video/webm", "video/ogg")
+
+    def __init__(self, *args, **kwargs):
+        kwargs["blank"] = True
+        kwargs["null"] = True
+
+        self.max_size = kwargs.pop("max_size", 20971520)
+
+        super().__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        data = super().clean(*args, **kwargs)
+
+        file = data.file
+        content_type = file.content_type
+
+        if content_type in self.image_types or content_type in self.video_types:
+            if file.size > self.max_size:
+                raise ValidationError(f"Please keep filesize under: {filesizeformat(self.max_size)}")
+            return data
+        raise ValidationError("Invalid content type")
 
 
 class ForumPost(TimeStampMixin):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=30)
     description = models.TextField(blank=False)
-    media_file = models.ForeignKey(MediaFile, on_delete=models.CASCADE, blank=True, null=True)
+    media_file = ForumMedia()
     rating = models.IntegerField(default=0)
-
-    @staticmethod
-    def fields():
-        """ Used for post searching """
-        whitelist = {
-            models.CharField,
-            models.IntegerField,
-            models.TextField
-        }
-        for field in ForumPost._meta.local_fields:
-            if type(field) in whitelist:
-                yield field.name
-            else:
-                continue
-
-        return
 
 
 class ForumPostForm(forms.ModelForm):
