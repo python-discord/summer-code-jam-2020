@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import nltk
+
+os.environ['NLTK_DATA'] = os.path.join(os.getcwd())
+nltk.download('averaged_perceptron_tagger')
 
 
 def main():
