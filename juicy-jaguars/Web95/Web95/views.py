@@ -5,6 +5,7 @@ from .settings import BASE_DIR
 import os
 import urllib.parse
 from django.views.decorators.clickjacking import xframe_options_sameorigin
+from .html_parse import HtmlParser
 
 
 def landing_page(request):
@@ -63,9 +64,12 @@ def index(request):
 @xframe_options_sameorigin
 def page(request, url):
     """Handle /page urls. Used to serve pages to IE."""
-    # content = "<h1>Testing</h1><p>"+url+"</p>"
-
     fp = urllib.request.urlopen(url)
     content = fp.read().decode()
+
+    parser = HtmlParser(content)
+    parser.parse()
+
+    content = parser.soup.prettify()
 
     return render(request, "Web95/blank.html", {"content": content})
