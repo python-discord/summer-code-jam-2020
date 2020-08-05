@@ -1,25 +1,15 @@
+{% extends "spydir/base.html" %}
 {% load static %}
 {% load index_tag %}
-<!doctype html>
-
-<html lang="en">
-    
-<head>
-    <meta charset="utf-8">
-    <title>SpydirWeb!</title>
-    <meta name="description" content="SpydirWeb">
-    <meta name="author" content="Talented Tigers">
-
-    <link rel="stylesheet" type="text/css" href="{% static 'spydir\css\styles.css' %}">
-</head>
-
-<body>
+{% block content %}
     <script src="js/scripts.js"></script>
-    <img class="center" src="{% static 'spydir\img\coollogo.gif' %}">
 
- 
-
-    <div class="center">
+  
+    <img class="center" src="{% static 'spydir\img\coollogo.gif' %}" style="margin-bottom: 4%">
+  
+    <marquee>Welcome to SpydirWeb!</marquee>
+    
+    <div class="center bevelBox">
       <table width="100%" style="border-spacing: 10px;">
       <thead>
         <tr>
@@ -42,8 +32,7 @@
           {% endwith %}
       </tbody>
       </table>
+      <a class="center" style="text-align: center;" id="blink">Pages you explore will be added here!</a>
     </div>
-
-</body>
-
-</html>
+          <img class="center" style="height: 8%; width: 8%;  margin-top: 25px; margin-bottom: 50px;" href="" src="{% static 'spydir\img\ie.gif' %}">
+{% endblock content %}

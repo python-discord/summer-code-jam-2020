@@ -1,14 +1,17 @@
 html {
     background-color: #000;
+    height: 100%;
 }
 
 body{
-    background-color: #000000;
+    height: 100%;
     color: #ffffff;
+    background-image: url('starbackground.jpg');
 }
 
-img {
-    width: 10%;
+marquee{
+    font-size: large;
+    color: red;
 }
 
 .center {
@@ -19,6 +22,7 @@ img {
   }
 
 div {
+    background-color: black;
     width: 320px;
     padding: 10px;
     border: 5px solid gray;
