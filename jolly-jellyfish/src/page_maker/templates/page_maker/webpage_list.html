@@ -3,21 +3,25 @@
 {% block content %}
 <h2>Top pages</h2>
 {% if webpages %}
+<div>
+    <table>
     {% for webpage in webpages %}
-    <div>
-        {% url 'webpage-view' pagename=webpage.name as user_pg %}
-        <a href="{{ user_pg }}">
-            <p>{{ webpage.user_title }}</p>
-        </a>
+        <tr>
+        <td>
         {% if webpage.thumbnail.url %}
             <img src="{{ webpage.thumbnail.url }}">
         {% else %}
-            To generate a thumbnail for '{{ webpage.user_title }}', go to
-            <a href="{{ user_pg }}">the page itself.</a>
+            Go to page itself to generate a thumbnail for it.
         {% endif %}
-    </div>
+        </td>
+        <td>
+            <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
+        </td>
+        </tr>
     {% endfor %}
+    </table>
+</div>
 {% else %}
-<p>No sites have been created yet!</p>
+    <p>No sites have been created yet!</p>
 {% endif %}
 {% endblock %}
