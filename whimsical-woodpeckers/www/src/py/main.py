@@ -2,6 +2,36 @@ from datetime import datetime
 
 from pyvue import Vue, Component
 
+logo = {}
+
+logo['messenger'] = 'https://media.discordapp.net/attachments/' \
+    '737282857327788042/739220722194317322/Asset_26x.png?width=571&height=677'
+
+logo['aol'] = 'https://media.discordapp.net/attachments/' \
+    '737282857327788042/739220747582439494/Asset_16x.png?width=918&height=677'
+
+logo['irc'] = 'https://www.plutora.com/wp-content/uploads/2018/11/irc_internet_relay_chat.png'
+
+logo['woodpeckers'] = 'https://media.discordapp.net/attachments/' \
+    '737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590'
+
+logo['current'] = logo['messenger']
+
+
+class App(Vue):
+    data = {
+        "username": "",
+        "password": "",
+        "testArea": "",
+        "friendListName": "Friends",
+        "chatName": "John Doe",
+    }
+
+    def login(self):
+        # send login info
+        pass
+
+
 messages = [
     {"sender": "John Doe", "content": "lol hi", "time": str(datetime.now())},
     {"sender": "John Doe", "content": "what are you up to?", "time": str(datetime.now())},
