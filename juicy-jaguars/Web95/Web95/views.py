@@ -18,9 +18,10 @@ def landing_page(request):
     except KeyError:
         theme = "Win95"
 
-    wallpapers = os.listdir(os.path.join(BASE_DIR,
-                                         "Web95/static/images/wallpapers",
-                                         theme))
+    wallpapers = sorted(os.listdir(os.path.join(BASE_DIR,
+                                                "Web95/static/images/\
+                                                wallpapers",
+                                                theme)))
 
     try:
         if request.GET["wallpaper"] in wallpapers:
