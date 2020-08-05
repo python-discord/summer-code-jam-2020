@@ -50,7 +50,7 @@ def extract_active_tags(html: str) -> list:
                 in_comment = True
                 continue
             if in_tag:
-                raise NestedHtmlTagError("nested tag found)")
+                raise NestedHtmlTagError("nested tag found")
             in_tag = True
             tag_start = p
         elif html[p] == ">":
