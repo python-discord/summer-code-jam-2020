@@ -2,21 +2,6 @@ from datetime import datetime
 
 from pyvue import Vue, Component
 
-logo = {}
-
-logo['messenger'] = 'https://media.discordapp.net/attachments/' \
-    '737282857327788042/739220722194317322/Asset_26x.png?width=571&height=677'
-
-logo['aol'] = 'https://media.discordapp.net/attachments/' \
-    '737282857327788042/739220747582439494/Asset_16x.png?width=918&height=677'
-
-logo['irc'] = 'https://www.plutora.com/wp-content/uploads/2018/11/irc_internet_relay_chat.png'
-
-logo['woodpeckers'] = 'https://media.discordapp.net/attachments/' \
-    '737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590'
-
-logo['current'] = logo['messenger']
-
 
 class App(Vue):
     data = {
@@ -25,6 +10,7 @@ class App(Vue):
         "testArea": "",
         "friendListName": "Friends",
         "chatName": "John Doe",
+        "current_user": "Jane Doe",
     }
 
     def login(self):
@@ -33,25 +19,59 @@ class App(Vue):
 
 
 messages = [
-    {"sender": "John Doe", "content": "lol hi", "time": str(datetime.now())},
-    {"sender": "John Doe", "content": "what are you up to?", "time": str(datetime.now())},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": str(datetime.now())},
-    {"sender": "John Doe", "content": "thats cool", "time": str(datetime.now())},
-    {"sender": "John Doe", "content": "oh. brb", "time": str(datetime.now())},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
+    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
 ]
 
 
-class App(Vue):
-    data = {}
-
-
 class MessageComponent(Component):
+
     data = {
         'messages': messages,
+        'current_user': 'Jane Doe',
     }
 
-    template = '<div><div v-for="message in messages" :key="message.content">{{ message.sender }}:' \
-               '{{ message.time }}: {{ message.content }}</div></div>'
+    template = '<div><div v-for="message in messages" :key="message.content" v-bind:class="{ \'alert-primary\': (current_user==message.sender), \'alert-info\':(current_user!=message.sender) }" class="alert">' \
+        '<span data-toggle="tooltip" data-placement="top" v-bind:title="message.time">{{ message.sender }}</span>' \
+        ': {{ message.content }}</div></div>'
 
 
 message_component = MessageComponent()
