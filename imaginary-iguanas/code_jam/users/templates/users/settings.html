@@ -3,7 +3,6 @@
     <h2>{{user.username}} settings</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ user_form.as_p }}
         {{ profile_form.as_p }}
         <button type="submit">Update Profile</button>
     </form>

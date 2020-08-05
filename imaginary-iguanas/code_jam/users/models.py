@@ -27,5 +27,5 @@ class Profile(models.Model):
     def __repr__(self):
         return (
             f'<Profile> {repr(self.user.username)} {repr(self.user.email)} {repr(self.image)} {repr(self.gender)} '
-            f'{repr(self.country)} {repr(self.city)} {repr(self.date_of_birth)}'
+            f'{repr(self.country)} {repr(self.city)} {repr(self.date_of_birth)}, {repr(self.audio_track)}'
         )

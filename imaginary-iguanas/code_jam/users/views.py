@@ -11,7 +11,7 @@ def home(request):
 def signup(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST)
-        profile_form = ProfileUpdateForm(request.POST)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             new_user = user_form.save()
             profile = profile_form.save(commit=False)
@@ -20,7 +20,7 @@ def signup(request):
             messages.success(request, 'Account created! You can now login')
             return redirect('login')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, 'Please correct the error(s) below.')
     else:
         user_form = UserUpdateForm()
         profile_form = ProfileUpdateForm()
@@ -31,18 +31,21 @@ def signup(request):
 
 # @login_required
 def user_settings(request):
-    """
     if request.method == 'POST':
-    update_form = MySiteUserProfileSettingsForm(request.POST, request.FILES, instance=request.user)
-    if update_form.isvalid():
-        update_form.save()
-        messages.success(request, f'Your profile has been updated successfully :)')
-        return redirect('profile')
+        # user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.profile)
+        if profile_form.is_valid():
+            # updated_user = user_form.save()
+            profile = profile_form.save(commit=False)
+            # profile.user = updated_user
+            profile.save()
+            messages.success(request, 'Profile updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error(s) below.')
     else:
-        update_form = MySiteUserProfileSettingsForm(instance=request.user)
-    """
-    user_form = UserUpdateForm()
-    profile_form = ProfileUpdateForm()
+        # user_form = UserUpdateForm()
+        profile_form = ProfileUpdateForm()
 
-    context = {'user_form': user_form, 'profile_form': profile_form}
+    context = {'profile_form': profile_form}
     return render(request, 'users/settings.html', context)
