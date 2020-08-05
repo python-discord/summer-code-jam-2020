@@ -44,7 +44,7 @@ def register(request: HttpRequest) -> HttpResponse:
 
 def login(request: HttpRequest) -> HttpResponse:
     """
-
+    Handles login request
     :param request:
     :return:
     """
