@@ -5,6 +5,8 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install -U "pipenv==2018.11.26"
 
 WORKDIR /app
-COPY . .
+COPY Pipfile* ./
 
 RUN pipenv install --system --deploy
+
+COPY cuddly_chameleons ./
