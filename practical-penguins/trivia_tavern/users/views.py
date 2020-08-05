@@ -10,6 +10,7 @@ sample_question = {
     'answers': '1) 3m/s 2) 6m/s 3) 9.81m/s 4) Not enough info'
 }
 
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -26,6 +27,7 @@ def register(request):
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
+
 
 @login_required
 def results(request):

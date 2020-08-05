@@ -26,11 +26,13 @@ def sms_send(msg, recipient):
         to=recipient
     )
 
+
 def register(phone_number):
     return Player.objects.create(
         name='name',
         number=phone_number,
     )
+
 
 def start_quiz(quiz, player):
     question1 = TriviaQuestion.objects.filter(quiz=fetch_quiz)[0]
@@ -81,7 +83,7 @@ def sms_reply(request):
     elif Player.objects.filter(phone_number=recipient).exists():
         # if quiz started, interpret as answer
         # else tell the player the quiz hasn't started yet
-
+        pass
     else:
         msg = ( 'This number has not started any quizzes. '
                 'Please start your quiz by texting START/<quiz#> to start!'
