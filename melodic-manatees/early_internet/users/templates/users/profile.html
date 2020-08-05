@@ -1,13 +1,40 @@
-{% extends 'main/main-base.html' %}
-{% block content %}
-    <div>
-        <div>
-            <!--profile picture here?-->
-            <div>
-                <h2>{{ user.username }}</h2>
-                <p>{{ user.email }}</p>
+{% extends 'main/main-base.html' %} 
+{% block herocontent %}
+    <div class="hero-body">
+    
+        <div class="container grid">
+            <div class="box">
+                <article class="media notification">
+                    <figure class="media-left image is-128x128">
+                    <!--profile picture here?-->
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                    <div class="media-content">
+                    <div class="content">
+                        <h2 class="title">{{ user.username }}</h2>
+                        <p class="subtitle">{{ user.email }}</p>
+                    </div>
+                    </div>
+                </article>
+                <!-- Update Profile Form Here -->
+                <div>
+                    <p>Display Name: {{ pref.name_preference }}</p>
+                    <p>Weather/Temperature Preference: {{ pref.weather_preference }}</p>
+                    <p>Display Weather?: {{ pref.display_weather }}</p>
+                </div>
+                <div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <!-- User Background -->
+                <div>
+                    upload background image
+                </div>
+                <!-- Next feature -->
             </div>
         </div>
-        <!-- Update Profile Form Here -->
     </div>
-{% endblock content %}
+{% endblock herocontent %}
