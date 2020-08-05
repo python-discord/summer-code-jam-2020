@@ -2,6 +2,7 @@ Django>=3.0,<3.1
 django-cors-headers
 ariadne>=0.11,<0.12
 psycopg2-binary
+pytest-cov
 pytest-django
 Pillow
 PyJWT
