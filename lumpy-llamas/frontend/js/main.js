@@ -2,6 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import routes from './routes';
+import axios from 'axios';
+
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+axios.defaults.xsrfCookieName = "csrftoken"
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
