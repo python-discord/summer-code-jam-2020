@@ -13,7 +13,7 @@ urlpatterns = [
         name="threads-all"
     ),
     path(
-      'forum/threads/<int:id>',
+      'forum/threads/<int:t_id>',
       views.threads,
       name='threads-single'
     ),
@@ -23,7 +23,7 @@ urlpatterns = [
         name="new-thread"
     ),
     path(
-        'forum/threads/<int:id>/new',
+        'forum/threads/<int:t_id>/new',
         views.NewMessage.as_view(),
         name="new-message"
     ),
