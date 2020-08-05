@@ -35,7 +35,7 @@ class Template(models.Model):
 
 
 def get_user_dir_path(instance, filename):
-    return f'images/{instance.author.username}/{filename}'
+    return str(Path('images') / instance.author.username / filename)
 
 
 class Webpage(models.Model):
