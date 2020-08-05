@@ -9,7 +9,6 @@ flake8 = "*"
 [packages]
 django = "==3.0.*"
 pillow = "*"
-django-richtextfield = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,68 +1,51 @@
 from django.db import models
-from djrichtextfield.models import RichTextField
+import django.contrib.auth.models as md
 
 
-class User(models.Model):
+class User(md.User):
     """represents an app user"""
-    registration_date = models.DateTimeField()
-    profile_picture = models.ImageField()
+    profile_picture = models.ImageField(upload_to='profile/')
 
-    def __str__(self):
-        pass
-
-
-class ProjectType(models.Model):
-    """represents a possible project type out of gif and still"""
-    GIF = "GIF"
-    IMG = "IMG"
-
-    PROJECT_TYPES = (
-        (GIF, 'gif project'),
-        (IMG, 'image project')
-    )
-
-    project_type = models.CharField(max_length=25, choices=PROJECT_TYPES)
+    def __repr__(self):
+        cls = self.__class__.__name__
+        return f"{cls} username={self.username!r}"
 
 
 class Project(models.Model):
     """represents a project that an user can do, can either be a gif or still image project"""
     name = models.CharField(max_length=50)
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
-    date_created = models.DateTimeField()
-    preview_version = models.ImageField()
-    upload_version = models.ImageField()
+    is_gif = models.BooleanField(null=False, default=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    preview_version = models.ImageField(upload_to="images/")
+    upload_version = models.ImageField(upload_to="images/")
 
-    def __str__(self):
-        pass
+    def __repr__(self):
+        cls = self.__class__.__name__
+        return f"{cls} name={self.name!r} owner_id={self.user_id!r}"
 
 
 class Image(models.Model):
     """represents an image that can be inside a project"""
     project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
     image_name = models.CharField(max_length=50)
-    image_data = models.ImageField()
-    date_created = models.DateTimeField()
-    date_last_modified = models.DateTimeField()
+    image_data = models.ImageField(upload_to="images/")
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_last_modified = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        pass
-
-
-class Post(models.Model):
-    """represents a post that can be added to a feed"""
-    title = models.TextField(max_length=50)
-    project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
-
-    def __str__(self):
-        pass
+    def __repr__(self):
+        cls = self.__class__.__name__
+        return f"{cls} image_name={self.image_name!r} project_id={self.project_id!r}"
 
 
 class Comment(models.Model):
-    """represents a comment on a post or another comment"""
-    content = RichTextField()
-    post_id = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
+    """represents a comment on a project or another comment"""
+    content = models.TextField()
+    post_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     parent_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        pass
+    def __repr__(self):
+        cls = self.__class__.__name__
+        return f"{cls} user_id={self.user_id!r} date_created={self.date_created!r}"
