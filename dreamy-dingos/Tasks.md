@@ -14,6 +14,5 @@
   - `YulkyTulky`
 - Message editing and deleting
   - `YulkyTulky`
-- Keeping messages in a database
 - Write documentation
   - `YulkyTulky`
