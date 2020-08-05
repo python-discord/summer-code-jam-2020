@@ -13,6 +13,18 @@
 </head>
 
 <body>
+
+    {% if user.is_authenticated %}
+    <div class="sidenav">
+        <a href="javascript:void(0)" id="inbox" >Inbox</a>
+        <a href="javascript:void(0)" id="compose" >Compose</a>
+        <a href="javascript:void(0)" id="sent" >Sent</a>
+        <a href="javascript:void(0)" id="archived" >Archived</a>
+        <br><br><br>
+        <a href="{% url 'logout' %}" style="font-size: 20px; color: #282baa;"">Log Out</a>
+    </div>
+    {% endif %}
+
     <div class="container">
 
         <h1 id="product-title"><img class="" src="{% static 'mail/main.png' %}" alt="logo">Bullfrog Mail</h1>

@@ -113,6 +113,30 @@ button.archive {
     animation-play-state: paused;
 }
 
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #dbeaf5;
+    overflow-x: hidden;
+    padding-top: 200px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #282baa;
+    display: block;
+}
+
+.sidenav a:hover {
+    text-decoration: underline;
+}
+
 body {
     background: #336699;
     font-weight: 400;
