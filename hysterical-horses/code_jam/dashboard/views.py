@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import textwrap
 import string
-import clipboard # for some debugging
+# import clipboard # for some debugging
 
 
 @login_required()
@@ -18,7 +18,7 @@ def search_query(search: str, format_text: bool =True):
     base_url = 'https://api.duckduckgo.com/'
     payload = {"q": search, "format": "json", "pretty": "1"}
     results = requests.get(base_url, params = payload).json()
-    clipboard.copy(str(results)) # REMEMBER TO COMMENT IN AFTER DEBUGGING
+    # clipboard.copy(str(results)) # REMEMBER TO COMMENT IN AFTER DEBUGGING
     
     if format_text:  # formats response
         # NOTE:
@@ -37,7 +37,7 @@ def search_query(search: str, format_text: bool =True):
 
             # js-freindly-title makes sure the element does not have a punctuation in the id (')
             return {'title': text_search.group(1),
-                    'info': text_search.group(2).replace('<br>', ""),
+                    'info': text_search.group(2).replace('<br>', "").replace(',', ''),
                     'img_url': entry['Icon']['URL'],
                     'further_info': entry['FirstURL'],
                     'tags': tags}
@@ -64,8 +64,9 @@ def search_query(search: str, format_text: bool =True):
 @login_required()
 def engine_results(request):
     """ Renders a page for the request  """
-    # search_text = 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch' # search query
-    search_text = 'some random dude'
+    search_text = ''
+    search_text = 'llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch' # search query
+   
 
     # prevent long searches from overflowing
     wrapper = textwrap.TextWrapper(width=43)
@@ -101,3 +102,7 @@ def engine_results(request):
 def chat_room(request, room_name):
     context = {'room_name': room_name}
     return render(request, 'dashboard/chat_room.html', context)
+
+
+# things to do for search-engine:
+# "Learn More" button is not working

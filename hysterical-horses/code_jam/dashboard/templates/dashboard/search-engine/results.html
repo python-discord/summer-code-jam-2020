@@ -29,7 +29,7 @@
                     <p>{{ t.info  }}</p>
                     <menu class="dialog-menu">
                         <button class="nes-btn is-error">Go Back</button>
-                        <a href='{{ t.further_info  }}' target="_blank"><button class="nes-btn is-primary">Learn More</button></a>
+                        <a href='{{ t.further_info  }}' target="_blank"><button class="nes-btn is-primary" onclick="window.open('{{ t.further_info  }}', '_blank');">Learn More</button></a>
                     </menu>
                 </form>
             </dialog>
@@ -46,11 +46,11 @@
             <button id="other-res" class="nes-btn search-res" align="center" onclick="document.getElementById('{{ forloop.counter0|add:3 }}').showModal();">{{ o.title  }}</button>
             <dialog class="nes-dialog" id='{{  forloop.counter0|add:3  }}'>
                 <form method="dialog">
-                    <p class="title is-primary">{{ o.title  }}</p>
+                    <p class="title is-primary nes-text">{{ o.title  }}</p>
                     <p>{{ o.info  }}</p>
                     <menu class="dialog-menu">
                         <button class="nes-btn is-error">Go Back</button>
-                        <a href='{{ o.further_info  }}' target="_blank"><button class="nes-btn is-primary">Learn More</button></a>
+                        <a href='{{ o.further_info  }}'><button class="nes-btn is-primary" onclick="window.open('{{ o.further_info  }}', '_blank');">Learn More</button></a>
                     </menu>
                 </form>
             </dialog>
@@ -58,7 +58,7 @@
         {% endfor  %}
     </div>
     {% endif %}
-    
+
     {% if other_results|length == 0 and top_results|length == 0 %}
     <h3 id='no-results-found' align="center">No search results found.</h3>
     {% endif  %}
@@ -78,7 +78,6 @@
 
 {% block extra_scripts %}
 
-<script src="jquery-3.5.1.min.js"></script>
 
 
 {% endblock  %}
