@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     background_image = models.ImageField(upload_to="backgrounds", default='defaults/sunrise.jpg')
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user.username}'
 
 
 class UserPreferences(models.Model):

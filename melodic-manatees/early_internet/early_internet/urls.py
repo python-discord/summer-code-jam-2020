@@ -17,8 +17,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from users import views as user_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +30,10 @@ urlpatterns = [
     path('logout/', user_views.user_logout, name='logout'),
     path('profile/', user_views.profile, name='profile'),
     path('img2ascii/', include('img2ascii.urls')),
-]
+    path('backgrounds/', include('background_app.urls'))
+] 
+
+urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
