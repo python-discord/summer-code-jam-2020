@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div>
+    <div class="card-column">
       <q-card v-for="site in citySites" :key="site.id">
         <q-card-section>
           <!-- <a :href="`/sites/${site.id}`"> -->

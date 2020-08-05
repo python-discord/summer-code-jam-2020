@@ -2,6 +2,7 @@ from django.db import models
 
 from djangocities.cities.models import City
 from djangocities.user.models import CustomUser as User
+from djangocities.folders.models import FolderItem
 
 
 class Site(models.Model):
@@ -18,15 +19,17 @@ class Site(models.Model):
         return f"{self.city}/{self.address}"
 
 
-class Page(models.Model):
+# class Page(models.Model):
+class Page(FolderItem):
     class Meta:
         verbose_name_plural = "pages"
         unique_together = ('site', 'filename')
-
+    '''
     # Site
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     # Filename
     filename = models.CharField(max_length=256)
+    '''
     # Version
     HTML_1 = 'H1'
     HTML_2 = 'H2'
