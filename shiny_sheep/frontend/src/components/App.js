@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import Chat from "./Chat";
 
 class App extends Component {
   constructor(props) {
@@ -7,7 +8,12 @@ class App extends Component {
   }
 
   render() {
-    return <h1>Hello world!</h1>
+    return (
+      <div>
+        <h1>Hello world!</h1>
+        <Chat/>
+      </div>
+    )
   }
 }
 
