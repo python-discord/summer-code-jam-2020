@@ -86,6 +86,7 @@ class MUDTerminal {
   printReply(reply) {
      /* \x9B1M deletes current line (the prompt) which we overwrite, and then
       * print a new prompt */
+    reply = reply.replace(/(?![^\n]{1,80}$)([^\n]{1,80})\s/g, '$1\r\n');
     this.terminal.write("\x9B1M" + reply);
     this.terminal.write("\r\n");
     this.printPrompt();
