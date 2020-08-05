@@ -34,7 +34,7 @@ def register(phone_number):
     )
 
 
-def start_quiz(quiz, player):
+def start_quiz(fetch_quiz, player):
     question1 = TriviaQuestion.objects.filter(quiz=fetch_quiz)[0]
     msg = question1.question_text
     sms_send(msg, player.phone_number)
