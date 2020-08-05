@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import (
     CreateView,
     DeleteView,
@@ -47,3 +47,11 @@ class CreateMessage(CreateView):
 
     def get_success_url(self):
         return reverse('chat-room', kwargs={'pk': self.kwargs['pk']})
+
+
+class DeleteMessage(DeleteView):
+    model = Message
+    template_name = 'chat/message_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('chat-room', kwargs={'pk': self.kwargs['user_pk']})
