@@ -4,16 +4,21 @@ from djangocities.user.models import CustomUser as User
 from djangocities.sites.models import Site
 
 
+class Folder(models.Model):
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    directory = models.CharField(max_length=256)
+
+    def __str__(self):
+        return f"{self.site}{self.directory}"
+
+
 class FolderItem(models.Model):
-    parent = models.ForeignKey('self', null=True)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     filename = models.CharField(max_length=256)
 
     class Meta:
         abstract = True
-
-
-class Folder(FolderItem):
-    home_group = models.CharField(max_length=5)
-    directory = models.CharField(max_length=256)

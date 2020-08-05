@@ -1,11 +1,11 @@
 from django.db import models
 
 from djangocities.folders.models import FolderItem
+from django.conf import settings
 
 
 def upload_to(instance, filename):
-    username = instance.owner.username
-    return f"/cdn/user/{username}/{filename}"
+    return f"{settings.MEDIA_ROOT}/{instance.folder}/{filename}"
 
 
 class Media(FolderItem):

@@ -10,4 +10,4 @@ class City(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return self.name
+        return self.slug

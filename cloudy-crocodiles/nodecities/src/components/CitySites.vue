@@ -3,8 +3,8 @@
     <div class="card-column">
       <q-card v-for="site in citySites" :key="site.id">
         <q-card-section>
-          <!-- <a :href="`/sites/${site.id}`"> -->
-          <a :href="`http://localhost:1234/${city.slug}/${site.address}`">
+          <!-- <a :href="`http://localhost:1234/${city.slug}/${site.address}`"> -->
+          <a :href="`http://localhost:1234/cdn/${city.slug}/${site.address}/index.html`">
             {{ city.name + site.address }}
           </a>
         </q-card-section>

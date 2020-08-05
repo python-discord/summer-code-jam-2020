@@ -1,13 +1,8 @@
 from django.contrib import admin
 
-from .models import Site, Page
+from .models import Site
 
 
 @admin.register(Site)
 class SiteAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
     pass
