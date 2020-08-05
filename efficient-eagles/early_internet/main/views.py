@@ -177,7 +177,6 @@ class UserView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(CustomUser, username=kwargs['user'])
-        user_id = CustomUser.objects.get(id=user.get_id)
-        posts = Post.objects.filter(author=user_id)
+        posts = Post.objects.filter(author=user.id)
         context = {'user': user, 'posts': posts}
         return render(request, self.template_name, context)

@@ -2,27 +2,27 @@
 
 {% block content %}
 <table style='width: 100%;'>
-<tr>
-<td>
-{% if 'posts' in request.path %}
-{% for post in posts %}
-<div class='w3-card' style='width:100%; overflow-x: auto; overflow-y: hidden; margin-left:90px;'>
-<header class='w3-container'>
-<h5><a href="/topic/{{post.topic.name}}/{{post.slug}}" style='color: blue;'>{{post.title}}</a></h5>
-</header>
-<div class='oneline'>
-<h6>submitted by <a style='color:blue;'>{{post.author}}</a> on {{post.created}} in <a style='color: blue;' href='/topic/{{post.topic}}'>{{post.topic}}</a></h6>
-</div>
-</div>
-{% endfor %}
-{% endif %}
-</td>
-<td style='float: right;'>
-<img src='{{request.user.profile_img}}' alt='no profile image'/>
-<h3>{{ user.username }}</h3>
-Joined {{ user.date_joined }}<br>
-Last logged in {{ user.last_login }}  
-</td>
-</tr>
+  <tr>
+    <td>
+      {% if 'posts' in request.path %}
+        {% for post in posts %}
+          <div class='w3-card' style='width:100%; overflow-x: auto; overflow-y: hidden; margin-left:90px;'>
+            <header class='w3-container'>
+              <h5><a href="/topic/{{post.topic.name}}/{{post.slug}}" style='color: blue;'>{{post.title}}</a></h5>
+            </header>
+            <div class='oneline'>
+              <h6>submitted by <a style='color:blue;'>{{post.author}}</a> on {{post.created}} in <a style='color: blue;' href='/topic/{{post.topic}}'>{{post.topic}}</a></h6>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </td>
+    <td style='float: right;'>
+      <img src='{{request.user.profile_img}}' alt='no profile image'/>
+      <h3>{{ user.username }}</h3>
+          Joined {{ user.date_joined }}<br>
+          Last logged in {{ user.last_login }}  
+    </td>
+  </tr>
 </table>
 {% endblock %}
