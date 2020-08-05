@@ -5,7 +5,7 @@ from .forms import ForumUserChangeForm
 
 
 @login_required
-def message(request, m_id):
+def message(request, id):
     if request.method == "DELETE":
         pass  # @TODO: Handle message deletion
 

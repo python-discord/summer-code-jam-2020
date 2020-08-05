@@ -8,22 +8,22 @@ urlpatterns = [
         name="forum-homepage"
     ),
     path(
-        'forum/threads/',
+        'forum/threads',
         views.threads,
         name="threads-all"
     ),
     path(
-      'forum/threads/<int:t_id>/',
+      'forum/threads/<int:id>',
       views.threads,
       name='threads-single'
     ),
     path(
-        'forum/threads/new/',
+        'forum/threads/new',
         views.NewThread.as_view(),
         name="new-thread"
     ),
     path(
-        'forum/threads/<int:t_id>/new/',
+        'forum/threads/<int:id>/new',
         views.NewMessage.as_view(),
         name="new-message"
     ),
