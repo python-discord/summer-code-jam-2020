@@ -1,16 +1,77 @@
 {% extends 'base/base.html' %}
-{% block title %}All Posts{% endblock %}
+{% load static %}
+
+{% block head %}
+	<link rel="stylesheet" href="{% static "css/forum/index.css" %}">
+	<style>
+		html {
+			display: flex;
+			justify-content: center;
+		}
+	</style>
+{% endblock %}
+
+{% block title %}Post Index{% endblock %}
 
 {% block content %}
-		  <h1> All Posts</h1>
-		  <div>
-			<ul id='post-list'>
-				{% for post in post_list%}
-				<li onclick='location.href = "/forum/{{ post.id }}"'>
-					<h6>{{ post.title}}</h6>
-					<p>{{ post.description }}</p>
-				</li>
+    <body>
+        <img id="banner" src="https://placeholder.com/wp-content/uploads/2018/10/placeholder-1.png">
+        <div id="header">
+            <a>
+                &lt;&lt; Home
+            </a>
+        </div>
+        <form id="search-bar" method="post" action="/forum/search/">
+			{% csrf_token %}
+			{{ search }}
+			<input type="submit" value="Enter">
+        </form>
+        <h2> All Posts </h2>
+        <main>
+            <div id="topic-container">
+				{% for post in post_list %}
+                <div class="post" onclick="location.href='/forum/{{ post.id }}'">
+                    <div class="rating-container">
+                        <button>&#8593</button>
+                        <span>{{ post.rating }}</span>
+                        <button>&#8595</button>
+                    </div>
+                    <div class="post-information">
+                        <div class="post-title">
+                            {{ post.title }}
+                        </div>
+                        <div class="post-description">
+							{% if post.description|wordcount > 30 %}
+								{{ post.description|truncatewords:30 }}...
+							{% else %}
+								{{ post.description }}
+							{% endif %}
+                        </div>
+                        <div class="author-date">
+                            Posted by {{ post.author }} on {{ post.created_at }}
+                        </div>
+                    </div>
+				</div>
 				{% endfor %}
-			</ul>
-		  </div>
+			</div>
+            <div id="top-post-container">
+                <h3>Post of the day</h3>
+                <div id="media-container">
+                    <img src="https://via.placeholder.com/400">
+                </div>
+                <div id="top-post">
+                    <div class="post-title">
+                        {{ top_post.title }}
+                    </div>
+                    <div class="post-information">
+                        {{ top_post.description|truncatewords:50 }}.
+                    </div>
+                    <div class="author-date">
+                        Posted by {{ top_post.author }} on {{ top_post.created_at }}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+
 {% endblock %}

@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import ForumPost, ForumPostReplyForm
+from .models import MediaFile, ForumPost, ForumPostReplyForm
+from .forms import MediaUploadForm, PostSearchForm
 
 
 def forum_post(request, post_id):
@@ -37,14 +38,108 @@ def forum_post_reply(request, post_id):
     else:
         form = ForumPostReplyForm()
 
-    # TODO: fix this so that it renders the page with form filled in
     return render(request, f'forum/{post_id}')
 
 
 def index(request):
-    post_list = ForumPost.objects.all()
+    # TODO: confirm if dates in descending order mean newest first
+    post_list = ForumPost.objects.order_by('-created_at')
     context = {
-        'post_list': post_list
+        'post_list': post_list,
+        'top_post': post_list.order_by('-rating').first(),
+        'search': PostSearchForm()
     }
 
     return render(request, 'forum/index.html', context)
+
+
+def enter_media(requestObj):
+    """ Helper for upload_post(), process media uploads for post creation """
+    video_extensions = (
+        '.mpeg',
+        '.mp4',
+        '.mov'
+    )
+    uploadedFile = requestObj.FILES['media_file']
+
+    media_entry = MediaFile.objects.create(
+        data=uploadedFile,
+        is_video=uploadedFile.name.endswith(video_extensions)
+    )
+    media_entry.save()
+
+    return media_entry
+
+
+def remove_excess_fields(requestPOST, fieldClass):
+    post_copy = dict(requestPOST)
+    for key in requestPOST:
+        if key not in fieldClass.__dict__:
+            del post_copy[key]
+
+    return post_copy
+
+
+def upload_post(request):
+    if request.method == "POST":
+        form = MediaUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            media_entry = enter_media(request)
+            post_params = remove_excess_fields(request.POST, ForumPost)
+
+            entry = ForumPost.objects.create(media_file=media_entry, **post_params)
+            entry.save()
+
+            if ForumPost.objects.get(pk=entry.id):
+                return HttpResponseRedirect(f'/forum/{entry.id}?page=-1')
+            else:
+                return HttpResponseRedirect('/')
+        else:
+            return render(request, 'forum/upload_error.html', {'errors': form.errors})
+
+    else:
+        return render(request, 'forum/upload.html', {'upload_form': MediaUploadForm()})
+
+
+def search_posts(request):
+    search_parameters = [fieldname for fieldname in ForumPost.fields()]
+    result_set = set()
+
+    for keyword in search_parameters:
+        kwarg = {f'{keyword}__icontains': request.POST['search_string']}
+        intermediate_result = ForumPost.objects.filter(**kwarg)
+
+        for post in intermediate_result:
+            result_set.add(post)
+
+    if len(result_set) == 0:
+        return render(request, 'forum/search_no_results.html')
+
+    context = {
+        'search_results': result_set,
+        'search_string': request.POST['search_string']
+    }
+
+    return render(request, 'forum/search.html', context)
+
+
+def vote_post(request, post_id, vote_up):
+    # TODO: needs to be implemented into the template
+    post = get_object_or_404(ForumPost, id=post_id)
+    if vote_up:
+        post.rating += 1
+    else:
+        post.rating -= 1
+
+    pages = Paginator(post.objects.forumpostreply_set, 6)
+
+    page_number = request.GET.get('page', 1)
+    page_obj = pages.get_page(page_number)
+
+    context = {
+        'original_post': post,
+        'reply_form': ForumPostReplyForm,
+        'page_obj': page_obj
+    }
+
+    return render(request, 'forum/forum_post_after_vote.html', context)
