@@ -19,41 +19,6 @@ class App(Vue):
 
 
 messages = [
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "thats cool", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
-    {"sender": "John Doe", "content": "oh. brb", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
     {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
     {"sender": "John Doe", "content": "what are you up to?", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
     {"sender": "Jane Doe", "content": "nothing much. eating some ramen lol", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},
@@ -62,7 +27,7 @@ messages = [
 ]
 
 
-class MessageComponent(Component):
+class Messages(Component):
 
     data = {
         'messages': messages,
@@ -73,30 +38,8 @@ class MessageComponent(Component):
         '<span data-toggle="tooltip" data-placement="top" v-bind:title="message.time">{{ message.sender }}</span>' \
         ': {{ message.content }}</div></div>'
 
+    # template = "#messages"
 
-message_component = MessageComponent()
+
+message_component = Messages()
 app = App('#app')
-
-# class MessageList(Vue):
-#     data = {
-#         "current": 0,
-#         "textbox": "",
-#         "messages": [
-#             "Hi there!",
-#             "Welcome to PyVue!",
-#             "Hope it goes well for you!"
-#         ]
-#     }
-#
-#     def next_message(self):
-#         self.data['current'] += 1
-#         if self.data['current'] > len(self.data['messages']) - 1:
-#             self.data['current'] = 0
-#
-#     def add_message(self):
-#         self.data['messages'].append(self.data['textbox'])
-#         self.data['textbox'] = ""
-
-
-# test2 = MessageList("#app1")
-# test3 = MessageList("#app2")

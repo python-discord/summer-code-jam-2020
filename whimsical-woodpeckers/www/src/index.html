@@ -38,7 +38,7 @@
       <div id="chat-window">
 <!--        Used to test overflow scrolling -->
 <!--       <div style="height: 200vh;"></div>-->
-        <messagecomponent></messagecomponent>
+        <messages></messages>
 <!--        Used to test overflow scrolling -->
       </div>
 
@@ -74,6 +74,13 @@ TODO: Add vue if statement to add this if on IRC app:
       $(document).ready(function() {
           $("body").tooltip({ selector: '[data-toggle=tooltip]' });
       });
+    </script>
+    <script type="text/x-template" id="messages">
+      <div>
+        <div v-for="message in messages" :key="message.content" v-bind:class="{ \'alert-primary\': (current_user==message.sender), \'alert-info\':(current_user!=message.sender) }" class="alert">
+          <span data-toggle="tooltip" data-placement="top" v-bind:title="message.time">{{ message.sender }}</span>: {{ message.content }}
+        </div>
+      </div>'
     </script>
 </body>
 </html>
