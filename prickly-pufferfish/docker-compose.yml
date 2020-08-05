@@ -17,11 +17,17 @@ services:
         depends_on:
             - db
             - redis
-            - static
+        expose:
+            - "8000"
     redis:
         image: redis
-    static:
+    nginx:
         image: nginx
         volumes:
             - ./nginx.conf:/etc/nginx/nginx.conf
+            - ./mime.types:/etc/nginx/mime.types
             - ./arena/static:/static
+        ports:
+            - "80:80"
+        depends_on:
+            - web
