@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <a href="#">Send message</a>
+  {% for message in messages %}
+    <div class="card mb-3" style="width: 70rem;">
+      {% if message.sender.username == user.username %}
+        <p class="card-text">{{ message.sender.username }}</p>
+        <h6 class="card-subtitle mb-2 text-muted">{{ message.date }}</h6>
+        <p class="card-text">{{ message.content }}</p>
+      {% else %}
+        <p class="card-text ml-auto">{{ message.sender.username }}</p>
+        <h6 class="card-subtitle mb-2 text-muted ml-auto">{{ message.date }}</h6>
+        <p class="card-text ml-auto">{{ message.content }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock content %}
