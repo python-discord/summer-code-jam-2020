@@ -2,7 +2,6 @@
 
 from django.shortcuts import render, redirect
 from .settings import BASE_DIR
-from random import choice
 import os
 
 
@@ -19,22 +18,36 @@ def landing_page(request):
     except KeyError:
         theme = "Win95"
 
-    wallpaper_path = os.path.join(BASE_DIR,
-                                  "Web95/static/images/wallpapers/" + theme)
+    wallpapers = os.listdir(os.path.join(BASE_DIR,
+                                         "Web95/static/images/wallpapers",
+                                         theme))
 
-    bg = choice(os.listdir(wallpaper_path))
+    try:
+        if request.GET["wallpaper"] in wallpapers:
+            wallpaper = request.GET["wallpaper"]
+        else:
+            wallpaper = wallpapers[0]
+    except KeyError:
+        wallpaper = wallpapers[0]
+
+    bg = "/static/images/wallpapers/" + theme + "/" + wallpaper
 
     themelist = []
+    walllist = []
 
     for n in themes:
         themelist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" + n
                          + "'>" + n + "</n></li>")
 
+    for n in wallpapers:
+        walllist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" +
+                        theme + "&wallpaper=" + n + "'>" + n + "</n></li>")
+
     return render(request,
                   "Web95/landing_page.html",
-                  {"bg": "url(\"static/images/wallpapers/" + theme + "/"
-                   + bg + "\")",
+                  {"bg": "url('" + bg + "')",
                    "themes": "\n".join(themelist),
+                   "wallpapers": "\n".join(walllist),
                    },
                   )
 
