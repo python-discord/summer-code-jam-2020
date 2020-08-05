@@ -14,7 +14,7 @@ class PageImage(models.Model):
     image = models.TextField(blank=True)
 
 
-# These 2 following classes are for the food recipies
+# These 2 following classes are for the food recipes
 class Ingredient(models.Model):
     ingredient = models.CharField(max_length=35)
 
@@ -40,7 +40,8 @@ class GeneratedPage(models.Model):
 
     # Blog Fields
     blog_posts = models.ManyToManyField(BlogPost, blank=True)
-    blogger_age = models.IntegerField(null=True)
+    # 4 digit number to randomize css
+    blogger_age = models.IntegerField(blank=True, null=True)
     blogger_location = models.CharField(max_length=20, blank=True)
 
     # Information Fields

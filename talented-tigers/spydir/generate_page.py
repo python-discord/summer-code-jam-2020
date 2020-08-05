@@ -8,17 +8,14 @@ from .models import GeneratedPage
 
 
 # TODO: Make the requests asynchronous
-def generate_page(page_name):
+def generate_page(page_name, page_type=None):
     """Gets a page object which only has a title, then populates it with scraped information"""
     page_object = GeneratedPage.objects.get(page_title=page_name)
 
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0]
-
-    # random 4 digit #
-    page_object.css_seed = random.randint(1000, 9999)
+    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] if page_type is None else page_type
 
     # Define the different fields needed for different page types here
     if page_object.page_type == 'BLOG':
@@ -63,7 +60,7 @@ def authorize_page(page_name):
     try:
         page = GeneratedPage.objects.get(page_title=page_name)
     except GeneratedPage.DoesNotExist:
-        page = GeneratedPage.objects.create(page_title=page_name)
+        page = GeneratedPage.objects.create(page_title=page_name, css_seed=random.randint(1000, 9999))
 
 
 def generate_information(page_name):

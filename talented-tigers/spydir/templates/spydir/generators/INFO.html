@@ -8,7 +8,11 @@
     <title>All About {{ page.tab_description }}</title>
     <style>
         * {
-            font-family: 'Times New Roman', Times, serif;
+            {% if page.css_seed|mod:2 == 0 %}
+                font-family: 'Times New Roman', Times, serif;
+            {% else %}
+                font-family: "Comic Sans MS", "Comic Sans", cursive;
+            {% endif %}
         }
 
         .container{
@@ -16,7 +20,7 @@
         }
 
         .content {
-            margin: 0 10%;
+            margin: 0 {{ page.css_seed|mod:20 }}%;
             text-align: left;
         }
 
@@ -27,7 +31,9 @@
     <header>
         <div class="container">
             <h1>All About {{ page.page_title }}</h1>
-            <h3>Welcome to my crazy new website about {{ page.page_title }}!</h3>
+            {% if page.css_seed|mod:2 == 0 %}
+                <h3>Welcome to my crazy new website about {{ page.page_title }}!</h3>
+            {% endif %}
             <h6>By: {{ page.page_author }}</h6>
             <img src=''>
         </div>
