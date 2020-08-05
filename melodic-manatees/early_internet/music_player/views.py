@@ -23,6 +23,7 @@ def add_music(request):
         user = request.user
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
+            print(request.FILES.__dir__())
             files = request.FILES.get('music_musicfile')
             title = request.POST.get('music_title')
             file_instance = MusicFile(music_musicfile=files, music_title=title, music_owner=request.user.userprofile)
@@ -34,3 +35,9 @@ def add_music(request):
     return render(request, 'music_player/add_music.html', {
         'form': form
         })
+
+# @login_required(login_url='login')
+# def delete_music(request, music_url):
+
+#     if request.method == 'POST':
+
