@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 def background_home(request):
     print(request.user)
     background_list = BackgroundFile.objects.filter(
-        background_owner=request.user.UserProfile
+        background_owner=request.user.profile
         )
     return render(
         request,
@@ -28,7 +28,7 @@ def add_background(request):
             file_instance = BackgroundFile(
                 background_file=files,
                 background_title=title,
-                background_owner=request.user.userprofile
+                background_owner=request.user.profile
                 )
             file_instance.save()
             messages.success(request, 'background added')
