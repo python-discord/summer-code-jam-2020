@@ -1,14 +1,18 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from pathlib import PurePath
 
 
 # Create your views here.
-def index(requests):
+def index(request):
+    if request.method == "POST":
+        search_key = request.POST.get('search_text', '')
+        return redirect('first_google:results', search_text=search_key)
+
     index_path = PurePath('first_google/index.html')
-    return render(requests, index_path)
+    return render(request, index_path)
 
 
-def results(requests):
+def results(request, search_text):
+    context = {"search_text": search_text}
     results_path = PurePath('first_google/results.html')
-    return render(requests, results_path)
+    return render(request, results_path, context)

@@ -14,14 +14,17 @@
     </div>
     <!--search area-->
     <div class="search section-vertical">
-        <div class="search-area section-vertical">
-            <label for="search-box">Search the web using Google!</label>
-            <input id="search-box" type="text">
-        </div>
-        <div class="search-buttons">
-            <button>Google Search</button>
-            <button>I'm feeling lucky</button>
-        </div>
+        <form method="Post">
+            {% csrf_token %}
+            <div class="search-area section-vertical">
+                <label for="search-box">Search the web using Google!</label>
+                <input id="search-box" name="search_text" type="text">
+            </div>
+            <div class="search-buttons">
+                <button>Google Search</button>
+                <button>I'm feeling lucky</button>
+            </div>
+        </form>
     </div>
     <!--others-->
     <div class="others section-horizontal">
