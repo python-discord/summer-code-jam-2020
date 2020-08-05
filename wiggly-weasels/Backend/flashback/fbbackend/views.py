@@ -32,15 +32,29 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'], name='Join', url_path='join-group', url_name='join_group')
+    @action(detail=False, methods=['post'], name='Join Group', url_path='join-group', url_name='join_group')
     def join_group(self, request, pk=None):
         serializer = serializers.JoinSerializer(data=request.data)
 
         if serializer.is_valid():
-            return Response(models.Group.objects.get(request.data['group_name']))
+            return Response(models.Group.objects.get(serializer.data['group_name']))
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['post'], name='Read Messages', url_path='read-message', url_name='read_messages')
+    def read_messages(self, request, pk=None):
+        serializer = serializers.ReadSerializer(data=request.data)
+        if serializer.is_valid():
+            group = models.Group.objects.get(name=serializer.data['group_name'])
+            print(group.messages[0:])
+            return Response({'messages': group.messages[serializer.data['index']:]})
+            
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 
