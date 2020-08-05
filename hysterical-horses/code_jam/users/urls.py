@@ -12,8 +12,10 @@ from . import views
 
 urlpatterns = [
     path("profile/", views.profile, name="profile"),
-    path("login/", LoginView.as_view(template_name='users/login.html'), name='login'),
-    path("logout/", LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path("login/", LoginView.as_view(template_name='users/login.html',
+         redirect_authenticated_user=True), name='login'),
+    path("logout/", LogoutView.as_view(template_name='users/logout.html'),
+         name='logout'),
     path("signup/", views.signup, name="signup"),
 
     path("password_change/", PasswordChangeView.as_view(
