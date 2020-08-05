@@ -1,3 +1,8 @@
+from django.urls import reverse
+from django.views.generic.edit import (
+    CreateView,
+    DeleteView,
+)
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth import get_user_model
@@ -18,7 +23,7 @@ class UsersChatView(ListView):
 
 
 class UserChatRoom(DetailView):
-    model = get_user_model()
+    model = User
     template_name = 'chat/chat_room.html'
 
     def get_context_data(self, **kwargs):
@@ -28,3 +33,17 @@ class UserChatRoom(DetailView):
             (Q(sender=self.object) & Q(reciever=self.request.user))
         ).order_by('-date')
         return context
+
+
+class CreateMessage(CreateView):
+    model = Message
+    template_name = 'chat/message_create.html'
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.instance.sender = self.request.user
+        form.instance.reciever = get_user_model().objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('chat-room', kwargs={'pk': self.kwargs['pk']})

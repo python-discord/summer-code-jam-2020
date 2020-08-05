@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <a href="#">Send message</a>
+  <a href="{% url 'message-create' object.pk %}">Send message</a>
   {% for message in messages %}
     <div class="card mb-3" style="width: 70rem;">
       {% if message.sender.username == user.username %}
+        <p>{{ message.sender.username }} - {{ user.username }}</p>
         <p class="card-text">{{ message.sender.username }}</p>
         <h6 class="card-subtitle mb-2 text-muted">{{ message.date }}</h6>
         <p class="card-text">{{ message.content }}</p>
