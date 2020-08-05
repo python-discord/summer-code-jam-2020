@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.landing_page),
     path('index.html', views.index),
 
+    path('page/<path:url>', views.page)
 ]

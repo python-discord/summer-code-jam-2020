@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect
 from .settings import BASE_DIR
 import os
+import urllib.parse
 
 
 def landing_page(request):
@@ -56,3 +57,10 @@ wallpapers",
 def index(request):
     """Redirect from index.html to /."""
     return redirect(landing_page)
+
+
+def page(request, url):
+    """Handle /page urls. Used to serve pages to IE."""
+    content = "<h1>Testing</h1><p>"+url+"</p>"
+
+    return render(request, "Web95/blank.html", {"content": content})
