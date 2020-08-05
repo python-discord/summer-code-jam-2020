@@ -10,6 +10,7 @@ flake8 = "*"
 django = "==3.0.7"
 django-environ = "*"
 psycopg2-binary = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
@@ -21,7 +22,6 @@ server = 'python Website\\manage.py runserver'
 lint = 'python -m flake8'
 createsuperuser = 'python Website\\manage.py createsuperuser'
 collectstatic = 'python Website\\manage.py collectstatic'
-
 makemigrations-l = 'python3 Website/manage.py makemigrations'
 migrate-l = 'python3 Website/manage.py migrate'
 server-l = 'python3 Website/manage.py runserver'
