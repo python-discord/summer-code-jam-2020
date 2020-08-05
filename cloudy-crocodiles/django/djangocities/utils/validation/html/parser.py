@@ -61,6 +61,10 @@ def extract_active_tags(html: str) -> list:
                     )
                 in_comment = False
                 continue
+            if in_comment:
+                continue
+            if not in_tag:
+                raise InvalidHtmlTagError("cannot close tag that was not opened")
             in_tag = False
             active_tags.append(html[tag_start : p + 1])
 
@@ -72,4 +76,3 @@ def extract_active_tags(html: str) -> list:
         raise HtmlCommentError("file cannot end with an open comment tag")
 
     return active_tags
-
