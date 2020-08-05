@@ -28,7 +28,11 @@ class Migration(migrations.Migration):
                 ('name', models.TextField()),
                 ('max_health', models.BigIntegerField(default=100)),
                 ('current_health', models.BigIntegerField(default=100)),
-                ('npc_type', models.CharField(choices=[('MC', 'Merchant'), ('EN', 'Enemy'), ('CV', 'Civilian')], default='EN', max_length=2)),
+                ('npc_type', models.CharField(
+                    choices=[('MC', 'Merchant'), ('EN', 'Enemy'), ('CV', 'Civilian')],
+                    default='EN',
+                    max_length=2
+                )),
                 ('location_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='game.Location')),
             ],
         ),
