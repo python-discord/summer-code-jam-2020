@@ -6,7 +6,8 @@ class User(md.User):
     """represents an app user"""
     profile_picture = models.ImageField(upload_to='profile/')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """returns the username of the user"""
         cls = self.__class__.__name__
         return f"{cls} username={self.username!r}"
 
@@ -20,7 +21,8 @@ class Project(models.Model):
     preview_version = models.ImageField(upload_to="images/")
     upload_version = models.ImageField(upload_to="images/")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """returns the project name and the owner id that it belongs to"""
         cls = self.__class__.__name__
         return f"{cls} name={self.name!r} owner_id={self.user_id!r}"
 
@@ -33,7 +35,8 @@ class Image(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """returns the image name and the project id that it belongs to"""
         cls = self.__class__.__name__
         return f"{cls} image_name={self.image_name!r} project_id={self.project_id!r}"
 
@@ -46,6 +49,7 @@ class Comment(models.Model):
     parent_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """returns the user id of the author and the date created"""
         cls = self.__class__.__name__
         return f"{cls} user_id={self.user_id!r} date_created={self.date_created!r}"
