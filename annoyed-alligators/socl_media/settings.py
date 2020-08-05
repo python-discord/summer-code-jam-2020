@@ -40,8 +40,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Own Apps
+    'socl_media.apps.terminal',
     'socl_media.apps.feed',
     'socl_media.apps.users',
+
     # Third-Party Apps
 
     # Django default Apps
@@ -68,7 +70,10 @@ ROOT_URLCONF = 'socl_media.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'socl_media/templates')],
+      
+        'DIRS': [
+            os.path.join(BASE_DIR, 'socl_media/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

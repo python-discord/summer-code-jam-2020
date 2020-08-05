@@ -1,0 +1,167 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>	
+    <meta charset="utf-8">
+    <title>SoCL Media</title>
+	</head>
+
+	<body>
+		{% if messages %}                                                     
+		{% for message in messages %}                                         
+		  <div class="alert alert-{{ message.tags }}">                          
+				{{ message }}                                                       
+      </div>   
+
+		{% block content %}
+		{% endblock content %}
+
+		<footer>
+
+			<div id="app">
+				<div id="terminal">
+					<div id="terminal-window" class="dummy">
+						<span id="terminal-output" v-html="response">
+						</span>
+					</div>
+					<div id="terminal-input"> 
+						<span id="prompt">[[prompt]]</span>
+						<input type="text" 
+						 class="terminal-input-text" 
+			       autofocus="autofocus" 
+		         @keyup.enter="run_command" 
+		         @keyup.arrow-up="populate_previous"
+		         @keyup.arrow-down="populate_next"
+		         @keyup.ctrl.c="reset_prompt"
+		         @keyup.esc="reset_prompt"
+	 	         v-model="command"
+	          >
+					</div>
+				</div>
+
+			</div>
+
+			<script>
+				var app = new Vue({
+					delimiters: ['[[', ']]'],
+					el: '#app',
+					data: {
+						command: '',
+						previous_commands: [],
+						current_command_num: 0,
+						response: '',
+						prompt: '$',
+						followup_count: 0,
+					},
+
+					methods: {
+						populate_previous: function(){
+							if(this.current_command_num < this.previous_commands.length){
+								this.command = this.previous_commands[this.current_command_num];
+								this.current_command_num += 1 
+							}
+						},
+
+						populate_next: function(){
+							if(this.current_command_num > 0){
+								this.current_command_num -= 1
+								this.command = this.previous_commands[this.current_command_num-1];
+							}
+						},
+
+						run_command: function(){
+							if(this.command == 'cls' || this.command == 'clear'){
+								this.response = ''
+								this.prompt = "$"
+							} else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
+								this.prompt = "$"
+							} else {
+								if (this.prompt == "..."){
+									this.followup_count += 1
+									var cur_command = `${this.previous_commands[0]}~${this.command} ${this.followup_count}`
+								} else {
+									var cur_command = this.command
+								}
+								console.log(cur_command)
+								axios.get(`/terminal/command?c=${cur_command}`)
+									.then(res =>{
+										this.prompt = res.headers.followup == "True" ?  "..." : "$"
+										this.response = this.response + res.data + "<br>"
+									}, (error) =>{
+										console.log(error)
+									}) 
+							}
+							if(this.prompt != '...') this.previous_commands.unshift(this.command)
+							this.command = ''
+							this.current_command_num = 0
+							console.log(this.previous_commands)
+						},
+
+						reset_prompt: function(){
+							this.prompt = '$'
+							this.followup_count = 0
+							this.command = ''
+						}
+					},
+					updated: function() { 
+						var el = document.getElementById("terminal-output"); el.scrollTop = el.scrollHeight; 
+					}
+				});
+			</script>
+
+
+<style scoped>
+#terminal {
+	background-color: #000;
+	width: 100%;
+	height: 20vh;
+	color: #4ef037;
+	font: 1rem Inconsolate, monospace;
+	padding-left: 6px;
+	padding-bottom: 10px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+	#terminal-window {
+		height: 16vh; 
+		width: 100%;
+		overflow: hidden;
+		display: flex; 
+		align-items: flex-end;
+	}
+	#terminal-output{
+		overflow-y: auto;
+		max-height: 16vh;
+		padding-right: 17px; 
+		box-sizing: content-box;
+		scrollbar-width: none;
+	}
+	#terminal-output::-webkit-scrollbar {
+		display: none;
+	}
+	.terminal-input-text{
+		background-color: #000;
+		color: #1fffff;
+		font: 1rem Inconsolate, monospace;
+		border: 0px;
+		width: 90%;
+	}
+	input:focus, textarea:focus, select:focus{
+		outline: none;
+	}
+	#prompt {
+		color: #7efaff;
+	}
+</style>
+
+		</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	</body>
+
+
+</html>
