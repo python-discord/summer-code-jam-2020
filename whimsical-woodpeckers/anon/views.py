@@ -13,7 +13,8 @@ def get_user(user_id):
         return None
 
 def test(request):
-    return HttpResponse(vars(request))
+    #return HttpResponse(AnonUser.objects)
+    return HttpResponse(str(request.META))
 
 
 

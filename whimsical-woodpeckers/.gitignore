@@ -1,6 +1,0 @@
-node_modules
-__target__
-.env
-.vscode
-.DS_Store
-db.sqlite3
