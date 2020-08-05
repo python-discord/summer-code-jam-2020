@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"next",
-    "build":"next build & next export",
-    "start":"next start"
+    "dev": "next",
+    "build": "next build & next export",
+    "start": "next start"
   },
   "keywords": [],
   "author": "",
