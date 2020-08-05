@@ -35,21 +35,21 @@ function setup_start() {
 
 function toggle_start() {
     var start = document.getElementById("start-menu");
-    var start_lvl2 = document.getElementsByClassName("start-settings")[0];
-    var start_lvl3 = document.getElementsByClassName("start-themes");
+    var start_lvl2 = document.getElementsByClassName("start-lvl2");
+    var start_lvl3 = document.getElementsByClassName("start-lvl3");
 
     if (start.style.display == "none") {
         start.style.display = "block";
         start.style.zIndex = document.getElementsByClassName("draggable").length;
 
         for (var i = 0; i < start_lvl2.length; i++) {
-            start_lvl2[i].style.display = "none";
             start_lvl2[i].style.zIndex = document.getElementsByClassName("draggable").length+1;
+            start_lvl2[i].style.display = "none";
         }
 
         for (var i = 0; i < start_lvl3.length; i++) {
-            start_lvl3[i].style.display = "none";
             start_lvl3[i].style.zIndex = document.getElementsByClassName("draggable").length+2;
+            start_lvl3[i].style.display = "none";
         }
     } else {
         start.style.display = "none";
