@@ -1,6 +1,5 @@
 {% extends 'users/base.html' %}
-
-
+{% load static %}
 	{% block content%}
 <div id = "main">
 {% if is_empty %}
@@ -11,11 +10,11 @@
 	{% for vm in object_list %}
 	<form name="diskform" method="get" action="{{ vm.first_action }}">
 		<div class = "disk-container">
-			<div class = "disk-item1"> <img src="{% static 'floppydisk.png' %}"/> <p> {{vm.name}} </p> </div>
+			<div class = "disk-item1"> <img src='{% static "users/floppydisk.png" %}'/> <p> {{vm.name}} </p> </div>
 			<div class = "disk-item2"> <button class = "button" type="submit"> Start Virtual Machine </button> </div>
-			<div class = "disk-item3"> <a style= "float:right" href="{% url 'add_disk' vm.pk %}"> +(disk) </a>
+			<div class = "disk-item3"> <a style= "float:right" href=""> +(disk) </a>
 				<select name="settings" id = "settings">
-				{% for storage_id, name in vm.add_zips%}
+				{% for storage_id, name in vm.add_zips %}
 				<option value="{% url 'index' storage_id vm.pk %}">{{ name }}</option>
 				</select>
 

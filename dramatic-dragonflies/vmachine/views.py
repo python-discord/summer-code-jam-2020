@@ -2,8 +2,24 @@ from django.shortcuts import render, reverse
 from vmachine.models import VMachine
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpRequest
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView
+from django.forms import Form
 
 
+class VMCreateView(LoginRequiredMixin, CreateView):
+    model = VMachine
+    fields = ['name', 'shells']
+    template_name = "users/create_vm.html"
+    success_url = 'disks'
+
+    def form_valid(self, form: Form) -> object:
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+@login_required
 def vmachine_list(request: HttpRequest) -> HttpResponse:
 
     # Checks if the user has any VMachines,
@@ -20,7 +36,7 @@ def vmachine_list(request: HttpRequest) -> HttpResponse:
         # Array and storage_name Arrays.
         for vm in user_virtual_machines:
             add_zips = zip(vm.floppy_disks_id, vm.floppy_disks_name)
-            first_action = reverse('terminal_non_socket_url', kwargs={
+            first_action = reverse('index', kwargs={
                 'storage_id': vm.floppy_disks_id[0],
                 'vm_id': vm.pk
             })
