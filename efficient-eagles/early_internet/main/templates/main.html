@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-  {% load static %}
+  <head>
+    {% load static %}
 
-  <meta charset="utf-8"/>
-  <title>Feed</title>
-  <meta name="description" content="Amazing social media website">
-  <meta name="author" content="Efficient Eagles">
-  <link rel='stylesheet' href="{% static 'css/style.css' %}">
-  <style>
-    a {
-      text-decoration: none;
-    }
+    <meta charset="utf-8"/>
+    <title>Feed</title>
+    <meta name="description" content="Amazing social media website">
+    <meta name="author" content="Efficient Eagles">
+    <link rel='stylesheet' href="{% static 'css/style.css' %}">
+    <style>
+      a {
+        text-decoration: none;
+      }
 
-    .oneline{
-      display: flex;
-      justify-content: space-between;    
-    }
-  </style>
-</head>
-<body style='background-color: #F3F3F3'>
-<div class="w3-bar" style='margin-bottom: 50px;'>
-  <a class='' href="{% url 'home' %}">Feed</a> ·
-  <a class='' href="{% url 'create_topic' %}">New Topic</a>
-  {% if user.is_authenticated %}
-    <a class='w3-btn' style="float: right;" href="{% url 'logout' %}?next={{request.path}}">Log out</a>
-    <a class='w3-btn' style="float: right;" href="#">{{ user }}</a>
-  {% else %}
-    <a class='w3-btn' style="float: right;" href="{% url 'login' %}">Login</a><a class='w3-btn' style='float right;' href="{% url 'register' %}">Sign up</a>
-  {% endif %}
-</div>
-<table style='width: 100%;'>
-  <tr>
-    <td>
-      <div class="container"> 
+      .oneline {
+        display: flex;
+        justify-content: space-between;    
+      }
+    </style>
+  </head>
+  <body style='background-color: #F3F3F3'>
+    <div class="w3-bar" style='margin-bottom: 50px;'>
+      <a class='' href="{% url 'home' %}">Feed</a> ·
+      <a class='' href="{% url 'create_topic' %}">New Topic</a>
+      {% if user.is_authenticated %}
+        <a class='w3-btn' style="float: right;" href="{% url 'logout' %}?next={{request.path}}">Log out</a>
+        <a class='w3-btn' style="float: right;" href="#">{{ user }}</a>
+      {% else %}
+        <a class='w3-btn' style="float: right;" href="{% url 'login' %}">Login</a><a class='w3-btn' style='float right;' href="{% url 'register' %}">Sign up</a>
+      {% endif %}
+    </div>
+    <table style='width: 100%;'>
+      <tr>
+        <td>
+          <div class="container"> 
 
-        {% block content %}
+            {% block content %}
+
+            {% endblock %}
+
+          </div>
+        </td>
+
+        {% block search_block %}
 
         {% endblock %}
-
-      </div>
-    </td>
-
-    {% block search_block %}
-
-    {% endblock %}
-  
-  </tr>
-</table>
-</body>
+      
+      </tr>
+    </table>
+  </body>
 </html>

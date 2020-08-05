@@ -9,7 +9,7 @@
     <h5><a href="/topic/{{post.topic.name}}/{{post.slug}}" style='color: blue;'>{{post.title}}</a></h5>
   </header>
   <div class='oneline'>
-    <h6>submitted by <a style='color:blue;'>{{post.author}}</a> on {{post.created}}</h6>
+    <h6>submitted by <a style='color:blue;' href='/user/{{post.author}}'>{{post.author}}</a> on {{post.created}} in <a href='/topic/{{post.topic}}' style='color: blue;'>{{post.topic}}</a></h6>
   </div>
 </div>
 {% endfor %}
