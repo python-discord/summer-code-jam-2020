@@ -1,5 +1,6 @@
-# from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.views import APIView
 import api.models as api_models
 from . import models
 from . import serializers
@@ -18,3 +19,12 @@ class UserListView(generics.ListAPIView):
         if username is not None:
             queryset = queryset.filter(username=username)
         return queryset
+
+
+class UserView(APIView):
+	"""Returns information about currently logged in user"""
+
+	def get(self, request, format=None) -> None:
+		user = request.user
+		serializer = serializers.UserSerializer(user)
+		return Response(serializer.data)
