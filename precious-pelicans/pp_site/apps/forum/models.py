@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import Textarea, ValidationError
 from django.db import models
+from django.forms import Textarea, ValidationError
 from django.template.defaultfilters import filesizeformat
 
 from pp_site.utils.models import TimeStampMixin
@@ -13,14 +13,14 @@ class ForumMedia(models.FileField):
     def __init__(self, *args, **kwargs):
         kwargs["blank"] = True
         kwargs["null"] = True
-        
+
         self.max_size = kwargs.pop("max_size", 20971520)
 
         super().__init__(*args, **kwargs)
 
     def clean(self, *args, **kwargs):
         data = super().clean(*args, **kwargs)
-        
+
         file = data.file
         content_type = file.content_type
 
