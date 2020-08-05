@@ -33,6 +33,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             await self.send_welcome()
 
     async def receive_json(self, content):
+        """ Route client commands to internal functions. """
         command = content.get("command", None)
         try:
             if command == "leave":
@@ -43,6 +44,15 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                 await self.send_help()
             elif command == "look":
                 await self.send_room_description()
+            elif command == "go":
+                if content["message"]:
+                    room_name = " ".join(content["message"])
+                    if await self.move_to_room(room_name):
+                        await self.send_room_description()
+                    else:
+                        await self.send_message("Invalid room.")
+                else:
+                    await self.send_message("No room specified.")
             else:
                 await self.send_unknown(command)
         except Exception as e:
@@ -53,6 +63,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             await self.leave_group()
         except Exception:
             pass
+
+    async def send_message(self, message):
+        await self.send_json({
+            'message': message
+        })
 
     async def send_welcome(self):
         await self.send_json( {'message': colorize('brightBlue', BANNER)} )
@@ -96,8 +111,19 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         return message
 
     @database_sync_to_async
-    def move_to_room(self):
-        pass
+    def move_to_room(self, room_name):
+        """ Move the current player to another room. Return True on success. """
+        try:
+            player = Player.objects.get(user=self.scope["user"])
+        except Player.DoesNotExist:
+            return "Current user does not have a Player!"
+
+        try:
+            player.room = player.room.connections.get(name__iexact=room_name.lower())
+            player.save()
+        except Room.DoesNotExist:
+            return False
+        return True
 
     async def join_room(self):
         if not self.scope['user'].is_authenticated:
