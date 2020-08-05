@@ -21,4 +21,6 @@ class MessageSerializer(serializers.Serializer):
     sender = serializers.CharField()
     content = serializers.CharField()
 
+    group_name = serializers.CharField()
+
 
