@@ -1,6 +1,5 @@
 import unittest
-from .helpers import create_url_with_query_parameters
-from .wikipedia_featured_articles import WikipediaFeaturedArticleParser
+from .utils import WikipediaFeaturedArticleParser, create_url_with_query_parameters
 
 
 class TestUtils(unittest.TestCase):
