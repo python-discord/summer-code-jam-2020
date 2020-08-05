@@ -53,3 +53,16 @@
         </table>
     </div>
 {% endblock %}
+
+{% block footer %}
+    <div class="image-center">
+        <div class="bottom">
+            <a  href="{% url 'guestbook:guestbook' %}">
+                <img class="image-center guestbook-link" src="static/images/saturn.png" >    
+                    <p class="center">
+                        Guestbook
+                    </p>
+            </a>
+        </div>    
+    </div>
+{% endblock %}

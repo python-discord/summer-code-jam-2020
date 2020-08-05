@@ -6,18 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('posts', '0001_initial'),
+        ("posts", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='imagepost',
-            name='image_id',
+            model_name="imagepost",
+            name="image_id",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='imagepost',
-            name='sol',
-            field=models.IntegerField(default=0),
+            model_name="imagepost", name="sol", field=models.IntegerField(default=0),
         ),
     ]
