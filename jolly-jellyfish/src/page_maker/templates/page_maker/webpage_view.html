@@ -1,7 +1,7 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<h1><span><span>{{ webpage.user_title }}</span></span></h1>
+<h1><span>{{ webpage.user_title }}</span></h1>
 <p>
     {% if webpage.user_image_1 %}
     <img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image">
@@ -21,6 +21,9 @@
 <p>
     {{ webpage.user_text_3 }}
 <p>
-    <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
+  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
+</p>
+<p>
+  <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
 </p>
 {% endblock %}
