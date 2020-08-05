@@ -12,7 +12,12 @@ class HtmlParser:
         self.soup = BeautifulSoup(html, "html.parser")
 
     def parse(self):
-        """Run all parsing functions."""
+        """Run all parsing functions.
+
+        This will run all functions in this class which start with parse_.
+        These functions should modify self.soup, and are not required to return
+         anything.
+        """
         for name in dir(self):
             if name.startswith("parse_"):
                 method = getattr(self, name)
