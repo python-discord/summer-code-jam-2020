@@ -26,3 +26,4 @@ test2 = MessageList("#app1")
 
 test3 = MessageList("#app2")
 
+App("#app")

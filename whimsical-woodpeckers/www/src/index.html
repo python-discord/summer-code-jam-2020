@@ -17,5 +17,13 @@
     <example></example> <!-- components are always referenced in all lowercase -->
     <colorthing testprop="asidufhu"></colorthing>
 </div>
+<div id="full-app"></div>
+<div id="app"></div>
+<script type="text/x-template" id="color-thing-template">
+    <div v-on:click="change" v-bind:style="{backgroundColor: colors[index]}">The background of this text will change on click {{testprop}}</div>
+</script>
+<script type="text/x-template" id="app-template">
+    <div id="app"><directory></directory><messages></messages></div>
+</script>
 </body>
 </html>

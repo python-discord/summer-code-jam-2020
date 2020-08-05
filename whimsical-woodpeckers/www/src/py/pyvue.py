@@ -24,16 +24,29 @@ def clone_data(data):
 class Vue:
     data = {}
     template = ""
+    components = {}
 
     def __init__(self, el):
         self.el = el
         self.data = clone_data(self.data)
         methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
-        self._vue = __new__(JSVue({
-            "el": self.el,
+        data = self.get_component()
+        data['el'] = el
+        self._vue = __new__(JSVue(data))
+
+    def get_component(self):
+        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
+        data = {
             "data": self.data,
-            "methods": methods
-        }))
+            "template": self.template
+        }
+        __pragma__("tconv")
+        if methods:
+            data['methods'] = methods
+        if self.components:
+            data['components'] = self.components
+        __pragma__("notconv")
+        return data
 
 
 def making_component(comp):
@@ -47,25 +60,33 @@ class Component:
     data = {}
     template = ""
     props = []
+    components = {}
 
     def __init__(self):
-        self.data = clone_data(self.data)
-        self._data = 0
-        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
-        console.log(self.template)
-        self._vue = JSVue.extend({
-            "data": self.get_data,
-            "methods": methods,
-            "template": self.template,
-            "props": self.props
-        })
-        console.log(self.__class__.__name__, self._vue)
+        self._vue = self.get_component()
         JSVue.component(self.__class__.__name__.lower(), self._vue)
 
-    def get_data(self):
-        self._data += 1
-        console.log(self._data)
-        return clone_data(self.data)
+
+    @classmethod
+    def get_component(cls):
+        methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func)) and not func.startswith("__")}
+        data = {
+            "data": cls.get_data,
+            "template": cls.template
+        }
+        __pragma__("tconv")
+        if methods:
+            data['methods'] = methods
+        if cls.components:
+            data['components'] = cls.components
+        if cls.props:
+            data['props'] = cls.props
+        __pragma__("notconv")
+        return JSVue.extend(data)
+
+    @classmethod
+    def get_data(cls):
+        return clone_data(cls.data)
 
 #
 #
