@@ -1,9 +1,21 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <h2>You have been logged out</h2>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            <a href="{% url 'login' %}">Log In Again</a>
-        </small>
+
+<div class="col-12 col-lg-6 mb-4 mb-lg-0">
+    <div class="card">
+        <div class="card-header">
+            Alert!
+        </div>
+        <div class="card-body">
+            <p class="card-text">You have been successfully logged out.</p>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-sm mr-2 btn-primary border-dark"
+                    type="button" onclick="window.location.href='{% url "blog-home" %}'"><span class="btn-text">Home</span></button>
+                <button class="btn btn-sm btn-primary" type="button" onclick="window.location.href='{% url "login" %}'"><span
+                        class="btn-text">Log In Again?</a></span></button>
+            </div>
+        </div>
     </div>
+</div>
+
 {% endblock content %}

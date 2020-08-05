@@ -3,19 +3,25 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from users.models import FriendRequest, Profile
 
 
-def home(request):
-    context = {"posts": Post.objects.all()}
-    return render(request, "blog/home.html", context)
-
-
+# Home View
 class PostListView(ListView):
     model = Post
     template_name = "blog/home.html"  # <app>/<model>_<viewtype>.html
     context_object_name = "posts"
     ordering = ["-date_posted"]
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            profile = Profile.objects.get(user=self.request.user)
+            context["profile"] = profile
+            context["allusers"] = User.objects.exclude(id=self.request.user.id)
+            context["frequests"] = FriendRequest.objects.filter(to_user=profile)
+        return context
 
 
 class UserPostListView(ListView):
