@@ -51,6 +51,7 @@ class GeneratedPage(models.Model):
     # Business Fields
     phonenumber = models.CharField(max_length=10, blank=True)
     email = models.CharField(max_length=30, blank=True)
+
     # Food Recipe Fields
     ingredients = models.ManyToManyField(Ingredient, blank=True)
     steps = models.ManyToManyField(Step, blank=True)

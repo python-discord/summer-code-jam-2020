@@ -1,10 +1,7 @@
-import re
-
-import wikipedia
-import random
+from .models import GeneratedPage
+import requests, wikipedia, nltk, re
 from faker import Faker
 
-from .models import GeneratedPage
 
 
 # TODO: Make the requests asynchronous
@@ -99,14 +96,14 @@ def generate_information(page_name):
 def parse_result(result):
     wordlist = result.split()
     information = ""
-    for i in range(0, len(wordlist)):
-        # Checks if word is capitalized and not the first word in a sentence.
-        if i > 0 and wordlist[i][0].isupper() and wordlist[i - 1][len(wordlist[i - 1]) - 1] != '.':
-            without_punctuation = re.sub(r'[^\w\s]', '', wordlist[i])
-            information += "<a href=../../page/{0}>{1}</a>".format(without_punctuation, wordlist[i])
+    for word in wordlist:
+        word_token = nltk.word_tokenize(str(word))
+        if nltk.pos_tag(word_token)[0][1] == "NN" or nltk.pos_tag(word_token)[0][1] == "NNP":
+            without_punctuation = re.sub(r'[^\w\s]', '', word)
+            information += "<a href=../../page/{0}>{1}</a>".format(without_punctuation, word)
             authorize_page(without_punctuation)
         else:
-            information += wordlist[i]
+            information += word
         information += ' '
 
     return information
