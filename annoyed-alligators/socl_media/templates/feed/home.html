@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feed</title>
-</head>
-<body>
-    {% for post in Feed %}
-    <p>{{post.Content}}</p>
-    <h3>{{post.Author}}</h3>
-    <h5>{{post.Date}}</h5>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+{% for post in Feed %}
+<p>{{post.Content}}</p>
+<h3>{{post.Author}}</h3>
+<h5>{{post.Date}}</h5>
+{% endfor %}
+{% endblock content %}
