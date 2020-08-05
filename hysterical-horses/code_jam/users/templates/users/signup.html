@@ -20,6 +20,10 @@
             <label>{{ field.label }}</label>
             {{ field|addclass:"nes-input" }}
         </div>
+
+        {% for error in field.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
         {% endfor %}
 
         <input class="nes-btn is-success" type="submit" value="Signup">

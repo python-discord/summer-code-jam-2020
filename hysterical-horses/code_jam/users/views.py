@@ -10,18 +10,16 @@ def profile(request):
     return render(request, "users/profile.html", context)
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm()
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
+def signup_view(request):
+    form = UserCreationForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=raw_password)
+        login(request, user)  # Immediately log the user in
+        return redirect('dashboard-index')
 
     context = {'form': form}
     return render(request, 'users/signup.html', context)
