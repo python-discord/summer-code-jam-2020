@@ -1,4 +1,5 @@
 {% extends 'main/main-base.html' %}
+<<<<<<< HEAD
 {% block herocontent %}
     <div class="hero-body">
         
@@ -21,3 +22,29 @@
         </div>
     </div>
 {% endblock herocontent %}
+=======
+{% block content %}
+<div>
+    <div>
+        <!--profile picture here?-->
+        <div>
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.email }}</p>
+        </div>
+    </div>
+    <div>
+        <p>Display Name: {{ pref.name_preference }}</p>
+        <p>Weather/Temperature Preference: {{ pref.weather_preference }}</p>
+        <p>Display Weather?: {{ pref.display_weather }}</p>
+
+    </div>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+>>>>>>> master
