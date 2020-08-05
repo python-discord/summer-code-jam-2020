@@ -5,6 +5,7 @@
     <div class="chat-input">
         <input v-model="roomName" placeholder="Enter alphanumeric chat room name here">
         <button v-on:click="goToChatRoom">Enter Chatroom</button>
+        <p>{{ error }}</p>
     </div>
   </div>
 </div>
@@ -24,14 +25,24 @@ export default {
   data() {
     return {
         roomName: '',
-        ready: true
+        ready: true,
+        checkName: {},
+        error: null
     }
   },
   methods: { 
     goToChatRoom() {
-        if (this.roomName) {
+        axios.post('/api/chat/checkname/', {roomName: this.roomName}).then((response) => {
+            this.checkName = response.data;
+        })
+
+        if (this.checkName.valid) {
             window.location.pathname = '/chat/' + this.roomName + '/';
         }
+        else {
+            this.error = this.checkName.message
+        }
+    
     }
   }
 }
