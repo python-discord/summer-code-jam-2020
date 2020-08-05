@@ -64,12 +64,15 @@ def index(request):
 @xframe_options_sameorigin
 def page(request, url):
     """Handle /page urls. Used to serve pages to IE."""
-    fp = urllib.request.urlopen(url)
-    content = fp.read().decode()
+    if url == "1995":
+        content = "<img src='/static/images/404.gif' height='100%'>"
+    else:
+        fp = urllib.request.urlopen(url)
+        content = fp.read().decode()
 
-    parser = HtmlParser(content)
-    parser.parse()
+        parser = HtmlParser(content)
+        parser.parse()
 
-    content = parser.soup.prettify()
+        content = parser.soup.prettify()
 
     return render(request, "Web95/blank.html", {"content": content})
