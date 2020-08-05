@@ -17,12 +17,12 @@ The most liked sites appear on the front page, along with the most liked users a
 
 ## Initial Setup
 ### wkhtmltoimage
-In order to generate page thumbnails (using `selenium`), a (platform specific) browser driver binary is required (we use the _Chrome_ driver).
-Download the image for your Chrome version (most likely '_Current stable release_') from [https://sites.google.com/a/chromium.org/chromedriver/home][1] 
-and set the system environment variable **SELENIUM_DRIVER** to the binary's path. (This is obviously assuming you have Google Chrome installed).
+In order to generate page thumbnails (using `selenium`), a (platform specific) browser driver binary is required (we use the _Chrome/Firefox_ drivers).
+Download the image for your Chrome/Firefox version (most likely '_Current stable release_') from here: [Chrome/Chromium][1]; [Firefox][2] 
+and set the system environment variable **SELENIUM_DRIVER** to the binary's path. (This is obviously assuming you have Chrome/Firefox installed).
 
-E.g. On Windows (admin) with the .exe file, this is done with:
-```
+E.g. On Windows (admin) with the chromedriver.exe file, this is done with:
+```batch
 ...\> setx SELENIUM_DRIVER "C:\Path\to\chromedriver.exe" /m
 ```
 (Use `SETENV` command on UNIX)
@@ -49,3 +49,4 @@ $ pipenv shell
 ```
 
 [1]: https://sites.google.com/a/chromium.org/chromedriver/home
+[2]: https://github.com/mozilla/geckodriver/releases
