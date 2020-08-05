@@ -13,10 +13,14 @@
 	<header>
 		<h1>{% block header_text %}{% endblock %}</h1>
 		{% if user.is_authenticated %}
-			<a href="/accounts/logout/">Logout</a>
+		<div class="container">
+			<div class="btn btn-logout">
+				<a href="/accounts/logout/">Logout</a>
+			</div>
+		</div>
 		{% endif %}
 	</header>
-	<section>
+	<section class="container">
 		{% block content %}
 		{% endblock %}
 	</section>

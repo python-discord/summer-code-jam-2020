@@ -4,11 +4,12 @@
 {% block header_text %}Create Account{% endblock %}
 
 {% block content %}
-
-    <form action="." method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"> Create Account</button>
-    </form>
+    <div class="container">
+        <form action="." method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"> Create Account</button>
+        </form>
+    </div>
 
 {% endblock %}
