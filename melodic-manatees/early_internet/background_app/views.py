@@ -7,8 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def background_home(request):
+    print(request.user)
     background_list = BackgroundFile.objects.filter(
-        background_owner=request.user.userprofile
+        background_owner=request.user.UserProfile
         )
     return render(
         request,
@@ -41,6 +42,7 @@ def add_background(request):
             'form': form
         }
         )
+
 
 @login_required(login_url='login')
 def delete_background(request, pk):

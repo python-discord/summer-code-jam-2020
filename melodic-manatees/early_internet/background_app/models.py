@@ -1,16 +1,15 @@
 import os
-from uuid import uuid4
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from users.models import UserProfile
 
 
-def rename(path, background_title):
-    def wrapper(instance, filename):
-        filename = f'{instance.background_title}_{uuid4()}'
-        return os.path.join(path, filename)
-    return wrapper
+# def rename(path, background_title):
+#     def wrapper(instance, filename):
+#         filename = f'{instance.background_title}_{uuid4()}'
+#         return os.path.join(path, filename)
+#     return wrapper
 
 
 class BackgroundFile(models.Model):
@@ -19,10 +18,7 @@ class BackgroundFile(models.Model):
         default=None
         )
     background_file = models.FileField(
-        upload_to=rename(
-            'backgrounds',
-            background_title
-            ),
+        upload_to=('backgrounds/'),
         default=None
         )
     background_owner = models.ForeignKey(
