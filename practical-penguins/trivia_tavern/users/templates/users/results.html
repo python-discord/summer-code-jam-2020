@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Your results will show here:</h2>
+    {% if phonenumbers %}
+    Participants:
+    <!--eventually this will be a for loop -->
+      <li>
+        {{ phonenumbers }}
+      </li>
+    {% endif %}
+{% endblock content %}

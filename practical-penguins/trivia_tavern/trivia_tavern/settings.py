@@ -25,7 +25,11 @@ SECRET_KEY = 'yy8e)*^wqx6ci!4o#7biu159(ke3^2s1ga%pl0c_08#g_n++^$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.ngrok.io',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
@@ -35,6 +39,7 @@ INSTALLED_APPS = [
     'trivia_hub.apps.TriviaHubConfig',
     'trivia_runner.apps.TriviaRunnerConfig',
     'users.apps.UsersConfig',
+    'twilio_messenger.apps.TwilioMessengerConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -136,3 +141,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'main_hub'
 LOGIN_URL = 'login'
+HOST_TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
+HOST_TWILIO_SID = os.getenv('TWILIO_ACCOUNT_SID')
+HOST_TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
