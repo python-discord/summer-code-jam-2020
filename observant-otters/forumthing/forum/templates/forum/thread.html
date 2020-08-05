@@ -5,7 +5,7 @@
     <title>Only one group, up to homomorphism</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
 </head>
 {% block content %}
-    <a href={% url "new-thread" %}>Create New Thread</a>
+    <a href="{% url "new-thread" %}">Create New Thread</a>
     <body>
     Single-thread page
         <blockquote>
@@ -15,12 +15,24 @@
         </blockquote>
 
     <h1>{{ thread.title }}</h1>
+    <h3>{{ thread.author.nickname }}</h3><br>
+
     {% for s in messages %}
         {% if forloop.counter == 1 %}  <!-- the django counter starts at 1 lol -->
             {{ s.content }}  <br>
+            {% if thread.author == user %}
+                <a href={% url "edit-thread" id %}>Edit Thread</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url "delete-thread" id %}">Delete Thread</a>
+                <br><br>
+            {% endif %}
         {% else %}
             {{ s.author }}:
             {{ s.content }}
+            {% if s.author == user %}
+                &nbsp;&nbsp;
+                <a href={% url "edit-message" id s.id%}>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href={% url "delete-message" id s.id%}>Delete</a>
+            {% endif %}
             <br>
         {% endif %}
     {% endfor %}

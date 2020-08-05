@@ -1,6 +1,7 @@
+from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Thread, Message
 
 
@@ -18,8 +19,32 @@ class NewThread(LoginRequiredMixin, CreateView):
         form.instance.message_set.create(content=form.instance.content,
                                          thread=form.instance,
                                          author=self.request.user)
-        form.instance.save()
+        form.instance.save()  # legit no idea why i gotta save twice
         return super().form_valid(form)
+
+
+class EditThread(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Thread
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.message_set[0].content = form.instance.content
+        form.instance.message_set[0].save()
+        return super().form_valid(form)
+
+    def test_func(self):
+        thread = self.get_object()
+        return self.request.user == thread.author
+
+
+class DeleteThread(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Thread
+    success_url = 'forum/thread'
+
+    def test_func(self):
+        thread = self.get_object()
+        return self.request.user == thread.author
 
 
 class NewMessage(LoginRequiredMixin, CreateView):
@@ -31,6 +56,29 @@ class NewMessage(LoginRequiredMixin, CreateView):
         thread_path = self.request.path.replace('/new', '')  # parse which thread this was posted in
         form.instance.thread = Thread.objects.filter(pk=int(thread_path[thread_path.rfind('/') + 1:])).first()
         return super().form_valid(form)
+
+
+class EditMessage(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Message
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.date_edited = timezone.now()
+        return super().form_valid(form)
+
+    def test_func(self):
+        message = self.get_object()
+        return self.request.user == message.author
+
+
+class DeleteMessage(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Thread
+    success_url = 'forum/thread'
+
+    def test_func(self):
+        message = self.get_object()
+        return self.request.user == message.author
 
 
 def threads(request, id=None):
