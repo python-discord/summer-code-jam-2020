@@ -8,7 +8,7 @@
 	</div>
 	{% else %}
 	{% for vm in object_list %}
-	<form name="diskform" method="get" action="{{ vm.first_action }}">
+	<form name="diskform" id="diskform" method="get" action="{{ vm.first_action }}">
 		<div class = "disk-container">
 			<div class = "disk-item1"> <img src='{% static "users/floppydisk.png" %}'/> <p> {{vm.name}} </p> </div>
 			<div class = "disk-item2"> <button class = "button" type="submit"> Start Virtual Machine </button> </div>
@@ -16,9 +16,10 @@
 				<select name="settings" id = "settings">
 				{% for storage_id, name in vm.add_zips %}
 				<option value="{% url 'index' storage_id vm.pk %}">{{ name }}</option>
+					{% endfor %}
 				</select>
 
-				{% endfor %}
+
 			</div>
 </div>
 	</form>
@@ -29,7 +30,7 @@
 <script>
 document.getElementById('diskform').settings.onchange = function() {
     var new_action = this.value;
-    document.getElementById('diskform').action = newaction;
+    document.getElementById('diskform').action = new_action;
 };
 </script>
 {% endblock %}
