@@ -35,8 +35,10 @@ def extract_active_tags(html: str) -> list:
     in_tag = False
     in_comment = False
 
+    tag_start = None
+
     tag_positions = find_tag_positions(html)
-    comment_tag_positions = []
+    active_tags = []
 
     for p in tag_positions:
         if html[p] == "<":
@@ -46,11 +48,11 @@ def extract_active_tags(html: str) -> list:
                 if in_comment:
                     raise HtmlCommentError("nested comments are not allowed")
                 in_comment = True
-                comment_tag_positions.append(p)
                 continue
             if in_tag:
                 raise NestedHtmlTagError("nested tag found)")
             in_tag = True
+            tag_start = p
         elif html[p] == ">":
             if p > 1 and html[p - 2 : p + 1] == "-->":
                 if not in_comment:
@@ -58,8 +60,9 @@ def extract_active_tags(html: str) -> list:
                         "cannot close comment when no comment opened"
                     )
                 in_comment = False
-                comment_tag_positions.append(p)
+                continue
             in_tag = False
+            active_tags.append(html[tag_start:p+1])
 
     # Should not be in an unclosed tag or comment after looping through the
     # entire list
@@ -68,23 +71,5 @@ def extract_active_tags(html: str) -> list:
     if in_comment:
         raise HtmlCommentError("file cannot end with an open comment tag")
 
-    return [tag for tag in tag_positions if tag not in comment_tag_positions]
+    return active_tags
 
-
-sample_html = """
-<!-- this is a comment -->
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
-
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
-</body>
-</html>
-"""
-
-print(extract_active_tags(sample_html))
