@@ -1,5 +1,6 @@
 from django.db import models
-from users.models import Profile
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 # Migrations have not been run yet until Likes model is completed
 
@@ -9,14 +10,17 @@ class Post(models.Model):
     Model for the Blog posts that every user should be able to posts
     """
 
-    title = models.CharField(max_length=300, blank=False, null=False)
+    author = models.ForeignKey(User, default=None, on_delete=models.CASCADE, related_name="posts")
+    title = models.CharField(max_length=300, blank=False, null=False, unique=True)
     content = models.TextField(blank=False, null=False)
     date_published = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
     @property
     def likes(self):
-        # should return the number of Likes objects belonging to this Comment
-        return
+        return len(self.all_likes.all())
 
 
 class Comment(models.Model):
@@ -25,20 +29,30 @@ class Comment(models.Model):
     and a foreign key to the Post it is for.
     """
 
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    content = models.CharField(max_length=250, blank=False, null=False)
 
-    @property
-    def likes(self):
-        # should return the number of Likes objects belonging to this Comment
-        return
+    def __str__(self):
+        return self.post.title
 
 
-class Likes(models.Model):
+class Like(models.Model):
     """
-    OneToOne to both the object (post/comment) that was liked,
-    and also the user who liked the object
-    (may need a related_name)
+    Likes for posts, owned by both the post and the user
     """
 
-    pass
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="all_likes")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="all_likes")
+
+    def __str__(self):
+        return self.post.title
+
+    def can_like(self):
+        is_own_post = self.post.title in [x.title for x in self.author.posts.all()]
+        already_liked = self.post.title in [x.post.title for x in self.author.all_likes.all()]
+        return not is_own_post and not already_liked
+
+    def save(self, *args, **kwargs):
+        if self.can_like():
+            super().save(*args, **kwargs)
