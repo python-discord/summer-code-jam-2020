@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -67,9 +68,22 @@ class EditMessage(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form.instance.date_edited = timezone.now()
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('threads-single', kwargs={'id': self.get_object().thread.id})
+
     def test_func(self):
         message = self.get_object()
         return self.request.user == message.author
+
+    def get_object(self, queryset=None):
+        path_list = self.request.path.split(sep='/')
+        thread_id, msg_id = path_list[-3], path_list[-2]
+        thread = get_object_or_404(Thread, pk=thread_id)
+        try:
+            msg = thread.message_set.get(pk=msg_id)
+        except Message.DoesNotExist:
+            raise Http404(f"Message with id {msg_id} does not exist in thread with id {thread_id}")
+        return msg
 
 
 class DeleteMessage(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -81,7 +95,17 @@ class DeleteMessage(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == message.author
 
     def get_success_url(self):
-        return reverse('threads-single', urlconf={'pk': self.get_object().thread.id})
+        return reverse('threads-single', kwargs={'id': self.get_object().thread.id})
+
+    def get_object(self, queryset=None):
+        path_list = self.request.path.split(sep='/')
+        thread_id, msg_id = path_list[-3], path_list[-2]
+        thread = get_object_or_404(Thread, pk=thread_id)
+        try:
+            msg = thread.message_set.get(pk=msg_id)
+        except Message.DoesNotExist:
+            raise Http404(f"Message with id {msg_id} does not exist in thread with id {thread_id}")
+        return msg
 
 
 def threads(request, id=None):
