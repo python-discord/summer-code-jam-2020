@@ -32,8 +32,15 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'])
-    def func():
-        pass
+    @action(detail=False, methods=['post'], name='Join', url_path='join-group', url_name='join_group')
+    def join_group(self, request, pk=None):
+        serializer = serializers.JoinSerializer(data=request.data)
+
+        if serializer.is_valid():
+            return Response(models.Group.objects.get(request.data['group_name']))
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
 
 

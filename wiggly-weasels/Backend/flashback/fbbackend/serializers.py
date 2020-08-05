@@ -24,3 +24,11 @@ class MessageSerializer(serializers.Serializer):
     group_name = serializers.CharField()
 
 
+class ReadSerializer(serializers.Serializer):
+    index = serializers.IntegerField()
+    group_name = serializers.CharField()
+
+class JoinSerializer(serializers.Serializer):
+    group_name = serializers.CharField()
+
+
