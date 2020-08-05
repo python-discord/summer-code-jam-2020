@@ -8,9 +8,9 @@
 
     <mat-grid-list cols="9" rowHeight="3:1">
 
-      <mat-grid-tile  *ngFor="let board of boards" >
+      <mat-grid-tile  *ngFor="let board of boards" routerLink="{{board.board}}" >
         <p style="font: 13px/1.231 arial,helvetica,clean,sans-serif;*font-size: small;">
-          {{board.name}}
+          {{board.title}}
         </p>
       </mat-grid-tile>
 

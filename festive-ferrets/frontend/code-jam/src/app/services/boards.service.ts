@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Board} from '../interfaces/board';
+import {BoardsContext} from "../interfaces/boards-context";
 
 
 @Injectable({
@@ -11,8 +11,9 @@ export class BoardsService {
 
   constructor(private http: HttpClient) {
   }
+  private appUrl='http://127.0.0.1:8000/nchan/boards/'
 
-  getBoards(): Observable<Board[]> {
-    return this.http.get<Board[]>('assets/mock_boards.json');
+  getBoards(): Observable<BoardsContext> {
+    return this.http.get<BoardsContext>(`${this.appUrl}?format=json`);
   }
 }

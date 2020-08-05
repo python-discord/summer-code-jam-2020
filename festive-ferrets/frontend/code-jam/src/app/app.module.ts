@@ -9,11 +9,13 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClientModule} from '@angular/common/http';
+import { BoardViewComponent } from './board-view/board-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainSiteComponent
+    MainSiteComponent,
+    BoardViewComponent
   ],
   imports: [
     BrowserModule,
