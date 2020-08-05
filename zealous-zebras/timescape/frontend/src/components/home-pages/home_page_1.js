@@ -15,15 +15,15 @@ export class Home_page_1 extends Component {
                 <div className="container bg-light">
                     <div className="row py-0">
                         <div className="col center-block text-center">
-                            <p>Search the web using Google!</p> 
+                            <p style={{margin: "0px"}}>Search the web using Google!</p> 
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col center-block text-center">
-                            <textarea id="search" name="search" rows="1" cols="50"/> 
+                        <div className="col border py-0 center-block text-center">
+                            <textarea id="search" style={{margin: "0px"}} name="search" rows="1" cols="50"/> 
                         </div>
                     </div>
-                    <div className="row py-0 justify-content-center">
+                    <div className="row border py-0 justify-content-center">
                         <div className="col-0 px-1 pb-0 text-center">
                             <select name="results" id="results">
                                 <option value="5-results">5 results</option>
