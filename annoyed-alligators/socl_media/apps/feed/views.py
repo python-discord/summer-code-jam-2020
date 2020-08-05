@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Posts
+from .models import Post
 
 # Create your views here.
 
 
 def feed(request):
-    posts_object = Posts.objects.all()
+    posts_object = Post.objects.all()
     posts_list = []
     for post in posts_object:
         post_struct = {'Content': post.post_content,
