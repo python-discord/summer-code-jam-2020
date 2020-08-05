@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
+{% load settings_tag %}
 
 {% block content %}
   <h1>Trivia Name: {{ quiz.name }}</h1>
@@ -18,5 +19,6 @@
       <p><strong>answer:</strong> {{ question.question_answer }}</p>
     {% endfor %}
   </div>
+  <p>To start this quiz, text START/{{ quiz.pk }} to {% settings_value "HOST_TWILIO_NUMBER" %} </p>
 {% endblock %}
 <!--modeled from https://whoisnicoleharris.com/2015/01/06/implementing-django-formsets.html-->
