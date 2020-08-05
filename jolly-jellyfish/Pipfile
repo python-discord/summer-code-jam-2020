@@ -8,8 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 pillow = "*"
-imgkit = "*"
 django-relativefilepathfield = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.8"

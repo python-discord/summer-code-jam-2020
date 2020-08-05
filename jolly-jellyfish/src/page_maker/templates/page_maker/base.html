@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {% if webpage %}
-    <link rel="stylesheet" type="text/css" href="{% static webpage.template_used.style_sheet %}">
-    <title>{{ webpage.name }}</title>
+        <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{webpage.template_used.style_sheet}}">
+        <title>{{ webpage.name }}</title>
     {% else %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <title>Early Internet Page Maker</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <title>Early Internet Page Maker</title>
     {% endif %}
 
-    {# This code generates a thumbnail for *user* pages if it does not already exist or is out of date #}
+    {# This code generates a thumbnail for *user-created* pages if it does not already exist or is out of date #}
     {% if webpage.user_title %}
         {% load render_img_thumbnail %}
 
