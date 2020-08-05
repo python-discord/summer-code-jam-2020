@@ -16,12 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from nchan import views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('nchan/', include('nchan.urls')),
     path('tictactoe/', include('tictactoe.urls')),
-    path('', views.index),
-
+    path('', admin.site.urls)
 ]

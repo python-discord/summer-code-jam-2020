@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Anonymous, Board, Post, Comment
+from .models import Board, Post, Comment
 
 # Register your models here.
 
-admin.site.register(Anonymous)
 admin.site.register(Board)
 admin.site.register(Post)
 admin.site.register(Comment)

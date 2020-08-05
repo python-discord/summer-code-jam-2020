@@ -4,19 +4,19 @@ from rest_framework import serializers
 from .models import Board, Post, Comment
 
 
-class BoardSerializer(serializers.HyperlinkedModelSerializer):
+class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
-        fields = ('name', 'post_num')
+        fields = ('board', 'title')
 
 
-class PostSerializer(serializers.HyperlinkedModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('title', 'board', 'poster', 'publication_date', 'text')
+        fields = ('id', 'title', 'board', 'poster', 'publication_date', 'text')
 
 
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ('post', 'commenter', 'publication_date', 'text')
+        fields = ('id', 'post', 'commenter', 'publication_date', 'text')
