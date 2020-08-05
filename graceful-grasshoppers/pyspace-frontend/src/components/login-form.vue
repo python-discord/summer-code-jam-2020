@@ -1,35 +1,27 @@
 <template>
   <div>
-    <b-form @submit.prevent="onSubmit">
-      <b-form-group id="input-group-1" label="Username:" label-for="input-1">
-        <b-form-input
+    <form @submit.prevent="onSubmit" class="flex-col">
+        <label for="input-1">Username</label>
+        <input
           id="input-1"
           v-model="user.username"
           type="text"
           required
-          placeholder="Enter username"
-        ></b-form-input>
-      </b-form-group>
+          placeholder="Enter username">
 
-      <b-form-group id="input-group-2" label="Password:" label-for="input-2">
-        <b-form-input
+        <label for="input-2">Password</label>
+        <input
           id="input-2"
           v-model="user.password"
           type="password"
           required
-          placeholder="Enter password"
-        ></b-form-input>
-      </b-form-group>
+          placeholder="Enter password">
 
+        <input type="submit" value="Login" class="form-group">
       <div class="form-group">
-        <button class="btn btn-primary btn-block">
-          <span>Login</span>
-        </button>
+        <div v-if="message" class="alert-danger" role="alert">{{message}}</div>
       </div>
-      <div class="form-group">
-        <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
-      </div>
-    </b-form>
+    </form>
   </div>
 </template>
 
