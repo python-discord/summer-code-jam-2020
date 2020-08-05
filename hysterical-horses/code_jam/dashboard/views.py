@@ -32,7 +32,8 @@ def search_query(search: str, format_text: bool =True):
         def format_entry(entry: dict, tags: List):
             """ Formats a single entry  """
             pat = r'>(.*)</a>(.*)'
-            duckduckgo_cryptic = {}
+            duckduckgo_cryptic = {'%20', ' ',
+                                  '%20C', ','}
             text_search = re.search(pat, entry['Result'])
             title = text_search.group(1)
             info = text_search.group(2).replace('<br>', "").replace(',', '')
@@ -118,5 +119,6 @@ def chat_room(request, room_name):
 
 
 # things to do:
-# if not enough info is given for a single entry call the entry as a query and send results (for example: llanfair)
+# if not enough info is given for a single entry call the entry as a query and send results (for example: )
+# llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
 
