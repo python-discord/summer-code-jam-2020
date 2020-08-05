@@ -10,10 +10,15 @@ def home(request):
 
 class NewThread(LoginRequiredMixin, CreateView):
     model = Thread
-    fields = ['title']
+    fields = ['title', 'content']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.save()
+        form.instance.message_set.create(content=form.instance.content,
+                                         thread=form.instance,
+                                         author=self.request.user)
+        form.instance.save()
         return super().form_valid(form)
 
 

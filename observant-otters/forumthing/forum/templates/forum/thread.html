@@ -16,14 +16,17 @@
 
     <h1>{{ thread.title }}</h1>
     {% for s in messages %}
-        {{ s.author }}:
-        {{ s.content }}
-        <br>
+        {% if forloop.counter == 1 %}  <!-- the django counter starts at 1 lol -->
+            {{ s.content }}  <br>
+        {% else %}
+            {{ s.author }}:
+            {{ s.content }}
+            <br>
+        {% endif %}
     {% endfor %}
 
+    <br>
     <a href={% url "new-message" thread.id %}>Post A Message</a><br>
-
-    <br><br>
     {% if prev_page %}
         <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
     {% endif %}

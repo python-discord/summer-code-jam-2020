@@ -9,7 +9,8 @@ class Thread(models.Model):
     """
     the model for a thread/conversation
     """
-    title = models.TextField()
+    title = models.CharField(max_length=200)
+    content = models.TextField(default="")
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(ForumUser, models.DO_NOTHING)
 
