@@ -9,30 +9,31 @@
     <body>
     Single-thread page
         <blockquote>
-            thread_id: {{ id }}
+            thread_id: {{ pk }}
             <br>
             thread_page: {{ page }}
         </blockquote>
 
     <h1>{{ thread.title }}</h1>
-    <h3>{{ thread.author.nickname }}</h3><br>
+    <h3>{{ thread.author.nickname }}</h3>
+
+    {% if thread.author == user %}
+        <a href="{% url 'edit-thread' pk=pk %}">Edit Thread</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'delete-thread' pk=pk %}">Delete Thread</a><br>
+    {% endif %}
 
     {% for s in messages %}
         {% if forloop.counter == 1 %}  <!-- the django counter starts at 1 lol -->
-            {{ s.content }}  <br>
-            {% if thread.author == user %}
-                <a href={% url "edit-thread" id %}>Edit Thread</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{% url "delete-thread" id %}">Delete Thread</a>
-                <br><br>
-            {% endif %}
+            {{ s.content }}<br>
         {% else %}
+            <br>
+            {% if s.author == user %}
+                <a href={% url "edit-message" pk=pk msg_id=s.id%}>Edit</a>&nbsp;
+                <a href={% url "delete-message" pk=pk msg_id=s.id%}>Delete</a>
+                <br>
+            {% endif %}
             {{ s.author }}:
             {{ s.content }}
-            {% if s.author == user %}
-                &nbsp;&nbsp;
-                <a href={% url "edit-message" id s.id%}>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href={% url "delete-message" id s.id%}>Delete</a>
-            {% endif %}
             <br>
         {% endif %}
     {% endfor %}
@@ -42,14 +43,14 @@
     {% if prev_page %}
         <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
     {% endif %}
-    <a href="/forum/threads/{{ id }}?p={{ next_page }}">Next Page</a>
+    <a href="/forum/threads/{{ pk }}?p={{ next_page }}">Next Page</a>
     <br>
-    {% if prev_id %}
-        <a href="/forum/threads/{{ prev_id }}?p={{ page }}">Previous Thread</a>
+    {% if prev_pk %}
+        <a href="/forum/threads/{{ prev_pk }}?p={{ page }}">Previous Thread</a>
     {% endif %}
 
-    {% if next_id %}  <!-- check if a forum with the next id actually exists -->
-        <a href="/forum/threads/{{ next_id }}?p={{ page }}">Next Thread</a>
+    {% if next_pk %}  <!-- check if a forum with the next id actually exists -->
+        <a href="/forum/threads/{{ next_pk }}?p={{ page }}">Next Thread</a>
     {% endif %}
     <br>
     <a href="/">Home</a>

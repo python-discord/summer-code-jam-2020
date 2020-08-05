@@ -23,12 +23,12 @@ urlpatterns = [
         name="new-thread"
     ),
     path(
-        'forum/threads/<int:id>/edit',
+        'forum/threads/<int:pk>/edit',
         views.EditThread.as_view(),
         name="edit-thread"
     ),
     path(
-        'forum/threads/<int:id>/delete',
+        'forum/threads/<int:pk>/delete',
         views.DeleteThread.as_view(),
         name="delete-thread"
     ),
@@ -38,12 +38,12 @@ urlpatterns = [
         name="new-message"
     ),
     path(
-        'forum/threads/<int:id>/<int:msg_id>/edit',
+        'forum/threads/<int:pk>/<int:msg_id>/edit',
         views.EditMessage.as_view(),
         name="edit-message"
     ),
     path(
-        'forum/threads/<int:id>/<int:msg_id>/delete',
+        'forum/threads/<int:pk>/<int:msg_id>/delete',
         views.DeleteMessage.as_view(),
         name="delete-message"
     ),
