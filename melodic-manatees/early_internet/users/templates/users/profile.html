@@ -1,7 +1,7 @@
-{% extends 'main/main-base.html' %}
+{% extends 'main/main-base.html' %} 
 {% block herocontent %}
     <div class="hero-body">
-        
+    
         <div class="container grid">
             <div class="box">
                 <article class="media notification">
@@ -10,10 +10,10 @@
                         <img src="https://bulma.io/images/placeholders/128x128.png">
                     </figure>
                     <div class="media-content">
-                        <div class="content">
-                            <h2 class="title">{{ user.username }}</h2>
-                            <p class="subtitle">{{ user.email }}</p>
-                        </div>
+                    <div class="content">
+                        <h2 class="title">{{ user.username }}</h2>
+                        <p class="subtitle">{{ user.email }}</p>
+                    </div>
                     </div>
                 </article>
                 <!-- Update Profile Form Here -->
@@ -29,6 +29,11 @@
                         <button type="submit">Submit</button>
                     </form>
                 </div>
+                <!-- User Background -->
+                <div>
+                    upload background image
+                </div>
+                <!-- Next feature -->
             </div>
         </div>
     </div>
