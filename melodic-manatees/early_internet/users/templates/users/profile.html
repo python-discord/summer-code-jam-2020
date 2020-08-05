@@ -17,12 +17,23 @@
                     </div>
                 </article>
                 <!-- Update Profile Form Here -->
-
-            <!-- User Background -->
-            <div>
-                upload background image
-            </div>
-            <!-- Next feature -->
+                <div>
+                    <p>Display Name: {{ pref.name_preference }}</p>
+                    <p>Weather/Temperature Preference: {{ pref.weather_preference }}</p>
+                    <p>Display Weather?: {{ pref.display_weather }}</p>
+                </div>
+                <div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <!-- User Background -->
+                <div>
+                    upload background image
+                </div>
+                <!-- Next feature -->
             </div>
         </div>
     </div>
