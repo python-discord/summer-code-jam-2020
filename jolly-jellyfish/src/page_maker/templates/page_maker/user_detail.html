@@ -11,7 +11,7 @@
     {% for webpage in user_pages %}
         <tr>
         <td>
-        {% if webpage.thumbnail.url %}
+        {% if "placeholder_img" not in webpage.thumbnail.url %}
             <img src="{{ webpage.thumbnail.url }}">
         {% else %}
             Go to page itself to generate a thumbnail for it.

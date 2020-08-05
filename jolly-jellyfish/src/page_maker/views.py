@@ -182,6 +182,8 @@ class TemplateView(DetailView):
 class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Template
     template_name = 'page_maker/template_delete.html'
+    slug_field = 'name'
+    slug_url_kwarg = 'templatename'
 
     def test_func(self):
         template = self.get_object()

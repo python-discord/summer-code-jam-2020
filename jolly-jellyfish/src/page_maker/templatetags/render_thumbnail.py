@@ -12,7 +12,7 @@ from selenium.webdriver.chrome.options import Options
 
 from ..models import Webpage, Template
 
-register = template.Library()
+register = template.Library()  # registers function in this file as template tags for use within Django templates
 
 
 try:
