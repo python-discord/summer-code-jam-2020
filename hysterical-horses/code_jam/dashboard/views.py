@@ -3,6 +3,9 @@ import re
 from typing import List
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+import textwrap
+import string
+# import clipboard # for some debugging
 
 
 @login_required()
@@ -15,6 +18,7 @@ def search_query(search: str, format_text: bool =True):
     base_url = 'https://api.duckduckgo.com/'
     payload = {"q": search, "format": "json", "pretty": "1"}
     results = requests.get(base_url, params = payload).json()
+    # clipboard.copy(str(results)) # REMEMBER TO COMMENT IN AFTER DEBUGGING
     
     if format_text:  # formats response
         # NOTE:
@@ -29,8 +33,12 @@ def search_query(search: str, format_text: bool =True):
             """ Formats a single entry  """
             pat = r'>(.*)</a>(.*)'
             text_search = re.search(pat, entry['Result'])
-            return {'title': text_search.group(1),
-                    'info': text_search.group(2),
+            title = text_search.group(1)
+            punc = string.punctuation
+
+            # js-freindly-title makes sure the element does not have a punctuation in the id (')
+            return {'title': text_search,
+                    'info': text_search.group(2).replace('<br>', "").replace(',', ''),
                     'img_url': entry['Icon']['URL'],
                     'further_info': entry['FirstURL'],
                     'tags': tags}
@@ -57,8 +65,18 @@ def search_query(search: str, format_text: bool =True):
 @login_required()
 def engine_results(request):
     """ Renders a page for the request  """
-    search_text = 'cern' # search query
+    search_text = 'Thalassery' # search query
+    # queries that have some problems:
+    # "Thalissery"
+   
 
+    # prevent long searches from overflowing
+    wrapper = textwrap.TextWrapper(width=43)
+    shortened = wrapper.wrap(text=search_text)[0]
+    if shortened != search_text:
+        shortened += '...'
+
+    
     res = search_query(search_text)
     top_results = []
     other_results = []
@@ -67,13 +85,14 @@ def engine_results(request):
         if 'tags' in r.keys():
             if r['tags'][0] in ['#1', '#2', '#3']:
                 top_results.append(r)
-            elif r['tags'][0] not in ['#1', '#2', '#3']:
+            else:
                 other_results.append(r)
         elif 'description' in r.keys():
             desc = r['description']
         
     context = {
         'search': search_text,
+        'shortened': shortened,
         'top_results': top_results,
         'other_results':  other_results,
         'description': desc,
@@ -85,3 +104,11 @@ def engine_results(request):
 def chat_room(request, room_name):
     context = {'room_name': room_name}
     return render(request, 'dashboard/chat_room.html', context)
+
+
+# fixes:
+# 
+
+
+# things to do:
+# if not enough info is given for a single entry call the entry as a query and send results
