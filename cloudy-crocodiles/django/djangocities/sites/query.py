@@ -1,6 +1,7 @@
 from djangocities.cities.models import City
 from djangocities.graphql import query
-from djangocities.sites.models import Page, Site
+from djangocities.sites.models import Site
+from djangocities.pages.models import Page
 
 
 @query.field("allSites")

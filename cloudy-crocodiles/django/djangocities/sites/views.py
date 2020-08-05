@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from djangocities.cities.models import City
-from .models import Site, Page
+from .models import Site
+from djangocities.pages.models import Page
+
 
 def index(request, slug, address):
     city = City.objects.get(slug=slug)

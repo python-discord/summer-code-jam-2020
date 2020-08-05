@@ -26,5 +26,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(GraphQLView.as_view(schema=schema)), name="graphql"),
     # This needs to be last
-    path('', include('djangocities.sites.urls')),
+    # path('', include('djangocities.sites.urls')),
 ]

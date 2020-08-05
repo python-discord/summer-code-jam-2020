@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "djangocities.user",
     "djangocities.cities",
     "djangocities.sites",
+    "djangocities.pages",
+    "djangocities.folders",
     "djangocities.user_media",
     "corsheaders"
 ]
