@@ -4,6 +4,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <link rel="icon" href="{% static 'images/mars-icon.png' %}" sizes="16x16 32x32" type="image/png">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         {% block extrahead %}{% endblock %}
         <title>{% block title %}{% endblock %}</title>
@@ -12,23 +13,28 @@
         <!-- Start Navigation -->
         <div class="header-div full-width"><table class="header-table nav nav-table"><tbody>
             <tr>
-                <td colspan=4 class="nav nav-logo"><a href="{% url 'posts-home' %}">
-                    Spacebook
-                </a></td>
+                <td class="nav nav-logo"><a href="{% url 'posts-home' %}">
+                    <img src="{% static 'images/spacebook-logo2.png' %}" class="logo" alt="Spacebook"></a>
+                </td>
+                <td style="vertical-align: middle; padding-left: 10px;">
+                    <marquee>The first social media site on Mars!</marquee>
+                </td>
             </tr>
             <tr>
-                <td class="nav nav-link"><a href="{% url 'posts-home' %}">
-                    Home
-                </a></td>
-                <td class="nav nav-link nav-lborder"><a href="{% url 'rovers:rover-list' %}">
-                    Rovers
-                </a></td>
-                <td class="nav nav-link nav-lborder"><a href="{% url 'mars_weather:current_weather' %}">
-                    Weather
-                </a></td>
-                <td class="nav nav-link nav-lborder"><a href="{% url 'guestbook:guestbook' %}">
-                    Guestbook
-                </a></td>
+                <td colspan=2><table><tbody><tr>
+                    <td class="nav nav-link"><a href="{% url 'posts-home' %}">
+                        Home
+                    </a></td>
+                    <td class="nav nav-link nav-lborder"><a href="{% url 'rovers:rover-list' %}">
+                        Rovers
+                    </a></td>
+                    <td class="nav nav-link nav-lborder"><a href="{% url 'mars_weather:current_weather' %}">
+                        Weather
+                    </a></td>
+                    <td class="nav nav-link nav-lborder"><a href="{% url 'guestbook:guestbook' %}">
+                        Guestbook
+                    </a></td>
+                </tr></tbody></table></td>
             </tr>
         </tbody></table></div>
         <!-- End Navigation -->

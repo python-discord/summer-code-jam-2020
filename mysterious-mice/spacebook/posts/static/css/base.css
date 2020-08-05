@@ -3,6 +3,7 @@ body {
     /* background image from https://1-background.com/stars_1.htm */
     background: url("../images/beautiful-blue-stars-fill.jpg");
     animation: animatedBackground 15s linear infinite;
+    font-family: sans-serif;
 }
 
 @keyframes animatedBackground {
@@ -28,11 +29,19 @@ td {
     width: 900px;
 }
 
+.header-table {
+    vertical-align: middle;
+}
+
+.logo {
+    max-height:50px;
+}
+
 .nav {
 }
 
 .nav-logo {
-    font-size: x-large;
+    font-size: large;
 }
 
 .nav-link {
