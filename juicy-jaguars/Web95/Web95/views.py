@@ -63,6 +63,9 @@ def index(request):
 @xframe_options_sameorigin
 def page(request, url):
     """Handle /page urls. Used to serve pages to IE."""
-    content = "<h1>Testing</h1><p>"+url+"</p>"
+    # content = "<h1>Testing</h1><p>"+url+"</p>"
+
+    fp = urllib.request.urlopen(url)
+    content = fp.read().decode()
 
     return render(request, "Web95/blank.html", {"content": content})
