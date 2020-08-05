@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gifapp'  # include gifapp
+    'gifapp',  # include gifapp
+    'crispy_forms',  # additional settings defined at the bottom
 ]
 
 MIDDLEWARE = [
@@ -113,3 +114,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

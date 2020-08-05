@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if feed %}
+        {% for feed_post in feed %}
+            <p>{{ feed_post.content }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

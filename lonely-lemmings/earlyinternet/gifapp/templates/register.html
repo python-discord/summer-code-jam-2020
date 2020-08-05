@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+<!-- loading in crispy_forms library -->
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <!-- bootstrap class -->
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Join Today</legend>
+            <!-- .as_p will render form in paragraphs -->
+            <!-- handled by crispy_forms using the filter -->
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <!-- margin left 2 -->
+            Already Have An Account? <a href="{% url 'feed-login' %}" class="ml-2">Sign In</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}
