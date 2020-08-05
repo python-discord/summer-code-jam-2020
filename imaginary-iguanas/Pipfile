@@ -11,6 +11,8 @@ pre-commit = "*"
 django = "==3.0.8"
 pillow = "*"
 pycountry = "*"
+channels = "*"
+channels_redis = "*"
 
 [requires]
 python_version = "3.8"
