@@ -4,7 +4,7 @@ import wikipedia
 import random
 from faker import Faker
 
-from .models import GeneratedPage
+from .models import GeneratedPage, BlogPost
 
 
 # TODO: Make the requests asynchronous
@@ -15,13 +15,21 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] if page_type is None else page_type
+    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0]\
+        if page_type is None else page_type
 
     # Define the different fields needed for different page types here
     if page_object.page_type == 'BLOG':
         page_object.page_author = generate_page_author()
         page_object.blogger_age = random.randrange(8, 95)
         page_object.blogger_location = generate_blogger_location()
+
+        # Generates x amount of blog posts
+        for x in range(int(str(page_object.css_seed)[0])):
+            blog_post = BlogPost.objects.create(title=generate_blog_post_title(page_name),
+                                                content='This is the content of a blogpost')
+            blog_post.save()
+            page_object.blog_posts.add(blog_post)
 
     elif page_object.page_type == 'INFO':
         page_object.page_content = generate_information(page_name)
@@ -41,6 +49,18 @@ def generate_page(page_name, page_type=None):
     page_object.save()
 
     return page_object
+
+
+def generate_blog_post_title(page_name):
+    titles = [
+        f"I can't get over how much I love {page_name}",
+        f"Let me tell you all about {page_name}",
+        f"My favorite thing about {page_name}",
+        f"Is it bad that I'm attracted to {page_name}?",
+        f"{page_name} is the best thing ever",
+        f"Is it possible to like {page_name} too much?",
+    ]
+    return random.choice(titles)
 
 
 def generate_page_author():
