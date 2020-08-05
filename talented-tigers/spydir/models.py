@@ -37,12 +37,11 @@ class GeneratedPage(models.Model):
     page_type = models.CharField(max_length=4, choices=page_type_choices, blank=True)
     page_content = models.TextField(blank=True)
     page_images = models.ManyToManyField(PageImage, blank=True)
-    # The tab description will be based on the page type (this is the little text that appears on the tab, not the url)
-    tab_description = models.CharField(max_length=10, blank=True)
 
     # Blog Fields
     blog_posts = models.ManyToManyField(BlogPost, blank=True)
-    blog_introduction = models.TextField(default="Welcome to my blog!", blank=True)
+    blogger_age = models.IntegerField(null=True)
+    blogger_location = models.CharField(max_length=20, blank=True)
 
     # Information Fields
 

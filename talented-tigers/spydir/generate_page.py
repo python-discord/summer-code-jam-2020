@@ -1,8 +1,8 @@
 import re
 
-import requests
 import wikipedia
 import random
+from faker import Faker
 
 from .models import GeneratedPage
 
@@ -19,11 +19,13 @@ def generate_page(page_name):
 
     # Define the different fields needed for different page types here
     if page_object.page_type == 'BLOG':
-        page_object.page_author = generate_name()
+        page_object.page_author = generate_page_author()
+        page_object.blogger_age = random.randrange(8, 95)
+        page_object.blogger_location = generate_blogger_location()
 
     elif page_object.page_type == 'INFO':
         page_object.page_content = generate_information(page_name)
-        page_object.page_author = generate_name()
+        page_object.page_author = generate_page_author()
 
     elif page_object.page_type == 'BIZ':
         pass
@@ -41,14 +43,16 @@ def generate_page(page_name):
     return page_object
 
 
-def generate_name():
+def generate_page_author():
     """Returns a randomly generated name"""
-    try:
-        person = requests.get('https://api.namefake.com/', timeout=3)
-        return person.json()['name']
-    except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
-        # if the request is taking longer than 3 seconds:
-        return 'Anonymous'
+    fake = Faker()
+    return fake.name()
+
+
+def generate_blogger_location():
+    """Returns a randomly generated city name"""
+    fake = Faker()
+    return fake.city()
 
 
 def authorize_page(page_name):
