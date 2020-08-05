@@ -7,15 +7,19 @@
     <div class="title-bar">
       <div class="title-bar-text">Hey {{ request.user }}!, Want to upload a new file?</div>
       <div class="title-bar-controls">
+        <button aria-label="Help"></button>
         <a href="{% url 'dashboard' %}"><button aria-label="Close"></button></a>
       </div>
     </div>
     <div class="window-body">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="document">
-        <button type="submit">Upload file</button>
-      </form>
+        <div class="btn-row">
+          <button id="btn-uploader" onclick="document.getElementById('filechooser').click();">Choose file</button>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="filechooser" type="file" name="document" style="display: none;">
+            <button type="submit">Upload file</button>
+          </form>
+        </div>
     </div>
   </div>
 </div>
@@ -32,4 +36,11 @@
     {% endfor %}
 </ul>
 {% endif %}
-{% endblock %}
+
+<script>
+  if (document.getElementById("filechooser").value.length > 0) {
+     var btn = document.getElementById("btn-uploader");
+     btn.innerHTML = 'File Chosen';
+  }
+</script>
+{% endblock content %}

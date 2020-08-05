@@ -2,9 +2,25 @@
 
 {% block content %}
 
-<h1>Welcome To dummy vcs</h1>
+<div class="window-center">
+  <div class="window">
+    <div class="title-bar">
+    <div class="title-bar-text">(project name here).exe</div>
+    <div class="title-bar-controls">
+      <a href="{% url 'index' %}"><button aria-label="Close"></button></a>
+    </div>
+    </div>
+    <div class="window-body">
+      <h4>Welcome To dummy vcs</h4>
 
-<a href="{% url 'login' %}">Login</a><br>
-<a href="{% url 'register' %}">Register</a><br>
+      <!-- <a href="{% url 'login' %}">Login</a><br>
+      <a href="{% url 'register' %}">Register</a><br> -->
+      <div class="btn-row">
+        <div><a href="{% url 'login' %}"><button class="btn-my-1">Login</button></a></div>
+        <div><a href="{% url 'register' %}"><button class="btn-my-1">Register</button></a></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content%}
