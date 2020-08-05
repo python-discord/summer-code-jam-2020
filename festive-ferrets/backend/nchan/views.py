@@ -1,29 +1,41 @@
-import json
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
 
-from django.shortcuts import render, HttpResponse
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.core import serializers
-
-from .models import *
+from .serializers import BoardSerializer, PostSerializer, CommentSerializer
+from .models import Board, Post, Comment
 
 
 # Create your views here.
 
-def index(request):
-    return HttpResponse('Index loaded successfully')
+class BoardViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Board.objects.all().order_by('board')
+    serializer_class = BoardSerializer
+
+    @action(detail=True, url_path='posts')
+    def get_posts(self, request, pk=None):
+        post_objects = Post.objects.all().filter(board__exact=pk).order_by('-publication_date')
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        result_page = paginator.paginate_queryset(post_objects, request)
+        serializer = PostSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
-def get_boards(request):
-    data = {
-        'boards': list(Board.objects.all().values())
-    }
-    return JsonResponse(data)
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all().order_by('-publication_date')
+    serializer_class = PostSerializer
+
+    @action(detail=True, url_path='comments')
+    def get_comments(self, request, pk=None):
+        comment_objects = Comment.objects.all().filter(post__exact=pk).order_by('-publication_date')
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        result_page = paginator.paginate_queryset(comment_objects, request)
+        serializer = CommentSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
-@csrf_exempt
-def add_board(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        Board(name=data["name"], post_num=data["post_num"]).save()
-    return HttpResponse("OK")
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all().order_by('-publication_date')
+    serializer_class = CommentSerializer

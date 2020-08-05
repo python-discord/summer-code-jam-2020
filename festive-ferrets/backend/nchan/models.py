@@ -1,43 +1,42 @@
 from django.db import models
 
+from .utils import shorten_text
 
 # Create your models here.
 
-class Anonymous(models.Model):
-    identifier = models.IntegerField()
-
-    def __str__(self):
-        return f'Anonymous_{self.identifier}'
-
 
 class Board(models.Model):
-    name = models.CharField(max_length=50)
-    post_num = models.IntegerField()
+    board = models.CharField(max_length=20, primary_key=True)
+    title = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return f'/{self.board}/ {self.title}'
 
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
-    poster = models.ForeignKey(Anonymous, on_delete=models.CASCADE)
-    publication_date = models.DateTimeField('date published')
+    poster = models.CharField(max_length=50)
+    publication_date = models.DateTimeField('date published', auto_now_add=True, blank=True)
     text = models.TextField()
 
+    class Meta:
+        ordering = ['publication_date']
+
     def __str__(self):
-        short_text = self.text[:100 + 1]
-        short_text = short_text[:max(short_text.rfind(' '), short_text.rfind('\n'))]
-        return f'{self.title}\n {short_text}'
+        short_text = shorten_text(self.text, 100)
+        return f'{self.title} - {short_text}'
 
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    commenter = models.ForeignKey(Anonymous, on_delete=models.CASCADE)
-    publication_date = models.DateTimeField('date published')
+    commenter = models.CharField(max_length=50)
+    publication_date = models.DateTimeField('date published', auto_now_add=True, blank=True)
     text = models.TextField()
 
+    class Meta:
+        ordering = ['publication_date']
+
     def __str__(self):
-        short_text = self.text[:100 + 1]
-        short_text = short_text[:max(short_text.rfind(' '), short_text.rfind('\n'))]
+        short_text = shorten_text(self.text, 100)
         return short_text
