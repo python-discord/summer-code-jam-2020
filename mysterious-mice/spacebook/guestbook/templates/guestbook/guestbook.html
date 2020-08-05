@@ -3,37 +3,30 @@
 {% block title %}Spacebook Guestbook{% endblock %}
 
 {% block body %}
-<!--
-Guestbook html taken from here
 
-http://www.maplecity.com/homepage/guest.html
 
- -->
 
-<!-- <html>
-<body bgcolor=8888FF> -->
+
+<div class="header-div full-width">
+
 <h2> Guestbook</h2>
-
-
-<hr>
 
 <form action = "/guestbook/" method = "post" >
     {% csrf_token %}
     {{ form }}
 <input type=submit value="Submit">
 </form>
-
 <hr noshade>
 
 {% for comment in comments %}
-    <div>
         <h2><a href="">{{ comment.author }}</a></h2>
         <p>published: {{ comment.published_date }}</p>
         <p>{{ comment.text|linebreaksbr }}</p>
-    </div>
+        <hr noshade>
+    
 {% endfor %}
+</div>
 
-<hr noshade>
 
 <!-- </body>
 </html> -->
