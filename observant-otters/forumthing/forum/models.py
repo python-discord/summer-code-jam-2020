@@ -17,7 +17,7 @@ class Thread(models.Model):
         return f'Thread with title {self.title} created on {self.date_created}'
 
     def get_absolute_url(self):
-        return reverse('threads-single', kwargs={'id': self.pk})
+        return reverse('threads-single', kwargs={'t_id': self.pk})
 
 
 class Message(models.Model):
@@ -34,7 +34,7 @@ class Message(models.Model):
         return f'Message posted on {self.date_posted} with content {self.content}'
 
     def get_absolute_url(self):
-        return reverse('threads-single', kwargs={'id': self.thread.pk})
+        return reverse('threads-single', kwargs={'t_id': self.thread.pk})
 
 
 EVENT_TYPES = Enum(
