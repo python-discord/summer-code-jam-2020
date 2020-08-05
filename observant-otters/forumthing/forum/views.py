@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from .models import Thread, Message
+import re
 
 
 def home(request):
@@ -24,8 +25,9 @@ class NewMessage(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user  # set the author to user
-        thread_path = self.request.path.replace('/new', '')  # parse which thread this was posted in
-        form.instance.thread = Thread.objects.filter(pk=int(thread_path[thread_path.rfind('/') + 1:])).first()
+        thread_num = re.findall(r"/(\d+)", self.request.path)[-1]
+
+        form.instance.thread = Thread.objects.filter(pk=int(thread_num)).first()
         return super().form_valid(form)
 
 
@@ -71,19 +73,10 @@ def _threads_no_auth(request, t_id=None):
 
 @login_required
 def _threads_auth(request, t_id=None):
-    if request.method == "POST":
-        _handle_post(request, t_id=t_id)
-    elif request.method == "DELETE":
+    if request.method == "DELETE":
         _handle_delete(request, t_id)
     elif request.method == "PATCH":
         _handle_patch(request, t_id)
-
-
-def _handle_post(request, t_id=None):
-    if t_id is None:
-        pass  # @TODO: Handle new thread creation
-    else:
-        pass  # @TODO: Handle new thread reply creation
 
 
 def _handle_delete(request, t_id):
