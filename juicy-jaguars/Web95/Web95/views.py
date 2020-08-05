@@ -20,7 +20,7 @@ def landing_page(request):
 
     wallpapers = sorted(os.listdir(os.path.join(BASE_DIR,
                                                 "Web95/static/images/\
-                                                wallpapers",
+wallpapers",
                                                 theme)))
 
     try:
