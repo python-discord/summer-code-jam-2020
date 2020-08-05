@@ -1,7 +1,11 @@
 from django.http import JsonResponse
-from django.core import serializers
 from .models import Thread, ThreadMessage
 from django.db.models import F
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
+from core.helpers import jsonbody
+
 
 # Create your views here.
 
@@ -19,9 +23,20 @@ def list_threads(request):
     return JsonResponse(data, status=201, safe=False)
 
 
-
-def post_thread(request):
-    pass
+@login_required()
+@jsonbody
+def post_thread(request, data):
+    thread = Thread(
+        title=data['title'],
+        created_by=data['user'],
+        #threadmessage__message=['message']
+    )
+    #login(request, user)
+    print(thread)
+    return JsonResponse({
+        'title': thread.title,
+        'user': thread.created_by,
+    }, status=201)
 
 
 def thread_details(request, thread_id):
@@ -37,4 +52,3 @@ def thread_details(request, thread_id):
     data = list(qs)
     print(data)
     return JsonResponse(data, status=201, safe=False)
-

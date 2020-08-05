@@ -1,7 +1,7 @@
 import Home from './home-page.vue';
 import Forum from './thread-list.vue';
 import Thread from './thread-view.vue';
-
+import PostThread from './new-thread.vue';
 
 const routes = [
   {
@@ -12,9 +12,15 @@ const routes = [
   },
   {
     path: '/forum',
-    alias: '/forum',
+    alias: '/for',
     name: 'forum',
     component: Forum,
+  },
+  {
+    path: '/forum/new',
+    alias: '/new-thread',
+    name: 'new-thread',
+    component: PostThread,
   },
   {
     path: '/forum/:id',
@@ -22,6 +28,7 @@ const routes = [
     name: 'thread-view',
     component: Thread,
   },
+
 ];
 
 export default routes;
