@@ -1,0 +1,33 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+<div>
+    <h2>Morning spirit</h2>
+    <section>
+        <p>background home page</p>
+    </section>
+    <section>
+        <a href="{% url 'add-background' %}">add background</a>
+        <h1>current backgrounds</h1>
+        {% if background_list %}    
+            {% for background in background_list %}
+                <h2>background</h2>
+                <figure>
+                    <img src="{{ background.background_file.url }}" alt="No file">
+                    <figcaption>{{ background.background_title}}</figcaption>
+                </figure>
+                <form action="{% url 'background-delete' background.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="delete">
+                </form>
+                <form action="{% url 'background-use' background.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="use">
+                </form>
+            {% endfor %}
+        {% else %}
+            <p>no user uploaded backgrounds</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock content %}

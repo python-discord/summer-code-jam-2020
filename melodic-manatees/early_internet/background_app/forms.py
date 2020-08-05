@@ -1,12 +1,12 @@
 from django import forms
-from .models import MusicFile
+from .models import BackgroundFile
 
 
 class FileUploadForm(forms.ModelForm):
 
     class Meta:
-        model = MusicFile
-        fields = ('music_musicfile', 'music_title')
+        model = BackgroundFile
+        fields = ('background_file', 'background_title')
         widgets = {
             'required': True
         }

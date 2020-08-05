@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
-    'music_player.apps.MusicPlayerConfig',
+    'background_app.apps.BackgroundConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',

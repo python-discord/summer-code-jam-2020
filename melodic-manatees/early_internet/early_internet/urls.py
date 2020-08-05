@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout/', user_views.user_logout, name='logout'),
     path('profile/', user_views.profile, name='profile'),
     path('img2ascii/', include('img2ascii.urls')),
-    path('music/', include('music_player.urls'))
+    path('backgrounds/', include('background_app.urls'))
 ] 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
