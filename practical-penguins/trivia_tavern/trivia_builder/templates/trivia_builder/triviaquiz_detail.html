@@ -4,9 +4,23 @@
 {% load settings_tag %}
 
 {% block content %}
-  <h1>Trivia Name: {{ quiz.name }}</h1>
+  <div class="row">
+      <div class="col-md-8"><h1>Trivia Name: {{ quiz.name }}</h1></div>
+      <div class="col-md-2">
+        <form method="post">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-outline-primary" value="Run Quiz">
+        </form>
+      </div>
+      <div class="col-md-2">
+        <form action="{% url 'quiz-delete' quiz.pk %}" method="post">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-outline-danger" value="Delete Quiz">
+        </form>
+      </div>
+  </div>
 
-  <p><strong>Author:</strong> <a href="">{{ quiz.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Author:</strong> <a href="">{{ quiz.author }}</a></p>
   <p><strong>created on:</strong> {{ quiz.date_posted }}</p>
   <p><strong>number of questions:</strong> {{ quiz.triviaquestion_set.count }}</p>
 
