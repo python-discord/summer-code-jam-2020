@@ -15,8 +15,8 @@ We be Puffins, and we be proud!
 
 ### [Populating profiles database](https://docs.djangoproject.com/en/3.0/howto/initial-data/)
 - Add new entries into `earlydating/fixtures/profiles.json`
-- Run ```python3 manage.py loaddata makemigrations```
-- Run ```python3 manage.py loaddata migrate```
+- Run ```python3 manage.py makemigrations```
+- Run ```python3 manage.py migrate```
 - Run ```python3 manage.py loaddata users.json```
 - Run ```python3 manage.py loaddata profiles.json``` (First users.json then profiles.json)
 - Run server :)
