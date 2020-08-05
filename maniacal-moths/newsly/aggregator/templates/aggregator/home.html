@@ -1,0 +1,15 @@
+{% extends "aggregator/base.html" %}
+{% block content %}
+{% for post in posts %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ Article.author }}</a>
+            <small class="text-muted">{{ Article.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <h2><a class="article-title" href="{% url 'Article-detail' Article.id %}">{{ Article.title }}</a></h2>
+        <p class="article-content">{{ Article.content }}</p>
+    </div>
+</article>
+{% endfor %}
+{% endblock content %}
