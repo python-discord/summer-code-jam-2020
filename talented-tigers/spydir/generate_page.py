@@ -17,6 +17,9 @@ def generate_page(page_name):
     # BLOG, INFO, BIZ, FOOD, SCAM
     page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0]
 
+    # random 4 digit #
+    page_object.css_seed = random.randint(1000, 9999)
+
     # Define the different fields needed for different page types here
     if page_object.page_type == 'BLOG':
         page_object.page_author = generate_page_author()

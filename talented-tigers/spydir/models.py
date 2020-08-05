@@ -26,6 +26,7 @@ class Step(models.Model):
 class GeneratedPage(models.Model):
     page_title = models.CharField(max_length=50, blank=True)
     is_generated = models.BooleanField(default=False)
+    css_seed = models.IntegerField()
     page_author = models.CharField(max_length=20, blank=True)
     page_type_choices = [
         ("BLOG", "Blog"),
@@ -35,7 +36,6 @@ class GeneratedPage(models.Model):
         ("SCAM", "Scam"),
     ]
     page_type = models.CharField(max_length=4, choices=page_type_choices, blank=True)
-    page_content = models.TextField(blank=True)
     page_images = models.ManyToManyField(PageImage, blank=True)
 
     # Blog Fields
@@ -44,6 +44,7 @@ class GeneratedPage(models.Model):
     blogger_location = models.CharField(max_length=20, blank=True)
 
     # Information Fields
+    page_content = models.TextField(blank=True)
 
     # Business Fields
 
