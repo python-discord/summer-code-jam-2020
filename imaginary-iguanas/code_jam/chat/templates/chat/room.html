@@ -67,13 +67,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
 </head>
 <body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <textarea readonly id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
@@ -104,9 +106,11 @@
             }
         };
 
+
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
+            usernamechat = localStorage["usern"];
+            const message = usernamechat + ': ' + messageInputDom.value;
             chatSocket.send(JSON.stringify({
                 'message': message
             }));
