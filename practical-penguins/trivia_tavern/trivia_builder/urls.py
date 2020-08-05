@@ -7,9 +7,9 @@ from trivia_builder.views import (TriviaQuizDeleteView,
                                   UserTriviaQuizListView)
 
 urlpatterns = [
-    path('user/<str:username>', UserTriviaQuizListView.as_view(), name='user-quizzes'),
-    path('quiz/<int:pk>/', TriviaQuizDetailView.as_view(), name='quiz-detail'),
-    path('quiz/new/', TriviaQuizCreateView.as_view(), name='quiz-create'),
-    path('quiz/<int:pk>/update/', TriviaQuizUpdateView.as_view(), name='quiz-update'),
-    path('quiz/<int:pk>/delete/', TriviaQuizDeleteView.as_view(), name='quiz-delete'),
+    path('user/<str:username>/', UserTriviaQuizListView.as_view(), name='user-quizzes'),
+    path('id/<int:pk>/', TriviaQuizDetailView.as_view(), name='quiz-detail'),
+    path('new/', TriviaQuizCreateView.as_view(), name='quiz-create'),
+    path('int:pk>/update/', TriviaQuizUpdateView.as_view(), name='quiz-update'),
+    path('<int:pk>/delete/', TriviaQuizDeleteView.as_view(), name='quiz-delete'),
 ]

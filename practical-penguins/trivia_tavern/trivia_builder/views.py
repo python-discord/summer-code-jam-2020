@@ -16,6 +16,7 @@ from django.views.generic import (
 
 from trivia_builder.forms import TriviaQuizForm, TriviaQuestionForm
 from trivia_builder.models import TriviaQuiz, TriviaQuestion
+from trivia_runner.models import ActiveTriviaQuiz
 
 
 class PassRequestToFormViewMixin:
@@ -40,6 +41,11 @@ class TriviaQuizDetailView(DetailView):
     model = TriviaQuiz
     context_object_name = 'quiz'
     template_name = 'trivia_builder/triviaquiz_detail.html'
+
+    def post(self, request, *args, **kwargs):
+        active_trivia_quiz = ActiveTriviaQuiz.objects.create(trivia_quiz=self.get_object(), session_master=request.user)
+        active_trivia_quiz.save()
+        return HttpResponseRedirect(reverse('activequiz-setup', kwargs={'pk': active_trivia_quiz.pk}))
 
 
 class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, CreateView):
