@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: "off" */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
@@ -17,6 +18,12 @@ const store = new Vuex.Store({
   state: {
     userId: null,
     username: null,
+  },
+  mutations: {
+    login(state, userId, username) {
+      state.userId = userId;
+      state.username = username;
+    },
   },
 });
 

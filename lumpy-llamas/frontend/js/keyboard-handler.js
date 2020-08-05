@@ -3,6 +3,17 @@ class KeyboardNavigator {
     this.router = router;
     this.watchers = this.getDefaultWatchers();
     this.unkownCommand = undefined;
+    this.defaultUnknown = undefined;
+    this.inputCallback = undefined;
+    this.clearText = undefined;
+    this.textRelayInProgress = false;
+  }
+
+  init(onUnknown, askForInput, clearText) {
+    this.unkownCommand = onUnknown;
+    this.defaultUnknown = onUnknown;
+    this.inputCallback = askForInput;
+    this.clearText = clearText;
   }
 
   getDefaultWatchers() {
@@ -10,6 +21,11 @@ class KeyboardNavigator {
       '/home': [() => this.router.push('/')],
     };
     return defaultCommands;
+  }
+
+  input(prompter, hidden) {
+    this.textRelayInProgress = true;
+    return this.inputCallback(prompter, hidden);
   }
 
   on(commandName, callback) {
@@ -23,18 +39,26 @@ class KeyboardNavigator {
     this.unkownCommand = callback;
   }
 
+  addDefaultUnknown(callback) {
+    this.defaultUnknown = callback;
+  }
+
   emitCommand(command) {
     if (this.watchers[command] !== undefined) {
-      for (let i = 0; i < this.watchers[command].length; i++) {
-        this.watchers[command][i]();
-      }
+      this.watchers[command].map((x) => x());
     } else if (this.unkownCommand !== undefined) {
-      this.unkownCommand(command);
+      if (!this.textRelayInProgress) {
+        this.unkownCommand(command);
+      }
     }
+    this.clearText();
   }
 
   reset() {
     this.watchers = this.getDefaultWatchers();
+    this.unkownCommand = this.defaultUnknown;
+    this.textRelayInProgress = false;
+    this.clearText();
   }
 }
 

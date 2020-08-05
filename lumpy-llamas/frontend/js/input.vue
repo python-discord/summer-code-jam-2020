@@ -3,9 +3,14 @@
     <div class="output-field" v-if="output">
       {{output}}
     </div>
-    <form @submit.prevent="execCommand" id="bbs-input-form">
-      {{username}}@llamma$ <input ref="cmdinput" v-model="value" id="bbs-input-field" autofocus>
-    </form>
+    <div id="bbs-input-form">
+      {{promptMessage}}<input ref="cmdinput"
+      v-model="value"
+      id="bbs-input-field"
+      @keyup.enter="execCommand"
+      :type="hidden ? 'password' : 'text'"
+      autofocus>
+    </div>
   </div>
 </template>
 
@@ -27,6 +32,8 @@
   border: none;
   margin-left: 0.5em;
   flex-grow: 3;
+  padding: unset;
+  font-size: unset;
 }
 </style>
 
@@ -36,17 +43,35 @@ export default {
     return {
       value: '',
       output: '',
+      currentPrompt: '',
+      askingForMessage: false,
+      promptResolver: null,
+      hidden: false,
     };
   },
   computed: {
     username() {
       return this.$store.state.username || 'guest';
     },
+    promptMessage() {
+      if (this.askingForMessage) {
+        return this.currentPrompt || '> ';
+      }
+      return `${this.username}@llamma$ `;
+    },
   },
   beforeMount() {
-    this.$cmd.onUnknown(this.raiseUnknown);
+    this.$cmd.init(this.raiseUnknown, this.askForInput, this.clearText);
   },
   methods: {
+    askForInput(prompter, hidden) {
+      this.askingForMessage = true;
+      this.hidden = hidden || false;
+      this.currentPrompt = prompter;
+      return new Promise((resolve) => {
+        this.promptResolver = resolve;
+      });
+    },
     focusInput() {
       this.$refs.cmdinput.focus();
     },
@@ -54,8 +79,18 @@ export default {
       this.output = `Error: Invalid command ${command}`;
     },
     execCommand() {
+      if (this.promptResolver) {
+        this.promptResolver(this.value);
+        this.promptResolver = null;
+        this.currentPrompt = '';
+        this.askingForMessage = false;
+        this.hidden = false;
+      }
       this.output = '';
       this.$cmd.emitCommand(this.value);
+      this.clearText();
+    },
+    clearText() {
       this.value = '';
     },
   },
