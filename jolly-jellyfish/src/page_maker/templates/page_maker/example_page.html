@@ -1,0 +1,15 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+<h1><span>Example Page title</span></h1>
+<p>
+    Example Subtitle paragraph
+<p>
+    {% load static %}
+    <img src="{% static "images/placeholder_img.png" %}" alt="Example image">
+<p>
+    Example Main body paragraph
+<p>
+    Example Closing paragraph
+{% endblock %}
+

@@ -69,7 +69,6 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class WebpageCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/webpage_create.html'
     form_class = WebpageForm
-    # success_url = '/pages'
 
     # TODO validate and sanitize text and images
     def form_valid(self, form):
@@ -156,13 +155,28 @@ class WebpageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class TemplateCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/template_create.html'
     form_class = TemplateForm
-    success_url = '/'
 
     # TODO validate and sanitize style sheet
     def form_valid(self, form):
+        self.form = form
         form.instance.author = self.request.user
         form.save()
         return super().form_valid(form)
+
+    def get_success_url(self):
+        templatename = self.form.cleaned_data['name']
+        return reverse_lazy('template-view', kwargs={'templatename': templatename})
+
+
+class TemplateView(DetailView):
+    """
+    Display template using example page
+    """
+    model = Template
+    template_name = 'page_maker/example_page.html'
+    context_object_name = 'template'
+    slug_field = 'name'
+    slug_url_kwarg = 'templatename'
 
 
 class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

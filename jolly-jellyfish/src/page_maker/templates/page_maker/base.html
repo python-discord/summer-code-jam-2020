@@ -8,18 +8,26 @@
     {% if webpage %}
         <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{webpage.template_used.style_sheet}}">
         <title>{{ webpage.name }}</title>
+    {% elif template %}
+        <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{template.style_sheet}}">
+        <title>Example Theme Page</title>
     {% else %}
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <title>Early Internet Page Maker</title>
     {% endif %}
 
-    {# This code generates a thumbnail for *user-created* pages if it does not already exist or is out of date #}
-    {% if webpage.user_title %}
-        {% load render_img_thumbnail %}
+    {# This code generates a thumbnail for *user-created* pages/templates if it does not already exist or is out of date #}
+    {% if webpage or template %}
+        {% load render_thumbnail %}
+        {% if webpage %}
+            {% url 'webpage-view' pagename=webpage.name as user_pg %}
+            {# 'as none' used below to stop None being printed onto page #}
+            {% render_thumbnail request user_pg webpage as none %}
+        {% else %}
+            {% url 'template-view' templatename=template.name as user_pg %}
 
-        {% url 'webpage-view' pagename=webpage.name as user_pg %}
-        {# 'as none' used below to stop None being printed onto page #}
-        {% render_img_thumbnail request user_pg webpage as none %}
+            {% render_thumbnail request user_pg template as none %}
+        {% endif %}
     {% endif %}
 </head>
 <body>
