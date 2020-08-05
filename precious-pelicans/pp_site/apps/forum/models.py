@@ -38,22 +38,6 @@ class ForumPost(TimeStampMixin):
     media_file = ForumMedia()
     rating = models.IntegerField(default=0)
 
-    @staticmethod
-    def fields():
-        """ Used for post searching """
-        whitelist = {
-            models.CharField,
-            models.IntegerField,
-            models.TextField
-        }
-        for field in ForumPost._meta.local_fields:
-            if type(field) in whitelist:
-                yield field.name
-            else:
-                continue
-
-        return
-
 
 class ForumPostForm(forms.ModelForm):
     class Meta:
