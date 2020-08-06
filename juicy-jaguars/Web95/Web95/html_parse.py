@@ -25,4 +25,7 @@ class HtmlParser:
 
     def parse_backgroundColor(self):
         """Change BG color to white."""
-        self.soup("html")[0]["style"]["background-color"] = "white"
+        try:
+            self.soup("html")[0]["style"]["background-color"] = "white"
+        except KeyError:
+            pass
