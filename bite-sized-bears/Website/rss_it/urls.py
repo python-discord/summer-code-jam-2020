@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
     path('rss/', include('syndication_app.urls')),
     path('admin/', admin.site.urls),
+    path('chat/', include('chat.urls'))
 ]
