@@ -14,7 +14,7 @@ from main.forms import (
     TopicCreationForm,
     PostForm,
     CustomUser,
-    CustomUserCreationForm
+    CustomUserCreationForm,
     ProfileForm,
     )
 
