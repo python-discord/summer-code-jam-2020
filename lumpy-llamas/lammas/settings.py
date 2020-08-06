@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [
     'llamma-xbiguwvyua-ew.a.run.app',
     'localhost',
     '127.0.0.1',
-    '46.101.237.234'
 ]
 
 
@@ -128,3 +127,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'lammas', 'static'),
 )
+
+CSRF_COOKIE_NAME = "csrftoken"

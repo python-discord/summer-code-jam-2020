@@ -24,8 +24,9 @@ p {
 
 <script>
 import axios from 'axios';
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-axios.defaults.xsrfCookieName = "csrftoken"
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+
 
 export default {
   data() {
@@ -49,20 +50,5 @@ export default {
       });
     },
   },
-   methods:{
-    checkTitle: function (e) {
-      this.errors = [];
-
-      if (this.title > 120) {
-        this.errors.push('Total must be 100!');
-      }
-
-      if (!this.errors.length) {
-        return true;
-      }
-
-      e.preventDefault();
-    }
-  }
 };
 </script>

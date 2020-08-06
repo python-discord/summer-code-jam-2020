@@ -1,14 +1,21 @@
 <template>
   <div v-if="ready">
-
-    <h2 class="some-heading">Thread {{myStuff[0].title}} </h2>
-
-    <h2 class="some-heading">Messages</h2>
-    <div v-for="item in myStuff">
-        <h3 class="message-heading">Message by {{item.user}} on {{item.date | moment("DD/MM/YY/hh:mm")}}</h3>
-        <p>{{item.message}}</p>
+    <h2 class="some-heading">{{myStuff[0].title}} </h2>
+    <div class="terminal-timeline">
+    <div class="terminal-card" v-for="item in myStuff">
+      <header>{{item.user}} on {{item.date | moment("DD/MM/YY/hh:mm")}}</header>
+      <div>
+        {{item.message}}
+      </div>
     </div>
-  </div>
+    </div>
+       <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter your message" minlength="3"></textarea>
+        <button v-on:click="" class="btn btn-default">Post a new message</button>
+    </div>
+
+
+
+
 </template>
 
 <style>

@@ -4,7 +4,7 @@
     <h2 class="some-heading">Hello and welcome to Angry LLamas Forum</h2>
     <div class="container">
       <h2 class="some-heading">Threads</h2>
-      <button class="btn">New thread</button>
+      <button class="btn" @click="$router.push('/forum/new')">New thread</button>
     </div>
 
     <ul>
@@ -27,6 +27,8 @@
 
 <script>
 import axios from 'axios';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+axios.defaults.xsrfCookieName = "csrftoken"
 
 export default {
   data() {

@@ -23,7 +23,6 @@ def list_threads(request):
     return JsonResponse(data, status=201, safe=False)
 
 
-@login_required()
 @jsonbody
 def post_thread(request, data):
     print(data)
@@ -35,9 +34,9 @@ def post_thread(request, data):
     thread_id = thread.id
     thread.save()
     message = ThreadMessage(
-        message = data['message'],
-        user = current_user,
-        thread = thread
+        message=data['message'],
+        user=current_user,
+        thread=thread
     )
     message.save()
     #login(request, user)
