@@ -36,7 +36,9 @@ def generate_page(page_name, page_type=None):
         page_object.page_author = generate_page_author()
 
     elif page_object.page_type == 'BIZ':
-        pass
+        faker = Faker()
+        page_object.business_phone_num = faker.phone_number()
+        page_object.business_email = faker.email()
 
     elif page_object.page_type == 'FOOD':
         pass

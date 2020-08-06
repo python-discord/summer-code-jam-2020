@@ -5,7 +5,7 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>All About {{ page.tab_description }}</title>
+    <title></title>
     <style>
         * {
             font-family: 'Times New Roman', Times, serif;
@@ -18,7 +18,10 @@
 
         .content {
             margin: 0 10%;
-            text-align: left;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
         }
 
     </style>
@@ -29,18 +32,16 @@
         <div class="container">
             <h1>{{ page.page_title }} Co.</h1>
             <img src='' alt="Company Logo">
-            <h3>{{ page.page_title }}'s official business page!</h3>
+            <h3>{{ page.page_title }} Co.'s official business page!</h3>
         </div>
     </header>
 
     <div class="content">
-        {% for paragraph in page.page_content|split_content %}
-        <p>{{ paragraph }}</p>
-        {% endfor %}
+        <h1>About {{ page.page_title }} Co.</h1>
     </div>
 
     <footer>
-        <div>
+        <div class="footer">
             <h3>Contact Info:</h3>
             <p>Phone Number -> {{ page.business_phone_num }}</p>
             <p>Email -> {{ page.business_email }}</p>
