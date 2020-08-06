@@ -14,12 +14,13 @@ class Profile(models.Model):
     COUNTRY_CHOICES = ((country.alpha_2, country.name) for country in pycountry.countries)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default_pfp.jpg', upload_to='profile_pics')
-    gender = models.CharField(null=True, max_length=1, choices=GENDER_CHOICES)
-    country = models.CharField(null=True, max_length=2, choices=COUNTRY_CHOICES)
-    city = models.CharField(null=True, max_length=50)
-    date_of_birth = models.DateField(null=True)
-    audio_track = models.FileField(null=True, upload_to="profile_audio")
+    image = models.ImageField(default='default_pfp.jpg', blank=True, upload_to='profile_pics')
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    country = models.CharField(blank=True, max_length=2, choices=COUNTRY_CHOICES)
+    city = models.CharField(blank=True, max_length=50)
+    date_of_birth = models.DateField()
+    audio_track = models.FileField(null=True, blank=True, upload_to='profile_audio')
+    profile_css = models.CharField(null=True, blank=True, max_length=10_000)
 
     def __str__(self):
         return f'{self.user.username}\'s profile'
