@@ -13,6 +13,7 @@ pillow = "*"
 pycountry = "*"
 channels = "*"
 channels_redis = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.8"
