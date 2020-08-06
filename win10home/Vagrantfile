@@ -30,31 +30,41 @@ Vagrant.configure("2") do |config|
   end
 
 $toinstall = <<-SHELL
+# update apt & upgrade packages
+sudo apt-get update && sudo apt-get upgrade -y
 
-	# update apt & upgrade packages
-	sudo apt-get update && sudo apt-get upgrade -y
+# install the following to make upgrading VBox modules easier: (https://linuxize.com/post/how-to-install-virtualbox-guest-additions-in-ubuntu/)
+# 	build tools - so anything that needs gcc/g++ can get built
+#   dkms - some kernel module tool
+#   linux-headers-$(uname -r) - some sort of linux header package that matches kernel version
+# sudo apt-get install -y build-essential dkms linux-headers-$(uname -r)
 
-	# install the following to make upgrading VBox modules easier: (https://linuxize.com/post/how-to-install-virtualbox-guest-additions-in-ubuntu/)
-	# 	build tools - so anything that needs gcc/g++ can get built
-	#   dkms - some kernel module tool
-	#   linux-headers-$(uname -r) - some sort of linux header package that matches kernel version
-	# sudo apt-get install -y build-essential dkms linux-headers-$(uname -r)
+# so we can add keys of various software. the two gpgs don't clash, apparently.
+# sudo apt-get install gnupg2 gnupg gnupg-agent
 
-	# so we can add keys of various software. the two gpgs don't clash, apparently.
-	sudo apt-get install gnupg2 gnupg gnupg-agent
+# docker install
+sudo apt remove docker docker-engine docker.io
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt update
+sudo apt install -y docker-ce
 
-	# docker install
-	sudo apt remove docker docker-engine docker.io
-	sudo apt install apt-transport-https ca-certificates curl software-properties-common
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-	sudo apt update
-	sudo apt install -y docker-ce
+# Make docker listen on port 2375
+sudo mkdir -p /etc/docker
+echo '{"hosts": ["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]}' | sudo tee /etc/docker/daemon.json
+        
+sudo mkdir -p /etc/systemd/system/docker.service.d
+cat | sudo tee /etc/systemd/system/docker.service.d/override.conf <<EOF
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd
+EOF
 
-	sudo systemctl enable docker
+sudo systemctl enable docker
 
-	sudo usermod -aG docker $USER
-	newgrp docker
+sudo usermod -aG docker $USER
+newgrp docker
 
 SHELL
 	#actually run the above script during provisioning.
