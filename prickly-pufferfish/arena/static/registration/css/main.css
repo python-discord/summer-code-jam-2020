@@ -16,15 +16,8 @@ body {
     margin-right: 10%;
 }
 
-#enter {
-    color: yellow;
-    font-size: 4rem;
-    font-weight: bold;
-}
-
 nav#navbar {
     background-color: dimgray;
-    text-align: left;
     padding: 1.5rem 8%;
     margin-bottom: 2rem;
 }
@@ -32,13 +25,11 @@ nav#navbar {
 nav#navbar a#brand {
     font-size: 2rem;
     font-weight: bold;
-    margin-right: 3rem;
 }
 
 nav#navbar a {
     color: lime !important;
     font-size: 1.5rem;
-    margin-right: 1.5rem;
 }
 
 #navbar-right {
@@ -46,12 +37,30 @@ nav#navbar a {
     display: inline-block;
 }
 
-#about-text {
+#main-form {
     background-color: dimgray;
     padding: 1rem 8%;
     margin: 2rem 8%;
+    font-size: 1.5rem;
 }
 
-#about-text h2 {
-    font-weight: normal;
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+button {
+    font-size: inherit;
+    font-family: serif;
+    border-radius: 0px;
+    color: lime;
+    background-color: black;
+    border-color: lime;
+    border-style: solid;
+    cursor: pointer;
+}
+
+.error {
+    color: yellow;
 }
