@@ -1,0 +1,14 @@
+<style>
+    .searchinput {
+        width: 95%;
+        display: flex;
+        margin: auto;
+    }
+</style>
+
+<form method="GET" action={% url "listings" %}>
+<input class="searchinput" type="text" name="search" placeholder="Search..." />
+<input type="submit" 
+       style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+       tabindex="-1" />
+</form>
