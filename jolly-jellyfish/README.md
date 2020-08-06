@@ -35,7 +35,7 @@ Please also note that, as described within `src/page_maker/templatetags/render_t
 asynchronous tasks (using `Celery` and `Redis`) are not easily setup on Windows - 
 hence this feature can cause loading times of ~5-10 seconds after template and webpage creation forms are initially submitted.
 
-### pipenv
+### Using pipenv
 ```shell script
 $ pipenv install
 $ pipenv shell
