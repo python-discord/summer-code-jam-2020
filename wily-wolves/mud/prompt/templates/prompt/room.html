@@ -5,8 +5,8 @@
     <title>MUD - WilyWolves</title>
 </head>
 <body style="background-color: black; color: white">
-    <textarea id="chat-log" rows="30" style="overflow:hidden; line-height: 1.2; resize:none; width: 100%; background-color: black; color: white; font-family: 'lucida console', Arial, Helvetica; font-size: 16px;"></textarea><br>
-    <input id="chat-message-input" type="text" size="100" style="width: 100%; background-color: black; color: white"><br>
+    <textarea id="chat-log" rows="30" style="overflow:hidden; padding: 0px 10px; line-height: 1.3; resize:none; width: 100%; background-color: black; color: white; font-family: 'lucida console', Arial, Helvetica; font-size: 16px; box-sizing:border-box;"></textarea><br>
+    <input id="chat-message-input" type="text" size="100" style="width: 100%; background-color: black; color: white; box-sizing:border-box"><br>
     <input id="chat-message-submit" type="button" value="Send" style="display: none;">
     {{ room_name|json_script:"room-name" }}
     <script>

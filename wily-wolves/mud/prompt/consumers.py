@@ -2,6 +2,11 @@ import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from pyfiglet import figlet_format
+from django.contrib.auth.models import User
+from game.models import Player
+from channels.auth import (login as auth_login, logout as auth_logout)
+from django.contrib.auth.hashers import make_password
+from passlib.hash import django_pbkdf2_sha256
 
 welcome_text = (figlet_format('Wily Wolves', font='starwars') +
         f"\nThis is the Wily Wolves MUD project for the Python Discord: Summer-code-jam-2020"
@@ -39,20 +44,72 @@ class MudConsumer(WebsocketConsumer):
         # This message is what we'll use as command input
         # So here we'll split it and work with the commands
 
-        # Send message to room group
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
+        command = message.lower().split(maxsplit=1)[0]
+        local_command = True
+        if self.scope['user'].is_authenticated == True:
+            pass
+        elif command == 'login':
+            if len(message.split()) == 3:
+                username_to_login = message.split()[1]
+                plain_password_to_login = message.split()[2]
+                if len(User.objects.filter(username=username_to_login)) == 1:
+                    self.user = User.objects.get(username=username_to_login)
+                    dt = self.user.last_login
+                    if django_pbkdf2_sha256.verify(plain_password_to_login, self.user.password) == True:
+                        async_to_sync(auth_login)(self.scope, user=self.user)
+                        if dt:
+                            message = (f"Welcome back, {self.user}! \n" +
+                                f"You last logged in at {dt.strftime('%Y-%m-%d %H:%M')} (UTC)")
+                        else:
+                            message = (f"Welcome to the MUD, {self.user}! \n" +
+                                f"Since it's your first time here, we'll guide you in your first steps.")
+                        print(f"Successfully logged in as {self.user}")
+                        async_to_sync(self.channel_layer.group_send)(
+                            self.room_group_name,
+                            {
+                                'type': 'global_message_not_me',
+                                'message': f"{self.user} is back to WilyWolves MUD!",
+                                'sender_channel_name': self.channel_name
+                            }
+                        )
+                    else:
+                        message = "Wrong password! Please try 'login <username> <password> again."
+                else:
+                    message = f"{username_to_login!r} is not a valid username. If you are new here, please type 'new'"
+            else:
+                message = "To log in, please type 'login <username> <password>'."
+        elif command == 'new':
+            if len(message.split()) == 3:
+                username_to_create = message.split()[1]
+                password_to_create = message.split()[2]
+                hashed_password = make_password(password_to_create)
+                if len(User.objects.filter(username=username_to_create)) == 0:
+                    new_user = User(username=username_to_create, password=hashed_password, is_superuser=False, is_staff=False)
+                    new_user.save()
+                    new_player = Player(user_id=new_user)
+                    new_player.save()
+                else:
+                    message = f"Someone is already using {username_to_create}"
+            else:
+                message = "To create a new user, please type 'new <username> <password>'."
+
+        if local_command == True:
+            self.send(text_data=json.dumps({
                 'message': message
-            }
-        )
+            }))
 
-    # Receive message from room group
-    def chat_message(self, event):
+    # Types of messages
+    def global_message(self, event):
         message = event['message']
-
-        # Send message to WebSocket
+        # Send a message to everybody in the MUD room
         self.send(text_data=json.dumps({
             'message': message
+        }))
+
+    def global_message_not_me(self, event):
+        message = event['message']
+        # Send a message to everyone else other than the sender
+        if self.channel_name != event['sender_channel_name']:
+            self.send(text_data=json.dumps({
+                    'message': message
         }))
