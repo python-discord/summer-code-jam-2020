@@ -31,3 +31,9 @@ jobs:
           npm ci
           npm run build
         working-directory: ${{ env.working-directory }}
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: static-files
+          path: ./festive-ferrets/frontend/code-jam/dist/
