@@ -186,8 +186,8 @@
 <body onload="startTime()">
 
   <div class="window" style="width: 100%">
-    <div class="title-bar" style=" height: 18px;">
-      <div class="title-bar-text">Welcome to RetroNet!</div>
+    <div class="title-bar" style=" height: 20px;">
+      <div class="title-bar-text" style="font-size: 15px;">Welcome to RetroNet!</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize"></button>
         <button aria-label="Maximize"></button>
@@ -197,51 +197,46 @@
 
 
     <!-- Main menu -->
-    <div class="window-body">
-        <span class="vertical-line"></span>
+    <div class="window-body" style="padding: 0px;margin-left: 0px;margin-top: 2px;margin-bottom: 0px;">
+
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_file')" style="box-shadow: none;">File</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_file')" style="box-shadow: none; min-width:0;font-size: 13px;">File</button>
         <div class="dropdown-content Frame" id="dd_file">
           <a href="#" >Open</a>
           <a href="#">Close</a>
           <a href="#">Settings</a>
         </div>
-        <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_edit')" style="box-shadow: none">Edit</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_edit')" style="box-shadow: none; min-width:0;font-size: 13px;">Edit</button>
         <div class="dropdown-content Frame" id="dd_edit">
           <a href="#">Cut</a>
           <a href="#">Copy</a>
           <a href="#">Paste</a>
         </div>
       </div>
-          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_view')" style="box-shadow: none">View</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_view')" style="box-shadow: none;min-width:0;font-size: 13px;">View</button>
         <div class="dropdown-content Frame" id="dd_view">
           <a href="#">Toggle CSS</a>
           <a href="#">Toggle Javascript</a>
         </div>
       </div>
-          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_tools')" style="box-shadow: none">Tools</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_tools')" style="box-shadow: none; min-width:0;font-size: 13px;">Tools</button>
         <div class="dropdown-content Frame" id="dd_tools">
           <a href="#">Not Decided</a>
         </div>
       </div>
-          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')" style="box-shadow: none">Favourties</button>
+        <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')" style="box-shadow: none; min-width:0;font-size: 13px;">Favourties</button>
         <div class="dropdown-content Frame" id="dd_favorite">
           <a href="#">Add New Favorite</a>
           <a href="#">Add this Page to Favorites</a>
           <a href="#">Show Favorites</a>
         </div>
       </div>
-          <span class="vertical-line"></span>
       <div class="dropdown">
-        <button class="dropbtn" onclick="open_dropdown('dd_help')" style="box-shadow: none">Help</button>
+        <button class="dropbtn" onclick="open_dropdown('dd_help')" style="box-shadow: none; min-width:0;font-size: 13px;">Help</button>
         <div class="dropdown-content Frame" id="dd_help">
           <a
             href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md">README</a>
@@ -250,38 +245,37 @@
     </div>
         </div>
 
-      <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
+      <hr style="display: block; margin-before: 0.2em; margin-after: 0.5em; margin-start: 0; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
 
 
 
 
-      <div class="menu">
+      <div class="menu" style="padding: 0px;margin-left: 5px;margin-top:3px;margin-bottom: 0px;height: 27px;">
         <ul class="first">
-          <li><i class="fas fa-arrow-circle-left" style="margin-left: 25px;"></i>  Back</li>
+          <li><i class="fas fa-arrow-circle-left" style="margin-left: 25px;margin-right: 10px"></i>Back</li>
           <li><i class="fas fa-caret-down"></i></li>
           <li><i class="fas fa-arrow-circle-right"></i></li>
           <li><i  class="fas fa-caret-down grey-caret-down"></i></li>
           <li><i class="fas fa-file-excel"></i></li>
           <li><img class="refresh" src="icons/ie-refresh-min.png" alt=""></li>
-          <li><i class="fas fa-home"></i></li>
+          <li><i class="fas fa-home" style="margin-right: 15px"></i></li>
         </ul>
         <ul class="second">
-          <li><i class="fas fa-search"></i> Search</li>
-          <li><i class="fas fa-star"></i> Favorites</li>
-          <li><img class="undo" src="icons/undo-min.png" alt=""></li>
+          <li><i class="fas fa-search"style="margin-right: 15px"></i> Search</li>
+          <li><i class="fas fa-star"style="margin-right: 15px"></i> Favorites</li>
+          <li><img class="undo" src="icons/undo-min.png" alt="" style="margin-right: 15px"></li>
         </ul>
         <ul class="third">
-          <li><img class="open-folder" src="icons/folderOpen24-min.png" alt=""><i class="fas fa-caret-down"></i></li>
-          <li><img class="print" src="icons/ie-print-min.png" alt=""></li>
-          <li><img class='views' src="icons/views-min.png" alt=""></li>
+          <li><img class="open-folder" src="icons/folderOpen24-min.png" alt=""style="margin-right: 15px"><i class="fas fa-caret-down"></i></li>
+          <li><img class="print" src="icons/ie-print-min.png" alt=""style="margin-right: 15px"></li>
+          <li><img class='views' src="icons/views-min.png" alt=""style="margin-right: 15px"></li>
         </ul>
     </div>
-      <br>
-        <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
+        <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:2px">
 
-      <p><span class="vertical-line"></span>Address</p>
+      <span class="vertical-line" ></span>Address<span class="vertical-line" style="padding: 2px;"></span>
 
-        <select>
+        <select >
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/padraigfl/packard-belle-desktop/tree/master/src/icons</option>
             <option><img src="icons/htmlFile16-min.png" alt="no">https://thenextweb.com/dd/2020/04/22/windows-98-css-library-html/</option>
@@ -307,7 +301,7 @@
         <button id="links" style="box-shadow: none">Links<i class="fas fa-angle-double-right"></i></button>
 
         <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
-        <div class="window-body" style="background-color: #e5e9e7;">
+        <div class="window-body" style="background-color: #e5e9e7; height: 400px">
             <br>
             <br>
             <br>
@@ -333,4 +327,5 @@
 </body>
 
 </html>
+
 
