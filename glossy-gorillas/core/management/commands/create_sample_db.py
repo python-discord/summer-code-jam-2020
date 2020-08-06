@@ -7,14 +7,17 @@ class Command(BaseCommand):
     help = "Create a set of example data for testing"
 
     def handle(self, *args, **options):
-        print("initializing admin user...")
+        print("initializing admin user (credentials: admin/admin)...")
         trader = TraderFactory(
             user__username="admin",
             user__email="admin@teabay.com",
             user__first_name="Jimmy",
             user__last_name="Recard",
+            user__is_superuser=True,
+            user__is_staff=True,
         )
         trader.user.set_password("admin")
+        trader.user.save()
         print("initializing traders...")
         fixtures.create_trader_set()
         print("initializing products...")
