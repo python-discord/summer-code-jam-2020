@@ -1,7 +1,9 @@
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import UserUpdateForm, ProfileCreateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, UserPasswordUpdateForm, ProfileCreateForm, ProfileUpdateForm
 from .models import Profile
 
 
@@ -30,26 +32,39 @@ def signup(request):
     return render(request, 'users/signup.html', context)
 
 
-# @login_required
 def user_settings(request):
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
-            updated_user = user_form.save()
             profile = profile_form.save(commit=False)
-            profile.user = updated_user
             profile.save()
             messages.success(request, 'Profile updated!')
             return redirect('home')
         else:
             messages.error(request, 'Please correct the error(s) below.')
     else:
-        user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
 
-    context = {'user_form': user_form, 'profile_form': profile_form}
+    context = {'profile_form': profile_form}
     return render(request, 'users/settings.html', context)
+
+
+@login_required
+def user_password_update(request):
+    if request.method == 'POST':
+        password_form = UserPasswordUpdateForm(user=request.user, data=request.POST or None)
+        if password_form.is_valid():
+            updated_user = password_form.save()
+            update_session_auth_hash(request, updated_user)
+            messages.success(request, 'Profile updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error(s) below.')
+    else:
+        password_form = UserPasswordUpdateForm(request.POST)
+
+    context = {'password_form': password_form}
+    return render(request, 'users/updatepassword.html', context)
 
 
 def users(request):

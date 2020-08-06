@@ -1,10 +1,14 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm as _UserCreationForm
+from django.contrib.auth.forms import UserCreationForm as _UserCreationForm, PasswordChangeForm as _PasswordChangeForm
 
 from .models import Profile as _Profile
 
 
 class UserUpdateForm(_UserCreationForm):
+    pass
+
+
+class UserPasswordUpdateForm(_PasswordChangeForm):
     pass
 
 
