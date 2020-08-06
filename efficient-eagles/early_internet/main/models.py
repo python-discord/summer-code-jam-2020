@@ -11,7 +11,6 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-
 class CustomUser(AbstractUser):
     profile_img = models.ImageField(upload_to="profile_imgs/", null=True)
     bio = models.TextField(
@@ -41,7 +40,12 @@ class Post(TimeStampedModel):
 
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
+    upvoted_by = models.ManyToManyField(CustomUser, related_name="upvoted_by")
+    downvoted_by = models.ManyToManyField(CustomUser, related_name="downvoted_by")
     comments = models.PositiveIntegerField(default=0)
+
+    def __unicode__(self):
+        return f"title={self.title} author={self.author} upvotes={self.upvotes} downvotes={self.downvotes}"
 
     @property
     def url(self):
@@ -55,7 +59,7 @@ class Post(TimeStampedModel):
         return "{}/comments/".format(self.slug)
 
     def __str__(self):
-        return self.title
+        return f"title={self.title} author={self.author} upvotes={self.upvotes} downvotes={self.downvotes}"
 
     def save(self, *args, **kwargs):
         super(Post, self).save()
@@ -72,6 +76,9 @@ class Post(TimeStampedModel):
 class Comment(TimeStampedModel):
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
+    upvoted_by = models.ManyToManyField(CustomUser, related_name="comment_upvoted_by")
+    downvoted_by = models.ManyToManyField(CustomUser, related_name="comment_downvoted_by")
+
     body = models.CharField(max_length=10000, default="")
 
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

@@ -1,28 +1,24 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<script type="text/javascript">
-  function fun(form_id) {
-    console.log("FORM");
-    var form = document.getElementById(form_id);
-    console.log(form);
-    form.style.display = "block";
-  }
 
-</script>
-
-<div class='w3-container w3-white' style='width: 1000px; height: 420px;'>
+<div class='w3-container w3-white' style='width: 1000px; height: 520px;'>
 
 <h5>{{post.title}}</h5>
+<p>
+  Upvotes: {{post.upvotes}} | Downvotes: {{post.downvotes}}  
+</p>
 {% if user.is_authenticated and user == post.author %}
   <form method='POST' action='url'>
     {% csrf_token %}
-    <input type="hidden" name="post_id" value="{{post.id}}" />
+    <input type="hidden" id="post_id" name="post_id" value="{{post.id}}" />
     <button type='submit'  name='delete' style='float:right;'>Delete</button>
   </form>
 {% endif %}
 <h6>submitted by <a style='color:blue;' href='/user/{{post.author}}'>{{post.author}}</a> on {{post.created}}</h6>
 <textarea  style='resize: none; width: 100%; height: 200px;' disabled>{{post.body}}</textarea>
+<button id='upvote_post'>UPVOTE</button>
+<button id='downvote_post'>DOWNVOTE</button>
 
 <form method='POST'>
   {% csrf_token %}
@@ -36,10 +32,11 @@
 
 <div>
   {% for comment in comments %}
-  <div style="padding-left:  {% widthratio comment.thread_level 1 20 %}px;">
-    <div style="background-color: lightblue; width: 500px; height: 100px">
+  <div style="padding-left:  {% widthratio comment.thread_level 1 50 %}px;">
+    <div style="background-color: lightblue; width: 500px; height: 150px">
+      <button name="{{comment.id}}" class='upvote_comment'>UPVOTE</button><button name="{{comment.id}}" class='downvote_comment'>DOWNVOTE</button>
       <p>
-        {{comment.author}} | {{comment.created}} 
+        <a style='color:blue;' href='/user/{{post.author}}'>{{comment.author}}</a> | Upvotes: {{comment.upvotes}} | Downvotes: {{comment.downvotes}} | {{comment.created}}
       </p>
       <p>
         {{comment.body}}
@@ -52,47 +49,76 @@
     <input type="hidden" name="comment_id" value="{{comment.id}}"/>
     <input type="hidden" name="post_id" value="{{post.id}}"/>
     <textarea name="comment_body" style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
-    <button type='submit' name='comment_comment' >REPLY</button>
+    <button type='submit' name='reply_to_comment' >REPLY</button>
   </form>
   {% endfor %} 
 </div>
+
+<script type="text/javascript">
+  function fun(form_id) {
+    console.log("FORM");
+    var form = document.getElementById(form_id);
+    console.log(form);
+    form.style.display = "block";
+  }
+
+  $("#upvote_post").click(function(handler){
+    let post_id = $("#post_id").val();
+    // console.log(post_id);
+    $.ajax({
+      url: "/ajax/vote/post/"+post_id+"/1/",
+      success: function(result){
+        console.log("1");
+      },
+      error: function(result){
+        console.log("2");
+      }
+    });
+  });
+
+  $("#downvote_post").click(function(handler){
+    let post_id = $("#post_id").val();
+    // console.log(post_id);
+    $.ajax({
+      url: "/ajax/vote/post/"+post_id+"/0/",
+      success: function(result){
+        console.log("1");
+      },
+      error: function(result){
+        console.log("2");
+      }
+    });
+  });
+
+  $(".upvote_comment").click(function(handler){
+    let comment_id = handler.currentTarget.name;
+    console.log(comment_id);
+    $.ajax({
+      url: "/ajax/vote/comment/"+comment_id+"/1/",
+      success: function(result){
+        console.log("1");
+      },
+      error: function(result){
+        console.log("2");
+      }
+    });
+  });
+
+  $(".downvote_comment").click(function(handler){
+    let comment_id = handler.currentTarget.name;
+    console.log(comment_id);
+    $.ajax({
+      url: "/ajax/vote/comment/"+comment_id+"/0/",
+      success: function(result){
+        console.log("1");
+      },
+      error: function(result){
+        console.log("2");
+      }
+    });
+  });
+
+
+</script>
+
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-<!-- 
-for i in range(0, 10):
-  c = Comment.objects.create(body=str(i*j)*i, author=b, post=None, comment_thread=a)
-    for j in range(0, 10):
-    Comment.objects.create(body=str(i*j)*i, author=b, post=None, comment_thread=c) -->
-
-      {% for commentx in comment.comment_set.all %}
-    <div style="padding-left: 20px;">
-      <div style="background-color: lightgrey; width: 500px; height: 100px">
-      <p>
-        AAA
-        {{commentx.author}}
-        {{commentx.body}}
-      </p>
-      </div>
-    </div>
-    {% for commenty in commentx.comment_set.all %}
-      <div style="padding-left: 40px;">
-        <div style="background-color: grey; width: 500px; height: 100px">
-        <p>
-          AAA
-          {{commenty.author}}
-          {{commenty.body}}
-        </p>
-        </div>
-      </div>
-    {% endfor %} 
-
-    {% endfor %} 

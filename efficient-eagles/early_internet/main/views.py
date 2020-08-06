@@ -88,27 +88,6 @@ class CreateTopicView(TemplateView):
 class InfoView(TemplateView):
     template_name = "info.html"
 
-    # def preorder(self, comment, ordered_comments):
-    #     print(comment.comment_set.order_by("-created"))
-    #     if not comment.comment_set.all():
-    #         return None
-
-    #     for thread_comment in comment.comment_set.order_by("created"):
-    #         ordered_comments.append(thread_comment)
-    #         print(comment.comment_set.first())
-    #         # print("THREAD", thread_comment)
-    #         self.preorder(thread_comment, ordered_comments)
-
-    # def soort(self, post):
-    #     ordered_comments = []
-    #     comments = Comment.objects.filter(post=post, thread_level__in=[0,1,2,3,4])
-    #     ordered_root_comments = comments.filter(thread_level=0).order_by("-created")
-    #     for comment in ordered_root_comments:
-    #         ordered_comments.append(comment)
-    #         self.preorder(comment, ordered_comments)
-
-    #     return ordered_comments
-
     def get(self, request, *args, **kwargs):
         topic = Topic.objects.get(name=kwargs["name"].lower())
         post = Post.objects.get(slug=kwargs["slug"])
@@ -117,30 +96,20 @@ class InfoView(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        if "query" in request.POST:
-            query = request.POST["query"]
-            return redirect(reverse("search", args=[query]))
+        post_id = request.POST.get("post_id")
+        post = get_object_or_404(Post, id=post_id)
+        author = request.user
 
-        elif "delete" in request.POST:
-            post = get_object_or_404(Post, id=request.POST.get("post_id"))
+        if "delete" in request.POST:
             post.delete()
             return redirect("topic", name=kwargs["name"])
-
         elif "comment_post" in request.POST:
             body = request.POST["comment_body"]
-            post_id = request.POST.get("post_id")
-            print("POST", post_id)
-            post = get_object_or_404(Post, id=post_id)
-            author = request.user
-            comment_thread = None
             Comment.objects.create(body=body, author=author, post=post)
             return self.get(request, *args, **kwargs)
-        elif "comment_comment" in request.POST:
+        elif "reply_to_comment" in request.POST:
             body = request.POST["comment_body"]
-            post_id = request.POST.get("post_id")
-            post = get_object_or_404(Post, id=post_id)
             comment_id = request.POST.get("comment_id")
-            author = request.user
             comment = Comment.objects.get(id=comment_id)
             thread_level = comment.thread_level + 1
 
