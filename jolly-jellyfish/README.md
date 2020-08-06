@@ -16,7 +16,7 @@ After this, they can take their site to the forum to get ~~likes~~ feedback.
 The most liked sites appear on the front page, along with the most liked users and most recent sites.
 
 ## Initial Setup
-### wkhtmltoimage
+### Selenium
 In order to generate page thumbnails (using `selenium`), a (platform specific) browser driver binary is required (we use the _Chrome/Firefox_ drivers).
 Download the image for your Chrome/Firefox version (most likely '_Current stable release_') from here: [Chrome/Chromium][1]; [Firefox][2] 
 and set the system environment variable **SELENIUM_DRIVER** to the binary's path. (This is obviously assuming you have Chrome/Firefox installed).
@@ -34,17 +34,20 @@ Therefore, only one executable would need to be download to the src directory an
 Please also note that, as described within `src/page_maker/templatetags/render_thumbnail.py`, 
 asynchronous tasks (using `Celery` and `Redis`) are not easily setup on Windows - 
 hence this feature can cause loading times of ~5-10 seconds after template and webpage creation forms are initially submitted.
+FIXME: find if we can use docker for celery / redis
 
 ### Using pipenv
-```shell script
+```sh
+$ cd src
 $ pipenv install
 $ pipenv shell
-(venv) $ python manage.py makemigrations  # TODO: this might be optional, depends on pipenv script section.
+(venv) $ python manage.py makemigrations  # TODO: this might be optional, depends on migrations already run.
 (venv) $ python manage.py migrate
 ```
 
 ## Usage
-```shell script
+```sh
+(venv) $ cd src
 (venv) $ python manage.py runserver
 ```
 
