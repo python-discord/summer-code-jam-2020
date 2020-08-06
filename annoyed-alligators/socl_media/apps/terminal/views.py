@@ -15,8 +15,10 @@ def run_terminal_command(request):
         response = "No command was specified"
         status = 400
     else:
+        # headers = request.headers
+        print(request.headers)
         run_command = TerminalCommand(command)
-        result = run_command.run()
+        result = run_command.run(**request.headers)
         status = 200
         response = HttpResponse(result['response'], status=status)
         if 'followup' in result:
