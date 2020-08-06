@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import nltk
+import random
 from django.http import HttpResponse
 from .models import GeneratedPage
 from . import generate_page
@@ -38,7 +40,11 @@ def load_generated_page(request, page_name):
         if (page.is_generated == False):
             page = generate_page.generate_page(page_name)
     except GeneratedPage.DoesNotExist:
-        return render(request, "spydir/404.html")
+        #return render(request, "spydir/404.html")
+        #TODO: REMOVE THIS ON RELEASE. ONLY HERE FOR TESTING PURPOSES.
+        page = GeneratedPage.objects.create(page_title=page_name, css_seed=random.randint(1000, 9999))
+        if (page.is_generated == False):
+            page = generate_page.generate_page(page_name, page_type="BLOG")
 
     ctx = {
         'page': page
