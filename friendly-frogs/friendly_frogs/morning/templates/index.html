@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Good Morning!</h1>
+
+{% for new in news %}
+    <h3 style="text-transform: uppercase;">{{ new.title }}</h3>
+    <p>{{ new.description }}</p>
+    <a href="{{ new.url }}">{{new.url}}</a>
+{% endfor %}
+
+{% endblock content %}
