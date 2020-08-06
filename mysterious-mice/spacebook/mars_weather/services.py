@@ -12,7 +12,6 @@ def get_current_weather(request):
     is_cached = "weather_data" in request.session
 
     if not is_cached:
-        print("No data cached.")
         response = requests.get(MARS_URL)
         request.session["weather_data"] = response.json()
 
@@ -28,7 +27,6 @@ def get_current_weather(request):
 
     context["season"] = weather_data[current_sol]["Season"]
 
-    print(context)
     return context
 
 
@@ -39,18 +37,19 @@ def get_week_weather(request):
     is_cached = "weather_data" in request.session
 
     if not is_cached:
-        print("No data cached.")
         response = requests.get(MARS_URL)
         request.session["weather_data"] = response.json()
 
     weather_data = request.session["weather_data"]
 
     return {
-        "day_one": weather_data[weather_data["sol_keys"][0]],
-        "day_two": weather_data[weather_data["sol_keys"][1]],
-        "day_three": weather_data[weather_data["sol_keys"][2]],
-        "day_four": weather_data[weather_data["sol_keys"][3]],
-        "day_five": weather_data[weather_data["sol_keys"][4]],
-        "day_six": weather_data[weather_data["sol_keys"][5]],
-        "day_seven": weather_data[weather_data["sol_keys"][6]],
+        "weekly_weather": [
+            {weather_data["sol_keys"][0]: weather_data[weather_data["sol_keys"][0]]},
+            {weather_data["sol_keys"][1]: weather_data[weather_data["sol_keys"][1]]},
+            {weather_data["sol_keys"][2]: weather_data[weather_data["sol_keys"][2]]},
+            {weather_data["sol_keys"][3]: weather_data[weather_data["sol_keys"][3]]},
+            {weather_data["sol_keys"][4]: weather_data[weather_data["sol_keys"][4]]},
+            {weather_data["sol_keys"][5]: weather_data[weather_data["sol_keys"][5]]},
+            {weather_data["sol_keys"][6]: weather_data[weather_data["sol_keys"][6]]},
+        ],
     }
