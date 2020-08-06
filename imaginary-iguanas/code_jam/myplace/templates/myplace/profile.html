@@ -6,5 +6,9 @@
         <h1>
             {{ k }}: {{ v }}
         </h1>
+        <br/>
+        {% if k == 'audio_track' %}
+            <audio src="{{ user_profile.audio_track.url }}" controls></audio>
+        {% endif %}
     {% endfor %}
 {% endblock content %}
