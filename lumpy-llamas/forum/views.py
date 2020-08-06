@@ -43,7 +43,7 @@ def post_thread(request, data):
     #login(request, user)
     print(thread)
     return JsonResponse({
-        'title': thread.title,
+        'thread_id': thread.id,
         'message': message.message,
         'user': message.user.username
     }, status=201)

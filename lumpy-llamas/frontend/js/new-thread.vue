@@ -11,8 +11,6 @@
           <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter thread title" minlength="3"></textarea>
         </div>
         <button v-on:click="newThread" class="btn btn-default">Make new thread</button>
-        <p>{{ title }}</p>
-        <p>{{ message }}</p>
   </fieldset>
 </div>
 </template>
@@ -43,12 +41,28 @@ export default {
       axios.post('/api/forum/post/thread', {
         title: this.title,
         message: this.message,
-      }).then(() => {
-        console.log(response);
+      }).then((res) => {
+        console.log(res.data.thread_id);
+        this.$router.push(`/forum/${res.data.thread_id}/`);
       }).catch((err) => {
         console.log(err); // eslint-disable-line no-console
       });
     },
   },
+   methods:{
+    checkTitle: function (e) {
+      this.errors = [];
+
+      if (this.title > 120) {
+        this.errors.push('Total must be 100!');
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+
+      e.preventDefault();
+    }
+  }
 };
 </script>
