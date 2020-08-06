@@ -4,46 +4,66 @@ import "./home_page_1.css"
 export class Home_page_1 extends Component {
   render() {
 
+        const myText = {
+            fontFamily: "Lucida Grande",
+            fontSize: "11pt",
+            margin: "0"
+        };
+
+        const myWrap = {
+            backgroundColor: "#EFEFEF",
+            width: "975px",
+            margin: "relative",
+            marginLeft: "auto",
+            marginRight:"auto",
+            alignItems:'center'
+        };
+
         const myButton = {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "10pt",
-            border: "1px solid black",
+            fontFamily: "sans-serif",
+            verticalAlign: "top",
+            alignText: "center",
+            fontSize: "9pt",
             height: "22px",
 
         };
 
+        const myDropdown = {
+            fontFamily: "sans-serif",
+            verticalAlign: "top",
+            fontSize: "10pt",
+            height: "22px",
+        };
+
         const searchField = {
+            fontFamily: "sans-serif",
             justifyContent: "center",
             alignItems: "center",
             fontSize: "9pt",
             verticalAlign: "bottom",
             resize: "none",
             height: "25px",
-            width: "304px",
-            maxLines: "1"
+            width: "300px",
         };
 
-        const myText = {
-            fontSize: "10pt",
-            margin: "0"
-        };
-
+        
         const myHref = {
+            fontFamily: "Lucida Grande",
             color: "blue",
             fontSize: "10pt",
             textDecorationLine: 'underline'
         };
 
         const myHrefBold = {
+            fontFamily: "Lucida Grande",
             color: "blue",
             fontSize: "16pt",
             fontWeight: 'bold',
-            textDecorationLine: 'underline'
+            textDecorationLine: 'underline',
         };
 
         const myEmail = {
+            fontFamily: "sans-serif",
             verticalAlign: "top",
             fontSize: "8pt",
             resize: "none",
@@ -52,22 +72,9 @@ export class Home_page_1 extends Component {
             margin: "0"
         };
 
-        const myDropdown = {
-            verticalAlign: "top",
-            fontSize: "10pt",
-            height: "22px",
-        };
-
-        const myWrap = {backgroundColor: "#EFEFEF",
-        width: "550px",
-        margin: "relative",
-        marginLeft: "auto",
-        marginRight:"auto",
-        alignItems:'center'
-        };
-
     return (
         <div className="container">
+            {/* first container containing the search bar and buttons relative to the search */}
             <div className="row">
                 <div className="col text-center">
                     <img src="" class="img-fluid" alt="Responsive image" style={{padding: "40px"}}/> 
@@ -85,34 +92,27 @@ export class Home_page_1 extends Component {
                         </div>
                         <div className="row">
                             <div className="col text-center">
-                                <textarea id="search" name="search" style={searchField}/> 
+                                <input type="text" name="search" style={searchField}/> 
                             </div>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-0 px-1 text-center">
                                 <select name="results" id="results" style={myDropdown}>
-                                    <option value="5-results">5 results</option>
                                     <option value="5-results">10 results</option>
-                                    <option value="5-results">15 results</option>
-                                    <option value="5-results">20 results</option>
-                                    <option value="5-results">25 results</option>
-                                    <option value="5-results">50 results</option>
+                                    <option value="5-results">30 results</option>
+                                    <option value="5-results">100 results</option>
                                 </select>
                             </div>
                             <div className="col-0 px-1 text-center">
-                                <button type="button" style={myButton}>
-                                    Google Search
-                                </button>
+                                <input type="submit" value="Google Search" style={myButton}/>
                             </div>
                             <div className="col-0s px-1 text-center">
-                                <button type="button" style={myButton}>
-                                    I'm feeling lucky
-                                </button>
+                                <input type="submit" value="I'm feeling lucky" style={myButton}/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col text-center">
-                                <p style={{fontSize: "10pt" , fontStyle: "italic", margin: "0"}}>
+                                <p style={{fontFamily: "Lucida Grande", fontSize: "10pt" , fontStyle: "italic", margin: "0"}}>
                                 Index contains ~25 million pages (soon to be much bigger)
                                 </p> 
                             </div>
@@ -143,19 +143,17 @@ export class Home_page_1 extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col center-block text-center">
-                            <p style={{fontSize: "10pt", marginBottom: "15px"}}>
+                            <p style={myText}>
                                 Get Google! updates monthly!
                             </p> 
                         </div>
                     </div>
                     <div className="row py-0 justify-content-center">
                         <div className="col-0 px-1 text-center">
-                            <textarea id="search" name="search" rows="1" cols="25" placeholder="your e-mail" style={myEmail}/>
+                            <input type="text" placeholder="your e-mail" style={myEmail}/>
                         </div>
                         <div className="col-0 px-1 text-center">
-                            <button type="button" style={myButton}>
-                                Subscribe
-                            </button>
+                            <input type="submit" value="Subscribe" style={myButton}/>
                         </div>
                         <div className="col-0 px-1 text-center">
                             <a href="" style={myHref}>
