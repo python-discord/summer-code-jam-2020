@@ -1,40 +1,42 @@
 from django.utils import timezone
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.views.generic import DetailView
 from .forms import Guestbook
 from .models import Guestbook as GbModel
 
 
-def guestbook(request):
-    # if this is a POST request we need to process the form data
-    if request.method == "POST":
+class Guestbook(DetailView):
+    template_name = "guestbook/guestbook.html"
+    form_class= Guestbook
+    initial = {'key': 'value'}
+
+    def post(self, request, *args, **kwargs):
         # create a form instance and populate it with data from the request:
-        form = Guestbook(request.POST)
+        form = self.form_class(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            print("======1===============")
-            print(request.POST["author"])
+            #create a model with the request data
+            print(request)
             GbModel.objects.create(
                 author=request.POST["author"],
                 text=request.POST["text"],
                 email=request.POST["email"],
                 published_date=timezone.now(),
             )
-            print("======2===============")
-            # GbModel.publish()
-            # return HttpResponseRedirect('/thanks/')
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = Guestbook()
+        comments = GbModel.objects.filter(published_date__lte=timezone.now()).order_by(
+                "published_date"
+                )
 
-    comments = GbModel.objects.filter(published_date__lte=timezone.now()).order_by(
-        "published_date"
-    )
-    return render(
-        request, "guestbook/guestbook.html", {"form": form, "comments": comments}
-    )
+        return render(
+            request, self.template_name, {"form": form, "comments": comments}
+        )
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        comments = GbModel.objects.filter(published_date__lte=timezone.now()).order_by(
+                "published_date"
+                )
+        return render(request, self.template_name, {"form": form, "comments": comments})
+

@@ -26,7 +26,7 @@ td {
 }
 
 .full-width {
-    width: 900px;
+    width: 1000px;
 }
 
 .header-table {
@@ -56,3 +56,19 @@ td {
 .page-header {
     font-size: large;
 }
+.bottom {
+  position: absolute;
+  bottom: 20px;
+}
+.center {
+  text-align: center; 
+}
+.image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.guestbook-link {
+    width: 20%;
+}  

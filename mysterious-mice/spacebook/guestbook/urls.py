@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import Guestbook
 
 app_name = "guestbook"
 urlpatterns = [
-    path("", views.guestbook, name="guestbook"),
+    path("guestbook/", Guestbook.as_view(), name="guestbook"),
 ]
