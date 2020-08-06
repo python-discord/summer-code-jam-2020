@@ -7,6 +7,7 @@ from game.models import Player
 from channels.auth import (login as auth_login, logout as auth_logout)
 from django.contrib.auth.hashers import make_password
 from passlib.hash import django_pbkdf2_sha256
+from game.engine import Engine
 
 welcome_text = (figlet_format('Wily Wolves', font='starwars') +
         f"\nThis is the Wily Wolves MUD project for the Python Discord: Summer-code-jam-2020"
@@ -21,6 +22,8 @@ class MudConsumer(WebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+
+        async_to_sync(auth_logout)(self.scope)
 
         self.accept()
 
@@ -45,9 +48,12 @@ class MudConsumer(WebsocketConsumer):
         # So here we'll split it and work with the commands
 
         command = message.lower().split(maxsplit=1)[0]
-        local_command = True
         if self.scope['user'].is_authenticated == True:
-            pass
+            try:
+                e = Engine(consumer=self, command_line=message)
+                message = eval('e.' + command + '()')
+            except AttributeError:
+                message = f"{command} is not a valid command! Type 'help' if you need."
         elif command == 'login':
             if len(message.split()) == 3:
                 username_to_login = message.split()[1]
@@ -92,8 +98,10 @@ class MudConsumer(WebsocketConsumer):
                     message = f"Someone is already using {username_to_create}"
             else:
                 message = "To create a new user, please type 'new <username> <password>'."
+        else:
+            message = "You need to log in first. Please type 'login' or 'new'"
 
-        if local_command == True:
+        if message != False:
             self.send(text_data=json.dumps({
                 'message': message
             }))
@@ -106,10 +114,26 @@ class MudConsumer(WebsocketConsumer):
             'message': message
         }))
 
+    def global_message_login_required(self, event):
+        message = event['message']
+        if self.scope['user'].is_authenticated == True:
+            # Send a message to everybody in the MUD room
+            self.send(text_data=json.dumps({
+                'message': message
+            }))
+
     def global_message_not_me(self, event):
         message = event['message']
         # Send a message to everyone else other than the sender
         if self.channel_name != event['sender_channel_name']:
+            self.send(text_data=json.dumps({
+                    'message': message
+        }))
+
+    def message_to_self(self, event):
+        message = event['message']
+        # Send a message to everyone else other than the sender
+        if self.channel_name == event['sender_channel_name']:
             self.send(text_data=json.dumps({
                     'message': message
         }))
