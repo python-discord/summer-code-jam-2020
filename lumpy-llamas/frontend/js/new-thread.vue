@@ -1,12 +1,13 @@
 <template>
 <div v-if="ready">
-  <div class="home-grid">
     <h2>Post a new thread</h2>
         <input v-model="title" placeholder="Enter thread title">
+        <input v-model="message" placeholder="Enter your message">
         <button v-on:click="newThread">Make new thread</button>
         <p>{{ title }}</p>
+        <p>{{message}}</p>
   </div>
-</div>
+
 </template>
 
 <style>
@@ -25,7 +26,7 @@ export default {
   data() {
     return {
       title: '',
-      user: '',
+      message: '',
       ready: true,
     };
   },
@@ -34,7 +35,7 @@ export default {
     newThread() {
       axios.post('/api/forum/post/thread', {
         title: this.title,
-        user: this.user,
+        message: this.message,
       }).then(() => {
         console.log(response);
       }).catch((err) => {
