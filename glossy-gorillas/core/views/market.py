@@ -1,9 +1,5 @@
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
 from core.models import Listing
-
-
-class Home(TemplateView):
-    template_name = "core/pages/home.html"
 
 
 class ListingList(ListView):
