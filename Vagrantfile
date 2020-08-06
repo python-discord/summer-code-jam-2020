@@ -22,7 +22,6 @@ Vagrant.configure("2") do |config|
 
   # Forward 8000 so we can see django from outside the VM
   config.vm.network "forwarded_port", guest: 8000, host: 8000 # Django server
-  config.vm.network "forwarded_port", guest: 2375, host: 2375 # docker daemon
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096" #4 GB ram
