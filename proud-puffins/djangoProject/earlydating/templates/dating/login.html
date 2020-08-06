@@ -2,18 +2,22 @@
 {% block title %}Login{% endblock %}
 {% block content %}
 
-<h3>login</h3>
+<h1>Login</h1>
 <form method="POST" action="">
     {% csrf_token %}
 
-    {{form.as_p}}			
-	<input type="submit" name="login" value="login">					
+    {% for item in form %}
+    <div>
+    <p style="font-size: large; font-weight: bold;">{{item.name}}{{item}}</p>
+    </div>
+    {% endfor %}			
+	<input class="button_a" type="submit" name="login" value="login">					
 </form>
 					
 {% for message in messages %}
     <p id="messages">{{message}}</p>
 {% endfor %}							
-    <div>
+    <div style="font-size:large;">
     Don't have an account? <a href="{% url 'earlydating-register' %}">Sign Up</a>
 </div>
 {% endblock %}

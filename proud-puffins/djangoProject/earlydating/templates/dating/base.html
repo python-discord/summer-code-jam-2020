@@ -40,17 +40,17 @@
                 <span style="text-align: end; font-size: 1.0em" >
                     <!-- (Page menus go here) -->
                      |
-                    <a class="headerlink"; href="../">Home</a> |
-                    <a class="headerlink"; href="../about">About</a> |
+                    <a class="headerlink"; href="../" style="font-size: large;">Home</a> |
+                    <a class="headerlink"; href="../about" style="font-size: large;">About</a> |
                     {% if user.is_authenticated %}
-                        <a class="headerlink"; href="../YourProfile">Your Profile</a> |
-                        <a class="headerlink"; href="../DateMatcher">Match Me</a> |
-                        <a class="headerlink"; href="../logout">Logout</a> |
+                        <a class="headerlink"; href="../YourProfile" style="font-size: large;">Your Profile</a> |
+                        <a class="headerlink"; href="../DateMatcher" style="font-size: large;">Match Me</a> |
+                        <a class="headerlink"; href="../logout" style="font-size: large;">Logout</a> |
                     {% else %}
-                        <a class="headerlink"; href="../login">Login</a> |
+                        <a class="headerlink"; href="../login" style="font-size: large;">Login</a> |
                     {% endif %}
-                    {% if user.is_staff %}          {# should be and user.is_staff, or somesuch #}
-                        <a class="headerlink"; href="../admin">Admin</a>
+                    {% if user.is_staff %}
+                        <a class="headerlink"; href="../admin" style="font-size: large;"style="font-size: large;">Admin</a>
                     {% endif %}
                 </span>
 
