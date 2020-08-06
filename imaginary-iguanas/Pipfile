@@ -19,6 +19,7 @@ python_version = "3.8"
 
 [scripts]
 start = "python manage.py runserver"
-makemigrations = "python manage.py makemigrations"
+make = "python manage.py makemigrations"
 migrate = "python manage.py migrate"
+super = "python manage.py createsuperuser"
 lint = "python -m flake8"
