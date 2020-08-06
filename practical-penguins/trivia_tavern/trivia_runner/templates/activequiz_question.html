@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+ <div class="row">
+      <div class="col-md-8"><p><strong>Question {{ active_trivia_quiz.current_question_index}}:</strong> {{ cur_question.question_text }} </p></div>
+      <div class="col-md-2">
+            {% include "trivia_next_step_btn.html" %}
+      </div>
+      <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-danger" value="Pause time">
+      </div>
+  </div>
+{% endblock %}

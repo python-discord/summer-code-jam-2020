@@ -1,4 +1,4 @@
-from django.forms import ModelForm, modelformset_factory
+from django.forms import ModelForm
 
 from trivia_builder.models import TriviaQuestion, TriviaQuiz
 

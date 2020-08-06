@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% include "trivia_next_step_btn.html" %}
 <p><strong>Session_master:</strong> <a href="">{{ active_trivia_quiz.session_master.username }}</a></p>
 <p><strong>created on:</strong> {{ active_trivia_quiz.start_time }}</p>
 <p><strong>session code:</strong> {{ active_trivia_quiz.session_code }}</p>
