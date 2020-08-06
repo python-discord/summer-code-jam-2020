@@ -21,6 +21,12 @@ let usingEraser = false;
 //save states
 let SaveStates = [];
 
+//frame number
+let frameNumber = 0;
+
+//saved frames
+let savedFrames = [];
+
 //represents box that shape is drawn in
 class ShapeBoundingBox{
     constructor(left, top, width, height) {
@@ -268,37 +274,67 @@ function ReactToMouseUp(e){
     SaveStates.push(savedImageData);
 }
 
-function SaveImage(type){
-    let img_data = canvas.toDataURL();
-    let next_frame = false;
-
-    let xhr = new XMLHttpRequest();
-    let url;
-    if (type === "save"){
-        url = "save";
-    } else if (type === "render"){
-        url = "render";
-    } else if (type === "next"){
-        url = "save"
-        next_frame = true;
-    }
-
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    let data = JSON.stringify(
-        {"image_BLOB": img_data, "next": next_frame}
-        );
-    xhr.send(data);
-}
-
 function OpenImage(){
     let img = new Image();
     img.onload = function(){
         ctx.clearRect(0,0,canvas.width, canvas.height);
         ctx.drawImage(img,0,0);
     }
-    img.src = 'image.png';
+    img.src = savedFrames[frameNumber];
+}
+
+function UpdateFrameNumber(){
+    document.getElementById("frame-button").innerHTML = frameNumber;
+}
+
+function SaveImage() {
+    savedFrames[frameNumber] = canvas.toDataURL();
+}
+
+function Next(){
+    SaveImage();
+    frameNumber +=1;
+    if (frameNumber < savedFrames.length){
+        OpenImage();
+    }
+    UpdateFrameNumber();
+}
+
+function Previous(){
+    if (frameNumber > 0){
+        SaveImage();
+        frameNumber -=1;
+        OpenImage();
+        UpdateFrameNumber();
+    }
+}
+
+function Delete(){
+    savedFrames.splice(frameNumber, 1);
+
+    if (frameNumber === 0){
+        Clear();
+        return null;
+    }
+    if (frameNumber === savedFrames.length){
+        frameNumber -=1;
+        UpdateFrameNumber();
+    }
+    OpenImage();
+}
+
+function SendData(type){
+    let xhr = new XMLHttpRequest();
+    let url = type + "/"
+    let name = document.getElementById("project-name");
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    let data = JSON.stringify(
+        {"image_BLOB": savedFrames, "name": name}
+        );
+    xhr.send(data);
 }
 
 function Undo(){
