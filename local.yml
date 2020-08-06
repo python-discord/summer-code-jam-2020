@@ -48,3 +48,9 @@ services:
       - ./shiny_sheep:/app/shiny_sheep
     ports:
       - "7000:7000"
+
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"

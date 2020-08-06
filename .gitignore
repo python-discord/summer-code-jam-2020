@@ -330,3 +330,5 @@ shiny_sheep/media/
 .env
 .envs/*
 !.envs/.local/
+
+shiny_sheep/static/js/main.js
