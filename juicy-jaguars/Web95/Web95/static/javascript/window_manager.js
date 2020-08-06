@@ -78,8 +78,12 @@ function wl_setup(elem, w_id) {
             x.windowstate = "focused";
             x.onmousedown("");
         } else {
+        } else if (x.windowstate == "focused") {
             x.style.display = "none";
             x.windowstate = "minimised";
+        } else {
+            x.windowstate = "focused";
+            x.onmousedown("");
         }
     }
 }
