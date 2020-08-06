@@ -2,7 +2,12 @@ import nltk
 import random
 import re
 import wikipedia
+import nltk
 from faker import Faker
+
+import gpt_2_simple as gpt2
+import tensorflow as tf
+import os
 
 from .models import GeneratedPage, BlogPost
 
@@ -26,8 +31,9 @@ def generate_page(page_name, page_type=None):
 
         # Generates x amount of blog posts
         for x in range(int(str(page_object.css_seed)[0])):
-            blog_post = BlogPost.objects.create(title=generate_blog_post_title(page_name),
-                                                content='This is the content of a blogpost')
+            title = generate_blog_post_title(page_name)
+            blog_post = BlogPost.objects.create(title=title,
+                                                content=generate_gpt2(title, 100))
             blog_post.save()
             page_object.blog_posts.add(blog_post)
 
@@ -130,3 +136,20 @@ def parse_result(result):
         information += ' '
 
     return information
+
+def generate_gpt2(text, length):
+    #Download Model if it's not there.
+    model_name = "124M"
+    if not os.path.isdir(os.path.join("models", model_name)):
+        print("Model not found... Downloading new")
+        print(f"Downloading {model_name} model...")
+        gpt2.download_gpt2(model_name=model_name)
+
+    tf.reset_default_graph()
+    sess = gpt2.start_tf_sess()
+    gpt2.load_gpt2(sess, model_name=model_name)
+
+    return gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=text, length=length)[0]
+
+
+
