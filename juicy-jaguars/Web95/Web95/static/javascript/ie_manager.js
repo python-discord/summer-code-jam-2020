@@ -4,7 +4,16 @@ function ie_home() {
 }
 
 function ie_refresh() {
-    document.getElementById("ie-iframe").src = "/page/"+encodeURIComponent(document.getElementById("ie-addr-bar").value);
+    if (document.getElementById("ie-addr-bar").value == "about:blank") {
+        document.getElementById("ie-iframe").src = document.getElementById("ie-addr-bar").value;
+    } else {
+        document.getElementById("ie-iframe").src = "/page/"+encodeURIComponent(document.getElementById("ie-addr-bar").value);
+    }
+}
+
+function ie_blank() {
+    document.getElementById("ie-addr-bar").value = "about:blank";
+    ie_refresh();
 }
 
 function addr_bar_enter() {
