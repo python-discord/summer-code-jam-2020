@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileCreateForm, ProfileUpdateForm
 from .models import Profile
 
 
@@ -12,7 +12,7 @@ def home(request):
 def signup(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES)
+        profile_form = ProfileCreateForm(request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             new_user = user_form.save()
             profile = profile_form.save(commit=False)
@@ -24,7 +24,7 @@ def signup(request):
             messages.error(request, 'Please correct the error(s) below.')
     else:
         user_form = UserUpdateForm()
-        profile_form = ProfileUpdateForm()
+        profile_form = ProfileCreateForm()
 
     context = {'user_form': user_form, 'profile_form': profile_form}
     return render(request, 'users/signup.html', context)
