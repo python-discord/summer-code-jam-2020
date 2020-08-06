@@ -19,7 +19,8 @@ def user(request, username_or_id: Union[int, str]):
                 'date_of_birth': profile.date_of_birth,
                 'audio_track': profile.audio_track
             },
-            'title': profile
+            'title': profile,
+            'custom_css': profile.profile_css
         }
         return render(request, 'myplace/profile.html', context)
     except Profile.DoesNotExist:
