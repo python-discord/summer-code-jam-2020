@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from .forms import UserUpdateForm, ProfileUpdateForm
+from .models import Profile
 
 
 def home(request):
@@ -49,3 +50,8 @@ def user_settings(request):
 
     context = {'profile_form': profile_form}
     return render(request, 'users/settings.html', context)
+
+
+def users(request):
+    profiles = Profile.objects.all()
+    return render(request, 'users/users.html', {"users": profiles})
