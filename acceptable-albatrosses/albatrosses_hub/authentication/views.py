@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 
 # Create your views here.
@@ -17,7 +17,12 @@ def register_page(request):
 def login_page(request):
     """ Views to render the login page. """
 
-    return render(request, "login.html")
+    form = LoginForm(request.POST or None)
+    context = {
+        'form': form,
+    }
+
+    return render(request, "login.html", context)
 
 
 def logout_page(request):

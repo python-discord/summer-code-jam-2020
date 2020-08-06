@@ -24,3 +24,17 @@ class RegisterForm(forms.Form):
         max_length=64,
         widget=forms.PasswordInput(),
     )
+
+
+class LoginForm(forms.Form):
+    """ This class contains all required forms for login. """
+
+    email = forms.EmailField(
+        label="Your Email",
+    )
+
+    password = forms.CharField(
+        label="Enter Your Password",
+        max_length=64,
+        widget=forms.PasswordInput(),
+    )
