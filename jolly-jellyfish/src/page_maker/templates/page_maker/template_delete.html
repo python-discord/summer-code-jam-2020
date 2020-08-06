@@ -5,11 +5,9 @@
 <div>
   <form method="POST">
   {% csrf_token %}
-    <div>
-      {{ form.as_p }}
-      <p>Delete template <b>{{template.name}}</b></p>
-      <button type="submit">Confirm</button>
-    </div>
+    {{ form.as_p }}
+    <p>Delete template <b>{{template.name}}</b></p>
+    <button type="submit">Confirm</button>
   </form>
 </div>
 {% endblock %}
