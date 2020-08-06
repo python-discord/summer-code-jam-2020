@@ -142,6 +142,20 @@ body {
     opacity: 1 !important;
 }
 
+.nav-item-minmised {
+    color: #505050;
+    background-color: #909090;
+    border-width: 1px;
+}
+
+.nav-item-focused a::before {
+    border: 2px inset #909090 !important;
+}
+
+.nav-item-focused a {
+    background-color: #DDDDDD !important;
+}
+
 .start-icon {
     opacity: 1 !important;
 }

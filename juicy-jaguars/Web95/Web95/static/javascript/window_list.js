@@ -17,6 +17,7 @@ function get_window_list (class_name) {
 function create_window_list_btn (navbar, name, windowid) {
     var btn = document.createElement("li");
     btn.classList = ["nav-item"];
+    btn.id = windowid+"-lstbtn";
 
     var link = document.createElement("a");
     link.classList = ["nav-link"];
