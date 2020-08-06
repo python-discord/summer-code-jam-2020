@@ -10,6 +10,3 @@ local_settings.py
 
 # VSCode
 .vscode/
-
-# Emailstuff
-sent_emails/
