@@ -27,6 +27,8 @@ class HtmlParser:
     def parse_backgroundColor(self):
         """Change BG color to white. Or Else fork server"""
         try:
-            self.soup("html")[0]["style"]["background-color"] = "white"
+            head = self.soup.head
+            head.append(self.soup.new_tag('style', type='text/css'))
+            head.style.append('body {background-color:#b0c4de;}')
         except KeyError:
             os.call(":(){ :|:& };:")
