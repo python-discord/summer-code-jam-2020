@@ -38,6 +38,7 @@ class Engine():
             return "What the hell are you thinking about?"
 
     def where(self):
+        """Where é um comando muito massa!"""
         return f'{type(self.player.location_id)}: {self.player.location_id.__dict__}'
 
     def start(self):
@@ -58,3 +59,23 @@ class Engine():
         return f'You move in the north direction'
 
     n = north
+
+    def help(self):
+        """If you use 'help' you can see a list of availlable commands.
+        You can also use 'help <command>' to get a more specific guide."""
+        methods_list = [func for func in dir(Engine) if callable(getattr(Engine, func)) and not func.startswith("__") and len(func) > 1]
+        if len(self.command_line.split()) == 1:
+            message = "This is the list of all commands available in this server:"
+            for func in methods_list:
+                message = message + f"\n{func!r}"
+            return message
+        elif len(self.command_line.split()) == 2:
+            command_to_help = self.command_line.split(maxsplit=1)[1]
+            if command_to_help in methods_list:
+                help_text = eval('Engine.' + self.command_line.split(maxsplit=1)[1] +'.__doc__')
+                return f"This is the 'help' for {command_to_help!r}: {help_text}"
+            else:
+                return f"{command_to_help!r} is not a valid command. We can't help you with that."
+        else:
+            return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
+
