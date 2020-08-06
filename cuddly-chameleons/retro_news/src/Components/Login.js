@@ -27,8 +27,10 @@ class Login extends React.Component {
         localStorage.setItem('access_token', response.data.access);
         localStorage.setItem('refresh_token', response.data.refresh);
         localStorage.setItem('username', this.state.username);
+        localStorage.setItem('superuser', response.data.superuser === true ? 'true' : 'false');
 
         this.setState({ logging_in: false });
+        this.setState({username: "", password: ""});
         this.props.handler(true);
         return response.data;
     }
@@ -45,7 +47,7 @@ class Login extends React.Component {
         if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
             return (
                 <Container>
-                    Logged in as {localStorage.getItem('username')}.
+                    Logged in as {localStorage.getItem('username')}{localStorage.getItem('superuser') === 'true' ? " (superuser)" : ""}.
                 </Container>
             );
         }
