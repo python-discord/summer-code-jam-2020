@@ -115,5 +115,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # login and logout url
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'post'
 LOGOUT_REDIRECT_URL = 'login'
