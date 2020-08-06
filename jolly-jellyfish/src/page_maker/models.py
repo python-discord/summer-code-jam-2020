@@ -20,18 +20,16 @@ class Template(models.Model):
     # todo: option to upload own stylesheet rather than select from existing
     #  potentially upload to user_themes within static not media? -
     #  makes finding easier below in RelativeFilePathField
-    # style_sheet = models.FileField(null=False, blank=False,
-    #                      upload_to='themes/', validators=[FileExtensionValidator(['css'])])
 
     # model.FilePathField() does not have a url attribute,
     # so accessing the files within a html template is awkward.
     # Using RelativeFilePathField allows for using django static support easily within the template
     # match uses regex applied to base filename only(.*=any characters, \.=., $=end of string)
-    style_sheet = RelativeFilePathField(path=get_theme_path, recursive=True, match='.*\.css$')
+    style_sheet = RelativeFilePathField(path=get_theme_path, recursive=True, match='.+\.css$')
 
     # null=False and blank=False enforce there always being a thumbnail image associated
-    thumbnail = models.ImageField(null=False, blank=False,
-                                  verbose_name="thumbnail (leave empty-generated automatically)",
+    thumbnail = models.ImageField(null=False, blank=False, editable=False
+                                  verbose_name='thumbnail (leave empty-generated automatically)',
                                   default='thumbnails/placeholder_img.png', upload_to='thumbnails/',
                                   validators=[validate_image_file_extension])
 
@@ -48,8 +46,8 @@ class Webpage(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     last_edit_date = models.DateTimeField(editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    thumbnail = models.ImageField(null=False, blank=False,
-                                  verbose_name="thumbnail (leave empty-generated automatically)",
+    thumbnail = models.ImageField(null=False, blank=False, editable=False,
+                                  verbose_name='thumbnail (leave empty-generated automatically)',
                                   default='thumbnails/placeholder_img.png', upload_to='thumbnails/',
                                   validators=[validate_image_file_extension])
     # Implausible date is just to signify it does not yet have a thumbnail
@@ -81,7 +79,7 @@ class Webpage(models.Model):
 
     def save(self, *args, **kwargs):
         """Trigger timestamp updates when object is edited"""
-        if not self.id:
+        if not self.id:  # if initial object instantiation
             self.date_created = timezone.now()
         self.last_edit_date = timezone.now()
         return super(Webpage, self).save(*args, **kwargs)

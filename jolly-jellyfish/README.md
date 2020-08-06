@@ -39,6 +39,7 @@ FIXME: find if we can use docker for celery / redis
 ### Using pipenv
 ```sh
 $ cd src
+$ cd jolly-jellyfish
 $ pipenv install
 $ pipenv shell
 (venv) $ python manage.py makemigrations  # TODO: this might be optional, depends on migrations already run.
