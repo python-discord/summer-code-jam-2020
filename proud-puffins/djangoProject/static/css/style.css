@@ -28,6 +28,7 @@
 
 a {
   color: #C00000;
+  font-size:medium;
 }
 
 a:visited {
@@ -60,7 +61,11 @@ html {
   width: 250;
 }
 .columncenter {
-  float: top
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 1cm;
+
 }
 /* Clear floats after the columns */
 .row:after {
@@ -73,6 +78,7 @@ html {
   display: block;
   margin-left: auto;
   margin-right: auto;
+
 }
 
 /* width */

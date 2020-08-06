@@ -3,12 +3,10 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
-from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 from django.contrib import messages
-from django.views import generic
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 # Create your views here.
@@ -80,10 +78,12 @@ def your_profile(request):
     context = {'profile': profile}
     return render(request, 'dating/YourProfile.html', context)
 
-class UserEditView(generic.UpdateView):
-    form_class = UserChangeForm
-    template_name = 'dating/edit_profile.html'
-    success_url =reverse_lazy('')
 
-    def get_object(self):
-        return self.request.user
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
+def matchMe(request):
+    if request.method == 'GET':
+        results = User.objects.filter(users__profile__age__gte=(request.user.profile.age + request.user.profile.upper_age), users__profile__age__lte=(request.user.profile.age - request.user.profile.lower_age))
+        print(results)
+        context = {'results': results}
+        return render(request, 'dating/DateMatcher.html', context)
