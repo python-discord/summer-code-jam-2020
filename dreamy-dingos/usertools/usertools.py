@@ -25,8 +25,30 @@ def add_user(username: str, room: Room) -> typing.NoReturn:
     :param room: The room the user is in
     """
 
-    # Create the user
-    user = SimpleUser(username=username, room=room)
+    # Create and save the user to the database.
+    SimpleUser(username=username, room=room).save()
 
-    # Save the user to the database
-    user.save()
+
+def remove_user(username: str) -> typing.NoReturn:
+    """
+    Removes a user from the users table.
+
+    :param username: The username of the user to remove.
+    """
+
+    # Remove the user with the matching username.
+    SimpleUser.objects.remove(username=username)
+
+
+def move_user(username: str, to_room: Room) -> typing.NoReturn:
+    """
+    Moves a user to the specified room.
+
+    :param username: The user's username.
+    :param to_room: The room to which the user should be moved
+    """
+
+    # Get the user with the matching username and update their room.
+    SimpleUser.objects.filter(username=username).update(room=to_room)
+
+
