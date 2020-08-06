@@ -19,11 +19,12 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path("stock/", include("public.urls")),
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="index.html"), name="home"),
     path("main", TemplateView.as_view(template_name="mainapp.html"), name="main"),
-    path("market", TemplateView.as_view(template_name="marketplace.html"), name="market")
+    path("market", TemplateView.as_view(template_name="marketplace.html"), name="market"),
+    path("stocks/", include('sparrow_django.stocks.urls')),
+
 ]
 
 if "debug_toolbar" in settings.INSTALLED_APPS:
