@@ -2,6 +2,9 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import time
+
+import psycopg2
 
 
 def main():
@@ -18,6 +21,20 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    attempts = 0
+    success = False
+
+    while attempts < 10 and success is False:
+        try:
+            psycopg2.connect(os.getenv('DATABASE_URL'))
+            success = True
+            print(f"Try {attempts + 1}: Success")
+        except:
+            print(f"Try {attempts + 1}: Failed")
+            time.sleep(5)
+        finally:
+            attempts += 1
 
     if len(sys.argv) > 1 and sys.argv[1] == "run":
         django.setup()
