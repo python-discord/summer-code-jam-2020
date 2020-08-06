@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
+from .views import UserEditView
 
 urlpatterns = [
     path('', views.home, name='earlydating-home'),
+    path('edit_profile/',UserEditView.as_view(),name='edit_profile'),
     path('register/', views.register_page, name='earlydating-register'),
     path('login/', views.login_page, name='earlydating-login'),
     path('logout/', views.logoutUser, name="earlydating-logout"),

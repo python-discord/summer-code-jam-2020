@@ -1,11 +1,12 @@
 {% extends 'dating/base.html' %}
 {% block title %}{{user.username}}{% endblock %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 {% if user.profile.img %}
     <img src="../{{ user.profile.img.url }}">
 {% endif %}
+<div>
 <h1>First Name: {{user.first_name}}</h1>
 <h1>Last Name: {{user.last_name}}</h1>
 <h1>Age: {{user.profile.age}}</h1>
@@ -15,6 +16,17 @@
 
 <p><a href="{% url 'earlydating-home' %}">Home</a></p>
 <p><a class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
+</div>
+<p>STARTS HERE OK</p>
+<div class="UserSign">
 
-
+    <form method="POST" action=""><h1>Register</h1>
+        {% csrf_token %}
+        <h1>{{ form|crispy }}</h1>
+        <input type="submit" name="Sign Up" value="Sign Up">
+     </form>
+    <div>
+        Already have an account? <a href="{% url 'earlydating-login' %}">Login</a>
+    </div>
+</div>
 {% endblock %}

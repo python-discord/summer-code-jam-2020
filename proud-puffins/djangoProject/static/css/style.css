@@ -7,6 +7,12 @@
 
 }
 
+.editer {
+    border: inset;
+    background: white;
+
+}
+
 .home_h1 {
     background-color: #003388;
     color: #f5dd5d;

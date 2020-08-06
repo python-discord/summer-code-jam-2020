@@ -1,0 +1,13 @@
+{% extends 'dating/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="editer">
+        <h1>< method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-secondary">Edit</button>
+        </h1>
+</div>
+
+        {% endblock %}
