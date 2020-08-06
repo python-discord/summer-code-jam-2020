@@ -14,9 +14,11 @@ wikipedia = "*"
 randomwords = "*"
 faker = "*"
 nltk = "*"
+tensorflow = "==1.15"
+gpt-2-simple = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
 
 [scripts]
 start = 'python manage.py runserver'
