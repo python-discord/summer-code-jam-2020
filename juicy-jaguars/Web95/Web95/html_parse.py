@@ -37,6 +37,6 @@ class HtmlParser:
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('body {font-family: Arial !important;}')
+            head.style.append('body {font-family: Arial, sans-serif !important;}')
         except KeyError:
             pass
