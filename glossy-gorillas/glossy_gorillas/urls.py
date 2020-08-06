@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from core import views
+from django.urls import reverse_lazy
 
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),
@@ -26,6 +27,11 @@ urlpatterns = [
         "login/",
         auth_views.LoginView.as_view(template_name="core/login.html"),
         name="login",
+    ),
+    path(
+        "logout/",
+        auth_views.LogoutView.as_view(next_page=reverse_lazy("home")),
+        name="logout",
     ),
     path("dashboard/", views.TraderDashboard.as_view(), name="dashboard"),
 ]
