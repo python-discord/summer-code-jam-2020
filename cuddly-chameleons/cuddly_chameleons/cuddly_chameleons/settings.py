@@ -18,6 +18,9 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Use these variables for CI
+os.environ.setdefault('SECRET_KEY', 'cisecret')
+os.environ.setdefault('DEBUG', 'false')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/

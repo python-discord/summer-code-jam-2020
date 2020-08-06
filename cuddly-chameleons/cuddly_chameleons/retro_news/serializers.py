@@ -1,5 +1,3 @@
-from abc import ABC
-
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -10,7 +8,7 @@ from retro_news.models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     """Serializer for new user creation."""
 
-    email = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
     username = serializers.CharField(validators=[UniqueValidator(queryset=CustomUser.objects.all())])
     password = serializers.CharField(min_length=8, write_only=True)
 
