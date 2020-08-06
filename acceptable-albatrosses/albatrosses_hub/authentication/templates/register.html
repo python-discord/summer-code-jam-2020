@@ -6,5 +6,14 @@
 {% endblock styles %}
 
 {% block content %}
-    
+    <h1>Register to Albatrosses Hub</h1>
+    <br>
+    <div id="register-form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button name="register" type="submit">Register</button>
+        </form>
+    </div>
 {% endblock content %}
