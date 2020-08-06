@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -112,13 +113,16 @@ class WebpageDetailView(DetailView):
 
 class WebpageListView(ListView):
     """
-    Display webpages ordered by vote number
+    Display webpages ordered by number likes
     """
     model = Webpage
     template = 'page_maker/webpage_list.html'
     context_object_name = 'webpages'
     paginate_by = 10
-    ordering = ['-votes']
+
+    def get_queryset(self):
+        """Return the webpages sorted by number of likes"""
+        return Webpage.objects.annotate(like_count=Count('like')).order_by('-like_count')
 
 
 class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

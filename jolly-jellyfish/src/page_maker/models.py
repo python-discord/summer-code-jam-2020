@@ -54,7 +54,6 @@ class Webpage(models.Model):
     # Implausible date is just to signify it does not yet have a thumbnail - needs to be a datetime for comparisons
     thumbnail_edit_date = models.DateTimeField(default=datetime(1, 1, 1), editable=False)
     template_used = models.ForeignKey(Template, on_delete=models.DO_NOTHING)
-    votes = models.IntegerField(default=0)
 
     user_title = models.CharField(max_length=100, verbose_name='page title')
     user_text_1 = models.TextField(verbose_name='subtitle paragraph', blank=True)
