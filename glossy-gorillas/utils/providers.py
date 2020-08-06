@@ -22,7 +22,7 @@ def _spice() -> Generator[str, None, None]:
     ]
     COLOR = ["black", "brown", "yellow", "blue", "orange", "pink", "white", "green"]
     while True:
-        for color, spice in cycle(random_permutations(SPICES, COLOR)):
+        for spice, color in cycle(random_permutations(SPICES, COLOR)):
             yield f"{color} {spice}".title()
 
 
@@ -48,7 +48,7 @@ def _service() -> Generator[str, None, None]:
         "angry",
     ]
     while True:
-        for (adj, job) in cycle(random_permutations(SERVICES, ADJECTIVES)):
+        for job, adj in cycle(random_permutations(SERVICES, ADJECTIVES)):
             yield f"{adj} {job}".capitalize()
 
 
@@ -74,7 +74,7 @@ def _object() -> Generator[str, None, None]:
         "sturdy",
     ]
     while True:
-        for adj, obj in cycle(random_permutations(OBJECTS, ADJECTIVES)):
+        for obj, adj in cycle(random_permutations(OBJECTS, ADJECTIVES)):
             yield f"{adj} {obj}".capitalize()
 
 
