@@ -29,13 +29,18 @@ const GlobalStyles = createGlobalStyle`
 
 function postRequest(url, opts) {
   fetch(url, {
-    method: 'post',
-    body: JSON.stringify(opts),
-    Headers: {'Content-Type': 'application/json',
-            'Accept': '*/*'}
-  }).then(function(response) {
-    return response.json();
-  }).then(function(data) {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(opts),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
   });
 }
 
@@ -82,9 +87,8 @@ const App = () => {
       </AppBar>
 
       <Tabs value={activeTab} onChange={tabChange}>
-          <Tab value={0}>Email</Tab>
-          <Tab value={1}>Username</Tab>
-          <Tab value={2}>Password</Tab>
+          <Tab value={0}>Login</Tab>
+          <Tab value={1}>Sign Up</Tab>
       </Tabs>
       
       <TabBody style={{ height: 300 }}>
@@ -92,28 +96,39 @@ const App = () => {
         {activeTab == 0 &&(
           <div>
             <TextField
-        value={state.email_value}
-        placeholder='Your Email'
-        onChange={handleChange}
-        ></TextField>
+              value={state.email_value}
+              placeholder='Your Username'
+              onChange={handleChange}>
+            </TextField>
+
+            <TextField
+              value={state.email_value}
+              placeholder='Your Password'
+              onChange={handleChange}>
+            </TextField>
           </div>
         )}
 
         {activeTab == 1 &&(
+          <div>
         <TextField
-        value={state.email_value}
-        placeholder='Your Username'
-        onChange={handleChange}
-        >
-      </TextField>)}
+          value={state.email_value}
+          placeholder='Your Username'
+          onChange={handleChange}>
+        </TextField>
+      
+      <TextField
+      value={state.email_value}
+      placeholder='Your Email'
+      onChange={handleChange}>
+    </TextField>
 
-      {activeTab == 2 &&(
-        <TextField
-        value={state.email_value}
-        placeholder='Your Password'
-        onChange={handleChange}
-        >
-      </TextField>
+    <TextField
+      value={state.email_value}
+      placeholder='Your Password'
+      onChange={handleChange}>
+    </TextField>
+      </div>
       )}
 
       </TabBody>
