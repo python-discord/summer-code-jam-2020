@@ -105,7 +105,7 @@ class TriviaQuizUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class TriviaQuizDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = TriviaQuiz
-    success_url = '/'
+    success_url = '/quiz'
 
     def test_func(self):
         trivia_quiz = self.get_object()
