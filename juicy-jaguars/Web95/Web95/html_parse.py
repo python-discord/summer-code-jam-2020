@@ -51,4 +51,4 @@ sans-serif !important;}')
                  element["style"]
                 print("derounded :)" + element.name)
             except KeyError:
-                pass
+                element["style"] = ""
