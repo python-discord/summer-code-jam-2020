@@ -54,6 +54,9 @@ class Listing(models.Model):
         default=ListingStatus.AVAILABLE,
     )
 
+    def __str__(self) -> str:
+        return f"{self.item.product.name}: {self.silver_per_unit} | {self.status}"
+
 
 class Trade(models.Model):
     """A record of a trade between 2 users"""
