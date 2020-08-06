@@ -24,4 +24,4 @@ class HtmlParser:
                 method()
 
     def parse_backgroundColor(self):
-        self.soup("body")[0]["style"]["background-color"] = "white"
+        self.soup("html")[0]["style"]["background-color"] = "white"
