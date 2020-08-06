@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.contrib.postgres.fields import JSONField
 
 
 class Location(models.Model):
@@ -37,3 +38,24 @@ class Player(models.Model):
     current_health = models.BigIntegerField(default=100)
     experience = models.BigIntegerField(default=0)
     location_id = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
+
+
+class ItemBlueprint(models.Model):
+    '''The "blueprint" for items in the game.'''
+
+    name = models.TextField()
+    sell_price = models.BigIntegerField()
+    buy_price = models.BigIntegerField()
+    item_uses = models.BigIntegerField()
+    consumable = models.BooleanField()
+    item_function = models.TextField()
+    item_kwargs = JSONField()
+
+
+class ItemOwnership(models.Model):
+    """Ownerhsip for an item."""
+
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(ItemBlueprint, on_delete=models.CASCADE)
+    num_uses = models.BigIntegerField()
+    equipped = models.BooleanField()
