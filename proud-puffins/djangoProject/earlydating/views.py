@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
-# from .models import Profile
+#from .models import Profile
 from .forms import CreateUserForm
 from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.views import generic
+from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 
 
 # Create your views here.
@@ -78,6 +80,13 @@ def your_profile(request):
     context = {'profile': profile}
     return render(request, 'dating/YourProfile.html', context)
 
+class UserEditView(generic.UpdateView):
+    form_class = UserChangeForm
+    template_name = 'dating/edit_profile.html'
+    success_url =reverse_lazy('')
+
+    def get_object(self):
+        return self.request
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
