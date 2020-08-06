@@ -24,11 +24,13 @@ def helper_vote(obj, user, vote):
     obj.save()
     return JsonResponse({'upvotes': obj.upvotes, 'downvotes': obj.downvotes})
 
+
 def ajax_vote_post(request, post_id, vote):
     user = request.user
     post = Post.objects.get(id=post_id)
 
     return helper_vote(post, user, vote)
+
 
 def ajax_vote_comment(request, comment_id, vote):
     user = request.user
