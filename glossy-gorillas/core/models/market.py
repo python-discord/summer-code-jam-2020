@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 
 from core.models.product import Product
 from core.models.trader import InventoryRecord, Trader
+from core.querysets.market import ListingQuerySet, TradeQuerySet
 
 
 class ListingStatus(models.TextChoices):
@@ -60,6 +61,8 @@ class Listing(models.Model):
         default=timezone.now
     )
 
+    objects = ListingQuerySet.as_manager()
+
     def __str__(self) -> str:
         return f"{self.item.product.name}: {self.silver_per_unit} | {self.status}"
 
@@ -76,4 +79,5 @@ class Trade(models.Model):
         verbose_name=_("Time and date of trade"),
         default=timezone.now
     )
-    
+
+    objects = TradeQuerySet.as_manager()
