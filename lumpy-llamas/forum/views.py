@@ -25,7 +25,6 @@ def list_threads(request):
 
 @jsonbody
 def post_thread(request, data):
-    print(data)
     current_user = request.user
     thread = Thread.objects.create(
         title=data['title'],
@@ -33,20 +32,36 @@ def post_thread(request, data):
     )
     thread_id = thread.id
     thread.save()
+
     message = ThreadMessage(
         message=data['message'],
         user=current_user,
         thread=thread
     )
     message.save()
-    #login(request, user)
-    print(thread)
+
     return JsonResponse({
         'thread_id': thread.id,
         'message': message.message,
         'user': message.user.username
     }, status=201)
 
+@jsonbody
+def post_message(request, data):
+    current_user = request.user
+    if data['message']:
+        message = ThreadMessage(
+        message=data['message'],
+            user=current_user,
+            thread=Thread.objects.get(id=data['thread_id'])
+        )
+        message.save()
+
+    return JsonResponse({
+        'thread_id': message.thread.id,
+        'message': message.message,
+        'user': message.user.username
+    }, status=201)
 
 def thread_details(request, thread_id):
     """
@@ -57,7 +72,5 @@ def thread_details(request, thread_id):
     :return: JsonResponse
     """
     qs = ThreadMessage.objects.filter(thread_id=thread_id).values('date', 'message', 'user', title=F('thread__title'))
-    print(str(qs.query))
     data = list(qs)
-    print(data)
     return JsonResponse(data, status=201, safe=False)

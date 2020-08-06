@@ -10,7 +10,7 @@
     </div>
     </div>
        <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter your message" minlength="3"></textarea>
-        <button v-on:click="" class="btn btn-default">Post a new message</button>
+        <button v-on:click="newMessage" class="btn btn-default">Post a new message</button>
     </div>
 
 
@@ -35,6 +35,9 @@ p {
 
 <script>
 import axios from 'axios';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+
 export default {
   data() {
     return {
@@ -45,15 +48,22 @@ export default {
   beforeMount() {
     this.getData();
   },
-  methods: {
+  computed: {
     getData() {
       axios.get(`/api/forum/${this.$route.params.id}/`).then((response) => {
         this.myStuff = response.data;
         this.ready = true;
       });
     },
-
+    newMessage() {
+      axios.post('/api/forum/post/message', {
+        message: this.message,
+        thread_id: this.$route.params.id
+      }).then((res) => {
+        console.log(res.data.thread_id);
+      }).catch((err) => {
+        console.log(err); // eslint-disable-line no-console
+      });
   },
-
-}
+  }}
 </script>
