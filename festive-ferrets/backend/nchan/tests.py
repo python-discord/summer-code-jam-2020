@@ -30,8 +30,8 @@ class BoardsTests(TestCase):
         """
         Tests if 'boards/<board>/' endpoint returns the correct board
         """
-        b1 = Board.objects.create(board='01', title='test-board-01')
-        b2 = Board.objects.create(board='02', title='test-board-02')
+        Board.objects.create(board='01', title='test-board-01')
+        Board.objects.create(board='02', title='test-board-02')
         resp1 = self.client.get('/nchan/boards/01/')
         self.assertEqual(resp1.data['board'], '01')
         self.assertEqual(resp1.data['title'], 'test-board-01')
@@ -52,7 +52,7 @@ class BoardsTests(TestCase):
                             text='sed do eiusmod tempor incididunt ut labore et dolore magna aliqua')
 
         resp = self.client.get('/nchan/boards/01/posts/')
-        
+
         self.assertEqual(resp.data['count'], 1)
         self.assertIn('first post', str(resp.data['results']))
         self.assertNotIn('second post', str(resp.data['results']))
@@ -89,7 +89,7 @@ class PostsTests(TestCase):
         """
         b1 = Board.objects.create(board='01', title='test-board-01')
         p1 = Post.objects.create(title='first post', board=Board.objects.get(pk=b1.id), poster='festive-ferret',
-                            text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
+                                 text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
         resp = self.client.get(f'/nchan/posts/{p1.id}/')
         self.assertEqual(resp.data['title'], 'first post')
 
@@ -99,7 +99,7 @@ class PostsTests(TestCase):
         """
         b1 = Board.objects.create(board='01', title='test-board-01')
         p1 = Post.objects.create(title='first post', board=Board.objects.get(pk=b1.id), poster='festive-ferret',
-                            text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
+                                 text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
         Comment.objects.create(post=Post.objects.get(pk=p1.id), commenter='glossy-gorillas',
                                text='URL namespace "admin" isn"t unique. You may not be'
                                'able to reverse all URLs in this namespace')
@@ -114,7 +114,7 @@ class CommentsTests(TestCase):
         """
         b1 = Board.objects.create(board='01', title='test-board-01')
         p1 = Post.objects.create(title='first post', board=Board.objects.get(pk=b1.id), poster='festive-ferret',
-                            text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
+                                 text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
         Comment.objects.create(post=Post.objects.get(pk=p1.id), commenter='glossy-gorillas',
                                text='URL namespace "admin" isn"t unique. You may'
                                'not be able to reverse all URLs in this namespace')
