@@ -1,0 +1,8 @@
+{% block content %}
+    <h2>Project Feed</h2>
+    <ul>
+        {% for project in object_list %}
+            <li>{{ project.name }} - Created by: {{project.user_id}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

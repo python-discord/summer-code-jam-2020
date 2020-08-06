@@ -5,6 +5,7 @@ from PIL import Image as pilimage
 from io import BytesIO
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.list import ListView
 from .models import *
 
 CANVAS_DIR = os.path.join("editor", "base_draw.html")
@@ -36,3 +37,14 @@ def parse_render_request(request):
     # grab all files from the project and compile it into a gif
     # render "preview.html"
     # send gif over as byte as http response
+
+
+class ProjectListView(ListView):
+
+    model = Project
+    paginate_by = 10
+    ordering = ['-date_created']
+
+    # TODO: Please replace template with something that isn't terrible
+    template_name = 'project_feed/project_list.html'
+
