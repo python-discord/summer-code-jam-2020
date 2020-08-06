@@ -3,6 +3,7 @@
 import os
 from bs4 import BeautifulSoup
 
+
 class HtmlParser:
     """Class used to parse HTML."""
 
