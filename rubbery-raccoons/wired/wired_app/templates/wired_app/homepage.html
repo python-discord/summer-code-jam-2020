@@ -9,8 +9,8 @@
 {% block content %}
     <h1>Articles</h1>
     <ul>
-    {% for article in object_list %}
-        <li><a href="{% url 'article-detail' article.slug %}">{{ article.publication_date|date }} - {{ article.title }} - {{ article.headline }}</a></li>
+    {% for article in article_list %}
+        <li><a href="{{ article.get_absolute_url }}">{{ article.publication_date|date }} - {{ article.title }} - {{ article.headline }}</a></li>
     {% empty %}
         <li>No articles yet.</li>
     {% endfor %}

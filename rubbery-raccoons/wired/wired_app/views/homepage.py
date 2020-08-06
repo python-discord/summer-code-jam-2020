@@ -8,7 +8,7 @@ class HomepageView(ListView):
     paginate_by = 10
     template_name = "wired_app/homepage.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["now"] = timezone.now()
+    #     return context

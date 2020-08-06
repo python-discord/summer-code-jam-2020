@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     headline = models.TextField()
     body = models.TextField()
     publication_date = models.DateField()
@@ -14,6 +15,9 @@ class Article(models.Model):
 
     def __str__(self):
         return f"Article({self.title=}, {self.author=}, {self.publication_date=})"
+
+    def get_absolute_url(self):
+        return reverse('article_detail',kwargs={'slug':self.slug})
 
 
 class Comment(models.Model):
