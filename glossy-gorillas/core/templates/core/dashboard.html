@@ -1,3 +1,5 @@
+{% extends 'core/base.html' %}
+{% block content %}
 {{ object.user }}
 <br>
 {{ object.description }}
@@ -16,3 +18,4 @@
 {% for review in reviews %}
 <li>{{ review }}</li>
 {% endfor %}
+{% endblock %}
