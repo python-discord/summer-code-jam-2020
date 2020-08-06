@@ -11,10 +11,12 @@ from .models import Board, Post, Comment
 class BoardViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Board.objects.all().order_by('board')
     serializer_class = BoardSerializer
+    lookup_field = 'board'
 
     @action(detail=True, url_path='posts')
-    def get_posts(self, request, pk=None):
-        post_objects = Post.objects.all().filter(board__exact=pk).order_by('-publication_date')
+    def get_posts(self, request, board=None):
+        board_id = Board.objects.get(board=board).id
+        post_objects = Post.objects.all().filter(board__exact=board_id).order_by('-publication_date')
         paginator = PageNumberPagination()
         paginator.page_size = 10
         result_page = paginator.paginate_queryset(post_objects, request)

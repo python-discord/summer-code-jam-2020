@@ -6,7 +6,7 @@ from .utils import shorten_text
 
 
 class Board(models.Model):
-    board = models.CharField(max_length=20) #, primary_key=True)
+    board = models.CharField(max_length=20, unique=True) #, primary_key=True)
     title = models.CharField(max_length=50)
 
     def __str__(self):
