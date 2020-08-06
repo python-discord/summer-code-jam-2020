@@ -11,9 +11,10 @@
 <html lang="en">
   {% block head %}
   <head>
+    <link rel="stylesheet/less" href="/path/to/bootstrap.less">
+    <script src="/path/to/less.js"></script>
     <meta charset="UTF-8">
-
-
+        
     <!-- need to passes title as variables in the functions -->
     {% if title %}
         <title>Early Dating | {{ title }}</title>
@@ -62,13 +63,13 @@
     <div class="row">
 
         <div class="columnleft">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="400"></img><br>
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="400" ></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600"></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600" ></img>
         </div>
 
         <div class="columnright">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="400" ></img><br>
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="400"></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600" ></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600"></img>
         </div>
 
     <div class="columncenter" >

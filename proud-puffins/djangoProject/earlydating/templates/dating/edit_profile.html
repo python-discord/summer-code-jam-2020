@@ -2,12 +2,14 @@
 {% load crispy_forms_tags %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<div class="editer">
-        <h1><method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-secondary">Edit</button>
-        </h1>
-</div>
 
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+                <button class="button_a" type="submit">Submit Edits</button>
+        </div>
         {% endblock %}
