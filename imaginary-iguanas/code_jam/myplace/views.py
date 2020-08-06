@@ -1,7 +1,7 @@
 from typing import Union
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from users.models import Profile
 
@@ -24,7 +24,7 @@ def user(request, username_or_id: Union[int, str]):
         return render(request, 'myplace/profile.html', context)
     except Profile.DoesNotExist:
         messages.error(request, 'That user profile does not exist.')
-        return redirect('home')
+        return render(request, 'myplace/profile.html')
 
 
 def _get_profile(username_or_id: Union[int, str]) -> Profile:
