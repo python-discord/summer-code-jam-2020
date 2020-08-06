@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'first_youtube',
     'ninetys_blog',
     'web_portal',
+    'win95'
 ]
 
 MIDDLEWARE = [
@@ -121,7 +122,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoprojectcd .com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
