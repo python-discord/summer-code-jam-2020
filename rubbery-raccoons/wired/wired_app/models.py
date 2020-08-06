@@ -7,7 +7,7 @@ class Article(models.Model):
     slug = models.SlugField()
     headline = models.TextField()
     body = models.TextField()
-    publication_date = models.DateTimeField()
+    publication_date = models.DateField()
     author = models.ForeignKey(get_user_model(), on_delete=models.SET(None))
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
