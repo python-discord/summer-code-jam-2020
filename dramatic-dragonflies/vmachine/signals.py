@@ -19,7 +19,7 @@ def create_floppy_on_vm_creation(sender: VMachine, instance: VMachine, **kwargs:
         # Below there, instead of "12fdsdf" for storage_id a
         # function attached to Floppy's save method will generate one.
         floppy = Floppy(name="Root Floppy for " + str(instance.name), user=instance.user, vm=instance,
-                        storage_id="12fdsdf")
+                        storage_id="12f55dsdf")
         floppy.save()
 
 
