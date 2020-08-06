@@ -93,12 +93,13 @@ const App = () => {
       
       <TabBody style={{ height: 300 }}>
         
-        {activeTab == 0 &&(
+        {activeTab === 0 &&(
           <div>
             <TextField
               value={state.email_value}
               placeholder='Your Username'
-              onChange={handleChange}>
+              onChange={
+                handleChange}>
             </TextField>
 
             <TextField
@@ -109,7 +110,7 @@ const App = () => {
           </div>
         )}
 
-        {activeTab == 1 &&(
+        {activeTab === 1 &&(
           <div>
         <TextField
           value={state.email_value}
