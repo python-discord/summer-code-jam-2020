@@ -3,7 +3,7 @@
 
 <head>
       <style>
-        .fa-arrow-right{
+      .fa-arrow-right{
             background-color: rgb(14, 177, 14);
             padding: 1px;
             color: white;
@@ -20,12 +20,11 @@
         .menu{
             width: 100%;
             text-align: justify;
-            margin-top: 6px;
         }
 
         .menu ul{
             list-style: none;
-            margin-right: 20px;
+            margin-left: -25px;
         }
 
         ul, ul li{
@@ -156,8 +155,7 @@
         height: 18px
 
     }
-
-    </style>
+  </style>
   <script>
     function startTime() {
       var today = new Date();
@@ -181,13 +179,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="98style.css">
   <script src="script.js"></script>
-      <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/f9cc65cae5.js" crossorigin="anonymous"></script>
   <title>RetroNet</title>
 </head>
 <body onload="startTime()">
 
-  <div class="window" style="width: 100%">
+  <div class="window" >
     <div class="title-bar" style=" height: 20px;">
       <div class="title-bar-text" style="font-size: 15px;">Welcome to RetroNet!</div>
       <div class="title-bar-controls">
@@ -203,45 +200,52 @@
 
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_file')" style="box-shadow: none; min-width:0;font-size: 13px;">File</button>
-        <div class="dropdown-content Frame" id="dd_file">
-          <a href="#" >Open</a>
-          <a href="#">Close</a>
-          <a href="#">Settings</a>
+        <div class="dropdown-content Frame" id="dd_file" style="font-size: 14px;width: max-content;padding-top: 4px;padding-left: 4px;padding-bottom: 6px;padding-right: 4px;text-align: center;">
+          <a href="#" style="padding: inherit;">Open</a>
+            <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+          <a href="#" style="padding: inherit;">Close</a>
+            <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+          <a href="#" style="padding: inherit;">Settings</a>
         </div>
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_edit')" style="box-shadow: none; min-width:0;font-size: 13px;">Edit</button>
-        <div class="dropdown-content Frame" id="dd_edit">
-          <a href="#">Cut</a>
-          <a href="#">Copy</a>
-          <a href="#">Paste</a>
+        <div class="dropdown-content Frame" id="dd_edit" style="font-size: 14px;width: max-content;padding-top: 4px;padding-left: 4px;padding-bottom: 6px;padding-right: 4px;text-align: center;">
+          <a href="#" style="padding: inherit;">Cut</a>
+          <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+            <a href="#" style="padding: inherit;">Copy</a>
+            <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+          <a href="#" style="padding: inherit;">Paste</a>
         </div>
       </div>
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_view')" style="box-shadow: none;min-width:0;font-size: 13px;">View</button>
-        <div class="dropdown-content Frame" id="dd_view">
-          <a href="#">Toggle CSS</a>
-          <a href="#">Toggle Javascript</a>
+        <div class="dropdown-content Frame" id="dd_view" style="font-size: 13px;width: max-content;padding-top: 4px;padding-left: 4px;padding-bottom: 6px;padding-right: 4px;text-align: center;">
+          <a href="#" style="padding: inherit;">Toggle CSS</a>
+            <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+          <a href="#" style="padding: inherit;">Toggle Javascript</a>
         </div>
       </div>
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_tools')" style="box-shadow: none; min-width:0;font-size: 13px;">Tools</button>
-        <div class="dropdown-content Frame" id="dd_tools">
-          <a href="#">Not Decided</a>
+        <div class="dropdown-content Frame" id="dd_tools" style="font-size: 14px;width: max-content;padding-top: 4px;padding-left: 4px;padding-bottom: 6px;padding-right: 4px;text-align: center;">
+          <a href="#" style="padding: inherit;">Not Decided</a>
         </div>
       </div>
       <div class="dropdown">
         <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')" style="box-shadow: none; min-width:0;font-size: 13px;">Favourties</button>
-        <div class="dropdown-content Frame" id="dd_favorite">
-          <a href="#">Add New Favorite</a>
-          <a href="#">Add this Page to Favorites</a>
-          <a href="#">Show Favorites</a>
+        <div class="dropdown-content Frame" id="dd_favorite" style="font-size: 13px;width: max-content;padding-top: 4px;padding-left: 4px;padding-bottom: 6px;padding-right: 4px;text-align: center;">
+          <a href="#" style="padding: inherit;">Add New Favorite</a>
+            <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+          <a href="#" style="padding: inherit;">Add this Page to Favorites</a>
+          <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em;overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:1px">
+            <a href="#" style="padding: inherit;">Show Favorites</a>
         </div>
       </div>
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_help')" style="box-shadow: none; min-width:0;font-size: 13px;">Help</button>
-        <div class="dropdown-content Frame" id="dd_help">
+        <div class="dropdown-content Frame" id="dd_help" style="font-size: 14px;width: max-content;padding-top: 4px;padding-left: 4px;padding-bottom: 6px;padding-right: 4px;text-align: center;">
           <a
-            href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md">README</a>
+            href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md" style="padding: inherit;">README</a>
         </div>
       </div>
     </div>
@@ -318,7 +322,7 @@
     </div>
         <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px; margin-bottom:2px">
 
-      <span class="vertical-line" ></span>Address<span class="vertical-line" style="padding: 2px;"></span>
+      <span class="vertical-line" style="margin-left:3px;margin-right: 3px;"></span>Address<span class="vertical-line" style="margin-left:3px;margin-right: 3px;"></span>
 
         <select >
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
@@ -328,6 +332,10 @@
             <option><img src="icons/htmlFile16-min.png" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
         </select>
 
+
+
+
+
         <button id="go" style="box-shadow: none"><img src="icons/ie-go-min.png" alt=""></i>
             Go
         </button>
@@ -335,8 +343,7 @@
         <button id="links" style="box-shadow: none">Links<i class="fas fa-angle-double-right"></i></button>
 
         <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
-
-        <div class="window-body" style="background-color: #e5e9e7; height: 400px">
+        <div class="window-body" style="background-color: #e5e9e7; height: 400px;margin-left: 10px;margin-right: 10px;">
             <br>
             <br>
             <br>
@@ -348,7 +355,7 @@
             <br>
     </div>
     <div class="container">
-      <div id="left" style="border-style: inset;margin: auto 12px;"><img src="e.png" align="left"
+      <div id="left" style="border-style: inset;"><img src="e.png" align="left"
           style="width:12px; height:15px;display: block;float: left">Done</div>
       <div id="middle1" style="border-style: inset;"></div>
       <div id="middle2" style="border-style: inset;"></div>
@@ -362,5 +369,4 @@
 </body>
 
 </html>
-
 
