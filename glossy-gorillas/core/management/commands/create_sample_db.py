@@ -28,4 +28,6 @@ class Command(BaseCommand):
         fixtures.create_listing_set()
         print("initializing trades...")
         fixtures.create_trade_set()
+        print("initializing reviews...")
+        fixtures.create_review_set()
         print("All done!")
