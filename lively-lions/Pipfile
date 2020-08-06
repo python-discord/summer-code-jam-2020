@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 pre-commit = "*"
+pytest-django = "*"
+mixer = "*"
 
 [packages]
 django = "~=3.0"

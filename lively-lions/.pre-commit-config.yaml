@@ -1,6 +1,15 @@
+
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v1.2.3
     hooks:
     - id: flake8
       exclude: .cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox
       args: [--max-line-length=119, --isolated]
+-   repo: local
+    hooks:
+    - id: pytest
+      name: Check pytest unit tests pass
+      entry: bash -c "cd lively-lions/MUD && pipenv run pytest"
+      pass_filenames: false
+      language: system
+      types: [python]
