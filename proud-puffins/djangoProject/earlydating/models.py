@@ -21,6 +21,26 @@ class Profile(models.Model):
     lower_age = models.PositiveSmallIntegerField(null=True)
     upper_age = models.PositiveSmallIntegerField(null=True)
     bio = models.TextField(default="")
+    greeting = models.CharField(max_length=200, null=True, default="Greeting")
+    activity = models.CharField(max_length=200, null=True, default="Activity")
+    adjective1 = models.CharField(max_length=200, null=True, default="Adjective")
+    verb0 = models.CharField(max_length=200, null=True, default="Verb")
+    direction = models.CharField(max_length=200, null=True, default="Direction")
+    pastverb = models.CharField(max_length=200, null=True, default="Pastverb")
+    noun1 = models.CharField(max_length=200, null=True, default="Noun")
+    adjective2 = models.CharField(max_length=200, null=True, default="Adjective")
+    verb1 = models.CharField(max_length=200, null=True, default="Verb")
+    noun2 = models.CharField(max_length=200, null=True, default="Noun")
+    verb2 = models.CharField(max_length=200, null=True, default="Verb")
+    noun3 = models.CharField(max_length=200, null=True, default="Noun")
+    noun4 = models.CharField(max_length=200, null=True, default="Noun")
+    verb3 = models.CharField(max_length=200, null=True, default="Verb")
+    noun5 = models.CharField(max_length=200, null=True, default="Pluralnoun")
+    noun6 = models.CharField(max_length=200, null=True, default="Pluralnoun")
+    exclamation = models.CharField(max_length=200, null=True, default="Exclamation")
+    verb4 = models.CharField(max_length=200, null=True, default="Verb")
+    verb5 = models.CharField(max_length=200, null=True, default="Verb")
+    SignOff = models.CharField(max_length=200, null=True, default="Name")
 
     def __str__(self):
         return str(self.user)
@@ -33,7 +53,10 @@ class Profile(models.Model):
 class UserVote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     voter = models.ForeignKey(User, related_name='given_vote', on_delete=models.CASCADE)
-    vote = models.BooleanField(default='')
+    vote = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('user', 'voter'))
+
+    def __str__(self):
+        return f"{self.voter} {'likes' if self.vote else 'dislikes'} {self.user}"
