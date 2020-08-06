@@ -116,10 +116,12 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             usernamechat = localStorage["usern"];
             const message = usernamechat + ': ' + messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
+           if (/\S/.test(messageInputDom.value)) {
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
+                messageInputDom.value = '';
+            }
         };
 
         document.querySelector('#leave').onclick = function(e) {
