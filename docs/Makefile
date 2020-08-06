@@ -17,7 +17,13 @@ help:
 
 # Build, watch and serve docs with live reload
 livehtml:
-	sphinx-autobuild -b html -H 0.0.0.0 -p 7000 --watch $(APP) -c . $(SOURCEDIR) $(BUILDDIR)/html
+	sphinx-autobuild \
+	-b html \
+	-H 0.0.0.0 \
+	-p 7000 \
+	--watch $(APP) \
+	--ignore "*.swp" \
+	-c . $(SOURCEDIR) $(BUILDDIR)/html > /dev/null
 
 # Outputs rst files from django application code
 apidocs:
