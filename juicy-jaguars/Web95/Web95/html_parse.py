@@ -45,7 +45,7 @@ sans-serif !important;}')
 
     def parse_derounder(self):
         """Make rounded borders square."""
-        for element in self.soup.find_all(re.compile("*")):
+        for element in self.soup.find_all(re.compile(".*")):
             print(element)
             try:
                 element["style"]["border-radius"] = "0"
