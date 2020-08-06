@@ -9,6 +9,7 @@ class Room(models.Model):
 
 
 class SimpleUser(models.Model):
+    objects = models.Manager()
     username = models.CharField(max_length=50)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
