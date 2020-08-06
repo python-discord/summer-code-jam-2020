@@ -96,7 +96,6 @@ class WebpageView(DetailView):
     slug_url_kwarg = 'pagename'
 
 
-
 class WebpageDetailView(DetailView):
     """
     Display webpage details and comment section
@@ -180,7 +179,7 @@ class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, FormView):
-    http_method_names = ['post'] # POST request only
+    http_method_names = ['post']  # POST request only
     form_class = CommentForm
 
     def form_valid(self, form):
@@ -189,7 +188,7 @@ class CommentCreateView(LoginRequiredMixin, FormView):
         form.instance.parent_page = parent_page
         form.save()
         return super().form_valid(form)
-    
+
     def get_success_url(self):
         pagename = self.kwargs.get('pagename')
         return reverse_lazy('webpage-detail', kwargs={'pagename': pagename})

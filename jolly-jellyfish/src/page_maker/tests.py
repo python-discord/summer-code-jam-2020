@@ -7,8 +7,7 @@ USERNAME = 'haha69420'
 PASSWORD = 'foobar < xyzzy'
 
 
-# FIXME: NAME TBD
-class TestStuff(TestCase):
+class UserRegisterTest(TestCase):
     def setUp(self):
         # we create an account with the `USERNAME` and `PASSWORD` vars
         params = {
@@ -38,9 +37,15 @@ class TestStuff(TestCase):
 
         self.assertNotIn(USERNAME.encode(), res, 'Our username was already in the home view.')
 
+
+class TemplateViewsTest(TestCase):
+    fixtures = ['users.yaml']
+
+    def setUp(self):
+        self.client.login(username=USERNAME, password=PASSWORD)
+
     def test_upload_templates(self):
         # what this assumes:
-        # - the above tests go through
         # - when you create a page the
         #   available templates are
         #   passed in. and in a certain
