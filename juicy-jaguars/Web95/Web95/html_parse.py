@@ -28,6 +28,15 @@ class HtmlParser:
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('body {background-color:#C0C0C0;}')
+            head.style.append('body {background-color:#C0C0C0 !important;}')
+        except KeyError:
+            pass
+
+    def parse_font(self):
+        """U can write this cos I cba"""
+        try:
+            head = self.soup.head
+            head.append(self.soup.new_tag('style', type='text/css'))
+            head.style.append('body {font-family: Arial !important;}')
         except KeyError:
             pass
