@@ -46,7 +46,6 @@ class MudConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-<<<<<<< HEAD
         command = message.lower().split(maxsplit=1)[0]
         if self.scope['user'].is_authenticated == True:
             try:
@@ -54,17 +53,7 @@ class MudConsumer(WebsocketConsumer):
                 message = eval('e.' + command + '()')
             except AttributeError:
                 message = f"{command} is not a valid command! Type 'help' if you need."
-=======
-        # IMPORTANT #
-        # This message is what we'll use as command input
-        # So here we'll split it and work with the commands
 
-        command = message.lower().split(maxsplit=1)[0]
-        local_command = True
-        if self.scope['user'].is_authenticated:
-            pass
-
->>>>>>> origin/gui
         elif command == 'login':
             if len(message.split()) == 3:
                 username_to_login = message.split()[1]
@@ -123,6 +112,7 @@ class MudConsumer(WebsocketConsumer):
                     new_user.save()
                     new_player = Player(user_id=new_user)
                     new_player.save()
+                    message = f"User {username_to_create!r} successfully created! Please type 'login' to start playing."
 
                 else:
                     message = f"Someone is already using {username_to_create}"
@@ -132,11 +122,7 @@ class MudConsumer(WebsocketConsumer):
         else:
             message = "You need to log in first. Please type 'login' or 'new'"
 
-<<<<<<< HEAD
         if message != False:
-=======
-        if local_command:
->>>>>>> origin/gui
             self.send(text_data=json.dumps({
                 'message': message
             }))
@@ -162,18 +148,13 @@ class MudConsumer(WebsocketConsumer):
         # Send a message to everyone else other than the sender
         if self.channel_name != event['sender_channel_name']:
             self.send(text_data=json.dumps({
-<<<<<<< HEAD
                     'message': message
-        }))
+            }))
 
     def message_to_self(self, event):
         message = event['message']
         # Send a message to everyone else other than the sender
         if self.channel_name == event['sender_channel_name']:
             self.send(text_data=json.dumps({
-                    'message': message
-        }))
-=======
                 'message': message
             }))
->>>>>>> origin/gui

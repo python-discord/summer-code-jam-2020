@@ -1,5 +1,5 @@
 from asgiref.sync import async_to_sync
-from game.models import Player
+from game.models import Player, Location
 
 class Engine():
     def __init__(self, consumer, command_line):
@@ -36,3 +36,25 @@ class Engine():
             return False
         else:
             return "What the hell are you thinking about?"
+
+    def where(self):
+        return f'{type(self.player.location_id)}: {self.player.location_id.__dict__}'
+
+    def start(self):
+        if self.player.level == 0:
+            start_location = Location.objects.get(x_coord=0, y_coord=0, z_coord=0)
+            self.player.move_to(start_location)
+            self.player.level_up()
+            return "You are at the center of the world now!"
+        else:
+            return "This is no longer a valid command"
+
+    def north(self):
+        dest_x = self.player.location_id.x_coord
+        dest_y = self.player.location_id.y_coord + 1
+        dest_z = self.player.location_id.z_coord
+        dest_location = Location.objects.get(x_coord=dest_x, y_coord=dest_y, z_coord=dest_z)
+        self.player.move_to(dest_location)
+        return f'You move in the north direction'
+
+    n = north
