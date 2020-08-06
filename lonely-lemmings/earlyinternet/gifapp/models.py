@@ -8,7 +8,6 @@ class Project(models.Model):
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     is_gif = models.BooleanField(null=False, default=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    preview_version = models.ImageField(upload_to="images/")
     upload_version = models.ImageField(upload_to="images/")
 
     def __repr__(self) -> str:
