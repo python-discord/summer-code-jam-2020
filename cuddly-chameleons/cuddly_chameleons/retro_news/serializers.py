@@ -1,5 +1,8 @@
+from abc import ABC
+
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from retro_news.models import CustomUser
 
@@ -24,3 +27,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Custom token obtain serializer to include superuser status to response."""
+
+    def validate(self, attrs):
+        """Add superuser field to response."""
+        data = super().validate(attrs)
+        data['superuser'] = self.user.is_superuser
+        return data
