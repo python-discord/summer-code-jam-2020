@@ -1,7 +1,14 @@
-function addr_bar_enter() {
-    //document.getElementById("ie-iframe").src = "https://test.com/";
+function ie_home() {
+    document.getElementById("ie-addr-bar").value = "http://bing.com";
+    ie_refresh();
+}
+
+function ie_refresh() {
     document.getElementById("ie-iframe").src = "/page/"+encodeURIComponent(document.getElementById("ie-addr-bar").value);
-    console.log("/page/"+encodeURI(document.getElementById("ie-addr-bar").value));
+}
+
+function addr_bar_enter() {
+    ie_refresh();
 }
 
 document.getElementById("ie-addr-bar").addEventListener("keyup", function(event) {
