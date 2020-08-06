@@ -2,5 +2,20 @@
     <div class="logo">Logo placeholder</div>
     <div class="empty">Empty Placeholder</div>
     <div class="search">Search Placeholder</div>
-    <div class="user">User placeholder</div>
+    <div class="user">
+        {% if request.user.is_authenticated %}
+            <h2>Hello {{request.user.first_name }}</h2>
+            <form method="POST" action={% url "logout" %}>
+                {% csrf_token %}
+                <button type="submit">Sign Out</button>
+            </form>
+        {% else %}
+        <form method="POST" action={% url "login" %}>
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" />
+            <input type="password" name="password" placeholder="Password" />
+            <button type="submit">Sign In</button>
+        </form>
+        {% endif %}
+    </div>
 </div>
