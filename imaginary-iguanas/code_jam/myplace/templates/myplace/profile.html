@@ -13,4 +13,13 @@
             {% endif %}
         {% endif %}
     {% endfor %}
+
+    {% if profile_comments %}
+        <ul>
+            {% for comment in profile_comments %}
+                <li>{{ comment }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
 {% endblock content %}

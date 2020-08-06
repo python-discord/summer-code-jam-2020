@@ -20,7 +20,8 @@ def user(request, username_or_id: Union[int, str]):
                 'audio_track': profile.audio_track
             },
             'title': profile,
-            'custom_css': profile.profile_css
+            'custom_css': profile.profile_css,
+            'profile_comments': profile.comments.all()
         }
         return render(request, 'myplace/profile.html', context)
     except Profile.DoesNotExist:

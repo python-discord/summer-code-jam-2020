@@ -27,4 +27,4 @@ class BlogComment(Comment):
 
 
 class ProfileComment(Comment):
-    user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
