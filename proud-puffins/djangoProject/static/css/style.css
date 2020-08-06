@@ -7,6 +7,11 @@
 
 }
 
+.editer {
+    border: inset;
+    background: white;
+
+}
 .home_h1 {
     background-color: #003388;
     color: #f5dd5d;
@@ -22,7 +27,6 @@
 
 a {
   color: #C00000;
-  font-size:medium;
 }
 
 a:visited {
@@ -55,11 +59,7 @@ html {
   width: 250;
 }
 .columncenter {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  padding-top: 1cm;
-
+  float: top
 }
 /* Clear floats after the columns */
 .row:after {
@@ -72,7 +72,6 @@ html {
   display: block;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 /* width */

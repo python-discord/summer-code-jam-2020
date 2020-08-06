@@ -1,6 +1,6 @@
 {% extends 'dating/base.html' %}
 {% block title %} Love Detector {% endblock %}
-{%  block content %}
+{%  block content %}qq
 <div style="background-image: url(/static/images/homebg.gif);" >
     <div>
         <p class="Descriptor"> Ready To Find The Love Of Your Life? Ditch The Playboys And Get Loving! </p>
@@ -69,12 +69,6 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
 </script>
-
-{% for result in results %}
-  <p>
-  {{result.first_name}}
-  </p>
-{% endfor %}
 
 
 {% endblock %}
