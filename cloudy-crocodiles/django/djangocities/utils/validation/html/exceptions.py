@@ -15,7 +15,7 @@ class HtmlCommentError(Exception):
 
 class InvalidHtmlTagError(Exception):
     """
-    Exception for a tag that isn't valid.
+    Exception for a tag that isn't properly formatted (opened, closed, etc.)
     """
 
     pass
@@ -24,6 +24,15 @@ class InvalidHtmlTagError(Exception):
 class NestedHtmlTagError(Exception):
     """
     Nested tag openings like "<<html"
+    """
+
+    pass
+
+
+class UnsupportedHtmlTag(Exception):
+    """
+    Tags that are not supported in this implementation, or by the HTML version,
+    e.g. <div> in HTML 2.
     """
 
     pass
