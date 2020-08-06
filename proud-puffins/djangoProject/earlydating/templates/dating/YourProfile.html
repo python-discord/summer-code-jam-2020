@@ -4,17 +4,16 @@
 {% block content %}
 
 {% if user.profile.img %}
-    <img src="../{{ user.profile.img.url }}">
+    <img src="../{{ user.profile.img.url }}" height="500">
 {% endif %}
-<h1>First Name: {{user.first_name}}</h1>
-<h1>Last Name: {{user.last_name}}</h1>
+<h1>{{user.first_name}} {{user.last_name}}</h1>
 <h1>Age: {{user.profile.age}}</h1>
 <h1>Sex: {{user.profile.sex}}</h1>
-<h1>Bio:</h1>
-<p>{{user.profile.bio}</p>
+<p>--------------------------------------------------------------------------</p>
+<h1>{{user.profile.bio}}</h1>
 
-<p><a href="{% url 'earlydating-home' %}">Home</a></p>
-<p><a class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
+<p><a href="{% url 'earlydating-home' %}" style="font-size: large; font-weight: bold;">Edit Profile</a></p> <!-- Currently set to go home, must change to go to edit page when finished. -->
+<p><a class="hello-msg" href="{% url 'earlydating-logout' %}" style="font-size: large; font-weight: bold;">Logout</a></p>
 
 
 {% endblock %}
