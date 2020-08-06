@@ -1,6 +1,6 @@
 - model: auth.user
   pk: 1
-  fields: # password: hard123password
+  fields: # password: hard123passwd
     password: pbkdf2_sha256$216000$mqpRj5JIy2fB$cxycoBgFB3dq9j70n12U4XuOT6S18Co7gld69Il2Z1E=
     last_login: null
     is_superuser: true
