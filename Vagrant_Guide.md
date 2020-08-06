@@ -3,7 +3,7 @@ Provides a linux VM to allow a Windows 10 Home user to develop some what seemles
 
 ### Prerequisites
 - Minimum 2GB of free disk space
-- [Virtualbox](https://www.virtualbox.org/) installed
+- [Virtualbox](https://www.virtualbox.org/wiki/Downloads) installed
 - [Vagrant](https://www.vagrantup.com/downloads) installed
 - You have permission to create symlinks. [Here](https://superuser.com/a/125981) is guide to get this permission. 
 
