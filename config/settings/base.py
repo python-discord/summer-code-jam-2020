@@ -50,6 +50,8 @@ ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 
+ASGI_APPLICATION = "config.channels_routing.application"
+
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
@@ -287,4 +289,3 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-ASGI_APPLICATION = "config.channels_routing.applicationa"
