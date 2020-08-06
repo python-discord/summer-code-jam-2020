@@ -330,3 +330,5 @@ shiny_sheep/media/
 .env
 .envs/*
 !.envs/.local/
+
+.vagrant/
