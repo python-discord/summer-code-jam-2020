@@ -39,6 +39,10 @@ class Player(models.Model):
     experience = models.BigIntegerField(default=0)
     location_id = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
 
+    def move_to(self, location: Location):
+        self.location_id = location
+        self.save()
+
 
 class ItemBlueprint(models.Model):
     '''The "blueprint" for items in the game.'''
