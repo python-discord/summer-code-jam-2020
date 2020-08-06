@@ -37,6 +37,7 @@ class SignUp extends React.Component {
             localStorage.setItem('username', this.state.username);
 
             this.setState({creating: false});
+            this.props.handler(true);
 
             return tokenResponse.data;
         } catch (error) {

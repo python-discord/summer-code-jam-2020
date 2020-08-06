@@ -5,20 +5,15 @@ import { Nav } from 'react-bootstrap';
 import axios from "../AxiosAPI";
 
 class UserNav extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {logged_in: localStorage.getItem('access_token') && localStorage.getItem('refresh_token') && localStorage.getItem('username')};
-    }
-
     render() {
-        if (this.state.logged_in) {
+        if (this.props.status) {
             const logOutAction = async (event) => {
                 event.preventDefault();
                 await axios.post('/user/logout/', {refresh_token: localStorage.getItem('refresh_token')});
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 localStorage.removeItem('username');
-                this.state.logged_in = false;
+                this.props.handler(false);
             };
 
             return (

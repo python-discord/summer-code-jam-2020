@@ -10,7 +10,7 @@ class Header extends React.Component {
                 <Navbar.Brand href="/">Retro News</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <UserNav />
+                    <UserNav status={this.props.status} handler={this.props.handler} />
                 </Navbar.Collapse>
             </Navbar>
         );

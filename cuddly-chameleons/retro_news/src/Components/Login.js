@@ -29,6 +29,7 @@ class Login extends React.Component {
         localStorage.setItem('username', this.state.username);
 
         this.setState({ logging_in: false });
+        this.props.handler(true);
         return response.data;
     }
 

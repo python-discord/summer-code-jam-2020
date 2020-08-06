@@ -6,16 +6,29 @@ import Header from './Header';
 import Login from './Login';
 import SignUp from './SignUp';
 
-function App() {
-  return (
-      <BrowserRouter>
-          <Header />
-          <Switch>
-              <Route path="/login" children={<Login />} />
-              <Route path="/signup" children={<SignUp />} />
-          </Switch>
-      </BrowserRouter>
-  );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {logged_in: localStorage.getItem('access_token') && localStorage.getItem('refresh_token')};
+        this.toggleLogin = this.toggleLogin.bind(this);
+    }
+
+    toggleLogin(status) {
+        this.setState({ logged_in: status });
+    }
+
+    render() {
+        return (
+            <BrowserRouter>
+                <Header handler={this.toggleLogin} status={this.state.logged_in} />
+                <Switch>
+                    <Route path="/login" children={<Login handler={this.toggleLogin} />}/>
+                    <Route path="/signup" children={<SignUp handler={this.toggleLogin} />}/>
+                </Switch>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default App;
