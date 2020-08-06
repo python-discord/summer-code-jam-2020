@@ -66,12 +66,16 @@ function toggle_start() {
 
 function toggle_start_settings() {
     var start_settings = document.getElementsByClassName("start-settings")[0];
+    var start_themes = document.getElementsByClassName("start-themes")[0];
+    var start_wallpapers = document.getElementsByClassName("start-wallpapers")[0];
 
     if (start_settings.style.display == "none") {
         start_settings.style.display = "block";
         start_settings.style.zIndex = document.getElementsByClassName("draggable").length+1;
     } else {
         start_settings.style.display = "none";
+        start_themes.style.display = "none";
+        start_wallpapers.style.display = "none";
     }
 }
 
