@@ -8,6 +8,9 @@ class User(models.Model):
     avatar = models.ImageField(upload_to='img/users/avatar')
     join_date = models.DateTimeField()
 
+    def get_absolute_url(self):
+        return '/rss/feed/user/' + str(self.id)
+
 
 class Community(models.Model):
     id = models.AutoField(primary_key=True)
@@ -18,6 +21,9 @@ class Community(models.Model):
     subscribers = models.ManyToManyField(User, related_name='community_subscribers')
     location = models.CharField(max_length=20)
 
+    def get_absolute_url(self):
+        return '/rss/feed/community/' + str(self.id)
+
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
@@ -27,6 +33,9 @@ class Post(models.Model):
     description = models.TextField()
     views = models.ManyToManyField(User)
     creation_date = models.DateTimeField()
+
+    def get_absolute_url(self):
+        return '/rss/feed/posts/' + str(self.id)
 
 
 class Comments(models.Model):
