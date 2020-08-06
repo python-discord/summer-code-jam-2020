@@ -93,18 +93,16 @@ class InfoView(TemplateView):
     #     if not comment.comment_set.all():
     #         return None
 
-
     #     for thread_comment in comment.comment_set.order_by("created"):
     #         ordered_comments.append(thread_comment)
     #         print(comment.comment_set.first())
     #         # print("THREAD", thread_comment)
     #         self.preorder(thread_comment, ordered_comments)
 
-
     # def soort(self, post):
     #     ordered_comments = []
     #     comments = Comment.objects.filter(post=post, thread_level__in=[0,1,2,3,4])
-    #     ordered_root_comments = comments.filter(thread_level=0).order_by("-created") 
+    #     ordered_root_comments = comments.filter(thread_level=0).order_by("-created")
     #     for comment in ordered_root_comments:
     #         ordered_comments.append(comment)
     #         self.preorder(comment, ordered_comments)
@@ -129,13 +127,24 @@ class InfoView(TemplateView):
             return redirect("topic", name=kwargs["name"])
 
         elif "comment_post" in request.POST:
-            body = request.POST["post_id_comment"]
+            body = request.POST["comment_body"]
             post_id = request.POST.get("post_id")
             print("POST", post_id)
             post = get_object_or_404(Post, id=post_id)
             author = request.user
             comment_thread = None
             Comment.objects.create(body=body, author=author, post=post)
+            return self.get(request, *args, **kwargs)
+        elif "comment_comment" in request.POST:
+            body = request.POST["comment_body"]
+            post_id = request.POST.get("post_id")
+            post = get_object_or_404(Post, id=post_id)
+            comment_id = request.POST.get("comment_id")
+            author = request.user
+            comment = Comment.objects.get(id=comment_id)
+            thread_level = comment.thread_level + 1
+
+            Comment.objects.create(body=body, author=author, post=post, thread_level=thread_level, comment_thread=comment)
             return self.get(request, *args, **kwargs)
 
 
@@ -144,7 +153,7 @@ class LoginView(TemplateView):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('/')
+            return redirect("/")
 
     def post(self, request):
         username = request.POST.get("username")
@@ -164,7 +173,7 @@ class RegisterView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('/')
+            return redirect("/")
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
 
@@ -206,10 +215,10 @@ class SearchView(TemplateView):
 
 
 class UserView(TemplateView):
-    template_name = 'profile.html'
+    template_name = "profile.html"
 
     def get(self, request, *args, **kwargs):
-        user = get_object_or_404(CustomUser, username=kwargs['user'])
+        user = get_object_or_404(CustomUser, username=kwargs["user"])
         posts = Post.objects.filter(author=user.id)
-        context = {'user': user, 'posts': posts}
+        context = {"user": user, "posts": posts}
         return render(request, self.template_name, context)

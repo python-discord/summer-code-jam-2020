@@ -82,7 +82,7 @@ class Comment(TimeStampedModel):
     def __unicode__(self):
         return f"author={self.author} body={self.body} thread_level={self.thread_level}"
 
-    @classmethod 
+    @classmethod
     def preorder(cls, comment, ordered_comments):
         """
         Depth-first search of binary tree - Pre-order.
@@ -101,7 +101,7 @@ class Comment(TimeStampedModel):
         for thread_comment in comments:
             ordered_comments.append(thread_comment)
             cls.preorder(thread_comment, ordered_comments)
-    
+
     @classmethod
     def sort_comment_section(cls, post):
         """
@@ -114,7 +114,7 @@ class Comment(TimeStampedModel):
                 ordered_comments (list): List of Comment objects
         """
         ordered_comments = []
-        comments = Comment.objects.filter(post=post, thread_level__in=[0,1,2,3,4])
+        comments = Comment.objects.filter(post=post, thread_level__in=[0, 1, 2, 3, 4])
         ordered_root_comments = comments.filter(thread_level=0).order_by("-created")
 
         for comment in ordered_root_comments:
@@ -122,4 +122,3 @@ class Comment(TimeStampedModel):
             cls.preorder(comment, ordered_comments)
 
         return ordered_comments
-

@@ -1,6 +1,16 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<script type="text/javascript">
+  function fun(form_id) {
+    console.log("FORM");
+    var form = document.getElementById(form_id);
+    console.log(form);
+    form.style.display = "block";
+  }
+
+</script>
+
 <div class='w3-container w3-white' style='width: 1000px; height: 420px;'>
 
 <h5>{{post.title}}</h5>
@@ -17,8 +27,8 @@
 <form method='POST'>
   {% csrf_token %}
   <input type="hidden" name="post_id" value="{{post.id}}" />
-  <textarea name="post_id_comment" style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
-  <button type='submit'  name='comment_post' >REPLY</button>
+  <textarea name="comment_body" style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
+  <button type='submit' name='comment_post' >REPLY</button>
 </form>
 
 </div>
@@ -35,7 +45,15 @@
         {{comment.body}}
       </p>
     </div>
+    <button onclick="fun({{comment.id}});">REPLY</button>
   </div>
+  <form id="{{comment.id}}" style="display: None;" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="comment_id" value="{{comment.id}}"/>
+    <input type="hidden" name="post_id" value="{{post.id}}"/>
+    <textarea name="comment_body" style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
+    <button type='submit' name='comment_comment' >REPLY</button>
+  </form>
   {% endfor %} 
 </div>
 {% endblock %}
