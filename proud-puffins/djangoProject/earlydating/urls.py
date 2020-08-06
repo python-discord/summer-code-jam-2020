@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 
@@ -12,3 +14,7 @@ urlpatterns = [
     path('about/', views.about, name='earlydating-about'),
     path('YourProfile/', views.your_profile, name='earlydating-yourprofile')
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

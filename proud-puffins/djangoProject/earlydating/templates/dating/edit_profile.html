@@ -6,8 +6,13 @@
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset class="form-group">
-                {{ u_form|crispy }}
-                {{ p_form|crispy }}
+                {% for item in u_form %}
+                <p><label style="font-size:large; font-weight:bold">{{ item.label }}</label> <h1 class="resizedTextbox">{{ item }}</h1></p>
+                {% endfor %}
+
+                {% for item in p_form %}
+                <p><label style="font-size:large; font-weight:bold">{{ item.label }}</label> <h1 class="resizedTextbox">{{ item }}</h1></p>
+                {% endfor %}
         </fieldset>
         <div class="form-group">
                 <button class="buttonmatch" type="submit">Submit Edits</button>

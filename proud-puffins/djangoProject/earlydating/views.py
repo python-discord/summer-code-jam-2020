@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect
-# from .models import Profile
-from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
-from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
+from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
+from .decorators import unauthenticated_user, allowed_users
 
 
 # Create your views here.
@@ -43,19 +41,6 @@ def register_page(request):
             return redirect('earlydating-login')
     context = {'form': form}
     return render(request, 'dating/register.html', context)
-
-# MADE TO AUTOMATICALLY PUT SIGNED USERS IN MAYBE SIMPLER
-# def register(request):
-#     if request.method == 'Post':
-#         form = CreateUserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Account Made | Get Loving {username}!')
-#             return redirect('earlydating-DateMatcher')
-#         else:
-#             form= CreateUserForm()
-#         return redirect('earlydating-DateMatcher')
 
 
 def logoutUser(request):
@@ -100,12 +85,12 @@ def editprofile(request):
         if u_form.is_valid() and p_form.is_valid:
             u_form.save()
             p_form.save()
-            messages.success(request, f'Your profile has been updated.')
+            messages.success(request, 'Your profile has been updated.')
             return redirect('../YourProfile')
 
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile) 
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
         'u_form': u_form,
