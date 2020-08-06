@@ -17,6 +17,7 @@ class Guestbook(DetailView):
         # check whether it's valid:
         if form.is_valid():
             #create a model with the request data
+            print(request)
             GbModel.objects.create(
                 author=request.POST["author"],
                 text=request.POST["text"],
@@ -25,7 +26,7 @@ class Guestbook(DetailView):
             )
 
         return render(
-            request, "guestbook/guestbook.html", {"form": form}
+            request, self.template_name, {"form": form, "comments": comments}
         )
 
     def get(self, request, *args, **kwargs):
