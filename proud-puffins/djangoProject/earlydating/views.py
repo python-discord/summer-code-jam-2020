@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import UserVote
-from .forms import CreateUserForm
+from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
 from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -109,3 +109,28 @@ class UserEditView(generic.UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
+def editprofile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid:
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('../YourProfile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'dating/edit_profile.html', context)
