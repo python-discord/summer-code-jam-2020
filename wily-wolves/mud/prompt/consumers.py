@@ -43,10 +43,6 @@ class MudConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        ### IMPORTANT ###
-        # This message is what we'll use as command input
-        # So here we'll split it and work with the commands
-
         command = message.lower().split(maxsplit=1)[0]
         if self.scope['user'].is_authenticated == True:
             try:
