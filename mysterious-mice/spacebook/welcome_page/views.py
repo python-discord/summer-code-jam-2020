@@ -10,6 +10,6 @@ class Welcome(DetailView):
     def get(self, request, *args, **kwargs):
         count = VisitCount.objects.get(id=21)
         count.num_visits += 1
-        count.save(update_fields=['num_visits'])
+        count.save(update_fields=["num_visits"])
 
-        return render(request, "welcome_page/welcome.html", {"count" : count.num_visits })
+        return render(request, "welcome_page/welcome.html", {"count": count.num_visits})

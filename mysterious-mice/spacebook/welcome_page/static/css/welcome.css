@@ -1,14 +1,8 @@
 body {
     color: #CCCCCC;
-    /* background image from https://1-background.com/stars_1.htm url("../images/beautiful-blue-stars-fill.jpg")*/
+    /*  url("../images/beautiful-blue-stars-fill.jpg")*/
     background: black;
-    animation: animatedBackground 15s linear infinite;
     font-family: sans-serif;
-}
-
-@keyframes animatedBackground {
-    from {background-position: 0 0;}
-    to {background-position: 402px 0;}
 }
 th, td {
   border: 1px solid white;
@@ -24,6 +18,3 @@ h2{
   transform: translate(-50%, -50%);
 }
 
-.logo {
-    max-height:50px;
-}
