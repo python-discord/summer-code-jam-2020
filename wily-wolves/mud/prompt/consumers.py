@@ -9,9 +9,12 @@ from django.contrib.auth.hashers import make_password
 from passlib.hash import django_pbkdf2_sha256
 from game.engine import Engine
 
-welcome_text = (figlet_format('Wily Wolves', font='starwars') +
-        f"\nThis is the Wily Wolves MUD project for the Python Discord: Summer-code-jam-2020"
-        f"\nType 'login' if you already have an account or 'new' to start this journey!")
+welcome_text = (
+    f"{figlet_format('Wily Wolves', font='starwars')} "
+    f"\nThis is the Wily Wolves MUD project for the Python Discord: Summer-code-jam-2020"
+    f"\nType 'login' if you already have an account or 'new' to start this journey!"
+)
+
 
 class MudConsumer(WebsocketConsumer):
     def connect(self):
@@ -43,6 +46,7 @@ class MudConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
+<<<<<<< HEAD
         command = message.lower().split(maxsplit=1)[0]
         if self.scope['user'].is_authenticated == True:
             try:
@@ -50,22 +54,41 @@ class MudConsumer(WebsocketConsumer):
                 message = eval('e.' + command + '()')
             except AttributeError:
                 message = f"{command} is not a valid command! Type 'help' if you need."
+=======
+        # IMPORTANT #
+        # This message is what we'll use as command input
+        # So here we'll split it and work with the commands
+
+        command = message.lower().split(maxsplit=1)[0]
+        local_command = True
+        if self.scope['user'].is_authenticated:
+            pass
+
+>>>>>>> origin/gui
         elif command == 'login':
             if len(message.split()) == 3:
                 username_to_login = message.split()[1]
                 plain_password_to_login = message.split()[2]
+
                 if len(User.objects.filter(username=username_to_login)) == 1:
                     self.user = User.objects.get(username=username_to_login)
                     dt = self.user.last_login
-                    if django_pbkdf2_sha256.verify(plain_password_to_login, self.user.password) == True:
+
+                    if django_pbkdf2_sha256.verify(plain_password_to_login, self.user.password):
                         async_to_sync(auth_login)(self.scope, user=self.user)
+
                         if dt:
-                            message = (f"Welcome back, {self.user}! \n" +
-                                f"You last logged in at {dt.strftime('%Y-%m-%d %H:%M')} (UTC)")
+                            message = (
+                                f"Welcome back, {self.user}! \n"
+                                f"You last logged in at {dt.strftime('%Y-%m-%d %H:%M')} (UTC)"
+                            )
+
                         else:
-                            message = (f"Welcome to the MUD, {self.user}! \n" +
-                                f"Since it's your first time here, we'll guide you in your first steps.")
-                        print(f"Successfully logged in as {self.user}")
+                            message = (
+                                f"Welcome to the MUD, {self.user}! \n"
+                                f"Since it's your first time here, we'll guide you in your first steps."
+                            )
+
                         async_to_sync(self.channel_layer.group_send)(
                             self.room_group_name,
                             {
@@ -74,30 +97,46 @@ class MudConsumer(WebsocketConsumer):
                                 'sender_channel_name': self.channel_name
                             }
                         )
+
                     else:
                         message = "Wrong password! Please try 'login <username> <password> again."
+
                 else:
                     message = f"{username_to_login!r} is not a valid username. If you are new here, please type 'new'"
+
             else:
                 message = "To log in, please type 'login <username> <password>'."
+
         elif command == 'new':
             if len(message.split()) == 3:
                 username_to_create = message.split()[1]
                 password_to_create = message.split()[2]
                 hashed_password = make_password(password_to_create)
+
                 if len(User.objects.filter(username=username_to_create)) == 0:
-                    new_user = User(username=username_to_create, password=hashed_password, is_superuser=False, is_staff=False)
+                    new_user = User(
+                        username=username_to_create,
+                        password=hashed_password,
+                        is_superuser=False,
+                        is_staff=False
+                    )
                     new_user.save()
                     new_player = Player(user_id=new_user)
                     new_player.save()
+
                 else:
                     message = f"Someone is already using {username_to_create}"
+
             else:
                 message = "To create a new user, please type 'new <username> <password>'."
         else:
             message = "You need to log in first. Please type 'login' or 'new'"
 
+<<<<<<< HEAD
         if message != False:
+=======
+        if local_command:
+>>>>>>> origin/gui
             self.send(text_data=json.dumps({
                 'message': message
             }))
@@ -123,6 +162,7 @@ class MudConsumer(WebsocketConsumer):
         # Send a message to everyone else other than the sender
         if self.channel_name != event['sender_channel_name']:
             self.send(text_data=json.dumps({
+<<<<<<< HEAD
                     'message': message
         }))
 
@@ -133,3 +173,7 @@ class MudConsumer(WebsocketConsumer):
             self.send(text_data=json.dumps({
                     'message': message
         }))
+=======
+                'message': message
+            }))
+>>>>>>> origin/gui
