@@ -1,6 +1,5 @@
 from typing import Union
 
-import pycountry
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -12,12 +11,12 @@ def user(request, username_or_id: Union[int, str]):
         profile = _get_profile(username_or_id)
         context = {'user_prof': {
             'username': profile.user.username,
-            'email': profile.user.email,
             'image': profile.image,
-            'gender': {'M': 'Male', 'F': 'Female', 'D': 'Other'}[profile.gender],
-            'country': pycountry.countries.get(alpha_2=profile.country).name,
+            'gender': profile.get_gender_display(),
+            'country': profile.get_country_display(),
             'city': profile.city,
-            'date_of_birth': profile.date_of_birth
+            'date_of_birth': profile.date_of_birth,
+            'audio_track': profile.audio_track
             },
             'title': profile
         }
