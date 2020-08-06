@@ -15,8 +15,8 @@
             <a href="{# {% url 'battle' %} #}#">Battle</a>
             <a href="{# {% url 'logout' %} #}#">Log out</a>
         {% else %}
-            <a href="{# {% url 'about' %} #}#">Sign up</a>
-            <a href="{# {% url 'about' %} #}#">Log in</a>
+            <a href="{# {% url 'signup' %} #}#">Sign up</a>
+            <a href="{# {% url 'login' %} #}#">Log in</a>
         {% endif %}
     </nav>
     {% block content %}{% endblock %}

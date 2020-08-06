@@ -9,7 +9,7 @@ services:
             POSTGRES_PASSWORD: NotARealPassword
     web:
         build: .
-        command: python arena/manage.py runserver 0.0.0.0:8000
+        command: bash -c "python3 arena/manage.py migrate && python3 arena/manage.py runserver 0.0.0.0:8000"
         volumes:
             - .:/code
         ports:
