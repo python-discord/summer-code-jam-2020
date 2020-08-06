@@ -10,6 +10,8 @@ from main.views import (
     CreatePostView,
     SearchView,
     UserView,
+    AccountView,
+    ChangePassword,
 )
 
 
@@ -24,5 +26,7 @@ urlpatterns = [
     path("create/post", CreatePostView.as_view(), name="create_post"),
     path("search/<str:q>", SearchView.as_view(), name="search"),
     path('user/<str:user>', UserView.as_view(), name='profile'),
-    path('user/<str:user>/posts', UserView.as_view())
+    path('user/<str:user>/posts', UserView.as_view()),
+    path('account', AccountView.as_view(), name='account'),
+    path('account/password', ChangePassword.as_view(), name='change_password')
 ]
