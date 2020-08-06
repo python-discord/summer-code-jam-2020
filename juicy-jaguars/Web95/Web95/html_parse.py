@@ -28,6 +28,6 @@ class HtmlParser:
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('body {background-color:#d3d3d3 !important;}')
+            head.style.append('body {background-color:#52575F;}')
         except KeyError:
             pass
