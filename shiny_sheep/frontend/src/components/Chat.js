@@ -7,28 +7,46 @@ const chatSocket = new WebSocket(
 class Chat extends Component {
   constructor(props) {
     super(props);
-    chatSocket.onmessage = function (e) {
-      const data = JSON.parse(e.data);
-      this.setState({ chatLogs: this.chatLogs + data.message})
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    
+    this.state = { 
+      chatLogs: "",
+      input: ""
     };
-    chatSocket.onclose = function (e) {
+  }
+  componentDidMount(){
+    chatSocket.onmessage = (event) => { 
+      const data = JSON.parse(event.data);
+      this.setState({ chatLogs: this.state.chatLogs + '\n' + data.message})
+    };
+    chatSocket.onclose = (event) => {
       console.error("Chat socket closed unexpectedly");
     };
-    this.state = { chatLogs: [] };
+  }
+  handleChange(event){
+    this.setState({input: event.target.value});
+  }
+  handleSubmit(event){
+    const data = JSON.stringify({
+      'message': this.state.input
+    });
+    chatSocket.send(data);
+    this.setState({ input: "" });
+    event.preventDefault();
   }
 
   render() {
-    const displayLogs = [];
-    for (let log in this.state.chatLogs) {
-      displayLogs.push(<span>{log}</span>);
-    }
     return (
       <div>
-        <textarea id="chat-log" cols="100" rows="20"></textarea>
+        <textarea value={this.state.chatLogs} id="chat-log" cols="100" rows="20"></textarea>
         <br />
-        <input id="chat-message-input" type="text" size="100" />
-        <br />
-        <input id="chat-message-submit" type="button" value="Send" />
+        <form onSubmit={this.handleSubmit}>
+          <input value={this.state.input} onChange={this.handleChange} id="chat-message-input" type="text" size="100" />
+          <br />
+          <input id="chat-message-submit" type="submit" value="Send" />
+        </form>
       </div>
     );
   }
