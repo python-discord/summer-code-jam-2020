@@ -25,5 +25,13 @@
 <script type="text/x-template" id="app-template">
     <div id="app"><directory></directory><messages></messages></div>
 </script>
+<script type="text/x-template" id="messages-template">
+    <div>
+        <div v-for="message in messages" :key="message.content" v-bind:class="{'alert-primary': (current_user==message.sender), 'alert-info':(current_user!=message.sender)}" class="alert">
+            <span data-toggle="tooltip" data-placement="top" v-bind:title="message.time">{{ message.sender }}</span>
+            : {{ message.content }}
+        </div>
+    </div>
+</script>
 </body>
 </html>
