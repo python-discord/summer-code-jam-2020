@@ -24,8 +24,6 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8000, host: 8000 # Django server
   config.vm.network "forwarded_port", guest: 2375, host: 2375 # docker daemon
 
-  config.vm.synced_folder "./", "/home/vagrant/summer-code-jam-2020"
-
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4096" #4 GB ram
     vb.customize ["modifyvm", :id, "--cpus", "2"] # use 2 cpu cores
@@ -44,33 +42,29 @@ sudo apt-get update && sudo apt-get upgrade -y
 # so we can add keys of various software. the two gpgs don't clash, apparently.
 # sudo apt-get install gnupg2 gnupg gnupg-agent
 
-# installs node with npm included.
+# Setup APT for Nodejs 
 curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash -
-sudo apt-get install -y nodejs npm
 
-# docker install
+# Docker Setup
 sudo apt remove docker docker-engine docker.io
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt update
-sudo apt install -y docker-ce
 
-# Make docker listen on port 2375
-sudo mkdir -p /etc/docker
-echo '{"hosts": ["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]}' | sudo tee /etc/docker/daemon.json
-        
-sudo mkdir -p /etc/systemd/system/docker.service.d
-cat | sudo tee /etc/systemd/system/docker.service.d/override.conf <<EOF
-[Service]
-ExecStart=
-ExecStart=/usr/bin/dockerd
-EOF
+sudo apt install -y docker-ce nodejs npm python3-pip
+
+# Install docker-compose using pip
+sudo pip3 install docker-compose
 
 sudo systemctl enable docker
+sudo systemctl start docker
 
 sudo usermod -aG docker $USER
 newgrp docker
+
+cd /vagrant
+./setup.sh
 
 SHELL
 	#actually run the above script during provisioning.
