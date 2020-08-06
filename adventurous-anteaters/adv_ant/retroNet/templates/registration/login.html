@@ -7,7 +7,7 @@
 </head>
 <body>
  <form method="post" class="from-group">
-	{% csrf_token %}
+     {% csrf_token %}
 	{{form.as_p}}
 	<p>Don't have an account? Create one <a href="/register">here</a></p>
 	<button type="submit" class="btn btn-success">Login</button>
