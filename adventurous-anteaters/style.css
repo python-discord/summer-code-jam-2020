@@ -50,6 +50,43 @@ button{
   margin: 0;
 }
 
+.btn{
+  border: 0px solid transparent;
+  background-color: #bbc3c4;
+  position: relative;
+  user-select: none;
+}
+
+.BtnIconwText{
+  padding: 2px;
+  width: 48px;
+  min-width: 48px;
+  height: 38px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: none;
+}
+
+.BtnIconwText:hover{
+  box-shadow: var(--border-raised-outer), var(--border-raised-inner);;
+}
+
+.divider1, .divider2{
+  border-left: 1px solid #808088;
+  border-right: 1px solid #ffffff;
+  width: 1px;
+  margin: 2px 3px;
+}
+
+
+.menu{
+  display: flex;
+  overflow: hidden;
+  padding: 1px 0px;
+  position: relative;
+}
+
 /**
  * 98.css
  * Copyright (c) 2020 Jordan Scales <thatjdanisso.cool>
