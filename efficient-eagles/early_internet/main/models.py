@@ -62,7 +62,10 @@ class Post(TimeStampedModel):
         return f"title={self.title} author={self.author} upvotes={self.upvotes} downvotes={self.downvotes}"
 
     def save(self, *args, **kwargs):
-        super(Post, self).save()
+        if self.pk:
+            self.upvotes = len(self.upvoted_by.all())
+            self.downvotes = len(self.downvoted_by.all())
+        super(Post, self).save(*args, **kwargs)
         if not self.slug:
             slug = slugify(self.title)
             try:
@@ -88,6 +91,12 @@ class Comment(TimeStampedModel):
 
     def __unicode__(self):
         return f"author={self.author} body={self.body} thread_level={self.thread_level}"
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            self.upvotes = len(self.upvoted_by.all())
+            self.downvotes = len(self.downvoted_by.all())
+        super(Comment, self).save(*args, **kwargs)
 
     @classmethod
     def preorder(cls, comment, ordered_comments):
