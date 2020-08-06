@@ -60,10 +60,15 @@ def about(request):
 @allowed_users(allowed_roles=['profile'])
 def DateMatcher(request):
     logged_user = request.user
-    if request.method == 'GET':
-        if liked_pk := request.GET.get('Like'):
+    if request.method == 'POST':
+        print(request.POST)
+        if liked_pk := request.POST.get('Like'):
             voted = User.objects.get(pk=liked_pk)
             UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=True)
+
+        return redirect('earlydating-DateMatcher')
+    elif request.method == 'GET':
+
         user = get_unvoted(logged_user)
         context = {'current': user}
         return render(request, 'dating/DateMatcher.html', context)

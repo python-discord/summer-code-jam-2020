@@ -19,8 +19,11 @@
 
 <!-- The dots/circles -->
 <div style="text-align:center">
-  <a href="{% url 'earlydating-DateMatcher' %}?Like={{current.pk}}">Like</a>
-  <a href="{% url 'earlydating-DateMatcher' %}">Next</a>
+ <form method='POST'>
+    {% csrf_token %}
+    <button type="submit" name="Like" value="{{current.pk}}">Like</button>
+    <button type="submit" name="Next">Next</button>
+    </form>
 
 </div>
 
