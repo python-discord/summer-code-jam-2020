@@ -6,33 +6,40 @@ import axios from '../AxiosAPI';
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: "", password: "", logging_in: false};
+        this.state = {username: "", password: "", logging_in: false, invalid: false};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
+        this.setState({invalid: false});
         this.setState({[event.target.name]: event.target.value});
     }
 
     async handleSubmit(event) {
         event.preventDefault();
         this.setState({ logging_in: true })
-        const response = await axios.post('/token/obtain/', {
-            username: this.state.username,
-            password: this.state.password,
-        });
-        axios.defaults.headers['Authorization'] = "JWT " + response.data.access;
-        localStorage.setItem('access_token', response.data.access);
-        localStorage.setItem('refresh_token', response.data.refresh);
-        localStorage.setItem('username', this.state.username);
-        localStorage.setItem('superuser', response.data.superuser === true ? 'true' : 'false');
 
-        this.setState({ logging_in: false });
-        this.setState({username: "", password: ""});
-        this.props.handler(true);
-        return response.data;
+        try {
+            const response = await axios.post('/token/obtain/', {
+                username: this.state.username,
+                password: this.state.password,
+            });
+
+            axios.defaults.headers['Authorization'] = "JWT " + response.data.access;
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            localStorage.setItem('username', this.state.username);
+            localStorage.setItem('superuser', response.data.superuser === true ? 'true' : 'false');
+
+            this.setState({logging_in: false});
+            this.setState({username: "", password: ""});
+            this.props.handler(true);
+            return response.data;
+        } catch (e) {
+            this.setState({invalid: true, logging_in: false});
+        }
     }
 
     render() {
@@ -55,6 +62,7 @@ class Login extends React.Component {
         return (
             <Container>
                 <h3>Login</h3>
+                <span style={{ color: "red" }}>{this.state.invalid ? "Invalid username or password." : ""}</span>
                 <form onSubmit={this.handleSubmit}>
                     <label>Username: <TextInput name="username" value={this.state.username} onChange={this.handleChange} /></label>
                     <br />
