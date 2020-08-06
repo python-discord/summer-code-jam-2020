@@ -12,7 +12,8 @@ short description
 This project was created for the [Python Discord Summer Code Jam 2020](https://pythondiscord.com/pages/code-jams/code-jam-7/) in August 2020.
 The goal was to develop a Django-based web application with the theme "Early Internet".
 You can find the main repository of the code jam [here](https://github.com/python-discord/summer-code-jam-2020).
-![django](images/summer_cj_2020_banner.png)
+
+<img src='images/summer_cj_2020_banner.png' width=600 class="center">
 
 
 ## Getting Started
