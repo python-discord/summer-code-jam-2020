@@ -134,3 +134,4 @@ dmypy.json
 # Project
 *db.sqlite3
 **/.vscode/
+**/staticfiles/

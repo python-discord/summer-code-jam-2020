@@ -3,25 +3,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'style.css' %}" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TeaBay</title>
+    {% load django_simple_bulma %}
+    {% bulma %}
+    {% font_awesome %}
+    <link href="{% static 'style.css' %}" rel="stylesheet" />
 </head>
 
 <body>
     {% include 'partials/header.html' %}
-    <div class="body-content">
-        {% if messages %}
-        {% for message in messages %}
-        <div>
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% block content %}
-        {% endblock %}
+    {% if messages %}
+    {% for message in messages %}
+    <div>
+        {{ message }}
     </div>
+    {% endfor %}
+    {% endif %}
+    <section class="section">
+        <div class="container">
+            <div class="body-content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

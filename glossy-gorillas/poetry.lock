@@ -96,6 +96,21 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 category = "main"
+description = "Django application to add the Bulma CSS framework and its extensions"
+name = "django-simple-bulma"
+optional = false
+python-versions = "*"
+version = "1.3.2"
+
+[package.dependencies]
+Django = ">=2.0"
+libsass = ">=0.19,<1.0"
+
+[package.extras]
+dev = ["flake8 (>=3.8,<4.0)", "flake8-annotations (>=2.0,<3.0)", "flake8-bugbear (>=20.1,<21.0)", "flake8-docstrings (>=1.4,<2.0)", "flake8-import-order (>=0.18,<1.0)", "flake8-tidy-imports (>=4.0,<5.0)", "flake8-todo (>=0.7,<1.0)", "flake8-string-format (>=0.2,<1.0)", "pdoc (>=0.3,<1.0)", "pre-commit (>=1.18,<2.0)", "PyGithub (>=1.43,<2.0)", "wheel (>=0.33,<1.0)"]
+
+[[package]]
+category = "main"
 description = "A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby."
 name = "factory-boy"
 optional = false
@@ -154,6 +169,17 @@ pydantic = ">=0.32.2"
 
 [package.extras]
 pytest = ["pytest (>=4.0.0,<5.0.0)"]
+
+[[package]]
+category = "main"
+description = "Sass for Python: A straightforward binding of libsass for Python."
+name = "libsass"
+optional = false
+python-versions = "*"
+version = "0.20.0"
+
+[package.dependencies]
+six = "*"
 
 [[package]]
 category = "dev"
@@ -344,7 +370,7 @@ python-versions = "*"
 version = "0.2.5"
 
 [metadata]
-content-hash = "a9421e6e5f6dce5a7c169cb62945835aa6b0449f889357a64f9089fb862bc621"
+content-hash = "847a1aed72cd28149eb4dec1e3d93a22afc51bbe8b2342eb4efda14bb5bdbfe6"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -381,6 +407,10 @@ django = [
     {file = "Django-3.0.8-py3-none-any.whl", hash = "sha256:5457fc953ec560c5521b41fad9e6734a4668b7ba205832191bbdff40ec61073c"},
     {file = "Django-3.0.8.tar.gz", hash = "sha256:31a5fbbea5fc71c99e288ec0b2f00302a0a92c44b13ede80b73a6a4d6d205582"},
 ]
+django-simple-bulma = [
+    {file = "django-simple-bulma-1.3.2.tar.gz", hash = "sha256:e5cff3fc5f0d45558362ab8d0e11f92887c4fc85616f77daa6174940f94b12c7"},
+    {file = "django_simple_bulma-1.3.2-py3-none-any.whl", hash = "sha256:79928fa983151947c635acf65fa5177ca775db98c8d53ddf1c785fe48c727466"},
+]
 factory-boy = [
     {file = "factory_boy-2.12.0-py2.py3-none-any.whl", hash = "sha256:728df59b372c9588b83153facf26d3d28947fc750e8e3c95cefa9bed0e6394ee"},
     {file = "factory_boy-2.12.0.tar.gz", hash = "sha256:faf48d608a1735f0d0a3c9cbf536d64f9132b547dae7ba452c4d99a79e84a370"},
@@ -396,6 +426,21 @@ hypothesis = [
 hypothesis-auto = [
     {file = "hypothesis-auto-1.1.4.tar.gz", hash = "sha256:5e2c2fb09dc09842512d80630bb792359a1d33d2c0473ad47ee23da0be9e32b1"},
     {file = "hypothesis_auto-1.1.4-py3-none-any.whl", hash = "sha256:fea8560c4522c0fd490ed8cc17e420b95dabebb11b9b334c59bf2d768839015f"},
+]
+libsass = [
+    {file = "libsass-0.20.0-cp27-cp27m-macosx_10_14_intel.whl", hash = "sha256:107c409524c6a4ed14410fa9dafa9ee59c6bd3ecae75d73af749ab2b75685726"},
+    {file = "libsass-0.20.0-cp27-cp27m-win32.whl", hash = "sha256:98f6dee9850b29e62977a963e3beb3cfeb98b128a267d59d2c3d675e298c8d57"},
+    {file = "libsass-0.20.0-cp27-cp27m-win_amd64.whl", hash = "sha256:b077261a04ba1c213e932943208471972c5230222acb7fa97373e55a40872cbb"},
+    {file = "libsass-0.20.0-cp27-cp27mu-manylinux1_x86_64.whl", hash = "sha256:e6a547c0aa731dcb4ed71f198e814bee0400ce04d553f3f12a53bc3a17f2a481"},
+    {file = "libsass-0.20.0-cp36-abi3-manylinux1_x86_64.whl", hash = "sha256:74f6fb8da58179b5d86586bc045c16d93d55074bc7bb48b6354a4da7ac9f9dfd"},
+    {file = "libsass-0.20.0-cp36-cp36m-win32.whl", hash = "sha256:a43f3830d83ad9a7f5013c05ce239ca71744d0780dad906587302ac5257bce60"},
+    {file = "libsass-0.20.0-cp36-cp36m-win_amd64.whl", hash = "sha256:fd19c8f73f70ffc6cbcca8139da08ea9a71fc48e7dfc4bb236ad88ab2d6558f1"},
+    {file = "libsass-0.20.0-cp37-abi3-macosx_10_14_x86_64.whl", hash = "sha256:8cf72552b39e78a1852132e16b706406bc76029fe3001583284ece8d8752a60a"},
+    {file = "libsass-0.20.0-cp37-cp37m-win32.whl", hash = "sha256:7555d9b24e79943cfafac44dbb4ca7e62105c038de7c6b999838c9ff7b88645d"},
+    {file = "libsass-0.20.0-cp37-cp37m-win_amd64.whl", hash = "sha256:794f4f4661667263e7feafe5cc866e3746c7c8a9192b2aa9afffdadcbc91c687"},
+    {file = "libsass-0.20.0-cp38-cp38-win32.whl", hash = "sha256:3bc0d68778b30b5fa83199e18795314f64b26ca5871e026343e63934f616f7f7"},
+    {file = "libsass-0.20.0-cp38-cp38-win_amd64.whl", hash = "sha256:5c8ff562b233734fbc72b23bb862cc6a6f70b1e9bf85a58422aa75108b94783b"},
+    {file = "libsass-0.20.0.tar.gz", hash = "sha256:b7452f1df274b166dc22ee2e9154c4adca619bcbbdf8041a7aa05f372a1dacbc"},
 ]
 more-itertools = [
     {file = "more-itertools-8.4.0.tar.gz", hash = "sha256:68c70cc7167bdf5c7c9d8f6954a7837089c6a36bf565383919bb595efb8a17e5"},

@@ -1,23 +1,31 @@
-<div class="header-container">
-    <div class="logo">Logo placeholder</div>
-    <div class="empty">Empty Placeholder</div>
-    <div class="search">
-        {% include 'widgets/searchbar.html' %}
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+            Logo placeholder
+        </a>
     </div>
-    <div class="user">
-        {% if request.user.is_authenticated %}
-            <h2>Hello {{request.user.first_name }}</h2>
-            <form method="POST" action={% url "logout" %}>
-                {% csrf_token %}
-                <button type="submit">Sign Out</button>
-            </form>
-        {% else %}
-        <form method="POST" action={% url "login" %}>
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" />
-            <input type="password" name="password" placeholder="Password" />
-            <button type="submit">Sign In</button>
-        </form>
-        {% endif %}
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            {% include 'widgets/searchbar.html' %}
+        </div>
+
+        <div class="navbar-end">
+            <a class="navbar-item" href="#">
+                {% if request.user.is_authenticated %}
+                <h2>Hello {{request.user.first_name }}</h2>
+                <form method="POST" action={% url "logout" %}>
+                    {% csrf_token %}
+                    <button type="submit">Sign Out</button>
+                </form>
+                {% else %}
+                <form method="POST" action={% url "login" %}>
+                    {% csrf_token %}
+                    <input type="text" name="username" placeholder="Username" />
+                    <input type="password" name="password" placeholder="Password" />
+                    <button type="submit">Sign In</button>
+                </form>
+                {% endif %}
+            </a>
+        </div>
     </div>
-</div>
+</nav>

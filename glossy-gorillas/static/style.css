@@ -11,45 +11,5 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .body-content {
-    max-width: 80%;
     background-color: aqua;
-    display: flex;
-    margin: auto;
-}
-
-@media only screen and (max-width: 600px) {
-    .body-content {
-        max-width: 100%;
-    }
-}
-
-/* Header CSS */
-
-.header-container {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas:
-    "logo empty user"
-    "logo search user";
-}
-
-.logo {
-    grid-area: logo;
-    background-color: brown;
-
-}
-
-.search {
-    grid-area: search;
-    background-color: orange;
-}
-
-.user {
-    grid-area: user;
-    background-color: red;
-}
-
-.empty {
-    grid-area: empty;
-    background-color: white;
 }
