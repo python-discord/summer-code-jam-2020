@@ -25,11 +25,13 @@ export default {
         onSubmit() {
             console.log(this.post.image);
         },
-        print: getImageData(event) {
-            let selectedFile = event.target.files[0];
-            let formData = new FormData();
-            formData.append("fileToUpload", blobFile);
-            console.log(formData);
+        print: {
+            getImageData(event) {
+                let selectedFile = event.target.files[0];
+                let formData = new FormData();
+                formData.append("fileToUpload", selectedFile);
+                console.log(formData);
+            }
         }
     }
 }
