@@ -1,0 +1,47 @@
+<h2>Newest Listings</h2>
+<table style="border-spacing: 10px 0;">
+    <tr>
+        <td>Owner</td>
+        <td>Item</td>
+        <td>Quantity</td>
+        <td>Cost (per unit)</td>
+    </tr>
+    {% for ls in listings %}
+    {% with item=ls.item %}
+    <tr>
+        <td>{{ item.owner.user.get_username }}</td>
+        <td>{{ item.product.name }}</td>
+        <td>
+            {{ item.quantity }}
+            {% if item.quantity_type == "G" %}
+                grams
+            {% elif item.quantity_type == "K" %}
+                kilograms
+            {% endif %}
+        </td>
+        <td>
+            {% if ls.silver_per_unit %}
+                {{ ls.silver_per_unit }} Silver |
+            {% endif %}
+            {% if ls.barter_product %}
+                {% with ls.barter_product as bp %}
+                {{ bp.name }}
+                ( {{ ls.barter_qty_per_unit }}
+                {% if bp.quantity_type == "G" %}
+                    grams
+                {% elif bp.quantity_type == "K" %}
+                    kilograms
+                {% endif %}
+                {% endwith %}
+                ) |
+            {% endif %}
+            {% if ls.allow_offers %}
+                Allowing offers
+            {% else %}
+                No offers
+            {% endif %}
+        </td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+</table>
