@@ -1,10 +1,16 @@
 from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from core import models
+from django.urls import reverse_lazy
 
 
-class TraderDashboard(DetailView):
+class TraderDashboard(LoginRequiredMixin, DetailView):
     template_name = "core/dashboard.html"
+    login_url = reverse_lazy("login")
     model = models.Trader
+
+    def get_object(self, queryset=None):
+        return self.request.user.trader
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
