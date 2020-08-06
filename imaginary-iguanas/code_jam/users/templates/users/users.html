@@ -1,8 +1,10 @@
 {% extends "myplace/base.html" %}
 {% block content %}
-    {% for user in users %}
-        <h1>
-            {{ user }}
-        </h1>
-    {% endfor %}
+    {% if users %}
+        {% for user in users %}
+            <h1>{{ user }}</h1>
+        {% endfor %}
+    {% else %}
+         <h1>No registered user profiles.</h1>
+    {% endif %}
 {% endblock content %}
