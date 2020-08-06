@@ -27,10 +27,10 @@ export default {
         },
         print: {
             getImageData(event) {
-            let selectedFile = event.target.files[0];
-            let formData = new FormData();
-            formData.append("fileToUpload", selectedFile);
-            console.log(formData);
+                let selectedFile = event.target.files[0];
+                let formData = new FormData();
+                formData.append("fileToUpload", selectedFile);
+                console.log(formData);
             }
         }
     }
