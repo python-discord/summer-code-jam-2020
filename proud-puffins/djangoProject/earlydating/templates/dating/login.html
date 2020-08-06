@@ -8,7 +8,7 @@
 
     {% for item in form %}
     <div>
-    <p style="font-size: large; font-weight: bold;">{{item.name}}{{item}}</p>
+    <p><label style="font-size: large; font-weight: bold;">{{item.label}}</label><h1 class="resizedTextbox">{{item}}</h1></p>
     </div>
     {% endfor %}			
 	<input class="button_a" type="submit" name="login" value="login">					
@@ -16,8 +16,9 @@
 					
 {% for message in messages %}
     <p id="messages">{{message}}</p>
-{% endfor %}							
-    <div style="font-size:large;">
+{% endfor %}
+<br>							
+    <div style="font-size:large; font-weight: bold;">
     Don't have an account? <a href="{% url 'earlydating-register' %}">Sign Up</a>
 </div>
 {% endblock %}
