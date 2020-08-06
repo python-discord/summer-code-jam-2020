@@ -16,11 +16,14 @@ class Post(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return self.title + ' | ' + str(self.author)
 
     @property
     def likes(self):
         return len(self.all_likes.all())
+
+    class Meta:
+        ordering = ('author__username',)
 
 
 class Comment(models.Model):

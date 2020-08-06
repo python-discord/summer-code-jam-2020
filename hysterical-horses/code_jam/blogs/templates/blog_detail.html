@@ -1,0 +1,19 @@
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+{% load custom_filters %}
+
+<div class="nes-container with-title signup-form">
+    <span class="title signup-form-title">{{ post.title }}</span>
+    <small>By: {{ post.author.username }}</small>
+
+    {{ post.content }}
+</div>
+
+{% endblock content %}
