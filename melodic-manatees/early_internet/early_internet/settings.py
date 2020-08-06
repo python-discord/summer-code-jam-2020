@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django default
     'django_simple_bulma',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd party
+    'django_extensions',
+
+    # internal
     'main.apps.MainConfig',
     'background_app.apps.BackgroundConfig',
     'users.apps.UsersConfig',
