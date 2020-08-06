@@ -899,6 +899,32 @@ form .close::after {
 #app-mine header .init, #app-mine header .won, #app-mine header .lose {
   display: none;
 }
+#app-mine2 {
+  padding: 2px;
+  left: 50%;
+  top:20%;
+  height: 350px;
+  width: 360px;
+}
+#app-mine2 header {
+  display: flex;
+  flex-wrap: wrap;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 4px 7px 4px 5px;
+  margin-bottom: 6px;
+  justify-content: space-between;
+}
+#app-mine2 .client {
+  border-width: 3px;
+  border-style: solid;
+  border-color: #fff #808080 #808080 #fff;
+  padding: 6px;
+}
+#app-mine2 header .init, #app-mine2 header .won, #app-mine2 header .lose {
+  display: none;
+}
 
 .number {
   background: #000;
@@ -1694,16 +1720,16 @@ form .close::after {
   background: rgba(255, 255, 255, 0.67);
   font-weight: bold;
 }
-#open-notepad:checked ~ #app-notepad, #open-ie:checked ~ #app-ie, #open-mine:checked ~ #app-mine {
+#open-notepad:checked ~ #app-notepad, #open-ie:checked ~ #app-ie, #open-mine:checked ~ #app-mine,#open-mine:checked ~ #app-mine2 {
   visibility: visible;
 }
 #open-notepad:checked ~ #taskbar #task-notepad, #open-ie:checked ~ #taskbar #task-ie, #open-mine:checked ~ #taskbar #task-mine {
   display: flex;
 }
-#fore-notepad:checked ~ #app-notepad, #fore-ie:checked ~ #app-ie, #fore-mine:checked ~ #app-mine {
+#fore-notepad:checked ~ #app-notepad, #fore-ie:checked ~ #app-ie, #fore-mine:checked ~ #app-mine,#fore-mine:checked ~ #app-mine2 {
   z-index: 3;
 }
-#fore-notepad:checked ~ #app-notepad h2, #fore-ie:checked ~ #app-ie h2, #fore-mine:checked ~ #app-mine h2 {
+#fore-notepad:checked ~ #app-notepad h2, #fore-ie:checked ~ #app-ie h2, #fore-mine:checked ~ #app-mine h2, #fore-mine:checked ~ #app-mine2 h2 {
   color: #fff;
   background: #000080;
 }

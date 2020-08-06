@@ -50,54 +50,13 @@
           <nav id="tasklist">
 
             <label class="btn task-ie" id="task-ie" for="fore-ie">
-              <i class="sm globe"></i>
-              <span class="label">Microsoft Internet Explorer - [One mind blowing fact you didn't know about CSS4]</span>
+              <span class="label">Microsoft Internet Explorer</span>
             </label>
-           
-              <form id="app-ie" role="dialog">
-    <h2>
-      <i class="sm globe"></i>
-      <label class="label" for="fore-ie">Microsoft Internet Explorer - [One mind blowing fact you didn't know about CSS3]</label>
-      <a class="btn min" href="#error"></a>
-      <a class="btn max" href="#error"></a>
-      <label class="btn close" for="open-ie"></label>
-    </h2>
-    <nav class="menu">
-      <a href="#error">File</a>
-      <a href="#error">Edit</a>
-      <a href="#error">View</a>
-      <a href="#error">Go</a>
-      <a href="#error">Favorites</a>
-      <a href="#error">Help</a>
-    </nav>
-    <div class="client">
-      <header>
-        <div class="label">Address:</div>
-        <div class="combo">
-          <input spellcheck="false" value="https://codepen.io/putara/pen/Xxjpbe">
-          <a class="dropdown" href="#error"></a>
-        </div>
-        <div class="win">
-          <i class="clouds"></i>
-          <i class="logo"></i>
-        </div>
-      </header>
-      <div class="content">
-        <h3>One mind blowing fact you didn't know about CSS4</h3>
-        <p class="logo"><a href="https://www.w3.org/" target="_blank" title="HTML5 Logo by W3C"><i class="html5"></i></a></p>
-        <h4>1. There is no such a thing in the first place.</h4>
-        <p>Believe it or not, it's true.</p>
-        <h5>Reference</h5>
-        <p><a href="https://rachelandrew.co.uk/archives/2016/09/13/why-there-is-no-css4-explaining-css-levels/" target="_blank">Why there is no CSS4 - explaining CSS Levels</a></p>
-      </div>
-      <footer>
-        <div class="pane-1">&#8203;</div>
-        <div class="pane-2">&#8203;</div>
-        <div class="pane-3">&#8203;</div>
-      </footer>
-    </div>
-  </form>
-            
+            <label class="btn task-notepad" id="task-notepad" for="fore-ie">
+              <span class="label">helloworld - Notepad</span>
+            </label>
+
+
           </nav>
           <div id="notify">
             <label id="poop" for="open-poopup"><i class="sm poo"></i></label>
@@ -109,45 +68,7 @@
             </div>
           </div>
         </div>
-        <div id="startmenu">
-          <h2>Windows<em>95</em></h2>
-          <nav class="group">
-            <div class="item dropdown">
-              <i class="md app"></i>
-              <span class="label">Programs</span>
-              <div class="submenu">(None)</div>
-            </div>
-            <div class="item dropdown">
-              <i class="md doc"></i>
-              <span class="label">Documents</span>
-              <div class="submenu">(None)</div>
-            </div>
-            <div class="item dropdown">
-              <i class="md cog"></i>
-              <span class="label">Settings</span>
-              <div class="submenu">(None)</div>
-            </div>
-            <div class="item dropdown">
-              <i class="md find"></i>
-              <span class="label">Find</span>
-              <div class="submenu">(None)</div>
-            </div>
-            <a class="item" href="#error">
-              <i class="md help"></i>
-              <span class="label">Help</span>
-            </a>
-            <a class="item" href="#error">
-              <i class="md run"></i>
-              <span class="label">Run...</span>
-            </a>
-          </nav>
-          <nav class="group">
-            <a class="item" href="#error">
-              <i class="md shut"></i>
-              <span class="label">Shut Down...</span>
-            </a>
-          </nav>
-        </div>
+
         <form class="internet-explorer" id="app-ie" role="dialog" style="display: none;">
             
             <h2>
@@ -291,6 +212,10 @@
               </textarea>
               </div>
           </form>
+
+         <form id="app-mine2" style="width: 300px;height: 155px;;z-index: 99;display: none">
+            <img src="{% static 'img/dialup2.gif' %}" style="width:300px;">
+          </form>
               <footer>
                 <div class="pane-1">&#8203;</div>
                 <div class="pane-2">&#8203;</div>
@@ -330,7 +255,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/smore-inc/clippy.js/master/build/clippy.min.js"></script>
     
-    <script>
+   <script>
     clippy.load('Clippy', (agent) => {
     // do anything with the loaded agent
     agent.show();
@@ -342,21 +267,26 @@
       agent.play("")
       agent.hide();
     }, 10000);
-    
+
 });
 
 function hideIt(params) {
 
   var username = $("#username").val();
-  clippy.load("Merlin",(agent) => {
+
+        $("#app-mine").hide();
+        $("#app-mine2").show();
+        setTimeout(() => {
+          $("#app-mine2").hide();
+          $(".internet-explorer").css("display","inline");
+          clippy.load("Merlin",(agent) => {
     agent.show();
-    agentSpeak(agent,"Alright "+username+", here we are again .")
+    agentSpeak(agent,"Welcome to world of Internet, "+username+". Ahh... I need to check something quickly..");
+    agent.play("Reading")
+    agentSpeak(agent,"Lorem ip elit. Quam voluptatibus exercitationem  reprehenderit officiis saepe labore vitae, rem eligendi?")
 
   });
-        $("#app-mine").hide();
-        setTimeout(() => {
-          $(".internet-explorer").css("display","inline");
-        }, 3000);
+        }, 5000);
 
       }
 
