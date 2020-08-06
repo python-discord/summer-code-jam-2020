@@ -8,7 +8,9 @@
         </h1>
         <br/>
         {% if k == 'audio_track' %}
-            <audio src="{{ user_profile.audio_track.url }}" controls></audio>
+            {% if user_profile.audio_track %}
+                <audio src="{{ user_profile.audio_track.url }}" controls></audio>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endblock content %}
