@@ -6,6 +6,7 @@
 <table>
     <tr>
         <th>Preview</th>
+        <th>Popularity</th>
         <th>Webpage Title</th>
     </tr>
     {% for webpage in webpages %}
@@ -16,6 +17,11 @@
             {% else %}
                 Go to page itself to generate a thumbnail for it.
             {% endif %}
+        </td>
+        <td>
+            {% with webpage.like_set.all.count as num_likes %}
+            {{ num_likes }} like{{ num_likes|pluralize }}
+            {% endwith %}
         </td>
         <td>
             <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
