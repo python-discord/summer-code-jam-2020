@@ -1,5 +1,5 @@
 from django.contrib.syndication.views import Feed
-from syndication_app.models import Post, User, Community
+from .models import Post, User, Community
 
 
 class LatestEntriesFeed(Feed):
@@ -9,6 +9,7 @@ class LatestEntriesFeed(Feed):
 
     def get_object(self, request, username):
         return User.objects.get(name=username)
+
 
     def items(self, obj):
         return Post.objects.filter(publisher__in=Community.objects
