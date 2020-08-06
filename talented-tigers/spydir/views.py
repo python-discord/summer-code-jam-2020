@@ -40,11 +40,7 @@ def load_generated_page(request, page_name):
         if (page.is_generated == False):
             page = generate_page.generate_page(page_name)
     except GeneratedPage.DoesNotExist:
-        #return render(request, "spydir/404.html")
-        #TODO: REMOVE THIS ON RELEASE. ONLY HERE FOR TESTING PURPOSES.
-        page = GeneratedPage.objects.create(page_title=page_name, css_seed=random.randint(1000, 9999))
-        if (page.is_generated == False):
-            page = generate_page.generate_page(page_name, page_type="BLOG")
+        return render(request, "spydir/404.html")
 
     ctx = {
         'page': page
