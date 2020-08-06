@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 {% block content %}
 <div class="editer">
-        <h1>< method="POST">
+        <h1><method="POST">
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-secondary">Edit</button>

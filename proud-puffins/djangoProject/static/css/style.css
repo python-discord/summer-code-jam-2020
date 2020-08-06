@@ -59,7 +59,8 @@ html {
   width: 250;
 }
 .columncenter {
-  float: top
+  padding-top: 1cm;
+  text-align: center;
 }
 /* Clear floats after the columns */
 .row:after {

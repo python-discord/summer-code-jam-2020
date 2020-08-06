@@ -7,26 +7,16 @@
     <img src="../{{ user.profile.img.url }}">
 {% endif %}
 <div>
-<h1>First Name: {{user.first_name}}</h1>
-<h1>Last Name: {{user.last_name}}</h1>
+<h1>{{user.first_name}} {{user.last_name}}</h1>
 <h1>Age: {{user.profile.age}}</h1>
 <h1>Sex: {{user.profile.sex}}</h1>
-<h1>Bio:</h1>
-<p>{{user.profile.bio}</p>
+<p>--------------------------------------------------------------------------</p>
+<h1>{{user.profile.bio}}</h1>
 
-<p><a href="{% url 'earlydating-home' %}">Home</a></p>
-<p><a class="hello-msg" href="{% url 'earlydating-logout' %}">Logout</a></p>
-</div>
-<p>STARTS HERE OK</p>
-<div class="UserSign">
+<p><a href="{% url 'earlydating-home' %}" style="font-size: large; font-weight: bold;">Edit Profile</a></p>  <!-- Currently set to go home, must change to go to edit page when finished. -->
+<p><a href="{% url 'earlydating-home' %}" style="font-size: large; font-weight: bold;">My Matches</a></p> <!-- Currently set to go home, must change to go to MyMatches page when finished. -->
+<p><a class="hello-msg" href="{% url 'earlydating-logout' %}" style="font-size: large; font-weight: bold;">Logout</a></p>
 
-    <form method="POST" action=""><h1>Register</h1>
-        {% csrf_token %}
-        <h1>{{ form|crispy }}</h1>
-        <input type="submit" name="Sign Up" value="Sign Up">
-     </form>
-    <div>
-        Already have an account? <a href="{% url 'earlydating-login' %}">Login</a>
-    </div>
 </div>
+
 {% endblock %}
