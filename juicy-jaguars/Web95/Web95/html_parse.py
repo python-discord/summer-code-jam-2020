@@ -1,6 +1,7 @@
 """Module used to parse HTML pages."""
 
 from bs4 import BeautifulSoup
+import re
 
 
 class HtmlParser:
@@ -33,10 +34,20 @@ class HtmlParser:
             pass
 
     def parse_font(self):
-        """U can write this cos I cba"""
+        """Change fonts on site to Arial."""
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('body {font-family: Arial, sans-serif !important;}')
+            head.style.append('body {font-family: Arial, \
+sans-serif !important;}')
         except KeyError:
             pass
+
+    def parse_derounder(self):
+        """Make rounded borders square."""
+        for element in self.soup.find_all(re.compile("*")):
+            print(element)
+            try:
+                element["style"]["border-radius"] = "0"
+            except KeyError:
+                pass
