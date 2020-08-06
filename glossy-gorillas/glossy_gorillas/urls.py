@@ -23,6 +23,7 @@ urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),
     path("listings/", views.ListingList.as_view(), name="listings"),
     path("admin/", admin.site.urls),
+    path("register/", views.register, name="register"),
     path(
         "login/",
         auth_views.LoginView.as_view(template_name="core/login.html"),
