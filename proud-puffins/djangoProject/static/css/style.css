@@ -192,10 +192,16 @@ html {
 }
 
 .buttonmatch {
-  }
-
-  .buttonmatch:hover {
-    }
+  background-color: grey;
+  border: inset;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
 label {
   display: inline-block;
