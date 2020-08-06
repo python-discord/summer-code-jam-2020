@@ -25,6 +25,10 @@ class Guestbook(DetailView):
                 published_date=timezone.now(),
             )
 
+        comments = GbModel.objects.filter(published_date__lte=timezone.now()).order_by(
+                "published_date"
+                )
+
         return render(
             request, self.template_name, {"form": form, "comments": comments}
         )

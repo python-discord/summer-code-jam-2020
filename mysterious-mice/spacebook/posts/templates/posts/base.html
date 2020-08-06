@@ -31,12 +31,17 @@
                     <td class="nav nav-link nav-lborder"><a href="{% url 'mars_weather:current_weather' %}">
                         Weather
                     </a></td>
+                    <td class="nav nav-link nav-lborder"><a href="{% url 'guestbook:guestbook' %}">
+                        Guestbook
+                    </a></td>
                 </tr></tbody></table></td>
             </tr>
         </tbody></table></div>
         <!-- End Navigation -->
         <br>
         {% block body %}{% endblock %}
+        <!--
         {% block footer %}{% endblock %}
+        -->
     </body>
 </html>
