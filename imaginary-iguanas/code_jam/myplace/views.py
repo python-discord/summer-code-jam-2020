@@ -1,7 +1,7 @@
 from typing import Union
 
 from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 
 from users.models import Profile
 
@@ -9,14 +9,15 @@ from users.models import Profile
 def user(request, username_or_id: Union[int, str]):
     try:
         profile = _get_profile(username_or_id)
-        context = {'user_prof': {
-            'username': profile.user.username,
-            'image': profile.image,
-            'gender': profile.get_gender_display(),
-            'country': profile.get_country_display(),
-            'city': profile.city,
-            'date_of_birth': profile.date_of_birth,
-            'audio_track': profile.audio_track
+        context = {
+            'user_profile': {
+                'username': profile.user.username,
+                'image': profile.image,
+                'gender': profile.get_gender_display(),
+                'country': profile.get_country_display(),
+                'city': profile.city,
+                'date_of_birth': profile.date_of_birth,
+                'audio_track': profile.audio_track
             },
             'title': profile
         }
@@ -28,6 +29,6 @@ def user(request, username_or_id: Union[int, str]):
 
 def _get_profile(username_or_id: Union[int, str]) -> Profile:
     if isinstance(username_or_id, int):
-        return get_object_or_404(Profile, id=username_or_id)
+        return Profile.objects.get(id=username_or_id)
     else:
-        return get_object_or_404(Profile, user__username=username_or_id)
+        return Profile.objects.get(user__username=username_or_id)
