@@ -70,7 +70,10 @@ def page(request, url):
         if not(url.startswith("http://")
                or url.startswith("https://")):
             url = "http://" + url
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+
+        req = urllib.request.Request(url,
+                                     headers={'User-Agent':
+                                              request.META["HTTP_USER_AGENT"]})
         fp = urllib.request.urlopen(req)
         content = fp.read().decode()
 
