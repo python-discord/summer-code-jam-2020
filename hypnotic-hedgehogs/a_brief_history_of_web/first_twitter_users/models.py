@@ -6,10 +6,10 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png', upload_to='profile_pics')
-    followers = models.IntegerField()
-    following = models.IntegerField()
-    register_date = models.DateTimeField()
-    tweet_count = models.IntegerField()
+    followers = models.IntegerField(default=0)
+    following = models.IntegerField(default=0)
+    register_date = models.DateTimeField(auto_now_add=True)
+    tweet_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.user.username} Profile"
