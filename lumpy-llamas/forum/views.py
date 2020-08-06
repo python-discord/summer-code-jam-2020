@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from .models import Thread, ThreadMessage
 from django.db.models import F
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
@@ -23,29 +22,32 @@ def list_threads(request):
 
     return JsonResponse(data, status=201, safe=False)
 
-#@login_required
+
+@login_required()
 @jsonbody
 def post_thread(request, data):
+    print(data)
     current_user = request.user
-    if data:
-        thread = Thread.objects.create(
-            title=data['title'],
-            created_by=User.objects.get(id=current_user.id)
-        ).save()
-        id = thread
-        print(id)
-        thread_message = Thread(
-            message=data['message'],
-            user_id=request.user,
-            thread_id=id.id
-        ).save()
-        #login(request, user)
-        print(thread)
-        return JsonResponse({
-            'title': thread.title,
-            'user': thread.created_by.username,
-        }, status=201)
-    return {'title': 'Not a valid title', 'message': 'Not a valid message'}
+    thread = Thread.objects.create(
+        title=data['title'],
+        created_by=current_user
+    )
+    thread_id = thread.id
+    thread.save()
+    message = ThreadMessage(
+        message = data['message'],
+        user = current_user,
+        thread = thread
+    )
+    message.save()
+    #login(request, user)
+    print(thread)
+    return JsonResponse({
+        'thread_id': thread.id,
+        'message': message.message,
+        'user': message.user.username
+    }, status=201)
+
 
 def thread_details(request, thread_id):
     """
