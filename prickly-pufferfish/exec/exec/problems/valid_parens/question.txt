@@ -1,0 +1,9 @@
+Write a method to generate n pairs of balanced parenthesis.
+
+Input: n = 1
+Output: ['()']
+Explanation: Since there is only one pair, there is
+only one possable combination
+
+Input: n = 3
+Output: ['()()()', '()(())', '(())()', '(()())', '((()))']

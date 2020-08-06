@@ -45,3 +45,15 @@ nav#navbar a {
     text-align: right;
     display: inline-block;
 }
+
+#about-text {
+    background-color: dimgray;
+    padding: 1rem 8%;
+    margin-left: 8%;
+    margin-top: 2rem;
+    margin-right: 8%;
+}
+
+#about-text h2 {
+    font-weight: normal;
+}

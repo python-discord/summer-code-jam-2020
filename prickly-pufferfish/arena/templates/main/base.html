@@ -9,7 +9,7 @@
 <body>
     <nav id="navbar">
         <a href="{% url 'index' %}" id="brand">The Arena</a>
-        <a href="{# {% url 'about' %} #}#">About</a>
+        <a href="{% url 'about' %}">About</a>
         {% if user.is_authenticated %}
             <a href="{# {% url 'dashboard' %} #}#">Dashboard</a>
             <a href="{# {% url 'battle' %} #}#">Battle</a>
