@@ -18,6 +18,7 @@ channels_redis = "*"
 python_version = "3.8"
 
 [scripts]
-start = "python mysite/manage.py runserver"
-migrate = "python mysite/manage.py migrate"
+start = "python manage.py runserver"
+makemigrations = "python manage.py makemigrations"
+migrate = "python manage.py migrate"
 lint = "python -m flake8"
