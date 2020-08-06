@@ -1,6 +1,9 @@
 from django.db import models
 from syndication_app.models import User
+
+
 # Create your models here.
+
 
 class Message(models.Model):
     author = models.ForeignKey(User, related_name='author_messages', on_delete=models.CASCADE)
