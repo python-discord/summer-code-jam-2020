@@ -22,3 +22,6 @@ class HtmlParser:
             if name.startswith("parse_"):
                 method = getattr(self, name)
                 method()
+
+    def parse_backgroundColor(self):
+        self.soup("body")[0]["style"]["background-color"] = "white"
