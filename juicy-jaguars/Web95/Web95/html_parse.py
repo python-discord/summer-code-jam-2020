@@ -48,7 +48,6 @@ sans-serif !important;}')
         for element in self.soup.find_all(re.compile(".*")):
             try:
                 element["style"] = "border-radius: 0px !important; " + \
-                 element["style"]
-                print("derounded :)" + element.name)
+                                   element["style"]
             except KeyError:
-                element["style"] = ""
+                element["style"] = "border-radius: 0px !important; "
