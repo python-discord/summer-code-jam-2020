@@ -1,11 +1,19 @@
 <template>
 <div v-if="ready">
-  <div class="home-grid">
-    <h2>Post a new thread</h2>
-        <input v-model="title" placeholder="Enter thread title">
-        <button v-on:click="newThread">Make new thread</button>
+  <fieldset>
+    <legend>Post a new thread</legend>
+        <div class="form-group">
+          <label for="text">Title</label>
+          <input v-model="title" id="text" name="itext" type="text" placeholder="Enter thread title" minlength="3" maxlength="120">
+        </div>
+        <div class="form-group">
+          <label for="itext">Message</label>
+          <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter thread title" minlength="3"></textarea>
+        </div>
+        <button v-on:click="newThread" class="btn btn-default">Make new thread</button>
         <p>{{ title }}</p>
-  </div>
+        <p>{{ message }}</p>
+  </fieldset>
 </div>
 </template>
 
@@ -25,7 +33,7 @@ export default {
   data() {
     return {
       title: '',
-      user: '',
+      message: '',
       ready: true,
     };
   },
@@ -34,7 +42,7 @@ export default {
     newThread() {
       axios.post('/api/forum/post/thread', {
         title: this.title,
-        user: this.user,
+        message: this.message,
       }).then(() => {
         console.log(response);
       }).catch((err) => {

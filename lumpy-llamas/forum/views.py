@@ -26,16 +26,26 @@ def list_threads(request):
 @login_required()
 @jsonbody
 def post_thread(request, data):
-    thread = Thread(
+    print(data)
+    current_user = request.user
+    thread = Thread.objects.create(
         title=data['title'],
-        created_by=data['user'],
-        #threadmessage__message=['message']
+        created_by=current_user
     )
+    thread_id = thread.id
+    thread.save()
+    message = ThreadMessage(
+        message = data['message'],
+        user = current_user,
+        thread = thread
+    )
+    message.save()
     #login(request, user)
     print(thread)
     return JsonResponse({
         'title': thread.title,
-        'user': thread.created_by,
+        'message': message.message,
+        'user': message.user.username
     }, status=201)
 
 

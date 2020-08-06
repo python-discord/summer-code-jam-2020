@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     'llamma-xbiguwvyua-ew.a.run.app',
     'localhost',
     '127.0.0.1',
+    '46.101.237.234'
 ]
 
 
