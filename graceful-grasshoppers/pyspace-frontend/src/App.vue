@@ -1,25 +1,40 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <div style="display: inline-block;" v-if="!loggedIn">
-        <router-link to="/register">Register</router-link>|
-      </div>
-      <div style="display: inline-block;" v-if="!loggedIn">
-        <router-link to="/login">Login</router-link>
-      </div>
-      <div style="display: inline-block;" v-if="loggedIn">
-        <router-link to="/profile">Profile</router-link>|
-      </div>
-      <div style="display: inline-block;" v-if="loggedIn">
-        <router-link to="/create-post">New Post</router-link>
-      </div>
-      <input type="submit" v-if="loggedIn" style="float: right;" v-on:click="logout" value="Logout">
+<div id="app">
+  <div id="nav" class="alert-dark">
+    <p class="alert-info m-0 font-weight-bold">pyspace.net</p>
+    <router-link to="/">Home</router-link>|
+    <div style="display: inline-block;" v-if="!loggedIn">
+      <router-link to="/register">Register</router-link>|
     </div>
-    <router-view />
+    <div style="display: inline-block;" v-if="!loggedIn">
+      <router-link to="/login">Login</router-link>
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/profile">Profile</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/friends">Friends</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/profile">Music</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/profile">Online</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/profile">Random</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/posts">Posts</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/create-post">New Post</router-link>
+    </div>
+    <button type="submit" v-if="loggedIn" style="width: 100px; float: right;" v-on:click="logout">Logout</button>
   </div>
+  <router-view />
+</div>
 </template>
-
 <script>
 // import UserService from './services/user.service';
 export default {
@@ -34,57 +49,60 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      // check if already authorized...
-    }
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch('auth/logout');
-    }
+// check if already authorized...
+}
+},
+methods: {
+  logout() {
+    this.$store.dispatch('auth/logout');
   }
 }
-</script>
-
-<style>
-body {
-  background: #eee;
 }
-
+</script>
+<style>
+* {
+  margin: 2px;
+}
+body {
+  background: #ccc;
+}
 #app {
-  font-family: 'Times New Roman';
+  font-family: 'DejaVu Sans';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  margin: 0;
 }
-
 #nav {
-  padding: 30px;
+  margin: 0 !important;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
-  color: #42b983;
 }
-
 .flex-col {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
-
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.bordered {
+  border: 1px solid black;
+}
 input {
   margin: 2px 0 !important;
 }
-
 button {
   border: 1px solid black;
-  border-radius: 4px !important;
   padding: 5px;
+  width: 100%;
   margin: 5px 0 !important;
 }
-
+li {
+  list-style: none;
+}
 </style>
