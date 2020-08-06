@@ -67,7 +67,8 @@ def page(request, url):
     if url == "1995":
         content = "<img src='/static/images/404.gif' height='100%'>"
     else:
-        if not(url.startswith("http://") or url.startswith("https://")):
+        if not(url.startswith("http://")
+               or url.startswith("https://")):
             url = "http://" + url
         fp = urllib.request.urlopen(url)
         content = fp.read().decode()
