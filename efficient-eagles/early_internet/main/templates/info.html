@@ -26,13 +26,36 @@
 
 <div>
   {% for comment in comments %}
-  <div style="background-color: lightblue; width: 500px; height: 100px">
-    <p>BBB
-      {{comment.author}}
-      {{comment.body}}
-    </p>
+  <div style="padding-left:  {% widthratio comment.thread_level 1 20 %}px;">
+    <div style="background-color: lightblue; width: 500px; height: 100px">
+      <p>
+        {{comment.author}} | {{comment.created}} 
+      </p>
+      <p>
+        {{comment.body}}
+      </p>
+    </div>
   </div>
-  {% for commentx in comment.comment_set.all %}
+  {% endfor %} 
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+<!-- 
+for i in range(0, 10):
+  c = Comment.objects.create(body=str(i*j)*i, author=b, post=None, comment_thread=a)
+    for j in range(0, 10):
+    Comment.objects.create(body=str(i*j)*i, author=b, post=None, comment_thread=c) -->
+
+      {% for commentx in comment.comment_set.all %}
     <div style="padding-left: 20px;">
       <div style="background-color: lightgrey; width: 500px; height: 100px">
       <p>
@@ -55,11 +78,3 @@
     {% endfor %} 
 
     {% endfor %} 
-  {% endfor %} 
-</div>
-{% endblock %}
-<!-- 
-for i in range(0, 10):
-  c = Comment.objects.create(body=str(i*j)*i, author=b, post=None, comment_thread=a)
-    for j in range(0, 10):
-    Comment.objects.create(body=str(i*j)*i, author=b, post=None, comment_thread=c) -->

@@ -88,12 +88,34 @@ class CreateTopicView(TemplateView):
 class InfoView(TemplateView):
     template_name = "info.html"
 
+    # def preorder(self, comment, ordered_comments):
+    #     print(comment.comment_set.order_by("-created"))
+    #     if not comment.comment_set.all():
+    #         return None
+
+
+    #     for thread_comment in comment.comment_set.order_by("created"):
+    #         ordered_comments.append(thread_comment)
+    #         print(comment.comment_set.first())
+    #         # print("THREAD", thread_comment)
+    #         self.preorder(thread_comment, ordered_comments)
+
+
+    # def soort(self, post):
+    #     ordered_comments = []
+    #     comments = Comment.objects.filter(post=post, thread_level__in=[0,1,2,3,4])
+    #     ordered_root_comments = comments.filter(thread_level=0).order_by("-created") 
+    #     for comment in ordered_root_comments:
+    #         ordered_comments.append(comment)
+    #         self.preorder(comment, ordered_comments)
+
+    #     return ordered_comments
+
     def get(self, request, *args, **kwargs):
         topic = Topic.objects.get(name=kwargs["name"].lower())
         post = Post.objects.get(slug=kwargs["slug"])
-        comments = Comment.objects.filter(post=post)
+        comments = Comment.sort_comment_section(post)
         context = {"post": post, "topic": topic, "comments": comments}
-
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):

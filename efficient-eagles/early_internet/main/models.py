@@ -77,3 +77,49 @@ class Comment(TimeStampedModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
     comment_thread = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
+    thread_level = models.PositiveIntegerField(default=0)
+
+    def __unicode__(self):
+        return f"author={self.author} body={self.body} thread_level={self.thread_level}"
+
+    @classmethod 
+    def preorder(cls, comment, ordered_comments):
+        """
+        Depth-first search of binary tree - Pre-order.
+
+            Parameters:
+                post (Post): Post object
+                ordered_comments (list): List of Comment objects
+
+            Returns:
+                None
+        """
+        comments = comment.comment_set.order_by("created")
+        if not comments:
+            return None
+
+        for thread_comment in comments:
+            ordered_comments.append(thread_comment)
+            cls.preorder(thread_comment, ordered_comments)
+    
+    @classmethod
+    def sort_comment_section(cls, post):
+        """
+        Create ordered list of comments.
+
+            Parameters:
+                post (Post): Post object
+
+            Returns:
+                ordered_comments (list): List of Comment objects
+        """
+        ordered_comments = []
+        comments = Comment.objects.filter(post=post, thread_level__in=[0,1,2,3,4])
+        ordered_root_comments = comments.filter(thread_level=0).order_by("-created")
+
+        for comment in ordered_root_comments:
+            ordered_comments.append(comment)
+            cls.preorder(comment, ordered_comments)
+
+        return ordered_comments
+
