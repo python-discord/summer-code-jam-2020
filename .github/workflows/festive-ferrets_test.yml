@@ -19,4 +19,4 @@ jobs:
         pip install -r festive-ferrets/requirements.txt
     - name: Run Tests
       run: |
-        python festive-ferrets/backend/manage.py test
+        python festive-ferrets/backend/manage.py test festive-ferrets/backend
