@@ -32,12 +32,6 @@
     border: 3px solid #000;
 }
 
-#img-data-div{
-    width: 100%;
-    max-width: 900px;
-    height: 200px;
-}
-
 .toolbar a img{
     max-width: 100%;
     height: 40px;

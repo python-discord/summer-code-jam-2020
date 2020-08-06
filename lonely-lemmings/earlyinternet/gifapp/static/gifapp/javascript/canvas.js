@@ -15,6 +15,9 @@ let currentTool = 'brush';
 //is brush currently used
 let usingBrush = false;
 
+//is eraser currently used
+let usingEraser = false;
+
 //save states
 let SaveStates = [];
 
@@ -65,6 +68,7 @@ function setupCanvas(){
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = line_Width;
     SaveStates.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+
     //add mouse listeners
     canvas.addEventListener("mousedown", ReactToMouseDown);
     canvas.addEventListener("mousemove", ReactToMouseMove);
@@ -72,7 +76,7 @@ function setupCanvas(){
 }
 
 function ChangeTool(toolClicked){
-    document.getElementById("open").className = "";
+    document.getElementById("clear").className = "";
     document.getElementById("save").className = "";
     document.getElementById("brush").className = "";
     document.getElementById("line").className = "";
@@ -182,7 +186,7 @@ function drawRubberbandShape(loc){
         ctx.stroke();
     }
 }
- 
+
 function UpdateRubberbandOnMove(loc){
     UpdateRubberbandSizeData(loc);
     drawRubberbandShape(loc);
@@ -191,9 +195,6 @@ function UpdateRubberbandOnMove(loc){
 function DrawBrush(x, y, color){
     if (usingBrush) {
         ctx.beginPath();
-        if (currentTool === "eraser"){
-            ctx.globalCompositeOperation = "destination-out";
-        }
         ctx.strokeStyle = color;
         ctx.lineWidth = line_Width;
         ctx.lineJoin = "round";
@@ -204,11 +205,20 @@ function DrawBrush(x, y, color){
     }
     lastX = x; lastY = y;
 }
- 
+
+function drawCircle(x, y){
+    if(usingEraser){
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x, y, line_Width, 0, Math.PI*2);
+        ctx.fill();
+    }
+
+}
+
 function ReactToMouseDown(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
-    SaveCanvasImage();
     mousedown.x = loc.x;
     mousedown.y = loc.y;
     dragging = true;
@@ -218,11 +228,12 @@ function ReactToMouseDown(e){
         DrawBrush(loc.x, loc.y, strokeColor);
     }
     else if (currentTool === 'eraser'){
-        usingBrush = true;
-        DrawBrush(loc.x, loc.y, "white");
+        usingEraser = true;
+        drawCircle(loc.x, loc.y);
     }
+    SaveCanvasImage();
 }
- 
+
 function ReactToMouseMove(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
@@ -231,7 +242,7 @@ function ReactToMouseMove(e){
         DrawBrush(loc.x, loc.y, strokeColor);
         SaveCanvasImage();
     } else if (currentTool === 'eraser') {
-        DrawBrush(loc.x, loc.y, "white");
+        drawCircle(loc.x, loc.y);
         SaveCanvasImage();
     }else {
         if(dragging){
@@ -240,7 +251,7 @@ function ReactToMouseMove(e){
         }
     }
 }
- 
+
 function ReactToMouseUp(e){
     canvas.style.cursor = "default";
     loc = GetMousePosition(e.clientX, e.clientY);
@@ -248,20 +259,33 @@ function ReactToMouseUp(e){
     UpdateRubberbandOnMove(loc);
     dragging = false;
     usingBrush = false;
-    if(currentTool === 'brush' || currentTool === "eraser") {
+    usingEraser = false;
+    if(currentTool === 'brush') {
         ctx.beginPath();
-        ctx.globalCompositeOperation = "source-over";
     }
     SaveCanvasImage();
+    ctx.globalCompositeOperation = "source-over";
     SaveStates.push(savedImageData);
 }
 
-function SaveImage(){
-    let imageFile = document.getElementById("img-file");
-    imageFile.setAttribute('download', 'image.png');
-    imageFile.setAttribute('href', canvas.toDataURL());
+function SaveImage(type){
+    let img_data = canvas.toDataURL();
+
+    let xhr = new XMLHttpRequest();
+    let url;
+    if (type === "save"){
+        url = "save";
+    } else if (type === "render"){
+        url = "render";
+    }
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    let data = JSON.stringify({"image_BLOB": img_data});
+    xhr.send(data);
 }
- 
+
 function OpenImage(){
     let img = new Image();
     img.onload = function(){
@@ -277,4 +301,8 @@ function Undo(){
         let saveState = SaveStates[SaveStates.length - 1];
         ctx.putImageData(saveState,0,0);
     }
+}
+
+function Clear(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }

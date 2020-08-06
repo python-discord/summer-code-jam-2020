@@ -11,10 +11,10 @@
     <body>
         <div class="wrapper">
             <div class="toolbar">
-                <a class="selected" href="#" id="open" onclick="OpenImage()">
-                    <img src="{% static 'gifapp/icons/file-open.png' %}" alt="open file">
+                <a href="#" id="clear" onclick="Clear()">
+                    <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
                 </a>
-                <a href="#" id="save" onclick="SaveImage()">
+                <a href="#" id="save" onclick="SaveImage('save')">
                     <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
                 </a>
                 <a href="#" id="undo" onclick="Undo()">
@@ -23,7 +23,7 @@
                 <a href="#" id="eraser" onclick="ChangeTool('eraser')">
                     <img src="{% static 'gifapp/icons/eraser.png' %}" alt="erase">
                 </a>
-                <a href="#" id="brush" onclick="ChangeTool('brush')">
+                <a class="selected" href="#" id="brush" onclick="ChangeTool('brush')">
                     <img src="{% static 'gifapp/icons/pencil.png' %}" alt="pencil">
                 </a>
                 <a href="#" id="line" onclick="ChangeTool('line')">
@@ -67,11 +67,15 @@
             </div>
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
-            <div id="img-data-div">
-                <a href="#" id="img-file" download="image.png">download image</a>
-            </div>
-            <div id="exit">
+
+            <div class="control" id="exit">
                 <a href="/home">Exit</a>
+            </div>
+            <div class="control" id="next">
+                <a href="/home">Next</a>
+            </div>
+            <div class="control" id="render">
+                <a href="/home">Render</a>
             </div>
             {% block content %}{% endblock %}
         </div>
