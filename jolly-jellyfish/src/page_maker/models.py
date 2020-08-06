@@ -28,7 +28,7 @@ class Template(models.Model):
     style_sheet = RelativeFilePathField(path=get_theme_path, recursive=True, match='.+\.css$')
 
     # null=False and blank=False enforce there always being a thumbnail image associated
-    thumbnail = models.ImageField(null=False, blank=False, editable=False
+    thumbnail = models.ImageField(null=False, blank=False, editable=False,
                                   verbose_name='thumbnail (leave empty-generated automatically)',
                                   default='thumbnails/placeholder_img.png', upload_to='thumbnails/',
                                   validators=[validate_image_file_extension])
