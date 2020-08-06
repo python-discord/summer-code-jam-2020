@@ -142,6 +142,13 @@ CHANNEL_LAYERS = {
     },
 }
 
+# save media such as images in media/
+# example imagefile is in /images then it's in media/images
+# below 2 do not affect existing profiles, need to recreate them
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# public url of media, to access in browser
+MEDIA_URL = '/media/'
+
 # To display red color for our messaged.
 # Default Django error tag is 'error' while framework we use, bootstrap, is 'danger'
 MESSAGE_TAGS = {
