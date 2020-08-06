@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import { styleReset, List, ListItem, Divider } from 'react95';
+import { styleReset, List, ListItem, Divider, AppBar, Toolbar, Button, TextField} from 'react95';
 // pick a theme of your choice
 import original from "react95/dist/themes/original";
 // original Windows95 font (optionally)
@@ -27,18 +27,49 @@ const GlobalStyles = createGlobalStyle`
   ${styleReset}
 `;
 
-const App = () => (
+function postRequest(url, opts) {
+  fetch(url, {
+    method: 'post',
+    body: JSON.stringify(opts),
+    Headers: {'Accept': 'application/json'}
+  }).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+  });
+}
+
+
+const App = () => {
+  const [state, setState] = useState({
+    value: '',
+    email_value: '',
+    user_value: ''
+  });
+  const handleChange = e => setState({ email_value: e.target.value });
+
+  return (
   <div>
     <GlobalStyles />
     <ThemeProvider theme={original}>
-      <List>
-        <ListItem>🧯 FIRE!</ListItem>
-        <ListItem>🧻 Toilet Paper Crisis(2020)</ListItem>
-        <Divider />
-        <ListItem disabled>😴 Sleep</ListItem>
-      </List>
+    <AppBar>
+    <Toolbar style={{ justifyContent: 'space-between' }}> </Toolbar>
+    <Button
+            onClick={() => {
+              console.log(state.email_value)
+              postRequest('http://127.0.0.1:8000/account/', {'email': state.email_value})
+            }}
+            style={{ fontWeight: 'bold' }}
+          >Button</Button>
+          <TextField
+            value={state.email_value}
+            placeholder='Your Email'
+            onChange={handleChange}
+            >
+          </TextField>
+    </AppBar>
     </ThemeProvider>
   </div>
-);
+)
+};
 
 export default App;

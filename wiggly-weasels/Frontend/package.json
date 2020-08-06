@@ -1,0 +1,7 @@
+{
+    "name": "Flashback",
+    "dependencies": {
+        "create-react-app": "^3.4.1",
+        "express": "^4.17.1"
+    }
+}

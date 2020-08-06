@@ -1,15 +1,3 @@
-# Setup
-
-
-``` 
-$ cd summer-code-jam-2020/wiggly-weasels/Frontend/flashback
-$ git swtitch React95
-$ npm install && npm start
-```
-
----
-
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
