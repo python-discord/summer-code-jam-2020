@@ -8,14 +8,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print("initializing admin user...")
-        TraderFactory(
+        trader = TraderFactory(
             user__username="admin",
             user__email="admin@teabay.com",
-            user__password="admin",
             user__first_name="Jimmy",
             user__last_name="Recard",
         )
-        print("initializing tradres...")
+        trader.user.set_password("admin")
+        print("initializing traders...")
         fixtures.create_trader_set()
         print("initializing products...")
         fixtures.create_product_set()
