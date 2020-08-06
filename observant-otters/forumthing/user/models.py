@@ -11,6 +11,7 @@ class ForumUser(AbstractUser):
     token_exp_date = models.DateTimeField(null=True)  # token expiration date
     discord_id = models.TextField()
 
+
     def __str__(self):  # maybe a better string repr?
         if self.nickname:
             return self.nickname
