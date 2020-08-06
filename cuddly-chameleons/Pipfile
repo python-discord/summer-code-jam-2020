@@ -6,11 +6,14 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "~=3.0"
+django = "==3.0.8"
 psycopg2-binary = "~=2.8"
 dj-database-url = "~=0.5"
 gunicorn = "*"
 whitenoise = "*"
+djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.8"
