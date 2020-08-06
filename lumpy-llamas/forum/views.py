@@ -3,11 +3,28 @@ from .models import Thread, ThreadMessage
 from django.db.models import F
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+import fastjsonschema
 
 from core.helpers import jsonbody
-
-
 # Create your views here.
+
+thread_schema = {
+    'type': 'object',
+    'properties': {
+        'username': {
+            'type': 'string',
+            'minLength': 3,
+            'maxLength': 120
+        },
+        'message': {
+            'type': 'string',
+            'minLength': 3,
+            'maxLength': 3000
+        }
+    },
+}
+
+
 
 def list_threads(request):
     """
@@ -25,26 +42,29 @@ def list_threads(request):
 
 @jsonbody
 def post_thread(request, data):
-    current_user = request.user
-    thread = Thread.objects.create(
-        title=data['title'],
-        created_by=current_user
-    )
-    thread_id = thread.id
-    thread.save()
+    validate = fastjsonschema.validate(thread_schema, data)
+    if validate:
+        current_user = request.user
+        thread = Thread.objects.create(
+            title=data['title'],
+            created_by=current_user
+        )
+        thread_id = thread.id
+        thread.save()
 
-    message = ThreadMessage(
-        message=data['message'],
-        user=current_user,
-        thread=thread
-    )
-    message.save()
+        message = ThreadMessage(
+            message=data['message'],
+            user=current_user,
+            thread=thread
+        )
+        message.save()
 
-    return JsonResponse({
-        'thread_id': thread.id,
-        'message': message.message,
-        'user': message.user.username
-    }, status=201)
+        return JsonResponse({
+            'thread_id': thread.id,
+            'message': message.message,
+            'user': message.user.username
+        }, status=201)
+    return
 
 @jsonbody
 def post_message(request, data):

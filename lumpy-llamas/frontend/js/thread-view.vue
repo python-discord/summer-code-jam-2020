@@ -3,7 +3,7 @@
     <h2 class="some-heading">{{myStuff[0].title}} </h2>
     <div class="terminal-timeline">
     <div class="terminal-card" v-for="item in myStuff">
-      <header>{{item.user}} on {{item.date | moment("DD/MM/YY/hh:mm")}}</header>
+      <header>{{item.user}} on {{item.date | moment("DD/MM/YY/HH:MM")}}</header>
       <div>
         {{item.message}}
       </div>
@@ -48,7 +48,7 @@ export default {
   beforeMount() {
     this.getData();
   },
-  computed: {
+  methods: {
     getData() {
       axios.get(`/api/forum/${this.$route.params.id}/`).then((response) => {
         this.myStuff = response.data;
@@ -60,6 +60,7 @@ export default {
         message: this.message,
         thread_id: this.$route.params.id
       }).then((res) => {
+        this.getData();
         console.log(res.data.thread_id);
       }).catch((err) => {
         console.log(err); // eslint-disable-line no-console
