@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>{{page.title}}</title>
+    <style>	{% block style %}{% endblock %}</style>
 </head>
 <body>
 	{% block content %}
 	{% endblock %}
 </body>
+<script>{% block script %}{% endblock %}</script>
 </html>
