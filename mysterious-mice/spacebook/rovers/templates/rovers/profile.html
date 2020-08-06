@@ -76,6 +76,7 @@
                 <tbody>
                     <tr><td>
                             {{ rover.username }}'s Top 8 Photos
+                            (<a href="{% url 'posts-home' %}?username={{ rover.username }}">see all</a>)
                     </td></tr>
                     <tr><td><table><tbody><tr>
                             {% for image in images %}

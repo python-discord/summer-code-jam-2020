@@ -8,6 +8,14 @@
 
 {% block body %}
     <div class="body-div full-width">
+        <span class="page-header">
+            {% if username %}
+                {{ username }}'s Posts
+            {% else %}
+                All Posts
+            {% endif %}
+        </span>
+        <br>
         <a href="{{ next_image_pk }}{{ username_get }}">
             <img src="{{ imagepost.image.url }}" class="imagepost-detail">
         </a>
