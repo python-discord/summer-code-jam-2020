@@ -1,0 +1,18 @@
+{{ object.user }}
+<br>
+{{ object.description }}
+
+<h2>Inventory</h2>
+{% for product in inventory %}
+<li>{{ product }}</li>
+{% endfor %}
+
+<h2>Listing</h2>
+{% for listing in listings %}
+<li>{{ listing }}</li>
+{% endfor %}
+
+<h2>Reviews</h2>
+{% for review in reviews %}
+<li>{{ review }}</li>
+{% endfor %}

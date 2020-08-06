@@ -27,4 +27,5 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="core/login.html"),
         name="login",
     ),
+    path("trader/<int:pk>", views.TraderDashboard.as_view(), name="dashboard"),
 ]
