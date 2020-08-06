@@ -3,7 +3,7 @@ import django.contrib.auth.models as md
 
 
 class User(md.User):
-    """represents an app user"""
+    """data entry model for an app user"""
     profile_picture = models.ImageField(upload_to='profile/')
 
     def __repr__(self) -> str:
@@ -13,7 +13,7 @@ class User(md.User):
 
 
 class Project(models.Model):
-    """represents a project that an user can do, can either be a gif or still image project"""
+    """data entry model for a project that an user can do, can either be a gif or still image project"""
     name = models.CharField(max_length=50)
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     is_gif = models.BooleanField(null=False, default=True)
@@ -28,12 +28,13 @@ class Project(models.Model):
 
 
 class Image(models.Model):
-    """represents an image that can be inside a project"""
+    """data entry model for an image that can be inside a project"""
     project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
     image_name = models.CharField(max_length=50)
     image_data = models.ImageField(upload_to="images/")
     date_created = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
+    animation_position = models.PositiveIntegerField(null=False, default=0)
 
     def __repr__(self) -> str:
         """returns the image name and the project id that it belongs to"""
@@ -42,7 +43,7 @@ class Image(models.Model):
 
 
 class Comment(models.Model):
-    """represents a comment on a project or another comment"""
+    """data entry model for a comment on a project or another comment"""
     content = models.TextField()
     post_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)

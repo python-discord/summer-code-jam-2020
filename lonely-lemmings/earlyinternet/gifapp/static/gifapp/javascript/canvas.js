@@ -191,6 +191,9 @@ function UpdateRubberbandOnMove(loc){
 function DrawBrush(x, y, color){
     if (usingBrush) {
         ctx.beginPath();
+        if (currentTool === "eraser"){
+            ctx.globalCompositeOperation = "destination-out";
+        }
         ctx.strokeStyle = color;
         ctx.lineWidth = line_Width;
         ctx.lineJoin = "round";
@@ -247,6 +250,7 @@ function ReactToMouseUp(e){
     usingBrush = false;
     if(currentTool === 'brush' || currentTool === "eraser") {
         ctx.beginPath();
+        ctx.globalCompositeOperation = "source-over";
     }
     SaveCanvasImage();
     SaveStates.push(savedImageData);
