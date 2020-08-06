@@ -270,6 +270,7 @@ function ReactToMouseUp(e){
 
 function SaveImage(type){
     let img_data = canvas.toDataURL();
+    let next_frame = false;
 
     let xhr = new XMLHttpRequest();
     let url;
@@ -277,12 +278,17 @@ function SaveImage(type){
         url = "save";
     } else if (type === "render"){
         url = "render";
+    } else if (type === "next"){
+        url = "save"
+        next_frame = true;
     }
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    let data = JSON.stringify({"image_BLOB": img_data});
+    let data = JSON.stringify(
+        {"image_BLOB": img_data, "next": next_frame}
+        );
     xhr.send(data);
 }
 

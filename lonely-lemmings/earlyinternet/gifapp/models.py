@@ -1,15 +1,5 @@
 from django.db import models
-import django.contrib.auth.models as md
-
-
-class User(md.User):
-    """data entry model for an app user"""
-    profile_picture = models.ImageField(upload_to='profile/')
-
-    def __repr__(self) -> str:
-        """returns the username of the user"""
-        cls = self.__class__.__name__
-        return f"{cls} username={self.username!r}"
+from django.contrib.auth.models import User
 
 
 class Project(models.Model):

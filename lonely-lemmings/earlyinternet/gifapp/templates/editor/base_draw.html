@@ -6,6 +6,7 @@
         <meta name="viewport" content="width = device-width, initial-scale = 1">
         <title>GIF App</title>
         <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/draw.css'%}">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
     </head>
     <body>
@@ -67,17 +68,11 @@
             </div>
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
-
-            <div class="control" id="exit">
-                <a href="/home">Exit</a>
+            <div class="w3-container">
+                <a href="#" class="w3-button w3-black">Exit</a>
+                <a onclick="SaveImage('next')" class="w3-button w3-black">Next</a>
+                <a onclick="SaveImage('render')" class="w3-button w3-black">Render</a>
             </div>
-            <div class="control" id="next">
-                <a href="/home">Next</a>
-            </div>
-            <div class="control" id="render">
-                <a href="/home">Render</a>
-            </div>
-            {% block content %}{% endblock %}
         </div>
     </body>
 </html>
