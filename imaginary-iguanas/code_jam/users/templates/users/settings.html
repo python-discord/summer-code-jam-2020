@@ -4,6 +4,7 @@
     <h2>{{user.username}} settings</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ user_form|crispy }}
         {{ profile_form|crispy }}
         <button type="submit">Update Profile</button>
     </form>
