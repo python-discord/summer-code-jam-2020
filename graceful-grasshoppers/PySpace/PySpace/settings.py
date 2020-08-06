@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    'api',
-    'users',
+    'api.apps.ApiConfig',
+    'users.apps.UsersConfig',
     'corsheaders',
-    'posts',
+    'posts.apps.PostsConfig',
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
