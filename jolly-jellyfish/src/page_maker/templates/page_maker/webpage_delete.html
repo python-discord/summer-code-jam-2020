@@ -2,14 +2,10 @@
 
 {% block content %}
 <h2>Delete page</h2>
-<div>
-  <form method="POST">
-  {% csrf_token %}
-    <div>
-      {{ form.as_p }}
-      <p>Delete page <b>{{webpage.name}}</b></p>
-      <button type="submit">Confirm</button>
-    </div>
-  </form>
-</div>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Delete page <b>{{webpage.name}}</b></p>
+    <button type="submit">Confirm</button>
+</form>
 {% endblock %}
