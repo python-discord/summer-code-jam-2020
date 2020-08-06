@@ -7,6 +7,12 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def feed(request):
+
+    """
+    This view shows posts
+    for the logged in user.
+
+    """
     posts_object = Post.objects.all()
     posts_list = []
     for post in posts_object:
