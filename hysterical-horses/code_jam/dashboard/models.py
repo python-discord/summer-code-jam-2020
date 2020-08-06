@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import Account
 
 
 class Message(models.Model):
@@ -7,7 +7,7 @@ class Message(models.Model):
     Model for messages in instant messenger
     """
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(Account, on_delete=models.CASCADE)
     content = models.CharField(max_length=250, blank=False)
     date_created = models.DateTimeField(auto_now=True)
 

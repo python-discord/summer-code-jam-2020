@@ -131,3 +131,7 @@ LOGIN_URL = 'users/login'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# change default django model
+AUTH_USER_MODEL = 'users.Account'
+
