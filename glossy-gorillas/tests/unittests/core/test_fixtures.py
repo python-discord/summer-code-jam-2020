@@ -51,3 +51,18 @@ def test_trades_created_for_3_10ths_of_listings():
         "listing_id", flat=True
     ).distinct()
     assert traded_listings.count() == 3
+
+
+@pytest.mark.django_db
+def test_reviews_created_for_finalized_trades():
+    finalized = factories.TradeFactory(
+        listing__status=models.ListingStatus.FINALIZED.value
+    )
+    non_finalized = factories.TradeFactory(
+        listing__status=models.ListingStatus.NEGOTIATING.value
+    )
+    assert models.Review.objects.count() == 0
+    fixtures.create_review_set()
+    assert not models.Review.objects.count() == 0
+    assert finalized.review
+    assert not hasattr(non_finalized, "review")

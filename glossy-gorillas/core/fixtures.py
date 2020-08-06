@@ -2,8 +2,9 @@ import itertools
 import random
 from core.models.trader import Trader, InventoryRecord
 from core.models.product import Product
-from core.models.market import Listing, Trade
-from core.factories import trader, market, product
+from core.models.market import Listing, Trade, ListingStatus
+from core.models.review import Review
+from core.factories import trader, market, product, review
 from typing import List, Tuple
 
 
@@ -65,3 +66,17 @@ def create_trade_set() -> None:
     ]
 
     Trade.objects.bulk_create(trades, ignore_conflicts=True)
+
+
+def create_review_set() -> None:
+    """Create reviews for all finalized trades"""
+    trades: List[Tuple[int, int]] = list(
+        Trade.objects.filter(listing__status=ListingStatus.FINALIZED.value).values_list(
+            "id", "buyer__user_id"
+        )
+    )
+    reviews = [
+        review.ReviewFactory.build(user_id=buyer_id, trade_id=trade_id)
+        for trade_id, buyer_id in trades
+    ]
+    Review.objects.bulk_create(reviews, ignore_conflicts=True)
