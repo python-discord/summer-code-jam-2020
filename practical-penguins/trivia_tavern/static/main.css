@@ -1,5 +1,6 @@
 body {
   /* background: #fafafa; */
+  /* background-image: url("../media/test_tavern.jpg"); */
   background-image: url("../media/logs.jpg");
   background-repeat: repeat;
   color: #333333;
@@ -26,6 +27,7 @@ ul {
 
 .bg-brown {
   background-color: #663300;
+  /*background-image: url("../media/table.jpg");*/
   font-family: 'Pirata One', cursive;
 }
 
