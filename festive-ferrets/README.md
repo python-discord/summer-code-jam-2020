@@ -1,10 +1,18 @@
 # NAME TBD
 
+![test-frontend](https://github.com/jannisko/summer-code-jam-2020/workflows/test-frontend/badge.svg)
+![test-django](https://github.com/jannisko/summer-code-jam-2020/workflows/test-django/badge.svg)
+![.github/workflows/lint.yml](https://github.com/jannisko/summer-code-jam-2020/workflows/.github/workflows/lint.yml/badge.svg)
+
 short description
 
-build status
 
 ## Motivation
+
+This project was created for the [Python Discord Summer Code Jam 2020](https://pythondiscord.com/pages/code-jams/code-jam-7/) in August 2020.
+The goal was to develop a Django-based web application with the theme "Early Internet".
+You can find the main repository of the code jam [here](https://github.com/python-discord/summer-code-jam-2020).
+![django](images/summer_cj_2020_banner.png)
 
 
 ## Getting Started
@@ -36,16 +44,28 @@ python backend/manage.py runserver
 
 ### Frontend
 
+The frontend was created using node.js 14 and Angular.
+
+First install the the dependencies:
+```bash
+cd frontend/code-jam
+npm install
+```
+
+Then start the development server on port 4200 using:
+```bash
+npm start
+```
 
 ## Deployment
 
 ## Team Members
 
-- [AmazAkar](https://github.com/AmazAkar)
-- [AnixDrone](https://github.com/AnixDrone)
-- [jannis](https://github.com/jannisko)
-- [martinkozle](https://github.com/martinkozle)
-- [VerheeckeLorenzo](https://github.com/VerheeckeLorenzo)
+- [AmazAkar](https://github.com/AmazAkar) - Backend development
+- [AnixDrone](https://github.com/AnixDrone) - Backend & Frontend development
+- [jannis](https://github.com/jannisko) - Backend development & DevOps
+- [martinkozle](https://github.com/martinkozle) - Backend & Frontend development
+- [VerheeckeLorenzo](https://github.com/VerheeckeLorenzo) - Backend development
 
 
 
