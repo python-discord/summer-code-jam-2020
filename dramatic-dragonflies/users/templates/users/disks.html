@@ -1,11 +1,9 @@
 {% extends 'users/base.html' %}
 {% load static %}
-	{% block content%}
+{% block content%}
 <div id = "main">
-{% if is_empty %}
-	<div class = "disk-container">
-		<p>You haven't got any Virtual Machines</p>
-	</div>
+{% if is_empty == True %}
+	<h1>You don't have any Virtual Machines yet!</h1>
 	{% else %}
 	{% for vm in object_list %}
 	<form name="diskform" id="diskform" method="get" action="{{ vm.first_action }}">
@@ -25,7 +23,7 @@
 	</form>
 		</div>
 	{% endfor %}
-{% endif %}
+
 </div>
 <script>
 document.getElementById('diskform').settings.onchange = function() {
@@ -33,4 +31,5 @@ document.getElementById('diskform').settings.onchange = function() {
     document.getElementById('diskform').action = new_action;
 };
 </script>
+{% endif %}
 {% endblock %}

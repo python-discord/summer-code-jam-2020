@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
 from django.http import HttpRequest, HttpResponse
+from django.contrib import messages
 # Create your views here.
 
 
@@ -13,7 +14,8 @@ def register(request: HttpRequest) -> HttpResponse:
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            messages.success('Successfully registered!')
+            return redirect(request, 'login')
         else:
             return render(request, 'users/register.html', {'form': form})
     else:

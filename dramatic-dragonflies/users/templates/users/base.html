@@ -12,6 +12,7 @@
         {% if user.is_authenticated %}
             <li><a href="{% url 'disks' %}" {% if request.resolver_match.url_name == "disks" %}class"active"{% endif %} >Disks</a></li>
             <li><a href="{% url 'create_new_vm' %}" {% if request.resolver_match.url_name == "create_new_vm" %}class"active"{% endif %} >Add new Virtual Machine</a></li>
+             <li><a href="{% url 'create_floppy' %}" {% if request.resolver_match.url_name == "create_floppy" %}class"active"{% endif %} >Add new Floppy to a specified VM</a></li>
             <li style="float:right"><a href="{% url 'logout' %}"  {% if request.resolver_match.url_name == "logout" %}class="active"{% endif %} >Logout</a></li>
         {% else %}
               <li style="float:right"><a href="{% url 'login' %}"  {% if request.resolver_match.url_name == "login" %}class="active"{% endif %}>Login</a></li>

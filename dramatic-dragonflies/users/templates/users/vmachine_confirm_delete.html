@@ -1,0 +1,19 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+
+				<div id = "main">
+						<div class = "login-grid">
+							<div class = "disk-item1">
+								<p style="text-align: center;"> <h3>Are your sure? (You're about to delete VM: "{{ object.name }}")</h3> </p>
+								<form method="post">
+									{% csrf_token %}
+
+									 <input type = "submit" id = "submit" value = "Delete"><br><br>
+									<a href="{% url 'disks' %}">Cancel and go back to Disks </a>
+								</form>
+
+							</div>
+						</div>
+				</div>
+{% endblock content %}

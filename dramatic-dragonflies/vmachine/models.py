@@ -14,13 +14,19 @@ class VMachine(models.Model):
         max_length=4,
         choices=shell_choices,
     )
-    floppy_disks_id = ArrayField(models.CharField(max_length=10, null=True), null=True, default=list)
-    floppy_disks_name = ArrayField(models.CharField(max_length=30, null=True), null=True, default=list)
+    floppy_disks_id = ArrayField(models.CharField(max_length=30, null=True), null=True, default=list)
+    floppy_disks_name = ArrayField(models.CharField(max_length=300, null=True), null=True, default=list)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Floppy(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=300)
     storage_id = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vm = models.ForeignKey(VMachine, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return str(self.name)+"("+self.vm.name+")"
