@@ -24,6 +24,7 @@ urlpatterns = [
     path("", include("posts.urls")),
     path("", include("mars_weather.urls")),
     path("", include("guestbook.urls")),
+    path("", include("welcome_page.urls")),
 ]
 
 if settings.DEBUG:
