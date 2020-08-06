@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for message in Chat %}
-        <h2>Sent by: {{message.Sender}}</h3>
-        <h8>{{message.Sent_at}}</h5>
-        <p>{{message.Body}}</p>
+    {% for message in object_list %}
+        <h2>Sent by: {{message.sender}}</h3>
+        <p>
+            <font size="1" face="verdana" color="blue">{{message.sent_at}}</font> {{message.body}}
+        </p>
     {% endfor %}
 {% endblock content %}
