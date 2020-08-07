@@ -30,7 +30,14 @@ urlpatterns = [
     path("search/<str:q>", SearchView.as_view(), name="search"),
     path("user/<str:user>", UserView.as_view(), name="profile"),
     path("user/<str:user>/posts", UserView.as_view()),
-
-    path("ajax/vote/post/<int:post_id>/<int:vote>/", ajax_vote_post, name="ajax_vote_post"),
-    path("ajax/vote/comment/<int:comment_id>/<int:vote>/", ajax_vote_comment, name="ajax_vote_comment"),
+    path(
+        "ajax/vote/post/<int:post_id>/<int:vote>/",
+        ajax_vote_post,
+        name="ajax_vote_post",
+    ),
+    path(
+        "ajax/vote/comment/<int:comment_id>/<int:vote>/",
+        ajax_vote_comment,
+        name="ajax_vote_comment",
+    ),
 ]

@@ -113,7 +113,13 @@ class InfoView(TemplateView):
             comment = Comment.objects.get(id=comment_id)
             thread_level = comment.thread_level + 1
 
-            Comment.objects.create(body=body, author=author, post=post, thread_level=thread_level, comment_thread=comment)
+            Comment.objects.create(
+                body=body,
+                author=author,
+                post=post,
+                thread_level=thread_level,
+                comment_thread=comment,
+            )
             return self.get(request, *args, **kwargs)
 
 

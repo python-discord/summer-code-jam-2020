@@ -11,6 +11,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+
 class CustomUser(AbstractUser):
     profile_img = models.ImageField(upload_to="profile_imgs/", null=True)
     bio = models.TextField(
@@ -80,7 +81,9 @@ class Comment(TimeStampedModel):
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
     upvoted_by = models.ManyToManyField(CustomUser, related_name="comment_upvoted_by")
-    downvoted_by = models.ManyToManyField(CustomUser, related_name="comment_downvoted_by")
+    downvoted_by = models.ManyToManyField(
+        CustomUser, related_name="comment_downvoted_by"
+    )
 
     body = models.CharField(max_length=10000, default="")
 
