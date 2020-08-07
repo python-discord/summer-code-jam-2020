@@ -5,10 +5,6 @@ from .models import Post, Dislike, Like
 class PostSerializer(serializers.ModelSerializer):
     dislikes = serializers.SerializerMethodField('dislike_count')
     likes = serializers.SerializerMethodField('like_count')
-    author = serializers.SerializerMethodField('username')
-
-    def username(self, obj):
-        return obj.author.username
 
     def like_count(self, obj):
         return obj.likes.count()

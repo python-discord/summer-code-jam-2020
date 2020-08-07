@@ -34,5 +34,8 @@ class Post(models.Model):
     likes = models.ManyToManyField(Like, blank=True)
     dislikes = models.ManyToManyField(Dislike, blank=True)
 
+    def __lt__(self, val):
+        return self.date_posted < val.date_posted
+
     def __str__(self):
         return f"{self.title} by {self.author}"
