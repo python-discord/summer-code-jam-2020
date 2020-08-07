@@ -4,10 +4,15 @@ body {
     background: black;
     font-family: sans-serif;
 }
-th, td {
-  border: 1px solid white;
-}
 h2{
+    text-align: center;
+}
+button {
+    background-color: #ccc;
+    border-left: 3px solid #ddd;
+    border-top: 3px solid #ddd;
+    border-right: 3px solid #666;
+    border-bottom: 3px solid #666;
     text-align: center;
 }
 .center_screen {
@@ -17,4 +22,11 @@ h2{
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
-
+.button_zoom{
+    text-align:center;
+}
+#star_holder {
+    position: fixed;
+    background: url("../images/beautiful-blue-stars-fill.jpg");
+    overflow: hidden;
+}

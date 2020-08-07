@@ -47,7 +47,8 @@
                         <tr><td>
                             <div id="command-input-div">
                                 &gt;&gt;
-                                <form method="get">
+                                <form action="/game/" method="post">
+                                    {% csrf_token %}
                                     <input type="text" name="command" id="command-input" maxlength="16">
                                     <input type="submit" class="button" id="command-submit" value="[Submit]">
                                 </form>
