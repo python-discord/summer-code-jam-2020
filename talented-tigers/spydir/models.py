@@ -41,7 +41,6 @@ class GeneratedPage(models.Model):
 
     # Blog Fields
     blog_posts = models.ManyToManyField(BlogPost, blank=True)
-    # 4 digit number to randomize css
     blogger_age = models.IntegerField(blank=True, null=True)
     blogger_location = models.CharField(max_length=20, blank=True)
 

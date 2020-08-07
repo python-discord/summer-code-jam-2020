@@ -1,11 +1,12 @@
-import nltk
 import random
 import re
 import wikipedia
+import nltk
+import threading
 from faker import Faker
-
-from .models import GeneratedPage, BlogPost, PageImage
 from .generate_images import generate_images
+import gpt_2_simple as gpt2
+from .models import GeneratedPage, BlogPost
 
 
 # TODO: Make the requests asynchronous
@@ -16,7 +17,7 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 99.5, 0.1, 0.05, 0.05])[0] \
+    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] \
         if page_type is None else page_type
 
     # Define the different fields needed for different page types here
@@ -26,11 +27,18 @@ def generate_page(page_name, page_type=None):
         page_object.blogger_location = generate_blogger_location()
 
         # Generates x amount of blog posts
-        for x in range(int(str(page_object.css_seed)[0])):
-            blog_post = BlogPost.objects.create(title=generate_blog_post_title(page_name),
-                                                content='This is the content of a blogpost')
+        no_posts = (int(str(page_object.css_seed)[0]) // 2) + 1
+        titles = []
+        for x in range(no_posts):
+            title = generate_blog_post_title(page_name)
+            titles.append(title)
+            blog_post = BlogPost.objects.create(title=title,
+                                                content='Loading...')
             blog_post.save()
             page_object.blog_posts.add(blog_post)
+
+        download_thread = threading.Thread(target=generate_gpt2, args=(page_object.blog_posts,))
+        download_thread.start()
 
     elif page_object.page_type == 'INFO':
         page_object.page_content = generate_information(page_name)
@@ -137,3 +145,22 @@ def parse_result(result):
         information += ' '
 
     return information
+
+
+# TODO: Make the page update without refreshing
+def generate_gpt2(posts):
+    # Currently, the model is loaded everytime this function is called, which may be slow. Putting it outside doesnt
+    # work
+    model_name = "124M"
+    sess = gpt2.start_tf_sess()
+    gpt2.load_gpt2(sess, model_name=model_name)
+
+    for post in posts.all():
+        post.content = 'Generating...'
+        post.save()
+        output = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title,
+                               length=100)[0]
+        cutoff = max([output.rfind("."), output.rfind("?"), output.rfind("!")])
+        post.content = parse_result(output[:cutoff+1])
+        print(post.content)
+        post.save()

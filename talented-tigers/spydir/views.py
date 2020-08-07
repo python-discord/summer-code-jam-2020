@@ -1,4 +1,6 @@
 from django.shortcuts import render
+import nltk
+import random
 from django.http import HttpResponse
 from .models import GeneratedPage
 from . import generate_page
