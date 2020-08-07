@@ -130,3 +130,9 @@ dmypy.json
 
 # PyCharm Project folder
 .idea/
+
+
+bin/
+.vscode/
+/proud-puffins/puffin
+pyvenv.cfg
