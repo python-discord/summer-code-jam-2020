@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 
 from users.forms import RegistrationForm, TeamRegistrationForm
-from users.models import File, Member
+from users.models import File, FileGroup, Member
 
 
 def fhandler(request, name):
@@ -83,6 +83,9 @@ def upload(request):
             hash_val = hash_file(path)
             form = File(title=uploaded_file.name, hash_val=hash_val, user=request.user)
             form.save()
+            file_group_form = FileGroup(title=uploaded_file.name, user=request.user)
+            file_group_form.save()
+            file_group_form.files.add(form)
         else:
             # flash message that A similar file is already present  if hash value matches
             path = save_on_server(uploaded_file)
@@ -91,12 +94,14 @@ def upload(request):
                 messages.warning(request, "A similar file is already present")
                 os.remove(path)
 
-            # hash value matches so no need to upload. if not, uploade it with different file name
+            # hash value matches so no need to upload. if not, upload it with different file name
             else:
+                file_group = FileGroup.objects.filter(title=uploaded_file.name)[0]
                 # save file on server with new name{version}
                 title = path.split("/")[-1]
                 form = File(title=title, hash_val=hash_val, user=request.user)
                 form.save()
+                file_group.files.add(form)  # adds newly created file version to file group
                 messages.warning(
                     request,
                     "file with same name is already present adding it with new version ",
@@ -109,9 +114,10 @@ def upload(request):
 def dashboard(request):
     teams = Member.objects.filter(user__id__in=[request.user.id])
     context = {}
-    file = File.objects.filter(user=request.user).order_by("-uploaded_at")[:5]
-    context = {"file": file, "teams": teams}
-    print(context["file"])
+    files = FileGroup.objects.filter(user__id__in=[request.user.id])
+    # files = filegroup.files.all()
+    context = {"files": files, "teams": teams}
+    # print(context["files"])
     print(context["teams"])
     return render(request, "users/dashboard.html", context)
 

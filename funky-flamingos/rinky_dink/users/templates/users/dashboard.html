@@ -2,42 +2,48 @@
 {% block content%}
 
 <div class="window-center">
-  <div class="window" style="width: 300px">
+  <div class="window" style="width: 350px">
     <div class="title-bar">
       <div class="title-bar-text">Dashboard</div>
     </div>
     <div class="window-body">
       <h4> Welcome {{ request.user }}</h4>
       <span>Your teams:</span>
-      {% if not teams %}
-        <span>You haven't joined any team yet.</span>
-      {% else %}
+      
         <ul class="tree-view">
-          {% for team in teams %}
-            <li>{{ team.team.name }}</li>
-          {% endfor %}
+          {% if not teams %}
+            <span>You haven't joined any team yet. <a href="{% url 'teamregister' %}"><b>Create One?</b></a></span>
+          {% else %}
+            {% for team in teams %}
+              <li>{{ team.team.name }}</li>
+            {% endfor %}
+          {% endif %}
         </ul>
-      {% endif %}
       <br />
       <span>Recently uploaded files:</span>
       <ul class="tree-view" style="font-size:12px">
-        {% if not file %}
+        {% if not files %}
           <span>*crickets chirping*</span>
         {% else %}
-          {% for record in file %}
-            {% if "_" not in record.title %}
-              </details>
-            {% endif %}
-
-            {% if "_" not in record.title %}
+          {% for record in files %}
+            
               <details closed>
-                <summary>{{record.title}}</summary>
-                  <li><a href="{% url 'fhandler' name=record.title %}"><strong>{{record.title}}</strong></a>
-                    <span style="margin-left: 13px">Date Updated: {{record.uploaded_at}}</span></li>
-            {% else %}
-              <li><a href="{% url 'fhandler' name=record.title %}">{{record.title}}</a>
-                {{record.uploaded_at}}</li>
-            {% endif %}
+                <summary>{{ record.title }}</summary>
+                  {% for file in record.files.all %}
+                    {% if forloop.first %}
+                      <li>
+                        <a href="{% url 'fhandler' name=file.title %}"><b>{{file.title}} [HEAD]</b></a>
+                        <span class="ml-1">Last Modified: {{file.uploaded_at}}</span>
+                      </li>
+                    {% else %}
+                      <li>
+                        <a href="{% url 'fhandler' name=file.title %}"><b>{{file.title}}</b></a>
+                        <span class="ml-1">Created: {{file.uploaded_at}}</span>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+              </details>
+
           {% endfor %}
         {% endif %}
       </ul>

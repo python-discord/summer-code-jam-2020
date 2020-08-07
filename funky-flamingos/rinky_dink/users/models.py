@@ -11,10 +11,22 @@ class File(models.Model):
     def __str__(self):
         return f"Title: {self.title} hash_val :{self.hash_val} uploaded_at {self.uploaded_at}"
 
+    class Meta:
+        ordering = ['-uploaded_at']
+
+
+class FileGroup(models.Model):
+    title = models.CharField(max_length=255, unique=True)
+    files = models.ManyToManyField(File)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.title} containing following files:\n{self.files.all()}"
+
 
 class Team(models.Model):
     name = models.CharField(max_length=64, unique=True)
-    description = models.CharField(max_length=1024)
+    description = models.CharField(max_length=1024, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     members = models.ManyToManyField(User, through='Member')
 
