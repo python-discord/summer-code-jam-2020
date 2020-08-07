@@ -62,7 +62,9 @@ class MudConsumer(WebsocketConsumer):
             if self.scope['user'].is_authenticated:
                 try:
                     return_message = getattr(self.engine, command)(*command_arguments)
+
                 except AttributeError:
+                    # engine has no attribute command
                     return_message = f"{command} is not a valid command! Type 'help' if you need."
 
             elif command == 'login':
