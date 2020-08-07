@@ -156,6 +156,6 @@ def generate_gpt2(posts):
         output = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title,
                                length=100)[0]
         cutoff = max([output.rfind("."), output.rfind("?"), output.rfind("!")])
-        post.content = output[:cutoff+1]
+        post.content = parse_result(output[:cutoff+1])
         print(post.content)
         post.save()
