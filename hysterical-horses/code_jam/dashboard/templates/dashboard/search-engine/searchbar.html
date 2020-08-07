@@ -1,0 +1,20 @@
+<!-- Form Component -->
+<div style="margin-left:100px; margin-right:100px">
+    <form action="" method="POST" id="searchbar">
+        {% csrf_token %}
+        <input type="text" name="searchbar-query" id ="search-query-field" placeholder="Search anything ..." class="nes-input">
+    </form>
+</div>
+
+<script>
+ // change form action based on input value
+
+ $('#searchbar').submit(function(){
+     var q = $('#search-query-field').val();
+     $(this).attr("action", q);
+     console.log("Querying: " + q);
+
+ })
+
+
+</script>
