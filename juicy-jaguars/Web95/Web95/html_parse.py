@@ -53,12 +53,6 @@ sans-serif !important;}')
             except KeyError:
                 element["style"] = "border-radius: 0px !important; "
 
-    def parse_as(self):
-        """Change links in A tags to be absolute."""
-        for element in self.soup.find_all("a", href=True):
-            if element["href"].startswith("/"):
-                element["href"] = self.basedir + element["href"]
-
     def parse_links(self):
         """Parse all links in document."""
         link_attrs = ["src", "href"]
