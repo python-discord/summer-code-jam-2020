@@ -2,24 +2,23 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Tweet
+from  .forms import *
 
 
 # index view when user logs in
 
 def createpost(request):
-    if request.method == 'POST':
-        if request.POST.get('title') and request.POST.get('content'):
-            post = Tweet()
-            post.content = request.POST.get('content')
-            post.save()
-            return render(request, 'index.html')
-    else:
-        return render(request, 'tweet.html')
+    return render(request, 'tweet.html')
 
 
 def index(request):
-    queryset = Tweet.objects.all()
-    return render(request, 'index.html', {"data": queryset})
+    form = TweetForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        queryset = Tweet.objects.all()
+        print(queryset)
+        return render(request, 'index.html', {"data": queryset})
+    # queryset = Tweet.objects.all()
 
 
 # for registration of a new user
