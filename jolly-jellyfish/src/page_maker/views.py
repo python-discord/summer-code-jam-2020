@@ -143,16 +143,17 @@ class WebpageDetailView(DetailView):
 
 class WebpageListView(ListView):
     """
-    Display webpages ordered by number likes
+    Display webpages in order specified when .as_view() is called in urls.py
     """
     model = Webpage
     template = 'page_maker/webpage_list.html'
     context_object_name = 'webpages'
     paginate_by = 5
+    ordering = None
 
     def get_queryset(self):
-        """Return the webpages sorted by number of likes"""
-        return Webpage.objects.annotate(like_count=Count('like')).order_by('-like_count')
+        """Return the webpages sorted by either number of likes or datetime created"""
+        return Webpage.objects.annotate(like_count=Count('like')).order_by(self.ordering)
 
 
 class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
