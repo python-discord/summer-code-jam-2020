@@ -7,7 +7,7 @@ def generate_images(category: str, n: int, query:str = "clip art", image_type: s
     """Use pixabay api to get image links based on image categories."""
 
     """
-    Cactegories can be:
+    Categories can be:
     backgrounds, fashion, nature, science, education, 
     feelings, health, people, religion, places, animals, 
     industry, computer, food, sports, transportation, 
