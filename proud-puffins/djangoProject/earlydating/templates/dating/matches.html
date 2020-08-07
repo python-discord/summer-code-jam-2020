@@ -1,0 +1,24 @@
+{% extends 'dating/base.html' %}
+{% block title %}Matches{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Likes table</h1>
+<table >
+    <thead>
+        <tr>
+            {% for k in header %}
+            <th>{{k}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table %}
+            <tr>
+                {% for col in row %}
+                <td>{{col}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
