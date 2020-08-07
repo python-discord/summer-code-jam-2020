@@ -39,7 +39,7 @@ const actions = {
     const { commit, rootState } = info
     console.log(info)
     // commit('login') // show spinner
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       $apolloClient.mutate({
         // Query
         mutation: gql`
@@ -57,6 +57,8 @@ const actions = {
         console.log(data)
         commit('loginSuccess', data.data.login)
         resolve()
+      }).catch((err) => {
+        reject(err.message);
       })
     })
   },

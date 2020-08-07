@@ -1,10 +1,61 @@
 <template>
   <q-page padding>
-    <form @submit.prevent="handleSubmit">
-        <q-input autocomplete="username" v-model="username" type="username" label="Username" />
-        <q-input autocomplete="current-password" v-model="password" type="password" label="Password" />
-        <q-btn flat color="primary" type="submit" label="Submit" />
-    </form>
+    <div class="q-pa-md">
+      <div class="q-gutter-y-md">
+        <q-card>
+          <q-tabs
+            v-model="loginRegisterTab"
+            dense
+            align="justify"
+            narrow-indicator
+          >
+            <q-tab name="login" label="Login" />
+            <q-tab name="register" label="Register" />
+          </q-tabs>
+          <q-separator />
+          <q-tab-panels v-model="loginRegisterTab" animater>
+            <q-tab-panel name="login">
+              <q-form @submit.prevent="handleSubmit">
+                  <q-input
+                    autocomplete="username"
+                    v-model="username"
+                    type="username"
+                    label="Username"
+                    :error="badLogin"
+                    @change="badLogin=false"
+                  />
+                  <q-input
+                    autocomplete="current-password"
+                    v-model="password"
+                    type="password"
+                    label="Password"
+                    :error="badLogin"
+                    error-message="Bad username OR password"
+                    @change="badLogin=false"
+                  />
+                  <q-btn flat color="primary" type="submit" label="Submit" />
+              </q-form>
+            </q-tab-panel>
+            <q-tab-panel name="register">
+              <q-form @submit.prevent="handleRegister">
+                  <q-input autocomplete="username" v-model="username" type="username" label="Username" />
+                  <q-input autocomplete="email" v-model="email" type="email" label="Email" />
+                  <q-input v-model="password1" type="password" label="Password" />
+                  <q-input
+                    ref="password2"
+                    v-model="password2"
+                    type="password"
+                    label="Confirm Password"
+                    lazy-rules="ondemand"
+                    :rules="[val => (val == password1) || 'Passwords do not match']"
+                  />
+                  <q-btn flat color="primary" type="submit" label="Submit" />
+              </q-form>
+            </q-tab-panel>
+          </q-tab-panels>
+        </q-card>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -21,8 +72,13 @@ export default {
   data () {
     return {
       title: 'Login',
+      email: '',
       username: '',
-      password: ''
+      password: '',
+      password1: '',
+      password2: '',
+      loginRegisterTab: 'login',
+      badLogin: false,
     }
   },
   mounted () {
@@ -38,10 +94,15 @@ export default {
       }).then(() => {
         this.$router.push('/')
       }).catch((err) => {
-        console.log(err)
-        console.log('bad login')
+        this.badLogin = true;
       })
-    }
+    },
+    handleRegister() {
+      this.$refs.password2.validate();
+      if (this.$refs.password2.hasError) {
+        this.formHasError = true;
+      }
+    },
   }
 }
 </script>
