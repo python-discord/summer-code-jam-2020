@@ -1,9 +1,7 @@
 from django.http import JsonResponse
 from .models import Thread, ThreadMessage
 from django.db.models import F
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-import fastjsonschema
+from fastjsonschema import validate
 
 from core.helpers import jsonbody
 # Create your views here.
@@ -11,7 +9,7 @@ from core.helpers import jsonbody
 thread_schema = {
     'type': 'object',
     'properties': {
-        'username': {
+        'title': {
             'type': 'string',
             'minLength': 3,
             'maxLength': 120
@@ -20,6 +18,21 @@ thread_schema = {
             'type': 'string',
             'minLength': 3,
             'maxLength': 3000
+        }
+    },
+}
+
+message_schema = {
+    'type': 'object',
+    'properties': {
+        'message': {
+            'type': 'string',
+            'minLength': 3,
+            'maxLength': 3000
+        },
+        'thread_id': {
+            'type': 'int',
+            'minLength': 1,
         }
     },
 }
@@ -42,7 +55,7 @@ def list_threads(request):
 
 @jsonbody
 def post_thread(request, data):
-    validate = fastjsonschema.validate(thread_schema, data)
+    validated = validate(thread_schema, data)
     if validate:
         current_user = request.user
         thread = Thread.objects.create(
@@ -69,7 +82,9 @@ def post_thread(request, data):
 @jsonbody
 def post_message(request, data):
     current_user = request.user
-    if data['message']:
+    validated = validate(message_schema, data)
+
+    if validated:
         message = ThreadMessage(
         message=data['message'],
             user=current_user,
@@ -77,11 +92,12 @@ def post_message(request, data):
         )
         message.save()
 
-    return JsonResponse({
-        'thread_id': message.thread.id,
-        'message': message.message,
-        'user': message.user.username
-    }, status=201)
+        return JsonResponse({
+            'thread_id': message.thread.id,
+            'message': message.message,
+            'user': message.user.username
+        }, status=201)
+    return JsonResponse(validated)
 
 def thread_details(request, thread_id):
     """

@@ -14,7 +14,7 @@
     <div class="home-menu item">
       <h2>Menu</h2>
       <ol class="home-menu-options">
-        <li>Forums</li>
+        <router-link :to="{ name: 'forum'}"><li>Forums</li></router-link>
         <li>Email</li>
         <li>Games</li>
         <li>Chat</li>
