@@ -58,3 +58,12 @@ sans-serif !important;}')
         for element in self.soup.find_all("a", href=True):
             if element["href"].startswith("/"):
                 element["href"] = self.basedir + element["href"]
+
+    def parse_links(self):
+        """Parse all links in document."""
+        link_attrs = ["src", "href"]
+
+        for element in self.soup.find_all(re.compile(".*")):
+            for name, val in element.attrs.items():
+                if name in link_attrs:
+                    element[name] = self.basedir + val
