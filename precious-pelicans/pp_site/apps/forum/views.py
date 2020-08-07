@@ -1,7 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import ForumPost, ForumPostReplyForm
+from django.db.models import Q
+from .models import ForumPost, ForumPostReplyForm, ForumPostForm
+from .forms import PostSearchForm
+import shlex
+import re
 
 
 def forum_post(request, post_id):
@@ -13,6 +17,7 @@ def forum_post(request, post_id):
     page_number = request.GET.get('page', 1)
     page_obj = pages.get_page(page_number)
 
+    print(post.author)
     context = {
         'original_post': post,
         'reply_form': ForumPostReplyForm,
@@ -34,17 +39,98 @@ def forum_post_reply(request, post_id):
             forum_reply.forum_post_id = post_id
             forum_reply.save()
             return HttpResponseRedirect(f'/forum/{post_id}?page=-1')
-    else:
-        form = ForumPostReplyForm()
 
-    # TODO: fix this so that it renders the page with form filled in
     return render(request, f'forum/{post_id}')
 
 
 def index(request):
-    post_list = ForumPost.objects.all()
+    # TODO: confirm if dates in descending order mean newest first
+    post_list = ForumPost.objects.order_by('-created_at')
     context = {
-        'post_list': post_list
+        'post_list': post_list,
+        'top_post': post_list.order_by('-rating').first(),
+        'search': PostSearchForm()
     }
 
     return render(request, 'forum/index.html', context)
+
+
+def upload_post(request):
+    if request.method == "POST":
+        form = ForumPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            saved_post = form.save()
+
+            return HttpResponseRedirect(f'/forum/{saved_post.id}')
+        return render(request, 'forum/upload_error.html', {'errors': form.errors})
+    return render(request, 'forum/upload.html', {'upload_form': ForumPostForm})
+
+
+def normalize_query(query_string):
+    # Remove extra spaces
+    query_string = re.sub(' +', ' ', query_string)
+
+    # Split while keeping quoted sub-strings
+    return shlex.split(query_string)
+
+
+def get_query(query_string, search_field):
+    query = None
+    terms = normalize_query(query_string)
+
+    # For each search term it generates a query for each field, this query is then added to the main query
+    for term in terms:
+        term_query = None
+        for field_name in search_field:
+            q = Q(**{f"{field_name}__icontains": term})
+
+            if term_query is None:
+                term_query = q
+            else:
+                term_query |= q
+
+        if query is None:
+            query = term_query
+        else:
+            query &= term_query
+
+    return query
+
+
+def search_posts(request):
+    search_string = request.POST['search_string']
+    query = get_query(search_string, ("title", "author", "description"))
+
+    results = ForumPost.objects.filter(query).order_by("-created_at")
+
+    if len(results) == 0:
+        return render(request, 'forum/search_no_results.html')
+
+    context = {
+        'search_results': results,
+        'search_string': request.POST['search_string']
+    }
+
+    return render(request, 'forum/search.html', context)
+
+
+def vote_post(request, post_id, vote_up):
+    # TODO: needs to be implemented into the template
+    post = get_object_or_404(ForumPost, id=post_id)
+    if vote_up:
+        post.rating += 1
+    else:
+        post.rating -= 1
+
+    pages = Paginator(post.objects.forumpostreply_set, 6)
+
+    page_number = request.GET.get('page', 1)
+    page_obj = pages.get_page(page_number)
+
+    context = {
+        'original_post': post,
+        'reply_form': ForumPostReplyForm,
+        'page_obj': page_obj
+    }
+
+    return render(request, 'forum/forum_post_after_vote.html', context)
