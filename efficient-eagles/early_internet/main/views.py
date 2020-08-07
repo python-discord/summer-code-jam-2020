@@ -6,7 +6,7 @@ from django.contrib import auth
 from django.urls import reverse
 from django.db import IntegrityError
 
-from main.models import Topic, Post
+from main.models import Topic, Post, Comment
 from main.forms import CustomUserCreationForm, TopicCreationForm, PostForm, CustomUser
 
 
@@ -91,19 +91,36 @@ class InfoView(TemplateView):
     def get(self, request, *args, **kwargs):
         topic = Topic.objects.get(name=kwargs["name"].lower())
         post = Post.objects.get(slug=kwargs["slug"])
-        context = {"post": post, "topic": topic}
-
+        comments = Comment.sort_comment_section(post)
+        context = {"post": post, "topic": topic, "comments": comments}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        if "query" in request.POST:
-            query = request.POST["query"]
-            return redirect(reverse("search", args=[query]))
+        post_id = request.POST.get("post_id")
+        post = get_object_or_404(Post, id=post_id)
+        author = request.user
 
-        elif "delete" in request.POST:
-            post_id = get_object_or_404(Post, id=request.POST.get("post_id"))
-            post_id.delete()
+        if "delete" in request.POST:
+            post.delete()
             return redirect("topic", name=kwargs["name"])
+        elif "comment_post" in request.POST:
+            body = request.POST["comment_body"]
+            Comment.objects.create(body=body, author=author, post=post)
+            return self.get(request, *args, **kwargs)
+        elif "reply_to_comment" in request.POST:
+            body = request.POST["comment_body"]
+            comment_id = request.POST.get("comment_id")
+            comment = Comment.objects.get(id=comment_id)
+            thread_level = comment.thread_level + 1
+
+            Comment.objects.create(
+                body=body,
+                author=author,
+                post=post,
+                thread_level=thread_level,
+                comment_thread=comment,
+            )
+            return self.get(request, *args, **kwargs)
 
 
 class LoginView(TemplateView):
@@ -111,7 +128,7 @@ class LoginView(TemplateView):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('/')
+            return redirect("/")
 
     def post(self, request):
         username = request.POST.get("username")
@@ -131,7 +148,7 @@ class RegisterView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('/')
+            return redirect("/")
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
 
@@ -173,10 +190,10 @@ class SearchView(TemplateView):
 
 
 class UserView(TemplateView):
-    template_name = 'profile.html'
+    template_name = "profile.html"
 
     def get(self, request, *args, **kwargs):
-        user = get_object_or_404(CustomUser, username=kwargs['user'])
+        user = get_object_or_404(CustomUser, username=kwargs["user"])
         posts = Post.objects.filter(author=user.id)
-        context = {'user': user, 'posts': posts}
+        context = {"user": user, "posts": posts}
         return render(request, self.template_name, context)

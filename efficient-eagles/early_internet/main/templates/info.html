@@ -1,20 +1,144 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class='w3-container w3-white' style='width: 1000px; height: 320px;'>
+
+<div class='w3-container w3-white' style='width: 1000px; height: 520px;'>
 
 <h5>{{post.title}}</h5>
+<p>
+  Upvotes: <span id="upvotes_post_{{post.id}}">{{post.upvotes}}</span>
+  | Downvotes: <span id="downvotes_post_{{post.id}}">{{post.downvotes}}</span>
+</p>
 {% if user.is_authenticated and user == post.author %}
-  <form method='POST'  action='url'>
+  <form method='POST' action='url'>
     {% csrf_token %}
-      <input type="hidden" name="post_id" value="{{post.id}}" />
-      <button type='submit'  name='delete' style='float:right;'>Delete</button>
+    <input type="hidden" id="post_id" name="post_id" value="{{post.id}}" />
+    <button type='submit'  name='delete' style='float:right;'>Delete</button>
   </form>
 {% endif %}
 <h6>submitted by <a style='color:blue;' href='/user/{{post.author}}'>{{post.author}}</a> on {{post.created}}</h6>
 <textarea  style='resize: none; width: 100%; height: 200px;' disabled>{{post.body}}</textarea>
+<button id='upvote_post'>UPVOTE</button>
+<button id='downvote_post'>DOWNVOTE</button>
 
-<textarea style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
+<form method='POST'>
+  {% csrf_token %}
+  <input type="hidden" name="post_id" value="{{post.id}}" />
+  <textarea name="comment_body" style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
+  <button type='submit' name='comment_post' >REPLY</button>
+</form>
+
 </div>
 
+<div>
+  {% for comment in comments %}
+    <div style="padding-left:  {% widthratio comment.thread_level 1 50 %}px;">
+      <div style="background-color: lightblue; width: 500px; height: 150px">
+        <button name="{{comment.id}}" class='upvote_comment'>UPVOTE</button><button name="{{comment.id}}" class='downvote_comment'>DOWNVOTE</button>
+        <p>
+          <a style='color:blue;' href='/user/{{post.author}}'>{{comment.author}}</a>
+           | Upvotes: <span id="upvotes_comment_{{comment.id}}">{{comment.upvotes}}</span>
+           | Downvotes: <span id="downvotes_comment_{{comment.id}}">{{comment.downvotes}}</span>
+           | {{comment.created}}
+        </p>
+        <p>
+          {{comment.body}}
+        </p>
+      </div>
+      <button onclick="fun({{comment.id}});">REPLY</button>
+    </div>
+    <form id="{{comment.id}}" style="display: None;" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="comment_id" value="{{comment.id}}"/>
+      <input type="hidden" name="post_id" value="{{post.id}}"/>
+      <textarea name="comment_body" style=' width: 700px; height: 100px;' placeholder='Comment'></textarea>
+      <button type='submit' name='reply_to_comment' >REPLY</button>
+    </form>
+  {% endfor %} 
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  function fun(form_id) {
+    var form = $("#"+form_id);
+    if( form.css("display") == "none" ){
+      form.css("display", "block");
+    }
+    else{
+      form.css("display", "none");
+    }
+  }
+
+  $("#upvote_post").click(function(handler){
+    let post_id = $("#post_id").val();
+    $.ajax({
+      url: "/ajax/vote/post/"+post_id+"/1/",
+      success: function(result){
+        let upvotes_id = "#upvotes_post_" + post_id;
+        let downvotes_id = "#downvotes_post_" + post_id;
+
+        $(upvotes_id).html(result['upvotes']);
+        $(downvotes_id).html(result['downvotes']);
+      },
+      error: function(result){
+        console.log("Error #upvote_post");
+      }
+    });
+  });
+
+  $("#downvote_post").click(function(handler){
+    let post_id = $("#post_id").val();
+    $.ajax({
+      url: "/ajax/vote/post/"+post_id+"/0/",
+      success: function(result){
+        let upvotes_id = "#upvotes_post_" + post_id;
+        let downvotes_id = "#downvotes_post_" + post_id;
+
+        $(upvotes_id).html(result['upvotes']);
+        $(downvotes_id).html(result['downvotes']);
+      },
+      error: function(result){
+        console.log("Error #downvote_post");
+      }
+    });
+  });
+
+  $(".upvote_comment").click(function(handler){
+    let comment_id = handler.currentTarget.name;
+    $.ajax({
+      url: "/ajax/vote/comment/"+comment_id+"/1/",
+      success: function(result){
+        let upvotes_id = "#upvotes_comment_" + comment_id;
+        let downvotes_id = "#downvotes_comment_" + comment_id;
+
+        $(upvotes_id).html(result['upvotes']);
+        $(downvotes_id).html(result['downvotes']);
+      },
+      error: function(result){
+        console.log("Error .upvote_comment");
+      }
+    });
+  });
+
+  $(".downvote_comment").click(function(handler){
+    let comment_id = handler.currentTarget.name;
+    $.ajax({
+      url: "/ajax/vote/comment/"+comment_id+"/0/",
+      success: function(result){
+        let upvotes_id = "#upvotes_comment_" + comment_id;
+        let downvotes_id = "#downvotes_comment_" + comment_id;
+
+        $(upvotes_id).html(result['upvotes']);
+        $(downvotes_id).html(result['downvotes']);
+      },
+      error: function(result){
+        console.log("Error .downvote_comment");
+      }
+    });
+  });
+
+
+</script>
 {% endblock %}
