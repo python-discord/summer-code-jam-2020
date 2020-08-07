@@ -15,5 +15,8 @@
 
             <button name="register" type="submit">Login</button>
         </form>
+        {% if error_message %}
+            <h5 style="color: red">{{ error_message }}<h5>
+        {% endif %}
     </div>
 {% endblock content %}
