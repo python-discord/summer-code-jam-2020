@@ -77,7 +77,6 @@ def search_query(search: str, format_text: bool =True):
 def engine_results(request, search_text: str):
     """ Renders a page for the request  """
     # queries that have some problems:
-   
     # prevent long searches from overflowing
     wrapper = textwrap.TextWrapper(width=43)
     shortened = wrapper.wrap(text=search_text)[0]
@@ -97,6 +96,7 @@ def engine_results(request, search_text: str):
                 other_results.append(r)
         elif 'description' in r.keys():
             desc = r['description']
+
         
     context = {
         'search': search_text,
@@ -114,8 +114,7 @@ def chat_room(request, room_name):
     return render(request, 'dashboard/chat_room.html', context)
 
 
-# fixes:
-# 
+
 
 
 # things to do:
