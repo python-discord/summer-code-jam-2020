@@ -1,3 +1,3 @@
-from . import detail, homepage, search
+from . import detail, homepage, search, author_tools
 
-__all__ = ["detail", "homepage", "search"]
+__all__ = ["detail", "homepage", "search", "author_tools"]
