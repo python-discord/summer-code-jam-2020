@@ -2,8 +2,7 @@
 ## Team members
 - ks129
 - Tushavi
-- surister
-- Cephalopterus
+- dash-ma
 
 ## Setting up and running
 ### Django and PostgreSQL
