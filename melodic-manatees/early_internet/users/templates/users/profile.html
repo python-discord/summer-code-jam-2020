@@ -1,5 +1,6 @@
 {% extends 'main/main-base.html' %}
-{% load templatetags %} 
+{% load templatetags %}
+
 {% block herocontent %}
     <div class="hero-body">
     
@@ -99,6 +100,24 @@
                     upload background image here?
                 </div>
                 <!-- Next feature -->
+                <button class="button is-link" id="journal-btn">Add a Journal Entry</button>
+                <div class="modal" id="journal-modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title">My Journal</p>
+                            <button class="delete" aria-label="close" id="close-x"></button>
+                        </header>
+                        <section class="modal-card-body">
+                            <!-- Content ... -->
+                            INSERT DIARY FIELD HERE
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button class="button is-success">Save Entry</button>
+                            <button class="button" id="cancel-btn">Cancel</button>
+                        </footer>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
