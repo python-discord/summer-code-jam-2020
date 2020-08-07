@@ -6,10 +6,10 @@ import posts.serializers as post_serializers
 
 class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Friendship
+        model = models.CustomUser
         fields = (
-            'requester',
-            'friend',
+            'id',
+            'username',
         )
 
 
@@ -19,8 +19,9 @@ class UserSerializer(serializers.ModelSerializer):
     friends = serializers.SerializerMethodField('friend_list')
 
     def friend_list(self, obj):
-        queryset = models.Friendship.objects.all()
-        print(queryset)
+        queryset = [i.requester_id for i in models.Friendship.objects.filter(requester_id=obj.id)]
+        queryset += [i.friend_id for i in models.Friendship.objects.filter(friend_id=obj.id)]
+        queryset = [models.CustomUser.objects.get(id=i) for i in queryset]
         return FriendshipSerializer(queryset, many=True).data
 
     def user_posts(self, obj):
