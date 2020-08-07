@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'background_app.apps.BackgroundConfig',
     'users.apps.UsersConfig',
+    'news.apps.NewsConfig',
 ]
 
 MIDDLEWARE = [
