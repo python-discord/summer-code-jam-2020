@@ -2,8 +2,14 @@
 
 set -e
 
+PERM_PREFIX="sudo"
+if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
+    echo "MinGW environment detected, not using sudo..."
+    unset PERM_PREFIX
+fi
+
 echo "Installing webpack..."
-sudo npm install -g webpack webpack-cli 
+$PERM_PREFIX npm install -g webpack webpack-cli
 
 cd shiny_sheep/frontend
 echo "Install frontend dependencies..."
