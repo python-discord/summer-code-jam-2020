@@ -15,3 +15,9 @@ button.onclick = openModal;
 closeX.onclick = closeModal;
 
 cancelButton.onclick = closeModal;
+
+window.onclick = function (event) {
+    if (event.target.className == 'modal-background') {
+        closeModal();
+    }
+}
