@@ -35,8 +35,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Application definition
 
 INSTALLED_APPS = [
-    "sparrow_django.stocks.apps.StocksConfig",
-    "public.apps.PublicConfig",
+    "sparrow_django.public.apps.PublicConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

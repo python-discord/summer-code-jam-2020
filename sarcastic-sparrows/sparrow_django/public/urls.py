@@ -1,10 +1,11 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 app_name = "public"
+""" urls should always end with "/", see example at https://docs.djangoproject.com/en/3.0/topics/http/urls/ """
 urlpatterns = [
     # Ex: stock/ebay, or, stock/amzn
-    path("<stock_ticker>", views.stock, name="stock"),
-    path("stocks/", include('sparrow_django.stocks.urls')),
-
+    path("<stock_ticker>/", views.stock, name="stock"),
+    # Ex: stock/index/
+    path("index/", views.IndexView, name="index"),
 ]
