@@ -62,6 +62,10 @@ sudo systemctl start docker
 sudo usermod -aG docker $USER
 newgrp docker
 
+echo "Waiting for Docker to start..."
+while [ ! -e /var/run/docker.sock ]; do sleep 1; done
+echo "Done."
+
 cd /vagrant
 ./setup.sh
 
