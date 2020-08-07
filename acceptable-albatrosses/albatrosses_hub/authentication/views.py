@@ -4,7 +4,7 @@ from .forms import RegisterForm, LoginForm
 
 # Create your views here.
 def register_page(request):
-    """ Views to render the register page. """
+    """Views to render the register page."""
 
     form = RegisterForm(request.POST or None)
     context = {
@@ -15,7 +15,7 @@ def register_page(request):
 
 
 def login_page(request):
-    """ Views to render the login page. """
+    """Views to render the login page."""
 
     form = LoginForm(request.POST or None)
     context = {
@@ -26,6 +26,6 @@ def login_page(request):
 
 
 def logout_page(request):
-    """ Views to render the logout page. """
+    """Views to render the logout page."""
 
     return render(request, "logout.html")
