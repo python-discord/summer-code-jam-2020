@@ -20,4 +20,7 @@ class Messages(Component):
 
     template = "#messages-template"
 
-    # template = "#messages"
+
+class Message(Component):
+    props = ['title', 'sender', 'content', 'time']
+    template = "#message-template"

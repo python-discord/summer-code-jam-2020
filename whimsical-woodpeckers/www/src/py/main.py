@@ -1,6 +1,8 @@
 from pyvue import Vue, Component, VueTest
 from app import App
 
+from components.messages import Messages, Message
+
 
 # Components are a little hacky and not very pythonic but they are functional now
 class Example(Component):
@@ -64,5 +66,8 @@ class MessageList(Vue):
 test2 = MessageList("#app1")
 
 test3 = MessageList("#app2")
+
+Messages()
+Message()
 
 App("#app")

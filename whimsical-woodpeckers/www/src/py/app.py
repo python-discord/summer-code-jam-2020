@@ -1,6 +1,6 @@
 from pyvue import Vue, Component
 from components.directory import Directory
-from components.messages import Messages
+from components.messages import Message, Messages
 
 
 class App(Vue):
@@ -10,7 +10,8 @@ class App(Vue):
     }
     components = {
         "directory": Directory.get_component(),
-        "messages": Messages.get_component()
+        "messages": Messages.get_component(),
+        "message": Message.get_component()
     }
 
 
