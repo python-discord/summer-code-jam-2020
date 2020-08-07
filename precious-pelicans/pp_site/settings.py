@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'pp_site.apps.forum',
+    'pp_site.apps.truths',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
