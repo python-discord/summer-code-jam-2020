@@ -79,4 +79,9 @@ def login_page(request):
 def logout_page(request):
     """Views to render the logout page."""
 
+    if request.method == "POST":
+        request.session.flush()
+        
+        return redirect("/")
+
     return render(request, "logout.html")
