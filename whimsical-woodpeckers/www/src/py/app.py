@@ -10,8 +10,7 @@ class App(Vue):
     }
     components = {
         "directory": Directory.get_component(),
-        "messages": Messages.get_component(),
-        "message": Message.get_component()
+        "messages": Messages.get_component()
     }
 
 
