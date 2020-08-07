@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.views.generic import ListView
 from django.views import View
 from .models import Post, Comments
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import auth
 
 def index(request):
     return HttpResponse("Hello, world. You're at the Syndication index.")
@@ -25,3 +25,17 @@ class PostView(View):
         comments = post.comment_post.all()
         self.context = {"comments": comments, "post": post}
         return render(request, self.template_name, self.context)
+
+
+def login_request(request):
+    if request.method == 'POST':
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+
+def logout_request(request):
+    auth.logout(request)
+    return redirect('/')

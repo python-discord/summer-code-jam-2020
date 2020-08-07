@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'rss_it.wsgi.application'
+# WSGI_APPLICATION = 'rss_it.wsgi.application'
 ASGI_APPLICATION = "rss_it.routing.application"
 
 CHANNEL_LAYERS = {

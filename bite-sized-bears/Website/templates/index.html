@@ -42,9 +42,21 @@
             {% endfor %}
         </div>
         <div class="col-sm-3 nopadding visible-lg side-bar">
+         {% if user.is_authenticated %}
+         <div class="login">
+             <div style="display:inline-block; align: center;vertical-align: middle;" >
+             <img src="{{user.avatar.url}}" width="70px" height="70px" style="float:left;margin-right: 10px;">
+             </div>
+            <div style="display:inline-block;vertical-align: middle;">
+                 <h5>Hi {{user.username}}</h5>
+             <p><a href="{% url 'logout' %}">logout</a></p>
+            </div>
+         </div>
+            {% else %}
          <div class="login">
            <h3>Login</h3>
-          <form>
+          <form method="post", action="login">
+              {% csrf_token %}
             <table>
               <tr>
                <td>  
@@ -75,6 +87,7 @@
               <p>New here? <a href="#">Sign up</a>
           </form>
          </div>
+            {% endif %}
       </div>
     </div>
   </body>

@@ -52,7 +52,8 @@
         <div class="col-sm-2 nopadding visible-lg side-bar">
          <div class="login">
            <h3>Login</h3>
-          <form>
+          <form action="login" method="POST">
+              {% csrf_token %}
             <table>
               <tr>
                <td>  
@@ -80,7 +81,7 @@
                 </td>
               </tr>    
             </table><br>
-              <p>New here? <a href="#">Sign up</a>
+              <p>New here? <a href="{% url 'signup' %}">Sign up</a>
           </form>
   
          </div>   
