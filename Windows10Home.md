@@ -44,8 +44,9 @@ and yes it's accessible on the network.
     192.168.1.100
 
 #### How do I connect my debugger to this?
-I don't know yet.
- 
+I don't know yet. At the moment, you still have django error reporting to help
+you. 
+
 There might be a way to get VSCode to connect to it. If we can't do that, maybe
 ask our team leader to offer an SQLite config option for the db and run
 redis/etc inside docker? 
