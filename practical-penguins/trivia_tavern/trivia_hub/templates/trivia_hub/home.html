@@ -3,7 +3,7 @@
 
 <h1>Quizzes currently active</h1>
     {% for quiz in active_quizzes %}
-        <article class="media content-section post-content">
+        <article class="media parchment-border">
           <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
