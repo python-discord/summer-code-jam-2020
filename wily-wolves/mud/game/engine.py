@@ -33,8 +33,8 @@ class Engine():
             self.__send(
                 'message_to_self',
                 f"{self.user} thinks: {thought_content}",
-                sender_channel_name = self.consumer.channel_name,
-                )
+                sender_channel_name=self.consumer.channel_name,
+            )
 
     def where(self):
         return f"You are here: {self.player.location.description} ({self.player.location})"
@@ -83,43 +83,42 @@ class Engine():
 
         return True
 
-    # aslias commands
-
+    # alias commands
     def north(self):
-        if self.__move('north') == True:
-            return f"You move to the north"        
+        if self.__move('north'):
+            return "You move to the north"
         else:
-            return f"You can't go north from here"
+            return "You can't go north from here"
 
     def south(self):
-        if self.__move('south') == True:
-            return f"You move to the south"             
+        if self.__move('south'):
+            return "You move to the south"
         else:
-            return f"You can't go south from here"
+            return "You can't go south from here"
 
     def east(self):
-        if self.__move('east') == True:
-            return f"You move to the east"    
+        if self.__move('east'):
+            return "You move to the east"
         else:
-            return f"You can't go east from here"
+            return "You can't go east from here"
 
     def west(self):
-        if self.__move('west') == True:
-            return f"You move to the west"   
+        if self.__move('west'):
+            return "You move to the west"
         else:
-            return f"You can't go west from here"
+            return "You can't go west from here"
 
     def up(self):
-        if self.__move('up') == True:
-            return f"You move up"           
+        if self.__move('up'):
+            return "You move up"
         else:
-            return f"You can't go up from here"
+            return "You can't go up from here"
 
     def down(self):
-        if self.__move('down') == True:
-            return f"You move down"           
+        if self.__move('down'):
+            return "You move down"
         else:
-            return f"You can't go down from here"
+            return "You can't go down from here"
 
     n = north
     s = south
@@ -152,12 +151,11 @@ class Engine():
         else:
             return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
 
-
     def __send(self, type, message, **kwargs):
         sending_event = {
             'type': type,
             'message': message,
-            }
+        }
         for k, val in kwargs.items():
             sending_event[k] = val
         async_to_sync(self.consumer.channel_layer.group_send)(
