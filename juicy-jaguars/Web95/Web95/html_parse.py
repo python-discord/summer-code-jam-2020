@@ -71,7 +71,8 @@ class HtmlParser:
 
     def parse_links(self):
         """Parse all links in document."""
-        link_attrs = ["src", "href"]
+        link_attrs = ["src", "href", "action", "data", "background",
+                      "formaction", "icon"]
 
         for element in self.soup.find_all(re.compile(".*")):
             for name, val in element.attrs.items():
