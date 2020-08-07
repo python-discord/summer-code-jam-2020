@@ -15,5 +15,12 @@ class Message(models.Model):
         return self.author.name + ':' + self.content
 
     def last_15_messages(self, community):
-        print(type(Message.objects.filter(community=community).order_by('-timestamp').all()[:15]))
         return Message.objects.filter(community=community).order_by('-timestamp').all()[:15:-1]
+
+
+class UserProfile(models.Model):
+    community = models.TextField()
+    count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.community + ", count: " + str(self.count)

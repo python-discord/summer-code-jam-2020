@@ -1,11 +1,30 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 import json
-from .models import Message
+from django.db.models import F
+from .models import Message, UserProfile
 from syndication_app.models import User
 
 
 class ChatConsumer(WebsocketConsumer):
+
+    # @database_sync_to_async
+    def update_user_incr(self, community_name):
+        present = UserProfile.objects.filter(community__exact=community_name)
+        print(present)
+        if len(present) == 0:
+            UserProfile.objects.create(community=community_name,
+                                       count=0)
+        what = UserProfile.objects.filter(community__exact=community_name)\
+               .update(count=F('count') + 1)
+        print(what)
+
+    # @database_sync_to_async
+    def update_user_decr(self, community_name):
+        print(community_name)
+        what = UserProfile.objects.filter(community__exact=community_name)\
+                           .update(count=F('count') - 1)
+        print(what)
 
     def fetch_messages(self, data):
         messages = Message.last_15_messages(self=Message, community=self.room_name)
@@ -49,6 +68,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.update_user_incr(self.room_name)
         self.room_group_name = 'chat_%s' % self.room_name
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
@@ -57,6 +77,8 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
 
     def disconnect(self, close_code):
+        print("DISCONNECTING")
+        self.update_user_decr(self.room_name)
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
@@ -68,6 +90,8 @@ class ChatConsumer(WebsocketConsumer):
         self.commands[data['command']](self, data)
 
     def send_chat_message(self, message):
+        print(self.room_name + ": count :",
+              UserProfile.objects.filter(community__exact=self.room_name).values('count'))
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
@@ -77,6 +101,8 @@ class ChatConsumer(WebsocketConsumer):
         )
 
     def send_message(self, message):
+        print(self.room_name + ": count :",
+              UserProfile.objects.filter(community__exact=self.room_name).values('count'))
         self.send(text_data=json.dumps(message))
 
     def chat_message(self, event):
