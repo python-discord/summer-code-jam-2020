@@ -7,64 +7,25 @@
     </div>
 </div>
  <!-- Slideshow container -->
-<div class="slideshow-container">
-{% load random_image %}
-  <!-- Full-width images with number and caption text -->
-  <div class="mySlides fade">
-    <div class="numbertext">1 / 3</div>
-    <img src="https://thispersondoesnotexist.com/image" width='500' style="width:100%">
-    <div class="text">Caption Text</div>
-  </div>
+<div id='current-profile' class="slideshow-container">
 
-  <div class="mySlides fade">
-    <div class="numbertext">2 / 3</div>
-    <img src="https://thispersondoesnotexist.com/image" width='500' style="width:100%">
-    <div class="text">Caption Two</div>
-  </div>
-
-  <div class="mySlides fade">
-    <div class="numbertext">3 / 3</div>
-    <img src="https://thispersondoesnotexist.com/image" width='500' style="width:100%">
-    <div class="text">Caption Three</div>
-  </div>
+        <h1>{{current.first_name}} {{current.last_name}}</h1>
+        <h1>Age: {{current.profile.age}}</h1>
+        <h1>Sex: {{current.profile.sex}}</h1>
+        <p>--------------------------------------------------------------------------</p>
+        <h1>{{current.profile.bio}}</h1>
 </div>
 <br>
 
 <!-- The dots/circles -->
 <div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
+ <form method='POST'>
+    {% csrf_token %}
+    <button type="submit" name="Like" value="{{current.pk}}">Like</button>
+    <button type="submit" name="Next">Next</button>
+    </form>
+
 </div>
-
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
-</script>
 
 
 {% endblock %}
