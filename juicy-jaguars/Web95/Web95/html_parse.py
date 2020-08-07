@@ -82,4 +82,4 @@ class HtmlParser:
             for name, val in element.attrs.items():
                 if name in link_attrs:
                     if val.startswith("/"):
-                        element[name] = "/page/" + self.basedir + val
+                        element[name] = self.basedir + val
