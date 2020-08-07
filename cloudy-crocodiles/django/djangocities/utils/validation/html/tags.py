@@ -4,6 +4,7 @@ from __future__ import annotations
 from math import inf
 from numbers import Number
 from typing import Callable, Optional
+import logging
 
 from djangocities.utils.validation.html.exceptions import (
     InvalidHtmlTagError,
@@ -39,6 +40,7 @@ class HtmlTag:
         """
         tag_name = _tag_name.lstrip("<").rstrip(">")
         if not len(tag_name):
+            logging.debug("tag cannot be empty")
             raise InvalidHtmlTagError("tag cannot be empty")
         self.name = tag_name
         self.validator = validator
@@ -63,6 +65,7 @@ class HtmlTag:
 
     @staticmethod
     def unsupported_tag(_):
+        logging.debug("this tag is not allowed")
         raise UnsupportedHtmlTag("this tag is not allowed")
 
 

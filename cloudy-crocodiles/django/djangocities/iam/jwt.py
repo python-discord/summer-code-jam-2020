@@ -1,5 +1,6 @@
 import jwt
 import datetime
+import logging
 
 from django.conf import settings
 from djangocities.user.models import CustomUser as User
@@ -31,10 +32,8 @@ def decode_auth_token(request):
     auth_token = request.headers.get('Authorization')
     if auth_token.startswith("Bearer "):
         auth_token = auth_token.split(" ", 1)[1]
-    print('decode')
-    print(auth_token)
+    logging.debug(f"decode {auth_token}")
     secret = SECRET_KEY
-    print(secret)
     if not auth_token:
         auth_token = ''
     try:
