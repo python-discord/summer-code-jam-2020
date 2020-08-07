@@ -17,12 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from socl_media.apps.users import views as users_views
+from socl_media.apps.chat.views import ChatListView
 
 
 urlpatterns = [
     path('', include('socl_media.apps.feed.urls')),
     path('login/', auth_views.LoginView.as_view(
-        template_name='users/login.html'), name="login"),
+          template_name='users/login.html'), name="login"),
     path('signup/', users_views.signup, name="signup"),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('password-reset/', auth_views.PasswordResetView.as_view(
@@ -45,5 +46,6 @@ urlpatterns = [
         template_name='users/password_change_done.html'),
         name="password_change_done"),
     path('admin/', admin.site.urls),
-    path('terminal/', include('socl_media.apps.terminal.urls'))
+    path('terminal/', include('socl_media.apps.terminal.urls')),
+    path('message-box/', ChatListView.as_view(), name='message-box')
 ]
