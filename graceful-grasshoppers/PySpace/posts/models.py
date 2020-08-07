@@ -26,6 +26,7 @@ class Dislike(models.Model):
 class PostComment(models.Model):
 
     content = models.TextField()
+    user = models.ForeignKey(CustomUser, models.CASCADE)
 
     def __str__(self):  # Returns a short intro of 20 words
         return " ".join(self.content.split(" ")[:20])

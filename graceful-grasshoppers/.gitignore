@@ -1,3 +1,4 @@
 Pipfile
 Pipfile.lock
-
+# Editor gitignore
+.vscode
