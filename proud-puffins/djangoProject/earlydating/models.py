@@ -48,10 +48,11 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if 'user_pixel' in self.img.path:
-            return
+            pass
         else:
             self.img = pf.imageTrans(self.img)
-            super(Profile, self).save(*args, **kwargs)
+
+        super(Profile, self).save(*args, **kwargs)
 
 
 class UserVote(models.Model):
