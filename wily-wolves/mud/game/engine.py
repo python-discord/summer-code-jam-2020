@@ -18,26 +18,48 @@ class Engine():
         if gossip_content is None:
             return "What do you want to gossip to the world?"
 
-        async_to_sync(self.consumer.channel_layer.group_send)(
-            self.consumer.room_group_name,
-            {
-                'type': 'global_message_login_required',
-                'message': f"{self.user} gossips: {gossip_content}",
-            }
+        self.__send(
+            'global_message',
+            f"{self.user} gossips: {gossip_content}"
         )
 
     def think(self, thought_content=None):
         if thought_content is None:
             return "What the hell are you thinking about?"
+
+        self.__send(
+            'message_to_self',
+            f"{self.user} thinks: {thought_content}",
+            sender_channel_name = self.consumer.channel_name,
+            )
+
+    def look(self, *look_arg):
+        if look_arg:
+            parsed_look_arg = look_arg[0].split()
+            if len(parsed_look_arg) == 1:
+                look_target = parsed_look_arg[0]
+                # check if look_target is a player, item, monster, etc
+                return f"You are looking at: {look_target}"
+            else:
+                return f"'look' command only takes 1 argument. Please type 'look <target>'"
         else:
-            self.__send(
-                'message_to_self',
-                f"{self.user} thinks: {thought_content}",
-                sender_channel_name = self.consumer.channel_name,
-                )
+            #look at place
+            location_to_look = self.player.location
+            players_at_location = Player.objects.filter(location=location_to_look)
+            return f"You see:\n {location_to_look.description} \n {players_at_location}"
 
     def where(self):
         return f"You are here: {self.player.location.description} ({self.player.location})"
+
+    def say(self, say_content=None):
+        if say_content is None:
+            return "What exactly do you want to say?"
+        
+        self.__send(
+            'same_location_message',
+            f"{self.user} says: {say_content}",
+            location = f"{self.player.location}"
+        )
 
     def start(self):
         if self.player.level == 0:
@@ -76,14 +98,22 @@ class Engine():
 
         try:
             dest_location = Location.objects.get(x_coord=dest_x, y_coord=dest_y, z_coord=dest_z)
+            self.__send(
+                'same_location_message', # não precisa ser not_me
+                f"{self.user} left the area",
+                location = f"{self.player.location}",
+            )
             self.player.move_to(dest_location)
-
+            self.__send(
+                'same_location_message_not_me',
+                f"{self.user} just arrived",
+                location = f"{self.player.location}",
+                sender_channel_name = self.consumer.channel_name,
+            )
         except Location.DoesNotExist:
             return False
 
         return True
-
-    # aslias commands
 
     def north(self):
         if self.__move('north') == True:
@@ -121,6 +151,8 @@ class Engine():
         else:
             return f"You can't go down from here"
 
+## shortcuts ##
+
     n = north
     s = south
     e = east
@@ -151,7 +183,6 @@ class Engine():
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
         else:
             return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
-
 
     def __send(self, type, message, **kwargs):
         sending_event = {
