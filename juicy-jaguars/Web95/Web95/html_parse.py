@@ -59,5 +59,5 @@ sans-serif !important;}')
 
         for element in self.soup.find_all(re.compile(".*")):
             for name, val in element.attrs.items():
-                if name in link_attrs:
+                if name in link_attrs and val.startswith("/"):
                     element[name] = self.basedir + val
