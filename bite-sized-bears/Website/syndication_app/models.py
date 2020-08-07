@@ -37,6 +37,14 @@ class Post(models.Model):
     def get_absolute_url(self):
         return '/rss/feed/posts/' + str(self.id)
 
+    def get_short_intro(self):
+        if len(self.description) <= 200:
+            return self.description
+        else:
+            intro = self.description[:200]
+            separator = max((intro.rfind(" "), intro.rfind("\n")))
+            return intro[:separator]
+
 
 class Comments(models.Model):
     id = models.AutoField(primary_key=True)

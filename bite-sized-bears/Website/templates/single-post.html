@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,13 +6,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RSS it</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="script.js"></script>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'css/script.js' %}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
   </head>
-
   <header>
     <h1>RSS it</h1>
     <div class="headerlinks">
@@ -32,23 +33,16 @@
 
         <div class="col-lg-10">
           <div class="posts">
-           <p><b>r/Publisher<b></p>
-           <p>submitted by /u username</p> 
-           <a href="#"><h3>Knock Knock, Who's there? Bite-sized-bears....</h3></a>
-           <p>This is sample post paragraph Searching for that perfect color has never been easier, use our HTML color picker to browse millions of colors and color harmonies. </p>
-          </div>  
-          <div class="comment">
-           <h5>comment by<a href="#"> /u user</h5></a>
-           <p>This is sample post paragraph</p>
+           <p>submitted by <b>/u {{post.author.name}}<b></b></p>
+           <a href="#"><h3>{{post.title}}}</h3></a>
+           <p>{{post.description}}}</p>
           </div>
+            {% for comment in comments %}
           <div class="comment">
-           <a href="#"><h5>This is post title</h5></a>
-           <p>This is sample post paragraph</p>
+           <h5>commented by<a href="u/{{comment.author.name}}/"> /u <b>{{comment.author.name}}<b></h5></a>
+           <p>{{comment.content}}</p>
           </div>
-          <div class="comment">
-           <a href="#"><h5>This is post title</h5></a>
-           <p>This is sample post paragraph</p>
-          </div>                    
+            {% endfor %}
         </div>
 
         <div class="col-sm-2 nopadding visible-lg">

@@ -1,10 +1,10 @@
-from django.urls import path
-from django.conf.urls import url
+from django.urls import path, re_path
+# from django.conf.urls import url
 from .rss_feed import LatestEntriesFeed
-from .views import IndexListView
+from .views import IndexListView, PostView
 
 urlpatterns = [
     path('', IndexListView.as_view()),
     path('feed/community/<str:username>', LatestEntriesFeed()),
-    # url(r^'/test/', )
+    path('c/<str:community_name>/<int:post_id>/', PostView.as_view()),
 ]
