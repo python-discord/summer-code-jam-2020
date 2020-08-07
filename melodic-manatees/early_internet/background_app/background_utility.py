@@ -7,9 +7,9 @@ def resolution_checker(image):
     im = Image.open(image)
     width, height = im.size
     size_in_bytes = os.stat(image).st_size
-    if width < 1200 or height < 1000:
+    if width < 1200 or height < 800:
         return False
-    if size_in_bytes > 2_621_000:
+    if size_in_bytes > 2_621_400:
         return False
     return True
 
