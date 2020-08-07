@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
+from .models import UserVote
+from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
+from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
-from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
-from .decorators import unauthenticated_user, allowed_users
+from random import randint
+from collections.abc import Iterable
 
 
 # Create your views here.
@@ -55,17 +59,61 @@ def about(request):
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
 def DateMatcher(request):
-    return render(request, 'dating/DateMatcher.html')
+    logged_user = request.user
+    if request.method == 'POST':
+        print(request.POST)
+        if liked_pk := request.POST.get('Like'):
+            voted = User.objects.get(pk=liked_pk)
+            UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=True)
+
+        return redirect('earlydating-DateMatcher')
+    elif request.method == 'GET':
+
+        user = get_unvoted(logged_user)
+        context = {'current': user}
+        return render(request, 'dating/DateMatcher.html', context)
+
+
+def get_unvoted(voter):
+    try:
+        votes = UserVote.objects.filter(voter=voter)
+        if not isinstance(votes, Iterable):
+            votes = [votes]
+        voted_pk = [vote.user.pk for vote in votes] + [voter.pk]
+    except UserVote.DoesNotExist:
+        voted_pk = [voter.pk]
+    unvoted = User.objects.exclude(pk__in=voted_pk).order_by('?')[0]
+    return unvoted
+
+
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
+def Matches(request):
+    logged_user = request.user
+    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
+    both_liked = liked_you.intersection(you_liked)
+    whole_list = liked_you.union(you_liked)
+    context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
+    return render(request, 'dating/matches.html', context)
 
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
 def your_profile(request):
     profile = request.user
+    num_likebacks = randint(2, 5)
+    other_users = User.objects.exclude(pk=profile.pk).order_by('?')[:num_likebacks]
+    for other_user in other_users:
+        votes, created = UserVote.objects.get_or_create(user=profile, voter=other_user, vote=True)
+        if created:
+            votes.vote = not votes.vote
     context = {'profile': profile}
     return render(request, 'dating/YourProfile.html', context)
 
 
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
 class UserEditView(generic.UpdateView):
     form_class = UserChangeForm
     template_name = 'dating/edit_profile.html'
