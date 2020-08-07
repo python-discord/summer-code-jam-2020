@@ -110,19 +110,27 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def get_current_room_description(self):
-        """ Returns a string with the description of the current room.  """
+        """ Returns a string with the description of the current room. """
 
-        room_name = colorize('brightGreen', self.player.room.name)
-        description = self.player.room.description
+        players = (
+            Room.objects.get(name=self.player.room.name).player_set.all()
+                        .exclude(name=self.player.name)
+                        .values_list('name',flat=True)
+        )
+        if players:
+            players_string= "Players here: " + colorize('brightBlue', ", ".join(players)) + "\r\n"
+        else:
+            players_string = ""
 
-        # TODO this can likely be cleaned up a bit
         exits = list(self.player.room.connections.all())
-        exit_names = []
-        for exit in exits:
-            exit_names.append(colorize('brightGreen', exit.name))
-        exits_string = ", ".join(exit_names)
 
-        message = "You are in " + room_name + "\r\n\n" + description + "\r\n\nExits: " + exits_string
+        message = (
+                   "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
+                    self.player.room.description + "\r\n\n" +
+                   players_string +
+                   "Exits: " + ", ".join([colorize('brightGreen', exit.name) for exit in exits])
+                  )
+
         return message
 
     @database_sync_to_async
@@ -137,9 +145,6 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         return self.player.room.name
 
     async def join_room(self, room_name):
-        if not self.scope['user'].is_authenticated:
-            pass
-
         await self.channel_layer.group_send(
             room_name,
             {
@@ -152,11 +157,6 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             room_name,
             self.channel_name,
         )
-
-        await self.send_json({
-            "join": str('dungeon'),
-            "title": 'dungeon',
-        })
 
     async def leave_room(self, room_name):
         await self.channel_layer.group_send(
@@ -171,10 +171,6 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             room_name,
             self.channel_name,
         )
-
-        await self.send_json({
-            "leave": str(room_name),
-        })
 
     async def send_room(self, message):
         if not self.isOnline:
@@ -191,24 +187,26 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     # These helper methods are named by the types we send - so chat.join becomes chat_join
     async def chat_join(self, event):
-        await self.send_json(
-            {
-                "msg_type": 'ENTER',
-                "username": event["username"],
-            },
-        )
+        if not (event["username"] == self.scope["user"].username):
+            await self.send_json(
+                {
+                    "msg_type": 'ENTER',
+                    "username": colorize('brightBlue', event["username"]),
+                },
+            )
 
     async def chat_leave(self, event):
         """
         Called when someone has left our chat.
         """
         # Send a message down to the client
-        await self.send_json(
-            {
-                "msg_type": 'EXIT',
-                "username": event["username"],
-            },
-        )
+        if not (event["username"] == self.scope["user"].username):
+            await self.send_json(
+                {
+                    "msg_type": 'EXIT',
+                    "username": colorize('brightBlue', event["username"]),
+                },
+            )
 
     async def chat_message(self, event):
         """

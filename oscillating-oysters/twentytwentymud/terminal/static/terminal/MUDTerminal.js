@@ -34,7 +34,11 @@ class MUDTerminal {
         t.printReply("Leaving: " + data.leave);
       } else if (data.msg_type == "ENTER") {
         t.printReply(
-          "Server: " + data.username + " has entered the DuNgEoN!!!"
+          data.username + " enters room."
+        );
+      } else if (data.msg_type == "EXIT") {
+        t.printReply(
+          data.username + " leaves."
         );
       }
       t.printReply(data.message);
