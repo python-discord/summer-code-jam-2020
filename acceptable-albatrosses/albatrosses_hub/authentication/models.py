@@ -11,7 +11,7 @@ class HubUser(models.Model):
     password = models.CharField(max_length=512)
 
     def __str__(self):
-        # Will display user id on Django admin
+        # Will display username on Django admin
         return self.username
 
     def process(self, form):
