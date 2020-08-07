@@ -1,6 +1,5 @@
 import re
 
-
 def new_game():
     game_data = {
         "rover": (0, 0),
@@ -37,6 +36,14 @@ def command_move(game_data, direction):
     game_data["rover"] = new_position
     return game_data
 
+def command_look(game_data, direction):
+    rover = game_data.get('rover')
+    plutonium = game_data.get('plutonium')
+    solar_panels = game_data.get('solar_panels')
+    if direction in ["n", "north"]:
+        if rover[1] == plutonium[1] or rover[1] == solar_panels[1]:
+            print('================================================')
+    return game_data
 
 def parse_command(request, game_data, command):
     if command != "" and command != None:
@@ -44,7 +51,7 @@ def parse_command(request, game_data, command):
         if command.startswith("move"):
             game_data = command_move(game_data, command[4:])
         elif command.startswith("look"):
-            pass
+            game_data = command_look(game_data, command[4:])
         elif command == "help":
             pass
         elif command == "newgame":

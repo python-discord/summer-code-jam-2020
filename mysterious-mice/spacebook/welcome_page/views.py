@@ -12,4 +12,11 @@ class Welcome(DetailView):
         count.num_visits += 1
         count.save(update_fields=["num_visits"])
 
-        return render(request, "welcome_page/welcome.html", {"count": count.num_visits})
+        return render(request, self.template_name, {"count": count.num_visits})
+
+class Construction(DetailView):
+    template_name = "welcome_page/test.html"
+
+    def get(self, request, *args, **kwargs):
+
+        return render(request, self.template_name)
