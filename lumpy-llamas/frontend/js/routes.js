@@ -1,6 +1,6 @@
 import Home from './home-page.vue';
 import ChatLobby from './chat-lobby.vue';
-import ChatRoom from './chat-room.vue'
+import ChatRoom from './chat-room.vue';
 import Login from './login.vue';
 
 const routes = [
@@ -16,7 +16,7 @@ const routes = [
     component: ChatLobby,
   },
   {
-    path: '/chat/room',
+    path: '/chat/room/([a-zA-Z0-9]+)',
     name: 'chat_room',
     component: ChatRoom,
   },
