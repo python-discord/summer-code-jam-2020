@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+
 <h1>Quizzes currently active</h1>
     {% for quiz in active_quizzes %}
-        <article class="media content-section">
+        <article class="media content-section post-content">
           <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">

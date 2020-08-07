@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load settings_tag %}
 
 {% include "trivia_next_step_btn.html" %}
 <p><strong>Session_master:</strong> <a href="">{{ active_trivia_quiz.session_master.username }}</a></p>
