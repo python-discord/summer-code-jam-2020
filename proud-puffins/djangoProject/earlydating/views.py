@@ -58,6 +58,32 @@ def about(request):
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
+def editprofile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('../YourProfile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'dating/edit_profile.html', context)
+
+#### WORK IN PROCESS : Below is the list of views for creating user matches ####
+
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
 def DateMatcher(request):
     logged_user = request.user
     if request.method == 'POST':
@@ -110,39 +136,3 @@ def your_profile(request):
             votes.vote = not votes.vote
     context = {'profile': profile}
     return render(request, 'dating/YourProfile.html', context)
-
-
-@login_required(login_url='earlydating-login')
-@allowed_users(allowed_roles=['profile'])
-class UserEditView(generic.UpdateView):
-    form_class = UserChangeForm
-    template_name = 'dating/edit_profile.html'
-    success_url = reverse_lazy('')
-
-    def get_object(self):
-        return self.request.user
-
-
-@login_required(login_url='earlydating-login')
-@allowed_users(allowed_roles=['profile'])
-def editprofile(request):
-    if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(request, 'Your profile has been updated.')
-            return redirect('../YourProfile')
-
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
-
-    context = {
-        'u_form': u_form,
-        'p_form': p_form
-    }
-
-    return render(request, 'dating/edit_profile.html', context)
