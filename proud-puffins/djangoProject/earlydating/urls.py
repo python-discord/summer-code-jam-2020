@@ -12,7 +12,7 @@ urlpatterns = [
     path('register/', views.register_page, name='earlydating-register'),
     path('YourProfile/', views.your_profile, name='earlydating-yourprofile'),
     path('edit_profile/', views.editprofile, name='earlydating-editprofile'),
-    path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher')  
+    path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher')
 ]
 
 

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy
+# from django.urls import reverse_lazy
 from django.contrib import messages
-from django.views import generic
+# from django.views import generic
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm
 from .models import UserVote
 from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
 from .decorators import unauthenticated_user, allowed_users
@@ -80,7 +80,8 @@ def editprofile(request):
 
     return render(request, 'dating/edit_profile.html', context)
 
-#### WORK IN PROCESS : Below is the list of views for creating user matches ####
+#  WORK IN PROCESS : Below is the list of views for creating user matches ####
+
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
@@ -114,13 +115,20 @@ def get_unvoted(voter):
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
-def Matches(request):
+def matches(request):
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
-    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
+    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user).values_list('voter')
+    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user).values_list('user')
     both_liked = liked_you.intersection(you_liked)
     whole_list = liked_you.union(you_liked)
-    context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
+    table = []
+    header = ['name', 'liked you', 'you liked', 'email']
+    for user in whole_list:
+        row = [user[0]]
+        row += [True] if user in liked_you else [False]
+        row += [True] if user in you_liked else [False]
+        row += [User.objects.get(pk=user[0]).email] if user in both_liked else ['']
+    context = {'table': table, 'header': header}
     return render(request, 'dating/matches.html', context)
 
 
