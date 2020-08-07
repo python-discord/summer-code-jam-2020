@@ -1,13 +1,12 @@
-import nltk
 import random
 import re
 import wikipedia
 import nltk
+import threading
 from faker import Faker
 
 import gpt_2_simple as gpt2
 import tensorflow as tf
-import os
 
 from .models import GeneratedPage, BlogPost
 
@@ -20,7 +19,7 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] \
+    page_object.page_type = random.choices(possible_page_types, [99.3, 0.5, 0.1, 0.05, 0.05])[0] \
         if page_type is None else page_type
 
     # Define the different fields needed for different page types here
@@ -30,12 +29,18 @@ def generate_page(page_name, page_type=None):
         page_object.blogger_location = generate_blogger_location()
 
         # Generates x amount of blog posts
-        for x in range(int(str(page_object.css_seed)[0])):
+        no_posts = (int(str(page_object.css_seed)[0]) // 2) + 1
+        titles = []
+        for x in range(no_posts):
             title = generate_blog_post_title(page_name)
+            titles.append(title)
             blog_post = BlogPost.objects.create(title=title,
-                                                content=generate_gpt2(title, 100))
+                                                content='Loading...')
             blog_post.save()
             page_object.blog_posts.add(blog_post)
+
+        download_thread = threading.Thread(target=generate_gpt2, args=(page_object.blog_posts,))
+        download_thread.start()
 
     elif page_object.page_type == 'INFO':
         page_object.page_content = generate_information(page_name)
@@ -139,19 +144,17 @@ def parse_result(result):
 
     return information
 
-def generate_gpt2(text, length):
-    #Download Model if it's not there.
-    model_name = "124M"
-    if not os.path.isdir(os.path.join("models", model_name)):
-        print("Model not found... Downloading new")
-        print(f"Downloading {model_name} model...")
-        gpt2.download_gpt2(model_name=model_name)
 
-    tf.reset_default_graph()
+def generate_gpt2(posts):
+    # Currently, the model is loaded everytime this function is called, which may be slow. Putting it outside doesnt
+    # work
+    model_name = "124M"
     sess = gpt2.start_tf_sess()
     gpt2.load_gpt2(sess, model_name=model_name)
 
-    return gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=text, length=length)[0]
-
-
-
+    for post in posts.all():
+        output = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title,
+                               length=100)[0]
+        post.content = output
+        print(post.content)
+        post.save()
