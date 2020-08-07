@@ -40,6 +40,7 @@
         >
           <q-item
             clickable
+            :to="{ name: 'userOwnSites'}"
           >
             <q-item-section avatar>
               <q-icon name="account_tree" />
