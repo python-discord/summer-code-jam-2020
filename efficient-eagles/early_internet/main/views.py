@@ -14,9 +14,8 @@ from main.forms import (
     TopicCreationForm,
     PostForm,
     CustomUser,
-    CustomUserCreationForm,
     ProfileForm,
-    )
+)
 
 
 class HomeView(TemplateView):
@@ -200,8 +199,7 @@ class AccountView(TemplateView):
         context = {'form': form}
         if request.user.is_authenticated:
             return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+        return redirect('login')
 
     def post(self, request):
         form = ProfileForm(request.POST, request.FILES, instance=request.user)
@@ -233,5 +231,5 @@ class ChangePassword(TemplateView):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             return redirect('account')
-        else:
-            return redirect('change_password')
+
+        return redirect('change_password')

@@ -18,7 +18,12 @@
       {% endif %}
     </td>
     <td style='float: right;'>
-      <img src='{{request.user.profile_img.url}}' alt='Profile Picture' class='pfp'/>
+      {% if user.profile_img %}
+        <img src='{{user.profile_img.url}}' alt='Profile Picture' class='pfp'/>
+      {% else %}
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <i class='fas fa-portrait' style='font-size:200px;color:black'></i>
+      {% endif %}
       <h3>{{ user.username }}</h3>
       <b>Bio</b><br>
       {{user.bio}} <br>
