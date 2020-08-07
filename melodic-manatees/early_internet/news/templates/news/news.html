@@ -5,56 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-
- <div class="row mb-2">
-                <div class="collapse show" id="collapse-news">
-                    <div class="card-deck">
-
-                        <div class="card shadow-sm">
-                            <div class="card-header py-0 px-0 rounded">
-                                <img src="{{ nyt_us.img_small }}" class="card-img-top card-img-top-news"
-                                     alt="Image Lost">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ nyt_us.title }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ nyt_us.abstract }}</small></p>
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="{{ nyt_us.url }}" class="btn-link">NYT</a>
-                            </div>
-                        </div>
-
-                        <div class="card shadow-sm">
-                            <div class="card-header py-0 px-0">
-                                <img src="{{ nyt_us2.img_small }}" class="card-img-top card-img-top-news"
-                                     alt="Image Lost">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ nyt_us2.title }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ nyt_us2.abstract }}</small></p>
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="{{ nyt_us2.url }}" class="btn-link">NYT</a>
-                            </div>
-                        </div>
-
-                        <div class="card shadow-sm">
-                            <div class="card-header py-0 px-0">
-                                <img src="{{ nyt_us3.img_small }}" class="card-img-top card-img-top-news"
-                                     alt="Image Lost">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ nyt_us3.title }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ nyt_us3.abstract }}</small></p>
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="{{ nyt_us3.url }}" class="btn-link">NYT</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+    <div>
+        <div>
+            <img src="{{ nyt_us.img_small }}" alt="Image Lost" style="width: 200px">
+            <h5>{{ nyt_us.title }}</h5>
+            <p ><small>{{ nyt_us.abstract }}</small></p>
+            <a href="{{ nyt_us.url }}">NYT</a>
+        </div>
+        <div>
+            <img src="{{ nyt_us2.img_small }}" alt="Image Lost" style="width: 200px">
+            <h5>{{ nyt_us2.title }}</h5>
+            <p ><small>{{ nyt_us2.abstract }}</small></p>
+            <a href="{{ nyt_us2.url }}">NYT</a>
+        </div>
+        <div>
+            <img src="{{ nyt_us3.img_small }}" alt="Image Lost" style="width: 200px">
+            <h5>{{ nyt_us3.title }}</h5>
+            <p ><small>{{ nyt_us3.abstract }}</small></p>
+            <a href="{{ nyt_us3.url }}">NYT</a>
+        </div>
+        <div>
+            <img src="{{ nyt_us4.img_small }}" alt="Image Lost" style="width: 200px">
+            <h5>{{ nyt_us4.title }}</h5>
+            <p ><small>{{ nyt_us4.abstract }}</small></p>
+            <a href="{{ nyt_us4.url }}">NYT</a>
+        </div>
+    </div>
 
 
 </body>

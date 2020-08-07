@@ -3,9 +3,9 @@ from decouple import config
 import requests
 
 def news_feed(request):
-    api_key = config('NEWS_KEY')
-    url2 = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + api_key
-    nyt_usnews = requests.get(url2).json()
+    news_key = config('NEWS_KEY')
+    url = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + news_key
+    nyt_usnews = requests.get(url).json()
     nyt_usnews_list = []
 
     for top_story in range(0, 4):
