@@ -1,0 +1,7 @@
+{% extends "chat/base.html" %}
+{% load static %}
+{% block content %}
+    <h1>Welcome to Woodpecker Chat</h1>
+    <img src="{% static 'chat/images/Phase1.png' %}" alt="Phase 1 Home page logo">
+    <p>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to access chat</p>
+{% endblock content %}
