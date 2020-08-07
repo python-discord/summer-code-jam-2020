@@ -52,66 +52,89 @@ class Engine():
         else:
             return "This is no longer a valid command"
 
-    def walk(self, direction):
+    def __move(self, direction):
         dest_x = self.player.location.x_coord
         dest_y = self.player.location.y_coord
         dest_z = self.player.location.z_coord
 
         direction = direction.lower()
 
-        if direction in ('n', 'north'):
+        if direction == 'north':
             direction_string = 'to the north'
             dest_y += 1
 
-        elif direction in ('s', 'south'):
+        elif direction == 'south':
             direction_string = 'to the south'
             dest_y -= 1
 
-        elif direction in ('e', 'east'):
+        elif direction == 'east':
             direction_string = 'to the east'
             dest_x += 1
 
-        elif direction in ('w', 'west'):
+        elif direction == 'west':
             direction_string = 'to the west'
             dest_x -= 1
 
-        elif direction in ('u', 'up'):
+        elif direction == 'up':
             direction_string = 'up'
             dest_z += 1
 
-        elif direction in ('d', 'down'):
-            direction_string = 'down'
+        elif direction == 'down':
             dest_z -= 1
 
-        else:
-            return "This is not a direction"
+        try:
+            dest_location = Location.objects.get(x_coord=dest_x, y_coord=dest_y, z_coord=dest_z)
+            self.player.move_to(dest_location)
 
-        dest_location = Location.objects.get(x_coord=dest_x, y_coord=dest_y, z_coord=dest_z)
-        self.player.move_to(dest_location)
-        self.player.save()
+        except Location.DoesNotExist:
+            return False
 
-        return f"You move {direction_string}"
+        return True
 
     # aslias commands
-    move = walk
 
-    def n(self):
-        self.walk('n')
+    def north(self):
+        if self.__move('north') == True:
+            return f"You move to the north"        
+        else:
+            return f"You can't go north from here"
 
-    def s(self):
-        self.walk('s')
+    def south(self):
+        if self.__move('south') == True:
+            return f"You move to the south"             
+        else:
+            return f"You can't go south from here"
 
-    def e(self):
-        self.walk('e')
+    def east(self):
+        if self.__move('east') == True:
+            return f"You move to the east"    
+        else:
+            return f"You can't go east from here"
 
-    def w(self):
-        self.walk('w')
+    def west(self):
+        if self.__move('west') == True:
+            return f"You move to the west"   
+        else:
+            return f"You can't go west from here"
 
-    def u(self):
-        self.walk('u')
+    def up(self):
+        if self.__move('up') == True:
+            return f"You move up"           
+        else:
+            return f"You can't go up from here"
 
-    def d(self):
-        self.walk('d')
+    def down(self):
+        if self.__move('down') == True:
+            return f"You move down"           
+        else:
+            return f"You can't go down from here"
+
+    n = north
+    s = south
+    e = east
+    w = west
+    u = up
+    d = down
 
     def help(self):
         """If you use 'help' you can see a list of availlable commands.
