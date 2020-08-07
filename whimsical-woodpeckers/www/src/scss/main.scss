@@ -1,5 +1,17 @@
 @import "components/directory";
 
-#app {
-  display: flex;
+.messenger-app {
+  @import 'messenger';
+}
+
+.aol-app {
+  @import 'aol';
+}
+
+.irc-app {
+  @import 'irc';
+}
+
+body{
+  overflow: hidden;
 }

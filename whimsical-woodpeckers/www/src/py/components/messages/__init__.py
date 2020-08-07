@@ -29,6 +29,3 @@ class Messages(Component):
     }
 
     template = "#messages-template"
-
-
-

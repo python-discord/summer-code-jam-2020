@@ -46,7 +46,11 @@ module.exports = {
                     "sass-loader?sourceMap"
                 ]
 
-            }
+            },
+            {
+              test: /\.(png|jpe?g|gif|bmp)$/i,
+              use: ['file-loader'],
+            },
         ]
     },
     devtool: 'source-map',
