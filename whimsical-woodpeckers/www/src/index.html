@@ -17,6 +17,7 @@
     <example></example> <!-- components are always referenced in all lowercase -->
     <colorthing testprop="asidufhu"></colorthing>
 </div>
+
 <div id="full-app"></div>
 <div id="app"></div>
 <script type="text/x-template" id="color-thing-template">
@@ -24,6 +25,42 @@
 </script>
 <script type="text/x-template" id="app-template">
     <div id="app"><directory></directory><messages></messages></div>
+</script>
+<script type="text/x-template" id="directory-template">
+    <div id="directory">
+        <user
+          v-for="(user, index) in users"
+          v-bind:key="index"
+          v-bind:name="user.name"
+          v-bind:last_online="user.last_online"
+          v-bind:id="user.id"
+          ></user>
+    </div>
+</script>
+<script type="text/x-template" id="messages-template">
+    <div id="messages">
+        <message
+          v-for="(message, index) in messages"
+          v-bind:key="index"
+          v-bind:time="message.time"
+          v-bind:content="message.content"
+          v-bind:sender="message.sender"
+          ></message>
+    </div>
+</script>
+<script type="text/x-template" id="message-template">
+    <div
+      v-bind:title="time"
+      v-bind:class="{
+        'alert-primary': sender==currentUser,
+        'alert-light': sender!=currentUser,
+        'alert':true}"
+      >
+        <strong>{{ sender }}</strong>: {{ content }}
+    </div>
+</script>
+<script type="text/x-template" id="directory-user-template">
+    <div><span>{{ name }}</span></div>
 </script>
 </body>
 </html>
