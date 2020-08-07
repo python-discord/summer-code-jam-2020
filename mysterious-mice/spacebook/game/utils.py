@@ -40,9 +40,29 @@ def command_look(game_data, direction):
     rover = game_data.get('rover')
     plutonium = game_data.get('plutonium')
     solar_panels = game_data.get('solar_panels')
+    plutonium_message = "There is a plume of smoke in the distance."
+    panel_message = "There is a plume of smoke in the distance."
     if direction in ["n", "north"]:
-        if rover[1] == plutonium[1] or rover[1] == solar_panels[1]:
-            print('================================================')
+        if rover[0] == plutonium[0] and rover[1] < plutonium[1]: #if the rover is inline wih plutonium and plutonium is north of rover
+            new_message = plutonium_message
+        if rover[0] == solar_panels[0] and rover[1] < solar_panels[1]:#if the rover is inline wih solar panels and solar panels is north of rover
+            new_message = panel_message
+    elif direction in ["s", "south"]:
+        if rover[0] == plutonium[0] and rover[1] > plutonium[1]:
+            new_message = plutonium_message
+        if rover[0] == solar_panels[0] and rover[1] > solar_panels[1]:
+            new_message = panel_message
+    elif direction in ["w", "west"]:
+        if rover[1] == plutonium[1] and rover[1] < plutonium[1]:
+            new_message = plutonium_message
+        if rover[1] == solar_panels[1] and rover[1] < solar_panels[1]:
+            new_message = panel_message
+    elif direction in ["e", "east"]:
+        if rover[1] == plutonium[1] and rover[1] > plutonium[1]:
+            new_message = plutonium_message
+        if rover[1] == solar_panels[1] and rover[1] > solar_panels[1]:
+            new_message = panel_message
+    game_data.messages.append(new_message)
     return game_data
 
 def parse_command(request, game_data, command):
