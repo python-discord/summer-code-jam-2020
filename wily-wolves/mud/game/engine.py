@@ -73,7 +73,7 @@ class Engine():
         else:
             return "This is no longer a valid command"
 
-    def _move(self, direction):        # starswith '_' to make some checks
+    def __move(self, direction):        # starswith '_' to make some checks
         dest_x = self.player.location.x_coord
         dest_y = self.player.location.y_coord
         dest_z = self.player.location.z_coord
@@ -182,8 +182,8 @@ class Engine():
                 return f"This is the 'help' for {command_to_help!r}: {help_text}"
             else:
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
-        else:
-            return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
+#        else:
+#            return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
 
     def __send(self, type, message, **kwargs):
         sending_event = {
