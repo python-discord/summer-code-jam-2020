@@ -1,5 +1,5 @@
-# Vagrant Devoplement Guide
-*(aka How To Survive Windows 10 Home)*
+# Vagrant Development Guide
+*(aka How To Survive Windows 10 Home when WSL breaks)*
 
 Judges probably don't need this. It's meant for team members stuck on Windows 10 Home and having trouble
 with WSL & Docker.
@@ -8,7 +8,7 @@ with WSL & Docker.
 - Minimum 2GB of free disk space, and quite possibly a lot more.
 - [Virtualbox](https://www.virtualbox.org/wiki/Downloads) installed
 - [Vagrant](https://www.vagrantup.com/downloads) installed
-- Have admin rights
+- Have admin rights on Windows.
 - Have run `git config --local core.autocrlf input` in this directory.
 
 Setting `autocrlf` to `input` is important because it will remove windows-style line breaks
@@ -74,27 +74,45 @@ If you want to try granting only yourself permissions, try entering your account
 Open cmd and run 
 ```
 cd $PROJECT_DIR
-vargant up
-vargrant ssh
-cd /vagrant
-run.sh
+vagrant up
 ```
+If all goes well, you should return to a prompt with no errors. 
 
-If you get something like the following:
+#### 2.1 ^M in logs
+
+`^M` at the end of line in the output means that there are windows-style line endings in the shell scripts.
+For example, it may look like this:
 ```
     default: Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
     default: Executing: /lib/systemd/systemd-sysv-install enable docker
     default: /tmp/vagrant-shell: ./setup.sh: /bin/bash^M: bad interpreter: No such file or directory
 ```
-run:
+If you get something like this, enter the VM with `vagrant ssh` and run the following:
 
-    vagrant ssh
     cd /vagrant
     dos2unix setup.sh run.sh
-    ./setup.sh
 
-If you edit the scripts, you may need to run `dos2unix` on them from within the VM to make sure
+Then resume running whatever script you were trying to run. If you edit the scripts, you may need to run `dos2unix` on them from within the VM to make sure
 that there are unix-style line endings rather than windows ones.
 
-It may take a while to build. Once it does, you should be able to go to [http://127.0.0.1:8000](http://127.0.0.1:8000)
-on your host system and see the webapp. It appears to restart the server on changes to local files.
+#### 2.2 Docker daemon not found
+This may happen during setup. If it does, reboot the machine with `vagrant reload` on the host.
+Afterwards, you can `vagrant ssh` and re-run the interrupted script.
+
+### 3. Running the development server
+All you need to do is use `run.sh`. It will run all dependency containers such as databases and queues.
+```
+vagrant ssh
+cd /vagrant
+run.sh
+```
+It may take a while to build the first time. Once it does, you should be able to go to
+ [http://127.0.0.1:8000](http://127.0.0.1:8000) on your host system and see the webapp.
+ 
+ Changes to the project directory will cause the django server to shut down and reload.
+ This should take a second or two at most.
+
+As with `setup.sh`,  you can use `dos2unix run.sh` if you get an error mentioning `^M` at the end of a line,
+
+For now, `run.sh` is only `docker-compose -f local.yml up`, so you can use that instead if you want.
+
