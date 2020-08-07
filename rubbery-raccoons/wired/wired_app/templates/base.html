@@ -9,6 +9,17 @@
     </head>
     <body>
         {% include 'components/search.html' %}
+    
         {% block content %}{% endblock %}
     </body>
+    <footer>
+        <div>
+            <h6>Archives</h6>
+            <ul>
+                {% for obj in articles %}
+                <li><a href="{% url 'article-archive-year' obj.publication_date|date:"Y" %}">{{ obj.publication_date|date:"Y" }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </footer>
 </html>
