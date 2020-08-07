@@ -1,95 +1,127 @@
-import os
-import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from twilio.rest import Client
-
 from trivia_builder.models import TriviaQuiz, TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz, Player
-# Create your views here.
+from .models import ScoreTracker
 
-
-def sms_send(msg, recipient):
-    """sms_send will send a message 'msg' to a 'recipient'
-    This is not really a view method, but a help method for other classes
-    and views (for example the user views)
+class SMSBot():
+    """SMSBot is a helper class to implement the main receving 'sms_reply'
+    functions and process the input received from texts
+    @send: send a string 'msg' to a phone number 'recipient'
+    @register: register a new player with a 'phone_number' for requested 'active_quiz'
+    @send_question: sends question #'qnumber' from a 'trivia_quiz' to 'player'
     """
-    twilio_account_sid = settings.HOST_TWILIO_SID
-    twilio_auth_token = settings.HOST_TWILIO_AUTH_TOKEN
-    twilio_number = settings.HOST_TWILIO_NUMBER
-    client = Client(twilio_account_sid, twilio_auth_token)
-    message = client.messages.create(
-        body=msg,
-        from_=twilio_number,
-        to=recipient
-    )
+    def send(msg, recipient):
+        """send will send a message 'msg' to a 'recipient'
+        This is not really a view method, but a helper method for the main
+        sms_reply method
+        """
+        twilio_number = settings.HOST_TWILIO_NUMBER
+        client = settings.TWILIO_CLIENT
+        message = client.messages.create(
+            body=msg,
+            from_=twilio_number,
+            to=recipient
+        )
 
+    def delayed_send(msg, recipient, delay):
+        #This function does not work yet
+        #time.sleep(delay)
+        SMSBot.send(msg, recipient)
 
-def register(phone_number):
-    return Player.objects.create(
-        name='name',
-        number=phone_number,
-    )
+    def register(phone_number, active_quiz):
+        """registers a default player account with the ActiveTriviaQuiz 'quiz'
+        and a 'phone_number'
+        """
+        return Player.objects.create(
+            name='',
+            active_quiz=active_quiz,
+            phone_number=phone_number,
+        )
 
-
-def start_quiz(fetch_quiz, player):
-    question1 = TriviaQuestion.objects.filter(quiz=fetch_quiz)[0]
-    msg = question1.question_text
-    sms_send(msg, player.phone_number)
-
+    def send_question(question, player):
+        """sends the specified question 'question' to 'player'
+        """
+        msg = question.question_text
+        SMSBot.send(msg, player.phone_number)
 
 @csrf_exempt
 def sms_reply(request):
     """sms_reply is a handler method that triggers when the url 'sms' is
     navigated to. Your Twilio account should be configured to point to:
     <this-site>/sms so that those texts will be recieved here and processed
-    by this function
+    by this function. You can think of this like a 'main' method
+
+    For testing purposes, the developer recommends ngrok to host a temporary
+    server and domain name that points to your localhost
+    (for example http://a2b0fd3c60b6.ngrok.io) and set your
+    twilio account settings in Phone Numbers > Manage Numbers > Active numbers
+    under "Messaging" and set a webhook to <url>/sms/ BUT do not forget the
+    trailing slash!
     """
     # Get details about the message that just came in
-    recipient = request.POST.get('From', None)
+    from_ = request.POST.get('From', None)
     body = request.POST.get('Body', None)
 
-    # Get info on current quizzes
-    available_quizzes = TriviaQuiz.objects.all()
+    # check if the text is from a registered Player, can be null
+    player = Player.objects.filter(phone_number=from_)
+    available_quizzes = ActiveTriviaQuiz.objects.all()
+    session_codes = [ q.session_code for q in available_quizzes ]
 
-    # Check if the message is a request to start a quiz, or a response to a
-    # question, otherwise, send back an error message
-    if body.split('/')[0].upper() == 'START':
-        qid = int(body.split('/')[1])
-        fetch_quiz = TriviaQuiz.objects.filter(pk=qid)[0]
-        welcome = f'Thanks for playing, "{fetch_quiz.name}" will begin soon!'
-        sms_send(welcome, recipient)
-        new_player = register(recipient)
-        start_quiz(fetch_quiz, new_player)
-        # This logic should be moved to the quizmaster side actually
-        #new_quiz = ActiveTriviaQuiz.objects.filter(trivia_quiz=fetch_quiz)
-        #if new_quiz.exists():
-        #    new_quiz.players.append(recipient)
-        #else:
-        #    new_quiz = ActiveTriviaQuiz.create(
-        #        trivia_quiz = fetch_quiz,
-        #        session_code = qid,
-        #        current_question_index = 1,
-        #        session_master = fetch_quiz.author,
-        #        start_time = datetime.datetime.now(),
-        #        players = [recipient] # not sure what to do here yet
-        #    )
-                                                #testing only, real value
-                                                #should be from the newly
-                                                # made active quiz
+    if player.exists():
+        player = player.first()
+        player_quiz = player.active_quiz
+        if player.name == '':
+            # Player picks a username
+            player.name = body
+            player.save()
+            msg = ( f'Thanks for playing, {player.name}! '
+                f'"{player_quiz.trivia_quiz.name}" will begin soon!'
+            )
+            ScoreTracker.objects.create(player_name=player.name,
+                                        session_code=player_quiz.session_code)
+            SMSBot.send(msg, from_)
 
-    elif Player.objects.filter(phone_number=recipient).exists():
-        # if quiz started, interpret as answer
-        # else tell the player the quiz hasn't started yet
-        pass
+        elif player_quiz.current_question_index == 0:
+            SMSBot.send('The host hasn\'t started the quiz yet, patience is a virtue!', from_)
+
+        else:
+            # Player is answering the question
+            current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
+                                                      question_index=player_quiz.current_question_index)
+            correct_answer = current_question.question_answer
+            score_track = ScoreTracker.objects.get(player_name=player.name, session_code=player_quiz.session_code)
+            if score_track.answered_this_round == True:
+                msg = 'You already answered! Don\'t cheat!'
+            elif body.upper() == correct_answer.upper():
+                msg = 'That\'s correct!'
+                score_track.points += 1
+            else:
+                msg = f'Wrong, the right answer was "{correct_answer}"'
+            score_track.answered_this_round = True
+            score_track.save()
+            SMSBot.send(msg, from_)
+            SMSBot.send(f'Your current score is: {player.points}/{len(question_set)}', from_)
+
+    elif body in session_codes:
+        fetch_quiz = available_quizzes.get(session_code=body)
+        welcome = ( f'You registered to play "{fetch_quiz.trivia_quiz.name}." '
+                    f'Please choose a player name'
+        )
+        SMSBot.send(welcome, from_)
+        new_player = SMSBot.register(from_, fetch_quiz)
+        new_player.save()
+        fetch_quiz.players.add(new_player)
+        fetch_quiz.save()
+
     else:
         msg = ( 'This number has not started any quizzes. '
-                'Please start your quiz by texting START/<quiz#> to start!'
+                'Please send a valid session code to start!'
         )
+        SMSBot.send(msg, from_)
 
-    sms_send(msg, recipient)
-
-    # no page to display, redirect to another
-    return redirect('home')
+    # no page to display, sorry :(, redirect to another
+    return redirect('/')

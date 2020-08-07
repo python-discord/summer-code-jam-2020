@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from twilio.rest import Client
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -144,3 +145,4 @@ LOGIN_URL = 'login'
 HOST_TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
 HOST_TWILIO_SID = os.getenv('TWILIO_ACCOUNT_SID')
 HOST_TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_CLIENT = Client(HOST_TWILIO_SID, HOST_TWILIO_AUTH_TOKEN)
