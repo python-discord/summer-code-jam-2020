@@ -61,6 +61,11 @@
 					},
 
 					methods: {
+
+            redirect: function(url) {
+              window.location = url;
+            },
+
 						populate_previous: function(){
 							if(this.current_command_num < this.previous_commands.length){
 								this.command = this.previous_commands[this.current_command_num];
@@ -88,19 +93,17 @@
 								} else {
 									var cur_command = this.command
 								}
-								console.log(cur_command)
 								axios.get(`/terminal/command?c=${cur_command}`)
 									.then(res =>{
 										this.prompt = res.headers.followup == "True" ?  "..." : "$"
 										this.response = this.response + res.data + "<br>"
+                    if (res.headers.redirect) { this.redirect(res.headers.redirect) }
 									}, (error) =>{
-										console.log(error)
 									}) 
 							}
 							if(this.prompt != '...') this.previous_commands.unshift(this.command)
 							this.command = ''
 							this.current_command_num = 0
-							console.log(this.previous_commands)
 						},
 
 						reset_prompt: function(){
