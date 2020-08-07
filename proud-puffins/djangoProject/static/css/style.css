@@ -237,9 +237,22 @@ html {
 label {
   display: inline-block;
   width: 250px;
-  text-align: left;
-}​
+  /*text-align: left;*/
+}
 
 .resizedTextbox {
     width: 100px; height: 20px
   }
+
+ input[type=checkbox] {
+    display: none;
+}
+
+.doorcontainer img {
+  /*margin: 100px;*/
+  transition: transform 0.5s linear;
+}
+
+input[type=checkbox]:checked ~ label > img {
+  transform: scale(2);
+}
