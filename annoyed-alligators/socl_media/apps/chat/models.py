@@ -2,15 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 
-# Create your models here.
-
 
 class Message(models.Model):
-    """
-    A private message from user to user with fields:
-    Body: contains the actual message
-    Sender: user sending the message
-    Recipient: user receiving the message
+    """A message from user to user with fields:
+    
+    body: contains the actual message
+    sender: user sending the message
+    recipient: user receiving the message
     sent_at: time at which the message was sent
     """
     body = models.TextField(("Body"))

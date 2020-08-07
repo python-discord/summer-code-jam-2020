@@ -2,14 +2,16 @@ from django.shortcuts import render
 from .models import Message
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-# Create your views here.
 
 
 class ChatListView(LoginRequiredMixin, ListView):
+    """ View to display the messages received by the current user 
+        (Their message box)
+
+    Provides access to message box only if logged in.
+    Returns a queryset to display the most recent messages first.
     """
-    Provide access to message box only after login.
-    Return a queryset to display the most recent messages.
-    """
+
     template_name = 'chat/message-box.html'
 
     def get_queryset(self):

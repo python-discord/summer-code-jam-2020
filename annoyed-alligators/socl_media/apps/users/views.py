@@ -8,7 +8,8 @@ from .forms import UserUpdateForm, ProfileUpdateForm
 
 def signup(request):
     """
-    This view asks new users to sign up
+    This view asks new users to sign up.
+    (Registers new accounts)
 
     """
     if request.user.is_authenticated:
