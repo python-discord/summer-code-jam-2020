@@ -2,7 +2,7 @@ from django import forms
 
 
 class RegisterForm(forms.Form):
-    """This class contains all required forms for regsitration."""
+    """This class contains all required forms for registration."""
 
     email = forms.EmailField(
         label="Your Email",

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 
 # Create your models here.
@@ -11,4 +12,11 @@ class HubUser(models.Model):
 
     def __str__(self):
         # Will display user id on Django admin
-        return f"({self.user_id})".zfill(3)
+        return self.username
+
+    def process(self, form):
+        """Function to store form data into django model."""
+
+        self.email = form.cleaned_data["email"]
+        self.username = form.cleaned_data["username"]
+        self.password = make_password(form.cleaned_data["password"])
