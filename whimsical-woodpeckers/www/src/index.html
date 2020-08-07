@@ -26,6 +26,17 @@
 <script type="text/x-template" id="app-template">
     <div id="app"><directory></directory><messages></messages></div>
 </script>
+<script type="text/x-template" id="directory-template">
+    <div id="directory">
+        <user
+          v-for="(user, index) in users"
+          v-bind:key="index"
+          v-bind:name="user.name"
+          v-bind:last_online="user.last_online"
+          v-bind:id="user.id"
+          ></user>
+    </div>
+</script>
 <script type="text/x-template" id="messages-template">
     <div id="messages">
         <message
@@ -49,7 +60,7 @@
     </div>
 </script>
 <script type="text/x-template" id="directory-user-template">
-    <div><span>{{ user.name }}</span></div>
+    <div><span>{{ name }}</span></div>
 </script>
 </body>
 </html>

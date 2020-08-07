@@ -15,6 +15,10 @@
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "css-loader": "^4.2.1",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
