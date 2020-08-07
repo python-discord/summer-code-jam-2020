@@ -1,6 +1,18 @@
 TODO: change the `.github/workflows/lint.yml` file back to original before submitting.
 
-# Annoyed Alligators
+<div align="center">
+  
+![socl -crop](https://user-images.githubusercontent.com/20405311/89612675-021b5700-d89e-11ea-8c0e-f6825f1672fd.jpg)
+# SoCL Media (SoCommandLine Media)
+TAGLINE here
+  
+---
+
+<a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" border="0" alt="Made with Django." title="Made with Django." /></a>  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge&logo=ko-fi)
+
+---
+
+</div>
 
 ## Setup
 1. Clone this repository by running `git clone https://github.com/akshgpt7/summer-code-jam-2020`.
