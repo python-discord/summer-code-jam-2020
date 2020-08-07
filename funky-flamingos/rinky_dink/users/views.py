@@ -1,16 +1,16 @@
 import hashlib
 import os
-import random
+# import random
 
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.models import User
+# from django.http import HttpResponseRedirect, HttpResponse
+# from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 
-from users.forms import RegistrationForm
-from .models import File
+from users.forms import RegistrationForm, TeamRegistrationForm
+from users.models import File, Member
 
 
 def fhandler(request, name):
@@ -33,12 +33,28 @@ def register(request):
         if form.is_valid():
             form.save()
             print(form.save())
-            messages.success(request, "You are successfully registered")
+            messages.success(request, "You have been successfully registered!")
             return redirect("login")
     else:
         form = RegistrationForm()
 
     return render(request, "users/register.html", {"form": form})
+
+
+@login_required(login_url="/login/")
+def teamregister(request):
+    if request.method == "POST":
+        form = TeamRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form.instance.members.add(request.user)
+            print(form.save())
+            messages.success(request, "Your team has been successfully registered!")
+            return redirect("dashboard")
+    else:
+        form = TeamRegistrationForm()
+
+    return render(request, "users/team.html", {"form": form})
 
 
 def login(request):
@@ -69,7 +85,6 @@ def upload(request):
             form.save()
         else:
             # flash message that A similar file is already present  if hash value matches
-
             path = save_on_server(uploaded_file)
             hash_val = hash_file(path)
             if check_file_presence(hash_val):
@@ -92,10 +107,12 @@ def upload(request):
 
 @login_required(login_url="/login/")
 def dashboard(request):
+    teams = Member.objects.filter(user__id__in=[request.user.id])
     context = {}
     file = File.objects.filter(user=request.user)
-    context = {"file": file}
+    context = {"file": file, "teams": teams}
     print(context["file"])
+    print(context["teams"])
     return render(request, "users/dashboard.html", context)
 
 

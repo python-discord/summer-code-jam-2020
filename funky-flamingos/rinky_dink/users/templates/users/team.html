@@ -2,25 +2,37 @@
 
 {% block content %}
 
-<div >
-  <h2>Form Team</h2>
-
-  <form id="my_form" method="POST">
-    {% csrf_token %}
-    <br>
-        {% for field in form %}
-         <div>
-           <label>{{ field.label_tag }}</label>
-           {{ field }}
-           {% for error in field.errors %}
-               <div>
-                 {{ error }}
-                 </div>
-            {% endfor %}
-         </div>
-       {% endfor %}
-<a href="javascript:{}" onclick="document.getElementById('my_form').submit();">Register Team</a>
-  </form>
+<div class="window-center">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+    <div class="title-bar-text">Register your team</div>
+    <div class="title-bar-controls">
+      <a href="{% url 'dashboard' %}"><button aria-label="Close"></button></a>
+    </div>
+    </div>
+    <div class="window-body">
+      <form id="my_form" method="POST">
+          {% csrf_token %}
+          <table>
+            <tbody>
+              {% for field in form %}
+                <tr>
+                  <td><label>{{ field.label_tag }}</label></td><td>{{ field }}</td>
+                </tr>
+                {% for error in field.errors %}
+                  <tr>
+                   <td>{{ error }}</td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+          
+        <button class="btn-my-1" type="submit">Register</button>
+      </form>
+    </div>
+  </div>
 </div>
+
 
 {% endblock content%}

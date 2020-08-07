@@ -11,34 +11,45 @@
     </div>
     <div class="window-body">
       <h4> Welcome {{ request.user }}</h4>
+      <p>Your teams:</p>
+      {% if not teams %}
+        <span>You haven't joined any team yet.</span>
+      {% else %}
+        <ul class="tree-view">
+          {% for team in teams %}
+            <li>{{ team.team.name }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <br />
       <span>Files that you have uploaded till now are</span>
       <ul class="tree-view" style="font-size:12px">
-      	{% if not file %}
-      		<span>*crickets chirping*</span>
-      	{% else %}
-	        {% for record in file %}
-	          {% if "_" not in record.title %}
-	            </details>
-	          {%endif%}
+        {% if not file %}
+          <span>*crickets chirping*</span>
+        {% else %}
+          {% for record in file %}
+            {% if "_" not in record.title %}
+              </details>
+            {%endif%}
 
-	          {% if "_" not in record.title %}
-	            <details closed>
-	              <summary>{{record.title}}</summary>
-	                <li><a href="{% url 'fhandler' name=record.title %}"><strong>{{record.title}}</strong></a>
-	                  <span style="margin-left: 13px">Date Updated: {{record.uploaded_at}}</span></li>
-	          {% else %}
-	            <li><a href="{% url 'fhandler' name=record.title %}">{{record.title}}</a>
-	              {{record.uploaded_at}}</li>
-	          {% endif %}
-	        {% endfor %}
-	      {% endif %}
+            {% if "_" not in record.title %}
+              <details closed>
+                <summary>{{record.title}}</summary>
+                  <li><a href="{% url 'fhandler' name=record.title %}"><strong>{{record.title}}</strong></a>
+                    <span style="margin-left: 13px">Date Updated: {{record.uploaded_at}}</span></li>
+            {% else %}
+              <li><a href="{% url 'fhandler' name=record.title %}">{{record.title}}</a>
+                {{record.uploaded_at}}</li>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
       </ul>
     </div>
     <div class="btn-row">
-    	<div><a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a></div>
-    	<div><a href="{% url 'upload' %}"><button class="btn-my-1">Upload a file</button></a></div>
+      <div><a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a></div>
+      <div><a href="{% url 'upload' %}"><button class="btn-my-1">Upload a file</button></a></div>
     </div>
-    	
+      
   </div>
 </div>
 
