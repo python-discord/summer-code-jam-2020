@@ -6,9 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostList(LoginRequiredMixin, ListView):
-    """
-    This view is used for creating
-    posts and showring posts in th feed.
+    """ 
+    Lists out all the posts in the feed.
     """
     model = Post
     queryset = Post.objects.all()
+    ordering = ['-post_date_posted']
