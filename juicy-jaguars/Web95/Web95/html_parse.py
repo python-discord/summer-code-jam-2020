@@ -12,6 +12,7 @@ class HtmlParser:
         self.html = html
         self.soup = BeautifulSoup(html, "html.parser")
         self.basedir = basedir
+        self.request = request
 
     def parse(self):
         """Run all parsing functions.
@@ -39,10 +40,25 @@ class HtmlParser:
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('body {font-family: Arial, \
-sans-serif !important;}')
+
+            head.style.append("""@font-face {{
+    font-family: "Windows 95";
+    src: url('{}/static/fonts/w-95-sans-serif.woff2') format('woff2'),
+         url('{}/static/fonts/w-95-sans-serif.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}}""".format("http://"+self.request.META["HTTP_HOST"],
+             "http://"+self.request.META["HTTP_HOST"]))
         except KeyError:
             pass
+
+        for element in self.soup.find_all(re.compile(".*")):
+            try:
+                element["style"] = "font-family: 'Windows 95', Arial, \
+    sans-serif !important;" + element["style"]
+            except KeyError:
+                element["style"] = "font-family: 'Windows 95', Arial, \
+    sans-serif !important;"
 
     def parse_derounder(self):
         """Make rounded borders square."""
