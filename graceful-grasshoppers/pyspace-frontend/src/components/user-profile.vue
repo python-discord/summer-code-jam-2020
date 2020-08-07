@@ -1,9 +1,9 @@
 <template>
   <div class="profile-box" style="flex: 0 1 400px;">
-    <h1>{{ user.name }}</h1>
+    <h1>{{ user.username }}</h1>
     <div class="details-box flex-row">
       <span class="profile-picture">
-        <img width="150" v-bind:src="user.picture">
+        <img width="150" src="https://placehold.it/100">
       </span>
       <div class="flex-col">
        <span class="age">{{ user.age }} years old</span>
@@ -35,33 +35,15 @@
 
 <script>
 // @ is an alias to /src
-
-// import axios from "../http-common";
-import axios from "axios";
-import User from "../models/user";
-// const authToken = JSON.parse(localStorage.getItem('user')).key;
-
 export default {
   name: 'UserProfile',
+  props: ['user'],
   data: function() {
     return {
-      user: new User({}),
+      user: this.user,
     };
   },
-  methods: {
-    init() {
-      axios
-      .get('http://www.json-generator.com/api/json/get/bUZiRPcslK?indent=2')
-      .then((response) => {
-        Object.assign(this.user, response.data[0]);
-      })
-    }
-  },
-  mounted() {
-    this.init();
-  },
-  components: {
-  }
+
 };
 
 </script>

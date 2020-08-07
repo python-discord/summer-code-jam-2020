@@ -9,18 +9,7 @@
 import Post from '../models/post';
 export default {
   name: 'Login',
-  data() {
-    return {
-      post: new Post(),
-      message: '',
-    };
-  },
-  computed: {
-  },
-  created() {
-  },
-  methods: {
-  }
+  props: ['post'],
 };
 </script>
 

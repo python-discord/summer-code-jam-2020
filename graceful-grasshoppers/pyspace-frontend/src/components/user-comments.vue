@@ -14,32 +14,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
-// import axios from "../http-common";
-import axios from "axios";
-import User from "../models/user";
-// const authToken = JSON.parse(localStorage.getItem('user')).key;
-
 export default {
 	name: 'UserFriends',
-	data: function() {
-		return {
-			user: new User({}),
-		};
-	},
-	methods: {
-		init() {
-			axios
-			.get('http://www.json-generator.com/api/json/get/bUZiRPcslK?indent=2')
-			.then((response) => {
-				Object.assign(this.user, response.data[0]);
-			})
-		}
-	},
-	mounted() {
-		this.init();
-	},
+	props: ['user'],
 	components: {
 	}
 };

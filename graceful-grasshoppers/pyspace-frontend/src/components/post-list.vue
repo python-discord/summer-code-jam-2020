@@ -28,26 +28,7 @@ import axios from "axios";
 
 export default {
 	name: 'UserAbout',
-	data: function() {
-		return {
-			posts: [],
-		};
-	},
-	methods: {
-		init() {
-			axios
-			.get('http://www.json-generator.com/api/json/get/cfZpAReYMO')
-			.then((response) => {
-				console.log(response.data)
-				response.data.forEach(post => this.posts.push(post));
-			})
-		}
-	},
-	mounted() {
-		this.init();
-	},
-	components: {
-	}
+	props: ['posts'],
 };
 
 </script>
