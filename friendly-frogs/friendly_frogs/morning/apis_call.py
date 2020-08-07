@@ -1,12 +1,10 @@
 from newsapi.newsapi_client import NewsApiClient
 
 
-NEWS_SOURCES = (
-    ('bbc-news', 'BBC NEWS'),
-)
-
-
 class News:
+    '''
+    External API Service for news feed
+    '''
 
     api_key = '552022408c394577825bfd63f2d59a42'
 
@@ -15,7 +13,7 @@ class News:
 
     def get_news(self, source):
         news = self._news.get_top_headlines(sources=source)
-        if news['articles'] == []:
+        if not news['articles']:
             return "There is no article for you"
         else:
             return news

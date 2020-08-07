@@ -11,13 +11,9 @@ def register(request):
             form.save()
             form_p.save()
             username = form.cleaned_data.get('username')
-            messages.success(
-                request, f"Account successfully created for {username}"
-                )
+            messages.success(request, f"Account successfully created for {username}")
     else:
         form = UserRegisterForm()
         form_p = ProfileForm
     context = {'form': form, 'form_p': form_p}
-    return render(
-        request, "users/register.html", context
-                )
+    return render(request, "users/register.html", context)
