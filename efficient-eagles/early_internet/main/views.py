@@ -2,12 +2,20 @@ import random
 
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import auth
 from django.urls import reverse
 from django.db import IntegrityError
 
+from main.forms import (
+    CustomUserCreationForm,
+    TopicCreationForm,
+    PostForm,
+    CustomUser,
+    ProfileForm,
+)
 from main.models import Topic, Post, Comment
-from main.forms import CustomUserCreationForm, TopicCreationForm, PostForm, CustomUser
 
 
 class HomeView(TemplateView):
@@ -129,6 +137,7 @@ class LoginView(TemplateView):
     def get(self, request):
         if request.user.is_authenticated:
             return redirect("/")
+        return render(request, self.template_name)
 
     def post(self, request):
         username = request.POST.get("username")
@@ -197,3 +206,47 @@ class UserView(TemplateView):
         posts = Post.objects.filter(author=user.id)
         context = {"user": user, "posts": posts}
         return render(request, self.template_name, context)
+
+
+class AccountView(TemplateView):
+    template_name = 'account.html'
+
+    def get(self, request):
+        form = ProfileForm(instance=request.user)
+        context = {'form': form}
+        if request.user.is_authenticated:
+            return render(request, self.template_name, context)
+        return redirect('login')
+
+    def post(self, request):
+        form = ProfileForm(request.POST, request.FILES, instance=request.user)
+        if 'save' in request.POST:
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                request.user.username = username
+                request.user.bio = form.cleaned_data.get('bio')
+                request.user.profile_img = form.cleaned_data.get('profile_img')
+                request.user.save()
+            return redirect('account')
+
+
+class ChangePassword(TemplateView):
+    template_name = 'change_password.html'
+
+    def get(self, request):
+        form = PasswordChangeForm(request.user)
+        context = {'form': form}
+        if request.user.is_authenticated:
+            return render(request, self.template_name, context)
+        else:
+            return redirect('login')
+
+    def post(self, request):
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            return redirect('account')
+
+        return redirect('change_password')
