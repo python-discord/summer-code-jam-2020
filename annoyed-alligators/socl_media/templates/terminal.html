@@ -57,22 +57,34 @@
       run_command: function() {
         if(this.command == 'cls' || this.command == 'clear'){
           this.response = ''
+          this.prompt = "~$"
+          this.followup_count = 0
+        } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
           this.prompt = "$"
-        }
-				else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
-          this.prompt = "$"
-        }
-					else {
+        } else {
+          var header = {dummy: 0}
           if (this.prompt == "..."){
             this.followup_count += 1
-            var cur_command = `${this.previous_commands[0]}~${this.command} ${this.followup_count}`
+            if (this.command == 'n'){
+              header = {page: this.followup_count}
+            } else if(!isNaN(this.command)){
+              header = {article: this.command}
+            }
+            var cur_command = this.previous_commands[0] 
+            {% comment %} `${this.previous_commands[0]}~${this.command} ${this.followup_count}` {% endcomment %}
           } else {
             var cur_command = this.command
           }
-
-          axios.get(`/terminal/command?c=${cur_command}`)
+          console.log(cur_command)
+          console.log(header)
+          axios.get(`/terminal/command?c=${cur_command}`, {headers: header})
           .then(res =>{
-            this.prompt = res.headers.followup == "True" ?  "..." : "$"
+            if(res.headers.followup == "True"){
+              this.prompt = "..."
+            } else {
+              this.prompt = "~$"
+              this.followup_count = 0
+            }
             this.response = this.response + res.data + "<br>"
           }, (error) =>{
           }) 
