@@ -1,4 +1,4 @@
-from rest_framework import permissions, status
+from rest_framework import permissions, status, viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,6 +7,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from retro_news.serializers import CustomTokenObtainPairSerializer, CustomUserSerializer, BlogArticleSerializer
 from retro_news.models import BlogArticle
+
+class BlogArticleViewSet(viewsets.ModelViewSet):
+    queryset = BlogArticle.objects.all().order_by('date_created')
+    serializer_class = BlogArticleSerializer
 
 class CustomUserCreate(APIView):
     """Handles user creation."""
