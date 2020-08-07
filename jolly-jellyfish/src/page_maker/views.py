@@ -12,7 +12,7 @@ from django.views.generic import (
 )
 
 from .forms import UserRegisterForm, WebpageForm, TemplateForm, CommentForm
-from .models import User, Webpage, Template, Comment
+from .models import User, Webpage, Template, Comment, Like
 
 
 class MainView(TemplateView):
@@ -37,7 +37,8 @@ class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
-        context['user_pages'] = Webpage.objects.filter(author=user)
+        # the user's pages are sorted by the most recently edited (most recent first)
+        context['user_pages'] = Webpage.objects.filter(author=user).order_by('-last_edit_date')
         return context
 
 
@@ -69,6 +70,7 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class WebpageCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/webpage_create.html'
     form_class = WebpageForm
+    # TODO: some form of preview of the template selected using the thumbnails generated?
 
     # NB: Django pre-sanitizes text input already - https://docs.djangoproject.com/en/dev/topics/security/
     def form_valid(self, form):
@@ -101,7 +103,7 @@ class WebpageView(DetailView):
 
 class WebpageDetailView(DetailView):
     """
-    Display webpage details and comment section
+    Display webpage details, like features and comment section
     """
     model = Webpage
     template_name = 'page_maker/webpage_detail.html'
@@ -114,7 +116,29 @@ class WebpageDetailView(DetailView):
         webpage = self.get_object()
         context['comments'] = Comment.objects.filter(parent_page=webpage)
         context['comment_form'] = CommentForm()
+        context['num_likes'] = webpage.like_set.all().count()
         return context
+
+    def post(self, request, *args, **kwargs):
+        """Like button logic"""
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+
+        if request.user.is_authenticated:  # user is logged in
+            if request.user == self.object.author:  # it's the user's own page
+                context['like_response'] = "You can't like your own page!"
+            else:
+                like_obj, created = Like.objects.get_or_create(author=request.user, parent_page=self.object)
+                if created:  # this is first time the user has liked the webpage
+                    context['like_response'] = "Thanks for the like!"
+                else:
+                    like_obj.delete()
+                    context['like_response'] = "You've now unliked this page."
+        else:
+            context['like_response'] = "Please login to leave a like."
+
+        context['num_likes'] = self.object.like_set.all().count()  # updates like count
+        return self.render_to_response(context)
 
 
 class WebpageListView(ListView):

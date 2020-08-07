@@ -3,6 +3,13 @@
 {% block content %}
 <div><h1>{{ webpage.user_title }}</h1></div>
 <div>
+    {{ num_likes }} like{{ num_likes|pluralize }}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <button type="submit">👍 Like</button><i>    {{ like_response }}</i>
+    </form>
+</div>
+<div>
     {% for comment in comments %}
     <div>
         <p>{{ comment.author.username }}: {{ comment.title }}</p>

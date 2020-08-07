@@ -35,7 +35,7 @@ class Template(models.Model):
                                   validators=[validate_image_file_extension])
 
     def __str__(self):
-        return self.name
+        return f'{self.name} by {self.author}'
 
 
 def get_user_dir_path(instance, filename):
