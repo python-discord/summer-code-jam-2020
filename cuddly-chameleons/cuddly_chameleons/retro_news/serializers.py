@@ -2,8 +2,13 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from retro_news.models import CustomUser
+from retro_news.models import CustomUser, BlogArticle
 
+
+class BlogArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model   = BlogArticle
+        fields  = ('title','author','content','date_created')
 
 class CustomUserSerializer(serializers.ModelSerializer):
     """Serializer for new user creation."""

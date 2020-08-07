@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from retro_news.serializers import CustomTokenObtainPairSerializer, CustomUserSerializer
-
+from retro_news.serializers import CustomTokenObtainPairSerializer, CustomUserSerializer, BlogArticleSerializer
+from retro_news.models import BlogArticle
 
 class CustomUserCreate(APIView):
     """Handles user creation."""
