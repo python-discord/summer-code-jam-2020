@@ -1,11 +1,11 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
 urlpatterns = [
-    path('<int:post_id>/', views.forum_post, name='viewpost'),
-    path('post_forum_reply/<int:post_id>', views.forum_post_reply),
+    path('<int:post_id>/', views.forum_post, name='view-forum-post'),
+    path('post_forum_reply/<int:post_id>/', views.forum_post_reply, name='post-forum-reply'),
     path('', views.index, name='home'),
-    path('search/', views.search_posts),
-    path('upload/', views.upload_post)
+    path('search/', views.search_posts, name='search-forum-posts'),
+    path('upload/', views.upload_post, name='upload-forum-post')
 ]

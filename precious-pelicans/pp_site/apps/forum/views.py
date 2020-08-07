@@ -17,7 +17,6 @@ def forum_post(request, post_id):
     page_number = request.GET.get('page', 1)
     page_obj = pages.get_page(page_number)
 
-    print(post.author)
     context = {
         'original_post': post,
         'reply_form': ForumPostReplyForm,

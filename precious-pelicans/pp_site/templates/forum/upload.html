@@ -16,7 +16,7 @@
             {{ block.super }}
         {% endblock %}
     </div>
-    <form id="upload-form" method="post" action="/forum/upload/" enctype="multipart/form-data">
+    <form id="upload-form" method="post" action="{% url 'upload-forum-post' %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ upload_form }}
         <input type="submit" value="Submit">

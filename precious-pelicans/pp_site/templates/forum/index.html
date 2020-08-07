@@ -21,7 +21,7 @@
                 &lt;&lt; Home
             </a>
         </div>
-        <form id="search-bar" method="post" action="/forum/search/">
+        <form id="search-bar" method="post" action="{% url 'search-forum-posts' %}">
 			{% csrf_token %}
 			{{ search }}
 			<input type="submit" value="Enter">
