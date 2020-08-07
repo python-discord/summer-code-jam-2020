@@ -12,7 +12,7 @@
         {% endblock %}
     </div>
     <h2 style="text-align:center">Share your knowledge!</h2>
-    <form id="upload-form" method="post" action="/truth/upload/" enctype="multipart/form-data">
+    <form id="upload-form" method="post" action="/truths/upload/" enctype="multipart/form-data">
         {% csrf_token %}
         {{ upload_form }}
         <input type="submit" value="Submit">
