@@ -2,34 +2,31 @@
 
 {% load static %}
 
-{% block extrahead %} <script src="/welcome.js"></script> {% endblock %}
-
 {% block title %}Spacebook!{% endblock %}
 
 {% block body %}
 
 
-<div id="Frieda">
-   <img src="static/images/beautiful-blue-stars-fill.jpg" alt="Spacebook">
+<div id="star_holder" class="center_screen">
 
 </div>
 
 
-<div class="center_screen">
-    This page is under construction.
-    <table>
-      <tr>
-        <th>Visitor #{{count}}</th>
-        <th> <form><input type=submit value="mute" style="width:100%"></form> </th> 
+<div id="button_holder" class="center_screen">
+  <div class="button_zoom">
+    <table class="button_zoom" style="width:100%">
+      <tr class="button_zoom" style="width:100%">
+        <th><button class="button_zoom" style="width:100%">Visitor #{{count}}</button></th>
+        <th> <button class="button_zoom" style="width:100%"> Mute </button> </th> 
       </tr>
-      <tr>
-        <th colspan="2"><form action='home/'><input type=submit value="Enter" style="width:100%"></form></th>
+      <tr style="width:100%">
+        <th colspan="2"><button class="button_zoom" onclick='pan_up()'style="width:100%"> Launch!</button></th>
       </tr>
-      <tr>
+      <t style="width:100%"r>
         <th style="border:none;" colspan="2"><h2>Welcome to Spacebook!</h2></th>
       </tr>
     </table>
-
+  </div>
     
 </div>
 
