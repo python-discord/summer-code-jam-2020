@@ -19,8 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
     friends = serializers.SerializerMethodField('friend_list')
 
     def friend_list(self, obj):
-        queryset = [i.requester_id for i in models.Friendship.objects.filter(requester_id=obj.id)]
-        queryset += [i.friend_id for i in models.Friendship.objects.filter(friend_id=obj.id)]
+        queryset = [i.friend_id for i in models.Friendship.objects.filter(requester_id=obj.id)]
+        queryset += [i.requester_id for i in models.Friendship.objects.filter(friend_id=obj.id)]
         queryset = [models.CustomUser.objects.get(id=i) for i in queryset]
         return FriendshipSerializer(queryset, many=True).data
 
