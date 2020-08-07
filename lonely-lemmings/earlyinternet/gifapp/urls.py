@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import path
 
-from .views import paint, parse_save_request, parse_render_request
+from . import views
 
 urlpatterns = [
-    url(r"^$", paint),
-    url(r"save/", parse_save_request),
-    url(r"back/", parse_save_request),
-    url(r"render/", parse_render_request)
+    path("", views.paint, name="paint"),
+    path("save", views.parse_save_request, name="save"),
+    path("back", views.return_home, name="back"),
+    path("render", views.parse_render_request, name="render")
 ]
