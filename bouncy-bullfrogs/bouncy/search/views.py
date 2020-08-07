@@ -13,6 +13,7 @@ class SearchResultsView(ListView):
     paginate_by = 10
     def get_queryset(self,**kwargs):
         query = self.kwargs['query']
+        print(f"query is {query}")
         results = Result.objects.filter(Q(title__icontains=query) | Q(snippet__icontains=query) |Q(link__icontains=query))
         return results
 
