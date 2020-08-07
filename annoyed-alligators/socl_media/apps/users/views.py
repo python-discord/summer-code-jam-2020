@@ -6,6 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 def signup(request):
+    """
+    This view asks new users to sign up
+
+    """
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
