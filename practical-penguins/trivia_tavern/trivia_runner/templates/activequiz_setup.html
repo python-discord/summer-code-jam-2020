@@ -5,4 +5,6 @@
 <p><strong>Session_master:</strong> <a href="">{{ active_trivia_quiz.session_master.username }}</a></p>
 <p><strong>created on:</strong> {{ active_trivia_quiz.start_time }}</p>
 <p><strong>session code:</strong> {{ active_trivia_quiz.session_code }}</p>
+<p>To start this quiz, text {{ active_trivia_quiz.session_code }} to {% settings_value "HOST_TWILIO_NUMBER" %} or add a player's number manually </p>
+
 {% endblock %}

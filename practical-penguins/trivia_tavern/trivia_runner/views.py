@@ -7,23 +7,19 @@ from trivia_builder.models import TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz
 
 
-def setup(request, pk):
-    active_trivia_quiz = get_object_or_404(ActiveTriviaQuiz, pk=pk)
+def setup(request, active_trivia_quiz):
     return render(request, 'activequiz_setup.html', {'active_trivia_quiz': active_trivia_quiz})
 
 
-def question(request, pk):
-    active_trivia_quiz = get_object_or_404(ActiveTriviaQuiz, pk=pk)
+def question(request, active_trivia_quiz):
+    cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
+                                              question_index=active_trivia_quiz.current_question_index)
 
-    question_number = active_trivia_quiz.current_question_index
-    cur_question = TriviaQuestion.objects.filter(quiz=active_trivia_quiz.trivia_quiz)[question_number-1]
-    # cur_question = active_trivia_quiz.trivia_quiz.triviaquestion_set.all()[question_number:]
     return render(request, 'activequiz_question.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
 
 
-def end_screen(request, pk):
-    active_trivia_quiz = get_object_or_404(ActiveTriviaQuiz, pk=pk)
+def end_screen(request, active_trivia_quiz):
     tally_results = {'winner': "DUMMY USER",
                      'score_list': [("DUMMY USER", 10),
                                     ("DUMMY USER 2", 2),
@@ -43,11 +39,11 @@ def active_trivia(request, pk):
             active_trivia_quiz.current_question_index = -1
 
     if active_trivia_quiz.current_question_index == 0:
-        response = setup(request, pk=active_trivia_quiz.pk)
+        response = setup(request, active_trivia_quiz)
     elif active_trivia_quiz.current_question_index > 0:
-        response = question(request, pk=active_trivia_quiz.pk)
+        response = question(request, active_trivia_quiz)
     elif active_trivia_quiz.current_question_index < 0:
-        response = end_screen(request, pk=active_trivia_quiz.pk)
+        response = end_screen(request, active_trivia_quiz)
     else:
         return HttpResponseNotFound(f"active_trivia_quiz current_question_index "
                                     f"invalid value {active_trivia_quiz.current_question_index}")

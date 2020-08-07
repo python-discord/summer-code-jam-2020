@@ -9,7 +9,7 @@
               <a class="mr-2" href="{% url 'user-quizzes' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
               <small class="text-muted">Quiz started on: {{ quiz.start_time|date:"F d, Y" }} </small>
             </div>
-            <h2><a class="article-title" href="{% url 'activequiz-setup' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>
+            <h2><a class="article-title" href="{% url 'activequiz' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>
             <p class="article-content">Number of questions: {{ quiz.trivia_quiz.triviaquestion_set.count }}</p>
             <p class="article-content">Session code: {{ quiz.session_code }}</p>
           </div>
