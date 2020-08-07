@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="earlydating-logout"),
     path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher'),
     path('about/', views.about, name='earlydating-about'),
+    path('matches/', views.matches, name='earlydating-matches'),
     path('YourProfile/', views.your_profile, name='earlydating-yourprofile')
 ]
 
