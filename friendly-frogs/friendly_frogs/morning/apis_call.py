@@ -10,9 +10,7 @@ class News:
     api_key = '552022408c394577825bfd63f2d59a42'
 
     def __init__(self):
-        self._news = NewsApiClient(
-            api_key=self.api_key
-            )
+        self._news = NewsApiClient(api_key=self.api_key)
 
     def get_news(self, source):
         news = self._news.get_top_headlines(sources=source)
