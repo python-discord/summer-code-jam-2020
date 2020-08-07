@@ -11,7 +11,7 @@
     <img id="banner" src="https://placeholder.com/wp-content/uploads/2018/10/placeholder-1.png">
     <div id="header">
         <a href="/forum">
-            &lt;&lt; Index
+            << Index
         </a>
     </div>
 
@@ -43,7 +43,7 @@
         <div id="page-selector">
             <span class="step-links">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page=1">First</a>
                     <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
                 {% endif %}
 
@@ -59,7 +59,7 @@
     </div>
 
 <div class="reply-form">
-        <form action="/forum/post_forum_reply/{{ original_post.id }}" method="POST">
+        <form action="{% url "post-forum-reply" post_id=original_post.id %}" method="POST">
             {% csrf_token %}
             {% for field in reply_form %}
                 <h6>{{ field.label_tag }}</h6>
