@@ -62,7 +62,12 @@ const actions = {
   },
   logout: ({ commit }) => {
     commit('logout')
-  }
+  },
+  getLocalStorageUser: ({ commit }) => {
+    const token = localStorage.getItem('user-token');
+    if (token === null) return null;
+    commit('loginSuccess', { token });
+  },
 }
 
 const mutations = {

@@ -108,5 +108,8 @@ export default {
       this.$store.dispatch('logout');
     },
   },
+  created () {
+    this.$store.dispatch('getLocalStorageUser');
+  },
 };
 </script>
