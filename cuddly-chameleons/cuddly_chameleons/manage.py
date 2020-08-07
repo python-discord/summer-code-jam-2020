@@ -31,12 +31,12 @@ def main():
                 psycopg2.connect(os.getenv('DATABASE_URL'))
                 success = True
                 print(f"Try {attempts + 1}: Success")
-            except:  # noqa: E722
+            except Exception:
                 print(f"Try {attempts + 1}: Failed")
                 time.sleep(5)
             finally:
                 attempts += 1
-        
+
         django.setup()
         call_command("migrate")
 
@@ -44,9 +44,9 @@ def main():
         password = os.getenv('ADMIN_PASSWORD')
         user = get_user_model()
 
-        if not user.objects.filter(username=name).exists():
+        if not user.objects.filter(username=name).exists() and os.getenv('DEBUG') == 'true':
             user.objects.create_superuser(name, '', password)
-            print("Created superuser 'admin'")
+            print(f"Created superuser {name} with password '{password}'")
 
         call_command("runserver", "0.0.0.0:8000")
     else:
