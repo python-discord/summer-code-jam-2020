@@ -191,27 +191,17 @@ html {
   to {opacity: 1}
 }
 
-.button_a {
-  color: #fff !important;
-  text-transform: uppercase;
-  font-size: large;
+.buttonmatch {
+  background-color: grey;
+  border: inset;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
   text-decoration: none;
-  background:grey;
-  padding: 20px;
-  border-radius: 5px;
-  display: inline-block;
-  border: none;
-  transition: all 0.4s ease 0s;
-  }
-
-  .button_a:hover {
-    background: #434343;
-    letter-spacing: 1px;
-    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
-    transition: all 0.4s ease 0s;
-    }
+  font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
 label {
   display: inline-block;
