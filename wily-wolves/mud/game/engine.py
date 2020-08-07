@@ -117,8 +117,11 @@ class Engine():
         """If you use 'help' you can see a list of availlable commands.
         You can also use 'help <command>' to get a more specific guide."""
 
-        methods_list = [func for func in dir(Engine) if (callable(getattr(Engine, func))
-                                                         and not func.startswith("__") and len(func) > 1]
+        methods_list = [
+            func for func in dir(Engine)
+            if (callable(getattr(Engine, func))
+                and not func.startswith("__") and len(func) > 1)
+        ]
         if len(self.command_line.split()) == 1:
             message = "This is the list of all commands available in this server:"
             for func in methods_list:
