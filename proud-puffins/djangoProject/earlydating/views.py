@@ -113,23 +113,35 @@ def get_unvoted(voter):
     return unvoted
 
 
+# @login_required(login_url='earlydating-login')
+# @allowed_users(allowed_roles=['profile'])
+# def matches(request):
+#     logged_user = request.user
+#     liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user).values_list('voter')
+#     you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user).values_list('user')
+#     both_liked = liked_you.intersection(you_liked)
+#     whole_list = liked_you.union(you_liked)
+#     table = []
+#     header = ['name', 'liked you', 'you liked', 'email']
+#     for user in whole_list:
+#         row = [user[0]]
+#         row += [True] if user in liked_you else [False]
+#         row += [True] if user in you_liked else [False]
+#         row += [User.objects.get(pk=user[0]).email] if user in both_liked else ['']
+#     context = {'table': table, 'header': header, 'liked_you': liked_you, 'both_liked': both_liked,
+#         'whole_list': whole_list, 'you_liked': you_liked}
+#     return render(request, 'dating/matches.html', context)
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
 def matches(request):
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user).values_list('voter')
-    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user).values_list('user')
+    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
     both_liked = liked_you.intersection(you_liked)
     whole_list = liked_you.union(you_liked)
-    table = []
-    header = ['name', 'liked you', 'you liked', 'email']
-    for user in whole_list:
-        row = [user[0]]
-        row += [True] if user in liked_you else [False]
-        row += [True] if user in you_liked else [False]
-        row += [User.objects.get(pk=user[0]).email] if user in both_liked else ['']
-    context = {'table': table, 'header': header}
-    return render(request, 'dating/matches.html', context)
+    context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
+    return render(request, 'dating/mymatches.html', context)
+
 
 
 @login_required(login_url='earlydating-login')

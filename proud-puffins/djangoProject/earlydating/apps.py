@@ -5,4 +5,4 @@ class EarlydatingConfig(AppConfig):
     name = 'earlydating'
 
     def ready(self):
-        pass  # import earlydating.signals
+        import earlydating.signals
