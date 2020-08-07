@@ -116,7 +116,9 @@ class Engine():
     def help(self):
         """If you use 'help' you can see a list of availlable commands.
         You can also use 'help <command>' to get a more specific guide."""
-        methods_list = [func for func in dir(Engine) if callable(getattr(Engine, func)) and not func.startswith("__") and len(func) > 1]
+
+        methods_list = [func for func in dir(Engine) if (callable(getattr(Engine, func))
+                                                         and not func.startswith("__") and len(func) > 1]
         if len(self.command_line.split()) == 1:
             message = "This is the list of all commands available in this server:"
             for func in methods_list:
@@ -125,7 +127,7 @@ class Engine():
         elif len(self.command_line.split()) == 2:
             command_to_help = self.command_line.split(maxsplit=1)[1]
             if command_to_help in methods_list:
-                help_text = eval('Engine.' + self.command_line.split(maxsplit=1)[1] +'.__doc__')
+                help_text = eval('Engine.' + self.command_line.split(maxsplit=1)[1] + '.__doc__')
                 return f"This is the 'help' for {command_to_help!r}: {help_text}"
             else:
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
