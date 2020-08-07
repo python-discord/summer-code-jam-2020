@@ -28,6 +28,7 @@ Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the 
 3. cd to the team's folder by `cd summer-code-jam-2020/annoyed-alligators`.
 4. To activate a virtual environment for the project, run `pipenv shell`. After this, you'll be inside the virtual environment.
 5. Install the dependencies by running `pipenv install`.
+6. Run the Dev Server by `python3 manage.py runserver`.
 
 ## Usage
 ...
