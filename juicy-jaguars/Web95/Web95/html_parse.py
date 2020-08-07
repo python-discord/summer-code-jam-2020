@@ -34,6 +34,8 @@ class HtmlParser:
             head.style.append('body {background-color:#C0C0C0 !important;}')
         except KeyError:
             pass
+        except AttributeError:
+            pass
 
     def parse_font(self):
         """Change fonts on site to Arial."""
@@ -50,6 +52,8 @@ class HtmlParser:
 }}""".format("http://"+self.request.META["HTTP_HOST"],
              "http://"+self.request.META["HTTP_HOST"]))
         except KeyError:
+            pass
+        except AttributeError:
             pass
 
         for element in self.soup.find_all(re.compile(".*")):
@@ -76,5 +80,6 @@ class HtmlParser:
 
         for element in self.soup.find_all(re.compile(".*")):
             for name, val in element.attrs.items():
-                if name in link_attrs and val.startswith("/"):
-                    element[name] = self.basedir + val
+                if name in link_attrs:
+                    if val.startswith("/"):
+                        element[name] = "/page/" + self.basedir + val

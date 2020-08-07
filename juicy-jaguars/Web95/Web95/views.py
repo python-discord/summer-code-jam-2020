@@ -71,15 +71,26 @@ def page(request, url):
                or url.startswith("https://")):
             url = "http://" + url
 
+    if request.method == "GET":
         req = urllib.request.Request(url,
                                      headers={'User-Agent':
-                                              request.META["HTTP_USER_AGENT"]})
-        fp = urllib.request.urlopen(req)
-        content = fp.read().decode()
+                                              request.
+                                              META["HTTP_USER_AGENT"]})
+    elif request.method == "POST":
+        parsed_data = urllib.parse.urlencode(request.data).encode("ascii")
+        req = urllib.request.Request(url,
+                                     data=parsed_data,
+                                     headers={'User-Agent':
+                                              request.
+                                              META["HTTP_USER_AGENT"]})
 
-        parser = HtmlParser(content, url, request)
-        parser.parse()
+    fp = urllib.request.urlopen(req)
+    content = fp.read().decode()
 
-        content = parser.soup.prettify()
+    parser = HtmlParser(content, url, request)
+    parser.parse()
+
+    content = "<!-- Yep, this got parsed! -->\n"+parser.soup.prettify()
+    print("Content just got *parsed*", content)
 
     return render(request, "Web95/blank.html", {"content": content})
