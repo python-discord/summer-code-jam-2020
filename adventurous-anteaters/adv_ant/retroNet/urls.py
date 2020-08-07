@@ -6,5 +6,5 @@ urlpatterns = [
     path('', include("django.contrib.auth.urls")),
     path('post', views.createpost, name='post'),
     path('posted', views.index, name='index'),
-
+    path('integration', views.integration, name='home')
 ]

@@ -37,3 +37,8 @@ def register(request):
             return render(request, 'tweet.html')
     context['form'] = form
     return render(request, 'register.html', context)
+
+
+def integration(request):
+    return render(request, 'title.html')
+
