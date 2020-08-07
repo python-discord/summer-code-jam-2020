@@ -15,10 +15,14 @@
 
       <!-- <a href="{% url 'login' %}">Login</a><br>
       <a href="{% url 'register' %}">Register</a><br> -->
-      <div class="btn-row">
-        <div><a href="{% url 'login' %}"><button class="btn-my-1">Login</button></a></div>
-        <div><a href="{% url 'register' %}"><button class="btn-my-1">Register</button></a></div>
-      </div>
+      {% if user.is_authenticated %}
+        <div><a href="{% url 'dashboard' %}"><button class="btn-my-1">Continue to dashboard</button></a></div>
+      {% else %}
+        <div class="btn-row">
+          <div><a href="{% url 'login' %}"><button class="btn-my-1">Login</button></a></div>
+          <div><a href="{% url 'register' %}"><button class="btn-my-1">Register</button></a></div>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>

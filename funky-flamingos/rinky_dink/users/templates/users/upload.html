@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content%}
 <div class="window-center popup" id="helpbox">
@@ -10,7 +11,10 @@
       </div>
     </div>
     <div class="window-body">
-        <h4>Uploading a file</h4>
+      <div class="dialog-box">
+        <div><img src="{% static 'icons/directory.png' %}" alt="directory icon"></div>
+        <div class="ml-1"><h4>Uploading a file</h4></div>
+      </div>
         <p>Click the 'Choose File' button to select a file for upload, then click the 'Upload File' button to upload it.<br />You will see a success message when your file has been uploaded to the server.</p>
     </div>
   </div>
@@ -27,11 +31,11 @@
     </div>
     <div class="window-body">
         <div class="btn-row">
-          <button id="btn-uploader" onclick="document.getElementById('filechooser').click();">Choose file</button>
+          <button id="btn-uploader" onclick="document.getElementById('fileChooser').click();">Choose file</button>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <input id="filechooser" type="file" name="document" style="display: none;">
-            <button type="submit">Upload file</button>
+            <input id="fileChooser" type="file" name="document" style="display: none;">
+            <button id="uploadBtn" type="submit" disabled>Upload file</button>
           </form>
         </div>
     </div>
@@ -52,9 +56,12 @@
 {% endif %}
 
 <script>
-  if (document.getElementById("filechooser").value.length > 0) {
-     var btn = document.getElementById("btn-uploader");
-     btn.innerHTML = 'File Chosen';
-  }
+  setInterval(function() {
+    if (document.getElementById("fileChooser").value.length > 0) {
+        var btn = document.getElementById("btn-uploader");
+        btn.innerHTML = 'File Chosen';
+        document.getElementById("uploadBtn").disabled = false;
+     }
+  }, 100);
 </script>
 {% endblock content %}

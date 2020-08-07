@@ -109,7 +109,7 @@ def upload(request):
 def dashboard(request):
     teams = Member.objects.filter(user__id__in=[request.user.id])
     context = {}
-    file = File.objects.filter(user=request.user)
+    file = File.objects.filter(user=request.user).order_by("-uploaded_at")[:5]
     context = {"file": file, "teams": teams}
     print(context["file"])
     print(context["teams"])
@@ -143,7 +143,7 @@ def hash_file(filename):
 
 def check_title_presence(uploaded_file):
     """
-    query database for filename and if it is present then return True else False
+    query database for filename and if it is present then return True else return False
     """
     file = File.objects.filter(title=uploaded_file)
     if file:
@@ -153,7 +153,7 @@ def check_title_presence(uploaded_file):
 
 def check_file_presence(hash_val):
     """
-
+    checks if a file exists with the same hash value
     """
     file = File.objects.filter(hash_val=hash_val)
     if file:
@@ -163,7 +163,7 @@ def check_file_presence(hash_val):
 
 def save_on_server(uploaded_file):
     """
-
+    this method saves the file, using a new unique name if already present
     """
     fs = FileSystemStorage()
     name = fs.save(uploaded_file.name, uploaded_file)

@@ -6,6 +6,7 @@
 html{
 	margin: 0;
 	padding: 0;
+	background-color: #a0a0a0
 }
 
 .btn-my-1{
@@ -24,7 +25,7 @@ html{
 	transform: translate(-50%, -50%);
 }
 
-.error-box{
+.dialog-box{
 	display: flex;
 	align-items: center;
 }
@@ -64,8 +65,3 @@ summary{
 	z-index: 3;
 	display: none;
 }
-/*
-.bg-black{
-	background-color: #000;
-	color: #fff;
-}*/

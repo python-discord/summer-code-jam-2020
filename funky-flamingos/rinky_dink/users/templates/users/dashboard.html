@@ -5,13 +5,10 @@
   <div class="window" style="width: 300px">
     <div class="title-bar">
       <div class="title-bar-text">Dashboard</div>
-      <div class="title-bar-controls">
-      <button aria-label="Close"></button>
-      </div>
     </div>
     <div class="window-body">
       <h4> Welcome {{ request.user }}</h4>
-      <p>Your teams:</p>
+      <span>Your teams:</span>
       {% if not teams %}
         <span>You haven't joined any team yet.</span>
       {% else %}
@@ -22,7 +19,7 @@
         </ul>
       {% endif %}
       <br />
-      <span>Files that you have uploaded till now are</span>
+      <span>Recently uploaded files:</span>
       <ul class="tree-view" style="font-size:12px">
         {% if not file %}
           <span>*crickets chirping*</span>
@@ -30,7 +27,7 @@
           {% for record in file %}
             {% if "_" not in record.title %}
               </details>
-            {%endif%}
+            {% endif %}
 
             {% if "_" not in record.title %}
               <details closed>
