@@ -9,6 +9,8 @@ verify_ssl = true
 django = "*"
 django-simple-bulma = "*"
 psycopg2-binary = "*"
+newsapi-python = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.8"
