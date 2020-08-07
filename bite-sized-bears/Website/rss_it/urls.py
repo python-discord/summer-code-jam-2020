@@ -20,5 +20,5 @@ urlpatterns = [
     path('', include('syndication_app.urls')),
     path('rss/', include('syndication_app.urls')),
     path('admin/', admin.site.urls),
-    path('chat/', include('chat.urls'))
+    path('chat/', include('irc_chat.urls'))
 ]
