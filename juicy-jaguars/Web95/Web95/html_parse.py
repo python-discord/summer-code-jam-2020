@@ -7,7 +7,7 @@ import re
 class HtmlParser:
     """Class used to parse HTML."""
 
-    def __init__(self, html, basedir):
+    def __init__(self, html, basedir, request):
         """Store HTML, setup Soup."""
         self.html = html
         self.soup = BeautifulSoup(html, "html.parser")
