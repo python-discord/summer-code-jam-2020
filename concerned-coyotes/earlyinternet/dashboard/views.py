@@ -1,8 +1,11 @@
-from django.shortcuts import render
 import datetime
 
+from django.contrib.auth import get_user
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 
-def index(request):
+
+def index(request: HttpRequest) -> HttpResponse:
 
     # TODO Replace this big hardcoded dictionay by the functions
     # that return the needed data from the database
@@ -53,3 +56,20 @@ def index(request):
     return render(request=request,
                   template_name='dashboard.html',
                   context=context)
+
+
+def update_location(request: HttpRequest) -> HttpResponse:
+    """Updates the user models geolocation with location
+    from url parameters and redirects to dashboard page."""
+
+    longitude = float(request.GET.get("longitude"))
+    latitude = float(request.GET.get("latitude"))
+
+    # Update user model
+    if longitude and latitude:
+        user = get_user()
+        user.location.longitude = longitude
+        user.location.latitude = latitude
+        user.save()
+
+    return redirect("index")

@@ -24,7 +24,7 @@
       <section class="grid-item weather">
         <span class="section-header">Weather</span>
         <span class="degree-label">{{weather.degree_celsius}}°C / {{weather.degree_fahrenheit}}°F</span>
-        <span class="location-label">in Germany</span>
+        <span class="location-label">in Germany (<a class="read-more-btn update-location-btn" role="button" href="{% url 'update_location' %}" onclick="return updateLocationBtnClicked()">Update location</a>)</span>
         <dl class="astral-information">
           <dt>Sunrise (UTC)</dt>
           <dd>{{weather.astral_information.sunrise}}</dd>
