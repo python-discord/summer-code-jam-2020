@@ -4,9 +4,8 @@ from users.models import UserProfile
 
 def main(request):
     background = UserProfile.background_image
-    return render(request, 'main/main-base.html', {'background': background})
-
-
+    not_default_background = UserProfile.not_default_background
+    return render(request, 'main/main-base.html', {'background':background, 'not_default_background':not_default_background})
 
 
 def about(request):

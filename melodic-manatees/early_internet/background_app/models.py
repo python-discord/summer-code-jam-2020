@@ -36,7 +36,8 @@ class BackgroundFile(models.Model):
 
 @receiver(post_delete, sender=BackgroundFile)
 def delete_file(sender, instance, **kwargs):
+    if instance.background_thumbnail:
+        os.remove(instance.background_thumbnail.path)
     if instance.background_file:
         if os.path.isfile(instance.background_file.path):
-            os.remove(instance.background_thumbnail.path)
             os.remove(instance.background_file.path)

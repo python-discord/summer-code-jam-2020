@@ -28,13 +28,13 @@ def add_background(request):
         if form.is_valid():
             files = request.FILES.get('background_file')
             title = request.POST.get('background_title')
-            if background_utility.resolution_checker(files.temporary_file_path()):
-                file_instance = BackgroundFile(
-                    background_file=files,
-                    background_title=title,
-                    background_owner=request.user.profile
-                    )
-                file_instance.save()
+            file_instance = BackgroundFile(
+                background_file=files,
+                background_title=title,
+                background_owner=request.user.profile
+                )
+            file_instance.save()
+            if background_utility.resolution_checker(file_instance.background_file.path):
                 thumbnail_path = background_utility.image_resizer(file_instance.background_file.path)
                 file_instance.background_thumbnail.save(f'{file_instance.background_title}_{file_instance.id}_thumbnail', File(open(f'{thumbnail_path}', 'rb'))) 
                 file_instance.save()
@@ -43,11 +43,11 @@ def add_background(request):
                 messages.success(request, 'background added')
                 return redirect('background-home')
             else:
-                messages.error(request, "image size too large")
+                file_instance.delete()
+                messages.error(request, "image resolution too low")
                 return redirect('add-background')
         else:
-            file_instance.delete()
-            messages.error(request, "image resolution too low")
+            messages.error(request, "images must be less than 2.5MB")
             return redirect('add-background')
     else:
         form = FileUploadForm()
@@ -64,8 +64,6 @@ def add_background(request):
 def delete_background(request, pk):
     to_be_deleted_background = BackgroundFile.objects.get(pk=pk)
     if request.method == 'POST':
-        # print(to_be_deleted_background.background_thumbnail)
-        # to_be_deleted_background.background_thumbnail.delete()
         to_be_deleted_background.delete()
         messages.success(request, 'background image deleted')
         return redirect('background-home')
@@ -77,6 +75,7 @@ def use_background(request, pk):
     to_be_used_background_file = BackgroundFile.objects.get(pk=pk)
     if request.method == 'POST':
         UserProfile.background_image = to_be_used_background_file.background_file
+        UserProfile.not_default_background = True
         messages.success(request, f'background changed to {to_be_used_background_file.background_title}')
         return redirect('background-home')
     return redirect('background-home')

@@ -7,7 +7,8 @@
         <p>background home page</p>
     </section>
     <section>
-        <a href="{% url 'add-background' %}">add background</a>
+        <a href="{% url 'add-background' %}">add background</a><br>
+        <a href="{% url 'main-home' %}">go back</a>
         <h1>current backgrounds</h1>
         {% if background_list %}    
             {% for background in background_list %}
