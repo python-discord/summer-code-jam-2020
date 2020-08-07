@@ -42,7 +42,17 @@ const routes = [
     path: "/create-post",
     name: "CreatePost",
     component: () => import("../views/CreatePost.vue")
-  }
+  },
+  {
+    path: "/friends",
+    name: "Friends",
+    component: () => import("../views/Friends.vue")
+  },
+  {
+    path: "/posts",
+    name: "Posts",
+    component: () => import("../views/Posts.vue")
+  },
 ];
 
 const router = new VueRouter({

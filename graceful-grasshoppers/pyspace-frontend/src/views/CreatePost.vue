@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <h3 style="text-align: center;">Create a new post!</h3>
     <CreatePostForm />
   </div>

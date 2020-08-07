@@ -1,15 +1,21 @@
 <template>
-  <div class="profile">
-    <h1>Profile page</h1>
+  <div class="container mt-5 mb-5" style="display: flex;">
+    <UserProfile />
+    <UserContent />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
+import UserProfile from '@/components/user-profile';
+import UserContent from '@/components/user-content';
 export default {
   name: 'Profile',
   components: {
+    UserProfile,
+    UserContent,
   }
 }
 </script>
+
+<style>
+</style>

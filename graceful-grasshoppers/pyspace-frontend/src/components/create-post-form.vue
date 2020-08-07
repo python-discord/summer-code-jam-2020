@@ -5,6 +5,7 @@
             <input id='title' type="" name="">
             <label for='content'>Content</label>
             <textarea id="content"></textarea>
+            <input @change="print" value="Add a post image" type="file" name="">
             <input type="submit" value="Post">
         </form>
     </div>
@@ -22,7 +23,15 @@ export default {
     },
     methods: {
         onSubmit() {
-            // on post submit
+            console.log(this.post.image);
+        },
+        print: {
+            getImageData(event) {
+                let selectedFile = event.target.files[0];
+                let formData = new FormData();
+                formData.append("fileToUpload", selectedFile);
+                console.log(formData);
+            }
         }
     }
 }
