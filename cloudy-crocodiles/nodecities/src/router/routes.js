@@ -1,5 +1,12 @@
 const routes = [
   {
+    path: '/profile/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: 'sites', component: () => import('pages/user/OwnSites.vue'), name: 'userOwnSites'},
+    ]
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [

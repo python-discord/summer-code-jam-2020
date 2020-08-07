@@ -3,6 +3,7 @@ from djangocities.graphql import query
 from djangocities.sites.models import Site
 from djangocities.pages.models import Page
 from djangocities.folders.models import Folder
+from djangocities.iam.jwt import load_user
 
 
 @query.field("allSites")
@@ -40,3 +41,11 @@ def resolve_all_pages(*_):
 @query.field("page")
 def resolve_page(*_, id):
     return Page.objects.get(id=id)
+
+@query.field("userOwnSites")
+def resolve_user_own_sites(root, info):
+    request = info.context["request"]
+    user = load_user(info)
+    if not user.is_authenticated:
+        raise Exception("You can't do that!")
+    return user.site_set.all()
