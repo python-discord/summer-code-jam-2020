@@ -1,0 +1,17 @@
+﻿appdirs==1.4.4
+asgiref==3.2.10
+cfgv==3.2.0
+distlib==0.3.1
+Django==3.0.8
+django-cors-headers==3.4.0
+djangorestframework==3.11.0
+filelock==3.0.12
+identify==1.4.25
+nodeenv==1.4.0
+pre-commit==2.6.0
+pytz==2020.1
+PyYAML==5.3.1
+six==1.15.0
+sqlparse==0.3.1
+toml==0.10.1
+virtualenv==20.0.29
