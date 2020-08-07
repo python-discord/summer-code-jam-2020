@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 def createpost(request):
     return render(request, 'tweet.html')
 
-
+@login_required(login_url='/login/')
 def index(request):
     form = TweetForm(request.POST or None)
     if form.is_valid():
@@ -19,6 +19,8 @@ def index(request):
         queryset = Tweet.objects.all()
         print(queryset)
         return render(request, 'index.html', {"data": queryset})
+    else:
+        return render(request,'tweet.html')
     # queryset = Tweet.objects.all()
 
 
