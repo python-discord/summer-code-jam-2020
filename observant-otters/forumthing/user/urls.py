@@ -1,11 +1,10 @@
-from django.urls import path, re_path
-
+from django.urls import path
 from . import views
 
 urlpatterns = [
     path('profile/', views.profile, name='profile'),
-    re_path(
-        r"^forum/messages/(?P<id>\d+)/$",
+    path(
+        "forum/messages/<int:id>",
         views.message,
         name="message-action"
     ),

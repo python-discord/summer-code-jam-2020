@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -21,5 +21,30 @@ urlpatterns = [
         'forum/threads/new',
         views.NewThread.as_view(),
         name="new-thread"
+    ),
+    path(
+        'forum/threads/<int:pk>/edit',
+        views.EditThread.as_view(),
+        name="edit-thread"
+    ),
+    path(
+        'forum/threads/<int:pk>/delete',
+        views.DeleteThread.as_view(),
+        name="delete-thread"
+    ),
+    path(
+        'forum/threads/<int:id>/new',
+        views.NewMessage.as_view(),
+        name="new-message"
+    ),
+    path(
+        'forum/threads/<int:pk>/<int:msg_id>/edit',
+        views.EditMessage.as_view(),
+        name="edit-message"
+    ),
+    path(
+        'forum/threads/<int:pk>/<int:msg_id>/delete',
+        views.DeleteMessage.as_view(),
+        name="delete-message"
     ),
 ]
