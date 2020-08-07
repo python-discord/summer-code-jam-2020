@@ -37,7 +37,7 @@ class MUDTerminal {
           "Server: " + data.username + " has entered the DuNgEoN!!!"
         );
       }
-      t.printReply("Server: " + data.message);
+      t.printReply(data.message);
     };
 
     this.sender = this.sendByWebSocket;
