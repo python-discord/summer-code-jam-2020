@@ -57,16 +57,17 @@
         if(this.command == 'cls' || this.command == 'clear'){
           this.response = ''
           this.prompt = "~$"
+          this.followup_count = 0
         } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
           this.prompt = "~$"
         } else {
-          var header = {dummy_header: 0}
+          var header = {dummy: 0}
           if (this.prompt == "..."){
             this.followup_count += 1
             if (this.command == 'n'){
-              header = {page_num: this.followup_count}
+              header = {page: this.followup_count}
             } else if(!isNaN(this.command)){
-              header = {article_num: this.command}
+              header = {article: this.command}
             }
             var cur_command = this.previous_commands[0] 
             {% comment %} `${this.previous_commands[0]}~${this.command} ${this.followup_count}` {% endcomment %}
@@ -75,9 +76,14 @@
           }
           console.log(cur_command)
           console.log(header)
-          axios.get(`/terminal/command?c=${cur_command}`, {header})
+          axios.get(`/terminal/command?c=${cur_command}`, {headers: header})
           .then(res =>{
-            this.prompt = res.headers.followup == "True" ?  "..." : "~$"
+            if(res.headers.followup == "True"){
+              this.prompt = "..."
+            } else {
+              this.prompt = "~$"
+              this.followup_count = 0
+            }
             this.response = this.response + res.data + "<br>"
           }, (error) =>{
             console.log(error)
