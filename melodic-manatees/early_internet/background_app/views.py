@@ -33,6 +33,8 @@ def add_background(request):
             file_instance.save()
             if background_utility.resolution_checker(file_instance.background_file.path):
                 file_instance.background_thumbnail = background_utility.image_resizer(file_instance.background_file.path)
+                file_instance.save()
+                print(file_instance.background_thumbnail.url)
                 messages.success(request, 'background added')
                 return redirect('background-home')
             else:
@@ -54,8 +56,8 @@ def add_background(request):
 def delete_background(request, pk):
     to_be_deleted_background = BackgroundFile.objects.get(pk=pk)
     if request.method == 'POST':
-        print(to_be_deleted_background.background_thumbnail)
-        to_be_deleted_background.background_thumbnail.delete()
+        # print(to_be_deleted_background.background_thumbnail)
+        # to_be_deleted_background.background_thumbnail.delete()
         to_be_deleted_background.delete()
         messages.success(request, 'background image deleted')
         return redirect('background-home')
