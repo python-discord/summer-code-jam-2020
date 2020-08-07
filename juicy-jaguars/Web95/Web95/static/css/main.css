@@ -147,10 +147,6 @@ body {
     background-color: #909090 !important;
 }
 
-.nav-item-min a::before {
-    border-width: 1px !important;
-}
-
 .nav-item-focused a::before {
     border: 2px inset #909090 !important;
 }
