@@ -333,7 +333,7 @@ function Delete(){
 
 function SendData(type){
     let xhr = new XMLHttpRequest();
-    let url = type + "/"
+    let url = type
     let name = document.getElementById("project-name").innerText;
     console.log(name);
 
