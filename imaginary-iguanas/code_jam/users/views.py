@@ -32,6 +32,7 @@ def signup(request):
     return render(request, 'users/signup.html', context)
 
 
+@login_required
 def user_settings(request):
     if request.method == 'POST':
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
