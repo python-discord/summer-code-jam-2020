@@ -3,23 +3,9 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 
 from terminal.terminal_tools import colorize
+from MUD.ascii_art import ART
 
 from MUD.models import Room, Player
-
-
-BANNER = """
-           #####    ###    #####    ###      #     # #     # ######  
-          #     #  #   #  #     #  #   #     ##   ## #     # #     # 
-                # #     #       # #     #    # # # # #     # #     # 
-           #####  #     #  #####  #     #    #  #  # #     # #     # 
-          #       #     # #       #     #    #     # #     # #     # 
-          #        #   #  #        #   #     #     # #     # #     # 
-          #######   ###   #######   ###      #     #  #####  ######  
-
-                          Welcome to == 2020 MUD ==
-                          Where the future is NOW.
-                          Type "help" for a list of commands
-""".replace('\n', '\r\n')
 
 
 class MudConsumer(AsyncJsonWebsocketConsumer):
@@ -86,7 +72,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         })
 
     async def send_welcome(self):
-        await self.send_json( {'message': colorize('brightBlue', BANNER)} )
+        await self.send_json( {'message': colorize('brightBlue', ART['BANNER'])} )
 
     async def send_unknown(self, command):
         await self.send_json({
