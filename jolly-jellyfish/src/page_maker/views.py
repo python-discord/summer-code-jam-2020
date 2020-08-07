@@ -84,7 +84,7 @@ class WebpageCreateView(LoginRequiredMixin, FormView):
 
 class WebpageView(DetailView):
     """
-    Display webpage
+    Display user-created webpage itself (with links to User's page and comments, i.e. 'WebpageDetailView')
     """
     model = Webpage
     template_name = 'page_maker/webpage_view.html'
