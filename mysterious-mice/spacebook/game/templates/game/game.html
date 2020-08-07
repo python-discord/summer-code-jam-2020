@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
 {% endblock %}
 
 {% block title %}Crash Landing!{% endblock %}
@@ -13,32 +14,54 @@
         <br>
         <table><tbody>
             <tr>
-                <td><table><tbody>
+                <td style="vertical-align: bottom;"><table class="nav-table"><tbody>
+                    <tr>
+                        <td colspan=3>Coordinates:</td>
+                    </tr>
+                    <tr>
+                        <td colspan=3>{{ rover }}</td>
+                    </tr>
                     <tr>
                         <td></td>
-                        <td><a href="?command=moveN" class="old-button"><button>N</button></a></td>
+                        <td><a href="?command=moveN" class="old-button">N</a></td>
                         <td></td>
                     </tr><tr>
-                        <td><a href="?command=moveW" class="old-button"><button>W</button></a></td>
-                        <td>{{ rover }}</td>
-                        <td><a href="?command=moveE" class="old-button"><button>E</button></a></td>
+                        <td><a href="?command=moveW" class="old-button">W</a></td>
+                        <td></td>
+                        <td><a href="?command=moveE" class="old-button">E</a></td>
                     </tr><tr>
                         <td></td>
-                        <td><a href="?command=moveS" class="old-button"><button>S</button></a></td>
+                        <td><a href="?command=moveS" class="old-button">S</a></td>
                         <td></td>
                     </tr>
                 </tbody></table></td>
                 <td>
-                    <table><tbody>
+                    <table class="command-table"><tbody>
                         <tr><td>
-                            <div>Command history</div>
+                            <div id="command-history-div">
+                                {% for message in messages %}
+                                    <br>{{ message }}
+                                {% endfor %}
+                            </div>
                         </td></tr>
                         <tr><td>
-                            <form action = "/game/" method = "post" >{% csrf_token %}<input type="text" name="command" maxlength="16"></form>
+                            <div id="command-input-div">
+                                &gt;&gt;
+                                <form action="/game/" method="post">
+                                    {% csrf_token %}
+                                    <input type="text" name="command" id="command-input" maxlength="16">
+                                    <input type="submit" class="button" id="command-submit" value="[Submit]">
+                                </form>
+                            </div>
                         </td></tr>
                     </tbody></table>
                 </td>
             </tr>
         </tbody></table>
     </div>
+    <script>
+        document.getElementById('command-input').focus();
+        historydiv = document.getElementById('command-history-div');
+        historydiv.scrollTop = historydiv.scrollHeight;
+    </script>
 {% endblock %}
