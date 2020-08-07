@@ -14,7 +14,7 @@ def resolution_checker(image):
 
 
 def image_resizer(image):
-    size = (512, 512)
+    size = (480, 480)
     thumbnail_path = os.path.splitext(image)[0] + '_thumbnail'
     with Image.open(image) as im:
         im.thumbnail(size)
