@@ -16,7 +16,7 @@ const routes = [
     component: ChatLobby,
   },
   {
-    path: '/chat/room/([a-zA-Z0-9]+)',
+    path: '/chat/room/:roomId',
     name: 'chat_room',
     component: ChatRoom,
   },

@@ -27,7 +27,7 @@ DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
 
 ALLOWED_HOSTS = [
     'llamma-xbiguwvyua-ew.a.run.app',
-    'localhost',
+    'localhost'
 ]
 
 

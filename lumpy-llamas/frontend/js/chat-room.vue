@@ -4,8 +4,8 @@
       <div v-for="message in messages">
         <span>{{ message }}</span>
       </div><br>
-      <input id="chat-message-input" type="text" size="100"><br>
-      <input id="chat-message-submit" type="button" value="Send">
+      <input id="chat-message-input" v-model="msg" type="text" size="100"><br>
+      <button id="chat-message-submit" @click="sendMessage">Send message</button> 
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@ export default {
     return {
       socket: undefined,
       messages: [],
+      msg: ''
     }
   },
   beforeMount() {
@@ -23,14 +24,20 @@ export default {
   },
   methods: {
     handleNewMessage(ev) {
-      this.messages.push(ev.data);
+      var new_msg = JSON.parse(ev.data);
+      this.messages.push(new_msg.message);
     },
     sendMessage(msg) {
-      this.socket.send(msg);
+      if (msg) {
+        this.socket.send(JSON.stringify({
+          message: this.msg,
+        }));
+        this.msg = '';
+      };  
     },
     initSockets() {
-      var socket_url =  'ws://' + window.location.host + '/ws' + window.location.pathname;
-      this.socket = new WebSocket(socket_url);
+      const socketUrl = `ws://${window.location.host}/ws/chat/room/${this.$route.params.roomId}/`
+      this.socket = new WebSocket(socketUrl);
       this.socket.onmessage = this.handleNewMessage;
     }
   }
