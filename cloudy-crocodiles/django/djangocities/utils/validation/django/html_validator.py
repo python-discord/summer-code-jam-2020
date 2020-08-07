@@ -1,3 +1,5 @@
+import logging
+
 from djangocities.utils.validation.html.parser import extract_active_tags
 from djangocities.utils.validation.html.exceptions import (
     HtmlCommentError,
@@ -16,6 +18,7 @@ def tag_is_allowed(_tag, version):
     try:
         tag = HTML_TAGS[_tag]
     except KeyError:
+        logging.debug(f"tag {_tag} is either invalid, or unsupported on this site")
         raise UnsupportedHtmlTag(
             f"tag {_tag} is either invalid, or unsupported on this site"
         )

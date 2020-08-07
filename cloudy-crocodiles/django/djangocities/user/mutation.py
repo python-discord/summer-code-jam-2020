@@ -19,8 +19,10 @@ def resolve_login(_, info, data):
     password = data['password']
 
     if not username:
+        logging.debug("Username is missing")
         raise Exception('Username missing!')
     if not password:
+        logging.debug("Password is missing")
         raise Exception('Password missing!')
     try:
         user = User.objects.get(username=username)
@@ -28,6 +30,7 @@ def resolve_login(_, info, data):
         user = None
          
     if user is None or not user.check_password(password):
+        logging.debug("No such user or invalid password")
         raise Exception('No such user or invalid password!')
 
     # Identity can be any data that is json serializable
