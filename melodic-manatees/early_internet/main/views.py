@@ -1,8 +1,14 @@
 from django.shortcuts import render
+from users.models import UserPreferences
 
 
 def main(request):
-    return render(request, 'main/main-base.html')
+    if request.user.is_authenticated:
+        context = {
+            'pref': UserPreferences.objects.get(user=request.user),
+        }
+        return render(request, 'main/dashboard.html', context)
+    return render(request, 'main/dashboard.html')
 
 
 def about(request):

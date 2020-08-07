@@ -11,12 +11,32 @@
     <title>Main Base Template</title>
     <style>
 
+.hero-body {
+    padding: .5rem;
+}
+
 .grid {
     display: grid;
-    grid-template-columns: 1fr minmax(0, 624px) 1fr
+    grid-template-columns: 1fr minmax(0, 624px) 1fr;
 }
 
 .grid * { grid-column: 2/3; }
+
+.dash {
+    display: grid;
+    grid-template-columns: [xl-start] 1fr 1fr 1fr [xl-end];
+    grid-template-rows: [tall-start] 1fr 1fr 1fr [tall-end];
+    grid-gap: 1rem;
+}
+
+.dash-xl {
+    grid-column: xl; 
+    grid-row: tall; 
+}
+
+.box.is-transparent {
+    background-color: hsla(0, 0%, 100%, 0.2);
+}
 
 fieldset {
     margin: 1rem 0;
