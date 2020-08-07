@@ -35,7 +35,6 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # user = get_object_or_404(User, pk=self.kwargs.get('pk'))
         user = self.get_object()
         context['user_pages'] = Webpage.objects.filter(author=user)
         return context
@@ -70,7 +69,7 @@ class WebpageCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/webpage_create.html'
     form_class = WebpageForm
 
-    # TODO validate and sanitize text and images
+    # NB: Django pre-sanitizes text input already - https://docs.djangoproject.com/en/dev/topics/security/
     def form_valid(self, form):
         self.form = form
         form.instance.author = self.request.user
@@ -156,7 +155,6 @@ class TemplateCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/template_create.html'
     form_class = TemplateForm
 
-    # TODO validate and sanitize style sheet
     def form_valid(self, form):
         self.form = form
         form.instance.author = self.request.user
@@ -193,7 +191,7 @@ class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, FormView):
-    http_method_names = ['post']  # POST request only
+    http_method_names = ['post']
     form_class = CommentForm
 
     def form_valid(self, form):

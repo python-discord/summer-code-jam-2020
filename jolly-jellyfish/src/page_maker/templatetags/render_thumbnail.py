@@ -32,7 +32,6 @@ def add_options(
     :param window_size: string in format 'height, width'
     :return Options object with common arguments added
     """
-    # todo: someone test this with Firefox to see if these options actually work
     options_object.add_argument("--headless")
     options_object.add_argument("--hide-scrollbars")
     options_object.add_argument(f'--window-size={window_size}')
@@ -114,7 +113,7 @@ def render_thumbnail(request: HttpRequest, url_to_render: str, page_obj: Union[W
         # Celery (for asynchronous tasks) no longer supports Windows - same with Redis.
         # This means that, in this current dev environment where there are multiple OSs at play,
         # having a functioning webpage, while this function executes in the background,
-        # doesn't seem possible 😭  todo: save us Docker with containerisation?!
+        # doesn't seem possible 😭  TODO: possible using Docker?
         driver.get(url)
         driver.save_screenshot(full_os_path)
         driver.close()

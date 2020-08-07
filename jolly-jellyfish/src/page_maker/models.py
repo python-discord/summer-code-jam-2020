@@ -17,7 +17,8 @@ class Template(models.Model):
     name = models.CharField(max_length=80, unique=True)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # todo: option to upload own stylesheet rather than select from existing
+
+    # TODO: ability to upload own stylesheet (validate and sanitize) rather than select from existing
     #  potentially upload to user_themes within static not media? -
     #  makes finding easier below in RelativeFilePathField
 
@@ -60,7 +61,6 @@ class Webpage(models.Model):
     user_text_2 = models.TextField(verbose_name='main body paragraph')
     user_text_3 = models.TextField(verbose_name='closing paragraph', blank=True)
 
-    # todo: support for background images with custom templates
     user_image_1 = models.ImageField(
         null=True, blank=True, verbose_name='header image', max_length=200,
         upload_to=get_user_dir_path, validators=[validate_image_file_extension])
