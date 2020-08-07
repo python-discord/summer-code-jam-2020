@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.conf import settings
 
 # Create your models here.
@@ -21,4 +22,4 @@ class Message(models.Model):
                                   related_name='receiver_messages',
                                   verbose_name=("Recipient"),
                                   on_delete=models.CASCADE)
-    sent_at = models.DateTimeField(("sent at"), null=True, blank=True)
+    sent_at = models.DateTimeField(("sent at"), default=timezone.now)
