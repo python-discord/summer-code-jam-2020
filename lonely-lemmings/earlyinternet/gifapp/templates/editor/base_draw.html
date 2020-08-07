@@ -18,7 +18,7 @@
                 <a href="#" id="clear" onclick="Clear()">
                     <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
                 </a>
-                <a href="#" id="save" onclick="SaveImage('save')">
+                <a href="#" id="save" onclick="SaveImage()">
                     <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
                 </a>
                 <a href="#" id="undo" onclick="Undo()">
@@ -79,9 +79,19 @@
                     {% csrf_token %}
                     <a onclick="SendData('save')" class="w3-button w3-black">Exit</a>
                 </form>
-                <a onclick="Previous()" class="w3-button w3-black">Previous</a>
-                <a onclick="Next()" class="w3-button w3-black">Next</a>
-                <a onclick="Delete()" class="w3-button w3-black">Delete Frame</a>
+                <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
+                    {% csrf_token %}
+                    <a onclick="SendData('save')" class="w3-button w3-black">Save All</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Previous()" class="w3-button w3-black">Previous</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Next()" class="w3-button w3-black">Next</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Delete()" class="w3-button w3-black">Delete Frame</a>
+                </form>
                 <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
                     {% csrf_token %}
                     <a onclick="SendData('render')" class="w3-button w3-black">Render</a>

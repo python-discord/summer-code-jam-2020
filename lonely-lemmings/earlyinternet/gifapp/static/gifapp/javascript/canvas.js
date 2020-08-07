@@ -219,7 +219,6 @@ function drawCircle(x, y){
         ctx.arc(x, y, line_Width, 0, Math.PI*2);
         ctx.fill();
     }
-
 }
 
 function ReactToMouseDown(e){
@@ -297,6 +296,9 @@ function Next(){
     if (frameNumber < savedFrames.length){
         OpenImage();
     }
+    SaveStates = [];
+    SaveCanvasImage();
+    SaveStates.push(savedImageData);
     UpdateFrameNumber();
 }
 
@@ -306,6 +308,9 @@ function Previous(){
         frameNumber -=1;
         OpenImage();
         UpdateFrameNumber();
+        SaveStates = [];
+        SaveCanvasImage();
+        SaveStates.push(savedImageData);
     }
 }
 
@@ -320,13 +325,17 @@ function Delete(){
         frameNumber -=1;
         UpdateFrameNumber();
     }
+    SaveStates = [];
+    SaveCanvasImage();
+    SaveStates.push(savedImageData);
     OpenImage();
 }
 
 function SendData(type){
     let xhr = new XMLHttpRequest();
     let url = type + "/"
-    let name = document.getElementById("project-name");
+    let name = document.getElementById("project-name").innerText;
+    console.log(name);
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
