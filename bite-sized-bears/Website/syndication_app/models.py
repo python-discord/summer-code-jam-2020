@@ -6,7 +6,7 @@ class User(models.Model):
     name = models.CharField(max_length=15, unique=True)
     password = models.CharField(max_length=15)
     avatar = models.ImageField(upload_to='img/users/avatar')
-    join_date = models.DateTimeField()
+    join_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return '/rss/feed/user/' + str(self.id)
@@ -31,8 +31,8 @@ class Post(models.Model):
     publisher = models.ForeignKey(Community, on_delete=models.CASCADE, related_name='post_publisher')
     title = models.CharField(max_length=100)
     description = models.TextField()
-    views = models.ManyToManyField(User)
-    creation_date = models.DateTimeField()
+    views = models.ManyToManyField(User, blank=True)
+    creation_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return '/rss/feed/posts/' + str(self.id)
@@ -43,4 +43,4 @@ class Comments(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_author')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comment_post')
     content = models.TextField()
-    creation_date = models.DateTimeField()
+    creation_date = models.DateTimeField(auto_now=True)

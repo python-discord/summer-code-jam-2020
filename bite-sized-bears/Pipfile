@@ -11,6 +11,7 @@ django = "==3.0.7"
 django-environ = "*"
 psycopg2-binary = "*"
 pillow = "*"
+channels = "*"
 
 [requires]
 python_version = "3.8"
@@ -27,3 +28,4 @@ migrate-l = 'python3 Website/manage.py migrate'
 server-l = 'python3 Website/manage.py runserver'
 lint-l = 'python3 -m flake8'
 createsuperuser-l = 'python3 Website/manage.py createsuperuser'
+collectstatic-l = 'python Website/manage.py collectstatic'

@@ -10,7 +10,6 @@ class LatestEntriesFeed(Feed):
     def get_object(self, request, username):
         return User.objects.get(name=username)
 
-
     def items(self, obj):
         return Post.objects.filter(publisher__in=Community.objects
                                    .prefetch_related('subscribers')
