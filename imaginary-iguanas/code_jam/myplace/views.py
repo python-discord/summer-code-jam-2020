@@ -1,4 +1,5 @@
 from typing import Union
+from datetime import date
 
 from django.contrib import messages
 from django.shortcuts import render
@@ -10,13 +11,14 @@ def user(request, username_or_id: Union[int, str]):
     try:
         profile = _get_profile(username_or_id)
         context = {
-            'user_profile': {
+            'profile': {
                 'username': profile.user.username,
-                'image': profile.image,
+                'last_login': profile.user.last_login,
+                'image': profile.image.url,
                 'gender': profile.get_gender_display(),
                 'country': profile.get_country_display(),
                 'city': profile.city,
-                'date_of_birth': profile.date_of_birth,
+                'years_old': (date.today() - profile.date_of_birth).days // 365,
                 'audio_track': profile.audio_track
             },
             'title': profile,
