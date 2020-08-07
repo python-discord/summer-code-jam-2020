@@ -1,97 +1,19 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
+{% extends "base.html" %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RSS it</title>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
-    <script src="{% static 'css/script.js' %}"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
-  </head>
-
-  <header>
-    <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
-    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
-    <div class="headerlinks">
-      <a href="#">popular</a>
-      <a href="#">top-communities</a>
-      <a href="#">most-viewed</a>
-      <a href="#">location</a>
-      <a href="#">subscribed</a>
-      <a href="#">most-viewed</a>
-      <a href="#">my-communities</a>
-      <a href="#">my-posts</a>
-    </div>
-  </header>
-
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-
-        <div class="col-lg-10">
-          <div class="posts">
-              <a href="#"><h1><b>r/{{community.name}}</b></h1></a>
+{% block content %}
+    <div class="col-lg-10">
+        <div class="community">
+            <a href="#"><h1><b>r/{{community.name}}</b></h1></a>
             <p> - {{community.description}}</p>
             <p>created by /u {{community.owner}}, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
-	        <p>location - {{community.location}}</p>
-	    </div>
+            <p>location - {{community.location}}</p>
+        </div>
 
-	    {% for post in posts %}
-	        <div class="comment">
+        {% for post in posts %}
+            <div class="post">
                 <a href="{{post.id}}"><h5>{{post.title}}<span style="color:grey;"> by {{post.author}} on {{post.creation_date}}</span></h5></a>
-	            <p>{{post.description}}</p>
-	        </div>
-	    {% endfor %}
-        </div>
-
-        <div class="col-sm-2 nopadding visible-lg side-bar">
-         <div class="login">
-           <h3>Login</h3>
-          <form>
-            <table>
-              <tr>
-               <td>
-                <label>Username:  </label>
-               </td>
-               <td>
-                <input type="text" name="username" style="color:black;">
-               </td>
-              </tr>
-              <tr>
-               <td>
-                <label>Password:  </label>
-               </td>
-               <td>
-                <input type="password" name="password" style="color:black;" required>
-               </td>
-              </tr>
-              <tr class="spacer"></tr>
-              <tr>
-                <td>
-                  <input type="submit" value="submit" style="color:black;">
-                </td>
-                <td>
-                  <input type="reset" value="reset" style="color:black;">
-                </td>
-              </tr>
-            </table><br>
-              <p>New here? <a href="#">Sign up</a>
-          </form>
-
-         </div>
-
-         <div class="online-users">
-            <div class="block-header"><h5>Online Users</h5></div>
-            <div class="user">Username</div>
-         </div>
-        </div>
-
-      </div>
+                <p>{{post.description}}</p>
+            </div>
     </div>
-  </body>
-</html>
+    {% endfor %}
+{% endblock %}

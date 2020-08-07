@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.views import View
 from .models import Post, Comments, Community
 from django.shortcuts import render
+from django.db.models import Count
 
 
 def index(request):
@@ -35,4 +36,14 @@ class CommunityView(View):
         community = self.model.objects.get(name=community_name)
         posts = community.post_publisher.all()
         self.context = {"posts": posts, "community": community}
+        return render(request, self.template_name, self.context)
+
+class TopCommunityView(View):
+    template_name = 'topcommunity.html'
+    model = Community
+    context = {}
+
+    def get(self, request):
+        communities = self.model.objects.all().annotate(s_count=Count('subscribers')).order_by('-s_count')
+        self.context = {"communities": communities}
         return render(request, self.template_name, self.context)
