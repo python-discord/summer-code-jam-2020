@@ -52,7 +52,7 @@ class Engine():
         else:
             return "This is no longer a valid command"
 
-    def __move(self, direction):
+    def __move(self, direction):        # starswith '__' to make some checks
         dest_x = self.player.location.x_coord
         dest_y = self.player.location.y_coord
         dest_z = self.player.location.z_coord
@@ -60,23 +60,18 @@ class Engine():
         direction = direction.lower()
 
         if direction == 'north':
-            direction_string = 'to the north'
             dest_y += 1
 
         elif direction == 'south':
-            direction_string = 'to the south'
             dest_y -= 1
 
         elif direction == 'east':
-            direction_string = 'to the east'
             dest_x += 1
 
         elif direction == 'west':
-            direction_string = 'to the west'
             dest_x -= 1
 
         elif direction == 'up':
-            direction_string = 'up'
             dest_z += 1
 
         elif direction == 'down':
