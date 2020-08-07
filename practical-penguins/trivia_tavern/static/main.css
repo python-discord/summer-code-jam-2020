@@ -97,3 +97,11 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.post-container {
+border-image-slice:242 148 240 225;
+border-image-width:20px 20px 20px 20px;
+border-image-outset:0px 0px 0px 0px;
+border-image-repeat:stretch stretch;
+border-image-source:url("../static/post-container-bg.jpg");
+}
