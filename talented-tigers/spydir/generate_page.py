@@ -6,7 +6,6 @@ import threading
 from faker import Faker
 
 import gpt_2_simple as gpt2
-import tensorflow as tf
 
 from .models import GeneratedPage, BlogPost
 
@@ -19,7 +18,7 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [99.3, 0.5, 0.1, 0.05, 0.05])[0] \
+    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] \
         if page_type is None else page_type
 
     # Define the different fields needed for different page types here
@@ -145,6 +144,7 @@ def parse_result(result):
     return information
 
 
+# TODO: Make the page update without refreshing
 def generate_gpt2(posts):
     # Currently, the model is loaded everytime this function is called, which may be slow. Putting it outside doesnt
     # work
@@ -153,6 +153,8 @@ def generate_gpt2(posts):
     gpt2.load_gpt2(sess, model_name=model_name)
 
     for post in posts.all():
+        post.content = 'Generating...'
+        post.save()
         output = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title,
                                length=100)[0]
         cutoff = max([output.rfind("."), output.rfind("?"), output.rfind("!")])

@@ -7,6 +7,7 @@ import gpt_2_simple as gpt2
 
 os.environ['NLTK_DATA'] = os.path.join(os.getcwd())
 nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
 
 model_name = "124M"
 if not os.path.isdir(os.path.join("models", model_name)):
