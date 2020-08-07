@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.test import TestCase
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -24,13 +25,14 @@ class UserRegisterTest(TestCase):
             'password2': PASSWORD
         }
 
-        self.client.post('/users/register', params)
+        self.client.post(reverse('register'), params)
         self.client.login(username=USERNAME, password=PASSWORD)
 
     def test_user_exists(self):
         self.assertEqual(User.objects.count(), 1)
         user = User.objects.get(pk=1)
         self.assertEqual(user.username, USERNAME)
+        self.assertEqual(user.email, 'foo@example.com')
 
     def test_register_and_home(self):
         # assumptions (aka what this tests):
@@ -55,14 +57,18 @@ class UserViewsTest(TestCase):
 
     def test_user_detail(self):
         user = User.objects.get(pk=1)
-        res = self.client.get('/users/1/')
+        res = self.client.get(reverse('user-detail', kwargs={'pk': 1}))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.context['viewed_user'], user)
         self.assertIsInstance(res.context['user_pages'][0], Webpage)
 
     def test_user_update(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post('/users/2/update', {
+        res = self.client.post(reverse('user-update', kwargs={'pk': 1}), {
+            'first_name': 'john', 'last_name': 'lemon', 'email': 'jl@sth.com'
+        })
+        self.assertEqual(res.status_code, 403)
+        res = self.client.post(reverse('user-update', kwargs={'pk': 2}), {
             'first_name': 'john', 'last_name': 'lemon', 'email': 'jl@sth.com'
         })
         self.assertRedirects(res, '/')
@@ -71,7 +77,7 @@ class UserViewsTest(TestCase):
 
     def test_user_delete(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post('/users/2/delete')
+        res = self.client.post(reverse('user-delete', kwargs={'pk': 2}))
         self.assertRedirects(res, '/')
         self.assertEqual(User.objects.count(), 1)
 
@@ -80,14 +86,13 @@ class WebpageViewsTest(TestCase):
     fixtures = ['users.yaml', 'templates.yaml', 'webpages.yaml', 'comments.yaml']
 
     def test_webpage_create_redirect(self):
-        res = self.client.get('/pages/new')
-        self.assertRedirects(res, '/users/login?next=/pages/new')
+        res = self.client.get(reverse('webpage-create'))
+        self.assertRedirects(res, reverse('login')+'?next='+reverse('webpage-create'))
 
     def test_webpage_create(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.get('/pages/new')
+        res = self.client.get(reverse('webpage-create'))
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, template_name='page_maker/webpage_create.html')
         image_path = Path(settings.BASE_DIR) / 'test_media' / 'images' / 'test.png'
         image1 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         image2 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
@@ -105,49 +110,48 @@ class WebpageViewsTest(TestCase):
             'user_image_3': image3,
             'user_image_4': image4,
         }
-        res = self.client.post('/pages/new', form_input)
-        self.assertRedirects(res, '/pages/asdf/')
+        res = self.client.post(reverse('webpage-create'), form_input)
+        self.assertRedirects(res, reverse('webpage-view', kwargs={'pagename': 'asdf'}))
         self.assertEqual(Webpage.objects.count(), 2)
         webpage = Webpage.objects.get(pk=2)
         self.assertEqual(webpage.name, form_input['name'])
 
     def test_webpage_preview(self):
-        res = self.client.get('/pages/mypage/')
+        res = self.client.get(reverse('webpage-view', kwargs={'pagename': 'mypage'}))
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, 'page_maker/webpage_view.html')
         self.assertIsInstance(res.context['webpage'], Webpage)
         self.assertEqual(res.context['webpage'].user_title, 'thats my page')
 
     def test_webpage_detail(self):
-        res = self.client.get('/pages/mypage/detail')
+        res = self.client.get(reverse('webpage-detail', kwargs={'pagename': 'mypage'}))
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.context['comment_form'], CommentForm)
         self.assertIsInstance(res.context['comments'][0], Comment)
 
     def test_webpage_list(self):
-        res = self.client.get('/pages/')
+        res = self.client.get(reverse('webpage-list'))
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.context['webpages'][0], Webpage)
 
     def test_webpage_update(self):
         self.client.login(username=ADMIN_USERNAME, password=ADMIN_PASSWORD)
-        res = self.client.get('/pages/mypage/update')
+        res = self.client.get(reverse('webpage-update', kwargs={'pagename': 'mypage'}))
         self.assertEqual(res.status_code, 200)
         webpage = Webpage.objects.get(pk=1)
         form_data = webpage.__dict__
         form_data['user_title'] = 'abcd test 01234'
         form_data['template_used'] = '1'
-        res = self.client.post('/pages/mypage/update', form_data)
-        self.assertRedirects(res, '/pages/mypage/')
+        res = self.client.post(reverse('webpage-update', kwargs={'pagename': 'mypage'}), form_data)
+        self.assertRedirects(res, reverse('webpage-view', kwargs={'pagename': 'mypage'}))
         webpage = Webpage.objects.get(pk=1)
         self.assertEqual(webpage.user_title, 'abcd test 01234')
 
     def test_webpage_delete(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post('/pages/mypage/delete')
+        res = self.client.post(reverse('webpage-delete', kwargs={'pagename': 'mypage'}))
         self.assertEqual(res.status_code, 403)
         self.client.login(username=ADMIN_USERNAME, password=ADMIN_PASSWORD)
-        res = self.client.post('/pages/mypage/delete')
+        res = self.client.post(reverse('webpage-delete', kwargs={'pagename': 'mypage'}))
         self.assertRedirects(res, '/')
         self.assertEqual(Webpage.objects.count(), 0)
 
@@ -171,32 +175,32 @@ class TemplateViewsTest(TestCase):
         style = io.StringIO('body { display: hidden; }')
         template_name = 'blahblahblah'
 
-        res = self.client.get('/pages/new')
+        res = self.client.get(reverse('webpage-create'))
         template_entries = [entry[1] for entry in res.context['form'].fields['template_used'].choices]
         self.assertNotIn(template_name, template_entries)
 
-        self.client.post('/templates/new', {'name': template_name, 'style_sheet': style})
+        self.client.post(reverse('template-create'), {'name': template_name, 'style_sheet': style})
 
-        res = self.client.get('/pages/new')
+        res = self.client.get(reverse('webpage-create'))
         template_entries = [entry[1] for entry in res.context['form'].fields['template_used'].choices]
         self.assertIn(template_name, template_entries)
 
     def test_template_detail(self):
-        res = self.client.get('/templates/1/')
+        res = self.client.get(reverse('template-detail', kwargs={'pk': 1}))
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.context['template'], Template)
 
     def test_template_list(self):
-        res = self.client.get('/templates/')
+        res = self.client.get(reverse('template-list'))
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.context['templates'][0], Template)
 
     def test_template_delete(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post('/templates/1/delete')
+        res = self.client.post(reverse('template-delete', kwargs={'pk': 1}))
         self.assertEqual(res.status_code, 403)
         self.client.login(username=ADMIN_USERNAME, password=ADMIN_PASSWORD)
-        res = self.client.post('/templates/1/delete')
+        res = self.client.post(reverse('template-delete', kwargs={'pk': 1}))
         self.assertRedirects(res, '/')
         self.assertEqual(Template.objects.count(), 1)
 
@@ -209,18 +213,18 @@ class CommentViewsTest(TestCase):
             'title': 'test comment',
             'content': 'another test'
         }
-        res = self.client.post('/pages/mypage/comment', form_data)
-        self.assertRedirects(res, '/users/login?next=/pages/mypage/detail')
+        res = self.client.post(reverse('comment-create', kwargs={'pagename': 'mypage'}), form_data)
+        self.assertRedirects(res, reverse('login')+'?next='+reverse('webpage-detail', kwargs={'pagename': 'mypage'}))
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post('/pages/mypage/comment', form_data)
-        self.assertRedirects(res, '/pages/mypage/detail')
+        res = self.client.post(reverse('comment-create', kwargs={'pagename': 'mypage'}), form_data)
+        self.assertRedirects(res, reverse('webpage-detail', kwargs={'pagename': 'mypage'}))
         self.assertEqual(Comment.objects.count(), 3)
 
     def test_comment_delete(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post('/comments/1/delete')
+        res = self.client.post(reverse('comment-delete', kwargs={'pk': 1}))
         self.assertEqual(res.status_code, 403)
         self.client.login(username=ADMIN_USERNAME, password=ADMIN_PASSWORD)
-        res = self.client.post('/comments/1/delete')
-        self.assertRedirects(res, '/pages/mypage/detail')
+        res = self.client.post(reverse('comment-delete', kwargs={'pk': 1}))
+        self.assertRedirects(res, reverse('webpage-detail', kwargs={'pagename': 'mypage'}))
         self.assertEqual(Comment.objects.count(), 1)
