@@ -19,7 +19,11 @@
               <li style="float:right"><a href="{% url 'register' %}"  {% if request.resolver_match.url_name == "register" %}class="active"{% endif %}>Register</a></li>
         {% endif %}
     </ul> 
-
+  {% if messages %}
+            {% for message in messages %}
+              <div class = "alert">  {{ message }} <div>
+            {% endfor %}
+          {% endif %}
    {% block content%}{% endblock %}
 
 </body>

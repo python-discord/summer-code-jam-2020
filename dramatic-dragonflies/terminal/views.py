@@ -16,7 +16,13 @@ def index(request: HttpRequest, storage_id: int, vm_id: int) -> HttpResponse:
             messages.error(request, "That's not your VirtualMachine!")
             return redirect('home')
         else:
-            floppy = Floppy.objects.get(storage_id=storage_id)
+            try:
+                floppy = Floppy.objects.get(storage_id=storage_id)
+            except ObjectDoesNotExist:
+                floppy = None
+            if floppy is None:
+                messages.error(request, "Floppy not found")
+                return redirect('home')
             if floppy.user == request.user:
 
                 return render(request, 'terminal/index.html')
@@ -24,5 +30,5 @@ def index(request: HttpRequest, storage_id: int, vm_id: int) -> HttpResponse:
                 messages.error(request, "That's not your Floppy!")
                 return redirect('home')
     else:
-        messages.error("Virtual Machine not found")
+        messages.error(request, "Virtual Machine not found")
         return redirect('home')

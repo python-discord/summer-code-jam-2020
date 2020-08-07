@@ -14,8 +14,8 @@ def register(request: HttpRequest) -> HttpResponse:
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success('Successfully registered!')
-            return redirect(request, 'login')
+            messages.success(request, 'Successfully registered!')
+            return redirect('login')
         else:
             return render(request, 'users/register.html', {'form': form})
     else:

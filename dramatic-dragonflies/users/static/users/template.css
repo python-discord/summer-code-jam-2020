@@ -5,7 +5,8 @@ body {
 }
 ul {
   list-style-type: none;
-
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   background-color: #333;
 }
@@ -65,7 +66,6 @@ input[type=submit]:hover {
   grid-template-columns: 1fr 0.5fr 0.5fr;
   grid-template-rows: repeat(3, 1fr);
   place-items:center;
-
 }
 .disk-container img {
 	display: block;
@@ -74,7 +74,10 @@ input[type=submit]:hover {
 }
 
 .disk-item1 {
-
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 1;
 }
 .login-grid {
 	display: grid;
@@ -129,4 +132,21 @@ input[type=submit]:hover {
 }
 .button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.alert {
+	padding: 20px;
+	background-color: white;
+	color: black;
+}
+.xbutton {
+	color: black;
+	font-weight: bold;
+	float: right;
+	font-size: 20px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.xbutton:hover {
+	color: gray;
 }

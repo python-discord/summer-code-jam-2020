@@ -13,14 +13,14 @@ from .forms import FloppyCreateForm
 def create_floppy(request: HttpRequest):
     if request.method == "GET":
         if VMachine.objects.filter(user=request.user).count() == 0:
-            messages.error("You don't have any Virtual Machines that you could create floppy for!")
+            messages.error(request, "You don't have any Virtual Machines that you could create floppy for!")
             return redirect('disks')
         else:
             form = FloppyCreateForm(user=request.user)
             return render(request, 'users/create_floppy.html', {'form': form})
     else:
         if VMachine.objects.filter(user=request.user).count() == 0:
-            messages.error("You don't have any Virtual Machines that you could create floppy for!")
+            messages.error(request, "You don't have any Virtual Machines that you could create floppy for!")
             return redirect('disks')
         else:
             form = FloppyCreateForm(request.POST, user=request.user)
@@ -45,7 +45,7 @@ class VMDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
     def handle_no_permission(self):
-        messages.error('You have no permission to do this!')
+        messages.error(self.request, 'You have no permission to do this!')
         return redirect(reverse('home'))
 
 
