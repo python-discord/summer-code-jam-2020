@@ -22,7 +22,7 @@ class TerminalCommand():
         return response
 
     @staticmethod
-    def message(params: str = None):
+    def message(params: str = None, **kwargs):
         help_text = "message: use this to send messages<br><br>"\
             "Usage: message username [args] [message text]<br>"\
             "options:<br>"\
@@ -71,7 +71,7 @@ class TerminalCommand():
 
         article_text = []
         for i, article in enumerate(articles):
-            serial_number = str(i + 1 + (page_num)*3)
+            serial_number = str(i + 1 + page_num * 3)
             article_summary = (serial_number, f"{article['date']}, {article['media']}", article['title'])
             article_text.append(article_summary)
         all_articles = "<br>".join([", ".join(i) for i in article_text])
