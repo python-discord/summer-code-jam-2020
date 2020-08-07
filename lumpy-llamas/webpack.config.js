@@ -8,7 +8,7 @@ const FaviconWebpackPlugin = require('favicons-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const proxyEntries = {
-  local: 'http://localhost:5000',
+  local: 'http://localhost:8000',
 };
 
 module.exports = (env) => {

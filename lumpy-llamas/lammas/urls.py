@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from django.conf.urls import include
 from django.conf.urls.static import static
 from lammas.settings import STATIC_URL, STATIC_ROOT
-from core.views import index
+from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/login', core_views.login_endpoint),
+    path('api/register', core_views.register_endpoint),
     path('api/chat/', include('chat.urls')),
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
-    re_path(r'^.*/$', index, name='unmatched'),
+    re_path(r'^.*$', core_views.index, name='unmatched'),
 ]
