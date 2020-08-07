@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
 class BlogArticle(models.Model) :
     title           = models.CharField(max_length=100, unique=True)
     content         = models.CharField(max_length=10000)
-    author          = models.CharField(max_length=100)
+    author          = models.ForeignKey(CustomUser)
     date_created    = models.DateField()
 
     def __str__(self) :

@@ -6,6 +6,7 @@ from retro_news.models import CustomUser, BlogArticle
 
 
 class BlogArticleSerializer(serializers.ModelSerializer):
+    """Serializer for BlogArticle objects."""
     class Meta:
         model   = BlogArticle
         fields  = ('title','author','content','date_created')
