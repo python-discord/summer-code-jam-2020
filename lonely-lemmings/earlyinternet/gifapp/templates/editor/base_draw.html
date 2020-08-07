@@ -76,8 +76,7 @@
             <canvas id="my-canvas" width="600" height="600"></canvas>
             <div class="w3-container">
                 <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
-                    {% csrf_token %}
-                    <a onclick="SendData('save')" class="w3-button w3-black">Exit</a>
+                    <a href="back/" class="w3-button w3-black">Exit</a>
                 </form>
                 <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
                     {% csrf_token %}
@@ -94,7 +93,7 @@
                 </form>
                 <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
                     {% csrf_token %}
-                    <a onclick="SendData('render')" class="w3-button w3-black">Render</a>
+                    <a onclick="RequestRender()" class="w3-button w3-black">Render</a>
                 </form>
             </div>
         </div>

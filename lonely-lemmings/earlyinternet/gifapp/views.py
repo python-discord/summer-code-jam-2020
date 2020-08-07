@@ -35,9 +35,12 @@ def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePerma
 
         # check if there are previous images, if so delete all images associated with the project
         images = Image.objects.filter(project_id=project)
-        print(images)
         if len(images) > 0:
-            images.delete()
+            for img in images:
+                # get img name
+                img_name = img.image_data.url.split("/")[2]
+                os.remove(os.path.join(MEDIA_DIR, img_name))
+                img.delete()
 
         # write request images to file and associate them with project
         for i, blob in enumerate(images_blob):

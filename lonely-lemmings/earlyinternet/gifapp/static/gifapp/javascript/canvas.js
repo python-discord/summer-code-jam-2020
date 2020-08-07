@@ -346,6 +346,13 @@ function SendData(type){
     xhr.send(data);
 }
 
+function RequestRender(){
+    // send a json in format ["project_name": project_name]
+    // url is going to be "render/"
+    // give a bad request if there is no images stored under the project
+    // otherwise redirect to preview.html template with the gif rendered
+}
+
 function Undo(){
     if(SaveStates.length > 1){
         SaveStates.pop();
