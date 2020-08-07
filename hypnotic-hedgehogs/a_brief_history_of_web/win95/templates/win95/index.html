@@ -7,15 +7,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.rawgit.com/smore-inc/clippy.js/master/build/clippy.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?223326432">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 
-    
+
     <title>Win95</title>
   </head>
   <body>
-      
+
     <div id="screen" style="width: 100%;height: 1080px;position: relative;">
         <input type="checkbox" id="open-startmenu">
         <input type="checkbox" id="open-poopup">
@@ -69,10 +69,10 @@
           </div>
         </div>
 
-        <form class="internet-explorer" id="app-ie" role="dialog" style="display: none;">
-            
+        <form class="internet-explorer" id="app-ie" role="dialog" style="display: none;height: 720px !important;left: 300px !important;width: 1100px;top: 30px">
+
             <h2>
-              <label class="label" for="fore-ie" style="font-size: 12px;">Microsoft Internet Explorer - Google</label>
+              <label class="label front-text" for="fore-ie" style="font-size: 12px;">Microsoft Internet Explorer - Google</label>
               <a class="btn min" href="#error"></a>
               <a class="btn max" href="#error"></a>
               <label class="btn close" for="open-ie"></label>
@@ -94,7 +94,7 @@
                 <div class="combo">
                   <input spellcheck="false" value="https://google.com" id="address-bar">
                   <a class="dropdown" href="#"></a>
-                  <button style="background-color: #C0C0C0;border-style: solid;
+                  <button type="button" style="background-color: #C0C0C0;border-style: solid;
                   border-color: #fff #808080 #808080 #fff;
                   " class="px-3" onclick="searchPage()">Go</button>
                 </div>
@@ -103,11 +103,20 @@
                   <i class="logo"></i>
                 </div>
               </header>
-              <div class="content" style="background-color: #FFFFFF;">
-                <div class="google-display"></div>
-                <p class="h2 google-interface">Google Interface</p>
-                <p class="h2 twitter-interface d-none">Twitter Interface</p>
-                <span class="404-interface container d-none" style="background-color: #FFFFFF;">
+              <div class="content" style="background-color: #FFFFFF;overflow-y: scroll;max-height: 600px !important;">
+
+                <p class="h2 google-interface" style="border: none !important">
+                    <div id="google-page" class="d-none">Google interface
+              </div>
+                </p>
+                <p class="h2 youtube-interface" style="overflow-y: scroll;border: none !important;">
+                    <div id="youtube-page" class="d-none" >
+                   {% include "win95/youtube.html" %}
+              </div>
+
+                </p>
+                <span class="404-interface container d-none" style="background-color: #FFFFFF;border: none !important">
+
                   <img src="{% static 'img/404.png' %}">
                   <span class="ml-1" style="font-weight: bold;font-size: 20px;">The page cannot be found</span>
                   <div class="mt-3 ml-4">The page you are looking for might have been removed, had its name changed, or is temporarily unavaliable.</div>
@@ -120,22 +129,18 @@
 
                     </ul>
 
-                    <p style="margin-top: 100px;margin-bottom: 0;font-size: 12px;">HTTP 404 - File not found</span>
+                    <p style="margin-top: 100px;margin-bottom: 0;font-size: 12px;">HTTP 404 - File not found</p>
                     <div style="font-size: 12px;">Internet Explorer</div>
 
 
                 </span>
               </div>
-              
-              <footer>
-                <div class="pane-1">&#8203;</div>
-                <div class="pane-2">&#8203;</div>
-                <div class="pane-3">&#8203;</div>
-              </footer>
+
+
             </div>
           </form>
           <form id="app-mine" role="dialog">
-            
+
             <h2>
               <label class="label" for="fore-mine" style="font-size: 12px;">Connect To</label>
               <a class="btn min" href="#error"></a>
@@ -144,9 +149,9 @@
             </h2>
               <div class="content" >
                <img src="{% static 'img/ccna.png' %}" class="ml-3">
-                
+
                   <div style="margin-left: 20px;width: 230px;" class="mt-3">
-                    
+
                    <label> <span style="text-decoration: underline;" for="">U</span>sername :
                     </label>
                     <input type="text" class="float-right" id="username">
@@ -155,24 +160,27 @@
                     </label>
                     <input type="password" class="float-right" value="12345" readonly>
                     </div>
-                    
+
                   </div>
                <img src="{% static 'img/secondbr.png' %}" class="ml-3 mt-3">
                <div>
-                <div style="margin-left: 20px;width: 230px;" class="mt-3">
+
+                <div style="margin-left: 17px;width: 240px;" class="mt-3">
+                    <div class="form-group">
                  <label> Phone <span style="text-decoration: underline;" for="">n</span>umber :
                   </label>
                   <input type="text" class="float-right" value="403-774-56-41" readonly>
+                        </div>
                   <div class="mt-1"></div>
                   <label>Dialing <span style="text-decoration: underline;" for="">f</span>rom :
                   </label>
-                  <select style="width: 142px;" class="float-right">
+                  <select style="width: 150px;" class="float-right">
                     <option>Home</option>
                   </select>
-                  <label style="width: 100px;" id="start" for="open-startmenu">
+                  <label class="float-right" style="width: 100px;" id="start" for="open-startmenu">
                     <span class="label">Properties...</span>
                   </label>
-                 
+
                   </div>
                   <img src="{% static 'img/secondbr.png' %}" class="ml-3 mt-3">
                   <div class="d-flex justify-content-end">
@@ -183,10 +191,10 @@
             </form>
 
 
-            
-          <form id="app-notepad" role="dialog">
+
+          <form id="app-notepad" role="dialog" style="left: 70px; !important;">
             <h2>
-              <label class="label" for="fore-notepad" style="font-size: 12px !important;">todo.jsx - Notepad</label>
+              <label class="label" for="fore-notepad" style="font-size: 12px !important;">helloworld.txt - Notepad</label>
               <a class="btn min" href="#error"></a>
               <a class="btn max" href="#error"></a>
               <label class="btn close" for="open-notepad"></label>
@@ -198,7 +206,7 @@
               <a href="#error">Help</a>
             </nav>
             <div class="client">
-              <textarea rows="35" cols="25" spellcheck="false">
+              <textarea rows="22" cols="25" spellcheck="false">
                 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore minima nulla odio itaque ipsa voluptates. Impedit eaque doloribus vitae non.
                 &#32;&#32;
                 &#32;&#32;
@@ -222,12 +230,12 @@
                 <div class="pane-3">&#8203;</div>
               </footer>
             </div>
-      
 
 
-         
+
+
       </div>
-      
+
 
 
 
@@ -254,7 +262,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/smore-inc/clippy.js/master/build/clippy.min.js"></script>
-    
+
    <script>
     clippy.load('Clippy', (agent) => {
     // do anything with the loaded agent
@@ -297,14 +305,14 @@ function agentSpeak(agent,text){
 function searchPage(){
   var address = $("#address-bar").val();
   console.log(address);
-  if (address === "https://twitter.com") {
+  if (address === "https://youtube.com") {
     console.log("success");
-    $(".google-interface").addClass("d-none");
+    $("#google-page").addClass("d-none");
     $(".404-interface").addClass("d-none");
-    $(".twitter-interface").removeClass("d-none");
+    $("#youtube-page").removeClass("d-none");
   }else{
-    $(".google-interface").addClass("d-none");
-    $(".twitter-interface").addClass("d-none");
+    $("#google-page").addClass("d-none");
+    $("#youtube-page").addClass("d-none");
     $(".404-interface").removeClass("d-none");
 
   }

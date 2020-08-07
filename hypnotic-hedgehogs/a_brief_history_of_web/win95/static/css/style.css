@@ -125,13 +125,19 @@ body {
   height: 100%;
   border-width: 1px;
   border-style: solid;
-  border-color: #000 #c0c0c0 #c0c0c0 #000;
+  border-top-color: #000;
+  border-right-color: #c0c0c0;
+  border-left-color: #000;
+  border-bottom: none;
   pointer-events: none;
 }
 #notify, #app-ie footer .pane-1, #app-ie footer .pane-2, #app-ie footer .pane-3 {
   border-width: 1px;
   border-style: solid;
   border-color: #808080 #fff #fff #808080;
+}
+a{
+  color: #000 !important;
 }
 #icons {
     float: left;
@@ -608,10 +614,9 @@ form .close::after {
   font-size: 13px;
 }
 #app-ie {
-  left: 400px;
   top:20%;
-  width: 1200px;
-  height: 1000px;
+  width: 1300px;
+  height: 1500px !important;
 }
 #app-ie .menu {
   border-bottom: 1px solid #808080;
@@ -700,7 +705,7 @@ form .close::after {
   flex: 1;
 }
 #app-ie .content {
-  min-height: 365px !important;
+  min-height: 600px !important;
   padding: 8px;
   font-family: serif;
   -webkit-user-select: text;
