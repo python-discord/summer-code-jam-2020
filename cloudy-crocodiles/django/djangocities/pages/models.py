@@ -1,13 +1,14 @@
+import os
+
 from django.db import models
 from django.conf import settings
 
-from djangocities.folders.models import FolderItem
+from djangocities.folders.models import Item
 
 
-class Page(FolderItem):
+class Page(Item):
     class Meta:
         verbose_name_plural = "pages"
-        unique_together = ('site', 'filename')
 
     # Version
     HTML_1 = 'H1'
@@ -29,6 +30,6 @@ class Page(FolderItem):
 
     def save(self, *args, **kwargs):
         super(Page, self).save(*args, **kwargs)
-        filepath = f"{settings.MEDIA_ROOT}/{self.folder}/{self.filename}"
+        filepath = os.path.join(settings.MEDIA_ROOT, str(self.folder), self.filename)
         fout = open(filepath, 'w')
         fout.write(self.content)

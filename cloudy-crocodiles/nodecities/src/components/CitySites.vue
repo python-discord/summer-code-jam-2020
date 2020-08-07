@@ -7,6 +7,10 @@
           <a :href="`http://localhost:1234/cdn/${city.slug}/${site.address}/index.html`">
             {{ city.name + site.address }}
           </a>
+          <br/>
+          <a :href="`/${city.slug}/${site.address}`">
+            Edit
+          </a>
         </q-card-section>
         <q-card-section>
           {{ site.description }}

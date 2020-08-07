@@ -6,6 +6,7 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
       { path: ':slug', component: () => import('pages/City.vue'), props: true },
+      { path: ':slug/:address', component: () => import('pages/Site.vue'), props: true },
     ],
   },
 

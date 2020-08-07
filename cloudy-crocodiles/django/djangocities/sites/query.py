@@ -2,11 +2,22 @@ from djangocities.cities.models import City
 from djangocities.graphql import query
 from djangocities.sites.models import Site
 from djangocities.pages.models import Page
+from djangocities.folders.models import Folder
 
 
 @query.field("allSites")
 def resolve_all_sites(*_):
     return Site.objects.all()
+
+
+@query.field("site")
+def resolve_site(*_, id):
+    return Site.objects.get(id=id)
+
+@query.field("siteFolder")
+def resolve_city_site(*_, id, path):
+    site = Site.objects.get(id=id)
+    return Folder.objects.get(site=site, path=path)
 
 
 @query.field("citySites")
@@ -15,9 +26,10 @@ def resolve_city_sites(*_, id):
     return Site.objects.filter(city=city)
 
 
-@query.field("site")
-def resolve_site(*_, slug):
-    return Site.objects.get(slug=slug)
+@query.field("citySite")
+def resolve_city_site(*_, slug, address):
+    city = City.objects.get(slug=slug)
+    return Site.objects.get(city=city, address=address)
 
 
 @query.field("allPages")

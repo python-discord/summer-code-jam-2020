@@ -1,0 +1,11 @@
+type Folder {
+    id: ID!
+    site: Site!
+    path: String!
+}
+
+type Item {
+    id: ID!
+    folder: Folder!
+    filename: String!
+}
