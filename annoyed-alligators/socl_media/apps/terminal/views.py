@@ -16,7 +16,7 @@ def run_terminal_command(request):
         status = 400
     else:
         run_command = TerminalCommand(command)
-        result = run_command.run()
+        result = run_command.run(**request.headers)
         status = 200
         response = HttpResponse(result['response'], status=status)
         if 'followup' in result:
