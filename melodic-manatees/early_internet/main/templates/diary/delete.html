@@ -1,0 +1,13 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+<form method="post">
+    {% csrf_token %}
+
+    <h2>
+     Delete entry? {{ object }}
+     </h2>
+    <input type="submit" value="Yes" />
+    <a href="{% url 'diary-list' %}">Cancel </a>
+</form>
+{% endblock content %}
