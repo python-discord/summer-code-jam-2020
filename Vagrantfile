@@ -1,12 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile hacked together to give a basic LXDE/Ubuntu setup. Based on default
-# config file and configuration options found on blogs and stack overflow.
+# Vagrantfile hacked together to give a current Docker version since
+# boot2docker, the last Windows 10 option that worked cleanly with
+# Home Edition, was deprecated a while ago. Based on default config file
+# and configuration options found on blogs and stack overflow.
 #
-# You can use another desktop environment if you like. LXDE was chosen to be
-# understandable to windows users and not take up much system resources.
-
 # Don't change "2", it's the Vagrantfile version specifier.
 Vagrant.configure("2") do |config|
   # Official vagrant 
@@ -32,15 +31,6 @@ $toinstall = <<-SHELL
 # update apt & upgrade packages
 sudo apt-get update && sudo apt-get upgrade -y
 
-# install the following to make upgrading VBox modules easier: (https://linuxize.com/post/how-to-install-virtualbox-guest-additions-in-ubuntu/)
-# 	build tools - so anything that needs gcc/g++ can get built
-#   dkms - some kernel module tool
-#   linux-headers-$(uname -r) - some sort of linux header package that matches kernel version
-# sudo apt-get install -y build-essential dkms linux-headers-$(uname -r)
-
-# so we can add keys of various software. the two gpgs don't clash, apparently.
-# sudo apt-get install gnupg2 gnupg gnupg-agent
-
 # Setup APT for Nodejs 
 curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash -
 
@@ -61,6 +51,10 @@ sudo systemctl start docker
 
 sudo usermod -aG docker $USER
 newgrp docker
+
+# dirty hack to deal with windows clobbering line endings in shellscripts,
+# also do something useful while we wait for docker to start up
+sudo apt-get install -y dos2unix
 
 echo "Waiting for Docker to start..."
 while [ ! -e /var/run/docker.sock ]; do sleep 1; done
