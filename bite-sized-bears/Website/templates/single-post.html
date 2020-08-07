@@ -13,8 +13,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
   </head>
+
   <header>
-    <h1>RSS it</h1>
+    <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
+    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
     <div class="headerlinks">
       <a href="#">popular</a>
       <a href="#">top-communities</a>
@@ -33,58 +35,65 @@
 
         <div class="col-lg-10">
           <div class="posts">
-           <p>submitted by <b>/u {{post.author.name}}<b></b></p>
-           <a href="#"><h3>{{post.title}}}</h3></a>
-           <p>{{post.description}}}</p>
-          </div>
-            {% for comment in comments %}
-          <div class="comment">
-           <h5>commented by<a href="u/{{comment.author.name}}/"> /u <b>{{comment.author.name}}<b></h5></a>
-           <p>{{comment.content}}</p>
-          </div>
-            {% endfor %}
+	        <p><b>r/{{post.publisher}}</b></p>
+	        <p>submitted by /u {{post.author}} on {{post.creation_date}}</p>
+	        <a href="#"><h3>{{post.title}}</h3></a>
+	        <p>{{post.description}}</p>
+	    </div>
+
+	    <form action="./{{ post.id }}/comment" method="POST">{% csrf_token %}
+	        <input id="content" type="text" name="content" placeholder="Type comment" autocomplete="off">
+	        <input type="submit" value="Add comment">
+	    </form>
+
+	    {% for comment in comments %}
+	        <div class="comment">
+                <a href="#"><h5>{{comment.author}}<span style="color:grey;"> on {{comment.creation_date}}</span></h5></a>
+	            <p>{{comment.content}}</p>
+	        </div>
+	    {% endfor %}
         </div>
 
-        <div class="col-sm-2 nopadding visible-lg">
+        <div class="col-sm-2 nopadding visible-lg side-bar">
          <div class="login">
            <h3>Login</h3>
           <form>
             <table>
               <tr>
-               <td>  
+               <td>
                 <label>Username:  </label>
                </td>
                <td>
-                <input type="text" name="username">
+                <input type="text" name="username" style="color:black;">
                </td>
-              </tr>  
+              </tr>
               <tr>
-               <td>  
+               <td>
                 <label>Password:  </label>
                </td>
                <td>
-                <input type="password" name="password">
+                <input type="password" name="password" style="color:black;" required>
                </td>
-              </tr> 
+              </tr>
               <tr class="spacer"></tr>
               <tr>
                 <td>
-                  <input type="submit" value="submit">
+                  <input type="submit" value="submit" style="color:black;">
                 </td>
                 <td>
-                  <input type="reset" value="reset">
+                  <input type="reset" value="reset" style="color:black;">
                 </td>
-              </tr>    
+              </tr>
             </table><br>
               <p>New here? <a href="#">Sign up</a>
           </form>
-  
-         </div>   
-        
+
+         </div>
+
          <div class="online-users">
             <div class="block-header"><h5>Online Users</h5></div>
             <div class="user">Username</div>
-         </div>   
+         </div>
         </div>
 
       </div>
