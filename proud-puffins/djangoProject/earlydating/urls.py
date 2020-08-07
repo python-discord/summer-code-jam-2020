@@ -6,14 +6,13 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='earlydating-home'),
-    path('edit_profile/', views.editprofile, name='earlydating-editprofile'),
-    path('register/', views.register_page, name='earlydating-register'),
+    path('about/', views.about, name='earlydating-about'),
     path('login/', views.login_page, name='earlydating-login'),
     path('logout/', views.logoutUser, name="earlydating-logout"),
-    path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher'),
-    path('about/', views.about, name='earlydating-about'),
-    path('matches/', views.matches, name='earlydating-matches'),
-    path('YourProfile/', views.your_profile, name='earlydating-yourprofile')
+    path('register/', views.register_page, name='earlydating-register'),
+    path('YourProfile/', views.your_profile, name='earlydating-yourprofile'),
+    path('edit_profile/', views.editprofile, name='earlydating-editprofile'),
+    path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher')
 ]
 
 

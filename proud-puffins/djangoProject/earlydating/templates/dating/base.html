@@ -11,8 +11,6 @@
 <html lang="en">
   {% block head %}
   <head>
-    <link rel="stylesheet/less" href="/path/to/bootstrap.less">
-    <script src="/path/to/less.js"></script>
     <meta charset="UTF-8">
         
     <!-- need to passes title as variables in the functions -->
@@ -33,6 +31,7 @@
   {% endblock %}
 
     <body id="bootstrap-overrides">
+
         <div class="home_h1">
             <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
             <img src="/static/images/Proud_Puffin_motion.gif";  height="40"; align="Left">
@@ -85,7 +84,12 @@
 
   <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
     <PARAM NAME=FileName VALUE=sound.mp3></PARAM>
-
+      <div class="cursor">
+</div>
+      <script> const cursor = document.querySelector('.cursor');
+      document.addEventListener('mousemove',e => {
+      cursor.setAttribute("style","top: " + e.pageY + "px; left: " + e.pageX + "px;")
+})</script>
   </body>
 
 </html>
