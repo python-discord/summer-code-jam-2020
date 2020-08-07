@@ -13,6 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "py-loader": "github:pmdevita/python-webpack-loader",
