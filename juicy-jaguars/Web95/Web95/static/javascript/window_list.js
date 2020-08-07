@@ -21,7 +21,6 @@ function create_window_list_btn (navbar, name, windowid) {
 
     var link = document.createElement("a");
     link.classList = ["nav-link"];
-    wl_setup(link, windowid);
 
     var span = document.createElement("span");
     span.classList = ["nav-link-inner-text"];
@@ -36,6 +35,8 @@ function create_window_list_btn (navbar, name, windowid) {
     link.appendChild(span);
     btn.appendChild(link);
     navbar.appendChild(btn);
+
+    wl_setup(link, windowid);
 }
 
 function create_window_list(navbar_class, class_name) {

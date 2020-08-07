@@ -142,10 +142,13 @@ body {
     opacity: 1 !important;
 }
 
-.nav-item-minmised {
-    color: #505050;
-    background-color: #909090;
-    border-width: 1px;
+.nav-item-min a {
+    color: #505050 !important;
+    background-color: #909090 !important;
+}
+
+.nav-item-min a::before {
+    border-width: 1px !important;
 }
 
 .nav-item-focused a::before {

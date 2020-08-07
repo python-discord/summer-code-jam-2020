@@ -11,14 +11,14 @@ function wm_setup(elem) {
         x.style.display = "none";
         x.windowstate = "minimised";
         x_tb.classList.remove("nav-item-focused");
-        x_tb.classList.add("nav-item-minimised");
+        x_tb.classList.add("nav-item-min");
     }
 
     function wm_restore(e) {
         x.style.display = "block";
         x.windowstate = "focused";
         x_tb.classList.add("nav-item-focused");
-        x_tb.classList.remove("nav-item-minimised");
+        x_tb.classList.remove("nav-item-min");
     }
 
     function wm_maximise(e) {
@@ -81,6 +81,7 @@ function wm_setup(elem) {
 function wl_setup(elem, w_id) {
     var x = document.getElementById(w_id);
     var x_tb = document.getElementById(x.id+"-lstbtn");
+    console.log(x_tb);
 
     elem.onclick = wm_restore_minimise_toggle;
 
@@ -90,12 +91,12 @@ function wl_setup(elem, w_id) {
             x.windowstate = "focused";
             x.onmousedown("");
 
-            x_tb.classList.remove("nav-item-minimised");
+            x_tb.classList.toggle("nav-item-min", false);
             x_tb.classList.add("nav-item-focused");
         } else if (x.windowstate == "focused") {
             x.style.display = "none";
             x.windowstate = "minimised";
-            x_tb.classList.add("nav-item-minimised");
+            x_tb.classList.add("nav-item-min");
             x_tb.classList.remove("nav-item-focused");
         } else {
             x.windowstate = "focused";
