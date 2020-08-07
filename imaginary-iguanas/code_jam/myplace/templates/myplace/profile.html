@@ -1,4 +1,5 @@
 {% extends "myplace/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <!-- views.user passes in a dict of all Profile variables as user_profile.
      This can be used via {{ user_profile.variable_name }} anywhere in this file. -->
@@ -48,7 +49,13 @@
 
     <div class="new-comment">
         {% if user.is_authenticated %}
-            <div>Leave a comment.</div>
+            <div>Leave a comment.
+                <form method="post">
+                    {% csrf_token %}
+                    {{ new_comment_form|crispy }}
+                    <button type="submit">Comment</button>
+                </form>
+            </div>
         {% else %}
             <div>Please login to leave a comment.</div>
         {% endif %}
