@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.views import View
-from .models import Post, Comments
+from .models import Post, Comments, Community
 from django.shortcuts import render
 
 
@@ -24,4 +24,15 @@ class PostView(View):
         post = self.model.objects.get(id=post_id)
         comments = post.comment_post.all()
         self.context = {"comments": comments, "post": post}
+        return render(request, self.template_name, self.context)
+
+class CommunityView(View):
+    template_name = 'community.html'
+    model = Community
+    context = {}
+
+    def get(self, request, community_name):
+        community = self.model.objects.get(name=community_name)
+        posts = community.post_publisher.all()
+        self.context = {"posts": posts, "community": community}
         return render(request, self.template_name, self.context)
