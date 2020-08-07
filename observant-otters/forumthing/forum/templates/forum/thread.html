@@ -5,7 +5,7 @@
     <title>Only one group, up to homomorphism</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
 </head>
 {% block content %}
-    <a href="{% url "new-thread" %}">Create New Thread</a>
+    <a href="{% url "new-thread" tpc=topic %}">Create New Thread</a>
     <body>
     Single-thread page
         <blockquote>
@@ -18,8 +18,8 @@
     <h3>{{ thread.author.nickname }}</h3>
 
     {% if thread.author == user %}
-        <a href="{% url 'edit-thread' pk=pk %}">Edit Thread</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{% url 'delete-thread' pk=pk %}">Delete Thread</a><br>
+        <a href="{% url 'edit-thread' tpc=topic pk=pk %}">Edit Thread</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'delete-thread' tpc=topic pk=pk %}">Delete Thread</a><br>
     {% endif %}
 
     {% for s in messages %}
@@ -28,8 +28,8 @@
         {% else %}
             <br>
             {% if s.author == user %}
-                <a href={% url "edit-message" pk=pk msg_id=s.id%}>Edit</a>&nbsp;
-                <a href={% url "delete-message" pk=pk msg_id=s.id%}>Delete</a>
+                <a href={% url "edit-message" tpc=topic pk=pk msg_id=s.id%}>Edit</a>&nbsp;
+                <a href={% url "delete-message" tpc=topic pk=pk msg_id=s.id%}>Delete</a>
                 <br>
             {% endif %}
             {{ s.author }}:
@@ -39,18 +39,18 @@
     {% endfor %}
 
     <br>
-    <a href={% url "new-message" thread.id %}>Post A Message</a><br>
+    <a href={% url "new-message" topic thread.id %}>Post A Message</a><br>
     {% if prev_page %}
-        <a href="/forum/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
+        <a href="/forum/{{ topic }}/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
     {% endif %}
-    <a href="/forum/threads/{{ pk }}?p={{ next_page }}">Next Page</a>
+    <a href="/forum/{{ topic }}/threads/{{ pk }}?p={{ next_page }}">Next Page</a>
     <br>
-    {% if prev_pk %}
-        <a href="/forum/threads/{{ prev_pk }}?p={{ page }}">Previous Thread</a>
+    {% if prev_pk %}   <!-- check if adjacent threads actually exists -->
+        <a href="/forum/{{ topic }}/threads/{{ prev_pk }}?p={{ page }}">Previous Thread</a>
     {% endif %}
 
-    {% if next_pk %}  <!-- check if a forum with the next id actually exists -->
-        <a href="/forum/threads/{{ next_pk }}?p={{ page }}">Next Thread</a>
+    {% if next_pk %}
+        <a href="/forum/{{ topic }}/threads/{{ next_pk }}?p={{ page }}">Next Thread</a>
     {% endif %}
     <br>
     <a href="/">Home</a>
