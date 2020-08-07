@@ -10,3 +10,4 @@ flake8 = "*"
 googlenews = "*"
 
 [dev-packages]
+flake8 = "*"
