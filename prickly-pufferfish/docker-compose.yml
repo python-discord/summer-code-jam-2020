@@ -7,6 +7,8 @@ services:
             POSTGRES_DB: postgres
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: NotARealPassword
+        volumes:
+            - pgdata:/var/lib/postgresql/data
     web:
         build: .
         command: bash -c "python3 arena/manage.py migrate && python3 arena/manage.py runserver 0.0.0.0:8000"
@@ -31,3 +33,6 @@ services:
             - "80:80"
         depends_on:
             - web
+
+volumes:
+    pgdata:
