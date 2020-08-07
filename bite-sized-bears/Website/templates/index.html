@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RSS it</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="script.js"></script>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'css/script.js' %}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -31,14 +32,16 @@
   <body>
     <div class="container">
       <div class="row">
-
         <div class="col-lg-9 post-container">
+            {% for post in object_list %}
           <div class="posts">
-           <p><b>r/Publisher    u/User name <b></p> 
-           <a href="#"><h3>Knock Knock, Who's there? Bite-sized-bears....</h3></a>
-           <p>This is sample post paragraph Searching for that perfect color has never been easier, use our HTML color picker to browse millions of colors and color harmonies. </p>
-          </div>                 
+           <p><b>c/{{post.publisher.name}}    u/{{post.author.name}} <b></p>
+           <a href="#"><h3>{{post.title}}</h3></a>
+           <p>{{post.description}}</p>
+          </div>
+            {% endfor %}
         </div>
+
 
         <div class="col-sm-3 nopadding visible-lg side-bar">
          <div class="login">
