@@ -1,42 +1,45 @@
 from django.http import JsonResponse
 from .models import Thread, ThreadMessage
 from django.db.models import F
-from fastjsonschema import validate
+from fastjsonschema import validate, exceptions
 
 from core.helpers import jsonbody
-# Create your views here.
 
-thread_schema = {
-    'type': 'object',
-    'properties': {
-        'title': {
-            'type': 'string',
-            'minLength': 3,
-            'maxLength': 120
+# Set up schemas for fastjsonschema to validate response from frontend
+schemas = {
+    'thread_schema':
+        {
+            'type': 'object',
+            'properties': {
+                'title': {
+                    'type': 'string',
+                    'maxLength': 120,
+                    'minLength': 3,
+
+                },
+                'message': {
+                    'type': 'string',
+                    'minLength': 3,
+                    'maxLength': 3000
+                }
+            }
         },
-        'message': {
-            'type': 'string',
-            'minLength': 3,
-            'maxLength': 3000
+    'message_schema':
+        {
+            'type': 'object',
+            'properties': {
+                'message': {
+                    'type': 'string',
+                    'minLength': 3,
+                    'maxLength': 3000
+                },
+                'thread_id': {
+                    'type': 'integer',
+                    'minLength': 1,
+                }
+            }
         }
-    },
 }
-
-message_schema = {
-    'type': 'object',
-    'properties': {
-        'message': {
-            'type': 'string',
-            'minLength': 3,
-            'maxLength': 3000
-        },
-        'thread_id': {
-            'type': 'int',
-            'minLength': 1,
-        }
-    },
-}
-
 
 
 def list_threads(request):
@@ -55,14 +58,14 @@ def list_threads(request):
 
 @jsonbody
 def post_thread(request, data):
-    validated = validate(thread_schema, data)
-    if validate:
+    print(data)
+    try:
+        validate(schemas['thread_schema'], data)
         current_user = request.user
         thread = Thread.objects.create(
             title=data['title'],
             created_by=current_user
         )
-        thread_id = thread.id
         thread.save()
 
         message = ThreadMessage(
@@ -77,16 +80,20 @@ def post_thread(request, data):
             'message': message.message,
             'user': message.user.username
         }, status=201)
-    return
+
+    except exceptions.JsonSchemaException as e:
+        print(e.message)
+        return JsonResponse({'error': e.message}, status=400, safe=False)
+
 
 @jsonbody
 def post_message(request, data):
     current_user = request.user
-    validated = validate(message_schema, data)
 
-    if validated:
+    try:
+        validate(schemas['message_schema'], data)
         message = ThreadMessage(
-        message=data['message'],
+            message=data['message'],
             user=current_user,
             thread=Thread.objects.get(id=data['thread_id'])
         )
@@ -97,7 +104,10 @@ def post_message(request, data):
             'message': message.message,
             'user': message.user.username
         }, status=201)
-    return JsonResponse(validated)
+    except exceptions.JsonSchemaException as e:
+        print(e.message)
+        return JsonResponse({'error': e.message}, status=400, safe=False)
+
 
 def thread_details(request, thread_id):
     """

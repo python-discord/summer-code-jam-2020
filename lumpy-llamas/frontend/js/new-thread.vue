@@ -46,6 +46,7 @@ export default {
         console.log(res.data.thread_id);
         this.$router.push(`/forum/${res.data.thread_id}/`);
       }).catch((err) => {
+        alert(err.response.data.error)
         console.log(err); // eslint-disable-line no-console
       });
     },

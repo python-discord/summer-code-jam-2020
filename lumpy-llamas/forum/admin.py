@@ -5,4 +5,3 @@ from .models import Thread, ThreadMessage
 
 admin.site.register(Thread)
 admin.site.register(ThreadMessage)
-

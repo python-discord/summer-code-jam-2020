@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here.
 class Thread(models.Model):
     """
     Model representing a forum thread
@@ -22,7 +21,6 @@ class ThreadMessage(models.Model):
 
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET('Deleted'), to_field='username')
-    #user_n = user.to_field("username")
     date = models.DateTimeField('Date created', auto_now_add=True)
     message = models.TextField()
 

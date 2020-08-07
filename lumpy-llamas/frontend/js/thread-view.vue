@@ -1,9 +1,10 @@
 <template>
   <div v-if="ready">
-    <h2 class="some-heading">{{myStuff[0].title}} </h2>
+    <router-link :to="{ name: 'forum'}"><h2>Back to forum list</h2></router-link>
+    <h3 class="some-heading">{{myStuff[0].title}} </h3>
     <div class="terminal-timeline">
     <div class="terminal-card" v-for="item in myStuff">
-      <header>{{item.user}} on {{item.date | moment("DD/MM/YY/HH:MM")}}</header>
+      <header id="card-header">{{item.user}} on {{item.date | moment("DD/MM/YY/HH:MM")}}</header>
       <div>
         {{item.message}}
       </div>
@@ -24,8 +25,8 @@
   color: pink;
 }
 
-.message-heading {
-  color: aquamarine;
+#card-header {
+  color: whitesmoke;
 }
 
 p {
@@ -61,9 +62,11 @@ export default {
         thread_id: this.$route.params.id
       }).then((res) => {
         this.getData();
+        this.textarea = "";
         console.log(res.data.thread_id);
       }).catch((err) => {
-        console.log(err); // eslint-disable-line no-console
+        alert(err.response.data.error)
+        console.log(err) // eslint-disable-line no-console
       });
   },
   }}
