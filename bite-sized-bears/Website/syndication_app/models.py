@@ -5,7 +5,7 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=15, unique=True)
     password = models.CharField(max_length=15)
-    avatar = models.ImageField(upload_to='img/users/avatar')
+    avatar = models.ImageField(upload_to='img/users/avatar', blank=True, null=True)
     join_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
