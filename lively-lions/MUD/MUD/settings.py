@@ -38,14 +38,15 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    # pre_installed
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'account',
+    # app
+    'dungeon.apps.DungeonConfig',
 ]
 
 MIDDLEWARE = [

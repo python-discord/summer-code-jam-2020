@@ -33,6 +33,14 @@ mkdir .venv
 (python3 -m) pipenv install --dev
 (python3 -m) pipenv run pre-commit install
 (python3 -m) pipenv shell
+
+# server - django makemigrations
+(python3 -m) pipenv run makemigrations
+# server - django migrate
+(python3 -m) pipenv run migrate
+# server - django runserver
+(python3 -m) pipenv run runserver
+
 ```
 
 

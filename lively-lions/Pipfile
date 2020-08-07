@@ -11,7 +11,6 @@ mixer = "*"
 
 [packages]
 django = "~=3.0"
-djangorestframework = "~=3.11"
 channels = "~=2.4"
 python-dotenv = "*"
 
@@ -20,3 +19,6 @@ python_version = "3.8"
 
 [scripts]
 precommit = "pre-commit install"
+makemigrations = "bash -c 'cd MUD && python manage.py makemigrations'"
+migrate = "bash -c 'cd MUD && python manage.py migrate'"
+runserver = "bash -c 'cd MUD && python manage.py runserver'"
