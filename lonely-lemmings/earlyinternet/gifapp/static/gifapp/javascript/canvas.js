@@ -68,12 +68,36 @@ let loc = new Location(0,0);
 //load page
 document.addEventListener('DOMContentLoaded', setupCanvas);
 
+//grab existing data from database if any
+function getImages(){
+    let xhr = new XMLHttpRequest();
+    let url = "images/"
+    let name = document.getElementById("project-name").innerText;
+
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    //callback
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            let img_data = response["data"];
+            console.log(img_data[0])
+        } else {
+            SaveStates.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+        }
+    }
+
+    let data = JSON.stringify({"project_name": name});
+    xhr.send(data);
+}
+
 function setupCanvas(){
     canvas = document.getElementById('my-canvas');
     ctx = canvas.getContext('2d');
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = line_Width;
-    SaveStates.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+    getImages();
 
     //add mouse listeners
     canvas.addEventListener("mousedown", ReactToMouseDown);
@@ -340,6 +364,13 @@ function SendData(type){
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
+    //callback
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert("All Frames Saved!")
+        }
+    }
+
     let data = JSON.stringify(
         {"image_BLOB": savedFrames, "name": name}
         );
@@ -347,10 +378,22 @@ function SendData(type){
 }
 
 function RequestRender(){
-    // send a json in format ["project_name": project_name]
-    // url is going to be "render/"
-    // give a bad request if there is no images stored under the project
-    // otherwise redirect to preview.html template with the gif rendered
+    let xhr = new XMLHttpRequest();
+    let url = "render/"
+    let name = document.getElementById("project-name").innerText;
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    //callback
+    xhr.onreadystatechange = function () {
+        if (xhr.status === 400){
+            alert("Cannot find any saved image frames. Create new frames or save existing frames")
+        }
+    }
+
+    let data = JSON.stringify({"project_name": name});
+    xhr.send(data);
 }
 
 function Undo(){

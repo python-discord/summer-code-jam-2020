@@ -1,14 +1,15 @@
-import os
+from base64 import b64decode, b64encode
+from io import BytesIO
 import json
+import os
 from typing import Union
 
-from base64 import b64decode
 from PIL import Image as PILImage
-from io import BytesIO
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+
 from .models import Project, Image
 
 APP_DIR = os.path.join(settings.BASE_DIR, "gifapp")
@@ -33,8 +34,9 @@ def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePerma
         # since project name is distinct for each user, there can only be one
         project = Project.objects.filter(name=project_name, user_id=request.user)[0]
 
-        # check if there are previous images, if so delete all images associated with the project
+        # check if there are previous images
         images = Image.objects.filter(project_id=project)
+        # if so delete all images associated with the project
         if len(images) > 0:
             for img in images:
                 # get img name
@@ -56,7 +58,8 @@ def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePerma
 def parse_render_request(request):
     """receives POST request with a JSON ["project_name": project_name].
     Grab all files from the project with name project_name and compile it into a gif in the media folder
-    with name <user_name>_<project_name>.gif render preview.html with the gif img loaded"""
+    with name <user_name>_<project_name>.gif render preview.html with the gif img loaded
+    send 400 if there are no images under the project name"""
     if request.method == "POST":
         pass
 
@@ -64,3 +67,12 @@ def parse_render_request(request):
 def return_home(request):
     """sends user back to feed page"""
     pass  # note: feed page is not fully complete so just give a blank url for now
+
+
+def parse_image_request(request):
+    """ receives GET  request with JSON of ["project_name": name],
+    sends a JSON of ["data": <ordered list of images as bytes>],
+    if no images in database send 400"""
+    if request.method == "GET":
+        data = json.loads(request.body)
+        project_name = data["project_name"]
