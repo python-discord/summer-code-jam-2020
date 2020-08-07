@@ -64,6 +64,8 @@
 
 <script>
 import { UserMixin } from 'src/mixins'
+import { $apolloClient } from 'src/apollo/apollo-client-hooks';
+import gql from 'graphql-tag'
 
 export default {
   name: 'LoginPage',
@@ -100,8 +102,30 @@ export default {
     handleRegister() {
       this.$refs.password2.validate();
       if (this.$refs.password2.hasError) {
-        this.formHasError = true;
+        return false;
       }
+      $apolloClient.mutate({
+        mutation: gql`
+          mutation ($data: RegisterInput!) {
+            register(data: $data)
+          }`,
+        variables: {
+          data: {
+            username: this.username,
+            password: this.password1,
+            email: this.email
+          }
+        },
+      }).then((data) => {
+        if (data.data.register === true) {
+          this.$store.dispatch('login', {
+            username: this.username,
+            password: this.password1,
+          }).then(() => {
+            this.$router.push('/');
+          });
+        }
+      });
     },
   }
 }
