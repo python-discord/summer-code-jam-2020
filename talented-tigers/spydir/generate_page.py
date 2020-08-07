@@ -4,7 +4,8 @@ import re
 import wikipedia
 from faker import Faker
 
-from .models import GeneratedPage, BlogPost
+from .models import GeneratedPage, BlogPost, PageImage
+from .generate_images import generate_images
 
 
 # TODO: Make the requests asynchronous
@@ -15,7 +16,7 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] \
+    page_object.page_type = random.choices(possible_page_types, [0.3, 99.5, 0.1, 0.05, 0.05])[0] \
         if page_type is None else page_type
 
     # Define the different fields needed for different page types here
@@ -34,6 +35,10 @@ def generate_page(page_name, page_type=None):
     elif page_object.page_type == 'INFO':
         page_object.page_content = generate_information(page_name)
         page_object.page_author = generate_page_author()
+        page_images = generate_images(False, 1, page_name)
+        for page_image in page_images:
+            page_image.save()
+            page_object.page_images.add(page_image)
 
     elif page_object.page_type == 'BIZ':
         faker = Faker()

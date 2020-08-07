@@ -35,7 +35,7 @@
                 <h3>Welcome to my crazy new website about {{ page.page_title }}!</h3>
             {% endif %}
             <h6>By: {{ page.page_author }}</h6>
-            <img src=''>
+            <img src='{{ page.page_images.all.first.image }}'>
         </div>
     </header>
 
