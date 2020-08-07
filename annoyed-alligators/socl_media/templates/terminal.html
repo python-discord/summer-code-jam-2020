@@ -39,46 +39,59 @@
     },
 
     methods: {
-      populate_previous: function(){
+
+      populate_previous: function() {
         if(this.current_command_num < this.previous_commands.length){
           this.command = this.previous_commands[this.current_command_num];
           this.current_command_num += 1 
         }
       },
 
-      populate_next: function(){
+      populate_next: function() {
         if(this.current_command_num > 0){
           this.current_command_num -= 1
           this.command = this.previous_commands[this.current_command_num-1];
         }
       },
 
-      run_command: function(){
+      run_command: function() {
         if(this.command == 'cls' || this.command == 'clear'){
           this.response = ''
-          this.prompt = "$"
+          this.prompt = "~$"
+          this.followup_count = 0
         } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
           this.prompt = "$"
         } else {
+          var header = {dummy: 0}
           if (this.prompt == "..."){
             this.followup_count += 1
-            var cur_command = `${this.previous_commands[0]}~${this.command} ${this.followup_count}`
+            if (this.command == 'n'){
+              header = {page: this.followup_count}
+            } else if(!isNaN(this.command)){
+              header = {article: this.command}
+            }
+            var cur_command = this.previous_commands[0] 
+            {% comment %} `${this.previous_commands[0]}~${this.command} ${this.followup_count}` {% endcomment %}
           } else {
             var cur_command = this.command
           }
           console.log(cur_command)
-          axios.get(`/terminal/command?c=${cur_command}`)
+          console.log(header)
+          axios.get(`/terminal/command?c=${cur_command}`, {headers: header})
           .then(res =>{
-            this.prompt = res.headers.followup == "True" ?  "..." : "$"
+            if(res.headers.followup == "True"){
+              this.prompt = "..."
+            } else {
+              this.prompt = "~$"
+              this.followup_count = 0
+            }
             this.response = this.response + res.data + "<br>"
           }, (error) =>{
-            console.log(error)
           }) 
         }
         if(this.prompt != '...') this.previous_commands.unshift(this.command)
         this.command = ''
         this.current_command_num = 0
-        console.log(this.previous_commands)
       },
 
       reset_prompt: function(){

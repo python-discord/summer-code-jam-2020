@@ -1,13 +1,12 @@
-from .models import Post
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-# Create your views here.
+from .models import Post
 
 
 class PostList(LoginRequiredMixin, ListView):
     """ 
-    Lists out all the posts in the feed.
+    This view is called at the home screen to display all the posts.
+    Lists out all the posts in the feed with the latest ones first.
     """
     model = Post
     queryset = Post.objects.all()
