@@ -161,8 +161,6 @@ def threads(request, pk=None, tpc=None):
             "topic": tpc,
             "pk": pk,  # pk is for threads
             "page": p,
-
-            # @TODO: Remove debug values
             "next_page": p + 1,
         }
 

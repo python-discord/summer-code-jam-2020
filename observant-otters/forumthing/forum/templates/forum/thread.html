@@ -1,19 +1,15 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Only one group, up to homomorphism</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
+    <title>{{ thread.title }}</title>
 </head>
+
 {% block content %}
     <a href="{% url "new-thread" tpc=topic %}">Create New Thread</a>
-    <body>
-    Single-thread page
-        <blockquote>
-            thread_id: {{ pk }}
-            <br>
-            thread_page: {{ page }}
-        </blockquote>
 
+    <body>
     <h1>{{ thread.title }}</h1>
     <h3>{{ thread.author.nickname }}</h3>
 
