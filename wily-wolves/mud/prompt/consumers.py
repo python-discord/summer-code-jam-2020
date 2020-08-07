@@ -17,6 +17,11 @@ welcome_text = (
 
 
 class MudConsumer(WebsocketConsumer):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.engine = Engine(consumer=self)
+
     def connect(self):
         self.room_group_name = 'MUD'
 
@@ -46,13 +51,18 @@ class MudConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        command = message.lower().split(maxsplit=1)[0]
-        if self.scope['user'].is_authenticated == True:
+        parsed_command = message.split(maxsplit=1)
+        command = parsed_command[0].lower()
+        try:
+            command_arguments = parsed_command[1:]
+        except IndexError:
+            command_arguments = []
+
+        if self.scope['user'].is_authenticated:
             try:
-                e = Engine(consumer=self, command_line=message)
-                message = eval('e.' + command + '()')
+                return_message = getattr(self.engine, command)(*command_arguments)
             except AttributeError:
-                message = f"{command} is not a valid command! Type 'help' if you need."
+                return_message = f"{command} is not a valid command! Type 'help' if you need."
 
         elif command == 'login':
             if len(message.split()) == 3:
@@ -67,13 +77,13 @@ class MudConsumer(WebsocketConsumer):
                         async_to_sync(auth_login)(self.scope, user=self.user)
 
                         if dt:
-                            message = (
+                            return_message = (
                                 f"Welcome back, {self.user}! \n"
                                 f"You last logged in at {dt.strftime('%Y-%m-%d %H:%M')} (UTC)"
                             )
 
                         else:
-                            message = (
+                            return_message = (
                                 f"Welcome to the MUD, {self.user}! \n"
                                 f"Since it's your first time here, we'll guide you in your first steps."
                             )
@@ -88,13 +98,16 @@ class MudConsumer(WebsocketConsumer):
                         )
 
                     else:
-                        message = "Wrong password! Please try 'login <username> <password> again."
+                        return_message = "Wrong password! Please try 'login <username> <password> again."
 
                 else:
-                    message = f"{username_to_login!r} is not a valid username. If you are new here, please type 'new'"
+                    return_message = (
+                        f"{username_to_login!r} is not a valid username. "
+                        "If you are new here, please type 'new'"
+                    )
 
             else:
-                message = "To log in, please type 'login <username> <password>'."
+                return_message = "To log in, please type 'login <username> <password>'."
 
         elif command == 'new':
             if len(message.split()) == 3:
@@ -112,19 +125,22 @@ class MudConsumer(WebsocketConsumer):
                     new_user.save()
                     new_player = Player(user=new_user)
                     new_player.save()
-                    message = f"User {username_to_create!r} successfully created! Please type 'login' to start playing."
+                    return_message = (
+                        f"User {username_to_create!r} successfully created! "
+                        "Please type 'login' to start playing."
+                    )
 
                 else:
-                    message = f"Someone is already using {username_to_create}"
+                    return_message = f"Someone is already using {username_to_create}"
 
             else:
-                message = "To create a new user, please type 'new <username> <password>'."
+                return_message = "To create a new user, please type 'new <username> <password>'."
         else:
-            message = "You need to log in first. Please type 'login' or 'new'"
+            return_message = "You need to log in first. Please type 'login' or 'new'"
 
-        if message != False:
+        if return_message is not None:
             self.send(text_data=json.dumps({
-                'message': message
+                'message': return_message
             }))
 
     # Types of messages
@@ -137,7 +153,7 @@ class MudConsumer(WebsocketConsumer):
 
     def global_message_login_required(self, event):
         message = event['message']
-        if self.scope['user'].is_authenticated == True:
+        if self.scope['user'].is_authenticated:
             # Send a message to everybody in the MUD room
             self.send(text_data=json.dumps({
                 'message': message
@@ -148,7 +164,7 @@ class MudConsumer(WebsocketConsumer):
         # Send a message to everyone else other than the sender
         if self.channel_name != event['sender_channel_name']:
             self.send(text_data=json.dumps({
-                    'message': message
+                'message': message
             }))
 
     def message_to_self(self, event):
