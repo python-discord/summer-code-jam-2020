@@ -11,8 +11,15 @@
         <p>Create an account or log-in to an existing one to play.</p>
         <div class='line-break'></div>
         <div class='btn'><a href="{% url 'signup-view' %}">Create Account</a></div>
+        {% if user.is_authenticated %}
+            <div class='btn'><a href="{% url 'terminal' %}">Return to Terminal</a></div>
+			<div class="btn"><a href="/accounts/logout/">Logout</a></div>
+        {% else %}
+            <div class='btn'><a href="{% url 'login-view' %}">Login to Account</a></div>
+        {% endif %}
         
-        <div class='btn'><a href="{% url 'login-view' %}">Login to Account</a></div>
+        
+		</div>
     </div>
     <div class="footer_left">
         <pre>
