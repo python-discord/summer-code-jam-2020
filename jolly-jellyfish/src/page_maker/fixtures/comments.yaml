@@ -2,7 +2,7 @@
   pk: 1
   fields:
     parent_page: 1
-    author: 2
+    author: 1
     title: wow
     content: such nice page
     date_created: 2020-08-03 20:24:16.214464+00:00

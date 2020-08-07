@@ -223,4 +223,4 @@ class CommentViewsTest(TestCase):
         self.client.login(username=ADMIN_USERNAME, password=ADMIN_PASSWORD)
         res = self.client.post('/comments/1/delete')
         self.assertRedirects(res, '/pages/mypage/detail')
-        self.assertEqual(Template.objects.count(), 1)
+        self.assertEqual(Comment.objects.count(), 1)
