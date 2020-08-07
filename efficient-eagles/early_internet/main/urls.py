@@ -34,7 +34,7 @@ urlpatterns = [
     path('user/<str:user>/posts', UserView.as_view()),
     path('account', AccountView.as_view(), name='account'),
     path('account/password', ChangePassword.as_view(), name='change_password'),
-  
+
     path(
         "ajax/vote/post/<int:post_id>/<int:vote>/",
         ajax_vote_post,
