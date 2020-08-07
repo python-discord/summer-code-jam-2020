@@ -9,16 +9,16 @@
 		{% csrf_token %}
 
 		<fieldset class="form-group">
-			<legend>Join Today</legend>
+			<legend>Log In</legend>
 			{{form.as_p}}
 		</fieldset>
 		<div class="form-group">
-			<button type="submit">Submit</button>
+			<button type="submit">Login</button>
 		</div>
 	</form>
 	<div>
 		<small>
-			Already have an account? <a href="{% url 'login' %}">Sign in</a>
+			Need an account? <a href="{% url 'register' %}">Sign up now</a>
 		</small>
 
 	</div>
