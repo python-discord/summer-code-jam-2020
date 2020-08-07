@@ -2,14 +2,16 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Tweet
-from  .forms import *
+from .forms import *
 from django.contrib.auth.decorators import login_required
+
 
 # index view when user logs in
 
 @login_required(login_url='/login/')
 def createpost(request):
     return render(request, 'tweet.html')
+
 
 @login_required(login_url='/login/')
 def index(request):
@@ -20,8 +22,8 @@ def index(request):
         print(queryset)
         return render(request, 'index.html', {"data": queryset})
     else:
-        return render(request,'tweet.html')
-    # queryset = Tweet.objects.all()
+        queryset = Tweet.objects.all()
+        return render(request, 'index.html',{"data":queryset})
 
 
 # for registration of a new user
