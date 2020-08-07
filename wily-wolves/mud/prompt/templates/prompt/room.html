@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MUD - WilyWolves</title>
+</head>
+<body style="background-color: black; color: white">
+    <textarea id="chat-log" rows="30" style="overflow:hidden; padding: 0px 10px; line-height: 1.3; resize:none; width: 100%; background-color: black; color: white; font-family: 'lucida console', Arial, Helvetica; font-size: 16px; box-sizing:border-box;"></textarea><br>
+    <input id="chat-message-input" type="text" size="100" style="width: 100%; background-color: black; color: white; box-sizing:border-box"><br>
+    <input id="chat-message-submit" type="button" value="Send" style="display: none;">
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        window.setInterval(function() {
+            var elem = document.getElementById('chat-log');
+            elem.scrollTop = elem.scrollHeight;
+        }, 1000);
+
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/MUD/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-log').value += (data.message + '\n');
+            console.log('recebendo de volta do consumer :' + data.message)
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            console.log(message)
+            messageInputDom.value = '';
+        };
+
+    </script>
+</body>
+</html>

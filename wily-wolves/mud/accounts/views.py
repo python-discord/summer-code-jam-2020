@@ -12,7 +12,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         response = super(RegisterView, self).form_valid(form)
-        Player.objects.create(user_id=self.object)
+        Player.objects.create(user=self.object)
         return response
 
 
