@@ -9,6 +9,7 @@ type Query {
     allSites: [Site!]!
     site(id: ID!): Site!
     siteFolder(id: ID!, path: String!): Folder!
+    userOwnSites: [Site]!
 
     allFolders: [Folder!]!
     folder(id: ID!): Folder!
