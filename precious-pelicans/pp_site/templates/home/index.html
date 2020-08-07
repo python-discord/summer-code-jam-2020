@@ -2,5 +2,10 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>This is a temporary index lol</h1>
+{% if messages %}
+{% for message in messages %}
+<div>{{message}}</div>
+{%endfor%}
+{%endif%}
+<h1>This is a temporary index lol</h1>
 {% endblock %}

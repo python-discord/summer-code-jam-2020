@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+{%block content%}
+
+<div class="content-section">
+	<form method="POST">
+		{% csrf_token %}
+
+		<fieldset class="form-group">
+			<legend>Log In</legend>
+			{{form.as_p}}
+		</fieldset>
+		<div class="form-group">
+			<button type="submit">Login</button>
+		</div>
+	</form>
+	<div>
+		<small>
+			Need an account? <a href="{% url 'register' %}">Sign up now</a>
+		</small>
+
+	</div>
+</div>
+{% endblock %}
