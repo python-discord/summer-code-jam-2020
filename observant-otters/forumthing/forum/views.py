@@ -1,13 +1,14 @@
 from django.utils import timezone
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, reverse
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Thread, Message
 
 
 def home(request):
-    return render(request, 'forum/home.html', {})
+    return render(request, 'forum/home.html',
+                  {'threads': reversed([t for t in Thread.objects.all()])})
 
 
 class NewThread(LoginRequiredMixin, CreateView):

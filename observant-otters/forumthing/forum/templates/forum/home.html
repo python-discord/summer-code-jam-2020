@@ -9,8 +9,14 @@
     <a href={% url "new-thread" %}>Create New Thread</a><br>
     <body>
     Show-all-threads page
-    <br><br>
-    <a href="/forum/threads/1">Thread #1</a>
+    <br>
+    <h1>FORUMTHING</h1>
+    {% for thread in threads %}
+        {% if forloop.counter <= 20 %}  <!-- only show the first 20 threads ~kevin -->
+            <a href="{% url 'threads-single' thread.id %}">{{ thread.title }}</a>
+        {% endif %}
+        <br><br>
+    {% endfor %}
     </body>
 {% endblock %}
 </html>
