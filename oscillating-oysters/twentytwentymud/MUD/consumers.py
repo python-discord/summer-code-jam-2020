@@ -34,8 +34,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         command = content.get("command", None)
         try:
             if command == "leave":
-                await self.leave_room()
                 self.isOnline = False
+                await self.leave_room(self.player.room.name)
+                await self.disconnect()
             elif command == "send":
                 await self.send_room(content["message"])
             elif command == "help":
