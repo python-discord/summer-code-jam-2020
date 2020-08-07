@@ -7,10 +7,11 @@ import re
 class HtmlParser:
     """Class used to parse HTML."""
 
-    def __init__(self, html):
+    def __init__(self, html, basedir):
         """Store HTML, setup Soup."""
         self.html = html
         self.soup = BeautifulSoup(html, "html.parser")
+        self.basedir = basedir
 
     def parse(self):
         """Run all parsing functions.
@@ -51,3 +52,9 @@ sans-serif !important;}')
                                    element["style"]
             except KeyError:
                 element["style"] = "border-radius: 0px !important; "
+
+    def parse_as(self):
+        """Change links in A tags to be absolute."""
+        for element in self.soup.find_all("a", href=True):
+            if element["href"].startswith("/"):
+                element["href"] = self.basedir + element["href"]

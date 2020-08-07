@@ -77,7 +77,7 @@ def page(request, url):
         fp = urllib.request.urlopen(req)
         content = fp.read().decode()
 
-        parser = HtmlParser(content)
+        parser = HtmlParser(content, url)
         parser.parse()
 
         content = parser.soup.prettify()
