@@ -51,97 +51,98 @@ class MudConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        parsed_command = message.split(maxsplit=1)
-        command = parsed_command[0].lower()
-        try:
-            command_arguments = parsed_command[1:]
-        except IndexError:
-            command_arguments = []
-
-        if self.scope['user'].is_authenticated:
+        if message:
+            parsed_command = message.split(maxsplit=1)
+            command = parsed_command[0].lower()
             try:
-                return_message = getattr(self.engine, command)(*command_arguments)
-            except AttributeError:
-                return_message = f"{command} is not a valid command! Type 'help' if you need."
+                command_arguments = parsed_command[1:]
+            except IndexError:
+                command_arguments = []
 
-        elif command == 'login':
-            if len(message.split()) == 3:
-                username_to_login = message.split()[1]
-                plain_password_to_login = message.split()[2]
+            if self.scope['user'].is_authenticated:
+                try:
+                    return_message = getattr(self.engine, command)(*command_arguments)
+                except AttributeError:
+                    return_message = f"{command} is not a valid command! Type 'help' if you need."
 
-                if len(User.objects.filter(username=username_to_login)) == 1:
-                    self.user = User.objects.get(username=username_to_login)
-                    dt = self.user.last_login
+            elif command == 'login':
+                if len(message.split()) == 3:
+                    username_to_login = message.split()[1]
+                    plain_password_to_login = message.split()[2]
 
-                    if django_pbkdf2_sha256.verify(plain_password_to_login, self.user.password):
-                        async_to_sync(auth_login)(self.scope, user=self.user)
+                    if len(User.objects.filter(username=username_to_login)) == 1:
+                        self.user = User.objects.get(username=username_to_login)
+                        dt = self.user.last_login
 
-                        if dt:
-                            return_message = (
-                                f"Welcome back, {self.user}! \n"
-                                f"You last logged in at {dt.strftime('%Y-%m-%d %H:%M')} (UTC)"
+                        if django_pbkdf2_sha256.verify(plain_password_to_login, self.user.password):
+                            async_to_sync(auth_login)(self.scope, user=self.user)
+
+                            if dt:
+                                return_message = (
+                                    f"Welcome back, {self.user}! \n"
+                                    f"You last logged in at {dt.strftime('%Y-%m-%d %H:%M')} (UTC)"
+                                )
+
+                            else:
+                                return_message = (
+                                    f"Welcome to the MUD, {self.user}! \n"
+                                    f"Since it's your first time here, we'll guide you in your first steps."
+                                )
+
+                            async_to_sync(self.channel_layer.group_send)(
+                                self.room_group_name,
+                                {
+                                    'type': 'global_message_not_me',
+                                    'message': f"{self.user} is back to WilyWolves MUD!",
+                                    'sender_channel_name': self.channel_name
+                                }
                             )
 
                         else:
-                            return_message = (
-                                f"Welcome to the MUD, {self.user}! \n"
-                                f"Since it's your first time here, we'll guide you in your first steps."
-                            )
+                            return_message = "Wrong password! Please try 'login <username> <password> again."
 
-                        async_to_sync(self.channel_layer.group_send)(
-                            self.room_group_name,
-                            {
-                                'type': 'global_message_not_me',
-                                'message': f"{self.user} is back to WilyWolves MUD!",
-                                'sender_channel_name': self.channel_name
-                            }
+                    else:
+                        return_message = (
+                            f"{username_to_login!r} is not a valid username. "
+                            "If you are new here, please type 'new'"
+                        )
+
+                else:
+                    return_message = "To log in, please type 'login <username> <password>'."
+
+            elif command == 'new':
+                if len(message.split()) == 3:
+                    username_to_create = message.split()[1]
+                    password_to_create = message.split()[2]
+                    hashed_password = make_password(password_to_create)
+
+                    if len(User.objects.filter(username=username_to_create)) == 0:
+                        new_user = User(
+                            username=username_to_create,
+                            password=hashed_password,
+                            is_superuser=False,
+                            is_staff=False
+                        )
+                        new_user.save()
+                        new_player = Player(user=new_user)
+                        new_player.save()
+                        return_message = (
+                            f"User {username_to_create!r} successfully created! "
+                            "Please type 'login' to start playing."
                         )
 
                     else:
-                        return_message = "Wrong password! Please try 'login <username> <password> again."
+                        return_message = f"Someone is already using {username_to_create}"
 
                 else:
-                    return_message = (
-                        f"{username_to_login!r} is not a valid username. "
-                        "If you are new here, please type 'new'"
-                    )
-
+                    return_message = "To create a new user, please type 'new <username> <password>'."
             else:
-                return_message = "To log in, please type 'login <username> <password>'."
+                return_message = "You need to log in first. Please type 'login' or 'new'"
 
-        elif command == 'new':
-            if len(message.split()) == 3:
-                username_to_create = message.split()[1]
-                password_to_create = message.split()[2]
-                hashed_password = make_password(password_to_create)
-
-                if len(User.objects.filter(username=username_to_create)) == 0:
-                    new_user = User(
-                        username=username_to_create,
-                        password=hashed_password,
-                        is_superuser=False,
-                        is_staff=False
-                    )
-                    new_user.save()
-                    new_player = Player(user=new_user)
-                    new_player.save()
-                    return_message = (
-                        f"User {username_to_create!r} successfully created! "
-                        "Please type 'login' to start playing."
-                    )
-
-                else:
-                    return_message = f"Someone is already using {username_to_create}"
-
-            else:
-                return_message = "To create a new user, please type 'new <username> <password>'."
-        else:
-            return_message = "You need to log in first. Please type 'login' or 'new'"
-
-        if return_message is not None:
-            self.send(text_data=json.dumps({
-                'message': return_message
-            }))
+            if return_message is not None:
+                self.send(text_data=json.dumps({
+                    'message': return_message
+                }))
 
     # Types of messages
     def global_message(self, event):
