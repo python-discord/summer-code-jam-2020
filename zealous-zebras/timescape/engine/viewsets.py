@@ -6,6 +6,7 @@ from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 
 import requests
+import json
 from .serializers import SearchResultSerializer
 from .models import Search, SearchResult
 
@@ -72,9 +73,12 @@ class SearchViewSet(viewsets.ViewSet):
         return Response({'status': 'no results found'})
 
     def get_new_results(self, start_index, query):
+        with open('tokens.json', 'r') as f:
+            tokens = json.load(f)
+
         URI = 'https://www.googleapis.com/customsearch/v1'
-        KEY = ''
-        CX = '009141575440303889758:tffyij27zn0'
+        KEY = tokens["key"]
+        CX = tokens["cx"]
 
         r = requests.get(
             f'{URI}?key={KEY}&cx={CX}&start={start_index}&num=10&q={query}'
