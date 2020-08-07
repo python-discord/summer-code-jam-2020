@@ -13,6 +13,6 @@ This is the default README of your team's project. Please replace this by a READ
 6. Open new terminal and run postgres
     `make up postgres`
 7. Make migration
-    `make migration`
+    `make migrate`
 8. Run django
     `make run`
