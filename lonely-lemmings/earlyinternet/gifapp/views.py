@@ -51,13 +51,13 @@ def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePerma
 
 @csrf_exempt
 def parse_render_request(request):
+    """receives POST request with a JSON ["project_name": project_name].
+    Grab all files from the project with name project_name and compile it into a gif in the media folder
+    with name <user_name>_<project_name>.gif render preview.html with the gif img loaded"""
     if request.method == "POST":
-        pass  # parse file byte data and save it
-    # grab all files from the project and compile it into a gif
-    # render "preview.html"
-    # send gif over as byte as http response
+        pass
 
 
 def return_home(request):
     """sends user back to feed page"""
-    pass
+    pass  # note: feed page is not fully complete so just give a blank url for now
