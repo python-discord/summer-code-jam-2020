@@ -16,4 +16,4 @@ class Message(models.Model):
 
     def last_15_messages(self, community):
         print(type(Message.objects.filter(community=community).order_by('-timestamp').all()[:15]))
-        return Message.objects.filter(community=community).order_by('-timestamp').all()[:15]
+        return Message.objects.filter(community=community).order_by('-timestamp').all()[:15:-1]
