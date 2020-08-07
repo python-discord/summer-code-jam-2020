@@ -38,7 +38,7 @@ class Engine():
             return "What the hell are you thinking about?"
 
     def where(self):
-        return f'{type(self.player.location_id)}: {self.player.location_id.__dict__}'
+        return f"You are here: {self.player.location.description} ({self.player.location})"
 
     def start(self):
         if self.player.level == 0:
@@ -51,8 +51,8 @@ class Engine():
 
     def north(self):
         dest_x = self.player.location_id.x_coord
-        dest_y = self.player.location_id.y_coord + 1
         dest_z = self.player.location_id.z_coord
+        dest_y = self.player.location.y_coord
         dest_location = Location.objects.get(x_coord=dest_x, y_coord=dest_y, z_coord=dest_z)
         self.player.move_to(dest_location)
         return f'You move in the north direction'

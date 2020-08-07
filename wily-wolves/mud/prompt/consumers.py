@@ -110,7 +110,7 @@ class MudConsumer(WebsocketConsumer):
                         is_staff=False
                     )
                     new_user.save()
-                    new_player = Player(user_id=new_user)
+                    new_player = Player(user=new_user)
                     new_player.save()
                     message = f"User {username_to_create!r} successfully created! Please type 'login' to start playing."
 
