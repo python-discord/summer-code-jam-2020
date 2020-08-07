@@ -1,4 +1,4 @@
-from rest_framework import permissions, status, viewsets
+from rest_framework import permissions, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,9 +8,20 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from retro_news.serializers import CustomTokenObtainPairSerializer, CustomUserSerializer, BlogArticleSerializer
 from retro_news.models import BlogArticle
 
-class BlogArticleViewSet(viewsets.ModelViewSet):
-    queryset = BlogArticle.objects.all().order_by('date_created')
-    serializer_class = BlogArticleSerializer
+class BlogArticleView(APIView):
+    """Handles BlogArticle object creation."""
+
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
+
+    def post(self, request: Request) :
+        """Create new article."""
+        serializer = BlogArticleSerializer(data=request.data)
+        if serializer.is_valid() :
+            article = serializer.save()
+            if article :
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomUserCreate(APIView):
     """Handles user creation."""

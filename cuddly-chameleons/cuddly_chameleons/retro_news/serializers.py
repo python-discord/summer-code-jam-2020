@@ -7,9 +7,17 @@ from retro_news.models import CustomUser, BlogArticle
 
 class BlogArticleSerializer(serializers.ModelSerializer):
     """Serializer for BlogArticle objects."""
+
+    title           = serializers.CharField(max_length=100, required=True)
+    content         = serializers.CharField(max_length=10000)
+    author          = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+    date_created    = serializers.DateField()
+
+
     class Meta:
         model   = BlogArticle
         fields  = ('title','author','content','date_created')
+        
 
 class CustomUserSerializer(serializers.ModelSerializer):
     """Serializer for new user creation."""
