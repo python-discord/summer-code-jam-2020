@@ -24,6 +24,8 @@ class Engine():
         )
 
     def think(self, thought_content=None):
+        """Think to yourself"""
+
         if thought_content is None:
             return "What the hell are you thinking about?"
 
@@ -71,7 +73,7 @@ class Engine():
         else:
             return "This is no longer a valid command"
 
-    def __move(self, direction):        # starswith '__' to make some checks
+    def _move(self, direction):        # starswith '_' to make some checks
         dest_x = self.player.location.x_coord
         dest_y = self.player.location.y_coord
         dest_z = self.player.location.z_coord
@@ -116,40 +118,40 @@ class Engine():
         return True
 
     def north(self):
-        if self.__move('north') == True:
-            return f"You move to the north"        
+        if self.__move('north'):
+            return "You move to the north"
         else:
-            return f"You can't go north from here"
+            return "You can't go north from here"
 
     def south(self):
-        if self.__move('south') == True:
-            return f"You move to the south"             
+        if self.__move('south'):
+            return "You move to the south"
         else:
-            return f"You can't go south from here"
+            return "You can't go south from here"
 
     def east(self):
-        if self.__move('east') == True:
-            return f"You move to the east"    
+        if self.__move('east'):
+            return "You move to the east"
         else:
-            return f"You can't go east from here"
+            return "You can't go east from here"
 
     def west(self):
-        if self.__move('west') == True:
-            return f"You move to the west"   
+        if self.__move('west'):
+            return "You move to the west"
         else:
-            return f"You can't go west from here"
+            return "You can't go west from here"
 
     def up(self):
-        if self.__move('up') == True:
-            return f"You move up"           
+        if self.__move('up'):
+            return "You move up"
         else:
-            return f"You can't go up from here"
+            return "You can't go up from here"
 
     def down(self):
-        if self.__move('down') == True:
-            return f"You move down"           
+        if self.__move('down'):
+            return "You move down"
         else:
-            return f"You can't go down from here"
+            return "You can't go down from here"
 
 ## shortcuts ##
 
@@ -160,24 +162,23 @@ class Engine():
     u = up
     d = down
 
-    def help(self):
+    def help(self, command_to_help=None):
         """If you use 'help' you can see a list of availlable commands.
         You can also use 'help <command>' to get a more specific guide."""
 
         methods_list = [
             func for func in dir(Engine)
             if (callable(getattr(Engine, func))
-                and not func.startswith("__") and len(func) > 1)
+                and not func.startswith("_") and len(func) > 1)
         ]
-        if len(self.command_line.split()) == 1:
+        if command_to_help is None:
             message = "This is the list of all commands available in this server:"
             for func in methods_list:
                 message = message + f"\n{func!r}"
             return message
-        elif len(self.command_line.split()) == 2:
-            command_to_help = self.command_line.split(maxsplit=1)[1]
+        else:
             if command_to_help in methods_list:
-                help_text = eval('Engine.' + self.command_line.split(maxsplit=1)[1] + '.__doc__')
+                help_text = getattr(Engine, command_to_help).__doc__
                 return f"This is the 'help' for {command_to_help!r}: {help_text}"
             else:
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
@@ -188,7 +189,7 @@ class Engine():
         sending_event = {
             'type': type,
             'message': message,
-            }
+        }
         for k, val in kwargs.items():
             sending_event[k] = val
         async_to_sync(self.consumer.channel_layer.group_send)(
