@@ -91,6 +91,5 @@ def page(request, url):
     parser.parse()
 
     content = "<!-- Yep, this got parsed! -->\n"+parser.soup.prettify()
-    print("Content just got *parsed*", content)
 
     return render(request, "Web95/blank.html", {"content": content})
