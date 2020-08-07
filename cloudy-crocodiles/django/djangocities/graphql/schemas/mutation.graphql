@@ -1,3 +1,4 @@
 type Mutation {
   login(data: LoginInput!): LogIn!
+  register(data: RegisterInput!): Boolean!
 }
