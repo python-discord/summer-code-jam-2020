@@ -1,5 +1,6 @@
 import random
 import string
+from typing import List
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -15,6 +16,7 @@ class Player(models.Model):
 
 
 class ActiveTriviaQuiz(models.Model):
+
     trivia_quiz = models.ForeignKey(TriviaQuiz, on_delete=models.CASCADE)
     session_code_val = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     session_code = models.CharField(max_length=6, unique=True, default=session_code_val, editable=False)
@@ -22,3 +24,4 @@ class ActiveTriviaQuiz(models.Model):
     session_master = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quiz_master')
     start_time = models.DateTimeField(default=timezone.now)
     players = models.ManyToManyField(Player, related_name='quiz_players')
+

@@ -18,5 +18,5 @@ class TriviaQuiz(models.Model):
 class TriviaQuestion(models.Model):
     question_text = models.CharField(max_length=1000, blank=False,)
     question_answer = models.CharField(max_length=300, blank=False,)
-    question_type = models.CharField(max_length=30)
+    question_index = models.PositiveIntegerField(blank=False)
     quiz = models.ForeignKey(TriviaQuiz, on_delete=models.CASCADE)

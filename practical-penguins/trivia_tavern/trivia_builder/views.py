@@ -5,7 +5,7 @@ from django.db import transaction, IntegrityError
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -45,7 +45,7 @@ class TriviaQuizDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         active_trivia_quiz = ActiveTriviaQuiz.objects.create(trivia_quiz=self.get_object(), session_master=request.user)
         active_trivia_quiz.save()
-        return HttpResponseRedirect(reverse('activequiz-setup', kwargs={'pk': active_trivia_quiz.pk}))
+        return HttpResponseRedirect(reverse('activequiz', kwargs={'pk': active_trivia_quiz.pk}))
 
 
 class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, CreateView):
@@ -61,8 +61,9 @@ class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, Creat
         if quiz_form.is_valid() and question_formset.is_valid():
             quiz_form.instance.author = self.request.user
             quiz = quiz_form.save()
-            for question_form in question_formset.forms:
+            for i, question_form in enumerate(question_formset.forms, start=1):
                 question_form.instance.quiz = quiz
+                question_form.instance.question_index = i
                 question = question_form.save()
                 new_questions.append(question)
             question_formset.save()
