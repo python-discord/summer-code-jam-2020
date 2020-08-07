@@ -1,61 +1,78 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Django Weather App</title>
-    <style>
-        * {
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
-        }
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>weather</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
 
-        #main {
-            text-align: center;
-            padding-top: 100px;
-        }
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        h1 {
-            margin-bottom: 20px;
-        }
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  </head>
 
-        input[type='text'] {
-            width: 30%;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 2px solid black;
-        }
+  <body>
+    <p id="demo"></p>
+    <script>
+      const tempElement = document.querySelector(".temperature-value p");
+      const descElement = document.querySelector(".temperature-description p");
+      const locationElement = document.querySelector(".location p");
+      const notificationElement = document.querySelector(".notification");
+      var x = document.getElementById("demo");
+      const key = "0a2c03e9dee2533389d7b459d0f8595e";
+      const KELVIN = 273;
+      const weather = {};
 
-        input[type='submit'] {
-            width: 30%;
-            padding: 5px;
-            background: black;
-            color: white;
-            text-transform: uppercase;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-<div id="main">
-    <form method="GET">
-        <div>
-            <label for="city"></label>
-            <input type="text" id="city" value="{{ request.GET.city }}" placeholder="City..." name="city"/>
-        </div>
-        <input type="submit" value="Submit"/>
-    </form>
-    {% if result %}
-        <h3>{{ result.region }}</h3>
-        <h3>{{ result.dayhour }}</h3>
-        <h3>{{ result.temp_now }}° C</h3>
-        <h3>{{ result.weather_now }}</h3>
-    {% endif %}
-</div>
-</body>
+      weather.temperature = {
+        unit: "celsius",
+      };
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+
+      function showPosition(position) {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+
+        getWeather(latitude, longitude);
+      }
+
+      function getWeather(latitude, longitude) {
+        let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+
+        fetch(api)
+          .then(function (response) {
+            let data = response.json();
+            return data;
+          })
+          .then(function (data) {
+            weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+            weather.description = data.weather[0].description;
+            weather.iconId = data.weather[0].icon;
+            weather.city = data.name;
+            weather.country = data.sys.country;
+          })
+          .then(function () {
+            displayWeather();
+          });
+      }
+      function displayWeather() {
+        x.innerHTML =
+          "temperature:" +
+          weather.temperature.value +
+          "°C" +
+          "<br>description:" +
+          weather.description +
+          "<br>City:" +
+          weather.city;
+      }
+    </script>
+  </body>
 </html>
