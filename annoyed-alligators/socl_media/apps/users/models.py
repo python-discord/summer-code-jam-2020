@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-# Create your models here.
 
 
 class Profile(models.Model):
@@ -22,7 +21,7 @@ class Profile(models.Model):
     GENDER_CHOICES = (
         ('F', 'Female',),
         ('M', 'Male',),
-        ('U', 'Unsure',),
+        ('O', 'Other',),
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES,)
 
