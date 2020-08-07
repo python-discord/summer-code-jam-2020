@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from decouple import config
 import requests
 
+
 def news_feed(request):
     news_key = config('NEWS_KEY')
     url = 'https://api.nytimes.com/svc/topstories/v2/us.json?api-key=' + news_key
