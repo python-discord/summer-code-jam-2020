@@ -1,0 +1,15 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/98.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST" class="form-group">
+	{% csrf_token %}
+	{{ form.as_p }}
+    	<button type="submit" class="btn btn-success">Register</button><br>
+    <a href="/login">Have a account? login here</a>
+    </form>
+</body>
+</html>

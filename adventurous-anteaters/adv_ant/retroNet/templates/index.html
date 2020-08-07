@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% csrf_token %}
+<p>Posted</p>
+
+<div>
+{% for tweet in data %}
+<h2>{{ tweet.content }}</h2>
+{% endfor %}
+<button><a href="logout">Logout</a> </button>
+    </div>
+</body>
+</html>
