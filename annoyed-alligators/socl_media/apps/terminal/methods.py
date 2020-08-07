@@ -1,12 +1,15 @@
+from django.shortcuts import redirect
+from django.urls import reverse
 from GoogleNews import GoogleNews
 
 
 class TerminalCommand():
     """Container for terminal all terminal commands"""
 
-    def __init__(self, option: str):
-        self.specified_method = option.split()[0]
-        self.params = option[option.find(" ") + 1:]
+    def __init__(self, command_string: str, request):
+        self.specified_method = command_string.split()[0]
+        self.params = command_string[command_string.find(" ") + 1:]
+        self.request = request
 
     def run(self):
         try:
@@ -14,8 +17,21 @@ class TerminalCommand():
             response = method_to_call(self.params)
         except AttributeError as e:
             response = {'response': f"{self.specified_method}: command not found"}
-            print(e)
         return response
+
+    def logout(self, params=None):
+        redirect = reverse('logout')
+        message = f"Logged out {self.request.user.username}"
+        return {'response': message, 'redirect': redirect}
+
+    def signup(self, params=None):
+        if self.request.user.is_authenticated:
+            message = "Log out to create a new account"
+            return {'response': message}
+        else:
+            redirect = reverse('signup')
+            message = "enter details to signup"
+            return {'response': message, 'redirect': redirect}
 
     @staticmethod
     def message(params: str = None):
@@ -23,7 +39,6 @@ class TerminalCommand():
             "Usage: message username [args] [message text]<br>"\
             "options:<br>"\
             "--help: get help (this screen)<br>"\
-            "--e: encrypt the message<br>"\
             "--last: view the last message sent to the user<br>"
 
         if params.split()[0] == '--help':

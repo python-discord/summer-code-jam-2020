@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .methods import TerminalCommand
@@ -15,10 +15,15 @@ def run_terminal_command(request):
         response = "No command was specified"
         status = 400
     else:
-        run_command = TerminalCommand(command)
+        run_command = TerminalCommand(command, request)
         result = run_command.run()
         status = 200
         response = HttpResponse(result['response'], status=status)
+        
+        if 'redirect' in result:
+            response['redirect'] = result['redirect']
+
         if 'followup' in result:
             response['followup'] = True
+
     return response
