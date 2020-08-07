@@ -6,6 +6,7 @@ from terminal.terminal_tools import colorize
 from MUD.ascii_art import ART
 
 from MUD.models import Room, Player
+import asyncio
 
 
 class MudConsumer(AsyncJsonWebsocketConsumer):
@@ -28,6 +29,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             await self.send_welcome()
             await self.join_room('dungeon')
             await self.join_room(await self.get_current_room_name())
+            if (await self.get_current_room_name() == 'ARPANET-1'):
+                await self.send_tutorial()
 
     async def receive_json(self, content):
         """ Route client commands to internal functions. """
@@ -73,7 +76,42 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         })
 
     async def send_welcome(self):
-        await self.send_json( {'message': colorize('brightBlue', ART['BANNER'])} )
+        await self.send_json({'message': colorize('brightBlue', ART['BANNER'])})
+
+    async def send_tutorial(self):
+        '''
+        Sends the initial tutorial and overall game explanation.
+        '''
+        # I can't indent because it affects how it's displayed in the terminal
+        # TODO: Fix below to meet flake8 requirements and also display nicely in terminal
+        tutorial_message_1 = '''Current Date: January 1, 1970\n'''
+        tutorial_message_2 = f'''Hello traveler, unfortunately there has been a glitch in the matrix and it appears \
+you have been pulled through a quantum computer to the past. \
+You are currently in {colorize('brightGreen', 'ARPANET')}. Somewhere on this server there is a connection \
+that should allow you to travel to a different server. \
+Each server is connected to a different point in time. \n'''
+        tutorial_message_3 = '''Your mission is to return to 2020 by traveling through different servers,
+networks, and possibly solving a few riddles on the way.\n'''
+        tutorial_message_4 = f'''View what is in a node and the available connections by typing: {colorize('brightYellow', 'look')}\
+\nYou can move between different nodes and networks by typing: \
+{colorize('brightYellow','go <connection name>')}
+You can always view the available commands by typing: \
+{colorize('brightYellow','help')}\n'''
+        tutorial_message_5 = '''Good luck!\n'''
+        tutorial_message_6 = '''Oh, there have been recent reports of possible viruses found in some networks. \
+We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉ ̷͓͓̈̇s̶̩̍o̸̻̓ ̶͎̽̋I̵͛̏͜'̶̨͠m̷̛̹͝ ̷͚̀ṡ̴͈͉ṳ̷͛r̷̝͕͐e̸̛̬͛ ̷̧͐͛î̷̛͙̜t̸̖͒̓'̴̦̙̉s̸͇͊̕ ̸͚̻̆̋f̵̭͈̐ī̸̡̪n̸͖̯̄̇é̷̡.'''
+        # I have it split into different messages to experiment with sending them in a delayed fashion
+        await self.send_json({'message': tutorial_message_1})
+        await asyncio.sleep(2)
+        await self.send_json({'message': tutorial_message_2})
+        await asyncio.sleep(7)
+        await self.send_json({'message': tutorial_message_3})
+        await asyncio.sleep(3)
+        await self.send_json({'message': tutorial_message_4})
+        await asyncio.sleep(2)
+        await self.send_json({'message': tutorial_message_5})
+        await asyncio.sleep(4)
+        await self.send_json({'message': tutorial_message_6})
 
     async def send_unknown(self, command):
         await self.send_json({
@@ -82,7 +120,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_help(self):
         await self.send_json({
-            'message': 'options: help, send, leave, look, go <room>' # we should have a set() of commands/options
+            'message': 'options: help, send, leave, look, go <room>'  # we should have a set() of commands/options
         })
 
     async def send_room_description(self):
@@ -102,10 +140,10 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         players = (
             Room.objects.get(name=self.player.room.name).player_set.all()
                         .exclude(name=self.player.name)
-                        .values_list('name',flat=True)
+                        .values_list('name', flat=True)
         )
         if players:
-            players_string= "Players here: " + colorize('brightBlue', ", ".join(players)) + "\r\n"
+            players_string = "Players here: " + colorize('brightBlue', ", ".join(players)) + "\r\n"
         else:
             players_string = ""
 
@@ -113,7 +151,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
         message = (
                    "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
-                    self.player.room.description + "\r\n\n" +
+                   self.player.room.description + "\r\n\n" +
                    players_string +
                    "Exits: " + ", ".join([colorize('brightGreen', exit.name) for exit in exits])
                   )
