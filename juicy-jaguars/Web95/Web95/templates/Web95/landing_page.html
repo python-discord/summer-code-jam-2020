@@ -4,12 +4,11 @@
 
 {% block content %}
 
-<h1>Web95</h1>
 <h1 style="display:inline">Web95 <h5 style="display:inline">By Juicy Jaguars</h3></h1>
 
 <p style="position: absolute; bottom: 25px; right: 10px;">Site is under maintenance</p>
 
-<div class="card card-tertiary draggable" style="width: 400px; top: 50px; left: 250px;" tabindex="0">
+<div class="card card-tertiary draggable" style="width: 400px; top: 50px; left: 450px;" tabindex="0">
     <div class="card-header draggable-header">
         <img class="header-icon" src="{% static 'images/icons/python_old.png' %}" height="20px">
         Python Discord Summer Code Jam 2020
@@ -31,7 +30,7 @@
 
 <!-- Easter Egg Here! Click OK -->
 
-<div class="card card-tertiary draggable" style="width: 200px; top: 80px; left: 850px;" tabindex="0">
+<div class="card card-tertiary draggable" style="width: 200px; top: 80px; left: 900px;" tabindex="0">
     <div class="card-header draggable-header">
         <img class="header-icon" src="{% static 'images/icons/Dialog icons/Question.ico' %}" height=20px>
         Question
@@ -157,10 +156,10 @@
     </div>
 </div>
 
-<div class="card card-tertiary draggable" style="width: 350px; left: 50px; top: 400px;" tabindex="0">
+<div class="card card-tertiary draggable" style="width: 350px; left: 50px; top: 65px;" tabindex="0">
     <div class="card-header draggable-header">
-        <img class="header-icon" src="{% static 'images/icons/Dialog icons/Info.ico' %}" height=20px>
-        Another Window
+        <img class="header-icon" src="{% static 'images/icons/Dialog icons/Question.ico' %}" height=20px>
+        Help Dialog
 
         <button class="btn btn-sm btn-primary window-btn window-btn-close">
             <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/close.png' %}"> </span>
@@ -173,29 +172,27 @@
         </button>
     </div>
     <div class="card-body">
-        <p class="card-text">You see, I needed to create some more windows.</p>
-        <p class="card-text">So I created this window.</p>
-    </div>
-</div>
-
-<div class="card card-tertiary draggable" style="width: 250px; left: 700px; top: 80px;" tabindex="0">
-    <div class="card-header draggable-header">
-        <img class="header-icon" src="{% static 'images/icons/Dialog icons/Info.ico' %}" height=20px>
-        Yet Another Window
-
-        <button class="btn btn-sm btn-primary window-btn window-btn-close">
-            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/close.png' %}"> </span>
-        </button>
-        <button class="btn btn-sm btn-primary window-btn window-btn-maximise">
-            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/maximise.png' %}"> </span>
-        </button>
-        <button class="btn btn-sm btn-primary window-btn window-btn-minimise">
-            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/minimise.png' %}"> </span>
-        </button>
-    </div>
-    <div class="card-body">
-        <p class="card-text">I also created this window!</p>
-        <p class="card-text">Isn't that nice?</p>
+        <h6 class="card-text">Web95 Help</h6>
+        <hr>
+        <div class="help-menu">
+            <h6 class="card-text help-header">Functions
+                <ul class="help-list">
+                    <li class="card-text">Complete window manager functions: Minimise, maximise, and movable windows. The taskbar items also fully work</li>
+                    <li class="card-text">The Start menu functions, however the only menu with a function assigned is Settings. This menu allows changing of theme and wallpaper.</li>
+                    <li class="card-text">Internet Explorer functions almost completely as a browser. Many sites wont work at the moment, this is due to the way the site is served. More details on IE's functions and problems below</li>
+                </ul>
+            </h6>
+            <h6 class="card-text help-header">Easter Eggs
+                <p class="card-text">We've placed 2 Easter Eggs in this site. See if you can find them!<br>Hint: Inspect Element?</p>
+            </h6>
+            <h6 class="card-text help-header">Internet Explorer
+                <p class="card-text">You can visit most sites by simply typing the URL into the address bar of Internet Explorer and hitting enter.</p>
+                <p class="card-text">&nbsp;&nbsp;Tip: This is IE 1.0, you can't search in the address bar like modern browsers! You need a URL.</p>
+                <p class="card-text">Only the Home, Stop and Reload buttons work. The other either would've been impossible, or too complex and outside the scope of this Code Jam. </p>
+                <p class="card-text">And for the sites biggest feature: Webpages are <i>Parsed</i> by the server to make them look older! Fonts, backgrounds, borders and more are all changed! Google and the Apple site look particularly good.</p>
+            </h6>
+            <p class="card-text">We hope you enjoy Web95!</p>
+        </div>
     </div>
 </div>
 

@@ -273,3 +273,18 @@ body {
     margin: 3px;
     background-color: white;
 }
+
+.help-menu {
+    margin: -8px;
+}
+
+.help-header {
+    border: 2px outset #666 !important;
+    font-size: 0.8em;
+    margin: 1px;
+    padding: 5px 5px 2px 5px;
+}
+
+.help-list {
+    padding-left: 10px;
+}
