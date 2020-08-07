@@ -56,3 +56,8 @@ def parse_render_request(request):
     # grab all files from the project and compile it into a gif
     # render "preview.html"
     # send gif over as byte as http response
+
+
+def return_home(request):
+    """sends user back to feed page"""
+    pass
