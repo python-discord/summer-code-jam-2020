@@ -62,7 +62,6 @@ function wm_setup(elem) {
             }
         }
 
-        console.log("focusing");
         x.windowstate = "focused";
         x.classList.add("card-tertiary");
         x.style.zIndex = (windows.length - 1).toString();
@@ -81,7 +80,6 @@ function wm_setup(elem) {
 function wl_setup(elem, w_id) {
     var x = document.getElementById(w_id);
     var x_tb = document.getElementById(x.id+"-lstbtn");
-    console.log(x_tb);
 
     elem.onclick = wm_restore_minimise_toggle;
 
