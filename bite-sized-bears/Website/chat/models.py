@@ -1,5 +1,5 @@
 from django.db import models
-from syndication_app.models import User
+from Website.syndication_app.models import User
 
 
 # Create your models here.
