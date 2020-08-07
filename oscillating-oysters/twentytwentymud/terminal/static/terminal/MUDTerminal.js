@@ -34,10 +34,14 @@ class MUDTerminal {
         t.printReply("Leaving: " + data.leave);
       } else if (data.msg_type == "ENTER") {
         t.printReply(
-          "Server: " + data.username + " has entered the DuNgEoN!!!"
+          data.username + " enters room."
+        );
+      } else if (data.msg_type == "EXIT") {
+        t.printReply(
+          data.username + " leaves."
         );
       }
-      t.printReply("Server: " + data.message);
+      t.printReply(data.message);
     };
 
     this.sender = this.sendByWebSocket;
@@ -86,6 +90,7 @@ class MUDTerminal {
   printReply(reply) {
      /* \x9B1M deletes current line (the prompt) which we overwrite, and then
       * print a new prompt */
+    reply = reply.replace(/(?![^\n]{1,80}$)([^\n]{1,80})\s/g, '$1\r\n');
     this.terminal.write("\x9B1M" + reply);
     this.terminal.write("\r\n");
     this.printPrompt();
