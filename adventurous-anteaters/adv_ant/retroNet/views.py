@@ -3,10 +3,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Tweet
 from  .forms import *
-
+from django.contrib.auth.decorators import login_required
 
 # index view when user logs in
 
+@login_required(login_url='/login/')
 def createpost(request):
     return render(request, 'tweet.html')
 
