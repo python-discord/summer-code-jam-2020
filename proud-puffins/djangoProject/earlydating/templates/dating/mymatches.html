@@ -1,0 +1,17 @@
+{% extends 'dating/base.html' %}
+
+{% block title %}Your Match{% endblock %}
+{% block content %}
+<div class="w3-container" style="text-align: left;">
+<h1 style="font-size:x-large">Here are your matches</h1>
+</div>
+{% csrf_token %}
+    {% for item in liked_you %}
+    <div class="grid-container">
+        <h3 style="font-weight: bold; font-size: large;">{{ item.voter.username }}</h3><br>
+        <img src="/media/{{ item.voter.profile.img }}" height="250"><br>
+        <h2>{{item.voter.profile.bio}}</h2>
+    </div>
+    {% endfor %}
+
+{% endblock %}
