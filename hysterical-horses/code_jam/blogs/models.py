@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
+
 
 User = settings.AUTH_USER_MODEL
 
@@ -31,13 +33,25 @@ class Comment(models.Model):
     A model that has number of likes, a foreign key to author,
     and a foreign key to the Post it is for.
     """
-
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name="author")
     content = models.CharField(max_length=250, blank=False, null=False)
+    # content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    active = models.BooleanField(default=True)
+    parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True,
+                               blank=True, related_name="replies")
 
     def __str__(self):
-        return self.post.title
+        inner = ', '.join([self.post.title, self.author.username, self.content,
+                           str(self.parent)])
+        rv = ' '.join(['<Comment', inner, '>'])
+        return rv
+
+    class Meta:
+        ordering = ('-created',)
 
 
 class Like(models.Model):
