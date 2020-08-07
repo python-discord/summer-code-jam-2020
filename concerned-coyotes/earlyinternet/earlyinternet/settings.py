@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'wikipedia.apps.WikipediaConfig',
     'account',
     'dashboard',
+    'todo'
 ]
 
 MIDDLEWARE = [
