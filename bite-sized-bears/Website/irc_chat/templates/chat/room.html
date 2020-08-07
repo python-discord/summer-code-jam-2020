@@ -23,9 +23,8 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            console.log(data.messages)
-            for( message in data.messages){
-                document.querySelector('#chat-log').value += (message.author + ':' + message.content + '\n');
+            for(index in data.messages){
+                document.querySelector('#chat-log').value += (data.messages[index].author + ':' + data.messages[index].content + '\n');
             }
         };
 
