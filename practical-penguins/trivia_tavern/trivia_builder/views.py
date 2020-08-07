@@ -5,7 +5,7 @@ from django.db import transaction, IntegrityError
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -90,7 +90,7 @@ class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, Creat
 
 class TriviaQuizUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = TriviaQuiz
-    fields = ['name', 'content']
+    fields = ['name']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
