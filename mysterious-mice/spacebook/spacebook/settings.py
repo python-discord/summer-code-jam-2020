@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "posts.apps.PostsConfig",
     "mars_weather.apps.MarsWeatherConfig",
     "guestbook.apps.GuestbookConfig",
+    "welcome_page.apps.WelcomePageConfig",
 ]
 
 MIDDLEWARE = [

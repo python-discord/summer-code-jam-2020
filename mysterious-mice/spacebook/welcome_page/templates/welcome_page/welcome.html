@@ -1,0 +1,32 @@
+{% extends "welcome_page/base.html" %}
+
+{% load static %}
+
+{% block title %}Spacebook!{% endblock %}
+
+{% block body %}
+
+
+
+
+
+<div class="center_screen">
+    This page is under construction.
+    <table>
+      <tr>
+        <th>Visitor #{{count}}</th>
+        <th> <form><input type=submit value="mute" style="width:100%"></form> </th> 
+      </tr>
+      <tr>
+        <th colspan="2"><form action='home/'><input type=submit value="Enter" style="width:100%"></form></th>
+      </tr>
+      <tr>
+        <th style="border:none;" colspan="2"><h2>Welcome to Spacebook!</h2></th>
+      </tr>
+    </table>
+
+    
+</div>
+
+
+{% endblock %}
