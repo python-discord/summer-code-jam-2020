@@ -29,15 +29,12 @@ class Engine():
     def think(self, thought_content=None):
         if thought_content is None:
             return "What the hell are you thinking about?"
-
-        async_to_sync(self.consumer.channel_layer.group_send)(
-            self.consumer.room_group_name,
-            {
-                'type': 'message_to_self',
-                'sender_channel_name': self.consumer.channel_name,
-                'message': f"{self.user} thinks: {thought_content}",
-            }
-        )
+        else:
+            self.__send(
+                'message_to_self',
+                f"{self.user} thinks: {thought_content}",
+                sender_channel_name = self.consumer.channel_name,
+                )
 
     def where(self):
         return f"You are here: {self.player.location.description} ({self.player.location})"
@@ -154,3 +151,14 @@ class Engine():
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
         else:
             return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
+
+
+    def __send(self, type, message, **kwargs):
+        sending_event = {
+            'type': type,
+            'message': message,
+            }
+        for k, val in kwargs.items():
+            sending_event[k] = val
+        async_to_sync(self.consumer.channel_layer.group_send)(
+            self.consumer.room_group_name, sending_event)
