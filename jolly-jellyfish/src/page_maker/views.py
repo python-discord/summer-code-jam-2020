@@ -1,5 +1,7 @@
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     TemplateView,
@@ -210,6 +212,14 @@ class CommentCreateView(LoginRequiredMixin, FormView):
     def get_success_url(self):
         pagename = self.kwargs.get('pagename')
         return reverse_lazy('webpage-detail', kwargs={'pagename': pagename})
+    
+    # redirect to detail view
+    def handle_no_permission(self):
+        if self.raise_exception or self.request.user.is_authenticated:
+            raise PermissionDenied(self.get_permission_denied_message())
+        return redirect_to_login(reverse_lazy(
+            'webpage-detail', kwargs={'pagename': self.kwargs.get('pagename')}
+            ), self.get_login_url(), self.get_redirect_field_name())
 
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
