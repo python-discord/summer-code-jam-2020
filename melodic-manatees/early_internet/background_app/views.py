@@ -1,7 +1,8 @@
 from .forms import FileUploadForm
 from .models import BackgroundFile
 from . import background_utility
-
+import os
+from django.core.files import File
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -31,16 +32,17 @@ def add_background(request):
                 background_owner=request.user.profile
                 )
             file_instance.save()
-            if background_utility.resolution_checker(file_instance.background_file.path):
-                file_instance.background_thumbnail = background_utility.image_resizer(file_instance.background_file.path)
-                file_instance.save()
-                print(file_instance.background_thumbnail.url)
-                messages.success(request, 'background added')
-                return redirect('background-home')
-            else:
-                file_instance.delete()
-                messages.error(request, "image resolution too low or '.' in file name")
-                return redirect('add-background')
+            thumbnail_path = background_utility.image_resizer(file_instance.background_file.path)
+            file_instance.background_thumbnail.save(f'{file_instance.background_title}_{file_instance.id}_thumbnail', File(open(f'{thumbnail_path}', 'rb'))) 
+            file_instance.save()
+            if os.path.exists(f'{os.path.splitext(file_instance.background_file.path)[0]}_thumbnail'):
+                os.remove(f'{os.path.splitext(file_instance.background_file.path)[0]}_thumbnail')
+            messages.success(request, 'background added')
+            return redirect('background-home')
+        else:
+            file_instance.delete()
+            messages.error(request, "image resolution too low")
+            return redirect('add-background')
     else:
         form = FileUploadForm()
     return render(

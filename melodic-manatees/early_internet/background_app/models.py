@@ -38,6 +38,5 @@ class BackgroundFile(models.Model):
 def delete_file(sender, instance, **kwargs):
     if instance.background_file:
         if os.path.isfile(instance.background_file.path):
-            thumbnail_path = os.path.splitext(instance.background_file.path)[0] + '_thumbnail'
-            os.remove(thumbnail_path)
+            os.remove(instance.background_thumbnail.path)
             os.remove(instance.background_file.path)
