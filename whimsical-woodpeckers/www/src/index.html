@@ -37,8 +37,14 @@
     </div>
 </script>
 <script type="text/x-template" id="message-template">
-    <div v-bind:title="time">
-      {{ sender }}: {{ content }}
+    <div
+      v-bind:title="time"
+      v-bind:class="{
+        'alert-primary': sender==currentUser,
+        'alert-light': sender!=currentUser,
+        'alert':true}"
+      >
+        <strong>{{ sender }}</strong>: {{ content }}
     </div>
 </script>
 </body>

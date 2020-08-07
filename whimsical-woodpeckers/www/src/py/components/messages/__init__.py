@@ -13,6 +13,9 @@ messages = [
 
 
 class Message(Component):
+    data = {
+        'currentUser': 'Jane Doe',
+    }
     props = ['title', 'sender', 'content', 'time']
     template = "#message-template"
 
@@ -20,7 +23,6 @@ class Message(Component):
 class Messages(Component):
     data = {
         'messages': messages,
-        'current_user': 'Jane Doe',
     }
     components = {
         "message": Message.get_component()
