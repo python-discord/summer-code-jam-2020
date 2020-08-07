@@ -20,8 +20,11 @@
     {% endif %}
 </p>
 <p>{{ webpage.user_text_3 }}</p>
+
 <p>
-    <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
+    {{ num_likes }} like{{ num_likes|pluralize }}
+<br>
+    <a href="{% url 'webpage-detail' pagename=webpage.name %}">Like & comment on my page!</a>
 </p>
 <p>
     <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>

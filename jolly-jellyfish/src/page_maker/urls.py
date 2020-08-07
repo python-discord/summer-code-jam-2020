@@ -20,7 +20,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('/', MainView.as_view(), name='home'),
+    path('', MainView.as_view(), name='home'),
     path('users/register/', UserRegister.as_view(), name='register'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
     path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),

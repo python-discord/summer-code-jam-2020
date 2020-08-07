@@ -92,6 +92,12 @@ class WebpageView(DetailView):
     slug_field = 'name'
     slug_url_kwarg = 'pagename'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        webpage = self.get_object()
+        context['num_likes'] = webpage.like_set.all().count()
+        return context
+
 
 class WebpageDetailView(DetailView):
     """
@@ -118,7 +124,7 @@ class WebpageListView(ListView):
     model = Webpage
     template = 'page_maker/webpage_list.html'
     context_object_name = 'webpages'
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         """Return the webpages sorted by number of likes"""
