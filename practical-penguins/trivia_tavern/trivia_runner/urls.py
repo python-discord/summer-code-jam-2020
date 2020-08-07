@@ -1,9 +1,9 @@
 from django.urls import path
 
-from trivia_runner.views import (setup, question, end_screen)
+from trivia_runner.views import (setup, active_trivia, TriviaQuizDeleteView)
 
 urlpatterns = [
+    path('<int:pk>/', active_trivia, name='activequiz'),
     path('<int:pk>/setup/', setup, name='activequiz-setup'),
-    path('<int:pk>/<int:question_number>/', question, name='activequiz-question'),
-    path('<int:pk>/end/', end_screen, name='activequiz-end'),
+    path('<int:pk>/delete/', TriviaQuizDeleteView.as_view(), name='activequiz-delete'),
 ]
