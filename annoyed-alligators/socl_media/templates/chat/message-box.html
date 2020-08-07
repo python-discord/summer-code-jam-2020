@@ -2,9 +2,11 @@
 
 {% block content %}
     {% for message in object_list %}
-        <h2>Sent by: {{message.sender}}</h3>
         <p>
-            <font size="1" face="verdana" color="blue">{{message.sent_at}}</font> {{message.body}}
+          {{message.body}}
+          <br>
+            <font size="1" face="verdana" color="blue">{{message.sent_at}}, Sent by: {{message.sender}}</font> 
         </p>
+        <p></p>
     {% endfor %}
 {% endblock content %}
