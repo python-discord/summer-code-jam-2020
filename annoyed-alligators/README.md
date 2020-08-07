@@ -14,10 +14,24 @@ TAGLINE here
 
 </div>
 
+## About
+Command Line Interfaces are one of the oldest Human-Computer interaction methods. So much so that they were thought of as the *only* way of interacting with a computer even much later than the IBM computers of the early 80s. Right around the same time, some dudes at Apple were coming up with the most basic GUI. The early version of internet had long been existing since ARPANET grew from 1970s. <br>
+So what if some crazy dude had this idea of making what we now call "Social Media" back then?
+Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the web pages! So here's a **SoCL Media**.
+
+
+-------------------- SCREENSHOT HERE
+
 ## Setup
 1. Clone this repository by running `git clone https://github.com/akshgpt7/summer-code-jam-2020`.
 2. Make sure you have `pipenv` installed in your system. If not, do it by `pip install pipenv`.
 3. cd to the team's folder by `cd summer-code-jam-2020/annoyed-alligators`.
 4. To activate a virtual environment for the project, run `pipenv shell`. After this, you'll be inside the virtual environment.
 5. Install the dependencies by running `pipenv install`.
+
+## Usage
+...
+
+**Commands:**
+
 
