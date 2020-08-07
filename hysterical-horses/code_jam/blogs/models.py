@@ -45,7 +45,10 @@ class Comment(models.Model):
                                blank=True, related_name="replies")
 
     def __str__(self):
-        return self.post.title + ' | ' + self.author.username
+        inner = ', '.join([self.post.title, self.author.username, self.content,
+                           str(self.parent)])
+        rv = ' '.join(['<Comment', inner, '>'])
+        return rv
 
     class Meta:
         ordering = ('-created',)

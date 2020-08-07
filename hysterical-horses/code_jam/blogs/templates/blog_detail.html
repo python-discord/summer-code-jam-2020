@@ -27,7 +27,7 @@
         <p>{{ comment.author.username }} | {{ comment.created }}</p>
         {{ comment.content | linebreaks }}
 
-        {% for reply in comment.replies.all %}
+        {% for reply in comment.replies.all|dictsort:"created" %}
             <p>{{ reply.author.username }} | {{ reply.created }}</p>
             {{ reply.content | linebreaks}}
         {% endfor %}
