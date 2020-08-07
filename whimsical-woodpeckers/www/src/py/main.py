@@ -1,5 +1,6 @@
 from pyvue import Vue, Component, VueTest
 from app import App
+from fetch import Fetch
 
 
 # Components are a little hacky and not very pythonic but they are functional now
