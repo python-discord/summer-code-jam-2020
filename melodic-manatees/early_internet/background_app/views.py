@@ -1,5 +1,6 @@
 from .forms import FileUploadForm
 from .models import BackgroundFile
+from . import background_utility
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -7,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 
 
 def background_home(request):
-    print(request.user)
     background_list = BackgroundFile.objects.filter(
         background_owner=request.user.profile
         )
@@ -31,8 +31,14 @@ def add_background(request):
                 background_owner=request.user.profile
                 )
             file_instance.save()
-            messages.success(request, 'background added')
-            return redirect('background-home')
+            if background_utility.resolution_checker(file_instance.background_file.path):
+                file_instance.background_thumbnail = background_utility.image_resizer(file_instance.background_file.path)
+                messages.success(request, 'background added')
+                return redirect('background-home')
+            else:
+                file_instance.delete()
+                messages.error(request, "image resolution too low or '.' in file name")
+                return redirect('add-background')
     else:
         form = FileUploadForm()
     return render(
@@ -48,6 +54,8 @@ def add_background(request):
 def delete_background(request, pk):
     to_be_deleted_background = BackgroundFile.objects.get(pk=pk)
     if request.method == 'POST':
+        print(to_be_deleted_background.background_thumbnail)
+        to_be_deleted_background.background_thumbnail.delete()
         to_be_deleted_background.delete()
         messages.success(request, 'background image deleted')
         return redirect('background-home')

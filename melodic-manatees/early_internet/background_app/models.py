@@ -25,6 +25,10 @@ class BackgroundFile(models.Model):
         UserProfile,
         on_delete=models.CASCADE
         )
+    background_thumbnail = models.ImageField(
+        upload_to=('backgrounds/'),
+        default=None
+    )
 
     def __str__(self):
         return self.background_title
@@ -34,4 +38,6 @@ class BackgroundFile(models.Model):
 def delete_file(sender, instance, **kwargs):
     if instance.background_file:
         if os.path.isfile(instance.background_file.path):
+            thumbnail_path = os.path.splitext(instance.background_file.path)[0] + '_thumbnail'
+            os.remove(thumbnail_path)
             os.remove(instance.background_file.path)
