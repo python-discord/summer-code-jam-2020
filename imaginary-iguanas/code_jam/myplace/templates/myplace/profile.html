@@ -14,12 +14,34 @@
         {% endif %}
     {% endfor %}
 
+    <div class="new-comment">
+        {% if user.is_authenticated %}
+            <div>Leave a comment.</div>
+        {% else %}
+            <div>Please login to leave a comment.</div>
+        {% endif %}
+    </div>
+
+    <div class="comments">
     {% if profile_comments %}
-        <ul>
+        <table id="user-comments">
             {% for comment in profile_comments %}
-                <li>{{ comment }}</li>
+            <tr>
+                <td class="tableLeft">
+                    <a href="#">
+                        <div><b>{{ comment.user_profile.user.username }}</b></div>
+                        <img src="{{ comment.user_profile.image.url }}" height = "200" width = "200"></a>
+                </td>
+                <td class="tableRight">
+                    <div><b class="date">{{comment.creation_date}}</b></div>
+                    <div><p>{{ comment.comment }}</p></div>
+                </td>
+            </tr>
             {% endfor %}
-        </ul>
+        </table>
+    {% else %}
+        <div>No comments yet.</div>
     {% endif %}
+    </div>
 
 {% endblock content %}
