@@ -34,4 +34,5 @@ urlpatterns = [
         name="logout",
     ),
     path("dashboard/", views.TraderDashboard.as_view(), name="dashboard"),
+    path("review/", views.ReviewCreateView.as_view(), name="review"),
 ]
