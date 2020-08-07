@@ -10,9 +10,9 @@
     <title>Chat with friends!</title>
 
   <!-- App specific stylesheet -->
-<!--    <link href="../static/css/irc.css" rel="stylesheet" type="text/css"> -->
-<!--    <link href="../static/css/aol.css" rel="stylesheet" type="text/css">-->
-   <link href="../static/css/messenger.css" rel="stylesheet" type="text/css">
+   <link href="./css/irc.css" rel="stylesheet" type="text/css">
+   <!-- <link href="./css/aol.css" rel="stylesheet" type="text/css"> -->
+   <!-- <link href="./css/messenger.css" rel="stylesheet" type="text/css"> -->
 
 </head>
 <body>
@@ -38,7 +38,7 @@
       <div id="chat-window">
 <!--        Used to test overflow scrolling -->
 <!--       <div style="height: 200vh;"></div>-->
-        <messages></messages>
+        <p></p>
 <!--        Used to test overflow scrolling -->
       </div>
 
@@ -47,9 +47,11 @@
           <button id="send-message" class="btn btn-primary" type="button">Send Message</button>
         </div>
 <!--        Comment out next line for IRC -->
-       <input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>
+       <!-- <input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus> -->
+
 <!--        Uncomment next line for IRC -->
-        <!-- <span id="prepend-input">>&nbsp;</span><input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" onblur="this.focus()" autofocus> -->
+        <textarea></textarea>
+<!--        <span id="prepend-input">guest@woodpecker:~$</span><input id="send-message-text" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" onblur="this.focus()" autofocus>-->
 <!--
 TODO: Add vue if statement to add this if on IRC app:
 
@@ -70,17 +72,6 @@ TODO: Add vue if statement to add this if on IRC app:
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-      $(document).ready(function() {
-          $("body").tooltip({ selector: '[data-toggle=tooltip]' });
-      });
-    </script>
-    <script type="text/x-template" id="messages">
-      <div>
-        <div v-for="message in messages" :key="message.content" v-bind:class="{ \'alert-primary\': (current_user==message.sender), \'alert-info\':(current_user!=message.sender) }" class="alert">
-          <span data-toggle="tooltip" data-placement="top" v-bind:title="message.time">{{ message.sender }}</span>: {{ message.content }}
-        </div>
-      </div>'
-    </script>
+
 </body>
 </html>

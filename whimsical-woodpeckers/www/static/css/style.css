@@ -1,0 +1,51 @@
+#message-container{
+  padding-top: 10px;
+  padding-left:200px;
+  width: 100%;
+}
+
+#message-input{
+  width: 100%;
+}
+
+#chat-name{
+/*  background: #ffffff;*/
+  width: 100%;
+}
+
+.app{
+  height: 100vh;
+}
+
+#logo{
+  height: 300px;
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center;
+  /*  Placeholder image*/
+  background-image: url('https://media.discordapp.net/attachments/737282857327788042/739220734328569916/Asset_36x.png?width=1441&height=590');
+}
+
+#login{
+  text-align: center;
+}
+
+#login *{
+  width: 100%;
+
+}
+
+#chat-window{
+/*  position: absolute;*/
+  height: 90vh;
+/*  background: #f0f0f0;*/
+  overflow-y: scroll;
+}
+
+body{
+  overflow-y: hidden;
+}
