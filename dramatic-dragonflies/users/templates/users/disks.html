@@ -1,16 +1,21 @@
 {% extends 'users/base.html' %}
 {% load static %}
 {% block content%}
-<div id = "main">
+
 {% if is_empty == True %}
 	<h1>You don't have any Virtual Machines yet!</h1>
 	{% else %}
+
 	{% for vm in object_list %}
-	<form name="diskform" id="diskform" method="get" action="{{ vm.first_action }}">
-		<div class = "disk-container">
-			<div class = "disk-item1"> <img src='{% static "users/floppydisk.png" %}'/> <p> {{vm.name}} </p> </div>
-			<div class = "disk-item2"> <button class = "button" type="submit"> Start Virtual Machine </button> </div>
-			<div class = "disk-item3"> <a style= "float:right" href=""> +(disk) </a>
+<br>
+	<ul>
+		<div class="main" >
+		<form name="diskform" id="{{ vm.id }}" method="get" action="{{ vm.first_action }}">
+			<div > <img src='{% static "users/floppydisk.png" %}'/> <p style="color : white;"> {{vm.name}} </p> </div>
+			<div > <button class = "button" type="submit"> Start Virtual Machine </button> </div>	<br>
+			<div ><a style="color : white;" href="{% url 'delete_vm' vm.pk %}">Delete this VM</a> </div>	<br>
+
+			<p style="color : white;" >Choose the Floppy you want to use:</p>
 				<select name="settings" id = "settings">
 				{% for storage_id, name in vm.add_zips %}
 				<option value="{% url 'index' storage_id vm.pk %}">{{ name }}</option>
@@ -18,18 +23,23 @@
 				</select>
 
 
-			</div>
 </div>
 	</form>
-		</div>
-	{% endfor %}
 
-</div>
+
+
+	</ul>
 <script>
-document.getElementById('diskform').settings.onchange = function() {
+document.getElementById('{{ vm.id }}').settings.onchange = function() {
     var new_action = this.value;
-    document.getElementById('diskform').action = new_action;
+    document.getElementById('{{ vm.id }}').action = new_action;
 };
 </script>
+
+
+	{% endfor %}
+
+
+
 {% endif %}
 {% endblock %}

@@ -5,8 +5,7 @@ body {
 }
 ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+
   overflow: hidden;
   background-color: #333;
 }
@@ -61,25 +60,26 @@ input[id=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
-.disk-container { 
-  display: grid; 
-  grid-template-columns: 1fr 0.5fr 0.5fr; 
-  grid-template-rows: repeat(3, 1fr); 
+.disk-container {
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 0.5fr;
+  grid-template-rows: repeat(3, 1fr);
   place-items:center;
-} 
+
+}
 .disk-container img {
 	display: block;
 	position: relative;
-	left: 50px; 
+	left: 50px;
 }
 
-.disk-item1 { 
+.disk-item1 {
 
 }
 .login-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	place-items:center; 
+	place-items:center;
 	grid-column-gap: 50px;
   max-height: 100vh;
   height: 55vh;
