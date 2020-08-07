@@ -1,0 +1,16 @@
+{% extends "chat/layout.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div id="messages"></div>
+    <div class="chat-input">
+        <input id="input">
+        <label for="input">Enter your message here</label>
+    </div>
+</main>
+{% endblock content%}
+
+{% block javascript %}
+<script src="{% static 'scripts/main.js' %}"></script>
+{% endblock javascript %}
