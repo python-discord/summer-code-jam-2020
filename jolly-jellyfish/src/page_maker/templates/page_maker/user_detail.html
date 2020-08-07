@@ -1,0 +1,25 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+<div>
+  username: {{ viewed_user.username }}
+  {% if request.user == viewed_user %}
+  <a href="{% url 'user-update' pk=viewed_user.id %}">update</a>
+  <a href="{% url 'user-delete' pk=viewed_user.id %}">delete</a>
+  {% endif %}
+</div>
+<div>
+  {% for webpage in user_pages %}
+  <div>
+    <a href="{% url 'webpage-view' pagename=webpage.name %}">
+      <p>{{ webpage.user_title }}</p>
+    </a>
+    {% if webpage.thumbnail %}
+    <img src="{{ webpage.thumbnail.url }}">
+    {% else %}
+    no thumbnail
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

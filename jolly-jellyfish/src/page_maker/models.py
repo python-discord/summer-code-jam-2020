@@ -4,10 +4,13 @@ from django.utils import timezone
 
 
 class Template(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     style_sheet = models.FileField(null=False, blank=False, upload_to='styles/')
+
+    def __str__(self):
+        return self.name
 
 
 def user_directory_path(instance, filename):
@@ -15,7 +18,7 @@ def user_directory_path(instance, filename):
 
 
 class Webpage(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     thumbnail = models.ImageField(null=True, blank=True, upload_to='thumbnails/')
@@ -39,6 +42,9 @@ class Webpage(models.Model):
 
     # todo: for tameTNT's reference: https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/
 
+    def __str__(self):
+        return self.name
+
 
 class Comment(models.Model):
     parent_page = models.ForeignKey(Webpage, on_delete=models.CASCADE)
@@ -46,3 +52,6 @@ class Comment(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField(max_length=500)
     date_created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title

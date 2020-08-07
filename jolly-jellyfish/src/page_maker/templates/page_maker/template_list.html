@@ -1,0 +1,11 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+{% for template in templates %}
+  <div>
+    <a href="{% url 'template-detail' pk=template.id %}">
+      <p>{{ template.name }}</p>
+    </a>
+  </div>
+{% endfor %}
+{% endblock %}
