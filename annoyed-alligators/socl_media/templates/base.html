@@ -66,56 +66,69 @@
               window.location = url;
             },
 
-						populate_previous: function(){
-							if(this.current_command_num < this.previous_commands.length){
-								this.command = this.previous_commands[this.current_command_num];
-								this.current_command_num += 1 
-							}
-						},
+            populate_previous: function() {
+              if(this.current_command_num < this.previous_commands.length){
+                this.command = this.previous_commands[this.current_command_num];
+                this.current_command_num += 1 
+              }
+            },
 
-						populate_next: function(){
-							if(this.current_command_num > 0){
-								this.current_command_num -= 1
-								this.command = this.previous_commands[this.current_command_num-1];
-							}
-						},
+            populate_next: function() {
+              if(this.current_command_num > 0){
+                this.current_command_num -= 1
+                this.command = this.previous_commands[this.current_command_num-1];
+              }
+            },
 
-						run_command: function(){
-							if(this.command == 'cls' || this.command == 'clear'){
-								this.response = ''
-								this.prompt = "$"
-							} else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
-								this.prompt = "$"
-							} else {
-								if (this.prompt == "..."){
-									this.followup_count += 1
-									var cur_command = `${this.previous_commands[0]}~${this.command} ${this.followup_count}`
-								} else {
-									var cur_command = this.command
-								}
-								axios.get(`/terminal/command?c=${cur_command}`)
-									.then(res =>{
-										this.prompt = res.headers.followup == "True" ?  "..." : "$"
-										this.response = this.response + res.data + "<br>"
+            run_command: function() {
+              if(this.command == 'cls' || this.command == 'clear'){
+                this.response = ''
+                this.prompt = "$"
+                this.followup_count = 0
+              } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
+                this.prompt = "$"
+              } else {
+                var header = {dummy: 0}
+                if (this.prompt == "..."){
+                  this.followup_count += 1
+                  if (this.command == 'n'){
+                    header = {page: this.followup_count}
+                  } else if(!isNaN(this.command)){
+                    header = {article: this.command}
+                  }
+                  var cur_command = this.previous_commands[0] 
+                  {% comment %} `${this.previous_commands[0]}~${this.command} ${this.followup_count}` {% endcomment %}
+                } else {
+                  var cur_command = this.command
+                }
+                axios.get(`/terminal/command?c=${cur_command}`, {headers: header})
+                  .then(res =>{
+                    if(res.headers.followup == "True"){
+                      this.prompt = "..."
+                    } else {
+                      this.prompt = "$"
+                      this.followup_count = 0
+                    }
                     if (res.headers.redirect) { this.redirect(res.headers.redirect) }
-									}, (error) =>{
-									}) 
-							}
-							if(this.prompt != '...') this.previous_commands.unshift(this.command)
-							this.command = ''
-							this.current_command_num = 0
-						},
+                    this.response = this.response + res.data + "<br>"
+                  }, (error) =>{
+                  }) 
+              }
+              if(this.prompt != '...') this.previous_commands.unshift(this.command)
+              this.command = ''
+              this.current_command_num = 0
+            },
 
-						reset_prompt: function(){
-							this.prompt = '$'
-							this.followup_count = 0
-							this.command = ''
-						}
-					},
-					updated: function() { 
-						var el = document.getElementById("terminal-output"); el.scrollTop = el.scrollHeight; 
-					}
-				});
+            reset_prompt: function(){
+              this.prompt = '$'
+              this.followup_count = 0
+              this.command = ''
+            }
+          },
+          updated: function() { 
+            var el = document.getElementById("terminal-output"); el.scrollTop = el.scrollHeight; 
+          }
+        });
 			</script>
 
 

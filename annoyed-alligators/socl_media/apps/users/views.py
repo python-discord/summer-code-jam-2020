@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 
 
-# Create your views here.
-
-
 def signup(request):
     """
-    This view asks new users to sign up
+    This view asks new users to sign up.
+    (Registers new accounts)
 
     """
     if request.user.is_authenticated:
