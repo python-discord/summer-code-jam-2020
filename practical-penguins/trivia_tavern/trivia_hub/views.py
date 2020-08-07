@@ -16,4 +16,5 @@ class TriviaQuizListView(ListView):
     model = TriviaQuiz
     template_name = 'trivia_hub/quiz_list.html'
     context_object_name = 'quizzes'
+    ordering = ['-date_posted']
     paginate_by = 10
