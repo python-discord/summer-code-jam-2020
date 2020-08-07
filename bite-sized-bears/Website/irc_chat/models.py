@@ -15,4 +15,4 @@ class Message(models.Model):
         return self.author.name + ':' + self.content
 
     def last_15_messages(self, community):
-        return Message.objects.filter(community=community).order_by('-timestamp').all()[:15]
+        return Message.objects.filter(community=community).order_by('timestamp').all()[:15]

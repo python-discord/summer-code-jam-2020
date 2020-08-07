@@ -12,24 +12,49 @@
     {{ room_name|json_script:"room-name" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        function start(){
+           ws = new WebSocket(
+                'ws://'
+                + window.location.host
+                + '/ws/chat/'
+                + roomName
+                + '/',
+            );
+            return ws
+        }
+        chatSocket = start();
+        console.log(chatSocket)
+        chatSocket.onopen = function(e) {
+            console.log("connected")
+            chatSocket.send(JSON.stringify({
+                'command': 'fetch_messages'
+            }));
+        };
 
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            for(index in data.messages){
-                document.querySelector('#chat-log').value += (data.messages[index].author + ':' + data.messages[index].content + '\n');
+            if(data['command'] == 'new_message')
+            {
+                document.querySelector('#chat-log').value += (data.message.author + ':' + data.message.content + '\n');
+            }
+            else{
+                for(index in data.messages){
+                    document.querySelector('#chat-log').value += (data.messages[index].author + ':' + data.messages[index].content + '\n');
+                }
             }
         };
 
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
+        chatSocket.onclose = function(event) {
+          if (event.wasClean) {
+                 alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                console.error('Chat socket closed unexpectedly');
+                console.error('Reconnecting ....');
+                // Try to reconnect in 5 seconds
+                setTimeout(function(){chatSocket = start()}, 5000);
+            }
+
         };
 
         document.querySelector('#chat-message-input').focus();
@@ -43,7 +68,7 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'command': 'fetch_messages',
+                'command': 'new_message',
                 'message': message
             }));
             messageInputDom.value = '';
