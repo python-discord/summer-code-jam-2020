@@ -4,11 +4,24 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.svg$/,
+        loader:"svg-inline-loader"
+      },
+      {
+          test:/\.png$/,
+          loader:"file-loader"
+      },
+      {
+        test: /\.(eot|woff|woff2|svg|ttf|ico)([\?]?.*)$/,
+        loader:"file-loader"
       }
+      
+    
     ]
   }
 };

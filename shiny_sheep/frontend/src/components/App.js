@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import {GlobalStyle,ThemeProvider} from '@react95/core';
+import { createGlobalStyle } from 'styled-components';
 import Chat from "./Chat";
+import Footer from "./Footer";
+import Home from "./Home";
+
+
+const GlobalStyles = createGlobalStyle`
+  body {
+    font-family: 'ms_sans_serif';
+    background-color: #008080;
+    
+  }
+`;
 
 class App extends Component {
   constructor(props) {
@@ -10,8 +23,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Hello world!</h1>
-        <Chat/>
+          <ThemeProvider>
+            <GlobalStyle/>
+            <Home/>
+            <Footer/>
+          {/* <Chat/> */}
+         
+         
+          </ThemeProvider>
+    
+
       </div>
     )
   }
