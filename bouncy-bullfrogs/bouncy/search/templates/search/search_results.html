@@ -1,0 +1,32 @@
+{% extends "search/base.html" %}
+{% block body %}
+Hello
+<form action="{% url 'search:search-process' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <input autofocus class="form-control" type="text" name="q" value={{view.kwargs.query}}>
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Search">
+</form>
+
+{% if results_list|length > 0 %}
+    <ul>
+    {% for result in results_list %}
+    <div>
+        <div style="padding-top: 8px;">
+            <div>
+                <a href="{{result.display_link}}"><h3>{{result.title}}</h3></a>
+                <small class="text-muted">>  <a href="{{result.display_link}}" class="profile-link">{{ result.display_link }}</a></small>
+          </div>
+        </div>
+        <div>
+            <p>{{result.snippet }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <h3 class='text-center'>Sorry. No results found for your query</h3>
+{% endif %}
+{% endblock body%}
