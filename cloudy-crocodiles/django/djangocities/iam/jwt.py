@@ -22,13 +22,15 @@ def encode_auth_token(**kwargs):
 
 
 def load_user(info):
-    token = decode_auth_token(info.context)
-    print(token)
-    return User.query.get(token['id'])
+    request = info.context["request"]
+    token = decode_auth_token(request)
+    return User.objects.get(id=token['id'])
 
 
 def decode_auth_token(request):
     auth_token = request.headers.get('Authorization')
+    if auth_token.startswith("Bearer "):
+        auth_token = auth_token.split(" ", 1)[1]
     print('decode')
     print(auth_token)
     secret = SECRET_KEY
@@ -41,4 +43,4 @@ def decode_auth_token(request):
     except jwt.ExpiredSignatureError:
         return 'Signature expired. Please log in again.'
     except jwt.InvalidTokenError:
-        return 'Invalid token. Please log in again.'
+        return f"Invalid token {auth_token}. Please log in again."

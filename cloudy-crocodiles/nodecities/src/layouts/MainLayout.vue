@@ -31,6 +31,42 @@
           :key="link.title"
           v-bind="link"
         />
+        <q-expansion-item
+          v-if="user !== null"
+          icon="account_circle"
+          :label="user.sub"
+          v-model="userExpanded"
+          expand-separator
+        >
+          <q-item
+            clickable
+          >
+            <q-item-section avatar>
+              <q-icon name="account_tree" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Your sites</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item
+            clickable
+            @click="handleLogout"
+          >
+            <q-item-section avatar>
+              <q-icon name="lock" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Logout</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-expansion-item>
+        <EssentialLink
+          v-else
+          title="Login"
+          caption="Login"
+          icon="login"
+          link="/login"
+        />
       </q-list>
     </q-drawer>
 
@@ -50,12 +86,6 @@ const linksData = [
     icon: 'home',
     link: '/',
   },
-  {
-    title: 'Login',
-    caption: 'Login',
-    icon: 'login',
-    link: '/login',
-  },
 ];
 
 export default {
@@ -65,7 +95,21 @@ export default {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData,
+      userExpanded: true,
     };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+  },
+  methods: {
+    handleLogout() {
+      this.$store.dispatch('logout');
+    },
+  },
+  created () {
+    this.$store.dispatch('getLocalStorageUser');
   },
 };
 </script>
