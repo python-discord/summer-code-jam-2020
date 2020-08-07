@@ -17,7 +17,7 @@ class Article(models.Model):
         return f"Article({self.title=}, {self.author=}, {self.publication_date=})"
 
     def get_absolute_url(self):
-        return reverse('article_detail',kwargs={'slug':self.slug})
+        return reverse('article_detail', kwargs={'slug': self.slug})
 
 
 class Comment(models.Model):
