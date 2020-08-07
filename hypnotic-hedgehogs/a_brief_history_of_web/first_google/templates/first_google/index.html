@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'first_google/css/style-main.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<div class="container section-vertical">
+    <!--logo-->
+    <div class="logo">
+        <img id="logo-image" src="{% static 'first_google/image/old-google-logo.png' %}">
+    </div>
+    <!--search area-->
+    <div class="search section-vertical">
+        <form method="Post">
+            {% csrf_token %}
+            <div class="search-area section-vertical">
+                <label for="search-box">Search the web using Google!</label>
+                <input id="search-box" name="search_text" type="text">
+            </div>
+            <div class="search-buttons">
+                <button>Google Search</button>
+                <button>I'm feeling lucky</button>
+            </div>
+        </form>
+    </div>
+    <!--others-->
+    <div class="others section-horizontal">
+        <div class="special-search section-vertical">
+            <div>Special Searches</div>
+            <a href="">Stanford Search</a>
+            <a href="">Linux Search</a>
+        </div>
+        <div class="helps section-vertical">
+            <a href="">Help!</a>
+            <a href="">About Google!</a>
+            <a href="">Company Info</a>
+            <a href="">Google! Logos</a>
+        </div>
+        <div class="subscribe section-vertical">
+            <label for="email">Get Google! updates monthly:</label>
+            <input id="email" type="text">
+            <div class="section-horizontal">
+                <button id="subscribe-button">Subscribe</button>
+                <a href="">Archive</a>
+            </div>
+        </div>
+    </div>
+    <footer> Copyright &copy1998 Google Inc.</footer>
+</div>
+</body>
+</html>
