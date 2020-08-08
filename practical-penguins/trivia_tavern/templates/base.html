@@ -54,9 +54,9 @@
         </div>
       </nav>
     </header>
-    <main role="main" class="container bg-brown">
-      <div class="row">
-        <div class="col-md-8">
+    <main role="main" class="container">
+      <div class="container bulletin-border">
+        <div class="col-md-12 justify-content-center">
           {% if messages %}
             {%for message in messages %}
               <div class="alert alert-{{ message.tags }}">
