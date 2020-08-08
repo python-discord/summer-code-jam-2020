@@ -55,11 +55,11 @@ class Temperature(ConvertedUnit):
         return (self.imperial - 32) * 5 / 9
 
     @property
-    def celsius(self):
+    def celsius(self) -> float:
         return self.metric
 
     @property
-    def fahrenheit(self):
+    def fahrenheit(self) -> float:
         return self.imperial
 
 
@@ -71,11 +71,11 @@ class WindSpeed(ConvertedUnit):
         return self.imperial / 2.237
 
     @property
-    def metre_per_second(self):
+    def metre_per_second(self) -> float:
         return self.metric
 
     @property
-    def miles_per_hour(self):
+    def miles_per_hour(self) -> float:
         return self.imperial
 
 
