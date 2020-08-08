@@ -35,6 +35,7 @@
         {% block content %}
         {% endblock %}
 
+    {% if request.path != '/rss/signup' and request.path != '/rss/login'%}
     <div class="col-sm-3 nopadding visible-lg side-bar">
          {% if user.is_authenticated %}
          <div class="login">
@@ -83,6 +84,7 @@
          </div>
          {% endif %}
     </div>
+    {% endif %}
 
       </div>
     </div>

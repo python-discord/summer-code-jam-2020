@@ -4,7 +4,7 @@
   <div class="col-lg-9">
         {% for post in object_list %}
           <div class="posts">
-           <p><b>c/{{post.publisher.name}}    u/{{post.author.name}} <b></p>
+           <p><b>c/{{post.publisher.name}}    u/{{post.author.name}} </b></p>
            <a href="c/{{post.publisher.name}}/{{post.id}}/"><h3>{{post.title}}</h3></a>
            <p>{{post.get_short_intro}}</p>
           </div>

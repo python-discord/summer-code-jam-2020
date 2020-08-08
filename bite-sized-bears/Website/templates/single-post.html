@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="col-lg-10">
+  <div class="col-lg-9">
       <div class="posts">
-        <p><b>r/{{post.publisher}}</b></p>
+        <a href="/c/{{post.publisher}}"><b>r/{{post.publisher}}</b></a>
         <p>submitted by /u {{post.author}} on {{post.creation_date}}</p>
         <a href="#"><h3>{{post.title}}</h3></a>
         <p>{{post.description}}</p>
