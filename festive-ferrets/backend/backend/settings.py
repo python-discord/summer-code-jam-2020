@@ -85,25 +85,29 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-
-    'default': {
-
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'code-jam-2020',
-
-        'USER': os.getenv('PG_USER'),
-
-        'PASSWORD': os.getenv('PG_PW'),
-
-        'HOST': os.getenv('PG_HOST'),
-
-        'PORT': os.getenv('PG_PORT'),
-
+if(DEBUG):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-}
+            'NAME': 'code-jam-2020',
+
+            'USER': os.getenv('PG_USER'),
+
+            'PASSWORD': os.getenv('PG_PW'),
+
+            'HOST': os.getenv('PG_HOST'),
+
+            'PORT': os.getenv('PG_PORT'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
