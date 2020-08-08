@@ -17,9 +17,6 @@ class TicTacToeBoard:
         (2, 4, 6),
     )
 
-    PLAYER_X_MULTIPLIER = 1
-    PLAYER_O_MULTIPLIYER = -1
-
     def __init__(self, board=None):
         self.board = list(board) if board is not None else [None] * 9
 
