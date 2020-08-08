@@ -18,9 +18,9 @@
 ### Table Of Contents
 
 - [Install](#installing)
-  * [Windows]{#on-windows}
-  * [MacOS/Linux]{#on-macoslinux}
-  * [Manual Inspection]{#manual-inspection}
+  * [Windows](#on-windows)
+  * [MacOS/Linux](#on-macoslinux)
+  * [Manual Inspection](#manual-inspection)
 
 ### Installing
 
