@@ -1,0 +1,26 @@
+<h2>Newest Trades</h2>
+<table style="border-spacing: 10px 0;">
+    <tr>
+        <td>From</td>
+        <td>To</td>
+        <td>Item</td>
+        <td>Quantity</td>
+    </tr>
+    {% for t in trades %}
+    {% with item=t.listing.item %}
+    <tr>
+        <td>{{ item.owner.user.get_username }}</td>
+        <td>{{ t.buyer.user.get_username }}</td>
+        <td>{{ item.product.name }}</td>
+        <td>
+            {{ item.quantity }}
+            {% if item.quantity_type == "G" %}
+                grams
+            {% elif item.quantity_type == "K" %}
+                kilograms
+            {% endif %}
+        </td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+</table>
