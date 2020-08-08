@@ -1,5 +1,6 @@
 import abc
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 
 
@@ -19,39 +20,71 @@ class NewsInterface:
 class ConvertedUnit(abc.ABC):
     def __init__(self, metric: float = None, imperial: float = None):
         if not metric and not imperial:
-            raise Exception
-        elif metric:
-            self.metric = metric
-            if not imperial:
-                self.imperial = self.metric_to_imperial(self.metric)
-        elif imperial:
-            self.imperial = imperial
-            if not metric:
-                self.metric = self.imperial_to_metric(self.imperial)
+            raise ValueError
+        self._metric = metric
+        self._imperial = imperial
 
-    @staticmethod
+    @property
+    def metric(self) -> float:
+        if not self._metric:
+            return self.imperial_to_metric()
+        return self._metric
+
+    @property
+    def imperial(self) -> float:
+        if not self._imperial:
+            return self.metric_to_imperial()
+        return self._imperial
+
     @abc.abstractmethod
-    def metric_to_imperial(metric: float) -> float:
+    def metric_to_imperial(self) -> float:
         """Implement conversion from metric to imperial"""
         raise NotImplementedError
 
-    @staticmethod
     @abc.abstractmethod
-    def imperial_to_metric(imperial: float) -> float:
+    def imperial_to_metric(self) -> float:
         """Implement conversion from imperial to metric"""
         raise NotImplementedError
 
 
 class Temperature(ConvertedUnit):
-    @staticmethod
-    def metric_to_imperial(metric: float) -> float:
-        return (metric * 9 / 5) + 32
+    def metric_to_imperial(self) -> float:
+        return (self.metric * 9 / 5) + 32
 
-    @staticmethod
-    def imperial_to_metric(imperial: float) -> float:
-        return (imperial - 32) * 5 / 9
+    def imperial_to_metric(self) -> float:
+        return (self.imperial - 32) * 5 / 9
+
+    @property
+    def celsius(self):
+        return self.metric
+
+    @property
+    def fahrenheit(self):
+        return self.imperial
+
+
+class WindSpeed(ConvertedUnit):
+    def metric_to_imperial(self) -> float:
+        return self.metric * 2.237
+
+    def imperial_to_metric(self) -> float:
+        return self.imperial / 2.237
+
+    @property
+    def metre_per_second(self):
+        return self.metric
+
+    @property
+    def miles_per_hour(self):
+        return self.imperial
 
 
 @dataclass
 class WeatherInterface:
     temperature: Temperature
+    pressure: float
+    humidity: float
+    wind_speed: WindSpeed
+    wind_deg: int
+    time: datetime
+    clouds: int
