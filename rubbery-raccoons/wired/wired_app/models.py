@@ -13,16 +13,25 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    categories = [
+        ("technology", "Technology"),
+        ("business", "Business"),
+        ("culture", "Culture"),
+        ("politics", "Politics"),
+        ("general", "General News"),
+    ]
+    category = models.CharField(max_length=25, choices=categories, default="technology")
+
     def __str__(self):
         return f"Article({self.title=}, {self.author=}, {self.publication_date=})"
 
     def get_absolute_url(self):
-        return reverse('article_detail', kwargs={'slug': self.slug})
+        return reverse("article_detail", kwargs={"slug": self.slug})
 
     def brief_body(self):
         if len(self.body) > 20:
-            short = ' '.join(self.body.split()[:20])
-            short += ' ...'
+            short = " ".join(self.body.split()[:20])
+            short += " ..."
         else:
             short = self.body
         return short

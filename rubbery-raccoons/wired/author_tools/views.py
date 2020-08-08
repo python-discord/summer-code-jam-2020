@@ -43,6 +43,7 @@ def update(request, slug):
             art.title = form.cleaned_data.get("title")
             art.headline = form.cleaned_data.get("headline")
             art.body = form.cleaned_data.get("body")
+            art.category = form.cleaned_data.get("category")
             art.save()
             messages.success(request, "Article updated!")
     else:

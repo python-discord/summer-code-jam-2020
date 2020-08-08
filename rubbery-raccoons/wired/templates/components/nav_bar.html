@@ -24,19 +24,19 @@
   <h6 class="nav-heading">Top Stories</h6>
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a href="">Business</a>
+      <a href="{% url "category-view" "technology" %}">Technology</a>
     </li>
     <li class="nav-item">
-      <a href="">Culture</a>
+      <a href="{% url "category-view" "business" %}">Business</a>
     </li>
     <li class="nav-item">
-      <a href="">Technology</a>
+      <a href="{% url "category-view" "culture" %}">Culture</a>
     </li>
     <li class="nav-item">
-      <a href="">Politics</a>
+      <a href="{% url "category-view" "politics" %}">Politics</a>
     </li>
     <li class="nav-item">
-      <a href="">General News</a>
+      <a href="{% url "category-view" "general" %}">General News</a>
     </li>
   </ul>
 </div>
