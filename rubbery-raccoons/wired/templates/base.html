@@ -4,9 +4,11 @@
         <meta charset="UTF-8">
         <title>Wired {% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+              crossorigin="anonymous">
+        {% load static %}
+        <link rel="stylesheet" href="{% static "css/base.css" %}">
         {% block extra_heads %}{% endblock %}
-    </head>
     <body>
       {% if messages %}
         {% for message in messages %}
@@ -19,7 +21,7 @@
         {% include 'components/nav_header.html' %}
         {% block content %}{% endblock %}
     </body>
-{% block footer %}    
+{% block footer %}
     <footer>
         <div>
             <h6>Archives</h6>

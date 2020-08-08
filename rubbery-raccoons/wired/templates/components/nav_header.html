@@ -1,8 +1,42 @@
-<p><a href="{% url 'homepage' %}">Home</a>
-{% if request.user.is_authenticated %}
-<p><a href="{% url 'at_main' %}">Your Author Tools</a>
-<p><a href="{% url 'logout_view' %}">Logout</a>
-{% else %}
-<p><a href="{% url 'login_view' %}">Login</a></p>
-<p><a href="{% url 'register' %}">Register</a></p>
-{% endif %}
+<div id="nav-col">
+  <ul class="nav flex-column">
+  <h6 class="nav-heading">Navigation</h6>
+  <li class="nav-item">
+    <a href="{% url 'homepage' %}">Home
+  </li>
+  {% if request.user.is_authenticated %}
+  <li class="nav-item">
+    <a href="{% url 'at_main' %}">Your Author Tools</a>
+  </li>
+  <li class="nav-item">
+    <p><a href="{% url 'logout_view' %}">Logout</a>
+  </li>
+  {% else %}
+  <li class="nav-item">
+    <a href="{% url 'login_view' %}">Login</a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'register' %}">Register</a>
+  </li>
+  {% endif %}
+  </ul>
+  <hr style="width:70%;text-align:left;margin-left:0">
+  <h6 class="nav-heading">Top Stories</h6>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a href="">Business</a>
+    </li>
+    <li class="nav-item">
+      <a href="">Culture</a>
+    </li>
+    <li class="nav-item">
+      <a href="">Technology</a>
+    </li>
+    <li class="nav-item">
+      <a href="">Politics</a>
+    </li>
+    <li class="nav-item">
+      <a href="">General News</a>
+    </li>
+  </ul>
+</div>
