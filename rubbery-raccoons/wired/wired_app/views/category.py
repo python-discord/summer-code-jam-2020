@@ -20,4 +20,10 @@ class CategoryView(ListView):
             category_title = category[0].upper() + category[1:]
             category_title = "Articles on " + category_title
         context["category_title"] = category_title
+
+        years = list(set([a.publication_date.year for a in context["articles"]]))
+        years.sort()
+        print(years)
+        context["years"] = years
+
         return context
