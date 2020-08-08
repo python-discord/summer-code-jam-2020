@@ -38,12 +38,6 @@
 export default {
   name: 'UserProfile',
   props: ['user'],
-  data: function() {
-    return {
-      user: this.user,
-    };
-  },
-
 };
 
 </script>

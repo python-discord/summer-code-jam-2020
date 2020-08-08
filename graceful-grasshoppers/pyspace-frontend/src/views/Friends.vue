@@ -1,17 +1,41 @@
 <template>
   <div class="home mt-5" style="margin: auto;">
-    <FriendsList logged-in-user='false'/>
+  	<FriendsList v-bind:logged-in-user="false" v-bind:user="user" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import FriendsList from '@/components/user-friends';
+import User from '@/models/user';
+import axios from "../http-common.js";
+
+import authHeader from "@/services/auth-header";
 
 export default {
-  name: 'Friends',
-  components: {
-  	FriendsList,
-  }
+	name: 'Friends',
+	data: function() {
+		return {
+			user: new User({}),
+		}
+	},
+	methods: {
+		init() {
+			console.log(authHeader())
+			axios
+			.get("/users/self", { headers: authHeader() })
+			.then((response) => {
+				console.log(authHeader())
+				console.log(response)
+				console.log(response.data)
+				Object.assign(this.user, response.data);
+			})
+		}
+	},
+	mounted() {
+		this.init();
+	},
+	components: {
+		FriendsList,
+	}
 }
 </script>

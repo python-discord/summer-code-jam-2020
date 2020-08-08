@@ -17,7 +17,7 @@ export default {
     UserFriends,
     UserComments,
     UserAbout,
-  }
+  },
 }
 </script>
 
