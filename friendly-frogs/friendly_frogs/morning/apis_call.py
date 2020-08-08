@@ -1,10 +1,15 @@
+import os
+from datetime import datetime
 from typing import List
+
+import requests
 
 from newsapi.newsapi_client import NewsApiClient
 
-from .interfaces import NewsInterface
+from .interfaces import NewsInterface, Temperature, WeatherInterface, WindSpeed
 
 NEWS_SOURCES = (("bbc-news", "BBC NEWS"),)
+OWM_API_KEY = os.getenv("OWM_API_KEY") or ""
 
 
 class News:
@@ -32,3 +37,30 @@ class News:
                     )
                 )
             return articles
+
+
+def get_current_weather(location: str) -> WeatherInterface:
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&unit=metric&appid={OWM_API_KEY}"
+    r = requests.get(url)
+    data = r.json()
+    main = data.get("main", {})
+    temperature = main.get("temp")
+    pressure = main.get("pressure")
+    humidity = main.get("humidity")
+    wind = data.get("wind", {})
+    wind_speed = wind.get("speed")
+    wind_deg = wind.get("deg")
+    c = data.get("clouds", {})
+    clouds = c.get("all")
+    timestamp = data.get("dt")
+    dt = datetime.fromtimestamp(timestamp) if timestamp else datetime.now()
+
+    return WeatherInterface(
+        temperature=Temperature(metric=temperature),
+        pressure=pressure,
+        humidity=humidity,
+        wind_speed=WindSpeed(metric=wind_speed),
+        wind_deg=wind_deg,
+        clouds=clouds,
+        time=dt,
+    )
