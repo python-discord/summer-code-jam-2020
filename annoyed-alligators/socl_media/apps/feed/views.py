@@ -34,6 +34,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
 
+    def form_valid(self, form):
+        form.instance.posted_by = self.request.user
+        return super().form_valid(form)
+
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     """
@@ -41,13 +45,30 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     """
     model = Post
     fields = ['post_content', 'post_image']
-    success_url = "/"
+
+    def form_valid(self, form):
+        form.instance.posted_by = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.posted_by:
+            return True
+        else:
+            return False
 
 
 class PostDeleteView(DeleteView):
     """
-    This view is called to delete the post we want.
+    This view is called to delete a post.
     """
 
     model = Post
     success_url = "/"
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.posted_by:
+            return True
+        else:
+            return False
