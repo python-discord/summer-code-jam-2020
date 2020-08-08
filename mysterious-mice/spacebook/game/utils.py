@@ -163,6 +163,13 @@ def command_move(game_data, direction):
         success = False
 
     # check if new position contains an obstacle
+    for obstacle in game_data["obstacles"]:
+        if (
+            game_data["obstacles"][obstacle][0] == new_position[0]
+            and game_data["obstacles"][obstacle][1] == new_position[1]
+        ):
+            if obstacle == "dust_storm":
+                game_data["power_usage"] += 5
 
     # Deplete battery if successfully moved
     if success:
@@ -217,9 +224,9 @@ def command_look(game_data, direction):
 
     # list of items on the map
     check_list = [
+        "dust_storm",
         "plutonium",
         "solar_panels",
-        "dust_storm",
         "small_crater",
     ]
     obstacles_list = [
@@ -260,13 +267,16 @@ def command_look(game_data, direction):
 
         # if the item is in the right direction update the messages
         if direction == d:
-            new_message = [
+            new_message.append(
                 {"from_rover": False, "message": game_data["item_messages"][item]}
-            ]
+            )
 
     if new_message == []:
         new_message = [
-            {"from_rover": False, "message": "Red sand and rocks and more rocks."}
+            {
+                "from_rover": False,
+                "message": "The barren wasteland of Mars stretches out to the horizon.",
+            }
         ]
 
     game_data["messages"] = game_data["messages"] + new_message
