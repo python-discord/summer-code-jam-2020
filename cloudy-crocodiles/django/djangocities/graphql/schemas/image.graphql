@@ -1,5 +1,0 @@
-type Image {
-    id: ID!
-    folder: Folder!
-    filename: String!
-}

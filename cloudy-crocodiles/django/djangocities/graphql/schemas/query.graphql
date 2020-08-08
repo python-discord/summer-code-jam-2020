@@ -1,24 +1,15 @@
 type Query {
-    allUsers: [User!]!
+  allUsers: [User!]!
 
-    allCities: [City!]!
-    city(slug: String!): City!
-    citySites(id: ID!): [Site!]!
-    citySite(slug: String!, address: Int!): Site!
+  allCities: [City!]!
+  city(slug: String!): City!
+  citySites(id: ID!): [Site!]!
+  citySite(slug: String!, address: Int!): Site!
 
-    allSites: [Site!]!
-    site(id: ID!): Site!
-    siteFolder(id: ID!, path: String!): Folder!
-    userOwnSites: [Site]!
+  allSites: [Site!]!
+  site(id: ID!): Site!
+  userOwnSites: [Site]!
 
-    allFolders: [Folder!]!
-    folder(id: ID!): Folder!
-    folderItems(id: ID!): [Item!]!
-
-    allPages: [Page!]!
-    page(id: ID!): Page!
-
-    allImages: [Image!]!
-    image(id: ID!): Image!
-
+  allPages: [Page!]!
+  page(id: ID!): Page!
 }
