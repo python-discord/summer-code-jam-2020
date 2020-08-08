@@ -2,12 +2,13 @@
 
 {% block content %}
   <div class="col-lg-9">
-      <div class="posts"><h3><b>Top communities of RSSit</b></h3></div>
-      {% for community in object_list %}
+      <div class="posts"><h3><b>Most Viewed Posts</b></h3></div>
+      {% for post in posts %}
         <div class="posts">
-          <a href="/community/{{community.name}}"><h3><b>c/{{community.name}}</b></h3></a>
-          <p> - {{community.description}}</p>
-          <p>created by /u {{community.owner}}, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
+            <a href="/community/{{post.publisher}}"><b>c/{{post.publisher}}</b></a>
+            <p>submitted on {{post.creation_date}} has {{post.views.count}} views</p>
+            <a href="/community/{{post.publisher}}/{{post.id}}"><h3>{{post.title}}</h3></a>
+            <p>{{post.description}}</p>
         </div>
       {% endfor %}
       <div class="pagination">

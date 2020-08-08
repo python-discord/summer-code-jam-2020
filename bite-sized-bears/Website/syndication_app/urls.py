@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from django.conf.urls import url
 from .rss_feed import LatestEntriesFeed
 from .views import IndexListView, PostView, LoginView, logout_request, SignupView, CommunityView, CommunityListView, UserView\
-    , UserProfileUpdate, subscription_request, MyCommunityListView, add_comment
+    , UserProfileUpdate, subscription_request, MyCommunityListView, MostViewedPost, add_comment
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -22,6 +22,7 @@ urlpatterns = [
         name="my-communities"),
     path('user/<int:pk>', UserProfileUpdate.as_view(), name="user-profile"),
     path('user/<str:username>/posts', UserView.as_view()),
+    path('most-viewed-posts/', MostViewedPost.as_view()),
 
 ]
 
