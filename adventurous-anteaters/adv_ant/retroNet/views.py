@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Tweet
+from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 
@@ -20,7 +20,6 @@ def index(request):
     if form.is_valid():
         form.save()
         queryset = Tweet.objects.all()
-        print(queryset)
         return render(request, 'index.html', {"data": queryset})
     else:
         queryset = Tweet.objects.all()
@@ -42,16 +41,19 @@ def register(request):
 
 @login_required(login_url='/login/')
 def update_profile(request):
-    form = UpdateProfile(request.POST or None)
+    return render(request, 'temp_test.html')
+
+@login_required(login_url='/login/')
+def update_profile_display(request):
+    form = Updateprofile(request.POST or None)
     if form.is_valid():
         form.save()
-        queryset = UpdateProfile.objects.all()
-        print(queryset)
-        # TODO add templates in both return
-        return render(request, 'template', {"data": queryset})
+        querysets = UpdateProfile.objects.all()
+        # TODO add proper templates in both return
+        return render(request, 'index.html', {"data": querysets})
     else:
-        queryset = UpdateProfile.objects.all()
-        return render(request, 'template.html', {"data": queryset})
+        querysets = UpdateProfile.objects.all()
+        return render(request, 'index.html', {"data": querysets})
 
 
 @login_required(login_url='/login/')

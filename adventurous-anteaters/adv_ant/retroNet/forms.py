@@ -19,7 +19,7 @@ class TweetForm(forms.ModelForm):
         fields = ["content"]
 
 
-class UpdateProfile(forms.ModelForm):
+class Updateprofile(forms.ModelForm):
     class Meta:
         model = UpdateProfile
         fields = ["name","dob","about"]
