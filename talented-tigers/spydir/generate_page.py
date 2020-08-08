@@ -41,7 +41,10 @@ def generate_page(page_name, page_type=None):
         download_thread.start()
 
     elif page_object.page_type == 'INFO':
-        page_object.page_content = generate_information(page_name)
+        wikipedia_page = generate_information(page_name)
+        page_object.page_content = wikipedia_page[0]
+        page_object.page_source_url = wikipedia_page[1]
+
         page_object.page_author = generate_page_author()
         page_images = generate_images(False, 1, page_name)
         for page_image in page_images:
@@ -101,12 +104,12 @@ def authorize_page(page_name):
 def generate_information(page_name):
     try:
         # First tries to go to the page url
-        result = wikipedia.summary(page_name, auto_suggest=False)
+        page = wikipedia.page(page_name, auto_suggest=False)
         print('THE PAGE EXISTS')
 
     except wikipedia.exceptions.DisambiguationError as e:
         # If the page it enters is a wikipedia "disambiguation" page
-        result = wikipedia.summary(e.options[0], auto_suggest=False)
+        page = wikipedia.page(e.options[0], auto_suggest=False)
         print('THE PAGE EXISTS BUT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK')
 
     except wikipedia.exceptions.PageError:
@@ -115,20 +118,23 @@ def generate_information(page_name):
         search = wikipedia.search(page_name, results=1)
 
         try:
-            result = wikipedia.summary(search[0], auto_suggest=False)
+            page = wikipedia.page(search[0], auto_suggest=False)
             print('GETTING THE FIRST SEARCH RESULT')
 
         except IndexError:
             # If the search yielded no results
             print('NO RESULTS AFTER SEARCH')
             result = "Under Construction"
+            return [result, ""]
 
         except wikipedia.exceptions.DisambiguationError as e:
             # If the page exists it enters is a wikipedia "disambiguation" page
-            result = wikipedia.summary(e.options[0], auto_suggest=False)
+            page = wikipedia.page(e.options[0], auto_suggest=False)
             print('THE FIRST RESULT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK')
 
-    return parse_result(result)
+    page_summary = page.summary
+    page_url = page.url
+    return [parse_result(page_summary), page_url]
 
 
 def parse_result(result):

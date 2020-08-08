@@ -46,6 +46,7 @@ class GeneratedPage(models.Model):
 
     # Information Fields
     page_content = models.TextField(blank=True)
+    page_source_url = models.URLField(blank=True)
 
     # Business Fields
     business_phone_num = models.CharField(max_length=10, blank=True)
