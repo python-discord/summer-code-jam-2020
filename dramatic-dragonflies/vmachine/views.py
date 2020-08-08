@@ -10,7 +10,9 @@ from .forms import FloppyCreateForm
 
 
 @login_required
-def create_floppy(request: HttpRequest):
+def create_floppy(request: HttpRequest) -> HttpResponse:
+    # In case of GET request, it checks if the user has any vm, if not it renders an error page, otherwise
+    # a page with the floppy creation form.
     if request.method == "GET":
         if VMachine.objects.filter(user=request.user).count() == 0:
             messages.error(request, "You don't have any Virtual Machines that you could create floppy for!")
@@ -18,18 +20,27 @@ def create_floppy(request: HttpRequest):
         else:
             form = FloppyCreateForm(user=request.user)
             return render(request, 'users/create_floppy.html', {'form': form})
+    # Do the same in case of POST request.
     else:
         if VMachine.objects.filter(user=request.user).count() == 0:
             messages.error(request, "You don't have any Virtual Machines that you could create floppy for!")
             return redirect('disks')
         else:
+            # Checks if the given VM is a valid vm, and if it belongs to the user that made the request.
             form = FloppyCreateForm(request.POST, user=request.user)
             if form.is_valid():
-                form.instance.storage_id = "1212ads" # Will delete
-                form.instance.user = request.user
-                form.instance.vm = form.cleaned_data['VirtualMachine']
-                form.save()
-            messages.success(request, 'Floppy successfully created!')
+                if VMachine.objects.filter(pk=form.cleaned_data['VirtualMachine'].pk).count() == 0:
+                    messages.error(request, "The given VM is not valid.")
+                    return redirect('disks')
+                vm = VMachine.objects.get(pk=form.cleaned_data['VirtualMachine'].pk)
+                if vm.user == request.user:
+                    form.instance.user = request.user
+                    form.instance.vm = form.cleaned_data['VirtualMachine']
+                    form.save()
+                else:
+                    messages.error(request, "This is not your VM!")
+                    return redirect("disks")
+                messages.success(request, 'Floppy successfully created!')
             return redirect('disks')
 
 
@@ -38,13 +49,14 @@ class VMDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = '/users/disks'
     template_name = "users/vmachine_confirm_delete.html"
 
-    def test_func(self):
+    def test_func(self) -> bool:
         form_vmachine_object = self.get_object()
         if self.request.user == form_vmachine_object.user:
             return True
         return False
 
-    def handle_no_permission(self):
+    # Sends an error message, if a user is trying to delete someone else's VM
+    def handle_no_permission(self) -> HttpResponse:
         messages.error(self.request, 'You have no permission to do this!')
         return redirect(reverse('home'))
 

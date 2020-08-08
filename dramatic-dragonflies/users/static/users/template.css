@@ -100,7 +100,7 @@ input[type=submit]:hover {
 	top: 10vh;
 	max-width: 100%;
 	overflow: auto;
-	z-index: -1
+
 
 }
 #cwindow {

@@ -3,7 +3,13 @@
 {% block content%}
 
 {% if is_empty == True %}
-	<h1>You don't have any Virtual Machines yet!</h1>
+<div class="main">
+<div class="disk-container">
+
+	<h1 style="color : white;">You don't have any Virtual Machines yet!</h1>
+
+</div>
+	</div>
 	{% else %}
 
 	{% for vm in object_list %}

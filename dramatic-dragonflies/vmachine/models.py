@@ -18,8 +18,8 @@ class VMachine(models.Model):
     floppy_disks_name = ArrayField(models.CharField(max_length=300, null=True), null=True, default=list)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return str(self.name)
+    def __str__(self) -> str:
+        return str(self.name) + "(" + str(self.pk) + ")"
 
 
 class Floppy(models.Model):
@@ -28,5 +28,10 @@ class Floppy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vm = models.ForeignKey(VMachine, on_delete=models.CASCADE, default=None)
 
-    def __str__(self):
-        return str(self.name)+"("+self.vm.name+")"
+    def __str__(self) -> str:
+        return str(self.name) + "(" + self.vm.name + ")"
+
+    def save(self, force_insert: bool = False, force_update: bool = False, using: None = None,
+             update_fields: None = None) -> None:
+        self.storage_id = "from_save"
+        super().save()

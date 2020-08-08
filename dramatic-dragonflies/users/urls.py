@@ -13,4 +13,3 @@ urlpatterns = [
     path('delete_vm/<int:pk>', VMDeleteView.as_view(), name="delete_vm"),
     path('create_floppy', create_floppy, name="create_floppy")
 ]
-
