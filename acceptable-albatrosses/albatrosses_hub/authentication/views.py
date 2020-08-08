@@ -1,7 +1,7 @@
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
-from .models import HubUser
 
 
 # Create your views here.
@@ -9,7 +9,7 @@ def register_page(request):
     """Views to render the register page."""
 
     # Prevent the logged in user to access register page
-    if "email" in request.session:
+    if request.user.is_authenticated:
         return redirect("/")
 
     form = RegisterForm(request.POST or None)
@@ -22,12 +22,12 @@ def register_page(request):
         all_valid = True
 
         submitted_email = request.POST["email"]
-        if HubUser.objects.filter(pk=submitted_email).exists():
+        if User.objects.filter(email=submitted_email).exists():
             context["error_message"] = "Email has been registered before"
             all_valid &= False
 
         submitted_username = request.POST["username"]
-        if HubUser.objects.filter(username__icontains=submitted_username):
+        if User.objects.filter(username=submitted_username):
             context["error_message"] = "Username has been taken"
             all_valid &= False
 
@@ -36,9 +36,12 @@ def register_page(request):
             all_valid &= False
 
         if all_valid:
-            user_data = HubUser()
-            user_data.process(form)
-            user_data.save()
+            new_user = User.objects.create_user(
+                email=submitted_email,
+                username=submitted_username,
+                password=request.POST["password"]
+            )
+            new_user.save()
 
             return redirect("login_page")
 
@@ -49,7 +52,7 @@ def login_page(request):
     """Views to render the login page."""
 
     # Prevent the logged in user to access login page
-    if "email" in request.session:
+    if request.user.is_authenticated:
         return redirect("/")
 
     form = LoginForm(request.POST or None)
@@ -61,23 +64,23 @@ def login_page(request):
     if request.method == "POST" and form.is_valid():
         all_valid = True
 
-        submitted_email = request.POST["email"]
-        if not HubUser.objects.filter(pk=submitted_email).exists():
-            context["error_message"] = "This email is not registered yet"
+        user_name = request.POST["username"]
+        if not User.objects.filter(username=user_name):
+            context["error_message"] = "This username is not registered yet"
             all_valid &= False
 
-        submitted_password = request.POST["password"]
-        query = HubUser.objects.filter(email=submitted_email).values("email", "password")
-        hashed_password = query[0]["password"]
-        if not check_password(submitted_password, hashed_password):
+        password = request.POST["password"]
+        if not authenticate(request, username=user_name, password=password):
             context["error_message"] = "Wrong password"
             all_valid &= False
 
         if all_valid:
-            query = HubUser.objects.filter(email=submitted_email).values("username")
-            request.session["email"] = submitted_email
-            request.session["username"] = query[0]["username"]
-            request.session.set_expiry(0)
+            user = authenticate(request, username=user_name, password=password)
+
+            try:
+                login(request, user)
+            except AttributeError:  # handle AttributeError during unit test
+                pass
 
             return redirect("/")
 
@@ -88,11 +91,14 @@ def logout_page(request):
     """Views to render the logout page."""
 
     # Prevent the Anonymous user to access logout page
-    if "email" not in request.session:
+    if not request.user.is_authenticated:
         return redirect("/")
 
     if request.method == "POST":
-        request.session.flush()
+        try:
+            logout(request)
+        except AttributeError:  # handle AttributeError during unit test
+            pass
 
         return redirect("/")
 

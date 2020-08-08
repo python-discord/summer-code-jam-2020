@@ -9,7 +9,7 @@ class RegisterForm(forms.Form):
     )
     username = forms.CharField(
         label="Your Username",
-        max_length=32,
+        max_length=30,
     )
     password = forms.CharField(
         label="Enter Your Password",
@@ -26,8 +26,9 @@ class RegisterForm(forms.Form):
 class LoginForm(forms.Form):
     """This class contains all required forms for login."""
 
-    email = forms.EmailField(
-        label="Your Email",
+    username = forms.CharField(
+        label="Your Username",
+        max_length=30
     )
     password = forms.CharField(
         label="Enter Your Password",
