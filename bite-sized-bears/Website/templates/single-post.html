@@ -4,7 +4,7 @@
   <div class="col-lg-9">
       <div class="posts">
         <a href="/community/{{post.publisher}}"><b>r/{{post.publisher}}</b></a>
-        <p>submitted by /u {{post.author}} on {{post.creation_date}}</p>
+          <p>submitted by /u <a href="/user/{{post.author}}/posts">{{post.author}}</a> on {{post.creation_date}}</p>
         <a href="#"><h3>{{post.title}}</h3></a>
         <p>{{post.description}}</p>
       </div>
@@ -16,7 +16,7 @@
 
       {% for comment in comments %}
         <div class="comment">
-          <a><h5>{{comment.author}}<span style="color:grey;"> on {{comment.creation_date}}</span></h5></a>
+          <h5><a href="/user/{{comment.author}}/posts">{{comment.author}}</a><span style="color:grey;"> on {{comment.creation_date}}</span></h5>
           <p>{{comment.content}}</p>
         </div>
       {% endfor %}
