@@ -2,10 +2,13 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
 
 from .filters import PostFilter
-from .forms import CommentForm
+from .forms import CommentForm, CreatePostForm
 from .models import Comment, Post
+
+import random
 
 
 class HomeView(ListView):
@@ -84,3 +87,32 @@ class BlogDetailView(DetailView):
         comment_form = CommentForm()
         context['comment_form'] = comment_form
         return context
+
+
+@login_required()
+def CreatePost(request):
+    form = CreatePostForm(request.POST or None)
+
+    if form.is_valid():
+        form.title = request.POST.get('title')
+        form.content = request.POST.get('content')
+        form.save(commit=False)
+
+        user = request.user
+
+        form.author = user.username
+        form.save()
+
+        return  # redirect to user profile with all the posts or something
+
+    quote = random.choice((  # Remove this if necessary
+        "Unleash your creativity!",
+        "What's on your mind?",
+        "Say 'Hello, world!'"
+    ))
+
+    context = {
+        'form': form,
+        'quote': quote
+    }
+    return render(request, 'posts/create_post.html', context)
