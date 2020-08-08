@@ -8,7 +8,7 @@ password = 'pbkdf2_sha256$180000$rIY0NVmswzaj$CHEAdXxSdOcKF6m1McG51wWWNrJ6Ynl6nG
 MG = ['Male', 'Other']
 FG = ['Female', 'Other']
 
-PREF = ['Male', 'Female', 'Both']
+PREF = ['straight', 'gay', 'bisexual']
 
 with open('raw.json', 'r') as f:
     raw = json.load(f)
@@ -35,7 +35,7 @@ def genprofiles():
     for ind, row in enumerate(raw):
         if ind < 200:
             row['fields']['sex'] = 'Male'
-            row['fields']['preference'] = PREF[choice(3, 1, p=[0.2, 0.6, 0.2])[0]]
+            row['fields']['preference'] = PREF[choice(3, 1, p=[0.6, 0.2, 0.2])[0]]
         else:
             row['fields']['sex'] = 'Female'
             row['fields']['preference'] = PREF[choice(3, 1, p=[0.6, 0.2, 0.2])[0]]
