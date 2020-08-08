@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend> Product Inventory </legend>
+            {{ form }}
+        </fieldset>
+        <div>
+            <button type="submit">Add</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
