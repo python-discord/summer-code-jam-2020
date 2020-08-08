@@ -54,7 +54,7 @@ summer-code-jam-2020"])
 
     print(green+"Dependencies successfully installed."+reset)
     print()
-    print(yellow+"Making migrations...")
+    print(yellow+"Making migrations..."+reset)
     result = subprocess.call(["python",
                               os.path.join("Web95", "manage.py"),
                               "migrate"])
@@ -66,7 +66,7 @@ summer-code-jam-2020"])
     print(green+"Made migrations successfully."+reset)
     print()
     print(green+"Successfully installed. Run with 'pipenv run Web95/manage.py\
- runserver' from summer-code-jam-2020/juicy-jaguars/")
+ runserver' from summer-code-jam-2020/juicy-jaguars/"+reset)
 
 
 if __name__ == "__main__":
