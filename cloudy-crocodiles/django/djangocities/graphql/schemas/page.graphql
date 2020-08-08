@@ -3,4 +3,12 @@ type Page {
   site: Site!
   version: String!
   content: String!
+  file_name: String!
+}
+
+input PageInput {
+  site: ID
+  version: String
+  content: String
+  file_name: String
 }
