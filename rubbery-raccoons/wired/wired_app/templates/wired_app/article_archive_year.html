@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<p>List Articles by year</p>
+<div>
+    <h2> Welcome to {{ year|date:"Y" }} </h2>
+    <ul>
+    {% for article in articles %}
+        <a href="{% url 'article-detail' article.slug %}">{{ article.publication_date|date }} - {{ article.title }} -
+        {{ article.headline }}</a>    
+    {% endfor %}
+    </ul>
+</div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
