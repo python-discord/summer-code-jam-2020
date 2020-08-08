@@ -1,13 +1,14 @@
-<!-- chat/templates/chat/room.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
-</head>
-<body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="community-bar">
+            <a href="#"><h1><b>c/{{community.name}}</b></h1></a>
+            <p> - {{community.description}}</p>
+            <p>created by /u <a href="/user/{{community.owner}}/posts">{{community.owner}}</a>, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
+            <p>location - {{community.location}}</p>
+    </div>
+    <textarea id="chat-log" cols="100" rows="20" disabled></textarea><br>
+    <input id="chat-message-input" type="text" size="100" required><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
     <script>
@@ -79,5 +80,4 @@
             messageInputDom.value = '';
         };
     </script>
-</body>
-</html>
+{% endblock %}
