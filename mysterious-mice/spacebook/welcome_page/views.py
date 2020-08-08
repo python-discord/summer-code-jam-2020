@@ -15,7 +15,7 @@ class Welcome(DetailView):
 
 
 class Construction(DetailView):
-    template_name = "welcome_page/test.html"
+    template_name = "welcome_page/under_construction.html"
 
     def get(self, request, *args, **kwargs):
 
