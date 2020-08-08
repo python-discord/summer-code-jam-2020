@@ -98,11 +98,11 @@ class HtmlParser:
                              self.link_parent(self.basedir) + url)
                         new_values.append([url, x])
 
-                    print((",".join(list(map(lambda x: "/page/" +
+                    print((",".join(list(map(lambda x: "/" +
                                                        (" ".join(x)),
                                                        new_values)))))
 
-                    element[name] = (",".join(list(map(lambda x: "/page/" +
+                    element[name] = (",".join(list(map(lambda x: "/" +
                                                        (" ".join(x)),
                                                        new_values))))
 
