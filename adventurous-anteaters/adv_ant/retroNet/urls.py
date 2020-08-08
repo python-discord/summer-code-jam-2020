@@ -15,5 +15,5 @@ urlpatterns = [
     path('logout', views.logout_page, name="logout_test"),
     path('account_deletion', views.account_deletion, name='account_deletion'),
     path('create_tweet', views.create_tweet, name="create_tweet"),
-    path('view_twet', views.view_tweet, name="view_tweet")
+    path('view_tweet', views.view_tweet, name="view_tweet")
 ]
