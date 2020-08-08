@@ -23,7 +23,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="index.html"), name="home"),
     path("main", TemplateView.as_view(template_name="mainapp.html"), name="main"),
-    path("market", TemplateView.as_view(template_name="marketplace.html"), name="market")
+    path(
+        "market", TemplateView.as_view(template_name="marketplace.html"), name="market"
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if "debug_toolbar" in settings.INSTALLED_APPS:
