@@ -83,46 +83,46 @@ class HtmlParser:
             for name, val in element.attrs.items():
                 if name in link_attrs:
 <<<<<<< HEAD
-                    if ":" not in val:
-                        element[name] = "/page/" + \
-                          urllib.parse.quote(self.link_parent(self.basedir)
-                                             + val)
+    #                 if ":" not in val:
+    #                     element[name] = "/page/" + \
+    #                       urllib.parse.quote(self.link_parent(self.basedir)
+    #                                          + val)
 
-                elif name == "srcset":
-                    values = list(map(lambda x: x.split(" "), val.split(",")))
-                    values = list(map(self.remove_blanks, values))
-                    new_values = []
-                    print(values)
-                    for url, x in values:
-                        if ":" not in url:
-                            url = urllib.parse.quote(
-                             self.link_parent(self.basedir) + url)
-                        new_values.append([url, x])
+    #             elif name == "srcset":
+    #                 values = list(map(lambda x: x.split(" "), val.split(",")))
+    #                 values = list(map(self.remove_blanks, values))
+    #                 new_values = []
+    #                 print(values)
+    #                 for url, x in values:
+    #                     if ":" not in url:
+    #                         url = urllib.parse.quote(
+    #                          self.link_parent(self.basedir) + url)
+    #                     new_values.append([url, x])
 
-                    print((",".join(list(map(lambda x: "/page/" +
-                                                       (" ".join(x)),
-                                                       new_values)))))
+    #                 print((",".join(list(map(lambda x: "/page/" +
+    #                                                    (" ".join(x)),
+    #                                                    new_values)))))
 
-                    element[name] = (",".join(list(map(lambda x: "/page/" +
-                                                       (" ".join(x)),
-                                                       new_values))))
+    #                 element[name] = (",".join(list(map(lambda x: "/page/" +
+    #                                                    (" ".join(x)),
+    #                                                    new_values))))
 
-    def remove_blanks(self, x):
-        """Remove blank strings from x."""
-        y = []
-        for item in x:
-            if item != " "*len(item):
-                y.append(item)
-        return y
+    # def remove_blanks(self, x):
+    #     """Remove blank strings from x."""
+    #     y = []
+    #     for item in x:
+    #         if item != " "*len(item):
+    #             y.append(item)
+    #     return y
 
-    def link_parent(self, link):
-        """Get the parent of a link."""
-        link_parts = link.split("/")
+    # def link_parent(self, link):
+    #     """Get the parent of a link."""
+    #     link_parts = link.split("/")
 
-        if len(link_parts) == 3:
-            return "/".join(link_parts)
-        else:
-            return "/".join(link_parts[:-1])
+    #     if len(link_parts) == 3:
+    #         return "/".join(link_parts)
+    #     else:
+    #         return "/".join(link_parts[:-1])
 =======
                     if val.startswith("/"):
                         element[name] = self.basedir + val
