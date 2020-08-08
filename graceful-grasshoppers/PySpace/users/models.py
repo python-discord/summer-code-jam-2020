@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-import post.models as post_models
 
 
 class CustomUser(AbstractUser):
@@ -22,12 +21,10 @@ class Friendship(models.Model):
 
 
 class ProfileComment(models.Model):
-
+    """A comment on a user's profile"""
     content = models.TextField()
-    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE)
-    user_commented = models.ForeignKey(CustomUser, models.CASCADE)
+    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_commented")
+    user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_profile_commented_on")
 
     def __str__(self):  # Returns a short intro of 20 words
-        return " ".join(self.content.split(" ")[:20])
-
-
+        return " ".join(self.content.split()[:20])
