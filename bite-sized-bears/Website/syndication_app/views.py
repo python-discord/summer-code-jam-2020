@@ -1,22 +1,15 @@
-from django.http import HttpResponse
 from django.views.generic import ListView
 from django.views import View
-from .models import Post, Comments, User
+from .models import Post, Comments, User, Community
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 from django.contrib import messages
-from .models import Post, Comments, Community
-from django.shortcuts import render
 from django.db.models import Count
-
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the Syndication index.")
 
 
 class IndexListView(ListView):
     paginate_by = 25
-    template_name = "index.html"
+    template_name = 'index.html'
     queryset = Post.objects.all()
 
 
@@ -32,10 +25,6 @@ class PostView(View):
         return render(request, self.template_name, self.context)
 
 
-def logout_request(request):
-    auth.logout(request)
-    return redirect('/')
-
 class SignupView(View):
     template_name = 'signup.html'
 
@@ -46,7 +35,7 @@ class SignupView(View):
         username = request.POST["username"]
         password1 = request.POST["password1"]
         password2 = request.POST["password2"]
-        if password1==password2:
+        if password1 == password2:
             if User.objects.filter(name=username).exists():
                 messages.error(request, 'Oops, something bad happened')
                 message = "Username is already taken"
@@ -56,14 +45,18 @@ class SignupView(View):
                 user.save()
                 message = "Account created successfully"
                 created = True
-            return render(request, self.template_name, {"message": message, "created": created})
+        else:
+            created = False
+            message = "Passwords does not match. Try again."
+
+        return render(request, self.template_name, {"message": message, "created": created})
 
 
 class LoginView(View):
     template_name = 'login.html'
 
     def get(self, request):
-        return render(request, self.template_name, {"created":True})
+        return render(request, self.template_name, {"created": True})
 
     def post(self, request):
         username = request.POST["username"]
@@ -82,19 +75,30 @@ class CommunityView(View):
     context = {}
 
     def get(self, request, community_name):
-        community = self.model.objects.get(name=community_name)
-        posts = community.post_publisher.all()
-        self.context = {"posts": posts, "community": community}
+        self.context['community'] = self.model.objects.get(name=community_name)
+        self.context['posts'] = self.context['community'].post_publisher.all()
         return render(request, self.template_name, self.context)
 
 
 class TopCommunityView(View):
-    template_name = 'topcommunity.html'
+    template_name = 'top-community.html'
     model = Community
     context = {}
 
     def get(self, request):
-        communities = self.model.objects.all().annotate(s_count=Count('subscribers')).order_by('-s_count')
-        self.context = {"communities": communities}
+        self.context['communities'] = self.model.objects.all()\
+            .annotate(s_count=Count('subscribers')).order_by('-s_count')[:50]
         return render(request, self.template_name, self.context)
 
+
+class CommunitiesListView(ListView):
+    template_engine = 'top-community.html'
+    paginate_by = 25
+    queryset = Community.objects.all().annotate(
+        s_count=Count('subscribers')
+    ).order_by('-s_count')[:50]
+
+
+def logout_request(request):
+    auth.logout(request)
+    return redirect('/')
