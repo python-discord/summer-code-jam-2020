@@ -23,7 +23,7 @@
 
 <p>
   {{ num_likes }} like{{ num_likes|pluralize }}<br>
-  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
+  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Like and comment on my page!</a>
 </p>
 <p>
   <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
