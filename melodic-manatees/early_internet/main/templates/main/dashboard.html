@@ -35,20 +35,26 @@
                 <div class="column">
                     <div class="box is-transparent">
                         <h2 class="title">To Do</h2>
-                        <article class="media notification">
-                            <div class="media-content">
-                                <div class="content">
-                                    <h3>Journal Entry 1</h3>
+                        {% if entries %}
+                            {% for entry in entries %}
+                                <article class="media notification">
+                                    <div class="media-content">
+                                        <div class="content">
+                                            <h3>{{ entry.title }}</h3>
+                                            <p>{{ entry.content }}</p>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% else %}
+                            <article class="media notification">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <h3>You have no entries</h3>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
-                        <article class="media notification">
-                            <div class="media-content">
-                                <div class="content">
-                                    <h3>Journal Entry 2</h3>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        {% endif %}
                         <button class="button is-link" id="journal-btn">Add a Journal Entry</button>
                         <div class="modal" id="journal-modal">
                             <div class="modal-background"></div>
@@ -57,14 +63,41 @@
                                     <p class="modal-card-title">My Journal</p>
                                     <button class="delete" aria-label="close" id="close-x"></button>
                                 </header>
-                                <section class="modal-card-body">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <section class="modal-card-body">
                                     <!-- Content ... -->
-                                    INSERT DIARY FIELD HERE
-                                </section>
-                                <footer class="modal-card-foot">
-                                    <button class="button is-success">Save Entry</button>
-                                    <button class="button" id="cancel-btn">Cancel</button>
-                                </footer>
+                                    
+                                        <fieldset>
+                                            <div class="field">
+                                                <div class="control">
+                                                    <p>
+                                                        <label class="label">{{ form.title.label_tag }}</label>
+                                                        {{ form.title|add_class:"input"}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="control">
+                                                    <p>
+                                                        <label class="label">{{ form.content.label_tag }}</label>
+                                                        {{ form.content|add_class:"textarea"}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    
+                                    </section>
+                                
+                                    <footer class="modal-card-foot">
+                                        <div class="field">
+                                            <div class="control">
+                                                <button class="button is-success" type="submit">Save</button>
+                                                <button class="button" id="cancel-btn">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
                             </div>
                         </div>
                     </div>
