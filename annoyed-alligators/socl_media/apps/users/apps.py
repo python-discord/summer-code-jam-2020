@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class UsersConfig(AppConfig):
-    name = 'users'
+    name = 'socl_media.apps.users'
 
     def ready(self):
-        import users.signals
+        import socl_media.apps.users.signals

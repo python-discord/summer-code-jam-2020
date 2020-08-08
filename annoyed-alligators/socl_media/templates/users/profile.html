@@ -11,4 +11,20 @@
 <button><a href="{% url 'profile_edit' %}">Update Info</a></button>
 {% endif %}
 
+<h2>Posts ({{ num_posts }})</h2>
+
+<hr>
+{% for post in posts %}
+
+	<img src="{{ post.posted_by.profile.image.url }}">
+			<p>
+        <a href="{% url 'profile' post.posted_by.username %}">By: {{ post.posted_by}}</a>
+				<small>On: {{ post.post_date_posted|date:"j F Y, H:i" }}</small>
+			</p>
+				
+      <p>{{ post.post_content }}</p>
+
+
+{% endfor %}
+
 {% endblock content %}

@@ -28,16 +28,16 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username}'
 
-    def save(self):
+    def save(self, **kwargs):
         """
         This function will resize and add a pixelating effect to the images.
         """
         super().save()
 
         img = Image.open(self.image.path)
-        img = img.resize((48, 48), resample=Image.BILINEAR)
+        img = img.resize((112, 112), resample=Image.BILINEAR)
 
-        output_size = (64, 64)
+        output_size = (120, 120)
         img = img.resize(output_size, Image.NEAREST)
         img.thumbnail(output_size)
         img.save(self.image.path)

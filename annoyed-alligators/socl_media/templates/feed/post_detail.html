@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>{{post.post_content}}</p>
+<h3>{{post.posted_by}}</h3>
+<h5>{{post.post_date_posted}}</h5>
+<img src="{{post.post_image.url}}">
+{% endblock content %}
