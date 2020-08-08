@@ -22,7 +22,7 @@ export default {
 		init() {
 			console.log(authHeader())
 			axios
-			.get("/users/self", { headers: authHeader() })
+			.get("/users/self/", { headers: authHeader() })
 			.then((response) => {
 				Object.assign(this.user, response.data);
 			})
