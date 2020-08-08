@@ -13,7 +13,7 @@ function setup_start() {
     var start_walls = document.getElementsByClassName("start-wallpapers")[0];
     var start_walls_button = document.getElementsByClassName("start-lvl2-item")[1];
 
-    taskbar.style.zIndex = document.getElementsByClassName("draggable").length;
+    taskbar.style.zIndex = document.getElementsByClassName("draggable").length*2;
 
     start.style.top = ((window.innerHeight - document.getElementById("taskbar").offsetHeight) - start.offsetHeight).toString()+"px";
     start.style.left = "0px";
