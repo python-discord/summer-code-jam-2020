@@ -37,7 +37,7 @@
 .dropdown-content a {
   float: none;
   color: black;
-  padding: 12px 16px;
+  padding:3px 3px ;
   text-decoration: none;
   display: block;
   text-align: left;
@@ -127,7 +127,7 @@ a:hover {
 
 .hbutton:hover {
   color: white;
-  padding: inherit;
+
 }
 
 .dropbtn {
