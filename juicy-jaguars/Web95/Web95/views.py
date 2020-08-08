@@ -5,7 +5,11 @@ from .settings import BASE_DIR
 import os
 import urllib.parse
 from django.views.decorators.clickjacking import xframe_options_sameorigin
+from django.http import HttpResponse
 from .html_parse import HtmlParser
+from PIL import Image
+import io
+import requests
 
 
 def landing_page(request):
@@ -71,25 +75,47 @@ def page(request, url):
                or url.startswith("https://")):
             url = "http://" + url
 
+        url = urllib.parse.unquote(url)
+        print("\u001b[32m"+url+"\u001b[0m")
+
+        params = []
+        for key, val in request.GET.items():
+            params.append(key+"="+val)
+
+        if not url.endswith("/"):
+            url += "/"
+
+        url += "?"+("&".join(params))
+        print(params)
+
         if request.method == "GET":
-            req = urllib.request.Request(url,
-                                         headers={'User-Agent':
-                                                  request.
-                                                  META["HTTP_USER_AGENT"]})
+            req = requests.get(url,
+                               params={'User-Agent':
+                                       request.META["HTTP_USER_AGENT"]})
         elif request.method == "POST":
-            parsed_data = urllib.parse.urlencode(request.data).encode("ascii")
-            req = urllib.request.Request(url,
-                                         data=parsed_data,
-                                         headers={'User-Agent':
-                                                  request.
-                                                  META["HTTP_USER_AGENT"]})
+            print(request.POST)
+            req = requests.post(url,
+                                data=request.POST,
+                                params={'User-Agent':
+                                        request.META["HTTP_USER_AGENT"]})
 
-        fp = urllib.request.urlopen(req)
-        content = fp.read().decode()
+        try:
+            content = req.text
 
-        parser = HtmlParser(content, url, request)
-        parser.parse()
+            parser = HtmlParser(content, url, request)
+            parser.parse()
 
-        content = "<!-- Yep, this got parsed! -->\n"+parser.soup.prettify()
+            content = "<!-- Yep, this got parsed! -->\n"+parser.soup.prettify()
 
-    return render(request, "Web95/blank.html", {"content": content})
+            return render(request, "Web95/blank.html", {"content": content})
+        except UnicodeDecodeError:
+            data = req.content
+
+            stream = io.BytesIO(data)
+
+            img = Image.open(stream)
+
+            response = HttpResponse(content_type="image/png")
+            img.save(response, "PNG")
+
+            return response
