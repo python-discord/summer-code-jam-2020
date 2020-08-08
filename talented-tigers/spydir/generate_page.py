@@ -9,7 +9,6 @@ import gpt_2_simple as gpt2
 from .models import GeneratedPage, BlogPost
 
 
-# TODO: Make the requests asynchronous
 def generate_page(page_name, page_type=None):
     """Gets a page object which only has a title, then populates it with scraped information"""
     page_object = GeneratedPage.objects.get(page_title=page_name)
@@ -204,3 +203,10 @@ def generate_business_statements(page_name, page_object):
 def splice_sentence(word):
     cutoff = max([word.rfind("."), word.rfind("?"), word.rfind("!")])
     return word[:cutoff + 1]
+
+authorize_page('internet')
+generate_page('internet', 'INFO')
+authorize_page('code')
+generate_page('code', 'INFO')
+authorize_page('meme')
+generate_page('meme', 'INFO')

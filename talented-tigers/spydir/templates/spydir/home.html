@@ -10,6 +10,7 @@
     <marquee>Welcome to SpydirWeb!</marquee>
     
     <div class="center bevelBox">
+      <a class="center" style="text-align: center;" id="blink">Pages you explore will be added here!</a>
       <table width="100%" style="border-spacing: 10px;">
       <thead>
         <tr>
@@ -40,7 +41,14 @@
           {% endwith %}
       </tbody>
       </table>
-      <a class="center" style="text-align: center;" id="blink">Pages you explore will be added here!</a>
     </div>
-          <img class="center" style="height: 8%; width: 8%;  margin-top: 25px; margin-bottom: 50px;" href="" src="{% static 'spydir\img\ie.gif' %}">
+
+    <div class="center bevelBox" style="text-align: center;">
+      <h3>Start exploring with one of these links:</h3>
+        <a href="../page/internet">Internet</a>
+        <a href="../page/code">Code</a>
+        <a href="../page/meme">Meme</a>
+    </div>
+
+    <img class="center" style="height: 8%; width: 8%;  margin-top: 25px; margin-bottom: 50px;" href="" src="{% static 'spydir\img\ie.gif' %}">
 {% endblock content %}
