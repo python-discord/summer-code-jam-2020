@@ -105,24 +105,24 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
         tutorial = [
             # Get rid of this once TODO in send_welcome is done
-            (("Current Date: January 1, 1970\n"), 2),
+            ((f"Current Date: {colorize('blue', 'January 1, 1970')}\n"), 2),
             (("Unfortunately there has been a glitch in the matrix and it appears"
-             "you have been pulled through a quantum computer to the past."
-             f"You are currently in {colorize('brightGreen', self.player.room.name)}."
-             "Somewhere on this server there is a connection that should allow you "
-             "to travel to a different server. "
-             "Each server is connected to a different point in time. \n",), 7),
+              "you have been pulled through a quantum computer to the past."
+              f"You are currently in {colorize('brightGreen', self.player.room.name)}."
+              "Somewhere on this server there is a connection that should allow you "
+              "to travel to a different server. "
+              "Each server is connected to a different point in time. \n",), 7),
             (("Your mission is to return to 2020 by traveling through different servers, "
-             "networks, and possibly solving a few riddles on the way.\n"), 3),
+              "networks, and possibly solving a few riddles on the way.\n"), 3),
             (("View what is in a node and the available connections by typing: "
-             f"{colorize('brightYellow', 'look')}\n"
-            "You can move between different nodes and networks by typing: "
-             f"{colorize('brightYellow','go <connection name>')}\n"
-            "You can always view the available commands by typing: "
-             f"{colorize('brightYellow','help')}\n"), 2),
+              f"{colorize('brightYellow', 'look')}\n"
+              "You can move between different nodes and networks by typing: "
+              f"{colorize('brightYellow','go <connection name>')}\n"
+              "You can always view the available commands by typing: "
+              f"{colorize('brightYellow','help')}\n"), 2),
             (("Good luck!\n"), 4),
             (("Oh, there have been recent reports of possible viruses found in some "
-            "networks. We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉ ̷͓͓̈̇s̶̩̍o̸̻̓ ̶͎̽̋I̵͛̏͜'̶̨͠m̷̛̹͝ ̷͚̀ṡ̴͈͉ṳ̷͛r̷̝͕͐e̸̛̬͛ ̷̧͐͛î̷̛͙̜t̸̖͒̓'̴̦̙̉s̸͇͊̕ ̸͚̻̆̋f̵̭͈̐ī̸̡̪n̸͖̯̄̇é̷̡."), 0),
+              "networks. We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉ ̷͓͓̈̇s̶̩̍o̸̻̓ ̶͎̽̋I̵͛̏͜'̶̨͠m̷̛̹͝ ̷͚̀ṡ̴͈͉ṳ̷͛r̷̝͕͐e̸̛̬͛ ̷̧͐͛î̷̛͙̜t̸̖͒̓'̴̦̙̉s̸͇͊̕ ̸͚̻̆̋f̵̭͈̐ī̸̡̪n̸͖̯̄̇é̷̡."), 0),
         ]
 
         for i in range(len(tutorial)):
@@ -157,7 +157,10 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def get_current_room_connection_name_by_index(self, index):
-        return self.player.room.connections.all()[index].name
+        if self.player.room.secret_connection_active:
+            return (list(self.player.room.connections.all()) + list(self.player.room.secret_room_connects.all()))[index].name
+        else:
+            return self.player.room.connections.all()[index].name
 
     @database_sync_to_async
     def get_current_room_description(self):
@@ -174,16 +177,15 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             players_string = ""
 
         exits = list(self.player.room.connections.all())
+        if self.player.room.secret_connection_active:
+            exits = exits + list(self.player.room.secret_room_connects.all())
         for i in range(len(exits)):
             exits[i] = f"[{i}] {exits[i].name}"
 
-        if self.player.room.secret_connection_active:
-            exits = exits + list(self.player.room.secret_room_connects.all())
-
         message = (
                    "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
-                   "The current date is: " + self.player.room.server.server_date.strftime("%B %m, %Y") + "\n\n" +
-                   self.player.room.description + "\n\n" +
+                   "The current date is: " + colorize('green', self.player.room.server.server_date.strftime("%B %m, %Y"))
+                   + "\n\n" + self.player.room.description + "\n\n" +
                    self.player.room.command_description + "\r\n\n" +
                    players_string +
                    "Exits: " + ", ".join([colorize('brightGreen', exit) for exit in exits])

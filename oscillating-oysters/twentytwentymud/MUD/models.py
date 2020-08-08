@@ -17,10 +17,10 @@ class Room(models.Model):
     description = models.TextField(max_length=512)
     server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='rooms', null=True)
     connections = models.ManyToManyField('self', blank=True)
-    command_description = models.TextField(max_length=512, blank=True)  # Called with description, should be obvious?? how to interact with it
-    command_keyword = models.TextField(max_length=512, blank=True)  # This is what the user needs to type to interact with it
-    command_response = models.TextField(max_length=512, blank=True)  # Upon successful command, this is the response, should also flip secret_connection_active
-    secret_connection_active = models.BooleanField(default=False)  # If True, should display secret_room_connects or next_server_connect
+    command_description = models.TextField(max_length=512, blank=True)
+    command_keyword = models.TextField(max_length=512, blank=True)
+    command_response = models.TextField(max_length=512, blank=True)
+    secret_connection_active = models.BooleanField(default=False)
     secret_room_connects = models.ManyToManyField('self', blank=True)
     next_server_connect = models.ManyToManyField(Server, blank=True)
 
@@ -56,6 +56,6 @@ def create_player(sender, instance, created, **kwargs):
         try:
             room_name = Room.objects.get(name='ARPANET-1')
         except Room.DoesNotExist:
-            base_room = Room.objects.create(name='ARPANET-1')
+            Room.objects.create(name='ARPANET-1')
             room_name = Room.objects.get(name='ARPANET-1')
         Player.objects.create_player(instance, player_name, room_name)
