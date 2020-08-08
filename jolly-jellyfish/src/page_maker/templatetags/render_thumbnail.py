@@ -32,8 +32,8 @@ def add_options(
     :param window_size: string in format 'height, width'
     :return Options object with common arguments added
     """
-    options_object.add_argument("--headless")
-    options_object.add_argument("--hide-scrollbars")
+    options_object.add_argument('--headless')
+    options_object.add_argument('--hide-scrollbars')
     options_object.add_argument(f'--window-size={window_size}')
     return options_object
 
@@ -83,8 +83,9 @@ def render_thumbnail(request: HttpRequest, url_to_render: str, page_obj: Union[W
         base_dir = Path(settings.BASE_DIR)
         media_dir = Path(settings.MEDIA_ROOT)
         # 'template_' prefix for Template Objects; 'pg_' for Webpages.
+        image_prefix = 'template_' if is_template else 'pg_'
         # Can't use only the obj's name as this may contain characters not permitted by file system
-        image_path = Path('thumbnails') / f'{"template_" if is_template else "pg_"}thumb-{str(page_obj.id)}.png'
+        image_path = Path('thumbnails') / f'{image_prefix}thumb-{page_obj.id}.png'
         full_os_path = str(base_dir / media_dir / image_path)
 
         if is_template:
@@ -119,7 +120,7 @@ def render_thumbnail(request: HttpRequest, url_to_render: str, page_obj: Union[W
         driver.close()
 
         img = Image.open(full_os_path)
-        # image shrunk (aspect ration maintained) to reduce storage space and reduce  footprint used on actual webpage
+        # image shrunk (aspect ration maintained) to reduce storage space and reduce footprint used on actual webpage
         img.thumbnail(size=(500, 500))
         img.save(full_os_path)
 

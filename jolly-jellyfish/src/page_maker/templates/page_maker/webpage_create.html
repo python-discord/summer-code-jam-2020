@@ -3,8 +3,8 @@
 {% block content %}
 <h2>Create your page!</h2>
 <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create page</button>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Create page</button>
 </form>
 {% endblock %}

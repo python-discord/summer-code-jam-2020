@@ -3,25 +3,24 @@
 {% block content %}
 <div><h1>{{ webpage.user_title }}</h1></div>
 <div>
-    {{ num_likes }} like{{ num_likes|pluralize }}
-    <form method="POST" action="">
-        {% csrf_token %}
-        <button type="submit">👍 Like</button><i>    {{ like_response }}</i>
-    </form>
+  {{ num_likes }} like{{ num_likes|pluralize }}
+  <form method="POST" action="">
+    {% csrf_token %}
+    <button type="submit">👍 Like</button><i>  {{ like_response }}</i>
+  </form>
+
+  {% for comment in comments %}
+  <div>
+    <p>{{ comment.author.username }}: {{ comment.title }}</p>
+    <p>{{ comment.content }}</p>
+  </div>
+  {% endfor %}
 </div>
 <div>
-    {% for comment in comments %}
-    <div>
-        <p>{{ comment.author.username }}: {{ comment.title }}</p>
-        <p>{{ comment.content }}</p>
-    </div>
-    {% endfor %}
-</div>
-<div>
-    <form method="POST" enctype="multipart/form-data" action="{% url 'comment-create' pagename=webpage.name %}">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Add comment</button>
-    </form>
+  <form method="POST" enctype="multipart/form-data" action="{% url 'comment-create' pagename=webpage.name %}">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add comment</button>
+  </form>
 </div>
 {% endblock %}

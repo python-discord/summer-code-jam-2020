@@ -3,9 +3,9 @@
 {% block content %}
 <h2>Delete template</h2>
 <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p>Delete template <b>{{template.name}}</b></p>
-    <button type="submit">Confirm</button>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <p>Delete template <b>{{template.name}}</b></p>
+  <button type="submit">Confirm</button>
 </form>
 {% endblock %}
