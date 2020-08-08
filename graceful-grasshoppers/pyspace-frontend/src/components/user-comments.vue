@@ -6,13 +6,13 @@
 				<a href="#">{{ comment.user }}</a>
 				<img src="http://placehold.it/100x100">
 			</div>
-			<div class="comment-content alert-warning">
+			<div class="w-100 comment-content alert-warning">
 				<p>{{ comment.content }}</p>
 			</div>
 		</div>
 		<div class="w-100">
 			<form @submit.prevent="submitComment" class="flex-col">
-				<textarea placeholder="Add a comment..."></textarea>
+				<textarea v-model="content" placeholder="Add a comment..."></textarea>
 				<input type="submit" value="Comment">
 			</form>
 		</div>
@@ -20,13 +20,24 @@
 </template>
 
 <script>
+	import axios from "../http-common.js";
+	import authHeader from "@/services/auth-header";
 	export default {
 		name: 'UserComments',
 		props: ['user'],
+		data: function() {
+			return {
+				content: "",
+			}
+		},
 		methods: {
 			submitComment() {
-				console.log(this.user);
-				console.log(this.content);
+				console.log(authHeader())
+				axios
+				.post("/users/comment/", {headers: authHeader() })
+				.then((response) => {
+					console.log(response);
+				})
 			}
 		}
 	};

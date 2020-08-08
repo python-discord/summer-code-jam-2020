@@ -10,7 +10,7 @@
 	import UserContent from '@/components/user-content';
 	import User from '@/models/user';
 	import axios from '../http-common.js';
-	const authToken = JSON.parse(localStorage.getItem('user')).key;
+	import authHeader from '@/services/auth-header';
 
 	export default {
 		name: 'Profile',
@@ -26,12 +26,12 @@
 		},
 		methods: {
 			init() {
+				const query_url = this.userId == null ? '/users/self/' : `/users/?username=${this.userId}`;
+				console.log(query_url)
 				axios
-				.get(`/users/?username=${this.userId}`, { Authorization: "Token " + authToken })
+				.get(query_url, { headers: authHeader() })
 				.then((response) => {
-					console.log(response)
-					console.log(this.userId)
-					Object.assign(this.user, response.data[0]);
+					Object.assign(this.user, response.data);
 				})
 			}
 		},

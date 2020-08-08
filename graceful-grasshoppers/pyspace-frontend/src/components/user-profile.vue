@@ -11,7 +11,7 @@
        <span class="country">{{ user.country }}</span>       
      </div>
    </div>
-   <div class="contact-user bordered">
+   <div v-if="logged_in" class="contact-user bordered">
     <span class="flex-row p-0">
       <ul class="p-0 w-50"> 
         <li class="p-0 m-0"><button href="#">Block User</button></li>
@@ -26,10 +26,6 @@
     <p class="font-weight-bold m-0">PySpace Url :</p>
     <a href="#">https://pyspace.net/?id={{ user.id }}</a>
    </div>
-   <div class="user-profile-track alert-dark bordered p-0">
-    <p class="m-0 p-0"><b>Song:</b> Friends – I'll Be There For You</p>
-     <audio controls class="m-0" style="width: 100%;"></audio>
-   </div>
  </div>
 </template>
 
@@ -37,7 +33,7 @@
 // @ is an alias to /src
 export default {
   name: 'UserProfile',
-  props: ['user'],
+  props: ['user', 'logged_in'],
 };
 
 </script>
