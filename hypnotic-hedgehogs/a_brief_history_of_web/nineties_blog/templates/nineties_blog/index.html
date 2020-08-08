@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=3.0">
+    <link rel="stylesheet" href="{% static 'nineties_blog/css/nineties.css'%}">
+    <title>The Greatest 90's blog!!1!</title>
+</head>
+
+<body style="background-color: #FFFFFF">
+    <div class="main">
+        <img src="{% static 'nineties_blog/title.png' %}">
+        
+        <div class="sidebar">
+            <div> bio </div>
+            <br>
+            <div> my music </div>
+            <br>
+            <div> cool videos </div>
+            <br>
+            <div> guestbook </div>
+            <br>
+            <div> email me </div>
+        </div>
+
+        <div class="content">
+            <p>
+            Hello! My name is Bob, and this is my very cool blog!
+            </p>
+
+            <p>
+            Here you can check all things ME! I have my music, and the things that I like...this is totally my cyber-home!
+            </p>
+        </div>
+
+        <div class="crazy_gifs">
+            <img style="width: 50px" src="{% static 'nineties_blog/underconstruction.gif' %}">
+            <img style="width: 50px" src="{% static 'nineties_blog/underconstruction.gif' %}">
+            <img style="width: 50px" src="{% static 'nineties_blog/underconstruction.gif' %}">
+        </div>
+    </div>
+
+</body>
+</html>
