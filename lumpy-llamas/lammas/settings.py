@@ -20,7 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'haha')
+=======
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "131233333333333333312312")
+>>>>>>> master
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
@@ -28,13 +32,18 @@ DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
 ALLOWED_HOSTS = [
     'llamma-xbiguwvyua-ew.a.run.app',
     'localhost',
+<<<<<<< HEAD
     '127.0.0.1'
+=======
+    '127.0.0.1',
+>>>>>>> master
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'forum.apps.ForumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +135,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'lammas', 'static'),
 )
+
+CSRF_COOKIE_NAME = "csrftoken"

@@ -17,12 +17,22 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf.urls.static import static
 from lammas.settings import STATIC_URL, STATIC_ROOT
-from core.views import index
+from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('api/newsfeed', include('newsfeed.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
     re_path(r'^.*$', index, name='unmatched'),
+=======
+    path('api/login', core_views.login_endpoint),
+    path('api/register', core_views.register_endpoint),
+    path('api/games/', include('games.urls')),
+    path('api/forum/', include('forum.urls'))
+] + static(STATIC_URL, document_root=STATIC_ROOT) + [
+
+    re_path(r'^.*$', core_views.index, name='unmatched'),
+>>>>>>> master
 ]

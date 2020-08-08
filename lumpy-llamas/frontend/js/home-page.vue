@@ -14,10 +14,9 @@
     <div class="home-menu item">
       <h2>Menu</h2>
       <ol class="home-menu-options">
-        <li>Forums</li>
-        <li>Email</li>
-        <li>Games</li>
-        <li>Chat</li>
+        <li v-for="page in pages">
+          <router-link :to="{ name: page.page }">{{page.title}}</router-link>
+        </li>
       </ol>
     </div>
   </div>
@@ -45,3 +44,31 @@
 }
 
 </style>
+
+<script>
+const MENU_PAGES = [
+  { title: 'Login/Register', page: 'login_page' },
+  { title: 'Forum/Thread-list', page: 'forum' },
+  { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
+];
+
+export default {
+  data() {
+    return {
+      pages: MENU_PAGES,
+    };
+  },
+  beforeMount() {
+    this.$cmd.on('1', this.goToLogin);
+    this.$cmd.on('2', this.goToGame);
+  },
+  methods: {
+    goToLogin() {
+      this.$router.push({ name: 'login_page' });
+    },
+    goToGame() {
+      this.$router.push({ name: 'tictactoe_page' });
+    },
+  },
+};
+</script>
