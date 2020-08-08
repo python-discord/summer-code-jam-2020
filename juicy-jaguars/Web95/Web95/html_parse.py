@@ -92,11 +92,14 @@ class HtmlParser:
                     values = list(map(self.remove_blanks, values))
                     new_values = []
                     print(values)
-                    for url, x in values:
-                        if ":" not in url:
-                            url = urllib.parse.quote(
-                             self.link_parent(self.basedir) + url)
-                        new_values.append([url, x])
+                    for x in values:
+                        if ":" not in x[0]:
+                            x[0] = urllib.parse.quote(
+                             self.link_parent(self.basedir) + x[0])
+                        try:
+                            new_values.append([x[0], " ".join(x[1:])])
+                        except IndexError:
+                            new_values.append([x[0], ""])
 
                     print((",".join(list(map(lambda x: "/" +
                                                        (" ".join(x)),
