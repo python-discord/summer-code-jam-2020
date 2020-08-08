@@ -22,7 +22,7 @@
  <form method='POST'>
     {% csrf_token %}
     <button class="buttonmatch" type="submit" name="Like" value="{{current.pk}}">Like</button>
-    <button class="buttonmatch" type="submit" name="Next">Dislike</button>
+    <button class="buttonmatch" type="submit" name="Dislike" value="{{current.pk}}">Dislike</button>
     </form>
 
 </div>
