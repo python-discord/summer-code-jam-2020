@@ -164,7 +164,7 @@ def threads(request, pk=None, tpc=None):
             "next_page": p + 1,
         }
 
-        if p > 1:
+        if p > 1:  # TODO: pagination (remove this todo by end of jam if not completed)
             data.update({"prev_page": p - 1})
         if prev_exists:
             data.update({"prev_pk": prev_page.pk})
