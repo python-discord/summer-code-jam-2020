@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.http import HttpResponse
-# from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.decorators import login_required
 from dungeon.models.character import MudUser
 from django.views import View
@@ -17,12 +17,40 @@ class MudUserView(View):
             username = request.POST['username']
             password = request.POST['password']
             user = MudUser(username=username, password=password)
+            # save() before : should be set_password()
+            user.set_password(password)
             try:
                 user.save()
             except IntegrityError:
                 return HttpResponse(user.username + " The ID already exists.")
             else:
                 return HttpResponse("Success create User " + user.username)
+        # login
+        elif request.POST["view_name"] == 'login_user':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponse("Login success")
+            else:
+                return HttpResponse("invalid")
+        # check login
+        elif request.POST["view_name"] == 'login_check':
+            if request.user.is_authenticated:
+                return HttpResponse("Logged in")
+            else:
+                return HttpResponse("invalid")
+        # get_username # must before login
+        elif request.POST["view_name"] == 'get_username':
+            if request.user.is_authenticated:
+                return HttpResponse(request.user.username)
+            else:
+                return HttpResponse("invalid")
+        # logout
+        elif request.POST["view_name"] == 'logout_user':
+            logout(request)
+            return HttpResponse("Logout success")
         else:
             pass
 
@@ -31,14 +59,8 @@ class MudUserView(View):
     #   pass
 
     # def login_view(request):
-    #     user_name = request.POST['username']
-    #     password = request.POST['password']
-    #     user = authenticate(username=user_name, password=password)
-    #     if user is not None:
-    #         login(request, user)
-    #         return HttpResponse(f"Login success")
-    #     else:
-    #         return HttpResponse(f"Login fail")
+    #     Done!
+    #   pass
 
     # @login_required
     # def user_profile(request):
