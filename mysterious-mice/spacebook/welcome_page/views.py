@@ -3,7 +3,6 @@ from django.views.generic import DetailView
 from .models import VisitCount
 
 
-# Create your views here.
 class Welcome(DetailView):
     template_name = "welcome_page/welcome.html"
 
@@ -13,6 +12,7 @@ class Welcome(DetailView):
         count.save(update_fields=["num_visits"])
 
         return render(request, self.template_name, {"count": count.num_visits})
+
 
 class Construction(DetailView):
     template_name = "welcome_page/test.html"

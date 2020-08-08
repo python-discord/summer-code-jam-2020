@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.core.exceptions import ObjectDoesNotExist
 from .models import ImagePost
 from rovers.models import Rover
 
@@ -23,7 +23,7 @@ class ImagePostListView(ListView):
         try:
             rover = Rover.objects.get(username=username)
             imageposts = ImagePost.objects.filter(rover=rover).order_by("-date")
-        except:
+        except ObjectDoesNotExist:
             imageposts = ImagePost.objects.all().order_by("-date")
         return imageposts
 
@@ -36,9 +36,9 @@ class ImagePostListView(ListView):
             # if viewing posts by a specific rover, pass additional context to
             # add GET data to URL and to display username in header
             rover = Rover.objects.get(username=username)
-            context["username_get"] = f"username={username}&"
+            context["username_get"] = f"username={ rover.username }&"
             context["username"] = username
-        except:
+        except ObjectDoesNotExist:
             context["username_get"] = ""
         return context
 
@@ -66,7 +66,7 @@ class ImagePostDetailView(DetailView):
             imageposts = list(ImagePost.objects.filter(rover=rover).order_by("-date"))
             username_get = f"?username={username}"
             context["username"] = username
-        except:
+        except ObjectDoesNotExist:
             # if no valid username, navigate to next/prev image regardless of rover
             imageposts = list(ImagePost.objects.all().order_by("-date"))
             username_get = ""
