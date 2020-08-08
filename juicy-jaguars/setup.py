@@ -66,7 +66,7 @@ summer-code-jam-2020"])
     print(green+"Made migrations successfully."+reset)
     print()
     print(green+"Successfully installed. Run with 'pipenv run Web95/manage.py\
- runserver'")
+ runserver' from summer-code-jam-2020/juicy-jaguars/")
 
 
 if __name__ == "__main__":
