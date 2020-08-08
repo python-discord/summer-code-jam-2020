@@ -32,7 +32,7 @@ const Home = () =>{
                                     </p>
                                 </Tab>
                                 <Tab title="Game Rooms">
-                                    
+                                    <p>Placeholder</p>
                                     
                                 </Tab>
                                 <Tab title="Rate Game">
