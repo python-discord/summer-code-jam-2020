@@ -84,14 +84,12 @@ def page(request, url):
 
         if len(params) > 0:
             url += "?"+("&".join(params))
-        print(params)
 
         if request.method == "GET":
             req = requests.get(url,
                                params={'User-Agent':
                                        request.META["HTTP_USER_AGENT"]})
         elif request.method == "POST":
-            print(request.POST)
             req = requests.post(url,
                                 data=request.POST,
                                 params={'User-Agent':
@@ -121,12 +119,14 @@ def page(request, url):
 
             img = Image.open(stream)
             f_ext = req.headers["content-type"].split("/")[1]
-            print(f_ext)
             if f_ext.upper() == "VND.MICROSOFT.ICON":
                 f_ext = "png"
             img.save(response, f_ext)
 
             return response
         else:
-            print("Manual 404 oopsie. Type was", req.headers["content-type"])
+            print("\u001b[34mManual 404 oopsie. Type was",
+                  req.headers["content-type"],
+                  "\u001b[0m")
+
             return HttpResponseNotFound()
