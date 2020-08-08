@@ -1,7 +1,5 @@
 # __pragma__('alias', 'js_fetch', 'fetch')
 
-# Example of how to do a fetch
-
 
 # __pragma__("kwargs")
 # __pragma__('jsiter')
