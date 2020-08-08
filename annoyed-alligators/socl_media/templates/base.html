@@ -12,17 +12,26 @@
 </head>
 
 <body>
-  <header>  
-    <span id="site-title"><a href="/"><img src="{% static 'media/logo.jpg' %}" id="site-logo"></a></span>
-    {% if request.user.is_authenticated %}
-      <span style="float:right;">
-        <a id="logout-link" href="/logout">
-          <img src="{% static 'media/logout.png' %}" id="logout-icon"> 
-          Logout</a>
-      </span>
-    {% endif %}
+  <header>
+    <div class="header-col1">
+      <span id="site-title"><a href="/"><img src="{% static 'media/logo.jpg' %}" id="site-logo"></a></span>
+    </div>
+    <div class="header-col2">
+      <a 
+        href="/profile/{{request.user.username}}" 
+        class="profile-link"
+        title="View your profile"
+      >{{request.user.username}}</a>
+    </div>
+    <div class="header-col3">
+      {% if request.user.is_authenticated %}
+        <a href="/logout">
+          <img src="{% static 'media/logout.png' %}" id="logout-icon" title="Logout">
+        </a>
+      {% endif %}
+    </div>
   </header>
-
+  
   <div id="main-content">
     {% if messages %}                                                     
     {% for message in messages %}                                         
@@ -46,6 +55,7 @@
       overflow-y: auto;
     }
     header {
+      display: flex;
       width: 100vw;
       height: 60px;
       margin-top: -8px;
@@ -63,17 +73,29 @@
       height: 80%;
       margin-top: 6px;
     }
-    #logout-link {
+    #logout-icon {
+      width: 32px;
+      height: auto;
+      margin-right: 3vw;
+      margin-top: 10px;
+      float: right;
+      display: inline-block;
+    }
+    .header-col1 {
+      flex: 30vw;
+    }
+    .header-col2 {
+      flex: 62vw;
+    }
+    .header-col3 {
+      flex: 8vw;
+    }
+    .profile-link {
       color: white;
       font-size: 1rem;
       float: right;
-      margin-right: 2vw;
-      margin-top: 20px;
       text-decoration: none;
-    }
-    #logout-icon {
-      width: 16px;
-      height: auto;
+      margin-top: 20px;
     }
   </style>
 </body>
