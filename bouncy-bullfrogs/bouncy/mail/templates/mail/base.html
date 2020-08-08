@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'mail/main.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet">
     {% block script %}
     {% endblock %}
 </head>
@@ -15,21 +16,27 @@
 <body>
 
     {% if user.is_authenticated %}
+    <p style="font-family:VT323;font-size: 30px;position: absolute;right: 5px;color:black;"><img src="../../static/mail/DefaultAvatar.png" alt="AvatarIcon">{{ request.user.email }}</p>
+    <h1><img class="logo" src="/static/mail/MailLogo.png" alt="logo" style="font-family:VT323;font-size: 30px;"></h1>
+    <div class="topnav">
+        <p>test</p>
+    </div>
     <div class="sidenav">
-        <a href="javascript:void(0)" id="inbox" >Inbox</a>
-        <a href="javascript:void(0)" id="compose" >Compose</a>
-        <a href="javascript:void(0)" id="sent" >Sent</a>
-        <a href="javascript:void(0)" id="archived" >Archived</a>
+
+        <a href="javascript:void(0)" id="inbox" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/InboxIcon.png" alt="InboxIcon">Inbox</a>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+        <a href="javascript:void(0)" id="compose" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/ComposeIcon.png" alt="ComposeIcon">Compose</a>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+        <a href="javascript:void(0)" id="sent" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/SentIcon.png" alt="SentIcon">Sent</a>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+        <a href="javascript:void(0)" id="archived" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/ArchiveIcon.png" alt="ArchiveIcon">Archived</a>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
         <br><br><br>
-        <a href="{% url 'logout' %}" style="font-size: 20px; color: #282baa;"">Log Out</a>
+        <a href="{% url 'logout' %}" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/LogoutIcon.png" alt="LogoutIcon">Log Out</a>
     </div>
     {% endif %}
 
-    <div class="container">
 
-        <h1 id="product-title"><img class="" src="{% static 'mail/main.png' %}" alt="logo">Bullfrog Mail</h1>
-
-    </div>
     <div class="container">
         {% block body %}
         {% endblock %}
