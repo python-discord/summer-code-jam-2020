@@ -3,13 +3,13 @@ from django.conf.urls import url
 from .rss_feed import LatestEntriesFeed
 from .views import IndexListView, PostView, LoginView, logout_request, SignupView, CommunityView, TopCommunityView, UserView\
     , UserProfileUpdate
-from .views import IndexListView, PostView, LoginView, logout_request, SignupView, CommunityView, TopCommunityView, UserView, add_comment
 
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', IndexListView.as_view()),
     path('rss/feed/community/<str:username>', LatestEntriesFeed()),
-    path('community/<str:community_name>/<int:post_id>/comment', add_comment),
     path('community/<str:community_name>/<int:post_id>/', PostView.as_view()),
     path('community/<str:community_name>/', CommunityView.as_view()),
     url(r'^login', LoginView.as_view(), name="login"),
@@ -20,3 +20,5 @@ urlpatterns = [
     path('user/<str:username>/posts', UserView.as_view()),
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
