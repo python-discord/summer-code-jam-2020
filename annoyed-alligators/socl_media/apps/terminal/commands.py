@@ -10,7 +10,7 @@ import ast
 
 class Command():
     """
-    This class is the blueprint for all 
+    This class is the blueprint for all
     terminal commands."""
 
     commands_list = []
@@ -36,6 +36,7 @@ def logout(request, params: str, **kwargs):
     else:
         return {'response': add_linebreaks("No user Logged in")}
 
+
 logout = Command(name='logout', help_text="""Logs out current user.<br>
 Usage: logout<br>""",
                  action=logout)
@@ -50,6 +51,7 @@ def signup(request, params: str, **kwargs):
         message = "Enter details to Sign Up"
         messages.success(request, message)
         return {'response': add_linebreaks(message), 'redirect': redirect}
+
 
 signup = Command(name='signup', help_text="""Register a new user.<br>
 Make sure you are logged out to register a new user.<br>
@@ -71,7 +73,7 @@ def message(request, params: str, **kwargs):
                 receiver_obj = User.objects.get(username=receiver_username)
                 if len(params.split()) > 1:
                     message_body = params[params.find(" ") + 1:]
-                    message = "No message provided. See: message --help" 
+                    message = "No message provided. See: message --help"
                     Message.objects.create(body=message_body, sender=request.user, recipient=receiver_obj)
                     message = f"Message sent to {receiver_username}"
                 else:
@@ -81,6 +83,7 @@ def message(request, params: str, **kwargs):
                 message = f"User '{receiver_username}' does not exist. Enter a valid username."
 
     return {'response': add_linebreaks(message)}
+
 
 message = Command(name='message', help_text="""Send a personal message to any user.<br>
 Usage: message [username] [message body]""",
@@ -94,7 +97,7 @@ def news(request, topic: str, start_date: str = None, end_date: str = None, **kw
     if page_num == 0 and article_num == 0:
         try:
             NewsHistory.objects.latest('search_time').delete()
-        except Exception as e:
+        except Exception:
             pass
 
         googlenews = GoogleNews()
@@ -125,8 +128,9 @@ def news(request, topic: str, start_date: str = None, end_date: str = None, **kw
         article_summary = (serial_number, f"{article['date']}, {article['media']}", article['title'])
         article_text.append(article_summary)
     all_articles = "<br>".join([". ".join(i) for i in article_text])
-    
+
     return {'response': all_articles, 'followup': True}
+
 
 news = Command(name='news', help_text="""Show the latest news.<br>
 Usage: news [search query]<br>
