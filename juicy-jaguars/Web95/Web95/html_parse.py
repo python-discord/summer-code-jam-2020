@@ -83,3 +83,14 @@ class HtmlParser:
                 if name in link_attrs:
                     if val.startswith("/"):
                         element[name] = self.basedir + val
+
+    def parse_images(self):
+        """Parse all images in document."""
+        try:
+            for element in self.soup.find_all('img'):
+                element.append(self.soup.new_tag('style', type='text/css'))
+                element.style.append("filter: grayscale(100%);")
+        except KeyError:
+            pass
+        except AttributeError:
+            pass
