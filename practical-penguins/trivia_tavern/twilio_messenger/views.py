@@ -114,7 +114,7 @@ def sms_reply(request):
                                                           question_index=player_quiz.current_question_index)
             correct_answer = current_question.question_answer
 
-            score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+            score_track = ScoreTracker.objects.get(player_name=player.phone_number,
                                                    session_code=player_quiz.session_code)
             if score_track.answered_this_round:
 
