@@ -22,11 +22,11 @@ class Account_View(viewsets.ModelViewSet): #Allow you to view all Accounts and C
                 user = models.Account.objects.get(nickname=login_serializer.data['username'])
 
             except:
-                return Response({'Authentication': 'Failed'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'Authentication': 'Failed'}, status=status.HTTP_400_BAD_REQUEST)
             if user.hashed_pass == login_serializer.data['password']:
                 return Response({'username': login_serializer.data['username']})
             else:
-                return Response({'Authentication': 'Failed'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'Authentication': 'Failed'}, status=status.HTTP_400_BAD_REQUEST)
             
         else:
             return Response(login_serializer.errors,
@@ -55,7 +55,12 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
         serializer = serializers.JoinSerializer(data=request.data)
 
         if serializer.is_valid():
-            return Response(models.Group.objects.get(serializer.data['group_name']))
+            try:
+                group = models.Group.objects.get(name = serializer.data['group_name'])
+                return Response({'messages': group.messages, 'creator': group.creator})
+            except models.Group.DoesNotExist:
+                return Response(serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)

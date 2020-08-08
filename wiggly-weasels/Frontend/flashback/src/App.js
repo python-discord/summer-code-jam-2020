@@ -8,6 +8,8 @@ import original from "react95/dist/themes/original";
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 
+import Terminal from 'terminal-in-react'
+
 import sha256 from 'js-sha256'
 import Cookies from 'js-cookie'
 
@@ -38,7 +40,16 @@ function postRequest(url, opts) {
   },
   body: JSON.stringify(opts),
   })
+  .then((response) => {
+    console.log(response)
+    if(!response.ok){
+      alert('Something went wrong, try again...')
+      throw 'Bad Request'
+    }
+  return response
+  })
   .then(response => response.json())
+
 
 }
 
@@ -56,12 +67,16 @@ const App = () => {
   const [email, setEmail] = useState('')
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
+  const [group, setGroup] = useState('')
 
   const email_Change = e => setEmail(e.target.value);
   const user_change = e => setUser(e.target.value);
   const password_change = e => setPassword(e.target.value);
   const tabChange = (e, value) => setActiveTab(value);
+  const session_id = Cookies.get('session_id');
 
+  console.log(group)
+  
   return (
     <div
     style={{
@@ -77,86 +92,162 @@ const App = () => {
         <Toolbar style={{ justifyContent: 'space-between' }}>
 
         <div style={{ position: 'relative', display: 'inline-block'}}>
-
+        { session_id ? (
+          <Button
+          onClick={() => {
+            Cookies.remove('session_id')
+            window.location.reload()
+           }}
+            style={{ marginLeft: '2px' }}>Logout</Button>
+        ) : (
         <Button
         onClick={() => {
           if(activeTab === 0){
             const response = postRequest('http://127.0.0.1:8000/account/check-login/', {'password': sha256(password), 'username': user})
             response.then((data) => {
-              if(password !== '' && user !== ''){
-              Cookies.set('session_id', data.username)}
-              else{
-                alert('Empty Fields...')
-              }
-
+              Cookies.set('session_id', data.username)
+              window.location.reload()
             })
           }else{
             const response = postRequest('http://127.0.0.1:8000/account/', {'email': email, 'hashed_pass': sha256(password), 'nickname': user})
             response.then((data) => {
-              if(password !== '' && user !== '' && email !== ''){
-                Cookies.set('session_id', data.nickname)}
-                else{
-                  alert('Empty Fields...')
-                }
-            })
+                Cookies.set('session_id', data.nickname)
+                window.location.reload()
+              }
+            )
           }
          }}
-          style={{ marginLeft: '2px' }}>Login</Button>
-
+          style={{ marginLeft: '2px' }}>Begin</Button>
+        )}
+        
         </div>
-
+      {!session_id && (
         <Hourglass size={32} />
+      )}
 
         </Toolbar>
       </AppBar>
+  {session_id ? (
+    <div style = {{display:"flex", justifyContent: "center"}}>
+      <Terminal hideTopBar
+        commands={{
+          join: {
+            method: (args, print, runCommand) => {
+              print(`Attempting to join ${args._[0]}`);
+              const response = postRequest('http://127.0.0.1:8000/group/join-group/', {'group_name': args._[0]})
+              response.then( (data) => {
+                window.hack_group = args._[0]
+                window.hack_messages = data.messages.length
+                data.messages.forEach((message) => {
+                  print(`${message.sender}: ${message.content}`)
+                })
+              })
+            },
+            options: [
+              {
+                name: 'color',
+                description: 'The color the output should be',
+                defaultValue: 'white',
 
-      <Tabs value={activeTab} onChange={tabChange}>
-          <Tab value={0}>Login</Tab>
-          <Tab value={1}>Sign Up</Tab>
-      </Tabs>
-      
-      <TabBody style={{ height: 300 }}>
-        
-        {activeTab === 0 &&(
-          <div>
-            <TextField
-              value={user}
-              placeholder='Your Username'
-              onChange={
-                user_change}>
-            </TextField>
+              },
+            ],
+          },
+          create:{
+            method: (args, print, runCommand) => {
+              print(`Creating Group ${args._[0]}`)
+              postRequest('http://127.0.0.1:8000/group/', {'messages': [{'sender': 'flashback', 'content': `Welcome to ${args._[0]}`}], 'name': args._[0], 'creator': session_id})
 
-            <TextField
-              value={password}
-              placeholder='Your Password'
-              onChange={password_change}>
-            </TextField>
-          </div>
-        )}
+          }
+        },
+          send:{
+            method:(args, print, runCommand) => {
+              const read_response = postRequest('http://127.0.0.1:8000/group/read-message/', {'group_name': window.hack_group, 'index': window.hack_messages})
+              read_response.then((data) => {
+                data.messages.forEach((message) => {
+                  print(`${message.sender}: ${message.content}`)
+                  window.hack_messages += 1})
+                })
+              print('Sending message')
+              console.log(group)
+              const response = postRequest('http://127.0.0.1:8000/group/new-message/', {'sender': session_id, 'content': args._.join(' '), 'group_name': window.hack_group})
+              response.then(() => {
+                print(`${session_id}: ${args._.join(' ')}`)
+                window.hack_messages += 1
+              })
+            }
+          },
+        exit:{
+          method:(args, print, runCommand) => {
+            print('Leaving group')
+            window.hack_group = ''
+          }
+        },
+        read:{
+          method: (args, print, runCommand) => {
+            print('New Messages')
+            const response = postRequest('http://127.0.0.1:8000/group/read-message/', {'group_name': window.hack_group, 'index': window.hack_messages})
+            response.then((data) => {
+              data.messages.forEach((message) => {
+                print(`${message.sender}: ${message.content}`)
+                window.hack_messages += 1
+              })
+            })
+          }
+        }
+        }}
+      />
+    </div>
+  ) : (
+    <>
+    <Tabs value={activeTab} onChange={tabChange}>
+    <Tab value={0}>Login</Tab>
+    <Tab value={1}>Sign Up</Tab>
+</Tabs>
 
-        {activeTab === 1 &&(
-          <div>
-        <TextField
-          value={user}
-          placeholder='Your Username'
-          onChange={user_change}>
-        </TextField>
-      
+<TabBody style={{ height: 300 }}>
+  
+  {activeTab === 0 &&(
+    <div>
       <TextField
-      value={email}
-      placeholder='Your Email'
-      onChange={email_Change}>
-    </TextField>
+        value={user}
+        placeholder='Your Username'
+        onChange={
+          user_change}>
+      </TextField>
 
-    <TextField
-      value={password}
-      placeholder='Your Password'
-      onChange={password_change}>
-    </TextField>
-      </div>
-      )}
+      <TextField
+        value={password}
+        placeholder='Your Password'
+        onChange={password_change}>
+      </TextField>
+    </div>
+  )}
 
-      </TabBody>
+  {activeTab === 1 &&(
+    <div>
+  <TextField
+    value={user}
+    placeholder='Your Username'
+    onChange={user_change}>
+  </TextField>
+
+<TextField
+value={email}
+placeholder='Your Email'
+onChange={email_Change}>
+</TextField>
+
+<TextField
+value={password}
+placeholder='Your Password'
+onChange={password_change}>
+</TextField>
+</div>
+)}
+
+</TabBody>
+</>
+    ) }
 
     </ThemeProvider>
   </div>

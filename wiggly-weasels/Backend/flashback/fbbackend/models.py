@@ -38,7 +38,7 @@ class Group(models.Model):
 
     '''
     creator = models.CharField(max_length=100)  # The ID of the User
-    messages = ArrayField(  # ArrayField Containing Messages
+    messages = ArrayField( # ArrayField Containing Messages
         JSONField()
 
     )
