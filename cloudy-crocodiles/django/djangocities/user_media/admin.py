@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Media
+from .models import Image
 
-@admin.register(Media)
-class MediaAdmin(admin.ModelAdmin):
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
     pass

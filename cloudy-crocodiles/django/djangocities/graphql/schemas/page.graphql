@@ -1,6 +1,6 @@
 type Page {
     id: ID!
-    site: Site!
+    folder: Folder!
     filename: String!
     version: String!
     content: String!

@@ -1,24 +1,34 @@
 <template>
   <q-page padding>
-    <div v-if="folderData" class="card-column">
-      <q-card v-for="item in folderData.children" :key="item.id">
-        <q-card-section>
-          <!-- <a :href="`http://localhost:1234/${city.slug}/${site.address}`"> -->
-          <a href="">
-            {{ item.name }}
+    <q-list v-if="folderItems">
+      <q-item v-if="folder.parent">
+        <q-item-section>
+          <a :href="`/folders/${folder.parent.id}`">
+            ..
           </a>
-        </q-card-section>
-      </q-card>
-    </div>
+        </q-item-section>
+      </q-item>
+      <q-item v-for="item in folderItems" :key="item.id">
+        <q-item-section>
+          <a :href="`/${item.collection}/${item.id}`">
+            {{ item.filename }}
+          </a>
+        </q-item-section>
+      </q-item>
+    </q-list>
   </q-page>
 </template>
 
 <script>
 import gql from 'graphql-tag';
 
-const folderDataQuery = gql`
-query folderDataQuery($id: ID!) {
-  folderData(id: $id)
+const folderItemsQuery = gql`
+query folderItemsQuery($id: ID!) {
+  folderItems(id: $id) {
+    id
+    collection
+    filename
+  }
 }
 `;
 
@@ -30,18 +40,15 @@ export default {
     };
   },
   apollo: {
-    folderData: {
-      query: folderDataQuery,
+    folderItems: {
+      query: folderItemsQuery,
       prefetch: false,
       fetchPolicy: 'network-only',
       variables () {
         return {
           id: this.folder.id
         }
-      },
-        update (data) {
-            return JSON.parse(data.folderData)
-        },
+      }
     },
   },
   methods: {

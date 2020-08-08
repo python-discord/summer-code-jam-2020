@@ -8,10 +8,7 @@ def upload_to(instance, filename):
     return f"{settings.MEDIA_ROOT}/{instance.folder}/{filename}"
 
 
-class Media(Item):
-    class Meta:
-        verbose_name_plural = "user_media"
-
+class Image(Item):
     image = models.ImageField(upload_to=upload_to)
     description = models.TextField(blank=True)
 

@@ -7,13 +7,51 @@ const routes = [
     ]
   },
   {
+    path: '/sites/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/sites')},
+      { path: ':id', component: () => import('pages/sites/_id'), props: true},
+    ]
+  },
+  {
+    path: '/folders/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/folders')},
+      { path: ':id', component: () => import('pages/folders/_id'), props: true},
+    ]
+  },
+  {
+    path: '/pages/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/pages')},
+      { path: ':id', component: () => import('pages/pages/_id'), props: true},
+    ]
+  },
+  {
+    path: '/images/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/images')},
+      { path: ':id', component: () => import('pages/images/_id'), props: true},
+    ]
+  },
+  {
+    path: '/at/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: ':slug', component: () => import('pages/City.vue'), props: true },
+      { path: ':slug/:address', component: () => import('pages/Site.vue'), props: true },
+    ]
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'login', component: () => import('pages/Login.vue') },
-      { path: ':slug', component: () => import('pages/City.vue'), props: true },
-      { path: ':slug/:address', component: () => import('pages/Site.vue'), props: true },
     ],
   },
 

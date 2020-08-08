@@ -16,7 +16,7 @@ def resolve_site(*_, id):
     return Site.objects.get(id=id)
 
 @query.field("siteFolder")
-def resolve_city_site(*_, id, path):
+def resolve_site_folder(*_, id, path):
     site = Site.objects.get(id=id)
     return Folder.objects.get(site=site, path=path)
 
