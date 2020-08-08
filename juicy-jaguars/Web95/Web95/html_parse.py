@@ -128,7 +128,7 @@ class HtmlParser:
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-            head.style.append('html {filter: grayscale(100%) !important;}')
+            head.style.append('html {filter: grayscale(80%) !important;}')
         except KeyError:
             pass
         except AttributeError:
