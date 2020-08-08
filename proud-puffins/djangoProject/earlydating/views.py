@@ -121,8 +121,8 @@ def likedmatches(request):
     logged_user = request.user
     liked_you = UserVote.objects.filter(user=logged_user, vote=1).exclude(voter=logged_user)
     you_liked = UserVote.objects.filter(voter=logged_user, vote=1).exclude(user=logged_user)
-    page_likes = Paginator(liked_you, 10)
-    page_liked = Paginator(you_liked, 10)
+    page_likes = Paginator(liked_you, 9)
+    page_liked = Paginator(you_liked, 9)
 
     page_number = request.GET.get('page')
     page_obj_likes = page_likes.get_page(page_number)
