@@ -1,7 +1,8 @@
 # Trivia Tavern by Practical Penguins
 
 ## about
-This django web application allows people to create and organize trivia events. Participants can then answer trivia question using their phones.
+This django web application allows people to create and organize trivia events. Participants can then answer trivia
+ question using their phones.
 
 ## installation requirement
 * python 3.8
@@ -20,7 +21,8 @@ run setup.py
 
     python setup.py install
 
-NOTE: We have encountered installation issues when trying to install Pillow on windows (see [here](https://stackoverflow.com/questions/41188838/cant-install-pillow-in-windows)).
+NOTE: We have encountered installation issues when trying to install Pillow on windows 
+(see [here](https://stackoverflow.com/questions/41188838/cant-install-pillow-in-windows)).
 Try to install Pillow before the above command if there are issues relating to `Pillow`.
 
 initialize database
@@ -33,7 +35,8 @@ python manage.py makemigrations
 
 set environment variables to your Twilio account
 
-You can run these commands temporarily from one shell session, but to set them permanently, simply copy the following into your ~/.bashrc, without the '<>':
+You can run these commands temporarily from one shell session, but to set them permanently, simply copy the following 
+into your ~/.bashrc, without the '<>':
 ```bash
   export TWILIO_ACCOUNT_SID=<your-account-id>
   export TWILIO_AUTH_TOKEN=<your-account-secret>
@@ -51,9 +54,9 @@ then go to ` http://127.0.0.1:8000/` in your web browser.
 
 Note in order to have the full functionality of Trivia Tavern you will need to setup your own twilio account/number.
 The app will need the following 3 environment variables set at run time:
-TWILIO_NUMBER
-TWILIO_ACCOUNT_SID
-TWILIO_AUTH_TOKEN  
+- TWILIO_NUMBER
+- TWILIO_ACCOUNT_SID
+- TWILIO_AUTH_TOKEN  
 
 see [Twilio documentation](https://www.twilio.com/docs) for more details.
 
