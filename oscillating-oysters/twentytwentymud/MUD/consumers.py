@@ -46,6 +46,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                 await self.send_room(content["message"])
             elif command == "help":
                 await self.send_help()
+            elif command == "status":
+                await self.send_status()
             elif command == "look":
                 await self.send_room_description()
             elif command == "go":
@@ -95,6 +97,18 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json({'message': f"Hello {colorize('brightMagenta', self.player.name)}"})
         # TODO: add Current Date: {date_from_room_model}
 
+    async def send_status(self):
+        room_name = await self.get_current_room_name()
+        server_name = await self.get_current_server_name()
+        server_date = await self.get_current_server_date()
+        message = (f"Player name: {colorize('brightMagenta', self.player.name)}\n"
+                   f"Location: {colorize('brightGreen', room_name)} on {colorize('brightGreen', server_name)}\n"
+                   f"Current Date: {colorize('green', server_date)}\n"
+                   )
+        await self.send_json({
+            'message': message
+        })
+
     async def send_tutorial(self):
         '''
         Sends the initial tutorial and overall game explanation.
@@ -135,7 +149,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         })
 
     async def send_help(self):
-        options = ['help', 'send', 'leave', 'look', 'go <room>', 'go <room number>']
+        options = ['help', 'status', 'send <message>', 'leave', 'look', 'go <room>', 'go <room number>']
         await self.send_json({
             'message': "COMMANDS: \r\n    " + colorize("brightGreen", ", ".join(options))
         })
@@ -161,6 +175,14 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             return (list(self.player.room.connections.all()) + list(self.player.room.secret_room_connects.all()))[index].name
         else:
             return self.player.room.connections.all()[index].name
+
+    @database_sync_to_async
+    def get_current_server_name(self):
+        return self.player.room.server.name
+
+    @database_sync_to_async
+    def get_current_server_date(self):
+        return self.player.room.server.server_date.strftime("%B %m, %Y")
 
     @database_sync_to_async
     def get_current_room_description(self):
