@@ -47,7 +47,8 @@ export default {
   methods: {
     handleNewMessage(ev) {
       var data = JSON.parse(ev.data);
-      this.messages.push(data.message);
+      var message_to_display = `[${data.message.datetime}] ${data.message.user}: ${data.message.message}`
+      this.messages.push(message_to_display);
     },
     sendMessage(msg) {
       if (msg) {
