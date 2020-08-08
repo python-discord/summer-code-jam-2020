@@ -11,52 +11,57 @@
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
     <script>
+        var ws;
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        function start(){
-           ws = new WebSocket(
+        console.log("first" + roomName);
+        start = function(){
+        	console.log("HEYYY");
+            ws = new WebSocket(
                 'ws://'
                 + window.location.host
                 + '/ws/chat/'
                 + roomName
                 + '/',
             );
-            return ws
-        }
-        chatSocket = start();
-        console.log(chatSocket)
-        chatSocket.onopen = function(e) {
-            console.log("connected")
-            chatSocket.send(JSON.stringify({
+            console.log(ws);
+            ws.onopen = function(e) {
+            console.error("Connected");
+            ws.send(JSON.stringify({
                 'command': 'fetch_messages'
             }));
-        };
+        	};
 
-
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            if(data['command'] == 'new_message')
-            {
-                document.querySelector('#chat-log').value += (data.message.author + ':' + data.message.content + '\n');
-            }
-            else{
-                for(index in data.messages){
-                    document.querySelector('#chat-log').value += (data.messages[index].author + ':' + data.messages[index].content + '\n');
+            ws.onerror = function (error) {
+            	console.log(error);
+            };
+            ws.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                if(data['command'] == 'new_message')
+                {
+                    document.querySelector('#chat-log').value += (data.message.author + ':' + data.message.content + '\n');
                 }
-            }
+                else{
+                    for(index in data.messages){
+                        document.querySelector('#chat-log').value += (data.messages[index].author + ':' + data.messages[index].content + '\n');
+                    }
+                }
+            };
+
+            ws.onclose = function(event) {
+              if (event.wasClean) {
+                     alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                } else {
+                    console.error('Chat socket closed unexpectedly');
+                    console.error('Reconnecting ....');
+                    console.error(event);
+                    // Try to reconnect in 5 seconds
+                    setTimeout(function(){ws = start();}, 5000);
+                }
+            };
+            return ws;
         };
-
-        chatSocket.onclose = function(event) {
-          if (event.wasClean) {
-                 alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-            } else {
-                console.error('Chat socket closed unexpectedly');
-                console.error('Reconnecting ....');
-                // Try to reconnect in 5 seconds
-                setTimeout(function(){chatSocket = start()}, 5000);
-            }
-
-        };
-
+        console.log("heyyyy");
+        ws = start();
         document.querySelector('#chat-message-input').focus();
         document.querySelector('#chat-message-input').onkeyup = function(e) {
             if (e.keyCode === 13) {  // enter, return
@@ -67,7 +72,7 @@
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
+            ws.send(JSON.stringify({
                 'command': 'new_message',
                 'message': message
             }));

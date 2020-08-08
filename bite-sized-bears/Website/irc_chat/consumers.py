@@ -4,11 +4,12 @@ import json
 from django.db.models import F
 from .models import Message, UserProfile
 from syndication_app.models import User
+from channels.db import database_sync_to_async
 
 
 class ChatConsumer(WebsocketConsumer):
 
-    # @database_sync_to_async
+    @database_sync_to_async
     def update_user_incr(self, community_name):
         present = UserProfile.objects.filter(community__exact=community_name)
         print(present)
@@ -19,7 +20,7 @@ class ChatConsumer(WebsocketConsumer):
                .update(count=F('count') + 1)
         print(what)
 
-    # @database_sync_to_async
+    @database_sync_to_async
     def update_user_decr(self, community_name):
         print(community_name)
         what = UserProfile.objects.filter(community__exact=community_name)\
@@ -75,14 +76,20 @@ class ChatConsumer(WebsocketConsumer):
             self.channel_name
         )
         self.accept()
+        print("Accepted")
+        print(self.room_name + ": count :",
+              UserProfile.objects.filter(community__exact=self.room_name).values('count'))
 
     def disconnect(self, close_code):
         print("DISCONNECTING")
         self.update_user_decr(self.room_name)
+        print("Done ... decremented")
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
         )
+        print(self.room_name + ": count :",
+              UserProfile.objects.filter(community__exact=self.room_name).values('count'))
 
     def receive(self, text_data):
         data = json.loads(text_data)
@@ -106,5 +113,7 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps(message))
 
     def chat_message(self, event):
+        print(self.room_name + ": count :",
+              UserProfile.objects.filter(community__exact=self.room_name).values('count'))
         message = event['message']
         self.send(text_data=json.dumps(message))
