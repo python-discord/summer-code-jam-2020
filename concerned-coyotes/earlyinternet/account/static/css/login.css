@@ -52,3 +52,18 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
   background: rgb(13, 168, 13);
 }
+
+
+form.vertical {
+  display: flex;
+  flex-flow: column;
+}
+
+form.vertical .text-input:not(:first-child) {
+  margin-top: 0.4rem;
+}
+
+form.vertical button[type="submit"] {
+  margin-top: 0.4rem;
+  font-size: 1.5rem;
+}

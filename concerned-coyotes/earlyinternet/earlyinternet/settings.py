@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Modules
+    'widget_tweaks',
+    # Apps
     'wikipedia.apps.WikipediaConfig',
-    'dashboard.apps.DashboardConfig',
+    'account',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -101,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -120,3 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Authentication
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/account/login"
+LOGOUT_REDIRECT_URL = "/account/login"
