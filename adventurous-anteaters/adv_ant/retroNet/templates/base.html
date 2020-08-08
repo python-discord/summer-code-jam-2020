@@ -175,7 +175,7 @@
             https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
             <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
         </select>
-         <button id="go" class="dropbtn"><img src="retroNet/images/ie-go-min.png" alt=""></i>
+        <button id="go" class="dropbtn"><img src="{% static 'retroNet/images/ie-go-min.png' %}" alt=""></i>
           Go
         </button>
         <span class="vertical-line"></span>
@@ -183,6 +183,7 @@
     </div>
     <!-- Main Menu - Address Bar  End -->
 
+  </div>
     <!-- Main Menu End -->
     
     {% block content %}
@@ -190,14 +191,15 @@
     {% endblock %}
 
 
+<footer class="window" id="footer">
     <div class="container">
-      <div class="footer_boxes" id="left"><img src="retroNet/images/e.png" id="e_style">Done</div>
+        <div class="footer_boxes" id="left"><img src="{% static 'retroNet/images/e.png' %}" id="e_style">Done</div>
       <div class="footer_boxes" id="middle1"></div>
       <div class="footer_boxes" id="middle2"></div>
       <div class="footer_boxes" id="middle3"></div>
-      <div class="footer_boxes" id="right"><img src="retroNet/images/earth.png" id="earth">Internet</div>
+      <div class="footer_boxes" id="right"><img src="{% static 'retroNet/images/earth.png' %}" id="earth">Internet</div>
       <div class="footer_boxes" id="time"></div>
     </div>
-  </div>
+</footer>
 
 </body>
