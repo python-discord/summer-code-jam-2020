@@ -12,6 +12,7 @@
 {% block content %}
     <h1>{{ art.headline }}</h1>
     <p>{{ art.body | linebreaks }}</p>
+    <hr style="width:70%;text-align:left;margin-left:0">
     <p>Reporter: {{ art.author }}</p>
     <p>Published: {{ art.publication_date|date }}</p>
     <p>Date: {{ now|date }}</p>
