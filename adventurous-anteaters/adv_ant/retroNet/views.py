@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Tweet
@@ -42,3 +43,27 @@ def register(request):
 def integration(request):
     return render(request, 'title.html')
 
+
+@login_required(login_url='/login/')
+def home(request):
+    return HttpResponse("Wait for templates")
+
+@login_required(login_url='/login/')
+def my_profile(request):
+    return HttpResponse("Wait for templates")
+
+@login_required(login_url='/login/')
+def update_profile(request):
+    return HttpResponse("Wait for templates")
+
+@login_required(login_url='/login/')
+def user_profile(request):
+    return HttpResponse("Wait for templates")
+
+@login_required(login_url='/login/')
+def delete_profile(request):
+    return HttpResponse("Wait for templates")
+
+@login_required(login_url='/login/')
+def delete_tweet(request):
+    return HttpResponse("Wait for templates")
