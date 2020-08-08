@@ -2,7 +2,13 @@
 
 {% load static %}
 
-{% block title %}Spacebook Home{% endblock %}
+{% block title %}
+    {% if username %}
+        {{ username }}'s Posts
+    {% else %}
+        Spacebook Home
+    {% endif %}
+{% endblock %}
 
 {% block extrahead %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock %}
 
@@ -35,36 +41,17 @@
             {% endif %}
         {% endif %}
         <br>
-        <table class="imagepost-table">
-            <tbody>
-                <tr>
-                    {% for post in posts %}
-                        {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
-                            </tr><tr>
-                        {% endif %}
-                        <td>
-                            <a href="{% url 'posts-detail' post.pk %}?{{ username_get }}">
-                                <img src="{{ post.image.url }}" class="imagepost-thumbnail">
-                            </a>
-                        </td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
+        <table class="imagepost-table"><tbody><tr>
+            {% for post in posts %}
+                {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
+                    </tr><tr>
+                {% endif %}
+                <td>
+                    <a href="{% url 'posts-detail' post.pk %}?{{ username_get }}">
+                        <img src="{{ post.image.url }}" class="imagepost-thumbnail">
+                    </a>
+                </td>
+            {% endfor %}
+        </tr></tbody></table>
     </div>
 {% endblock %}
-
-<!--
-{% block footer %}
-    <div class="image-center">
-        <div class="bottom">
-            <a  href="{% url 'guestbook:guestbook' %}">
-                <img class="image-center guestbook-link" src="static/images/saturn.png" >    
-                    <p class="center">
-                        Guestbook
-                    </p>
-            </a>
-        </div>    
-    </div>
-{% endblock %}
--->

@@ -17,7 +17,7 @@ class ImagePostListView(ListView):
     ordering = ["-date"]
     paginate_by = 16
 
-    # if navigated from rover profile, only return that rover's posts
+    # if a valid username provided, only return that rover's posts
     def get_queryset(self):
         username = self.request.GET.get("username")
         try:
