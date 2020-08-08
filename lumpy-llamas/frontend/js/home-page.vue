@@ -48,6 +48,7 @@
 <script>
 const MENU_PAGES = [
   { title: 'Login/Register', page: 'login_page' },
+  { title: 'Login/Forum', page: 'forum' },
 ];
 
 export default {
