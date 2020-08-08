@@ -10,3 +10,4 @@ mutation.set_field("register", user_mutations.resolve_register)
 
 # Folder Mutations
 mutation.set_field("createFolder", folder_mutations.resolve_create_folder)
+mutation.set_field("updateFolder", folder_mutations.resolve_update_folder)

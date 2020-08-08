@@ -10,7 +10,7 @@ class Folder(models.Model):
     path = models.CharField(max_length=256)
 
     def __str__(self):
-        return f"{self.site}{self.path}"
+        return f"{self.site}/{self.path}"
 
 
 class Item(models.Model):
