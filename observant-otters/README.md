@@ -1,6 +1,6 @@
 # FORUMTHING
 
-Our site is basically just a forum with an auth system using Discord. People can create threads, post messages on said threads, and also edit/delete their messages. Threads are divided into three topics currently: General, Coding (well, this _is_ a code jam), and Jokes.
+Our site is basically just a forum with a simple auth system. People (when logged in) can create threads, post messages on said threads, and also edit/delete their messages. Threads are divided into three topics currently: General, Coding (well, this _is_ a code jam), and Jokes.
 
 ## Running Directions
 
