@@ -5,7 +5,7 @@ from .settings import BASE_DIR
 import os
 import urllib.parse
 from django.views.decorators.clickjacking import xframe_options_sameorigin
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from .html_parse import HtmlParser
 from PIL import Image
 import io
