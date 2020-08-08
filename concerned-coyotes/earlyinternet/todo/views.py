@@ -20,3 +20,4 @@ class TodoEntryUpdate(UpdateView):
     model = TodoEntry
     template_name = 'todo_update_form.html'
     fields = ['name', 'done']
+    success_url = '/'
