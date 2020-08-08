@@ -14,7 +14,7 @@ In the main `mysterious-mice\` directory:
 ### Without Docker
 
 In the main `mysterious-mice\` directory:
-- Run `venv\Scripts\activate` to activate the virtual environment.
+- Run `source venv\Scripts\activate` to activate the virtual environment.
 - Run `python -m pip install --upgrade pip` to ensure the latest version of pip is installed.
 - Run `python -m pip install -r requirements.txt` to install all the required packages.
 
@@ -22,7 +22,7 @@ In the `spacebook\` subdirectory:
 - Run `python manage.py makemigrations`
 - Run `python manage.py migrate`
 - Run `python manage.py loaddata db.json`
-- Run `python maange.py runserver`
+- Run `python manage.py runserver`
 
 ## Updating The Database
 
