@@ -8,8 +8,8 @@ User._meta.get_field('email')._unique = True
 User._meta.get_field('email').blank = False
 User._meta.get_field('email').null = False
 
-Gender_Choices = (('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other'))
-Pref_Choices = (('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other'), ('Both', 'Both'))
+Gender_Choices = (('Male', 'Male'), ('Female', 'Female'))
+Pref_Choices = (('Male', 'Male'), ('Female', 'Female'), ('Both', 'Both'))
 
 
 class Profile(models.Model):

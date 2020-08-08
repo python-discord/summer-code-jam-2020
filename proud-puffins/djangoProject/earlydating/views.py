@@ -92,7 +92,7 @@ def DateMatcher(request):
         if liked_pk := request.POST.get('Like'):
             voted = User.objects.get(pk=liked_pk)
             UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=True)
-
+            return
         return redirect('earlydating-DateMatcher')
     elif request.method == 'GET':
 
@@ -103,13 +103,16 @@ def DateMatcher(request):
 
 def get_unvoted(voter):
     try:
-        votes = UserVote.objects.filter(voter=voter)
+        votes = UserVote.objects.filter(voter=voter, vote=True)
         if not isinstance(votes, Iterable):
             votes = [votes]
         voted_pk = [vote.user.pk for vote in votes] + [voter.pk]
     except UserVote.DoesNotExist:
         voted_pk = [voter.pk]
-    unvoted = User.objects.exclude(pk__in=voted_pk).order_by('?')[0]
+    if (sex := voter.profile.preference) in ['Male', 'Female']:
+        unvoted = User.objects.exclude(pk__in=voted_pk).filter(profile__sex=sex).order_by('?')[0]
+    else:
+        unvoted = User.objects.exclude(pk__in=voted_pk).filter(profile__sex__in=['Male', 'Female']).order_by('?')[0]
     return unvoted
 
 
@@ -141,7 +144,6 @@ def matches(request):
     whole_list = liked_you.union(you_liked)
     context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
     return render(request, 'dating/mymatches.html', context)
-
 
 
 @login_required(login_url='earlydating-login')

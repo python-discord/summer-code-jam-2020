@@ -8,7 +8,7 @@ password = 'pbkdf2_sha256$180000$rIY0NVmswzaj$CHEAdXxSdOcKF6m1McG51wWWNrJ6Ynl6nG
 MG = ['Male', 'Other']
 FG = ['Female', 'Other']
 
-PREF = ['Male', 'Female', 'Other', 'Both']
+PREF = ['Male', 'Female', 'Both']
 
 with open('raw.json', 'r') as f:
     raw = json.load(f)
@@ -34,11 +34,11 @@ def genusers():
 def genprofiles():
     for ind, row in enumerate(raw):
         if ind < 200:
-            row['fields']['sex'] = MG[choice(2, 1, p=[0.8, 0.2])[0]]
-            row['fields']['preference'] = PREF[choice(4, 1, p=[0.2, 0.6, 0.1, 0.1])[0]]
+            row['fields']['sex'] = 'Male'
+            row['fields']['preference'] = PREF[choice(3, 1, p=[0.2, 0.6, 0.2])[0]]
         else:
-            row['fields']['sex'] = FG[choice(2, 1, p=[0.8, 0.2])[0]]
-            row['fields']['preference'] = PREF[choice(4, 1, p=[0.6, 0.2, 0.1, 0.1])[0]]
+            row['fields']['sex'] = 'Female'
+            row['fields']['preference'] = PREF[choice(3, 1, p=[0.6, 0.2, 0.2])[0]]
         del row['fields']['first_name']
         del row['fields']['last_name']
         del row['fields']['gender']
