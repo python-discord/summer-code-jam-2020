@@ -28,6 +28,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
             # If all is good, go online, send a welcome and join the global and room chats
             self.isOnline = True
+            await self.update_player_online_status(True)
             await self.send_welcome()
             await self.join_room('dungeon')
             await self.join_room(await self.get_current_room_name())
@@ -83,7 +84,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     async def disconnect(self, code):
         try:
+            await self.update_player_online_status(False)
             await self.leave_group()
+
         except Exception:
             pass
 
@@ -164,6 +167,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         })
 
     @database_sync_to_async
+    def update_player_online_status(self, status):
+        self.player.online = status
+        self.player.save()
+
+    @database_sync_to_async
     def get_current_room_name(self):
         return self.player.room.name
 
@@ -189,10 +197,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         players = (
             Room.objects.get(name=self.player.room.name).player_set.all()
                         .exclude(name=self.player.name)
+                        .exclude(online=False)
                         .values_list('name', flat=True)
         )
         if players:
-            players_string = "Players here: " + colorize('brightBlue', ", ".join(players)) + "\r\n"
+            players_string = f'''Players here: {colorize('brightBlue', ", ".join(players))}\r\n'''
         else:
             players_string = ""
 
@@ -202,14 +211,16 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         for i in range(len(exits)):
             exits[i] = f"[{i}] {exits[i].name}"
 
+        server_date = self.player.room.server.server_date.strftime("%B %m, %Y")
+
         message = (
-                   "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
-                   "The current date is: " + colorize('green', self.player.room.server.server_date.strftime("%B %m, %Y"))
-                   + "\n\n" + self.player.room.description + "\n\n" +
-                   self.player.room.command_description + "\r\n\n" +
-                   players_string +
-                   "Exits: " + ", ".join([colorize('brightGreen', exit) for exit in exits])
-                  )
+                 f'''You are in {colorize('brightGreen', self.player.room.name)}\r\n\n'''
+                 f'''The current date is: {colorize('green', server_date)}\r\n\n'''
+                 f'''{self.player.room.description}\r\n\n'''
+                 f'''{self.player.room.command_description}\r\n\n'''
+                 f'''{players_string}'''
+                 f'''Exits: {", ".join([colorize('brightGreen', exit) for exit in exits])}'''
+                 )
 
         return message
 

@@ -38,6 +38,7 @@ class Player(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, null=True, on_delete=models.SET_NULL)
+    online = models.BooleanField(default=False)
 
     objects = PlayerManager()
 
