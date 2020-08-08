@@ -49,7 +49,17 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             elif command == "go":
                 if content["message"]:
                     current_room = self.player.room.name
-                    target_room_name = " ".join(content["message"])
+
+                    # all numbers are recognized as shortcuts
+                    if len(content["message"]) == 1 and content["message"][0].isdigit():
+                        index = int(content["message"][0])
+                        try:
+                            target_room_name = await self.get_current_room_connection_name_by_index(index)
+                        except IndexError:
+                            target_room_name = "invalid"    # let move_to_room() handle it
+                    else:
+                        target_room_name = " ".join(content["message"])
+
                     new_room = await self.move_to_room(target_room_name)
                     if new_room:
                         await self.join_room(new_room)
@@ -136,6 +146,10 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
         return self.player.room.name
 
     @database_sync_to_async
+    def get_current_room_connection_name_by_index(self, index):
+        return self.player.room.connections.all()[index].name
+
+    @database_sync_to_async
     def get_current_room_description(self):
         """ Returns a string with the description of the current room. """
 
@@ -150,12 +164,14 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
             players_string = ""
 
         exits = list(self.player.room.connections.all())
+        for i in range(len(exits)):
+            exits[i] =  f"[{i}] {exits[i].name}"
 
         message = (
                    "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
                    self.player.room.description + "\r\n\n" +
                    players_string +
-                   "Exits: " + ", ".join([colorize('brightGreen', exit.name) for exit in exits])
+                   "Exits: " + ", ".join([colorize('brightGreen', exit) for exit in exits])
                   )
 
         return message
