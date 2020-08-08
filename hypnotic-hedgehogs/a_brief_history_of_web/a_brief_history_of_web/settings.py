@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'first_google',
     'first_twitter',
     'first_youtube',
-    'ninetys_blog',
+    'nineties_blog',
     'web_portal',
     'win95',
     'crispy_forms',
