@@ -74,15 +74,23 @@
                 <div style="height: 8px;"></div>
                 <span style="font-weight: bold;font-size: 18px;" class="p-3">What we are doing?</span>
 
-            {% block content %}
-            {% endblock content %}
+                <div class="posts p-2">
+                    <div class="examplePost d-flex justify-content start" >
+                        <img src="{% static 'first_twitter/egg.png' %}" style="width: 50px;">
+                        <span style="font-size: 14px;" class="ml-3">
+                        <a class="publisher" style="text-decoration: underline;">jack</a>
+                        <span class="tweetText">just setting up my twittr</span>
+                        <span class="publishDate" style="text-decoration: underline;">1 minute ago</span>
+                        </span>
+                    </div>
+                </div>
             </div>
             </div>
             <div class="col-3">
                 <div class="p-1 border" style="background-color: #E2FD94;">
                     <div class="p-4">
                         <span style="font-size: 14px;">Welcome,</span>
-                        <div><a href="#" style="text-decoration: underline;font-size: 20px;">{% if user.username %} {{ user.username }} {% else %} stranger {% endif %}</a></span>
+                        <div><a href="#" style="text-decoration: underline;font-size: 20px;">jack</a></span>
                         <div style="height: 20px;"></div>
                         <div style="height: 20px;"></div>
                         <div><a href="#" style="text-decoration: underline;">Following:</a> 28</div>
@@ -101,9 +109,7 @@
                             </form>
                         </div>
                         <div style="height: 10px;"></div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -125,7 +131,6 @@
 
         $('#textarea_feedback').html(text_remaining);
 });
-
 });
     </script>
 </body>
