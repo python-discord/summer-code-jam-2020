@@ -1,6 +1,5 @@
 from django.http import Http404
 from rest_framework import permissions, status
-from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -18,7 +17,7 @@ class BlogArticleListView(APIView):
 
     def get(self, request: Request):
         """Get all articles."""
-        return Response(serializers.BlogArticleGetSerializer(BlogArticle.objects.all(), many=True).data)
+        return Response(serializers.BlogArticleGetSerializer(BlogArticle.objects.all().order_by('-id'), many=True).data)
 
     def post(self, request: Request):
         """Create new article."""
