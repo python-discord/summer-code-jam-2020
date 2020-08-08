@@ -6,7 +6,7 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.jpg", upload_to="profile_pics")
-    background = models.ImageField(default="default.jpg", upload_to="background") # background
+    background = models.ImageField(default="white-bg.jpg", upload_to="background") # background
     status = models.CharField(default=":-)", max_length=100)
     friends = models.ManyToManyField("self", blank=True)
 
