@@ -1,4 +1,5 @@
 import math
+import random
 
 # All coordinates are stored as tuples of (x, y)
 # x is east-west with east being positive
@@ -15,13 +16,13 @@ def new_game():
         "rover": (0, 0),
         "battery": 100,
         "power_usage": 5,
-        "plutonium": (7, 5),
+        "plutonium": (random.randint(0,10), random.randint(0,10)),
         "has_plutonium": False,
-        "solar_panels": (-3, 2),
+        "solar_panels": (random.randint(0,5), random.randint(0,5)),
         "has_solar_panels": False,
-        "dust_storm": (0, 2),
+        "dust_storm": (random.randint(0,10), random.randint(0,10)),
         "wind": (-1, 0),
-        "small_crater": (-4, -3),
+        "small_crater": (random.randint(0,10), random.randint(0,10)),
         "item_messages": {
             "plutonium": "There is a plume of smoke in the distance.",
             "solar_panels": "There is an object reflecting light in the distance.",
@@ -61,6 +62,11 @@ def new_game():
         "game_over": False,
         "victorious": False,
     }
+    print('=============')
+    print(game_data['plutonium'])
+    print(game_data['solar_panels'])
+    print(game_data['dust_storm'])
+    print(game_data['small_crater'])
     return game_data
 
 
