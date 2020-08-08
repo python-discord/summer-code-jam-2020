@@ -42,3 +42,8 @@ def register(request):
 def integration(request):
     return render(request, 'title.html')
 
+def home(request):
+    return render(request, 'base.html')
+
+
+
