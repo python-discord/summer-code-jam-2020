@@ -1,21 +1,23 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager, UserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import namegenerator
 
-# Create your models here.
+
 class AnonUserManager(BaseUserManager):
     def create_user(self, id, nickname, last_seen, password):
         user = self.model(
-             id = id,
-             nickname = nickname,
-             last_seen = last_seen)
+             id=id,
+             nickname=nickname,
+             last_seen=last_seen)
         user.set_password(password)
         user.save()
         return user
+
+
 class AnonUser(AbstractBaseUser):
     id = models.AutoField(primary_key=True)
-    nickname = models.CharField(max_length=25, default=namegenerator.gen())
+    nickname = models.CharField(max_length=25, default=lambda: namegenerator.gen())
     last_seen = models.DateTimeField(default=timezone.now)
     password = models.CharField(max_length=5, default="abcde")
     objects = AnonUserManager()
@@ -23,10 +25,7 @@ class AnonUser(AbstractBaseUser):
     USERNAME_FIELD = 'id'
 
     def __str__(self):
-        return f'{self.id} Profile'
+        return self.nickname
 
     def save(self, *args, **kwargs):
         super(AnonUser, self).save(*args, **kwargs)
-
-
-

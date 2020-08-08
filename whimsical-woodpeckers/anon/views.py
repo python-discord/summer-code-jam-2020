@@ -13,8 +13,9 @@ def get_user(user_id):
         return None
 
 def test(request):
+    print(request.user)
     #return HttpResponse(AnonUser.objects)
-    return HttpResponse(str(request.META))
+    return HttpResponse(str(vars(request.user)))
 
 
 

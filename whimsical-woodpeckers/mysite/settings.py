@@ -31,10 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-    'chat.apps.ChatConfig',
+    # 'users.apps.UsersConfig',
+    # 'chat.apps.ChatConfig',
     'anon.apps.AnonConfig',
-    'crispy_forms',
+    # 'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,7 +132,7 @@ AUTHENTICATION_BACKENDS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'chat'
 LOGIN_URL = 'login'
