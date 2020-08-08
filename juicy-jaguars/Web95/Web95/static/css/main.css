@@ -38,6 +38,7 @@ body {
 .start-banner {
     font-family: "Microsoft Sans Serif", sans-serif;
     font-size: 30px;
+    transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     writing-mode: vertical-lr;
     width: 45px;
