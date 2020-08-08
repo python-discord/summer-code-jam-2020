@@ -9,6 +9,7 @@ class VMachine(models.Model):
         ('sh', 'Sh'),
         ('bash', 'Bash'),
         ('zsh', 'Zsh'),
+        ('dash', 'Dash')
     ]
     shells = models.CharField(
         max_length=4,
