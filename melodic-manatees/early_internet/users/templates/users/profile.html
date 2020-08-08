@@ -1,4 +1,6 @@
-{% extends 'main/main-base.html' %} 
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+
 {% block herocontent %}
     <div class="hero-body">
     
@@ -11,29 +13,111 @@
                     </figure>
                     <div class="media-content">
                     <div class="content">
-                        <h2 class="title">{{ user.username }}</h2>
+                        <h2 class="title">{{ pref.name_preference }}</h2>
+                        <p class="subtitle">{{ user.username }}</p>
                         <p class="subtitle">{{ user.email }}</p>
                     </div>
                     </div>
                 </article>
                 <!-- Update Profile Form Here -->
                 <div>
-                    <p>Display Name: {{ pref.name_preference }}</p>
-                    <p>Weather/Temperature Preference: {{ pref.weather_preference }}</p>
-                    <p>Display Weather?: {{ pref.display_weather }}</p>
+                    <p class="is-size-6 has-text-weight-bold">Display Name:</p>
+                    <p class="subtitle is-6">{{ pref.name_preference }}</p>
+                    <p class="is-size-6 has-text-weight-bold">Temperature Preference:</p>
+                    {% if pref.weather_preference == 'WARM' %}
+                        <p class="subtitle is-6">
+                            I tend to run 
+                            <span class="tag is-danger">{{ pref.weather_preference }}</span>
+                        </p>
+                    {% elif pref.weather_preference == 'COLD' %}
+                        <p class="subtitle is-6">
+                            I tend to run 
+                            <span class="tag is-link">{{ pref.weather_preference }}</span>
+                        </p>
+                    {% else %}
+                        <p class="subtitle is-6">
+                            I tend to run 
+                            <span class="tag is-success">{{ pref.weather_preference }}</span>
+                        </p>
+                    {% endif %}
+                    
+                    <p class="is-size-6 has-text-weight-bold">Display Weather?</p>
+                    <p class="subtitle is-6">{{ pref.display_weather }}</p>
                 </div>
                 <div>
                     <form method="POST">
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit">Submit</button>
+                        <fieldset>
+                            <div class="control">
+                                <p>
+                                    <label class="label">{{ form.weather_preference.label_tag }}</label>
+                                    <div class="select is-small">{{ form.weather_preference }}</div>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <p>
+                                        <label class="label">{{ form.name_preference.label_tag }}</label>
+                                        {{ form.name_preference|add_class:"input" }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <p>
+                                    <label class="label">Dashboard Options:</label>
+                                    <div class="checkbox">
+                                        {{ form.display_weather.label_tag }}
+                                        {{ form.display_weather }}
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="control">
+                                <p>
+                                    <div class="checkbox">
+                                        {{ form.display_news.label_tag }}
+                                        {{ form.display_news }}
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="control">
+                                <p>
+                                    <div class="checkbox">
+                                        {{ form.display_music.label_tag }}
+                                        {{ form.display_music }}
+                                    </div>
+                                </p>
+                            </div>
+                        </fieldset>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-link" type="submit">Update Preferences</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <!-- User Background -->
                 <div>
-                    upload background image
+                    upload background image here?
                 </div>
                 <!-- Next feature -->
+                <button class="button is-link" id="journal-btn">Add a Journal Entry</button>
+                <div class="modal" id="journal-modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title">My Journal</p>
+                            <button class="delete" aria-label="close" id="close-x"></button>
+                        </header>
+                        <section class="modal-card-body">
+                            <!-- Content ... -->
+                            INSERT DIARY FIELD HERE
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button class="button is-success">Save Entry</button>
+                            <button class="button" id="cancel-btn">Cancel</button>
+                        </footer>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

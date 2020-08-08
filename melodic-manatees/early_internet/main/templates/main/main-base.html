@@ -108,7 +108,11 @@ fieldset {
     {% block content %}
         <h1>this is the main base template</h1>
         <a href="{% url 'background-home' %}">background homepage</a>
+
     {% endblock content%}
     </section>
+
+    <!-- JavaScript -->
+    <script type="text/javascript" src="{% static 'main/js/bulma-modal.js' %}"></script>
 </body>
 </html>
