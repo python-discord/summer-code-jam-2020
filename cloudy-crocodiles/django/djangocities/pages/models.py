@@ -1,6 +1,9 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from djangocities.sites.models import Site
+from djangocities.utils.validation.django.html_validator import validate_html
+from djangocities.utils.validation.html.exceptions import HtmlValidationException
 
 
 class Page(models.Model):
@@ -18,3 +21,17 @@ class Page(models.Model):
 
     def __str__(self):
         return self.file_name
+
+    def clean(self):
+        # Validate HTML
+        if self.version == self.HTML_1:
+            ver = 1
+        elif self.version == self.HTML_2:
+            ver = 2
+        else:
+            raise ValidationError("Unsupported HTML version")
+
+        try:
+            validate_html(self.content, ver)
+        except HtmlValidationException as e:
+            raise ValidationError(e)

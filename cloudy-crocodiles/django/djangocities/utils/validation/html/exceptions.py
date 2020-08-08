@@ -3,8 +3,15 @@ This module defines some custom exceptions, so we can catch more specific
 exceptions.
 """
 
+class HtmlValidationException(Exception):
+    """
+    Base catch-all class for Html validation errors
+    """
 
-class HtmlCommentError(Exception):
+    pass
+
+
+class HtmlCommentError(HtmlValidationException):
     """
     Some comment error - either closing an unopened comment, not closing a
     comment, etc.
@@ -13,7 +20,7 @@ class HtmlCommentError(Exception):
     pass
 
 
-class InvalidHtmlTagError(Exception):
+class InvalidHtmlTagError(HtmlValidationException):
     """
     Exception for a tag that isn't properly formatted (opened, closed, etc.)
     """
@@ -21,7 +28,7 @@ class InvalidHtmlTagError(Exception):
     pass
 
 
-class NestedHtmlTagError(Exception):
+class NestedHtmlTagError(HtmlValidationException):
     """
     Nested tag openings like "<<html"
     """
@@ -29,7 +36,7 @@ class NestedHtmlTagError(Exception):
     pass
 
 
-class UnsupportedHtmlTag(Exception):
+class UnsupportedHtmlTag(HtmlValidationException):
     """
     Tags that are not supported in this implementation, or by the HTML version,
     e.g. <div> in HTML 2.

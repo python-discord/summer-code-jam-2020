@@ -16,6 +16,8 @@ def tag_is_allowed(_tag, version):
     the site.
     """
     try:
+        # Extract tag content
+        _tag = _tag.lower().lstrip("<").lstrip("/").rstrip(">").split(" ")[0]
         tag = HTML_TAGS[_tag]
     except KeyError:
         logging.debug(f"tag {_tag} is either invalid, or unsupported on this site")
