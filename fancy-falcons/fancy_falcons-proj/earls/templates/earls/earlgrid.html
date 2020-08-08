@@ -1,0 +1,26 @@
+{% extends 'earls/base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h2>Earls</h2>
+  <p>
+    This is a list of currently indexed earls. 
+    There are currently {{earl_list.count}} earls in the database.
+  </p>
+  <div class="grid">
+    {% for earl in earl_list %}
+        {% if earl.image %}
+        <img class="b-lazy"
+            width="120"
+            height="120"
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            data-src="{{ earl.image }}"
+            alt="{{ user.login }}" />
+        </a> 
+        {% endif %}<br/>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
