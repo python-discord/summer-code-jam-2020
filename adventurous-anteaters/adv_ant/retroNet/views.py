@@ -81,6 +81,14 @@ def register_page(request):
 def logout_page(request):
     return render(request, 'logout.html')
 
+def account_deletion(request):
+    return render(request, 'account_deletion_confirmation.html')
+
+def create_tweet(request):
+    return render(request, 'create_tweet.html')
+
+def view_tweet(request):
+    return render(request, 'view_tweet.html')
 
 
 
