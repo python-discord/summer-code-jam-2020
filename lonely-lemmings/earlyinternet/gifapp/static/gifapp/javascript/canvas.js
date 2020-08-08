@@ -65,32 +65,37 @@ let shapeBoundingBox = new ShapeBoundingBox(0,0,0,0);
 let mousedown = new MouseDownPos(0,0);
 let loc = new Location(0,0);
 
-//load page
-document.addEventListener('DOMContentLoaded', setupCanvas);
-
 //grab existing data from database if any
 function getImages(){
     let xhr = new XMLHttpRequest();
-    let url = "images/"
     let name = document.getElementById("project-name").innerText;
+    let url = "project/" + name;
+
 
     xhr.open("GET", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.responseText = "json";
 
     //callback
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             let img_data = response["data"];
-            console.log(img_data[0])
-        } else {
-            SaveStates.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+            if (img_data.length === 0) {
+                SaveStates.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            } else {
+                for (let i = 0; i < img_data.length; i++) {
+                    let decode = "data:image/jpeg;base64," + img_data[i];
+                    savedFrames.push(decode);
+                }
+                OpenImage();
+            }
         }
     }
-
-    let data = JSON.stringify({"project_name": name});
-    xhr.send(data);
+    xhr.send();
 }
+
+//load page
+document.addEventListener('DOMContentLoaded', setupCanvas);
 
 function setupCanvas(){
     canvas = document.getElementById('my-canvas');
@@ -359,15 +364,14 @@ function SendData(type){
     let xhr = new XMLHttpRequest();
     let url = type
     let name = document.getElementById("project-name").innerText;
-    console.log(name);
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
-
+    let frames = savedFrames.length - 1;
     //callback
     xhr.onreadystatechange = function (){
         if (xhr.readyState === 4 && xhr.status === 200) {
-            alert("All Frames Saved!")
+            alert("Frames 0 to " + frames.toString(10) + " Saved to Server!");
         }
     }
 
@@ -379,7 +383,7 @@ function SendData(type){
 
 function RequestRender(){
     let xhr = new XMLHttpRequest();
-    let url = "render/"
+    let url = "render"
     let name = document.getElementById("project-name").innerText;
 
     xhr.open("POST", url, true);

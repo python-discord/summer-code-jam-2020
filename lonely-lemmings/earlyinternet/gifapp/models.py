@@ -23,6 +23,9 @@ class Image(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     animation_position = models.PositiveIntegerField(null=False, default=0)
 
+    class Meta:
+        ordering = ["animation_position"]
+
     def __repr__(self) -> str:
         """returns the image name and the project id that it belongs to"""
         cls = self.__class__.__name__

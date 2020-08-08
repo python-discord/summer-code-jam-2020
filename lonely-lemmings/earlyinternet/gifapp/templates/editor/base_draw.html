@@ -76,7 +76,7 @@
             <canvas id="my-canvas" width="600" height="600"></canvas>
             <div class="w3-container">
                 <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
-                    <a href="{% url 'back' %}" class="w3-button w3-black">Exit</a>
+                    <a onclick="{% url 'back' %}" class="w3-button w3-black">Exit</a>
                 </form>
                 <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
                     {% csrf_token %}

@@ -6,7 +6,7 @@ from typing import Union
 
 from PIL import Image as PILImage
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -31,18 +31,18 @@ def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePerma
         images_blob = data['image_BLOB']
         project_name = data['name']
 
-        # since project name is distinct for each user, there can only be one
+        # get project id
         project = Project.objects.filter(name=project_name, user_id=request.user)[0]
 
-        # check if there are previous images
+        # delete all images associated with project
         images = Image.objects.filter(project_id=project)
-        # if so delete all images associated with the project
-        if len(images) > 0:
-            for img in images:
-                # get img name
-                img_name = img.image_data.url.split("/")[2]
-                os.remove(os.path.join(MEDIA_DIR, img_name))
-                img.delete()
+        image_path_list = [get_img_path(img) for img in images]
+        images.delete()
+
+        # delete all local images associated with the project
+        if image_path_list:
+            for img_path in image_path_list:
+                os.remove(img_path)
 
         # write request images to file and associate them with project
         for i, blob in enumerate(images_blob):
@@ -52,6 +52,12 @@ def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePerma
             im.save(image_dir)
             Image.objects.create(project_id=project, image_data=image_name, animation_position=i)
     return redirect("/")
+
+
+def get_img_path(image: Image) -> str:
+    """returns the path of the image given an image"""
+    img_name = image.image_data.url.split("/")[2]
+    return os.path.join(MEDIA_DIR, img_name)
 
 
 @csrf_exempt
@@ -69,10 +75,23 @@ def return_home(request):
     pass  # note: feed page is not fully complete so just give a blank url for now
 
 
-def parse_image_request(request):
-    """ receives GET  request with JSON of ["project_name": name],
-    sends a JSON of ["data": <ordered list of images as bytes>],
-    if no images in database send 400"""
+def parse_image_request(request, project_name=None):
+    """ receives GET request with url /?q=<project_name>,
+    sends a JSON of ["data": <ordered list of images as bytes>]"""
+
+    def encode_serializable_img(image) -> str:
+        img_path = get_img_path(image)
+        with open(img_path, "rb") as image:
+            return b64encode(image.read()).decode("utf-8")
+
     if request.method == "GET":
-        data = json.loads(request.body)
-        project_name = data["project_name"]
+
+        images = Image.objects.filter(project_id__name=project_name, project_id__user_id=request.user)
+        print(images)
+
+        if images:
+            image_data_list = [encode_serializable_img(img) for img in images]
+        else:
+            image_data_list = []
+        data_dict = {"data": image_data_list}
+        return HttpResponse(json.dumps(data_dict), content_type="application/json")
