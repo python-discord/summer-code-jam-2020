@@ -1,7 +1,5 @@
 import math
-
 from PIL import Image
-
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.db import models
@@ -106,9 +104,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
             self.number_of_searches: searches_weight,
             self.number_of_messages: messages_weight
         }
-        rv = sum([k*v for k, v in rv_dict.items()])
+        rv = sum([k*v for k, v in rv_dict.items()]) // 1
 
-        return rv
+        return int(rv)
 
     @property
     def level(self):
@@ -116,19 +114,21 @@ class Account(AbstractBaseUser, PermissionsMixin):
         `score_req` is the value of the score needed for the player's level
         to increase.
         """
-        if self.score < 10:
-            self._level = 1
-        elif self.score < 50:
-            self._level = 2
+        # if self.score < 10:
+        #     self._level = 1
+        # elif self.score < 50:
+        #     self._level = 2
+
+        level = int(math.log(self.score + 1, 1.4) // 3)
 
         # How to set initial score_req???
 
         # The rest uses log base 2 to increase
-        if self.score > self.score_req:
-            self.score_req *= math.log(self.prev_level, 2)
-            self._level += 1
+        # if self.score > self.score_req:
+        #     self.score_req *= math.log(self.prev_level, 2)
+        #     self._level += 1
 
-        return self._level
+        return level
 
     @property
     def is_staff(self):

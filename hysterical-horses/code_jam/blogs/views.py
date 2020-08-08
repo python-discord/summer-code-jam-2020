@@ -1,12 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView, CreateView
 from django.views.generic.list import ListView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .filters import PostFilter
 from .forms import CommentForm, CreatePostForm
 from .models import Comment, Post
+from users.mixins import level_check
 
 import random
 
@@ -89,30 +90,39 @@ class BlogDetailView(DetailView):
         return context
 
 
-@login_required()
-def CreatePost(request):
-    form = CreatePostForm(request.POST or None)
+# @login_required()
+# def create_post(request):
+#     form = CreatePostForm(request.POST or None)
+#
+#     if form.is_valid():
+#         form.title = request.POST.get('title')
+#         form.content = request.POST.get('content')
+#         new_post = form.save(commit=False)
+#
+#         new_post.author = request.user
+#         new_post.save()
+#
+#         return HttpResponseRedirect(request.path_info)
+#
+#     quote = random.choice((  # Remove this if necessary
+#         "Unleash your creativity!",
+#         "What's on your mind?",
+#         "Say 'Hello, world!'"
+#     ))
+#
+#     context = {
+#         'form': form,
+#         'quote': quote
+#     }
+#     return render(request, 'posts/create_post.html', context)
 
-    if form.is_valid():
-        form.title = request.POST.get('title')
-        form.content = request.POST.get('content')
-        form.save(commit=False)
+class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
 
-        user = request.user
+    def test_func(self):
+        return level_check(self.request.user, unlock=5)
 
-        form.author = user.username
-        form.save()
-
-        return  # redirect to user profile with all the posts or something
-
-    quote = random.choice((  # Remove this if necessary
-        "Unleash your creativity!",
-        "What's on your mind?",
-        "Say 'Hello, world!'"
-    ))
-
-    context = {
-        'form': form,
-        'quote': quote
-    }
-    return render(request, 'posts/create_post.html', context)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
