@@ -20,7 +20,7 @@ class VMachine(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return str(self.name) + "(" + str(self.pk) + ")"
+        return f'{self.name}({self.pk})'
 
 
 class Floppy(models.Model):
@@ -28,4 +28,3 @@ class Floppy(models.Model):
     storage_id = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vm = models.ForeignKey(VMachine, on_delete=models.CASCADE, default=None)
-

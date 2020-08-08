@@ -6,29 +6,26 @@ from django.contrib import messages
 # Create your views here.
 
 
+def _home_with_error(request: HttpRequest, error_msg: str) -> HttpResponse:
+    messages.error(request, error_msg)
+    return redirect('home')
+
+
 def index(request: HttpRequest, storage_id: int, vm_id: int) -> HttpResponse:
     try:
         virtual_machine = VMachine.objects.get(pk=vm_id)
     except ObjectDoesNotExist:
-        virtual_machine = None
-    if virtual_machine is not None:
+        return _home_with_error(request, "Virtual Machine not found")
+    else:
         if virtual_machine.user != request.user:
-            messages.error(request, "That's not your VirtualMachine!")
-            return redirect('home')
+            return _home_with_error(request, "That's not your VirtualMachine!")
         else:
             try:
                 floppy = Floppy.objects.get(storage_id=storage_id)
             except ObjectDoesNotExist:
-                floppy = None
-            if floppy is None:
-                messages.error(request, "Floppy not found")
-                return redirect('home')
-            if floppy.user == request.user:
-
-                return render(request, 'terminal/index.html')
+                return _home_with_error(request, "Floppy not found")
             else:
-                messages.error(request, "That's not your Floppy!")
-                return redirect('home')
-    else:
-        messages.error(request, "Virtual Machine not found")
-        return redirect('home')
+                if floppy.user != request.user:
+                    return _home_with_error(request, "That's not your Floppy!")
+                else:
+                    return render(request, 'terminal/index.html')
