@@ -23,7 +23,6 @@ class CategoryView(ListView):
 
         years = list(set([a.publication_date.year for a in context["articles"]]))
         years.sort()
-        print(years)
         context["years"] = years
 
         return context
