@@ -97,23 +97,36 @@ def page(request, url):
                                 params={'User-Agent':
                                         request.META["HTTP_USER_AGENT"]})
 
-        try:
+        if req.headers["content-type"].split("/")[0] in \
+           ["text", "application"]:
             content = req.text
 
-            parser = HtmlParser(content, url, request)
-            parser.parse()
+            if req.headers["content-type"].split(";")[0] == "text/html":
+                parser = HtmlParser(content, url, request)
+                parser.parse()
 
-            content = "<!-- Yep, this got parsed! -->\n"+parser.soup.prettify()
+                content = "<!-- Yep, this got parsed! -->\n" + \
+                    parser.soup.prettify()
 
-            return render(request, "Web95/blank.html", {"content": content})
-        except UnicodeDecodeError:
+            resp = render(request, "Web95/blank.html", {"content": content})
+            resp["content-type"] = req.headers["content-type"]
+
+            return resp
+        elif req.headers["content-type"].split("/")[0] == "image":
             data = req.content
 
             stream = io.BytesIO(data)
 
-            img = Image.open(stream)
+            response = HttpResponse(content_type=req.headers["content-type"])
 
-            response = HttpResponse(content_type="image/png")
-            img.save(response, "PNG")
+            img = Image.open(stream)
+            f_ext = req.headers["content-type"].split("/")[1]
+            print(f_ext)
+            if f_ext.upper() == "VND.MICROSOFT.ICON":
+                f_ext = "png"
+            img.save(response, f_ext)
 
             return response
+        else:
+            print("Manual 404 oopsie. Type was", req.headers["content-type"])
+            return HttpResponseNotFound()
