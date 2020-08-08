@@ -39,7 +39,8 @@ class News:
             return articles
 
 
-def get_current_weather(location: str) -> WeatherInterface:
+def get_current_weather(city: str, country: str) -> WeatherInterface:
+    location = f"{city}, {country}"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={location}&unit=metric&appid={OWM_API_KEY}"
     r = requests.get(url)
     data = r.json()
