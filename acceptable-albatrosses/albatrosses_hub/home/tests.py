@@ -1,4 +1,6 @@
 from django.test import TestCase, Client
+from django.urls import resolve
+from .views import homepage
 
 
 class HomeTestCase(TestCase):
@@ -11,3 +13,7 @@ class HomeTestCase(TestCase):
     def test_home_use_template(self):
         response = Client().get("/")
         self.assertTemplateUsed(response, "home.html")
+
+    def test_home_using_home_func(self):
+        found = resolve("/")
+        self.assertEqual(found.func, homepage)
