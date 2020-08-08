@@ -2,4 +2,5 @@ type Mutation {
   login(data: LoginInput!): LogIn!
   register(data: RegisterInput!): Boolean!
   createFolder(data: FolderInput!): Folder!
+  updateFolder(folder_id: ID!, data: FolderInput!): Folder!
 }
