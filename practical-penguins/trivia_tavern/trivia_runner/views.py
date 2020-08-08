@@ -47,16 +47,11 @@ def end_screen(request, active_trivia_quiz):
     for player in Player.objects.all():
         score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=active_trivia_quiz.session_code)
 
-<<<<<<< HEAD
         goodbye = ( f'The session has ended, thanks for playing!\n'
                     f'Team {winner} was the winner!\n'
                     f'Your score was: {score_track.points}/{len(question_set)}'
         )
-=======
-        goodbye = (f'Thanks for playing {player.name}!\n'
-                   f'Your score was: {score_track.points}/{len(question_set)}'
-                   )
->>>>>>> master
+
         SMSBot.send(goodbye, player.phone_number)
         SMSBot.send(player.get_answers(), player.phone_number)
         player.delete()
