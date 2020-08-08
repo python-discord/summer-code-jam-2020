@@ -1,8 +1,5 @@
 from django.db import models
-from uuid import uuid4
 from django.contrib.postgres.fields import ArrayField, JSONField
-
-from uuid import uuid4
 
 
 class Account(models.Model):  # A model containing user information
@@ -23,6 +20,7 @@ class Account(models.Model):  # A model containing user information
     nickname = models.CharField(max_length=20, primary_key=True)
     bot = models.BooleanField(default=False)
 
+
 class Group(models.Model):
     '''
 
@@ -38,7 +36,7 @@ class Group(models.Model):
 
     '''
     creator = models.CharField(max_length=100)  # The ID of the User
-    messages = ArrayField( # ArrayField Containing Messages
+    messages = ArrayField(  # ArrayField Containing Messages
         JSONField()
 
     )

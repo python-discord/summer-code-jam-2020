@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from fbbackend import models, serializers
 from rest_framework.response import Response
@@ -10,7 +9,8 @@ Views for our Rest API.
 We went with class based views, because they were a better fit than functions
 '''
 
-class Account_View(viewsets.ModelViewSet): #Allow you to view all Accounts and Create New ones
+
+class Account_View(viewsets.ModelViewSet): 
     queryset = models.Account.objects.all()
     serializer_class = serializers.AccountSerializer
 
@@ -20,8 +20,7 @@ class Account_View(viewsets.ModelViewSet): #Allow you to view all Accounts and C
         if login_serializer.is_valid():
             try:
                 user = models.Account.objects.get(nickname=login_serializer.data['username'])
-
-            except:
+            except models.Account.DoesNotExist:
                 return Response({'Authentication': 'Failed'}, status=status.HTTP_400_BAD_REQUEST)
             if user.hashed_pass == login_serializer.data['password']:
                 return Response({'username': login_serializer.data['username']})
@@ -32,7 +31,8 @@ class Account_View(viewsets.ModelViewSet): #Allow you to view all Accounts and C
             return Response(login_serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Create New ones
+
+class Group_View(viewsets.ModelViewSet):  # Allow you to view all Groups and Create New ones
     queryset = models.Group.objects.all()
     serializer_class = serializers.GroupSerializer
     
@@ -56,11 +56,10 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
 
         if serializer.is_valid():
             try:
-                group = models.Group.objects.get(name = serializer.data['group_name'])
+                group = models.Group.objects.get(name=serializer.data['group_name'])
                 return Response({'messages': group.messages, 'creator': group.creator})
             except models.Group.DoesNotExist:
-                return Response(serializer.errors,
-                    status=status.HTTP_400_BAD_REQUEST)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
