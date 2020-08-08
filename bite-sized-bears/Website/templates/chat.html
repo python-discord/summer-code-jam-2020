@@ -1,103 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
+{% extends "base.html" %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RSS it</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet"> 
-  </head>
-
-  <header>
-    <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
-    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
-    <div class="headerlinks">
-      <a href="#">popular</a>
-      <a href="#">top-communities</a>
-      <a href="#">most-viewed</a>
-      <a href="#">location</a>
-      <a href="#">subscribed</a>
-      <a href="#">most-viewed</a>
-      <a href="#">my-communities</a>
-      <a href="#">my-posts</a>
-      <a href="#">my-account</a>
-    </div>
-  </header>
-
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-
-        <div class="col-lg-10 post-container nopadding">
-          <div class="community-bar">
+{% block content %}
+    <div class="col-lg-10 post-container nopadding">
+        <div class="community-bar">
             <h3>r/Tortoise-Community</h3>
             <p>This is sample post paragraph Searching for that perfect color has never been easier, use our HTML color picker to browse millions of colors and color harmonies.</p>
-          <div class="community-links">
-            <a href="#" class="active">popular</a>
-            <a href="#">community-chat</a>
-            <a href="#">my-posts</a>
-          </div>            
-          </div>
-          <br><br>
-          <div class="chat-box">
-            
-          </div>                       
+            <div class="community-links">
+                <a href="#" class="active">popular</a>
+                <a href="#">community-chat</a>
+                <a href="#">my-posts</a>
+            </div>
         </div>
+        <br><br>
+        <div class="chat-box">
 
-        <div class="col-sm-2 nopadding visible-lg side-bar">
-         <div class="login">
-           <h3>Login</h3>
-          <form action="login" method="POST">
-              {% csrf_token %}
-            <table>
-              <tr>
-               <td>  
-                <label>Username:  </label>
-               </td>
-               <td>
-                <input type="text" name="username" style="color:black;">
-               </td>
-              </tr>  
-              <tr>
-               <td>  
-                <label>Password:  </label>
-               </td>
-               <td>
-                <input type="password" name="password" style="color:black;" required>
-               </td>
-              </tr> 
-              <tr class="spacer"></tr>
-              <tr>
-                <td>
-                  <input type="submit" value="submit" style="color:black;">
-                </td>
-                <td>
-                  <input type="reset" value="reset"  style="color:black;">
-                </td>
-              </tr>    
-            </table><br>
-              <p>New here? <a href="{% url 'signup' %}">Sign up</a>
-          </form>
-  
-         </div>   
-        
-         <div class="online-users">
-            <div class="block-header"><h4>Online Users</h4></div>
-            <div class="user">Username</div>
-            <div class="user">Username</div>
-            <div class="user">Username</div>
-            <div class="user">Username</div>
-            <div class="user">Username</div>
-            <div class="user">Username</div>
-         </div>   
         </div>
-
-      </div>
     </div>
-  </body>
-</html>
+{% endblock %}

@@ -5,6 +5,10 @@ from .models import Post, Comments, User
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 from django.contrib import messages
+from .models import Post, Comments, Community
+from django.shortcuts import render
+from django.db.models import Count
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the Syndication index.")
@@ -72,4 +76,25 @@ class LoginView(View):
             return render(request, self.template_name, {"message": "Account does not exist", "created": False})
 
 
+class CommunityView(View):
+    template_name = 'community.html'
+    model = Community
+    context = {}
+
+    def get(self, request, community_name):
+        community = self.model.objects.get(name=community_name)
+        posts = community.post_publisher.all()
+        self.context = {"posts": posts, "community": community}
+        return render(request, self.template_name, self.context)
+
+
+class TopCommunityView(View):
+    template_name = 'topcommunity.html'
+    model = Community
+    context = {}
+
+    def get(self, request):
+        communities = self.model.objects.all().annotate(s_count=Count('subscribers')).order_by('-s_count')
+        self.context = {"communities": communities}
+        return render(request, self.template_name, self.context)
 
