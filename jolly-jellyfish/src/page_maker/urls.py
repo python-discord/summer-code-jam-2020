@@ -27,7 +27,7 @@ urlpatterns = [
     path('users/<int:pk>/delete', UserDeleteView.as_view(), name='user-delete'),
 
     path('pages/new', WebpageCreateView.as_view(), name='webpage-create'),
-    path('pages/<str:pagename>/, WebpageView.as_view(), name='webpage-view'),
+    path('pages/<str:pagename>', WebpageView.as_view(), name='webpage-view'),
     path('pages/<str:pagename>/detail', WebpageDetailView.as_view(), name='webpage-detail'),
     path('pages/<str:pagename>/update', WebpageUpdateView.as_view(), name='webpage-update'),
     path('pages/<str:pagename>/delete', WebpageDeleteView.as_view(), name='webpage-delete'),

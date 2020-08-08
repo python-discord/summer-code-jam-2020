@@ -130,12 +130,12 @@ class WebpageDetailView(DetailView):
             else:
                 like_obj, created = Like.objects.get_or_create(author=request.user, parent_page=self.object)
                 if created:  # this is first time the user has liked the webpage
-                    context['like_response'] = "Thanks for the like!"
+                    context['like_response'] = 'Thanks for the like!'
                 else:
                     like_obj.delete()
                     context['like_response'] = "You've now unliked this page."
         else:
-            context['like_response'] = "Please login to leave a like."
+            context['like_response'] = 'Please login to leave a like.'
 
         context['num_likes'] = self.object.like_set.all().count()  # updates like count
         return self.render_to_response(context)
