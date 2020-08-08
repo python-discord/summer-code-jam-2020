@@ -3,6 +3,8 @@ import re
 from typing import List
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.backends.db import SessionStore
+from django.http import HttpResponse
 import textwrap
 import string
 # import clipboard # for some debugging
@@ -72,16 +74,28 @@ def search_query(search: str, format_text: bool =True):
     else:
         return results # else return results as is
 
-
+# needs to be global otherwise session gets
+# reinstantiated each time
+global hist_store;
+hist_store = SessionStore()
 @login_required()
 def engine_results(request, search_text: str):
     """ Renders a page for the request  """
     # queries that have some problems:
     # prevent long searches from overflowing
-    wrapper = textwrap.TextWrapper(width=43)
+    wrapper = textwrap.TextWrapper(width=15)
     shortened = wrapper.wrap(text=search_text)[0]
     if shortened != search_text:
         shortened += '...'
+
+    # session info for history
+    
+    try:
+        old_val = hist_store['history']
+        hist_store['history'] = old_val + [shortened]
+    except KeyError:
+        hist_store['history'] = [shortened]
+    hist = hist_store['history'][-3:]
 
     
     res = search_query(search_text)
@@ -100,13 +114,15 @@ def engine_results(request, search_text: str):
         
     context = {
         'search': search_text,
-        'shortened': shortened,
         'top_results': top_results,
         'other_results':  other_results,
         'description': desc,
+        'version_number': '1.1',
+        'entries_length': len(top_results + other_results),
+        'past_history': hist, 
     }
-    return render(request, 'dashboard/search-engine/results.html', context=context)
 
+    return render(request, 'dashboard/search-engine/results.html', context=context)
 
 @login_required()
 def chat_room(request, room_name):
