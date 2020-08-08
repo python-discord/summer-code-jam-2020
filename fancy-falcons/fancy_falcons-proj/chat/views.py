@@ -24,7 +24,7 @@ class UsersChatView(LoginRequiredMixin, ListView):
 
 
 class UserChatRoom(LoginRequiredMixin, DetailView):
-    model = User
+    model = get_user_model()
     template_name = 'chat/chat_room.html'
     login_url = 'login'
 
