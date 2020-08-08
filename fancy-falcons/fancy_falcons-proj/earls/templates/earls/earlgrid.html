@@ -10,15 +10,10 @@
   </p>
   <div class="grid">
     {% for earl in earl_list %}
-        {% if earl.image %}
-        <img class="b-lazy"
-            width="120"
+        <img width="120"
             height="120"
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            data-src="{{ earl.image }}"
-            alt="{{ user.login }}" />
-        </a> 
-        {% endif %}<br/>
+            src="{{ earl.image.url }}"/>
+        <br/>
     {% endfor %}
   </div>
 </div>
