@@ -59,7 +59,7 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToLogin);
-    this.$cmd.on('3', this.goToChatLobby)
+    this.$cmd.on('2', this.goToChatLobby)
   },
   methods: {
     goToLogin() {
