@@ -5,11 +5,9 @@
     <title>forumthing</title>
 </head>
 <body>
-<h1>FORUMTHING</h1>
+<a href="{% url 'forum-homepage' %}"><h1>FORUMTHING</h1></a>
 <li><a href="/accounts/email/">Change E-mail</a></li>
 <li><a href="/accounts/logout/">Sign Out</a></li>
-<br>
-<a href="{% url 'forum-homepage' %}">Forum Home</a>
 <br><br>
 {% block content %}{% endblock %}
 </body>

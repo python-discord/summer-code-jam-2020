@@ -8,8 +8,6 @@
 {% block content %}
     <a href={% url "new-thread" tpc="general"%}>Create New Thread</a><br>
     <body>
-    Show-all-threads page
-    <br>
     {% for t in topics %}
         <a href="{% url 'single-topic' tpc=t %}"><h3>{{ t }}</h3></a>
     {% endfor %}
