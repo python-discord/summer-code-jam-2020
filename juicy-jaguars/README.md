@@ -17,14 +17,18 @@
 
 ## Installing
 
-To install and run Web95, you must have Python3.8 installed.
+To install and run Web95, you must have Python 3.8 installed.
 
 ### On Windows:
-`curl http://likz.cc/nyQbp > setup.py && python setup.py install`
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py && python setup.py install`
 
 If installing on Windows, your default Python version on PATH must be python3.8.
 
 ### On MacOS/Linux:
 `curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py; python3 setup.py install`
+
+### Manual Inspection
+Feel free to check the `setup.py` script before running it, as this is always best practice.
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`
 
 You must already have Pip installed and on your PATH.
