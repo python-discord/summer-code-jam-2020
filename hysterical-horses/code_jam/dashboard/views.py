@@ -83,7 +83,7 @@ def engine_results(request, search_text: str):
     """ Renders a page for the request  """
     # queries that have some problems:
     # prevent long searches from overflowing
-    wrapper = textwrap.TextWrapper(width=15)
+    wrapper = textwrap.TextWrapper(width=12)
     shortened = wrapper.wrap(text=search_text)[0]
     if shortened != search_text:
         shortened += '...'
