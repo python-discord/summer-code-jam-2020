@@ -43,14 +43,14 @@
             <label>Password: </label>
             <input type="password", name="password" required>
             <br><br>
-            <input type="submit", value="submit">
+            <input type="submit", value="login">
             <input type="reset", value="reset">
                 <br><br>
             <lable style="color:red;"><b>{{message|safe}}<b><label>
-                {% if not created %}
-                <a href="{% url 'signup' %}"><button>Sign up</button></a>
-                {% endif %}
             </form>
+                {% if not created %}
+                Click here to <a href="{% url 'signup' %}">Sign up</a>
+                {% endif %}
         </fieldset>
         </div>
       </div>
