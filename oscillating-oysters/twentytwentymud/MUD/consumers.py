@@ -6,7 +6,9 @@ from terminal.terminal_tools import colorize
 from MUD.ascii_art import ART
 
 from MUD.models import Room, Player
+
 import asyncio
+import datetime
 
 
 class MudConsumer(AsyncJsonWebsocketConsumer):
@@ -59,6 +61,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                         await self.send_message("Invalid room.")
                 else:
                     await self.send_message("No room specified.")
+            elif command == self.player.room.command_keyword:
+                self.player.room.secret_connection_active = True
+                await self.send_command_response()
             else:
                 await self.send_unknown(command)
         except Exception as e:
@@ -131,6 +136,11 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
             'message': message
         })
 
+    async def send_command_response(self):
+        await self.send_json({
+            'message': self.player.room.command_response
+        })
+
     @database_sync_to_async
     def get_current_room_name(self):
         return self.player.room.name
@@ -151,9 +161,14 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
 
         exits = list(self.player.room.connections.all())
 
+        if self.player.room.secret_connection_active:
+            exits = exits + list(self.player.room.secret_room_connects.all())
+
         message = (
                    "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
-                   self.player.room.description + "\r\n\n" +
+                   "The current date is: " + self.player.room.server.server_date.strftime("%B %m, %Y") + "\n\n" +
+                   self.player.room.description + "\n\n" +
+                   self.player.room.command_description + "\r\n\n" +
                    players_string +
                    "Exits: " + ", ".join([colorize('brightGreen', exit.name) for exit in exits])
                   )
@@ -168,7 +183,14 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
             self.player.room = self.player.room.connections.get(name__iexact=room_name.lower())
             self.player.save()
         except Room.DoesNotExist:
-            return False
+            if self.player.room.secret_connection_active:  # TODO There should be a better way to do this
+                try:
+                    self.player.room = self.player.room.secret_room_connects.get(name__iexact=room_name.lower())
+                    self.player.save()
+                except Room.DoesNotExist:
+                    return False
+            else:
+                return False
         return self.player.room.name
 
     async def join_room(self, room_name):
