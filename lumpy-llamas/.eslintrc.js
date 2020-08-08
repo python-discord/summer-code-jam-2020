@@ -17,7 +17,8 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", { "optionalDependencies": true }],
     "prefer-destructuring": "off",
     "vue/require-v-for-key": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "no-restricted-globals": "off"
   },
   "env": {
     "browser": true,

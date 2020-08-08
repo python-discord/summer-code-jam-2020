@@ -1,5 +1,6 @@
 import Home from './home-page.vue';
 import Login from './login.vue';
+import TicTacToe from './tic-tac-toe.vue';
 import Forum from './thread-list.vue';
 import Thread from './thread-view.vue';
 import PostThread from './new-thread.vue';
@@ -15,6 +16,11 @@ const routes = [
     path: '/login',
     name: 'login_page',
     component: Login,
+  },
+  {
+    path: '/games/tictactoe',
+    name: 'tictactoe_page',
+    component: TicTacToe,
   },
   {
     path: '/forum',

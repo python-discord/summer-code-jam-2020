@@ -42,4 +42,10 @@ new Vue({
   components: {
     'bbs-input': KeyboardInput,
   },
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      this.$cmd.reset();
+      next();
+    });
+  },
 }).$mount('#app');

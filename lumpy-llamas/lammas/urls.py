@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login', core_views.login_endpoint),
     path('api/register', core_views.register_endpoint),
+    path('api/games/', include('games.urls')),
     path('api/forum/', include('forum.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
