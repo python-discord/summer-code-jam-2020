@@ -4,10 +4,14 @@
 {% block content %}
 <main>
     <div id="messages"></div>
-    <div class="chat-input">
-        <input id="input">
-        <label for="input">Enter your message here</label>
-    </div>
+    <form method="POST">
+    	{% csrf_token %}
+    	<div class="chat-input">
+    	    <input id="input" type="text" name="sent_message" required="" id="id_sent_message">
+    	    <label for="input">Enter your message here</label>
+    	    <button type="submit">Send</button>
+    	</div>
+    </form>
 </main>
 {% endblock content%}
 

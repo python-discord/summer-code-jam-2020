@@ -6,4 +6,7 @@ class Messages(models.Model):
     message = models.CharField(max_length=500)
     time = models.DateTimeField(auto_now_add=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
-    recipent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipent')
+    # recipent = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipent')
+
+    def __str__(self):
+        return f"{self.sender} sent '{self.message}' on {self.time}"
