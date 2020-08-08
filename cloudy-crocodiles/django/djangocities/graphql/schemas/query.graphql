@@ -13,9 +13,12 @@ type Query {
 
     allFolders: [Folder!]!
     folder(id: ID!): Folder!
-    folderData(id: ID!): String!
+    folderItems(id: ID!): [Item!]!
 
     allPages: [Page!]!
     page(id: ID!): Page!
+
+    allImages: [Image!]!
+    image(id: ID!): Image!
 
 }

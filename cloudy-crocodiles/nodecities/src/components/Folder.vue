@@ -12,6 +12,9 @@ const siteFolderQuery = gql`
 query siteFolderQuery($id: ID!, $path: String!) {
   siteFolder(id: $id, path: $path) {
     id
+    parent {
+      id
+    }
   }
 }
 `;

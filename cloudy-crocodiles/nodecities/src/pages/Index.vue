@@ -3,7 +3,7 @@
     <div class="card-column">
       <q-card v-for="city in allCities" :key="city.slug">
         <q-card-section>
-          <a :href="`/${city.slug}`">{{ city.name }}</a>
+          <a :href="`/at/${city.slug}`">{{ city.name }}</a>
         </q-card-section>
         <q-card-section>
           {{ city.description }}

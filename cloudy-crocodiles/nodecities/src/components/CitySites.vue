@@ -8,7 +8,7 @@
             {{ city.name + site.address }}
           </a>
           <br/>
-          <a :href="`/${city.slug}/${site.address}`">
+          <a :href="`/sites/${site.id}`">
             Edit
           </a>
         </q-card-section>
@@ -26,6 +26,7 @@ import gql from 'graphql-tag';
 const sitesQuery = gql`
 query sitesQuery($id: ID!) {
   citySites(id: $id) {
+    id,
     address,
     description
   }

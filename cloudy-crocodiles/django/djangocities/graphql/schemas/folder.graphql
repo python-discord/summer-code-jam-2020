@@ -1,11 +1,13 @@
 type Folder {
     id: ID!
     site: Site!
+    parent: Folder
     path: String!
 }
 
 type Item {
     id: ID!
-    folder: Folder!
+    # folder: Folder!
     filename: String!
+    collection: String!
 }
