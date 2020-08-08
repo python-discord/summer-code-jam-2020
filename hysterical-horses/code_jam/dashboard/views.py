@@ -12,7 +12,7 @@ import string
 import os
 from geopy.geocoders import Nominatim
 from pytz import timezone
-import clipboard # for some debugging
+# import clipboard # for some debugging
 
 
 @login_required()
