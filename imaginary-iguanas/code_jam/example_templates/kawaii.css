@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+/* Start http://www.cursors-4u.com */ 
+
+* {cursor: url(https://ani.cursors-4u.net/nature/nat-11/nat1035.cur), auto !important;} 
+
+/* End http://www.cursors-4u.com */
+
+body {
+  background-image: url("https://thumbs.dreamstime.com/b/kawaii-macarons-seamless-pattern-cute-french-cookies-characters-pink-pink-floral-polka-dot-background-vector-75826812.jpg");
+}
+
+h1 {
+  font-family: 'Indie Flower', cursive;
+}
