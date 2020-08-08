@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from './Header';
 import Login from './Login';
 import SignUp from './SignUp';
+import ViewPost from "./ViewPost";
+import ViewPosts from "./ViewPosts";
 
 class App extends React.Component {
     constructor(props) {
@@ -25,6 +27,8 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/login" children={<Login handler={this.toggleLogin} />}/>
                     <Route path="/signup" children={<SignUp handler={this.toggleLogin} />}/>
+                    <Route path="/posts/:id" children={<ViewPost />} />
+                    <Route path={["/", "/posts"]} children={<ViewPosts />} />
                 </Switch>
             </BrowserRouter>
         );
