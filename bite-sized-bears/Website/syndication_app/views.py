@@ -1,4 +1,5 @@
 from django.views.generic import ListView
+from django.views.generic.edit import UpdateView
 from django.views import View
 from .models import Post, Comments, User, Community
 from django.shortcuts import render, redirect
@@ -115,6 +116,12 @@ class CommunitiesListView(ListView):
     queryset = Community.objects.all().annotate(
         s_count=Count('subscribers')
     ).order_by('-s_count')[:50]
+
+
+class UserProfileUpdate(UpdateView):
+    model = User
+    fields = ['avatar']
+    template_name_suffix = '_update_form'
 
 
 def logout_request(request):
