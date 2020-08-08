@@ -62,9 +62,7 @@ def home(request):
 
 @login_required(login_url='/login/')
 def my_profile(request):
-    return HttpResponse("Wait for templates")
-
-
+    return render(request, 'profile.html')
 
 
 @login_required(login_url='/login/')

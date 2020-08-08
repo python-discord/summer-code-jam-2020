@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 /* Styles for the File Menu Bar. */
 
 .select-editable {position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px;}
@@ -228,6 +232,62 @@ ul li {
   position: relative;
   top: 3px;
 }
+
+/* styles for profile page */
+
+body{
+  background: grey;
+}
+
+.container {
+height: 100%;
+width: 100%;
+font-size: 0;
+}
+
+.profile{
+ 
+  font-size: larger;
+  letter-spacing: 1px;
+}
+
+.profile legend{
+  text-align: center;
+}
+
+.above{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+}
+
+.profile-box-title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile-img, .tweets, .about{
+  padding: 15px;
+  box-shadow: var(--border-raised-outer), var(--border-raised-inner);
+}
+
+.search-container{
+display: grid;
+grid-template-columns: repeat(6,1fr);
+}
+
+.search-container input{
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+
+.profile img{
+  width: 500px;
+  height: 500px;
+}
+
+/* profile page styles end */
 
 /* styles for footer */
 * {

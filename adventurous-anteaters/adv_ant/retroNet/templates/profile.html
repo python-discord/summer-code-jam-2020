@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="window-body" style="background-color: #e5e9e7;margin:auto 10px">
+  <fieldset class="profile">
+    <legend>Ayush's Profile</legend>
+    <section class="above">
+      <div class="profile-img">
+        <img src="images/example_img.jpg" alt="">
+      </div>
+      <div class="tweets">
+        <span class="profile-box-title">Ayush's Tweets</span>
+        <div class="search-container">
+          <form action="">
+            <input type="text" placeholder="Search tweets.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+      <div class="about">
+        <span class="profile-box-title"> About</span>
+        <div class="bio">
+          <p>
+            <b>Bio:</b>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Id voluptates reiciendis laboriosam eveniet inventore itaque nihil,
+            a nostrum vel sit quisquam.
+          </p>
+        </div>
+        <div class="general-info">
+
+        </div>
+      </div>
+    </section>
+    <section class="below"></section>
+    </aside>
+
+  </fieldset>
+</div>
+{% endblock %}
