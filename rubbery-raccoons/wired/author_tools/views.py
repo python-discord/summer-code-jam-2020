@@ -3,6 +3,7 @@ from datetime import date
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
+from django.views.generic.list import ListView
 
 from .forms import ArticleForm, CommentForm
 from wired_app.models import Article
@@ -34,10 +35,19 @@ def update(request, slug):
     if request.method == "POST":
         form = ArticleForm(request.POST)
         if form.is_valid():
-            art.update(title = form.cleaned_data.get("title"))
-            art.update(headline = form.cleaned_data.get("headline"))
-            art.update(body = form.cleaned_data.get("body"))
+            art.update(title=form.cleaned_data.get("title"))
+            art.update(headline=form.cleaned_data.get("headline"))
+            art.update(body=form.cleaned_data.get("body"))
             messages.success(request, "Article updated!")
     else:
         form = ArticleForm(instance=art)
     return render(request, "author_tools/update.html", {"form": form})
+
+
+class AuthorsArticleView(ListView):
+    template_name = "author_tools/authors_article_view.html"
+    context_object_name = "articles"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Article.objects.filter(author=self.request.user).order_by("-created")
