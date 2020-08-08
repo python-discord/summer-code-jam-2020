@@ -17,7 +17,12 @@ class BlogArticleListView(APIView):
 
     def get(self, request: Request):
         """Get all articles."""
-        return Response(serializers.BlogArticleGetSerializer(BlogArticle.objects.all().order_by('-id'), many=True).data)
+        return Response(
+            serializers.BlogArticleGetSerializer(
+                BlogArticle.objects.all().order_by('-id'),
+                many=True
+            ).data
+        )
 
     def post(self, request: Request):
         """Create new article."""
