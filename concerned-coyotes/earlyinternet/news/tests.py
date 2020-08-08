@@ -62,7 +62,7 @@ class ArticleTestCase(TestCase):
         for i in range(9):
             year = random.randrange(1900, 2020)
             month = random.randrange(1, 12)
-            day = random.randrange(1, 30)
+            day = random.randrange(1, 28)
             hour = random.randrange(1, 24)
             article = Article.objects.create(
                 source="", author="", title=str(i), description="", content="", url="http://example.org/",
