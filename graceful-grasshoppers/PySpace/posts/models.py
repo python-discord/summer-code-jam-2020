@@ -23,6 +23,15 @@ class Dislike(models.Model):
         return f"{self.user_disliked}'s dislike"
 
 
+class PostComment(models.Model):
+
+    content = models.TextField()
+    user = models.ForeignKey(CustomUser, models.CASCADE)
+
+    def __str__(self):  # Returns a short intro of 20 words
+        return " ".join(self.content.split(" ")[:20])
+
+
 class Post(models.Model):
     """A model for the post a user makes"""
 
@@ -33,6 +42,8 @@ class Post(models.Model):
 
     likes = models.ManyToManyField(Like, blank=True)
     dislikes = models.ManyToManyField(Dislike, blank=True)
+
+    comments = models.ManyToManyField(PostComment)
 
     def __lt__(self, val):
         return self.date_posted < val.date_posted

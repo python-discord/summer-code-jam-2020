@@ -18,3 +18,13 @@ class Friendship(models.Model):
     friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="followers", default=None)
     friends = []
     pending = models.BooleanField(default=True)
+
+
+class ProfileComment(models.Model):
+
+    content = models.TextField()
+    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE)
+    user_commented = models.ForeignKey(CustomUser, models.CASCADE)
+
+    def __str__(self):  # Returns a short intro of 20 words
+        return " ".join(self.content.split(" ")[:20])
