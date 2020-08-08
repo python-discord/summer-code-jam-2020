@@ -36,6 +36,8 @@ $enable-caret: false;
 $enable-rounded: false;
 $enable-transitions: false;
 
+
+
 @import "bootstrap/functions";
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
@@ -73,6 +75,9 @@ $enable-transitions: false;
 //@import "bootstrap/spinners";
 @import "bootstrap/utilities";
 //@import "bootstrap/print";
+
+@import "XP.css-main/gui/index";
+@import "XP.css-main/themes/98/index";
 
 #message-container{
   padding-top: 10px;

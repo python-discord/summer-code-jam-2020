@@ -6,6 +6,9 @@ from components.login import Login
 
 
 class Desktop(Component):
+    data = {
+        "mode": 1  # UI mode
+    }
     template = "#desktop-template"
 
     components = {

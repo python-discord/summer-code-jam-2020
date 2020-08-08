@@ -11,7 +11,7 @@
 .aol-app {
   @import 'aol';
   overflow: hidden;
-  font-family: serif;
+  // font-family: serif;
   padding-top: 0px;
   margin-top: 0px;
 }
@@ -45,7 +45,11 @@
 }
 
 body{
-  background-color: none;
+  background-color: black;
   padding: 0px;
   margin: 0px;
+}
+
+div{
+  font-size: 12pt;
 }

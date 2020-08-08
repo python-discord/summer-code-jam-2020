@@ -8,10 +8,10 @@
 
 <body>
   <div id="app"></div>
-  <script type="text/x-template" id="color-thing-template">
+<script type="text/x-template" id="color-thing-template">
     <div v-on:click="change" v-bind:style="{backgroundColor: colors[index]}">The background of this text will change on click {{testprop}}</div>
 </script>
-  <script type="text/x-template" id="app-template">
+<script type="text/x-template" id="app-template">
     <div id="app"
     v-bind:class="{
       'messenger-app': mode==0,
@@ -21,8 +21,15 @@
       <desktop></desktop>
     </div>
 </script>
-  <script type="text/x-template" id="directory-template">
+<script type="text/x-template" id="directory-template">
+
     <div id="directory">
+      <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          User Directory
+        </div>
+        </div>
         <user
           v-for="(user, index) in users"
           v-bind:key="index"
@@ -31,8 +38,9 @@
           v-bind:id="user.id"
           ></user>
     </div>
+    </div>
 </script>
-  <script type="text/x-template" id="messages-template">
+<script type="text/x-template" id="messages-template">
     <div id="messages">
         <div class="window">
       <div class="title-bar">
@@ -53,7 +61,7 @@
     </div>
     </div>
 </script>
-  <script type="text/x-template" id="message-template">
+<script type="text/x-template" id="message-template">
     <div
       v-bind:title="time"
       v-bind:class="{
@@ -64,37 +72,24 @@
         <strong>{{ sender }}</strong>: {{ content }}
     </div>
 </script>
-  <script type="text/x-template" id="directory-user-template">
-    <div>
-    <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">
-          User Directory
-        </div>
-          <div class="title-bar-controls">
-    <button aria-label="Minimize"></button>
-    <button aria-label="Maximize"></button>
-    <button aria-label="Close"></button>
-  </div>
-        </div>
+<script type="text/x-template" id="directory-user-template">
     <div><span>{{ name }}</span></div>
-    </div>
 </script>
-  <script type="text/x-template" id="desktop-template">
+<script type="text/x-template" id="desktop-template">
     <div class="row">
       <login class="col-lg-3 app"></login>
       <messages class="col-lg-6 app"></messages>
       <directory class="col-lg-3 app"></directory>
     </div>
 </script>
-  <script type="text/x-template" id="mobile-template">
+<script type="text/x-template" id="mobile-template">
     <div class="row">
       <div class="col-xs-12"></div>
       <messages class="col-xs-12"></messages>
       <directory class="col-xs-12"></directory>
     </div>
 </script>
-  <script type="text/x-template" id="login-template">
+<script type="text/x-template" id="login-template">
     <div id="login">
     <div class="window">
       <div class="title-bar">
@@ -105,19 +100,20 @@
         <div id="logo">
         </div>
         <div id="login-form">
-          <input v-model="username" placeholder="Username" class="form-control">
+          <input v-model="username" placeholder="Username" class="">
           <br>
-          <input v-model="password" placeholder="Password" type="password" class="form-control">
+          <input v-model="password" placeholder="Password" class="">
           <br>
           <button v-on:click="login" class="btn btn-primary">Login</button>
         </div>
     </div>
     </div>
 </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>

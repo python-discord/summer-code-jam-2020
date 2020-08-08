@@ -38,10 +38,10 @@ $enable-caret: false;
 $enable-rounded: false;
 $enable-transitions: false;
 
-@import "bootstrap_defaults";
-
 @import "XP.css-main/gui/index";
 @import "XP.css-main/themes/XP/index";
+
+@import "bootstrap_defaults";
 
 // AOL Theme
 
@@ -86,10 +86,10 @@ $enable-transitions: false;
   text-align: center;
 }
 
-#login *{
-  width: 100%;
-
-}
+// #login *{
+//   width: 100%;
+// 
+// }
 
 #chat-window{
 /*  position: absolute;*/
