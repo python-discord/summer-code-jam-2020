@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 import requests
 
@@ -24,5 +24,8 @@ def get_weather(lat: float, lon: float) -> dict:
             data['sys']['sunset']),
         "sunrise": datetime.fromtimestamp(
             data['sys']['sunrise']),
+        "date": date.fromtimestamp(
+            data['dt']
+        )
     }
     return result

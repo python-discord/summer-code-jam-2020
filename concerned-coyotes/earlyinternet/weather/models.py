@@ -8,3 +8,4 @@ class Weather(models.Model):
     city = models.CharField(max_length=512)
     sunrise = models.DateTimeField()
     sunset = models.DateTimeField()
+    day = models.DateField()
