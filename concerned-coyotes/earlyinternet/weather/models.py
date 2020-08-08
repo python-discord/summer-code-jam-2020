@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 
 
@@ -8,4 +10,4 @@ class Weather(models.Model):
     city = models.CharField(max_length=512)
     sunrise = models.DateTimeField()
     sunset = models.DateTimeField()
-    day = models.DateField()
+    day = models.DateField(default=date.today())
