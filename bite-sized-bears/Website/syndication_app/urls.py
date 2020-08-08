@@ -10,7 +10,7 @@ from django.conf import settings
 urlpatterns = [
     path('', IndexListView.as_view()),
     path('rss/feed/community/<str:username>', LatestEntriesFeed()),
-    re_path(r'^community/(?P<community_name>)/(?P<post_id>[0-9])/', PostView.as_view()),
+    re_path(r'^community/(?P<community_name>[-\w_]+)/(?P<post_id>[0-9])/', PostView.as_view()),
     re_path(r'^community/(?P<community_name>[-\w_]+)/$', CommunityView.as_view()),
     url(r'^login', LoginView.as_view(), name="login"),
     url(r'^logout', logout_request, name="logout"),
