@@ -13,6 +13,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='news_source',
-            field=models.CharField(choices=[('1', '1')], default='bbc-news', max_length=50),
+            field=models.CharField(
+                choices=[('1', '1')], default='bbc-news', max_length=50
+                ),
         ),
     ]

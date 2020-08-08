@@ -5,11 +5,11 @@ from .apis_call import News
 from users.models import Profile
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'morning/index1.html'
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'morning/dashboard.html'
 
     def get_context_data(self, *args, **kwargs):
-        context = super(IndexView, self).get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
         user = self.request.user
         source = Profile.objects.get(user=user).news_source
         news = News()
