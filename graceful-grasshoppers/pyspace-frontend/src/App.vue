@@ -22,7 +22,7 @@
       <router-link to="/profile">Online</router-link>|
     </div>
     <div style="display: inline-block;" v-if="loggedIn">
-      <router-link to="/profile">Random</router-link>|
+      <router-link to="/random">Random</router-link>|
     </div>
     <div style="display: inline-block;" v-if="loggedIn">
       <router-link to="/posts">Posts</router-link>|

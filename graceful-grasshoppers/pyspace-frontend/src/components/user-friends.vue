@@ -5,9 +5,9 @@
     <p v-else class="alert-info font-weight-bold">{{ user.username }}'s friends</p>
     <h6 v-if="loggedInUser">You have {{ user.friends.length }} friends!</h6>
     <h6 v-else>{{ user.username }} has {{ user.friends.length }} friends!</h6>
-    <div class="friend" v-for="friend in user.friends" :key="friend.id">
+    <div class="friend" style="width: 100px;" v-for="friend in user.friends" :key="friend.id">
         <img src="http://placehold.it/100x100">
-        <a v-bind:href="'#'">{{ friend.name }}</a>
+        <a v-bind:href="'/profile'+friend.username">{{ friend.username }}</a>
     </div>
 </div>
 </template>
@@ -15,10 +15,5 @@
 export default {
     name: 'UserFriends',
     props: ['loggedInUser', 'user'],
-    data: function() {
-        return {
-            loggedInUser: this.loggedInUser,
-        };
-    },
 };
 </script>

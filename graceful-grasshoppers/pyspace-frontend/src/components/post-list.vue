@@ -4,12 +4,12 @@
 		<div v-for="post in posts" class="bordered flex-row">
 			<div class="flex-col" style="width: 110px;">
 				<img src="http://placehold.it/100x100">
-				<a href="#">{{ post.author.name }}</a>
+				<a v-bind:href="'/profile/'+post.author">{{ post.author }}</a>
 			</div>
 			<div>
 				<p class="alert-warning p-1 font-weight-bold">{{ post.title }}</p>
 				<p>{{ post.content }}</p>
-				<img class="w-100" src="http://www.mandysam.com/img/random.jpg">
+				<img v-if="post.contains_image" class="w-100" v-bind:src="post.image_url">
 				<div class="reactions flex-row">
 					<button class="likes p-1 alert-success">{{ post.likes }} Positive Reactions</button>
 					<button class="dislikes p-1 alert-danger">{{ post.dislikes }} Negative Reactions</button>
@@ -20,15 +20,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
-// import axios from "../http-common";
-import axios from "axios";
-// const authToken = JSON.parse(localStorage.getItem('user')).key;
-
 export default {
 	name: 'UserAbout',
 	props: ['posts'],
 };
-
 </script>
