@@ -16,6 +16,9 @@ def home(request):
     else:
         return HttpResponseRedirect(reverse("login"))
 
+def info(request):
+    # for now, it will only have one url link
+    return render(request, "aboutus.html")
 
 @csrf_exempt
 @login_required
