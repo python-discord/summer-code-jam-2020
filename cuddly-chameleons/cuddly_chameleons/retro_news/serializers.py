@@ -56,7 +56,8 @@ class BlogArticleGetSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=100, required=True)
     content = serializers.CharField()
     author = CustomUserSerializer(read_only=True, many=False)
+    created = serializers.DateTimeField()
 
     class Meta:
         model = BlogArticle
-        fields = ('id', 'title', 'content', 'author')
+        fields = ('id', 'title', 'content', 'author', 'created')
