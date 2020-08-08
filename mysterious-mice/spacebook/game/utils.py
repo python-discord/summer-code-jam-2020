@@ -16,13 +16,12 @@ def new_game():
         "rover": (0, 0),
         "battery": 100,
         "power_usage": 5,
-        "plutonium": (random.randint(0, 10), random.randint(0, 10)),
+        "plutonium": (7, 5),
         "has_plutonium": False,
-        "solar_panels": (random.randint(0, 5), random.randint(0, 5)),
+        "solar_panels": (-3, 2),
         "has_solar_panels": False,
-        "dust_storm": (random.randint(0, 10), random.randint(0, 10)),
         "wind": (-1, 0),
-        "small_crater": (random.randint(0, 10), random.randint(0, 10)),
+        "obstacles": {"dust_storm": (0, 2), "small_crater": (-4, -3),},
         "item_messages": {
             "plutonium": "There is a plume of smoke in the distance.",
             "solar_panels": "There is an object reflecting light in the distance.",
@@ -62,12 +61,34 @@ def new_game():
         "game_over": False,
         "victorious": False,
     }
+
+    randomize_items(game_data)
+
     print("=============")
     print(game_data["plutonium"])
     print(game_data["solar_panels"])
-    print(game_data["dust_storm"])
-    print(game_data["small_crater"])
+    print(game_data["obstacles"]["dust_storm"])
+    print(game_data["obstacles"]["small_crater"])
     return game_data
+
+
+def randomize_items(game_data):
+    """
+    randomizes the loacation of parts and obstacles
+    """
+
+    game_data.update(
+        {
+            "plutonium": (random.randint(1, 10), random.randint(1, 10)),
+            "solar_panels": (random.randint(0, 5), random.randint(0, 5)),
+        }
+    )
+    game_data["obstacles"].update(
+        {
+            "dust_storm": (random.randint(0, 8), random.randint(0, 8)),
+            "small_crater": (random.randint(0, 8), random.randint(0, 8)),
+        }
+    )
 
 
 def get_game(request):
@@ -141,6 +162,8 @@ def command_move(game_data, direction):
         new_position = old_position
         success = False
 
+    # check if new position contains an obstacle
+
     # Deplete battery if successfully moved
     if success:
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
@@ -188,7 +211,7 @@ def command_move(game_data, direction):
 
 def command_look(game_data, direction):
     """
-    checks direction for parts and obsticals
+    checks direction for parts and obstacles
     """
     new_message = []
 
@@ -199,14 +222,24 @@ def command_look(game_data, direction):
         "dust_storm",
         "small_crater",
     ]
+    obstacles_list = [
+        "dust_storm",
+        "small_crater",
+    ]
 
     # rover position
     rover = game_data["rover"]
 
     # check the angle of each item
     for item in check_list:
-        x_dis = abs(rover[0] - game_data[item][0])
-        y_dis = abs(rover[1] - game_data[item][1])
+        if item in obstacles_list:
+            x_dis = abs(rover[0] - game_data["obstacles"][item][0])
+            y_dis = abs(rover[1] - game_data["obstacles"][item][1])
+            item_pos = game_data["obstacles"][item]
+        else:
+            x_dis = abs(rover[0] - game_data[item][0])
+            y_dis = abs(rover[1] - game_data[item][1])
+            item_pos = game_data[item]
 
         if x_dis == 0:
             angle = 0
@@ -216,13 +249,13 @@ def command_look(game_data, direction):
         # if the angle is 0 check if the camera is facing the right direction
         d = ""  # the direction that the item is in
         if angle == 0:
-            if rover[0] > game_data[item][0]:
+            if rover[0] > item_pos[0]:
                 d = "w"
-            elif rover[0] < game_data[item][0]:
+            elif rover[0] < item_pos[0]:
                 d = "e"
-            elif rover[1] > game_data[item][1]:
+            elif rover[1] > item_pos[1]:
                 d = "s"
-            elif rover[1] < game_data[item][1]:
+            elif rover[1] < item_pos[1]:
                 d = "n"
 
         # if the item is in the right direction update the messages
