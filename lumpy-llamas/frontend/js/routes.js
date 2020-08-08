@@ -8,12 +8,6 @@ const routes = [
     name: 'home_page',
     component: Home,
   },
-  {
-    path: '/newsfeed',
-    alias: '/',
-    name: 'news_feed',
-    component: Newsfeed,
-  },
 ];
 
 export default routes;
