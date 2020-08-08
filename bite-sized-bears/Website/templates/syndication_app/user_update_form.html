@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="col-lg-9">
+        <div class="posts">
+        <h1>Username: {{user.name}}</h1>
+        <h1>Username: {{user.id}}</h1>
+        {% if user.avatar.url is not null %}
+			{{user.name}}
+            <img src = "{{user.avatar.url}}"</img>
+         {% endif %}
+        <h2>Joining Date: {{user.join_date}}</h2>
+
+            <form method="post" enctype=multipart/form-data>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Update">
+            </form>
+        </div>
+    </div>
+{% endblock %}
