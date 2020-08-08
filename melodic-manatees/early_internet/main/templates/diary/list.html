@@ -1,0 +1,13 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+    <div>
+        <a href="{% url 'diary-create' %}">create entry</a>
+    <div>
+    <ul>
+    {% for object in object_list %}
+        <li>{{ object }} <span><a href="{% url 'diary-update' id=object.id %}">edit</a></span> <span><a href="{% url 'diary-delete' id=object.id %}">delete</a></span></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

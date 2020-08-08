@@ -1,8 +1,14 @@
 from django import forms
 from .models import BackgroundFile
+from .background_utility import file_size
 
 
 class FileUploadForm(forms.ModelForm):
+    background_file = forms.FileField(
+        label='upload background',
+        validators=[file_size],
+        required=True,
+    )
 
     class Meta:
         model = BackgroundFile

@@ -73,7 +73,7 @@ fieldset {
     </header>
     <div class="hero is-fullheight is-light has-background">
         {% if user.is_authenticated %}
-            <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background" />
+            <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background failed to load" />
         {% else %}
             <img class="hero-background" src="{% static 'images/sunrise.jpg' %}" alt="Sunrise Over Mountains" />
         {% endif %}
@@ -107,6 +107,8 @@ fieldset {
     
     {% block content %}
         <h1>this is the main base template</h1>
+        <a href="{% url 'background-home' %}">background homepage</a>
+
     {% endblock content%}
     </section>
 

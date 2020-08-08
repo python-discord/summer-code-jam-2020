@@ -14,7 +14,6 @@ def create_profile(sender, instance, created, **kwargs):
 
 # superuser has to have a UserProfile before we can uncomment this
 # otherwise we get an error when trying to login to admin
-'''@receiver(post_save, sender=User)
+@receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
-    instance.userprofile.save()
-'''
+    instance.profile.save()
