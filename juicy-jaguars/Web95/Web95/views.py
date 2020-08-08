@@ -7,7 +7,7 @@ import urllib.parse
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.http import HttpResponse, HttpResponseNotFound
 from .html_parse import HtmlParser
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import io
 import requests
 
@@ -117,11 +117,29 @@ def page(request, url):
 
             response = HttpResponse(content_type=req.headers["content-type"])
 
-            img = Image.open(stream)
-            f_ext = req.headers["content-type"].split("/")[1]
-            if f_ext.upper() == "VND.MICROSOFT.ICON":
-                f_ext = "png"
-            img.save(response, f_ext)
+            if "svg" in \
+               req.headers["content-type"].split(";")[0].split("/")[1]:
+                img = req.text
+                resp = \
+                    render(request, "Web95/blank.html", {"content": img})
+                resp["content-type"] = req.headers["content-type"]
+
+            else:
+                try:
+                    img = Image.open(stream)
+
+                    f_ext = \
+                        req.headers["content-type"].split(";")[0].split("/")[1]
+                    if f_ext.upper() == "VND.MICROSOFT.ICON":
+                        f_ext = "png"
+
+                    img.save(response, f_ext)
+                except UnidentifiedImageError:
+                    print("\u001b[34mImage processing failed!. Type was",
+                          req.headers["content-type"],
+                          "\u001b[0m")
+
+                    return HttpResponseNotFound()
 
             return response
         else:
