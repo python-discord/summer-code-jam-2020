@@ -36,7 +36,7 @@ summer-code-jam-2020"])
     print(green+"Repository successfully cloned."+reset)
     print()
     print(yellow+"Installing dependencies..."+reset)
-    result = subprocess.call(["pip3", "install", "-r", "dependencies.txt"])
+    result = subprocess.call(["pip3", "install", "-r", "requirements.txt"])
 
     if result != 0:
         print(red+"Error installing Dependencies. Exiting...")
