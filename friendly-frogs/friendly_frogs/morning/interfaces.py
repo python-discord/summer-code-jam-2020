@@ -1,3 +1,4 @@
+import abc
 from dataclasses import dataclass
 from typing import Optional
 
@@ -15,14 +16,40 @@ class NewsInterface:
         return f'<NewsInterface::Title: "{self.title}"; Description: "{self.description}">'
 
 
-class Temperature:
-    def __init__(self, celsius: float = None, fahrenheit: float = None):
-        if not celsius and not fahrenheit:
+class ConvertedUnit(abc.ABC):
+    def __init__(self, metric: float = None, imperial: float = None):
+        if not metric and not imperial:
             raise Exception
-        elif celsius:
-            self.celsius = celsius
-        elif fahrenheit:
-            self.fahrenheit = fahrenheit
+        elif metric:
+            self.metric = metric
+            if not imperial:
+                self.imperial = self.metric_to_imperial(self.metric)
+        elif imperial:
+            self.imperial = imperial
+            if not metric:
+                self.metric = self.imperial_to_metric(self.imperial)
+
+    @staticmethod
+    @abc.abstractmethod
+    def metric_to_imperial(metric: float) -> float:
+        """Implement conversion from metric to imperial"""
+        raise NotImplementedError
+
+    @staticmethod
+    @abc.abstractmethod
+    def imperial_to_metric(imperial: float) -> float:
+        """Implement conversion from imperial to metric"""
+        raise NotImplementedError
+
+
+class Temperature(ConvertedUnit):
+    @staticmethod
+    def metric_to_imperial(metric: float) -> float:
+        return (metric * 9 / 5) + 32
+
+    @staticmethod
+    def imperial_to_metric(imperial: float) -> float:
+        return (imperial - 32) * 5 / 9
 
 
 @dataclass
