@@ -1,5 +1,6 @@
 import Home from './home-page.vue';
 import Login from './login.vue';
+import TicTacToe from './tic-tac-toe.vue';
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/login',
     name: 'login_page',
     component: Login,
+  },
+  {
+    path: '/games/tictactoe',
+    name: 'tictactoe_page',
+    component: TicTacToe,
   },
 ];
 
