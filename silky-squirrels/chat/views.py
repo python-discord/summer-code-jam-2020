@@ -24,6 +24,8 @@ def index(request):
 
 @login_required
 def room(request, room_name):
+    #print(request)
+    #print(room_name)
     try:
         room = Room.objects.get(name=room_name)
         room_member = RoomMember.objects.get(user=request.user, room=room)
