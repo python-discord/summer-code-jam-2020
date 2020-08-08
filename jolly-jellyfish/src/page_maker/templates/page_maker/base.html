@@ -27,11 +27,6 @@
     </header>
 
     <main>
-      {% if error %}
-      <div>
-        <p>{{ error.text }}</p>
-      </div>
-      {% endif %}
       <div>
         {% block content %}
         {% endblock %}

@@ -38,7 +38,6 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # user = get_object_or_404(User, pk=self.kwargs.get('pk'))
         user = self.get_object()
         context['user_pages'] = Webpage.objects.filter(author=user)
         return context
@@ -72,9 +71,7 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class WebpageCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/webpage_create.html'
     form_class = WebpageForm
-    # success_url = '/pages'
 
-    # TODO validate and sanitize text and images
     # TODO create thumbnail
     def form_valid(self, form):
         self.form = form
@@ -166,7 +163,6 @@ class TemplateCreateView(LoginRequiredMixin, FormView):
     form_class = TemplateForm
     success_url = '/'
 
-    # TODO validate and sanitize style sheet
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.save()
@@ -199,7 +195,7 @@ class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, FormView):
-    http_method_names = ['post']  # POST request only
+    http_method_names = ['post']
     form_class = CommentForm
 
     def form_valid(self, form):
@@ -212,11 +208,11 @@ class CommentCreateView(LoginRequiredMixin, FormView):
     def get_success_url(self):
         pagename = self.kwargs.get('pagename')
         return reverse_lazy('webpage-detail', kwargs={'pagename': pagename})
-    
-    # redirect to detail view
+
     def handle_no_permission(self):
         if self.raise_exception or self.request.user.is_authenticated:
             raise PermissionDenied(self.get_permission_denied_message())
+        # redirect to login with 'next' pointing to detail view
         return redirect_to_login(reverse_lazy(
             'webpage-detail', kwargs={'pagename': self.kwargs.get('pagename')}
             ), self.get_login_url(), self.get_redirect_field_name())
@@ -233,8 +229,7 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
     def delete(self, request, *args, **kwargs):
-        # save pagename for success url
-        comment = self.get_object()
+        comment = self.get_object()  # save pagename for success url
         self.pagename = comment.parent_page.name
         return super().delete(request, *args, **kwargs)
 
