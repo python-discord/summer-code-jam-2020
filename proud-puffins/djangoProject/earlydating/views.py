@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
 from random import randint
 from collections.abc import Iterable
 from .models import UserVote
@@ -118,11 +119,16 @@ def get_unvoted(voter):
 @allowed_users(allowed_roles=['profile'])
 def likedmatches(request):
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
-    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
-    both_liked = liked_you.intersection(you_liked)
-    whole_list = liked_you.union(you_liked)
-    context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
+    liked_you = UserVote.objects.filter(user=logged_user, vote=1).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user, vote=1).exclude(user=logged_user)
+    page_likes = Paginator(liked_you, 10)
+    page_liked = Paginator(you_liked, 10)
+
+    page_number = request.GET.get('page')
+    page_obj_likes = page_likes.get_page(page_number)
+    page_obj_liked = page_liked.get_page(page_number)
+
+    context = {'liked_you': liked_you, 'you_liked': you_liked, 'obj_liked': page_obj_liked, 'obj_likes': page_obj_likes}
     return render(request, 'dating/mylikes.html', context)
 
 
@@ -130,11 +136,12 @@ def likedmatches(request):
 @allowed_users(allowed_roles=['profile'])
 def bothliked(request):
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user, vote=1).exclude(voter=logged_user)
-    you_liked = UserVote.objects.filter(voter=logged_user, vote=1).exclude(user=logged_user)
+    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
     both_liked = liked_you.intersection(you_liked)
     whole_list = liked_you.union(you_liked)
     context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
+
     return render(request, 'dating/bothlikes.html', context)
 
 

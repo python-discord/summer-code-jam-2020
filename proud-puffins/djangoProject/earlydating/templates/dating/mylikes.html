@@ -4,13 +4,32 @@
 {% block content %}
 
 {% csrf_token %}
-    {% for item in you_liked %}
+    {% for item in obj_likes %}
         <h3 style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
-        border-style: inset; border-width: 6px; margin: 30px 200px 0px 200px; ">{{ item.voter.username }}</h3>
+        border-style: inset; border-width: 4px; margin: 30px 100px 0px 100px; width:50%; ">{{ item.voter.username }}</h3>
         <p style="text-align: center; vertical-align: middle; width: 659px; margin-left: 200px"><br>
-        <img src="/media/{{ item.voter.profile.img }}" height="250"><br>
+        <div class="center"><img src="/media/{{ item.voter.profile.img }}" height="250"></div><br>
         <h3 style="margin-left: 200px; margin-right: 200px">{{item.voter.profile.bio}}</h3>
     </p>
     {% endfor %}
+
+    <div class='pagination'>
+        <span class="step-links">
+            {% if obj_likes.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ obj_likes.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ obj_likes.number }} of {{ obj_likes.paginator.num_pages }}.
+            </span>
+    
+            {% if obj_likes.has_next %}
+                <a href="?page={{ obj_likes.next_page_number }}">next</a>
+                <a href="?page={{ obj_likes.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
 
 {% endblock %}
