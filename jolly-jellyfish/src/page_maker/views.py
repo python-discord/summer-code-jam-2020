@@ -215,7 +215,7 @@ class CommentCreateView(LoginRequiredMixin, FormView):
         # redirect to login with 'next' pointing to detail view
         return redirect_to_login(reverse_lazy(
             'webpage-detail', kwargs={'pagename': self.kwargs.get('pagename')}
-            ), self.get_login_url(), self.get_redirect_field_name())
+        ), self.get_login_url(), self.get_redirect_field_name())
 
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

@@ -87,7 +87,7 @@ class WebpageViewsTest(TestCase):
 
     def test_webpage_create_redirect(self):
         res = self.client.get(reverse('webpage-create'))
-        self.assertRedirects(res, reverse('login')+'?next='+reverse('webpage-create'))
+        self.assertRedirects(res, reverse('login') + '?next=' + reverse('webpage-create'))
 
     def test_webpage_create(self):
         self.client.login(username=USERNAME, password=PASSWORD)
@@ -214,7 +214,9 @@ class CommentViewsTest(TestCase):
             'content': 'another test'
         }
         res = self.client.post(reverse('comment-create', kwargs={'pagename': 'mypage'}), form_data)
-        self.assertRedirects(res, reverse('login')+'?next='+reverse('webpage-detail', kwargs={'pagename': 'mypage'}))
+        self.assertRedirects(
+            res, reverse('login') + '?next=' + reverse('webpage-detail', kwargs={'pagename': 'mypage'})
+        )
         self.client.login(username=USERNAME, password=PASSWORD)
         res = self.client.post(reverse('comment-create', kwargs={'pagename': 'mypage'}), form_data)
         self.assertRedirects(res, reverse('webpage-detail', kwargs={'pagename': 'mypage'}))
