@@ -118,6 +118,19 @@ class UserProfileUpdate(UpdateView):
     fields = ['avatar']
     template_name_suffix = '_update_form'
 
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs.setdefault('content_type', self.content_type)
+        user=context.pop('user')
+        context['user_data']=user
+        return self.response_class(
+            request = self.request,
+            template = self.get_template_names(),
+            context = context,
+            using = self.template_engine,
+            **response_kwargs
+        )
+
+
 
 def logout_request(request):
     auth.logout(request)

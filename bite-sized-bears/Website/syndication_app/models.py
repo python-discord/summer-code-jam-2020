@@ -11,7 +11,7 @@ class User(models.Model):
     join_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return '/rss/feed/user/' + str(self.id)
+        return '/user/' + str(self.id)
 
     def __str__(self):
         return self.name
