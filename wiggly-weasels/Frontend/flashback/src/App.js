@@ -83,12 +83,21 @@ const App = () => {
           if(activeTab === 0){
             const response = postRequest('http://127.0.0.1:8000/account/check-login/', {'password': sha256(password), 'username': user})
             response.then((data) => {
-              Cookies.set('session_id', data.username)
+              if(password !== '' && user !== ''){
+              Cookies.set('session_id', data.username)}
+              else{
+                alert('Empty Fields...')
+              }
+
             })
           }else{
             const response = postRequest('http://127.0.0.1:8000/account/', {'email': email, 'hashed_pass': sha256(password), 'nickname': user})
             response.then((data) => {
-              Cookies.set('session_id', data.nickname)
+              if(password !== '' && user !== '' && email !== ''){
+                Cookies.set('session_id', data.nickname)}
+                else{
+                  alert('Empty Fields...')
+                }
             })
           }
          }}

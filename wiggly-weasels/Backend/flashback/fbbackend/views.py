@@ -18,14 +18,18 @@ class Account_View(viewsets.ModelViewSet): #Allow you to view all Accounts and C
     def check_login(self, request, pk=None):
         login_serializer = serializers.LoginSerializer(data=request.data)
         if login_serializer.is_valid():
-            user = models.Account.objects.get(nickname=login_serializer.data['username'])
+            try:
+                user = models.Account.objects.get(nickname=login_serializer.data['username'])
+
+            except:
+                return Response({'Authentication': 'Failed'}, status=status.HTTP_401_UNAUTHORIZED)
             if user.hashed_pass == login_serializer.data['password']:
                 return Response({'username': login_serializer.data['username']})
             else:
                 return Response({'Authentication': 'Failed'}, status=status.HTTP_401_UNAUTHORIZED)
             
         else:
-            return Response(serializer.errors,
+            return Response(login_serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
 class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Create New ones
