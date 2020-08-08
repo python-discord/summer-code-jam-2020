@@ -14,3 +14,9 @@ Our site is basically just a forum with an auth system using Discord. People can
 - `DISCORD_CLIENT_ID`: The Discord Client ID of the app to use for OAuth2.
 - `DISCORD_CLIENT_SECRET`: The Discord Client Secret of the app to use for OAuth2.
 - `SECRET_KEY`: The secret key for our Django site.
+
+## Build
+
+`docker-compose up`
+=======
+
