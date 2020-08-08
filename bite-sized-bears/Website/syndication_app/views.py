@@ -79,6 +79,16 @@ class CommunityView(View):
         self.context['posts'] = self.context['community'].post_publisher.all()
         return render(request, self.template_name, self.context)
 
+class UserView(View):
+    template_name = 'user-posts.html'
+    model = User
+    context = {}
+
+    def get(self, request, username):
+        self.context['user'] = self.model.objects.get(name=username)
+        self.context['posts'] = self.context['user'].post_author.all() \
+            .annotate(v_count = Count('views')).order_by('-v_count')
+        return render(request, self.template_name, self.context)
 
 class TopCommunityView(View):
     template_name = 'top-community.html'
