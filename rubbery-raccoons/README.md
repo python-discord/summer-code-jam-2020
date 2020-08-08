@@ -8,7 +8,7 @@ Our submission is written entirely in Django with a sqlite DB for development. A
 1. `cd rubbery-raccoons/wired`
 1. `python manage.py migrate`
 1. `python manage.py loaddata fixtures/dummy_data.json`
-1. ` python manage.py runserver`
+1. `python manage.py runserver`
 
 ### Functionality
 The first thing you'll want to do is of course create a user account, so click on register on the left nav. Since this website is circa mid-90's any simple 8 character password will do. Using the shortest password you can think of and then reuse across all your other accounts is encouraged to be period-accurate. After you create a user, go ahead and login with your new super secure credentials.
