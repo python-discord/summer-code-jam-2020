@@ -29,7 +29,6 @@ class CreatePost extends React.Component {
     async componentDidMount() {
         if (localStorage.getItem('access_token') || localStorage.getItem('refresh_token')) {
             const result = await axios.get('/superuser/');
-            console.log(result.data);
             localStorage.setItem('superuser', result.data.is_superuser ? 'true' : 'false');
             this.setState({superuser: result.data.is_superuser, loading: false});
         } else {
