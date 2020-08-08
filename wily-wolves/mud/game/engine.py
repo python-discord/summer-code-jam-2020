@@ -168,8 +168,7 @@ class Engine():
 
         methods_list = [
             func for func in dir(Engine)
-            if (callable(getattr(Engine, func))
-                and not func.startswith("_") and len(func) > 1)
+            if (callable(getattr(Engine, func)) and not func.startswith("_") and len(func) > 1)
         ]
         if command_to_help is None:
             message = "This is the list of all commands available in this server:"
