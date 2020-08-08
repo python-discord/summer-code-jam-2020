@@ -28,7 +28,7 @@ def install(color=False):
     result = subprocess.call(["git", "clone",
                               "https://github.com/Juicy-Jaguars/\
 summer-code-jam-2020"])
-    result += os.chdir("summer-code-jam-2020/juicy-jaguars")
+    os.chdir("summer-code-jam-2020/juicy-jaguars")
 
     if result != 0:
         print(red+"Error cloning Repository. Exiting...")
