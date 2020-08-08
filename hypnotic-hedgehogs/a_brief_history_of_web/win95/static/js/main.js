@@ -35,19 +35,3 @@ function hideIt(params) {
 function agentSpeak(agent,text){
     agent.speak(text);
 }
-
-function searchPage(){
-  var address = $("#address-bar").val();
-  console.log(address);
-  if (address === "https://youtube.com") {
-    console.log("success");
-    $("#google-page").addClass("d-none");
-    $(".404-interface").addClass("d-none");
-    $("#youtube-page").removeClass("d-none");
-  }else{
-    $("#google-page").addClass("d-none");
-    $("#youtube-page").addClass("d-none");
-    $(".404-interface").removeClass("d-none");
-
-  }
-}

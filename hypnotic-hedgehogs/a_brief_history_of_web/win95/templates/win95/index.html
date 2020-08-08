@@ -103,11 +103,11 @@
                 <header>
                     <div class="label">Address:</div>
                     <div class="combo">
-                        <input spellcheck="false" value="https://google.com" id="address-bar">
+                        <input spellcheck="false" value="about:blank" id="address-bar">
                         <a class="dropdown" href="#"></a>
                         <button type="button" style="background-color: #C0C0C0;border-style: solid;
                       border-color: #fff #808080 #808080 #fff;
-                      " class="px-3" onclick="searchPage()">Go
+                      " class="px-3" onclick="change_page()">Go
                         </button>
                     </div>
                     <div class="win">
@@ -116,17 +116,11 @@
                     </div>
                 </header>
                 <div class="content" style="background-color: #FFFFFF;overflow-y: scroll;max-height: 600px !important;">
-
-                    <p class="h2 google-interface" style="border: none !important">
-                    <div id="google-page" class="d-none">Google interface
-                    </div>
-                    </p>
                     <p class="h2 youtube-interface" style="overflow-y: scroll;border: none !important;">
-                    <div id="youtube-page" class="d-none">
-                        {% include "win95/youtube.html" %}
+                    <div id="web-page">
                     </div>
                     </p>
-                    <span class="404-interface container d-none" style="background-color: #FFFFFF;border: none !important">
+                    <span id="404-interface" class="404-interface container d-none" style="background-color: #FFFFFF;border: none !important">
 
                       <img src="{% static 'img/404.png' %}">
                       <span class="ml-1" style="font-weight: bold;font-size: 20px;">The page cannot be found</span>
@@ -146,7 +140,6 @@
 
                     </span>
                 </div>
-
 
             </div>
         </form>
@@ -240,5 +233,6 @@
     </div>
     </div>
     <script src="{% static 'js/main.js'%}"></script>
+    <script src="{% static 'js/browser_mock.js' %}"></script>
 </body>
 </html>
