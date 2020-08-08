@@ -3,9 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Thread(models.Model):
-    """
-    Model representing a forum thread
-    """
+    """ Model representing a forum thread """
     created_date = models.DateTimeField('Date created', auto_now_add=True, null=False)
     title = models.CharField(max_length=120, null=False)
     created_by = models.ForeignKey(User, on_delete=models.SET('Deleted'), to_field='username')
@@ -15,9 +13,7 @@ class Thread(models.Model):
 
 
 class ThreadMessage(models.Model):
-    """
-    Model representing a forum thread message
-    """
+    """ Model representing a forum thread message """
 
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET('Deleted'), to_field='username')

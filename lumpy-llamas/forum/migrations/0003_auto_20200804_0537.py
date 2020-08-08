@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='thread',
             name='user',
-            field=models.ForeignKey(default='guest', on_delete=models.SET('Deleted'), to=settings.AUTH_USER_MODEL, to_field='username'),
+            field=models.ForeignKey(default='guest', on_delete=models.SET('Deleted'), to=settings.AUTH_USER_MODEL,
+                                    to_field='username'),
         ),
     ]

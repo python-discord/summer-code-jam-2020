@@ -29,7 +29,8 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField(auto_now_add=True, verbose_name='Date created')),
                 ('message', models.TextField()),
                 ('thread', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='forum.Thread')),
-                ('user', models.ForeignKey(on_delete=models.SET('Deleted'), to=settings.AUTH_USER_MODEL, to_field='username')),
+                ('user', models.ForeignKey(on_delete=models.SET('Deleted'), to=settings.AUTH_USER_MODEL,
+                                           to_field='username')),
             ],
         ),
     ]
