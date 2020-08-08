@@ -1,30 +1,72 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<img src="{{ of_user.profile.image.url }}">
-<h3>{{ of_user.username }}</h3>
-<p>Birthday: {{ of_user.profile.date_of_birth|date:"d F" }}</p>
-<p>Gender: {{ of_user.profile.gender}}</p>
+
+<div class="w3-row">
+  <div class="w3-col w3-container m3 l2">
+  	<img src="{{ of_user.profile.image.url }}">
+  </div>
+  <div class="w3-col w3-container m9 l10">
+  	<h4>{{ of_user.username|capfirst }}</h4>
+	  <p>Born: {{ of_user.profile.date_of_birth|date:"jS F, Y" }}</p>
+	  <p id="gender"></p>
+  </div>
+<div>
+
+<div style="float: left;">
 <p>{{ of_user.profile.bio }}</p>
 
 {% if of_user.username == user.username %}
 <button><a href="{% url 'profile_edit' %}">Update Info</a></button>
 {% endif %}
 
-<h2>Posts ({{ num_posts }})</h2>
+<h3>Posts ({{ num_posts }})</h3>
 
-<hr>
 {% for post in posts %}
-
-	<img src="{{ post.posted_by.profile.image.url }}">
+  <div class="w3-row" style="margin: 6px 0 6px 0;">
+    <div class="w3-col w3-container m3 l2">
+	    <img src="{{ post.posted_by.profile.image.url }}">
+    </div>
+    <div class="w3-col w3-container m9 l10">
 			<p>
         <a href="{% url 'profile' post.posted_by.username %}">By: {{ post.posted_by}}</a>
-				<small>On: {{ post.post_date_posted|date:"j F Y, H:i" }}</small>
+				<small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
 			</p>
 				
       <p>{{ post.post_content }}</p>
-
-
+    </div>
+  </div>
 {% endfor %}
-
+</div>
+<script>
+  let gender = "{{ of_user.profile.gender}}"
+  if(gender == 'M'){
+    gender = 'Male'
+  } else if(gender == 'F'){
+    gender = 'Female'
+  } else if(gender == 'O'){
+    gender = 'Others'
+  } else {
+    gender = "Not specified"
+  }
+  document.getElementById("gender").innerHTML = "Gender: " + gender;
+</script>
+<style>
+  .main-content {
+    display: flex; 
+    width: 100vw;
+    height: 20vh;
+  }
+  .profile-image {
+    flex: 15vw; 
+  }
+  .profile-info {
+    flex: 85vw; 
+  }
+  .main-content:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+</style>
 {% endblock content %}

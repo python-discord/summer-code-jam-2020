@@ -2,12 +2,13 @@
 
 <!DOCTYPE html>
 <html>
-<head>	
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script> {% endcomment %}
   <link rel="stylesheet" href="{% static 'css/98.css' %}">
-
-  <meta charset="utf-8">
   <title>SoCL Media</title>
 </head>
 
@@ -54,15 +55,18 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
+    #main-content {
+      padding: 66px 0 20vh 2vw;
+    }
     header {
       display: flex;
       width: 100vw;
       height: 60px;
-      margin-top: -8px;
-      margin-left: -8px;
       padding: 0 0 0 10px;
+      position: fixed;
       background: rgb(50,104,44);
       background: linear-gradient(128deg, rgba(50,104,44,1) 0%, rgba(50,104,44,1) 37%, rgba(28,155,14,1) 100%);
+      box-shadow: 0px 3px 6px #bcbcbc;
     }
     #site-title {
       color: white;
