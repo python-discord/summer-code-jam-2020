@@ -24,9 +24,9 @@ from .views import (
 urlpatterns = [
     path('', MainView.as_view(), name='home'),
     path('users/register', UserRegister.as_view(), name='register'),
-    path('users/<int:pk>', UserDetailView.as_view(), name='user-detail'),
-    path('users/<int:pk>/update', UserUpdateView.as_view(), name='user-update'),
-    path('users/<int:pk>/delete', UserDeleteView.as_view(), name='user-delete'),
+    path('users/<str:username>', UserDetailView.as_view(), name='user-detail'),
+    path('users/<str:username>/update', UserUpdateView.as_view(), name='user-update'),
+    path('users/<str:username>/delete', UserDeleteView.as_view(), name='user-delete'),
 
     path('pages/new', WebpageCreateView.as_view(), name='webpage-create'),
     path('pages/<str:pagename>', WebpageView.as_view(), name='webpage-view'),

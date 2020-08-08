@@ -30,6 +30,6 @@
   <a href="{% url 'webpage-detail' pagename=webpage.name %}">Like and comment on my page!</a>
 </p>
 <p>
-  <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
+  <a href="{% url 'user-detail' username=webpage.author.username %}">{{ webpage.author.username }}</a>
 </p>
 {% endblock %}

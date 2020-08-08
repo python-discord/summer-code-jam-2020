@@ -3,8 +3,8 @@
 {% block content %}
 <h2>User {{ viewed_user.username }}</h2>
 {% if request.user == viewed_user %}
-<a href="{% url 'user-update' pk=viewed_user.id %}">update</a>
-<a href="{% url 'user-delete' pk=viewed_user.id %}">delete</a>
+<a href="{% url 'user-update' username=user.username %}">Edit User Details</a>
+<a href="{% url 'user-delete' username=user.username %}">Delete User</a>
 {% endif %}
 
 {% if user_pages %}
