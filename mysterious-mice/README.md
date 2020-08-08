@@ -1,7 +1,7 @@
 ![Spacebook Logo](spacebook-logo-light.png)
 
 # Spacebook, by Mysterious Mice
-Welcome to Spacebook, a social media site created for NASA's rovers on Mars! 
+The internet has finally made it to Mars, and to celebrate a social media site has been created for NASA's rovers! Take a look around the profiles and photos of these rovers, see what weather is like on Mars, and even play a game where you get to control your very own rover! Don't forget to leave us a note in the guestbook!
 
 ## Installation
 
