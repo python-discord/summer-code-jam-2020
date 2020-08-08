@@ -62,6 +62,9 @@ class Temperature(ConvertedUnit):
     def fahrenheit(self) -> float:
         return self.imperial
 
+    def __repr__(self):
+        return f"<Temperature: celsius={self.celsius} fahrenheit={self.fahrenheit}>"
+
 
 class WindSpeed(ConvertedUnit):
     def metric_to_imperial(self) -> float:
@@ -77,6 +80,9 @@ class WindSpeed(ConvertedUnit):
     @property
     def miles_per_hour(self) -> float:
         return self.imperial
+
+    def __repr__(self):
+        return f"<WindSpeed: m/s={self.metre_per_second} mph={self.miles_per_hour}>"
 
 
 @dataclass
