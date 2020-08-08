@@ -40,7 +40,8 @@ $enable-transitions: false;
 
 @import "bootstrap_defaults";
 
-@import "win95";
+@import "XP.css-main/gui/index";
+@import "XP.css-main/themes/XP/index";
 
 // AOL Theme
 
@@ -59,7 +60,7 @@ $enable-transitions: false;
 }
 
 #chat-name{
-  background-color: teal;
+  background-color: none;
   width: 100%;
 }
 
