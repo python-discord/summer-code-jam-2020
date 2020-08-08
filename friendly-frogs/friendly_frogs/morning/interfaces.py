@@ -82,9 +82,9 @@ class WindSpeed(ConvertedUnit):
 @dataclass
 class WeatherInterface:
     temperature: Temperature
-    pressure: float
-    humidity: float
-    wind_speed: WindSpeed
-    wind_deg: int
+    pressure: Optional[int]
+    humidity: Optional[int]
+    wind_speed: Optional[WindSpeed]
+    wind_deg: Optional[int]
     time: datetime
-    clouds: int
+    clouds: Optional[int]
