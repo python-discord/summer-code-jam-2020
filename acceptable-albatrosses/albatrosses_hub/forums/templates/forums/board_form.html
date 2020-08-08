@@ -1,11 +1,8 @@
 {% extends "forums_base.html" %}
 
 {% block forumheader %}
-    <li class="breadcrumb-item">
-        <a href="/forums/{{ object.post.board.name }}">{{ object.post.board.name }}</a>
-    </li>
-        <li class="breadcrumb-item active">
-        <a href="/forums/{{ object.post.board.name }}/{{ object.post.pk }}">s{{ object.post.subject }}</a>
+    <li class="breadcrumb-item active">
+        <a href="/forums/{{ object.pk }}/">{{ object.name }}</a>
     </li>
 {% endblock forumheader %}
 

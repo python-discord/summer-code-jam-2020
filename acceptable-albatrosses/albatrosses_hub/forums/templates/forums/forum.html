@@ -1,6 +1,11 @@
 {% extends "forums_base.html" %}
 {% block forumcontent %}
 <div class="container">
+  
+  <div class="mb-4">
+    <a href="{% url 'board-create' %}" class="btn btn-primary">New Board</a>
+  </div>
+
   <table class="table">
 
     <thead class="thead-inverse">

@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("", views.forumspage, name='forums-home'),
+    path("create_board/", views.BoardCreateView.as_view(), name='board-create'),
     path("<board>/", views.PostListView.as_view(), name='board-view'),
     path("user/<username>/", views.UserPostListView.as_view(),
          name='user-posts'),

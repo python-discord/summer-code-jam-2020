@@ -223,3 +223,13 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == comment.created_by:
             return True
         return False
+
+class BoardCreateView(LoginRequiredMixin, CreateView):
+    """
+    View of page when creating posts.
+    """
+    model = Board
+    fields = ['name', 'description']
+
+    def get_success_url(self):
+            return reverse("forums-home")
