@@ -74,11 +74,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_comments(self):
-        return  # No idea what to return here
+        return len(self.comments.all())
 
     @property
     def number_of_messages(self):
-        return  # No idea as well
+        return 0
 
     @property
     def score(self):
