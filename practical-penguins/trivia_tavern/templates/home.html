@@ -9,22 +9,21 @@
 
 <div class="row">
   <div class="parchment-border">
-  <h3>Make yourselves at home to Ye Olde Trivia Tavern!</h3>
+  <h3>Make yourselves at home in Ye Olde Trivia Tavern!</h3>
   <p>This is a place to create, participate and run your own trivia nights!
     Want to run a trivia night but your friends are quarentined and he doesn't internet?
     No problem! Trivia Tavern uses the ancient technology called "texting" so even your
     friend from 1992 can participate through the use of their phone!</p>
 
   <h3>Want to run a trivia night?</h3>
-  <p>Simply create an <a href="https://www.w3schools.com">account</a> and run a list of prebuild trivia packs that is available under "run quiz"</p>
+  <p>Simply create or login to an <a href="{% url 'login' %}">account</a> and run a list of prebuild trivia packs that is
+    available under <a href="{% url 'activequiz-list' %}">"Run Trivia"</a></p>
   <h3>Want to create a trivia pack?</h3>
-  <p>Simply create an account and click on "Create Trivia Pack"</p>
+  <p>Simply create or login to an <a href="{% url 'login' %}">account</a> and click on
+    <a href="{% url 'quiz-list' %}">"Create Trivia Pack"</a></p></p>
   <h3>Invite your friend to a trivia session?</h3>
-
-
-
-
-  <p>To create</p>
+  <p>After selecting a trivia pack in "Run Trivia" tab, have your friend text the session code to the phonenumber
+    linked to the quiz</p>
   </div>
 </div>
 

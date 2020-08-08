@@ -22,6 +22,11 @@ ul {
     margin: 0;
 }
 
+p {
+    margin: 0;
+    font-family: 'Pirata One', cursive;
+}
+
 .bg-brown {
     background-color: #663300;
     background-image: url("../media/logs.jpg");
