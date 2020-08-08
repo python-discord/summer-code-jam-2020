@@ -69,9 +69,6 @@ def my_profile(request):
 def user_profile(request):
     return HttpResponse("Wait for templates")
 
-def home(request):
-    return render(request, 'base.html')
-
 def login_page(request):
     return render(request, 'login.html')
 
