@@ -10,7 +10,7 @@ import axios from '../http-common.js';
 const authToken = JSON.parse(localStorage.getItem('user')).key;
 
 export default {
-	name: 'Profile',
+	name: 'Posts',
 	data: function() {
 		return {
 			posts: []
@@ -22,11 +22,9 @@ export default {
 	methods: {
 		init() {
 			axios
-			.get(`/users/?username=${this.userId}`, { Authorization: "Token " + authToken })
+			.get('/posts/')
 			.then((response) => {
-				console.log(response)
-				console.log(this.userId)
-				Object.assign(this.user, response.data[0]);
+				this.posts = response.data.posts;
 			})
 		}
 	},
