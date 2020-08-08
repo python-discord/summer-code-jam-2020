@@ -1,46 +1,81 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
-    {{ room_member_id|json_script:"room_member_id" }}
-    {{ older_messages_text|json_script:"older_messages_text" }}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const roomMemberId = JSON.parse(document.getElementById("room_member_id").textContent);
-        const olderMessagesText = JSON.parse(document.getElementById("older_messages_text").textContent);2
-        document.querySelector("#chat-log").value = olderMessagesText.trim().length > 0 ? olderMessagesText + "\n" : '';
+<div class="chatroom">
+    <div>
+        <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        </div>
+        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        </div>
+        <div class="tab-pane" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        </div>
+        <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20"></textarea><br>
+        <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
+        <input id="chat-message-submit" type="button" value="Send">
+        <input id="chat-message-submit" type="button" value="Settings">
+        {{ room_name|json_script:"room-name" }}
+        {{ room_member_id|json_script:"room_member_id" }}
+        {{ older_messages_text|json_script:"older_messages_text" }}
+        <script>
+            const roomName = JSON.parse(document.getElementById('room-name').textContent);
+            const roomMemberId = JSON.parse(document.getElementById("room_member_id").textContent);
+            const olderMessagesText = JSON.parse(document.getElementById("older_messages_text").textContent); 2
+            document.querySelector("#chat-log").value = olderMessagesText.trim().length > 0 ? olderMessagesText + "\n" : '';
 
-        const chatSocket = new WebSocket(
-            `ws://${window.location.host}/ws/chat/${roomName}/`
-        );
+            const chatSocket = new WebSocket(
+                `ws://${window.location.host}/ws/chat/${roomName}/`
+            );
 
-        chatSocket.onmessage = function (e) {
-            const {username, text} = JSON.parse(e.data);
-            document.querySelector("#chat-log").value += `${username}: ${text}` + "\n";
-        };
+            chatSocket.onmessage = function (e) {
+                const { username, text } = JSON.parse(e.data);
+                document.querySelector("#chat-log").value += `${username}: ${text}` + "\n";
+            };
 
-        chatSocket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly');
-        };
+            chatSocket.onclose = function (e) {
+                console.error('Chat socket closed unexpectedly');
+            };
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function (e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
+            document.querySelector('#chat-message-input').focus();
+            document.querySelector('#chat-message-input').onkeyup = function (e) {
+                if (e.keyCode === 13) {  // enter, return
+                    document.querySelector('#chat-message-submit').click();
+                }
+            };
 
-        document.querySelector('#chat-message-submit').onclick = function (e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            // TODO: Limit the size of the message text to respect that of Message model
-            const text = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'text': text,
-                'room_member_id': roomMemberId,
-            }));
-            messageInputDom.value = '';
-        };
-    </script>
+            document.querySelector('#chat-message-submit').onclick = function (e) {
+                const messageInputDom = document.querySelector('#chat-message-input');
+                // TODO: Limit the size of the message text to respect that of Message model
+                const text = messageInputDom.value;
+                chatSocket.send(JSON.stringify({
+                    'text': text,
+                    'room_member_id': roomMemberId,
+                }));
+                messageInputDom.value = '';
+            };
+        </script>
+    </div>
+
+    <div class="side-bar">
+        <ul class="nav nav-tabs sidetab justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#online" role="tab"
+                    aria-controls="home" aria-selected="true">Online(0)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#friends" role="tab"
+                    aria-controls="profile" aria-selected="false">Friends(0)</a>
+            </li>
+        </ul>
+        <div class="tab-content sidebar" id="myTabContent">
+            <div class="tab-pane show active" id="online" role="tabpanel" aria-labelledby="home-tab">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta voluptatem
+                    nam ut temporibus corporis dolorem dolores accusamus deserunt veniam eius
+                    maiores suscipit veritatis necessitatibus voluptatum incidunt repellendus
+                    eligendi, consequatur rem?</p>
+            </div>
+            <div class="tab-pane" id="friends" role="tabpanel" aria-labelledby="profile-tab">
+                <p>You currently have 0 friends online.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
