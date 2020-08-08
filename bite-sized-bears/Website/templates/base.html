@@ -51,7 +51,8 @@
             {% else %}
          <div class="login">
            <h3>Login</h3>
-          <form method="post", action="{% url 'login' %}">
+             <form method="post" action="/signup" id="signup">{% csrf_token %}</form>
+          <form method="post", action="/login">
               {% csrf_token %}
             <table>
               <tr>
@@ -68,6 +69,7 @@
                </td>
                <td>
                 <input type="password" name="password" style="color:black;" required>
+                <input type="hidden" name="next" value="{{ request.path }}">
                </td>
               </tr>
               <tr class="spacer"></tr>
@@ -80,7 +82,8 @@
                 </td>
               </tr>
             </table><br>
-              <p>New here? <a href="{% url 'signup' %}">Sign up</a>
+                    <input type="hidden" name="next" value="{{ request.path }}" form="signup">
+                    <span>New here? <input type="submit", value="Sign up!" form="signup" style="color:black;"></span>
           </form>
          </div>
          {% endif %}

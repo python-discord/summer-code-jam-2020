@@ -3,6 +3,7 @@
 {% block content %}
     <div class="col-lg-9 post-container posts">
         <fieldset>
+            <form method="post" action="login" id="login">{% csrf_token %}</form>
             <legend>Sign up now!</legend>
             <form method="post" action="signup">
                 {% csrf_token %}
@@ -15,14 +16,29 @@
             <label>Confirm Password</label>
             <input type="password", name="password2" required>
             <br><br>
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
             <input type="submit", value="signup">
             <input type="reset", value="reset">
-            <span>Already have an account? <a href="{% url 'login' %}">Login!</a></span>
+                {% if next %}
+                    <form method="post" action="login">
+                        <input type="hidden" name="next" value="{{ next }}">
+                        <span>Already have an account? <input type="submit", value="Login!"></span>
+                    </form>
+                 {% else %}
+                    <span>Already have an account? <a href="{% url 'login' %}">Login!</a></span>
+                {% endif %}
                 <br><br>
             <label style="color:red;"><b>{{message|safe}}</b></label><br>
             </form>
             {% if created %}
-            Click here to <a href="{% url 'login' %}">Login</a>
+                {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}" form="login">
+                        <span>Click here to <input type="submit", value="Login!" form="login"></span>
+                 {% else %}
+                    Click here to <a href="{% url 'login' %}">Login</a>
+                {% endif %}
             {% endif %}
         </fieldset>
     </div>

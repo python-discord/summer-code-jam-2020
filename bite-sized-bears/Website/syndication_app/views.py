@@ -31,15 +31,21 @@ class SignupView(View):
     template_name = 'signup.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        try:
+            return render(request, self.template_name, {'next': request.POST['next']})
+        except:
+            return render(request, self.template_name, {'next': False})
 
     def post(self, request):
-        username = request.POST["username"]
+        try:
+            username = request.POST["username"]
+        except:
+            to_render = self.get(request)
+            return to_render
         password1 = request.POST["password1"]
         password2 = request.POST["password2"]
         if password1 == password2:
             if User.objects.filter(name=username).exists():
-                messages.error(request, 'Oops, something bad happened')
                 message = "Username is already taken"
                 created = False
             else:
@@ -51,38 +57,72 @@ class SignupView(View):
             created = False
             message = "Passwords does not match. Try again."
 
-        return render(request, self.template_name, {"message": message, "created": created})
+        try:
+            next = request.POST['next']
+            if created:
+                return redirect(next)
+        except:
+            pass
+        try:
+            return render(request, self.template_name,{"message": message, "created": created, 'next': next})
+        except:
+            return render(request, self.template_name,{"message": message, "created": created, 'next': False})
 
 
 class LoginView(View):
     template_name = 'login.html'
 
     def get(self, request):
-        return render(request, self.template_name, {"created": True})
+        try:
+            return render(request, self.template_name, {"created": True, 'next':request.POST['next']})
+        except:
+            return render(request, self.template_name, {"created": True, 'next':False})
 
     def post(self, request):
-        username = request.POST["username"]
+        try:
+            username = request.POST["username"]
+        except:
+            to_render = self.get(request)
+            return to_render
         password = request.POST["password"]
         user = auth.authenticate(username=username, password=password)
+        try:
+            next = request.POST['next']
+        except:
+            pass
         if user is not None:
             auth.login(request, user)
-            return redirect(request.META['HTTP_REFERER'])
+            try:
+                return redirect(next)
+            except:
+                return redirect('/')
         else:
-            return render(request, self.template_name, {"message": "Account does not exist", "created": False})
+            try:
+                return render(request, self.template_name, {"message": "Account does not exist", "created": False, 'next':next})
+            except:
+                return render(request, self.template_name,{"message": "Account does not exist", "created": False, 'next': False})
 
 
 class CommunityView(View):
     template_name = 'community.html'
     model = Community
+    context = {}
 
     def get(self, request, community_name):
         community = self.model.objects.get(name=community_name)
         post = community.post_publisher.all()
-        context = {"community": community, "post": post}
+        context = {"community": community, "posts": post}
         if community.subscribers.filter(name=request.user.get_username()):
             context["subscribed"] = True
         return render(request, self.template_name, context)
 
+def add_comment(request, community_name, post_id):
+    author = User.objects.get(name=request.user.get_username())
+    post = Post.objects.get(id = post_id)
+    content = request.POST['content']
+    Comments.objects.create(content = content, author = author, post = post)
+
+    return redirect(f'/community/{community_name}/{post_id}')
 
 class UserView(View):
     template_name = 'user-posts.html'
@@ -94,7 +134,6 @@ class UserView(View):
         self.context['posts'] = self.context['user'].post_author.all() \
             .annotate(v_count=Count('views')).order_by('-v_count')
         return render(request, self.template_name, self.context)
-
 
 class CommunityListView(ListView):
     template_name = 'top-community.html'
