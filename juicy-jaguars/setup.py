@@ -70,5 +70,5 @@ summer-code-jam-2020"])
 
 if __name__ == "__main__":
     color = supports_color()
-    if os.argv[1] == "install":
+    if sys.argv[1] == "install":
         install(color)
