@@ -7,13 +7,14 @@
         <p>background home page</p>
     </section>
     <section>
-        <a href="{% url 'add-background' %}">add background</a>
+        <a href="{% url 'add-background' %}">add background</a><br>
+        <a href="{% url 'main-home' %}">go back</a>
         <h1>current backgrounds</h1>
         {% if background_list %}    
             {% for background in background_list %}
                 <h2>background</h2>
                 <figure>
-                    <img src="{{ background.background_file.url }}" alt="No file">
+                        <img src="{{ background.background_thumbnail.url }}" alt="No file">
                     <figcaption>{{ background.background_title}}</figcaption>
                 </figure>
                 <form action="{% url 'background-delete' background.pk %}" method="POST">
