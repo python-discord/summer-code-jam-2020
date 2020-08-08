@@ -1,5 +1,6 @@
 from datetime import datetime
 from pyvue import Component
+from websocket import WebSocket
 
 
 messages = [
@@ -30,5 +31,29 @@ class Messages(Component):
 
     template = "#messages-template"
 
+    @staticmethod
+    def created():
+        def new_message(data):
+            if data['type'] == "message":
+                this.messages.append(data['data'])
 
+        this.socket = MessageSocket(new_message)
+
+
+class MessageSocket(WebSocket):
+    def __init__(self, callback):
+        room_name = "test"
+        super(MessageSocket, self).__init__('ws://'
+                                            + window.location.host
+                                            + '/ws/chat/'
+                                            + room_name
+                                            + '/')
+        self.callback = callback
+
+    def message(self, event):
+        data = JSON.parse(event.data)
+        self.callback(data)
+
+    def send(self, data):
+        super(MessageSocket, self).send(JSON.stringify(data))
 
