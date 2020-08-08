@@ -1,16 +1,16 @@
 from django.http import JsonResponse
 from .models import Thread, ThreadMessage
 from django.db.models import F
-from fastjsonschema import validate, exceptions
 from django.contrib.auth.decorators import login_required
 
 from core.helpers import jsonbody
 
-# Set up schemas for fastjsonschema to validate response from frontend
-schemas = {
+# Set up SCHEMAS for fastjsonschema to validate response from frontend
+SCHEMAS = {
     'thread_schema':
         {
             'type': 'object',
+            'required': ['title', 'message'],
             'properties': {
                 'title': {
                     'type': 'string',
@@ -20,7 +20,7 @@ schemas = {
                 },
                 'message': {
                     'type': 'string',
-                    'minLength': 3,
+                    'minLength': 2,
                     'maxLength': 3000
                 }
             }
@@ -28,16 +28,13 @@ schemas = {
     'message_schema':
         {
             'type': 'object',
+            'required': ['message'],
             'properties': {
                 'message': {
                     'type': 'string',
-                    'minLength': 3,
+                    'minLength': 2,
                     'maxLength': 3000
                 },
-                'thread_id': {
-                    'type': 'integer',
-                    'minLength': 1,
-                }
             }
         }
 }
@@ -76,11 +73,11 @@ def thread_details(request, thread_id):
 
 
 @login_required
-@jsonbody
+@jsonbody(SCHEMAS['thread_schema'])
 def post_thread(request, data):
     """
     Accepts a title and a message as json and creates a new Thread and ThreadMessage object
-    if data is valid according to schemas
+    if data is valid according to SCHEMAS
 
     Returns thread_id, message and user if data is valid.
     Returns which schema rule is invalid and 400 if data invalid.
@@ -90,39 +87,33 @@ def post_thread(request, data):
     :return: A JSONResponse with message, user, thread if data valid
             else JSONReponse with error as string and status 400.
     """
-    try:
-        validate(schemas['thread_schema'], data)
-        current_user = request.user
-        thread = Thread.objects.create(
-            title=data['title'],
-            created_by=current_user
-        )
-        thread.save()
+    current_user = request.user
+    thread = Thread.objects.create(
+        title=data['title'],
+        created_by=current_user
+    )
+    thread.save()
 
-        message = ThreadMessage(
-            message=data['message'],
-            user=current_user,
-            thread=thread
-        )
-        message.save()
+    message = ThreadMessage(
+        message=data['message'],
+        user=current_user,
+        thread=thread
+    )
+    message.save()
 
-        return JsonResponse({
-            'thread_id': thread.id,
-            'message': message.message,
-            'user': message.user.username
-        }, status=201)
-
-    except exceptions.JsonSchemaException as e:
-        print(e.message)
-        return JsonResponse({'error': e.message}, status=400, safe=False)
+    return JsonResponse({
+        'thread_id': thread.id,
+        'message': message.message,
+        'user': message.user.username
+    }, status=201)
 
 
 @login_required
-@jsonbody
+@jsonbody(SCHEMAS['message_schema'])
 def post_message(request, data):
     """
     Accepts a thread_id and a message as json data and creates a new ThreadMessage object
-    if data is valid according to schemas
+    if data is valid according to SCHEMAS
 
     Returns thread_id, message and user if data is valid.
     Returns which schema rule is invalid and 400 if data invalid.
@@ -134,20 +125,15 @@ def post_message(request, data):
     """
     current_user = request.user
 
-    try:
-        validate(schemas['message_schema'], data)
-        message = ThreadMessage(
-            message=data['message'],
-            user=current_user,
-            thread=Thread.objects.get(id=data['thread_id'])
-        )
-        message.save()
+    message = ThreadMessage(
+        message=data['message'],
+        user=current_user,
+        thread=Thread.objects.get(id=data['thread_id'])
+    )
+    message.save()
 
-        return JsonResponse({
-            'thread_id': message.thread.id,
-            'message': message.message,
-            'user': message.user.username
-        }, status=201)
-    except exceptions.JsonSchemaException as e:
-        print(e.message)
-        return JsonResponse({'error': e.message}, status=400, safe=False)
+    return JsonResponse({
+        'thread_id': message.thread.id,
+        'message': message.message,
+        'user': message.user.username
+    }, status=201)
