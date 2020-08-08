@@ -21,7 +21,7 @@
         <h5>History</h5>
         <ul class="nes-list is-circle">
             {% for e in past_history  %}
-            <li align="center"><a href="{{ e }}">{{ e }}</a></li>
+            <li align="center"><a href="{{ e.1 }}">{{ e.0 }}</a></li>
             {% endfor  %}
         </ul>
     </div>

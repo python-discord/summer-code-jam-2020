@@ -92,9 +92,9 @@ def engine_results(request, search_text: str):
     
     try:
         old_val = hist_store['history']
-        hist_store['history'] = old_val + [shortened]
+        hist_store['history'] = old_val + [(shortened, search_text)]
     except KeyError:
-        hist_store['history'] = [shortened]
+        hist_store['history'] = [(shortened, search_text)]
     hist = hist_store['history'][-3:]
 
     
