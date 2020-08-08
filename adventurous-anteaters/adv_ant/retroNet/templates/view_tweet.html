@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;"></div>
+<div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif; height: 70vh;">
     <section class="tweet-view">
-        <h2>{{Tweet_Title}}</h1>
+        <h2>Tweet_title{{Tweet_Title}}</h1>
+        <hr>
         <div class="tweet-view-content">
             <b>Tweet Description</b>
             Lorem, ipsum dolor sit amet consectetur 
@@ -17,7 +18,7 @@
         </div>
         <div class="actions">
             <button style="background-color: red; color: white;">Delete Tweet</button>
-            <button style="background-color: blue; color: white;">Update Tweet</button>
+            <button style="background-color: blue; color: white; grid-column: 4/5;">Update Tweet</button>
         </div>
     </section>
 </div>

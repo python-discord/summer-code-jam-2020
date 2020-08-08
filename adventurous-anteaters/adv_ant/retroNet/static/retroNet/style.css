@@ -340,15 +340,24 @@ font-size: 0;
 
 .tweet-view{
   padding: 10px;
+  text-align: center;
 }
 
 .tweet-view div{
   font-size: large;
+  margin-top: 30px;
+  width: 60%;
+  margin: 30px auto;
+}
+
+.tweet-view-content{
+  padding: 15px;
+  box-shadow: var(--border-window-outer), var(--border-window-inner);
 }
 
 .actions{
   display: grid;
-  grid-template-columns: repeat(6,1fr);
+  grid-template-columns: repeat(4,1fr);
   grid-gap: 8px;
   margin-top: 20px;
 }
