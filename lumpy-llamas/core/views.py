@@ -12,7 +12,23 @@ def index(request):
     return res
 
 
-@jsonbody
+REGISTER_LOGIN_SCHEMA = {
+    'type': 'object',
+    'required': ['username', 'password'],
+    'properties': {
+        'username': {
+            'type': 'string',
+            'minLength': 1,
+        },
+        'password': {
+            'type': 'string',
+            'minLength': 1,  # just for the jam, make things quicker
+        },
+    },
+}
+
+
+@jsonbody(REGISTER_LOGIN_SCHEMA)
 def register_endpoint(request, data):
     user = User.objects.create_user(
         data['username'],
@@ -26,7 +42,7 @@ def register_endpoint(request, data):
     }, status=201)
 
 
-@jsonbody
+@jsonbody(REGISTER_LOGIN_SCHEMA)
 def login_endpoint(request, data):
     username = data['username']
     password = data['password']

@@ -2,9 +2,58 @@ import json
 from unittest.mock import patch, MagicMock
 from django.test import TestCase, Client
 from django.http import JsonResponse
+from core.helpers import jsonbody
 
 
 class CoreTestCase(TestCase):
+
+    def test_jsonbody_valid(self):
+
+        schema = {
+            'type': 'object',
+            'required': ['message'],
+            'properties': {
+                'message': {
+                    'type': 'string',
+                    'minLength': 1,
+                },
+            },
+        }
+
+        @jsonbody(schema)
+        def view(request, data):
+            return JsonResponse({'a': 'b'})
+
+        request = MagicMock()
+        request.method = 'POST'
+        request.body = json.dumps({'message': 'hello world'}).encode()
+
+        actual = view(request)
+        self.assertEqual(actual.status_code, 200)
+
+    def test_jsonbody_invalid(self):
+
+        schema = {
+            'type': 'object',
+            'required': ['message'],
+            'properties': {
+                'message': {
+                    'type': 'string',
+                    'minLength': 1,
+                },
+            },
+        }
+
+        @jsonbody(schema)
+        def view(request, data):
+            return JsonResponse({'a': 'b'})
+
+        request = MagicMock()
+        request.method = 'POST'
+        request.body = json.dumps({'stuff': 'things'}).encode()
+
+        actual = view(request)
+        self.assertEqual(actual.status_code, 400)
 
     @patch('core.views.serve')
     def test_index(self, serve):

@@ -48,6 +48,7 @@
 <script>
 const MENU_PAGES = [
   { title: 'Login/Register', page: 'login_page' },
+  { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
 ];
 
 export default {
@@ -58,10 +59,14 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToLogin);
+    this.$cmd.on('2', this.goToGame);
   },
   methods: {
     goToLogin() {
       this.$router.push({ name: 'login_page' });
+    },
+    goToGame() {
+      this.$router.push({ name: 'tictactoe_page' });
     },
   },
 };
