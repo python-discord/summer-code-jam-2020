@@ -11,6 +11,8 @@ from .forms import CommentForm
 
 USERNAME = 'haha69420'
 PASSWORD = 'foobar < xyzzy'
+EMAIL = 'foo@example.com'
+
 ADMIN_USERNAME = 'admin'
 ADMIN_PASSWORD = 'hard123passwd'
 
@@ -20,7 +22,7 @@ class UserRegisterTest(TestCase):
         # we create an account with the `USERNAME` and `PASSWORD` vars
         params = {
             'username': USERNAME,
-            'email': 'foo@example.com',
+            'email': EMAIL,
             'password1': PASSWORD,
             'password2': PASSWORD
         }
@@ -32,16 +34,18 @@ class UserRegisterTest(TestCase):
         self.assertEqual(User.objects.count(), 1)
         user = User.objects.get(pk=1)
         self.assertEqual(user.username, USERNAME)
-        self.assertEqual(user.email, 'foo@example.com')
+        self.assertEqual(user.email, EMAIL)
 
     def test_register_and_home(self):
-        # assumptions (aka what this tests):
-        #  - `/user/register` exists.
-        #  - it takes certain params.
-        #  - it also logs us in.
-        #  - `/` exists.
-        #  - it tells us our username.
-        #  - we use django's built-in auth system.
+        """
+        Assumptions (AKA what this integration test tests):
+         - `/user/register` exists.
+         - ^ takes certain params.
+         - ^ also logs us in.
+         - `/` exists.
+         - ^ tells us our username.
+         - We are using django's built-in auth system.
+        """
 
         res = self.client.get('/').content
         self.assertIn(USERNAME.encode(), res, 'Our username does not appear in the home view.')
@@ -163,17 +167,20 @@ class TemplateViewsTest(TestCase):
         self.client.login(username=USERNAME, password=PASSWORD)
 
     def test_template_create(self):
-        # what this assumes:
-        # - when you create a page the
-        #   available templates are
-        #   passed in. and in a certain
-        #   way.
-        # - posting `/templates/new`
-        #   creates a specified template
+        """
+        What this assumes:
+         - When you create a page the
+           available templates are
+           passed in. and in a certain
+           way.
+         - POST-ing `/templates/new`
+           creates a specified template
+         - The console theme exists.
+        """
 
         # example stylesheet
-        style = io.StringIO('body { display: hidden; }')
         template_name = 'blahblahblah'
+        style = str(Path(settings.BASE_DIR) / 'static' / 'themes' / 'console.css')
 
         res = self.client.get(reverse('webpage-create'))
         template_entries = [entry[1] for entry in res.context['form'].fields['template_used'].choices]
