@@ -1,9 +1,8 @@
 body {
     background-image: url('../nineties_background.jpg');
     background-repeat: repeat;
-    margin: 0 auto;
-    width: 70%;
 }
+
 
 body > .main{
     display: grid; 
@@ -42,8 +41,4 @@ body > .main{
 
 h1 {
     text-size: 20px;
-}
-
-p {
-    margin: 10 0 0 10;
 }
