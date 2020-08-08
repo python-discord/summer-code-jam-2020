@@ -23,6 +23,9 @@ USER appuser
 
 # Collect static files
 RUN cd spacebook
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+RUN python manage.py loaddata db.json
 RUN python manage.py collectstatic --noinput
 RUN cd ..
 
