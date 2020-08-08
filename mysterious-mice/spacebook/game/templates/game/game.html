@@ -16,32 +16,85 @@
             <tr>
                 <td style="vertical-align: bottom;"><table class="nav-table"><tbody>
                     <tr>
+                        <td colspan=3>Components:</td>
+                    </tr>
+                    <tr>
+                        <td>{% if has_solar_panels %} X {% endif %}</td>
+                        <td colspan=2>Solar Panels</td>
+                    </tr>
+                    <tr>
+                        <td>{% if has_plutonium %} X {% endif %}</td>
+                        <td colspan=2>Plutonium</td>
+                    </tr>
+                    <tr><td colspan=3>&nbsp;</td></tr>
+                    <tr>
                         <td colspan=3>Coordinates:</td>
                     </tr>
                     <tr>
-                        <td colspan=3>{{ rover }}</td>
+                        <td colspan=3>({{ rover.0 }}, {{ rover.1 }})</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><a href="?command=moveN" class="old-button">N</a></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move n">
+                                <input type="submit" class="old-button" value="N">
+                            </form>
+                        </td>
                         <td></td>
                     </tr><tr>
-                        <td><a href="?command=moveW" class="old-button">W</a></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move w">
+                                <input type="submit" class="old-button" value="W">
+                            </form>
+                        </td>
                         <td></td>
-                        <td><a href="?command=moveE" class="old-button">E</a></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move e">
+                                <input type="submit" class="old-button" value="E">
+                            </form>
+                        </td>
                     </tr><tr>
                         <td></td>
-                        <td><a href="?command=moveS" class="old-button">S</a></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move s">
+                                <input type="submit" class="old-button" value="S">
+                            </form>
+                        </td>
                         <td></td>
+                    </tr>
+                    <tr><td colspan=3>&nbsp;</td></tr>
+                    <tr>
+                        <td colspan=3>Battery:</td>
+                    </tr><tr>
+                        <td colspan=3>{{ battery }}</td>
                     </tr>
                 </tbody></table></td>
                 <td>
                     <table class="command-table"><tbody>
                         <tr><td>
                             <div id="command-history-div">
+                                <table><tbody>
                                 {% for message in messages %}
-                                    <br>{{ message }}
+                                    <tr>
+                                        <td>
+                                            {% if message.from_rover %}
+                                                &gt;&gt;&nbsp;
+                                            {% else %}
+                                                &lt;&lt;&nbsp;
+                                            {% endif %}
+                                        </td><td>
+                                            {{ message.message }}
+                                        </td>
                                 {% endfor %}
+                                </tbody></table>
                             </div>
                         </td></tr>
                         <tr><td>
