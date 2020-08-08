@@ -25,7 +25,7 @@ def question(request, active_trivia_quiz):
     cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
                                               question_index=active_trivia_quiz.current_question_index)
     for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_name=player.name, session_code=active_trivia_quiz.session_code)
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=active_trivia_quiz.session_code)
         score_track.answered_this_round = False
         score_track.save()
         SMSBot.send_question(cur_question, player)
@@ -38,19 +38,28 @@ def question(request, active_trivia_quiz):
 
 def end_screen(request, active_trivia_quiz):
     question_set = TriviaQuestion.objects.filter(quiz=active_trivia_quiz.trivia_quiz)
+
+    score_list = ScoreTracker.get_team_score_list(active_trivia_quiz.session_code)
+    winner = ScoreTracker.winner(active_trivia_quiz.session_code, score_list)
+    tally_results = {'winner': winner,
+                     'score_list': score_list}
     # release players here
     for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_name=player.name, session_code=active_trivia_quiz.session_code)
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=active_trivia_quiz.session_code)
 
+<<<<<<< HEAD
+        goodbye = ( f'The session has ended, thanks for playing!\n'
+                    f'Team {winner} was the winner!\n'
+                    f'Your score was: {score_track.points}/{len(question_set)}'
+        )
+=======
         goodbye = (f'Thanks for playing {player.name}!\n'
                    f'Your score was: {score_track.points}/{len(question_set)}'
                    )
+>>>>>>> master
         SMSBot.send(goodbye, player.phone_number)
+        SMSBot.send(player.get_answers(), player.phone_number)
         player.delete()
-    winner = ScoreTracker.winner(active_trivia_quiz.session_code)
-    score_list = ScoreTracker.get_score_list(active_trivia_quiz.session_code)
-    tally_results = {'winner': winner,
-                     'score_list': score_list}
     return render(request, 'activequiz_end.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'tally_results': tally_results})
 
