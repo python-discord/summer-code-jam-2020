@@ -206,7 +206,7 @@ def command_look(game_data, direction):
 
     if new_message == []:
         new_message = [
-            {"from_rover": False, "message": "Nothing of interest was found."}
+            {"from_rover": False, "message": "Red sand and rocks and more rocks."}
         ]
 
     game_data["messages"] = game_data["messages"] + new_message
