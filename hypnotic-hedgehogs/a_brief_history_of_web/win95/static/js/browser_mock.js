@@ -10,6 +10,11 @@ let url_mapping = {
 function change_page() {
     let address = $("#address-bar").val();
     if (address in url_mapping){
+        // remove the 404 page if the 404 page is showing
+        if (!document.getElementById("404-interface").classList.contains("d-none")){
+            document.getElementById("404-interface").classList.add("d-none");
+        }
+        // fetch and render the page
         let django_address = fetch(url_mapping[address])
         django_address.then(r=>
             r.text()
@@ -19,6 +24,9 @@ function change_page() {
             }
         )
     } else {
+        // clean up the current page
+        document.getElementById("web-page").innerHTML = ""
+        // show 404 page
         document.getElementById("404-interface").classList.remove("d-none");
     }
 }
