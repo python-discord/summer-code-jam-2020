@@ -55,7 +55,7 @@ summer-code-jam-2020"])
 
     print(green+"Made migrations successfully."+reset)
     print()
-    print(green+"Successfully installed. Run with 'pipenv run Web95/manage.py\
+    print(green+"Successfully installed. Run with 'python Web95/manage.py\
  runserver' from summer-code-jam-2020/juicy-jaguars/"+reset)
 
 
