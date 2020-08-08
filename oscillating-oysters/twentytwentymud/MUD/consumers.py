@@ -1,4 +1,3 @@
-from django.conf import settings
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 
@@ -20,7 +19,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             try:
                 self.player = await database_sync_to_async(Player.objects.get)(user=self.scope["user"])
             except Player.DoesNotExist:
-                await self.send_message("Current User has no Player!")  # TODO Give user ability to specify their own name
+                # TODO Give user ability to specify their own name
+                await self.send_message("Current User has no Player!")
                 await self.close()
                 return
 
@@ -131,8 +131,9 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
         })
 
     async def send_help(self):
+        # we should have a set() of commands/options
         await self.send_json({
-            'message': 'options: help, send, leave, look, go <room>'  # we should have a set() of commands/options
+            'message': 'options: help, send, leave, look, go <room>, go <room number>'
         })
 
     async def send_room_description(self):
@@ -165,7 +166,7 @@ We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉
 
         exits = list(self.player.room.connections.all())
         for i in range(len(exits)):
-            exits[i] =  f"[{i}] {exits[i].name}"
+            exits[i] = f"[{i}] {exits[i].name}"
 
         message = (
                    "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +

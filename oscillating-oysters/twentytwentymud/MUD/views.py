@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import datetime
@@ -7,13 +6,13 @@ from terminal.terminal_tools import colorize
 
 
 BANNER = """
-           #####    ###    #####    ###      #     # #     # ######  
-          #     #  #   #  #     #  #   #     ##   ## #     # #     # 
-                # #     #       # #     #    # # # # #     # #     # 
-           #####  #     #  #####  #     #    #  #  # #     # #     # 
-          #       #     # #       #     #    #     # #     # #     # 
-          #        #   #  #        #   #     #     # #     # #     # 
-          #######   ###   #######   ###      #     #  #####  ######  
+           #####    ###    #####    ###      #     # #     # ######
+          #     #  #   #  #     #  #   #     ##   ## #     # #     #
+                # #     #       # #     #    # # # # #     # #     #
+           #####  #     #  #####  #     #    #  #  # #     # #     #
+          #       #     # #       #     #    #     # #     # #     #
+          #        #   #  #        #   #     #     # #     # #     #
+          #######   ###   #######   ###      #     #  #####  ######
 
                           Welcome to == 2020 MUD ==
                           Where the future is NOW.
@@ -40,10 +39,10 @@ def process_command(request, text):
         response = (
             "Your name is " + colorize(name, 'brightBlue') + "\r\n"
             "You are in 2020 MUD\r\n"
-            "It is " + str(currDate) 
+            "It is " + str(currDate)
             )
     elif text == "welcome":
-        response = colorize(BANNER, 'brightRed') 
+        response = colorize(BANNER, 'brightRed')
     else:
         response = "I don't understand, try `help`."
 
