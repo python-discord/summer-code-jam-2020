@@ -57,7 +57,7 @@ summer-code-jam-2020"])
     print(yellow+"Making migrations...")
     result = subprocess.call(["python",
                               os.path.join("Web95", "manage.py"),
-                              "makemigrations"])
+                              "migrate"])
 
     if result != 0:
         print(red+"Error making migrations. Exiting...")
