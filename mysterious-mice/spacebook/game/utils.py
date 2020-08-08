@@ -63,31 +63,25 @@ def new_game():
         "victorious": False,
     }
 
-    randomize_items(game_data)
-
-    print("=============")
-    print(game_data["plutonium"])
-    print(game_data["solar_panels"])
-    print(game_data["obstacles"]["dust_storm"])
-    print(game_data["obstacles"]["small_crater"])
+    randomize_positions(game_data)
     return game_data
 
 
-def randomize_items(game_data):
+def randomize_positions(game_data):
     """
     randomizes the loacation of parts and obstacles
     """
 
     game_data.update(
         {
-            "plutonium": (random.randint(1, 10), random.randint(1, 10)),
-            "solar_panels": (random.randint(0, 5), random.randint(0, 5)),
+            "plutonium": (random.randint(-6, 6), random.randint(-6, 6)),
+            "solar_panels": (random.randint(-3, 3), random.randint(-3, 3)),
         }
     )
     game_data["obstacles"].update(
         {
-            "dust_storm": (random.randint(0, 8), random.randint(0, 8)),
-            "small_crater": (1, 1),
+            "dust_storm": (random.randint(-5, 5), random.randint(-5, 5)),
+            "small_crater": (random.randint(-3, 3), random.randint(-3, 3)),
         }
     )
 
