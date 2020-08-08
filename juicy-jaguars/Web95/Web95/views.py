@@ -82,9 +82,6 @@ def page(request, url):
         for key, val in request.GET.items():
             params.append(key+"="+val)
 
-        if not url.endswith("/"):
-            url += "/"
-
         url += "?"+("&".join(params))
         print(params)
 
