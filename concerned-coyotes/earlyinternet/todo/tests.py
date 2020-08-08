@@ -4,13 +4,17 @@ from django.test import TestCase
 from .models import TodoEntry
 
 
-class TodoEntryTest(TestCase):
+def test_user():
+    user, _ = User.objects.get_or_create(username='John Doe')
+    user.set_password('hunter2')
+    user.save()
+    return user
+
+
+class TestTodoEntry(TestCase):
 
     def setUp(self) -> None:
-        user = User.objects.create(
-            username='John Doe',
-            password='hunter2'
-        )
+        user = test_user()
         self.todo = TodoEntry.objects.create(
             user=user,
             name="Finish summer code jam",
