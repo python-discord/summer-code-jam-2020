@@ -65,7 +65,6 @@ def thread_details(request, thread_id):
     :param thread_id: ID of thread to filter on
     :return: JsonResponse
     """
-
     queryset = ThreadMessage.objects.filter(thread_id=thread_id).values('date', 'message', 'user',
                                                                         title=F('thread__title'))
     data = list(queryset)
