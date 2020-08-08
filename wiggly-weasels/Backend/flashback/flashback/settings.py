@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'fbbackend.apps.FbbackendConfig',
     'rest_framework',
     'django.contrib.postgres',
-    'corsheaders'
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

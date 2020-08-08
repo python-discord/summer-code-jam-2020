@@ -14,6 +14,20 @@ class Account_View(viewsets.ModelViewSet): #Allow you to view all Accounts and C
     queryset = models.Account.objects.all()
     serializer_class = serializers.AccountSerializer
 
+    @action(detail=False, methods=['post'], name='Check Login', url_path='check-login', url_name='check_login')
+    def check_login(self, request, pk=None):
+        login_serializer = serializers.LoginSerializer(data=request.data)
+        if login_serializer.is_valid():
+            user = models.Account.objects.get(nickname=login_serializer.data['username'])
+            if user.hashed_pass == login_serializer.data['password']:
+                return Response({'username': login_serializer.data['username']})
+            else:
+                return Response({'Authentication': 'Failed'}, status=status.HTTP_401_UNAUTHORIZED)
+            
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
 class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Create New ones
     queryset = models.Group.objects.all()
     serializer_class = serializers.GroupSerializer
@@ -53,6 +67,9 @@ class Group_View(viewsets.ModelViewSet): #Allow you to view all Groups and Creat
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 
 

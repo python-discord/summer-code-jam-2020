@@ -8,6 +8,9 @@ import original from "react95/dist/themes/original";
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 
+import sha256 from 'js-sha256'
+import Cookies from 'js-cookie'
+
 const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'ms_sans_serif';
@@ -28,7 +31,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function postRequest(url, opts) {
-  fetch(url, {
+  return fetch(url, {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',
@@ -36,13 +39,9 @@ function postRequest(url, opts) {
   body: JSON.stringify(opts),
   })
   .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+
 }
+
 
 
 const App = () => {
@@ -50,32 +49,48 @@ const App = () => {
     value: '',
     email_value: '',
     user_value: '',
-    activeTab: 0
+    password_value: ''
   });
-  const handleChange = e => setState({ email_value: e.target.value });
-  const tabChange = (e, value) => setState({ activeTab: value });
 
-  const { activeTab } = state;
+  const [activeTab, setActiveTab] = useState(0)
+  const [email, setEmail] = useState('')
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+
+  const email_Change = e => setEmail(e.target.value);
+  const user_change = e => setUser(e.target.value);
+  const password_change = e => setPassword(e.target.value);
+  const tabChange = (e, value) => setActiveTab(value);
+
   return (
     <div
     style={{
-      padding: '5rem',
+      height: '100vh',
       background: 'teal'
     }}>
 
-    <div>
+    <div style={{padding:'5rem'}}>
     <GlobalStyles />
     <ThemeProvider theme={original}>
       
       <AppBar>
         <Toolbar style={{ justifyContent: 'space-between' }}>
 
-        <div style={{ position: 'relative', display: 'inline-block' }}>
+        <div style={{ position: 'relative', display: 'inline-block'}}>
 
         <Button
         onClick={() => {
-            console.log(state.email_value)
-            postRequest('http://127.0.0.1:8000/account/', {'email': state.email_value})
+          if(activeTab === 0){
+            const response = postRequest('http://127.0.0.1:8000/account/check-login/', {'password': sha256(password), 'username': user})
+            response.then((data) => {
+              Cookies.set('session_id', data.username)
+            })
+          }else{
+            const response = postRequest('http://127.0.0.1:8000/account/', {'email': email, 'hashed_pass': sha256(password), 'nickname': user})
+            response.then((data) => {
+              Cookies.set('session_id', data.nickname)
+            })
+          }
          }}
           style={{ marginLeft: '2px' }}>Login</Button>
 
@@ -96,16 +111,16 @@ const App = () => {
         {activeTab === 0 &&(
           <div>
             <TextField
-              value={state.email_value}
+              value={user}
               placeholder='Your Username'
               onChange={
-                handleChange}>
+                user_change}>
             </TextField>
 
             <TextField
-              value={state.email_value}
+              value={password}
               placeholder='Your Password'
-              onChange={handleChange}>
+              onChange={password_change}>
             </TextField>
           </div>
         )}
@@ -113,21 +128,21 @@ const App = () => {
         {activeTab === 1 &&(
           <div>
         <TextField
-          value={state.email_value}
+          value={user}
           placeholder='Your Username'
-          onChange={handleChange}>
+          onChange={user_change}>
         </TextField>
       
       <TextField
-      value={state.email_value}
+      value={email}
       placeholder='Your Email'
-      onChange={handleChange}>
+      onChange={email_Change}>
     </TextField>
 
     <TextField
-      value={state.email_value}
+      value={password}
       placeholder='Your Password'
-      onChange={handleChange}>
+      onChange={password_change}>
     </TextField>
       </div>
       )}
@@ -141,36 +156,4 @@ const App = () => {
 };
 
 export default App;
-
-/*
-<div>
-<GlobalStyles />
-<ThemeProvider theme={original}>
-  <div>
-  <AppBar>
-    <Toolbar style={{ justifyContent: 'space-between' }}> </Toolbar>
-      <div style={{ position: 'relative', display: 'inline-block' }}>
-  <Button
-        onClick={() => {
-          console.log(state.email_value)
-          postRequest('http://127.0.0.1:8000/account/', {'email': state.email_value})
-         }}
-          style={{ marginLeft: '2px' }}>Login</Button>
-      </div>
-</AppBar>
-</div>
-<div>
-<TextField
-        value={state.email_value}
-        placeholder='Your Email'
-        onChange={handleChange}
-        >
-      </TextField>
-      
-</div>
-</ThemeProvider>
-
-
-</div>
-*/
 

@@ -31,4 +31,8 @@ class ReadSerializer(serializers.Serializer):
 class JoinSerializer(serializers.Serializer):
     group_name = serializers.CharField()
 
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
 
