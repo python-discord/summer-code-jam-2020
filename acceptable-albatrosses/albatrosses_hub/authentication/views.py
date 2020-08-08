@@ -8,6 +8,10 @@ from .models import HubUser
 def register_page(request):
     """Views to render the register page."""
 
+    # Prevent the logged in user to access register page
+    if "email" in request.session:
+        return redirect("/")
+
     form = RegisterForm(request.POST or None)
     context = {
         "form" : form,
@@ -44,6 +48,10 @@ def register_page(request):
 def login_page(request):
     """Views to render the login page."""
 
+    # Prevent the logged in user to access login page
+    if "email" in request.session:
+        return redirect("/")
+
     form = LoginForm(request.POST or None)
     context = {
         "form": form,
@@ -78,6 +86,10 @@ def login_page(request):
 
 def logout_page(request):
     """Views to render the logout page."""
+
+    # Prevent the Anonymous user to access logout page
+    if "email" not in request.session:
+        return redirect("/")
 
     if request.method == "POST":
         request.session.flush()
