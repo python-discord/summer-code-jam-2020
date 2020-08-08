@@ -75,7 +75,6 @@ def parse_render_request(request, project_name=None):
         # save the frames
         images_for_gif_compile[0].save(gif_path, save_all=True, append_images=images_for_gif_compile[1:],
                                        duration=100, loop=0)
-
         context = {
             "name": project_name
         }
