@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from random import randint
 from collections.abc import Iterable
+from django.db.models import Q
 from .models import UserVote
 from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
 from .decorators import unauthenticated_user, allowed_users
@@ -100,12 +101,39 @@ def DateMatcher(request):
         vote.save()
         return redirect('earlydating-profile', pk=like_pk)
     elif request.method == 'GET':
-        user = get_unvoted(logged_user)
+        user = get_unvoted(logged_user)[0]
         return redirect('earlydating-profile', pk=user.pk)
 
 
+def getfilters(user):
+    u_sex = user.profile.sex
+    gender = ['Male', 'Female']
+    try:
+        if user.profile.preference == 'straight':
+            Q1 = Q(profile__sex=gender[int(not gender.index(u_sex))])
+            Q2 = Q(profile__preference__in=['straight', 'bisexual'])
+            return Q1 & Q2
+
+        elif user.profile.preference == 'gay':
+            Q1 = Q(profile__sex=u_sex)
+            Q2 = Q(profile__preference__in=['gay', 'bisexual'])
+            return Q1 & Q2
+
+        elif user.profile.preference == 'bisexual':
+            Q1 = Q(profile__sex=u_sex)
+            Q2 = Q(profile__preference='gay')
+            Q3 = Q(profile__sex=gender[int(not gender.index(u_sex))])
+            Q4 = Q(profile__preference='straight')
+            Q5 = Q(profile__preference='bisexual')
+            return (Q1 & Q2) | (Q3 & Q4) | Q5
+
+    except Exception as e:
+        print(e)
+        return None
+
+
 # Currently not using
-def get_unvoted(voter):
+def get_unvoted(voter, num=1):
     try:
         votes = UserVote.objects.filter(voter=voter, vote=True)
         if not isinstance(votes, Iterable):
@@ -113,11 +141,10 @@ def get_unvoted(voter):
         voted_pk = [vote.user.pk for vote in votes] + [voter.pk]
     except UserVote.DoesNotExist:
         voted_pk = [voter.pk]
-    if (sex := voter.profile.preference) in ['Male', 'Female']:
-        unvoted = User.objects.exclude(pk__in=voted_pk).filter(profile__sex=sex).order_by('?')[0]
-    else:
-        unvoted = User.objects.exclude(pk__in=voted_pk).filter(profile__sex__in=['Male', 'Female']).order_by('?')[0]
-    return unvoted
+    unvoted = User.objects.exclude(pk__in=voted_pk)
+    if (filter := getfilters(voter)) is not None:
+        unvoted = unvoted.filter(filter)
+    return unvoted.order_by('?')[:num]
 
 
 @login_required(login_url='earlydating-login')
@@ -169,7 +196,7 @@ def profile(request, pk):
 def your_profile(request):
     profile = request.user
     num_likebacks = randint(2, 5)
-    other_users = User.objects.exclude(pk=profile.pk).order_by('?')[:num_likebacks]
+    other_users = get_unvoted(profile, num_likebacks)
     for other_user in other_users:
         votes, created = UserVote.objects.get_or_create(user=profile, voter=other_user, vote=True)
         if created:
