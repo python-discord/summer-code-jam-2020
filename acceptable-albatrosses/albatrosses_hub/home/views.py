@@ -5,4 +5,17 @@ from django.shortcuts import render
 def homepage(request):
     """Views to render the homepage."""
 
-    return render(request, "home.html")
+    context = {
+        "login" : False,
+    }
+
+    if "email" in request.session:
+        context["username"] = request.session["username"]
+        context["login"] = True
+
+    return render(request, "home.html", context)
+
+def about_us(request):
+    """Views to render the About Us page."""
+    
+    return render(request, "about.html")
