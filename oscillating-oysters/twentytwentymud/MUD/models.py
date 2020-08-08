@@ -44,6 +44,6 @@ def create_player(sender, instance, created, **kwargs):
     Catches if user creates account through sign-up form.
     '''
     if created:
-        player_name = random.choice(list_of_hackers)  # TODO ensure some sort of uniqueness to this
+        player_name = instance.username
         room_name = Room.objects.get(name='ARPANET-1')
         Player.objects.create_player(instance, player_name, room_name)
