@@ -12,7 +12,7 @@ import string
 import os
 from geopy.geocoders import Nominatim
 from pytz import timezone
-import clipboard # for some debugging
+# import clipboard # for some debugging
 
 
 @login_required()
@@ -162,6 +162,10 @@ def weather_results(request, ip_address: str):
         'current_time': current_time,
         'error_msg': error_msg,
     }
+    try:
+        context['address'] = location.address
+    except:
+        context['address'] = ''
     return render(request, 'dashboard/weather/weather.html', context=context)
 
 
