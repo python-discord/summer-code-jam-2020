@@ -1,1 +1,39 @@
-[{"model": "user.customuser", "pk": 1, "fields": {"password": "pbkdf2_sha256$180000$6FqgVTwMhRbg$IodJpUlntpzyys6AisaxVQWvaL+r9j6iCiSubUN/UgU=", "last_login": "2020-08-05T02:25:20.479Z", "is_superuser": true, "username": "admin", "first_name": "", "last_name": "", "email": "admin@admin.com", "is_staff": true, "is_active": true, "date_joined": "2020-08-05T02:25:12.912Z", "groups": [], "user_permissions": []}}, {"model": "cities.city", "pk": 1, "fields": {"name": "Xanadu", "description": "fun place", "slug": "xanadu"}}, {"model": "sites.site", "pk": 1, "fields": {"city": 1, "user": 1, "address": 1, "description": "My groovy site"}}]
+[
+  {
+    "model": "user.customuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$6FqgVTwMhRbg$IodJpUlntpzyys6AisaxVQWvaL+r9j6iCiSubUN/UgU=",
+      "last_login": "2020-08-05T02:25:20.479Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Admin",
+      "last_name": "Admin",
+      "email": "admin@admin.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-08-05T02:25:12.912Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 1,
+    "fields": {
+      "name": "Area 51",
+      "description": "science fiction and fantasy",
+      "slug": "area-51"
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+      "city": 1,
+      "user": 1,
+      "address": 1,
+      "description": "My groovy site"
+    }
+  }
+]
