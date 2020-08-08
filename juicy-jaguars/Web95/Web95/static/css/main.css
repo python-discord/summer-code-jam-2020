@@ -18,6 +18,8 @@ body {
     width: 100%;
     margin: 0 !important;
     bottom: 0;
+    border-top: 2px white solid !important;
+    border-bottom: 0 white none !important;
 }
 
 #start-menu {
