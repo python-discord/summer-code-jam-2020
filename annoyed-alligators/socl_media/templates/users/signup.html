@@ -1,9 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Sign up</button>
-</form>
+<div id="signup-content" class="window">
+  <h4>Sign up</h4>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <br>
+      <small style="color: #444">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit" id="signup-button">Sign up</button>
+  </form>
+</div>
+<style>
+	#signup-button{
+    width: 160px;
+    height: 30px;
+  }
+  #signup-content {
+    width: 30vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vh;
+    padding: 20px 10px 10px 3vw;
+  }
+</style>
 {% endblock content %}

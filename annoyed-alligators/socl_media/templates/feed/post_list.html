@@ -2,8 +2,29 @@
 
 {% block content %}
 {% for post in post_list %}
-<p>{{post.post_content}}</p>
-<h3>{{post.posted_by}}</h3>
-<h5>{{post.post_date_posted}}</h5>
+<p class="content">{{post.post_content}}</p>
+<span class="author">
+  <a href="/profile/{{post.posted_by}}">
+    {{post.posted_by}}
+  </a>&nbsp;
+</span>
+<span class="post-time">{{post.post_date_posted}}</span>
+<hr>
+<style>
+.author {
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+.content {
+    font-size: 0.9rem
+}
+.post-time {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #555;
+}
+</style>
+
 {% endfor %}
 {% endblock content %}

@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  {% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
+{% load static %}
 
+{% block content %}
   {% if next %}
       {% if user.is_authenticated %}
       <p>Your account doesn't have access to this page. To proceed,
@@ -13,9 +11,28 @@
       <p>Please login to see this page.</p>
       {% endif %}
   {% endif %}
+  <div id="login-form" class="window">
+    <h4>Log in</h4>
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        <table>
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+              <br>
+          <small style="color: #444">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+          </p>
+        {% endfor %}
+        {% if form.errors %}
+          <p class="error">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        
+        {% comment %} <table>
           <tr>
             <td>{{ form.username.label_tag }}</td>
             <td>{{ form.username }}</td>
@@ -24,10 +41,27 @@
             <td>{{ form.password.label_tag }}</td>
             <td>{{ form.password }}</td>
           </tr>
-        </table>
-        <input type="submit" value="login" />
-        <a href="{% url 'password_reset' %}">Forgot Password?</a>
-        <input type="hidden" name="next" value="{{ next }}" />
+        </table> {% endcomment %}
+        <br>
+        <button type="submit">Login</button>
+        <br><br>
+        <a href="{% url 'password_reset' %}" title="Click here to reset your password">Forgot Password?</a>
+        <input type="hidden" name="next" value="{{ next }}" /> 
       </form>
+    </div>
+
+  <style>
+    #login-form{
+      width: 25vw;    
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 3vh;
+      padding: 20px 10px 10px 3vw;
+    }
+    .error {
+      color: #db1616;
+      text-shadow: 2px 2px 6px #aaa;
+    }
+  </style>
 			
 {% endblock content %}
