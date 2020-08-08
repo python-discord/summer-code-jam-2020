@@ -58,7 +58,7 @@ def update_profile_display(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    return HttpResponse("Wait for templates")
+    return render('home.html')
 
 @login_required(login_url='/login/')
 def my_profile(request):
