@@ -15,8 +15,17 @@ let currentTool = 'brush';
 //is brush currently used
 let usingBrush = false;
 
+//is eraser currently used
+let usingEraser = false;
+
 //save states
 let SaveStates = [];
+
+//frame number
+let frameNumber = 0;
+
+//saved frames
+let savedFrames = [];
 
 //represents box that shape is drawn in
 class ShapeBoundingBox{
@@ -56,6 +65,35 @@ let shapeBoundingBox = new ShapeBoundingBox(0,0,0,0);
 let mousedown = new MouseDownPos(0,0);
 let loc = new Location(0,0);
 
+//grab existing data from database if any
+function getImages(){
+    let xhr = new XMLHttpRequest();
+    let name = document.getElementById("project-name").innerText;
+    let url = "project/" + name;
+
+
+    xhr.open("GET", url, true);
+    xhr.responseText = "json";
+
+    //callback
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            let img_data = response["data"];
+            if (img_data.length === 0) {
+                SaveStates.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            } else {
+                for (let i = 0; i < img_data.length; i++) {
+                    let decode = "data:image/jpeg;base64," + img_data[i];
+                    savedFrames.push(decode);
+                }
+                OpenImage();
+            }
+        }
+    }
+    xhr.send();
+}
+
 //load page
 document.addEventListener('DOMContentLoaded', setupCanvas);
 
@@ -64,7 +102,8 @@ function setupCanvas(){
     ctx = canvas.getContext('2d');
     ctx.strokeStyle = strokeColor;
     ctx.lineWidth = line_Width;
-    SaveStates.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+    getImages();
+
     //add mouse listeners
     canvas.addEventListener("mousedown", ReactToMouseDown);
     canvas.addEventListener("mousemove", ReactToMouseMove);
@@ -72,7 +111,7 @@ function setupCanvas(){
 }
 
 function ChangeTool(toolClicked){
-    document.getElementById("open").className = "";
+    document.getElementById("clear").className = "";
     document.getElementById("save").className = "";
     document.getElementById("brush").className = "";
     document.getElementById("line").className = "";
@@ -182,7 +221,7 @@ function drawRubberbandShape(loc){
         ctx.stroke();
     }
 }
- 
+
 function UpdateRubberbandOnMove(loc){
     UpdateRubberbandSizeData(loc);
     drawRubberbandShape(loc);
@@ -201,11 +240,19 @@ function DrawBrush(x, y, color){
     }
     lastX = x; lastY = y;
 }
- 
+
+function drawCircle(x, y){
+    if(usingEraser){
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x, y, line_Width, 0, Math.PI*2);
+        ctx.fill();
+    }
+}
+
 function ReactToMouseDown(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
-    SaveCanvasImage();
     mousedown.x = loc.x;
     mousedown.y = loc.y;
     dragging = true;
@@ -215,11 +262,12 @@ function ReactToMouseDown(e){
         DrawBrush(loc.x, loc.y, strokeColor);
     }
     else if (currentTool === 'eraser'){
-        usingBrush = true;
-        DrawBrush(loc.x, loc.y, "white");
+        usingEraser = true;
+        drawCircle(loc.x, loc.y);
     }
+    SaveCanvasImage();
 }
- 
+
 function ReactToMouseMove(e){
     canvas.style.cursor = "crosshair";
     loc = GetMousePosition(e.clientX, e.clientY);
@@ -228,7 +276,7 @@ function ReactToMouseMove(e){
         DrawBrush(loc.x, loc.y, strokeColor);
         SaveCanvasImage();
     } else if (currentTool === 'eraser') {
-        DrawBrush(loc.x, loc.y, "white");
+        drawCircle(loc.x, loc.y);
         SaveCanvasImage();
     }else {
         if(dragging){
@@ -237,7 +285,7 @@ function ReactToMouseMove(e){
         }
     }
 }
- 
+
 function ReactToMouseUp(e){
     canvas.style.cursor = "default";
     loc = GetMousePosition(e.clientX, e.clientY);
@@ -245,26 +293,111 @@ function ReactToMouseUp(e){
     UpdateRubberbandOnMove(loc);
     dragging = false;
     usingBrush = false;
-    if(currentTool === 'brush' || currentTool === "eraser") {
+    usingEraser = false;
+    if(currentTool === 'brush') {
         ctx.beginPath();
     }
     SaveCanvasImage();
+    ctx.globalCompositeOperation = "source-over";
     SaveStates.push(savedImageData);
 }
 
-function SaveImage(){
-    let imageFile = document.getElementById("img-file");
-    imageFile.setAttribute('download', 'image.png');
-    imageFile.setAttribute('href', canvas.toDataURL());
-}
- 
 function OpenImage(){
     let img = new Image();
     img.onload = function(){
         ctx.clearRect(0,0,canvas.width, canvas.height);
         ctx.drawImage(img,0,0);
     }
-    img.src = 'image.png';
+    img.src = savedFrames[frameNumber];
+}
+
+function UpdateFrameNumber(){
+    document.getElementById("frame-button").innerHTML = frameNumber;
+}
+
+function SaveImage() {
+    savedFrames[frameNumber] = canvas.toDataURL();
+}
+
+function Next(){
+    SaveImage();
+    frameNumber +=1;
+    if (frameNumber < savedFrames.length){
+        OpenImage();
+    }
+    SaveStates = [];
+    SaveCanvasImage();
+    SaveStates.push(savedImageData);
+    UpdateFrameNumber();
+}
+
+function Previous(){
+    if (frameNumber > 0){
+        SaveImage();
+        frameNumber -=1;
+        OpenImage();
+        UpdateFrameNumber();
+        SaveStates = [];
+        SaveCanvasImage();
+        SaveStates.push(savedImageData);
+    }
+}
+
+function Delete(){
+    savedFrames.splice(frameNumber, 1);
+
+    if (frameNumber === 0){
+        Clear();
+        return null;
+    }
+    if (frameNumber === savedFrames.length){
+        frameNumber -=1;
+        UpdateFrameNumber();
+    }
+    SaveStates = [];
+    SaveCanvasImage();
+    SaveStates.push(savedImageData);
+    OpenImage();
+}
+
+function SendData(type){
+    let xhr = new XMLHttpRequest();
+    let url = type
+    let name = document.getElementById("project-name").innerText;
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    let frames = savedFrames.length - 1;
+    //callback
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert("Frames 0 to " + frames.toString(10) + " Saved to Server!");
+        }
+    }
+
+    let data = JSON.stringify(
+        {"image_BLOB": savedFrames, "name": name}
+        );
+    xhr.send(data);
+}
+
+function RequestRender(){
+    let xhr = new XMLHttpRequest();
+    let url = "render"
+    let name = document.getElementById("project-name").innerText;
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    //callback
+    xhr.onreadystatechange = function () {
+        if (xhr.status === 400){
+            alert("Cannot find any saved image frames. Create new frames or save existing frames")
+        }
+    }
+
+    let data = JSON.stringify({"project_name": name});
+    xhr.send(data);
 }
 
 function Undo(){
@@ -273,4 +406,8 @@ function Undo(){
         let saveState = SaveStates[SaveStates.length - 1];
         ctx.putImageData(saveState,0,0);
     }
+}
+
+function Clear(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }

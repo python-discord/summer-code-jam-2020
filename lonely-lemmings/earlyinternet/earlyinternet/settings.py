@@ -35,8 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gifapp',  # include gifapp
-    'crispy_forms',  # additional settings defined at the bottom
+    'gifapp'  # include gifapp
 ]
 
 MIDDLEWARE = [
@@ -62,10 +61,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'earlyinternet.wsgi.application'
 
@@ -115,4 +116,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# media
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

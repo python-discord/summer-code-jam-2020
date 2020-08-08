@@ -1,7 +1,17 @@
-from django.shortcuts import render
-from .forms import UserRegisterForm
 import typing
+
+from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
+
+from .models import Project
+from .forms import UserRegisterForm
 
 
 def home(request: HttpRequest) -> HttpResponse:
@@ -11,14 +21,7 @@ def home(request: HttpRequest) -> HttpResponse:
     :return: Feed home with context
     """
     context = {
-        'feed': [
-            {
-                "content": "Hello!"
-            },
-            {
-                "content": "Hello 2!"
-            },
-        ]
+        "feed": Project.objects.all()
     }
     return render(request, 'home.html', context)
 
@@ -49,3 +52,12 @@ def login(request: HttpRequest) -> HttpResponse:
     :return:
     """
     return render(request, 'login.html')
+
+
+def profile(request: HttpRequest) -> HttpResponse:
+
+    return render(request, 'profile.html', context)
+
+
+class PostListView(ListView):
+    model =

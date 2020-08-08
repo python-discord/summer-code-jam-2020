@@ -1,14 +1,12 @@
-from django.conf.urls import url
-from .views import paint, gallery
-from .userviews import register, home, login
+from django.urls import path
+
+from . import views
 
 urlpatterns = [
-    url(r"^$", home, name='feed-home'),
-    url(r"^register/", register, name='feed-register'),
-    url(r"^gallery/", gallery, name='feed-gallery'),
-    url(r"^login/", login, name='feed-login'),
-    url(r"^paint/", paint, name='draw-home'),
-    #url(r"^files/", files, name="files"),
-    #url("r^search/", search, name="search")
+    path("", views.paint, name="paint"),
+    path("", views.)
+    path("save", views.parse_save_request, name="save"),
+    path("back", views.return_home, name="back"),
+    path("render", views.parse_render_request, name="render"),
+    path("project/<str:project_name>", views.parse_image_request, name="images")
 ]
-

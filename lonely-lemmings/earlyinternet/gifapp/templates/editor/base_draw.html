@@ -6,13 +6,17 @@
         <meta name="viewport" content="width = device-width, initial-scale = 1">
         <title>GIF App</title>
         <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/draw.css'%}">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
     </head>
     <body>
+        <div class="wrapper" id="project-name">
+            <h6>MyProject</h6>
+        </div>
         <div class="wrapper">
             <div class="toolbar">
-                <a class="selected" href="#" id="open" onclick="OpenImage()">
-                    <img src="{% static 'gifapp/icons/file-open.png' %}" alt="open file">
+                <a href="#" id="clear" onclick="Clear()">
+                    <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
                 </a>
                 <a href="#" id="save" onclick="SaveImage()">
                     <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
@@ -23,7 +27,7 @@
                 <a href="#" id="eraser" onclick="ChangeTool('eraser')">
                     <img src="{% static 'gifapp/icons/eraser.png' %}" alt="erase">
                 </a>
-                <a href="#" id="brush" onclick="ChangeTool('brush')">
+                <a class="selected" href="#" id="brush" onclick="ChangeTool('brush')">
                     <img src="{% static 'gifapp/icons/pencil.png' %}" alt="pencil">
                 </a>
                 <a href="#" id="line" onclick="ChangeTool('line')">
@@ -40,6 +44,9 @@
                 </a>
             </div>
             <div class="customizer">
+                <div class="color">
+                    <button id="frame-button">0</button>
+                </div>
                 <div class="color">
                     <button id="color-button"></button>
                 </div>
@@ -67,8 +74,27 @@
             </div>
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
-            <div id="img-data-div">
-                <a href="#" id="img-file" download="image.png">download image</a>
+            <div class="w3-container">
+                <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
+                    <a onclick="{% url 'back' %}" class="w3-button w3-black">Exit</a>
+                </form>
+                <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
+                    {% csrf_token %}
+                    <a onclick="SendData('save')" class="w3-button w3-black">Save All</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Previous()" class="w3-button w3-black">Previous</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Next()" class="w3-button w3-black">Next</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Delete()" class="w3-button w3-black">Delete Frame</a>
+                </form>
+                <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
+                    {% csrf_token %}
+                    <a onclick="RequestRender()" class="w3-button w3-black">Render</a>
+                </form>
             </div>
         </div>
     </body>
