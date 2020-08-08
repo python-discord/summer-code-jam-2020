@@ -12,12 +12,12 @@ const routes = [
   },
   {
     path: '/chat',
-    name: 'chat_lobby',
+    name: 'chatlobby_page',
     component: ChatLobby,
   },
   {
     path: '/chat/room/:roomId',
-    name: 'chat_room',
+    name: 'chatroom_page',
     component: ChatRoom,
   },
   {

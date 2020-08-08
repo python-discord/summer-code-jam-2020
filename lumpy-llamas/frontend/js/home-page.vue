@@ -48,6 +48,7 @@
 <script>
 const MENU_PAGES = [
   { title: 'Login/Register', page: 'login_page' },
+  { title: 'Chat Lobby', page: 'chatlobby_page' },
 ];
 
 export default {
@@ -58,10 +59,14 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToLogin);
+    this.$cmd.on('3', this.goToChatLobby)
   },
   methods: {
     goToLogin() {
       this.$router.push({ name: 'login_page' });
+    },
+    goToChatLobby() {
+      this.$router.push({ name: 'chatlobby_page' });
     },
   },
 };
