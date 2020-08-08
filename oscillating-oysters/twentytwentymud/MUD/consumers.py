@@ -95,7 +95,6 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
     async def send_welcome(self):
         await self.send_json({'message': colorize('brightBlue', ART['BANNER'])})
         await self.send_json({'message': f"Hello {colorize('brightMagenta', self.player.name)}"})
-        # TODO: add Current Date: {date_from_room_model}
 
     async def send_status(self):
         room_name = await self.get_current_room_name()
@@ -118,7 +117,6 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         '''
 
         tutorial = [
-            # Get rid of this once TODO in send_welcome is done
             ((f"Current Date: {colorize('blue', 'January 1, 1970')}\n"), 2),
             (("Unfortunately there has been a glitch in the matrix and it appears"
               "you have been pulled through a quantum computer to the past."
