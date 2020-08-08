@@ -31,5 +31,3 @@ class Room(models.Model):
     def character_out(self, character):
         char_index = self.current_characters.index(character)
         return self.current_characters.pop(char_index)
-
-
