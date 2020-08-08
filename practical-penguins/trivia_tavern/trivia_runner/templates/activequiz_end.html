@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="parchment-border">
-    <div class="col-md-12"><h1> WINNING TEAM: {{ tally_results.winner }} </h1></div>
-    <div>
+    <div class="row">
+        <div class="col-md-12"><h1> WINNING TEAM: {{ tally_results.winner }} </h1></div>
+    </div>
+
+    <div class="row">
     {% include "ranking_table.html" %}
     </div>
 
-
-    <div class="col-md-2">
-      <button class="stamp is-draft" >"Pause time"</button>
-    </div>
-    <div class="col-md-2">
+    <div class="row justify-content-end">
         {% include "trivia_next_step_btn.html" %}
     </div>
 </div>

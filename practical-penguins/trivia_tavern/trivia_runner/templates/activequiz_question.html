@@ -8,13 +8,9 @@
         <p> {{ cur_question.question_text }} </p>
     </div>
 
-    <div class="row">
-        <div class="col-md-2">
-            <button type="submit" class="stamp is-draft" value="Pause time">Pause Timer</button>
-        </div>
-        <div class="col-md-2">
-            {% include "trivia_next_step_btn.html" %}
-        </div>
+    <div class="row justify-content-end">
+        <button type="submit" class="stamp is-draft" value="Pause time">Pause Timer</button>
+        {% include "trivia_next_step_btn.html" %}
     </div>
 </div>
 {% endblock %}
