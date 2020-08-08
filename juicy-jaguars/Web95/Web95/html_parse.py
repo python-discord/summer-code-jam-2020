@@ -83,3 +83,8 @@ class HtmlParser:
                 if name in link_attrs:
                     if val.startswith("/"):
                         element[name] = self.basedir + val
+
+    def parse_color(self):
+        head = self.soup.head
+        head.append(self.soup.new_tag('style', type='text/css'))
+        head.style.append('html {filter: grayscale(100%) !important;}')
