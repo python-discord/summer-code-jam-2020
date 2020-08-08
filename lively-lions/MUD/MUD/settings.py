@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # app
     'dungeon.apps.DungeonConfig',
+    'items.apps.ItemsConfig'
 ]
 
 MIDDLEWARE = [
