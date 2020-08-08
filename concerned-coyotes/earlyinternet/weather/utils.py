@@ -9,8 +9,8 @@ def get_weather(lat: float, lon: float) -> dict:
     """
     weather_key = '0a2c03e9dee2533389d7b459d0f8595e'
     # source contain JSON data from API
-    source = requests.get(
-        f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={weather_key}')
+    source = requests.get('http://api.openweathermap.org/data/2.5/weather?'
+                          f'lat={lat}&lon={lon}&appid={weather_key}')
     # list_of_data contain json encoded content
     data = source.json()
     result = {"weather": {
