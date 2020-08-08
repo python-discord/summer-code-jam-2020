@@ -3,6 +3,32 @@
     <div v-if="city">
       <h1>{{ city.name }}</h1>
       {{ city.description }}
+      <div
+        v-if="user !== null && city"
+        class="row"
+      >
+        <q-btn @click="claim = true">Claim address</q-btn>
+        <q-dialog v-model="claim">
+          <q-card
+            style="min-width: 300px;"
+            class="q-px-sm q-pb-md"
+          >
+            <q-card-section>
+              <div class="text-h6">Claim your free website</div>
+            </q-card-section>
+            <q-form @submit.prevent="handleClaim">
+              <q-input
+                v-model="newSiteDescr"
+                label="Site Description"
+              />
+              <div class="q-pa-md">
+                <q-btn label="Claim" type="submit" v-close-popup/>
+                <q-btn label="Cancel" color="warning" v-close-popup/>
+              </div>
+            </q-form>
+          </q-card>
+        </q-dialog>
+      </div>
       <city-sites :city="city" />
     </div>
   </q-page>
@@ -13,6 +39,7 @@ import CitySites from 'components/CitySites'
 
 import gql from 'graphql-tag';
 
+import { $apolloClient } from 'src/apollo/apollo-client-hooks';
 
 const cityQuery = gql`
 query cityQuery($slug: String!) {
@@ -25,6 +52,12 @@ query cityQuery($slug: String!) {
 }
 `;
 
+const createSiteMutation = gql`mutation createSite($data: SiteInput!) {
+  createSite(data: $data) {
+    address
+  }
+}`;
+
 export default {
   name: 'City',
   props: ['slug'],
@@ -33,6 +66,8 @@ export default {
   },
   data() {
     return {
+      claim: false,
+      newSiteDescr: '',
     };
   },
   apollo: {
@@ -45,8 +80,26 @@ export default {
       },
     },
   },
-  methods: {
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
   },
-
+  methods: {
+    handleClaim() {
+      $apolloClient.mutate({
+        mutation: createSiteMutation,
+        variables: {
+          data: {
+            city: this.city.id,
+            description: this.newSiteDescr,
+          }
+        }
+      }).then((data) => {
+        console.log(data);
+        console.log(data.data.createSite.address);
+      });
+    },
+  },
 };
 </script>
