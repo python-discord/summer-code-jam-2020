@@ -17,6 +17,7 @@ npm install -G webpack webpack-cli
 npm install
 npm run dev
 cd ..\..
+setup_windows_environment.bat
 python manage.py migrate
 python manage.py runserver
 ```
