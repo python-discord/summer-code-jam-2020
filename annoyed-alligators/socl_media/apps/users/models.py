@@ -28,7 +28,7 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username}'
 
-    def save(self):
+    def save(self, **kwargs):
         """
         This function will resize and add a pixelating effect to the images.
         """

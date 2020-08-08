@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     # Own Apps
     'socl_media.apps.terminal',
     'socl_media.apps.feed',
-    'socl_media.apps.users',
+    'socl_media.apps.users.apps.UsersConfig',
     'socl_media.apps.chat',
+
     # Third-Party Apps
 
     # Django default Apps
