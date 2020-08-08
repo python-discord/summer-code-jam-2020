@@ -45,7 +45,7 @@ summer-code-jam-2020"])
     print(green+"Dependencies successfully installed."+reset)
     print()
     print(yellow+"Making migrations..."+reset)
-    result = subprocess.call(["pipenv", "run",
+    result = subprocess.call(["python",
                               os.path.join("Web95", "manage.py"),
                               "migrate"])
 
