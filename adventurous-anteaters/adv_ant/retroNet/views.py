@@ -40,8 +40,18 @@ def register(request):
     return render(request, 'register.html', context)
 
 
-def integration(request):
-    return render(request, 'title.html')
+@login_required(login_url='/login/')
+def update_profile(request):
+    form = UpdateProfile(request.POST or None)
+    if form.is_valid():
+        form.save()
+        queryset = UpdateProfile.objects.all()
+        print(queryset)
+        # TODO add templates in both return
+        return render(request, 'template', {"data": queryset})
+    else:
+        queryset = UpdateProfile.objects.all()
+        return render(request, 'template.html', {"data": queryset})
 
 
 @login_required(login_url='/login/')
@@ -52,9 +62,8 @@ def home(request):
 def my_profile(request):
     return HttpResponse("Wait for templates")
 
-@login_required(login_url='/login/')
-def update_profile(request):
-    return HttpResponse("Wait for templates")
+
+
 
 @login_required(login_url='/login/')
 def user_profile(request):

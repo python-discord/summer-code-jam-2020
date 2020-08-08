@@ -14,3 +14,9 @@ class Tweet(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class UpdateProfile(models.Model):
+    name = models.CharField(max_length=100)
+    dob = models.DateField()
+    about = models.CharField(max_length=200)
