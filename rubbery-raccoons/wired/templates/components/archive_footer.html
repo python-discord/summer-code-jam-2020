@@ -1,0 +1,10 @@
+<footer>
+    <div>
+    <h6>Archives</h6>
+    <ul>
+        {% for article in articles %}
+        <li><a href="{% url 'article-archive-year' article.publication_date|date:"Y" %}">{{ article.publication_date|date:"Y" }}</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+</footer>
