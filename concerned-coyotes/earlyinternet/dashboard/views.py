@@ -62,14 +62,18 @@ def update_location(request: HttpRequest) -> HttpResponse:
     """Updates the user models geolocation with location
     from url parameters and redirects to dashboard page."""
 
-    longitude = float(request.GET.get("longitude"))
-    latitude = float(request.GET.get("latitude"))
+    try:
+        longitude = float(request.GET.get("longitude"))
+        latitude = float(request.GET.get("latitude"))
 
-    # Update user model
-    if longitude and latitude:
+        # Update user model
         user = get_user()
         user.location.longitude = longitude
         user.location.latitude = latitude
         user.save()
+    except TypeError:
+        # There is no need to log any error or display
+        # it for the user, so we can skip that.
+        pass
 
     return redirect("index")
