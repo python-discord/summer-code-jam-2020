@@ -51,7 +51,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(blank=False, max_length=30)
 
     points = models.IntegerField(default=0)
-    searches_made = models.IntegerField(default=0)
 
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
@@ -86,8 +85,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_searches(self):
-        # How do we count this?
-        return 0
+        return len(self.searches.all()) * 5
 
     @property
     def score(self):
