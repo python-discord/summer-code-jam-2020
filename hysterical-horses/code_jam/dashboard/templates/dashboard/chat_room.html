@@ -8,9 +8,9 @@
 
 <div class="chat-container">
     <h3>{{ room_name }}</h3>
-    <textarea id="chat-log" cols="100" rows="20" readonly></textarea><br>
+    <textarea class="nes-textarea" id="chat-log" cols="100" rows="20" readonly disabled></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+    <input id="chat-message-submit" class="nes-btn is-primary" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
 </div>
     <script>
@@ -26,7 +26,10 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+            tempMessage = data.message.split(": ")
+            tempMessage[0] == "{{user.username}}" ? tempMessage[0] = tempMessage[0] : tempMessage[0] = "----" + tempMessage[0];
+            finalMessage = tempMessage.join(": ")
+            document.querySelector('#chat-log').value += (finalMessage + '\n');
         };
 
         chatSocket.onclose = function(e) {
