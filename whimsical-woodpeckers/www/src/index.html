@@ -32,6 +32,9 @@
 </script>
 <script type="text/x-template" id="messages-template">
     <div id="messages">
+      <div id="chat-name" class="text-center">
+        <h2>{{ chatName }}</h2>
+      </div>
         <message
           v-for="(message, index) in messages"
           v-bind:key="index"
@@ -45,8 +48,8 @@
     <div
       v-bind:title="time"
       v-bind:class="{
-        'alert-primary': sender==currentUser,
-        'alert-light': sender!=currentUser,
+        'text-primary': sender==currentUser,
+        'text-danger': sender!=currentUser,
         'alert':true}"
       >
         <strong>{{ sender }}</strong>: {{ content }}

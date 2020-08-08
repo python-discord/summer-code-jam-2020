@@ -102,7 +102,7 @@ body{
   background: teal;
 }
 
-body::before {
+.container-fluid::before {
   content: " ";
   display: block;
   position: absolute;
