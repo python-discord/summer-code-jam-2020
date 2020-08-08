@@ -79,21 +79,55 @@ html {
     background-repeat: repeat;
   }
 
-.columnleft {
+.XXXXXXXXXXhideXXXXXXXcolumnleft {
   float: left;
   float:top;
   width: 250;
 }
-.columnright {
+.XXXXXXXXXXhideXXXXXXXcolumnright {
   float: right;
   float:top;
   width: 250;
 }
-.columncenter {
+.XXXXXXXXXXhideXXXXXXXcolumncenter {
   padding-top: 1cm;
   text-align: center;
 }
 /* Clear floats after the columns */
+.XXXXXXXXXXhideXXXXXXXrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Create three unequal columns that floats next to each other */
+.container {
+  position: relative;
+}
+
+.columnleft {
+  float: left;
+  width: 200px;
+  height: 95vh;
+  top: 0px;
+}
+.columnright {
+  float: right;
+  width: 200px;
+  height: 95vh;
+  top: 0px;
+}
+
+.columncenter {
+  position: top;
+  width: auto;
+  height: 95vh;
+}
+
+/* Clear floats after the columns */
+row {
+  border-color: #f00;
+  border-width: 4px;
+}
 .row:after {
   content: "";
   display: table;
@@ -238,6 +272,11 @@ label {
   width: 250px;
   text-align: left;
 }
+label {
+  display: inline-block;
+  width: 250px;
+  text-align: center;
+}
 
 .resizedTextbox {
     width: 100px; height: 20px
@@ -250,8 +289,11 @@ label {
 .doorcontainer img {
   /*margin: 100px;*/
   transition: transform 0.5s linear;
+  text-align: center;
+    vertical-align: middle;
+    width: 100%;
 }
 
 input[type=checkbox]:checked ~ label > img {
-  transform: scale(2);
+  transform: scale(3);
 }

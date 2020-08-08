@@ -4,20 +4,23 @@
 {% block content %}
 
 {% if user.profile.img %}
+    <p style="text-align: center; margin-left: 200px">
     <img src="{{ user.profile.img.url }}">
+    </p>
 {% endif %}
-<div>
+<div style="margin-left: 220px; margin-right: 220px">
 <h1>{{user.first_name}} {{user.last_name}}</h1>
 <h1>Age: {{user.profile.age}}</h1>
 <h1>Sex: {{user.profile.sex}}</h1>
-<p>--------------------------------------------------------------------------</p>
-<h1>{{user.profile.bio}}</h1>
+<hr>
+<span style="text-align: center; margin-left: 200px">
+    <h1>{{user.profile.bio}}</h1>
 
 <p><a href="{% url 'earlydating-editprofile' %}" style="font-size: large; font-weight: bold;">Edit Profile</a></p>  <!-- Currently set to go home, must change to go to edit page when finished. -->
 <p><a href="{% url 'earlydating-mylikes' %}" style="font-size: large; font-weight: bold;">My Likes</a></p>
 <p><a href="{% url 'earlydating-bothlikes' %}" style="font-size: large; font-weight: bold;">My Matches</a></p> <!-- Currently set to go home, must change to go to MyMatches page when finished. -->
 <p><a class="hello-msg" href="{% url 'earlydating-logout' %}" style="font-size: large; font-weight: bold;">Logout</a></p>
-
+</span>
 </div>
 
 {% endblock %}

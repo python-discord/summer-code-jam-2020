@@ -2,16 +2,15 @@
 
 {% block title %}Your Match{% endblock %}
 {% block content %}
-<div class="w3-container" style="text-align: left;">
-<h1 style="font-size:x-large">Here are your matches</h1>
-</div>
+
 {% csrf_token %}
     {% for item in you_liked %}
-    <div class="grid-container">
-        <h3 style="font-weight: bold; font-size: large;">{{ item.user.username }}</h3><br>
-        <img src="/media/{{ item.user.profile.img }}" height="250"><br>
-        <h2>{{item.user.profile.bio }}</h2>
-    </div>
+        <h3 style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
+        border-style: inset; border-width: 6px; margin: 30px 200px 0px 200px; ">{{ item.voter.username }}</h3>
+        <p style="text-align: center; vertical-align: middle; width: 659px; margin-left: 200px"><br>
+        <img src="/media/{{ item.voter.profile.img }}" height="250"><br>
+        <h3 style="margin-left: 200px; margin-right: 200px">{{item.voter.profile.bio}}</h3>
+    </p>
     {% endfor %}
 
 {% endblock %}
