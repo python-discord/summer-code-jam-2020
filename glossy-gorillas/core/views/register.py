@@ -1,17 +1,18 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 from core.forms import UserRegisterForm
 
 
-def register(request):
-    """Saves the form if valid, registering the user. Otherwise, form must be repeated."""
-    if request.method == "POST":
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            messages.success(request, f"Account created for {username}!")
-            return redirect("home")
-    else:
-        form = UserRegisterForm()
-    return render(request, "core/register.html", {"form": form})
+class Register(FormView):
+    """Creates user if valid. Otherwise, form must be repeated."""
+
+    form_class = UserRegisterForm
+    template_name = "core/register.html"
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        form.save()
+        username = form.cleaned_data.get("username")
+        messages.success(self.request, f"Account created for {username}!")
+        return super().form_valid(form)
