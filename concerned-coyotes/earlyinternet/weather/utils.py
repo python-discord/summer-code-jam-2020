@@ -12,18 +12,14 @@ def get_weather(lat: float, lon: float) -> dict:
     source = requests.get(
         f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={weather_key}')
     # list_of_data contain json encoded content
-    list_of_data = source.json()
-    data = {"weather": {
-        "celsius": int(list_of_data['main']['temp'])-272,
-        "fahrenheit": int(((list_of_data['main']['temp'])-272)*1.8+32)},
-        "city": str(list_of_data['name']),
+    data = source.json()
+    result = {"weather": {
+        "celsius": int(data['main']['temp'])-272,
+        "fahrenheit": int(((data['main']['temp'])-272)*1.8+32)},
+        "city": str(data['name']),
         "sunset": datetime.fromtimestamp(
-            list_of_data['sys']['sunset']),
+            data['sys']['sunset']),
         "sunrise": datetime.fromtimestamp(
-            list_of_data['sys']['sunset']),
+            data['sys']['sunset']),
         }
-    return data
-
-
-if __name__ == "__main__":
-    weather_data = get_weather(21.178, 72.83)
+    return result
