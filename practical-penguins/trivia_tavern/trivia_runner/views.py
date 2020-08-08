@@ -1,12 +1,21 @@
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, ListView
 
 from trivia_builder.models import TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz, Player
 from twilio_messenger.views import SMSBot
 from twilio_messenger.views import ScoreTracker
+
+
+class ActiveTriviaQuizListView(ListView):
+    model = ActiveTriviaQuiz
+    template_name = 'active_sessions.html'
+    context_object_name = 'active_quizzes'
+    ordering = ['-start_time']
+    paginate_by = 10
 
 
 def setup(request, active_trivia_quiz):
