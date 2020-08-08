@@ -67,6 +67,14 @@ hr{
     width: max-content;
 }
 
+.window{
+  margin: 10px;
+}
+
+#footer{
+  width: 98.6%;
+}
+
 .window-body{
   margin: 0;
   padding: 0px;
