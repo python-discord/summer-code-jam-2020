@@ -1,6 +1,7 @@
 from django.urls import path, re_path
 from .views import example_view
 from .views import frontend_view
+from .views.mud_user_account import MudUserView
 
 
 ##
@@ -13,5 +14,6 @@ from .views import frontend_view
 urlpatterns = [
     path('api/example/', example_view.rest),
     re_path(r'api/example/[0-9a-zA-Z]', example_view.rest),
-    path('', frontend_view.index, name='index')
+    path('', frontend_view.index, name='index'),
+    path('api/muduser/', MudUserView.as_view()),
 ]
