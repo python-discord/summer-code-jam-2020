@@ -10,7 +10,7 @@
     <ul>
       <li v-for="item in myStuff">
         <router-link :to="{ name: 'thread-view', params: {id:item.id}}">{{ item.title }} - Posted:
-          {{ item.created_date | moment("DD MM YY, hh:mm")  }} by {{item.created_by_id}}
+          {{ item.created_date | moment("DD.MM.YY, hh:mm")  }} by {{item.created_by_id}}
         </router-link>
       </li>
     </ul>
