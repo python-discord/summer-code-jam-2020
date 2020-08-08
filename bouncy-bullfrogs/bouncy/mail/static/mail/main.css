@@ -18,7 +18,6 @@ textarea {
 .media {
     margin: 15px;
     padding: 10px;
-    border-radius: 15px;
 }
 
 img {
@@ -26,18 +25,32 @@ img {
     height: 48px;
     align-self: center;
 }
+.topnav {
+    height: 100px;
+    width: 100%;
+    background-color: rgb(71, 145, 197);
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+}
 
 .unread-email {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
+.logo {
+    width: 185px;
+    height: 100px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 4;
+}
 .read-email {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-    background-color: #000000;
+    background-color: rgb(255, 255, 255);
 }
 
 #read-view {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px;
     margin: 15px;
     padding: 15px;
     border-radius: 15px;
@@ -115,22 +128,22 @@ button.archive {
 
 .sidenav {
     height: 100%;
-    width: 160px;
+    width: 185px;
     position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #dbeaf5;
+    z-index: 0;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(219, 234, 245);
     overflow-x: hidden;
     padding-top: 200px;
 }
 
 .sidenav a {
+    font-size: 25px;
+    color: rgb(40, 43, 170);
+    display: block;
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 25px;
-    color: #282baa;
-    display: block;
 }
 
 .sidenav a:hover {
@@ -138,15 +151,14 @@ button.archive {
 }
 
 body {
-    background: #336699;
-    font-weight: 400;
-    font-size: 16px;
-    color: rgb(255, 255, 255);
+    font-size: 20px;
+    color: rgb(0, 0, 0);
     margin-top: 3rem;
     overflow-y: scroll;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: VT323;
     font-weight: bold;
     padding-top: 50px;
+    background: rgb(51, 102, 153);
 }
 
 .btn-red {
