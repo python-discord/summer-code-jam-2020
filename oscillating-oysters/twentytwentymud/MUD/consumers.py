@@ -1,3 +1,6 @@
+import asyncio
+import ansiwrap
+
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 
@@ -5,7 +8,6 @@ from terminal.terminal_tools import colorize
 from MUD.ascii_art import ART
 
 from MUD.models import Room, Player
-import asyncio
 
 
 class MudConsumer(AsyncJsonWebsocketConsumer):
@@ -81,6 +83,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             pass
 
     async def send_message(self, message):
+        message = ansiwrap.fill(message, 79, replace_whitespace=True, drop_whitespace=True)
+        message = message.replace("\n", "\n\r")
         await self.send_json({
             'message': message
         })
@@ -100,29 +104,33 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
         tutorial = [
             # Get rid of this once TODO in send_welcome is done
-            (("Current Date: January 1, 1970\n"), 2),
-            (("Unfortunately there has been a glitch in the matrix and it appears"
-             "you have been pulled through a quantum computer to the past."
-             f"You are currently in {colorize('brightGreen', self.player.room.name)}."
+            ("Current Date: January 1, 1970\n"),
+            ("Unfortunately there has been a glitch in the matrix and it appears "
+             "you have been pulled through a quantum computer to the past. "
+             f"You are currently in {colorize('brightGreen', self.player.room.name)}. "
              "Somewhere on this server there is a connection that should allow you "
              "to travel to a different server. "
-             "Each server is connected to a different point in time. \n",), 7),
-            (("Your mission is to return to 2020 by traveling through different servers, "
-             "networks, and possibly solving a few riddles on the way.\n"), 3),
-            (("View what is in a node and the available connections by typing: "
-             f"{colorize('brightYellow', 'look')}\n"
-            "You can move between different nodes and networks by typing: "
-             f"{colorize('brightYellow','go <connection name>')}\n"
-            "You can always view the available commands by typing: "
-             f"{colorize('brightYellow','help')}\n"), 2),
-            (("Good luck!\n"), 4),
-            (("Oh, there have been recent reports of possible viruses found in some "
-            "networks. We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉ ̷͓͓̈̇s̶̩̍o̸̻̓ ̶͎̽̋I̵͛̏͜'̶̨͠m̷̛̹͝ ̷͚̀ṡ̴͈͉ṳ̷͛r̷̝͕͐e̸̛̬͛ ̷̧͐͛î̷̛͙̜t̸̖͒̓'̴̦̙̉s̸͇͊̕ ̸͚̻̆̋f̵̭͈̐ī̸̡̪n̸͖̯̄̇é̷̡."), 0),
+             "Each server is connected to a different point in time."),
+            (""),
+            ("Your mission is to return to 2020 by traveling through different servers, "
+             "networks, and possibly solving a few riddles on the way.\n\n"),
+            (""),
+            ("View what is in a node and the available connections by typing: "
+             f"{colorize('brightYellow', 'look')}"),
+            ("You can move between different nodes and networks by typing: "
+             f"{colorize('brightYellow','go <node/number>')}"),
+            ("You can always view the available commands by typing: "
+             f"{colorize('brightYellow','help')}\n"),
+            (""),
+            ("Good luck!\n\n"),
+            ("Oh, there have been recent reports of possible viruses found in some networks."),
+            ("We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉ ̷͓͓̈̇s̶̩̍o̸̻̓ ̶͎̽̋I̵͛̏͜'̶̨͠m̷̛̹͝ ̷͚̀ṡ̴͈͉ṳ̷͛r̷̝͕͐e̸̛̬͛ ̷̧͐͛î̷̛͙̜t̸̖͒̓'̴̦̙̉s̸͇͊̕ ̸͚̻̆̋f̵̭͈̐ī̸̡̪n̸͖̯̄̇é̷̡."),
         ]
 
         for i in range(len(tutorial)):
-            await self.send_json({'message': tutorial[i][0]})
-            await asyncio.sleep(tutorial[i][1])
+            await self.send_message(tutorial[i])
+            if i < (len(tutorial) - 1):
+                await asyncio.sleep(len(tutorial[i])/30 + 1)
 
     async def send_unknown(self, command):
         await self.send_json({
