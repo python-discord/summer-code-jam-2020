@@ -15,6 +15,13 @@
 <h2>A web browser that runs in your browser, that processes webpages to make them reminiscent of the Web of the 80s and 90s.</h2>
 </div>
 
+### Table Of Contents
+
+- [Install](#installing)
+  * [Windows]{#on-windows}
+  * [MacOS/Linux]{#on-macoslinux}
+  * [Manual Inspection]{#manual-inspection}
+
 ### Installing
 
 To install and run Web95, you must have Python 3.8 installed and have Pip installed and on your PATH.
