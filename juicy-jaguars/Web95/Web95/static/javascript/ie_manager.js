@@ -1,5 +1,5 @@
 function ie_home() {
-    document.getElementById("ie-addr-bar").value = "http://bing.com";
+    document.getElementById("ie-addr-bar").value = "http://www.google.com";
     ie_refresh();
 }
 
