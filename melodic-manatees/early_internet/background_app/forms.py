@@ -7,8 +7,8 @@ class FileUploadForm(forms.ModelForm):
     background_file = forms.FileField(
         label='upload background',
         validators=[file_size],
-        required=True
-        )
+        required=True,
+    )
 
     class Meta:
         model = BackgroundFile

@@ -16,15 +16,15 @@ class BackgroundFile(models.Model):
     background_title = models.CharField(
         max_length=100,
         default=None
-        )
+    )
     background_file = models.FileField(
         upload_to=('backgrounds/'),
-        default=None
-        )
+        default='defaults/sunrise.jpg'
+    )
     background_owner = models.ForeignKey(
         UserProfile,
         on_delete=models.CASCADE
-        )
+    )
     background_thumbnail = models.ImageField(
         upload_to=('backgrounds/'),
         default=None

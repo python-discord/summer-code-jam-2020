@@ -72,8 +72,8 @@ fieldset {
         </nav>
     </header>
     <div class="hero is-fullheight is-light has-background">
-        {% if user.is_authenticated and not_default_background %}
-            <img class="hero-background" src="{{ background.url }}" alt="User Background failed to load" />
+        {% if user.is_authenticated %}
+            <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background failed to load" />
         {% else %}
             <img class="hero-background" src="{% static 'images/sunrise.jpg' %}" alt="Sunrise Over Mountains" />
         {% endif %}
