@@ -199,7 +199,7 @@ class MudConsumer(WebsocketConsumer):
         message = event['message']
         # Send a message to the players in the same location
         if (str(Player.objects.get(user=self.user).location) == event['location']
-            and self.channel_name != event['sender_channel_name']):
+                and self.channel_name != event['sender_channel_name']):
             self.send(text_data=json.dumps({
                 'message': message
             }))
