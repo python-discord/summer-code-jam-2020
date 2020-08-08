@@ -7,7 +7,7 @@ Developing on Windows 10 home with out docker.
 
 ## Usage
 
-Download the repository and cd into the directory. Then run these commands:s
+Download the repository and cd into the directory. Then run these commands:
 ```
 python -m venv venv
 venv\Scripts\activate.bat
