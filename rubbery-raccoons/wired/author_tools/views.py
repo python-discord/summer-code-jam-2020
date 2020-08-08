@@ -1,10 +1,11 @@
 from datetime import date
 
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.utils.text import slugify
 
 from .forms import ArticleForm, CommentForm
+from wired_app.models import Article
 
 
 def compose(request):
@@ -26,3 +27,17 @@ def compose(request):
         form = ArticleForm()
 
     return render(request, "author_tools/compose.html", {"form": form})
+
+
+def update(request, slug):
+    art = get_object_or_404(Article, slug=slug)
+    if request.method == "POST":
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            art.update(title = form.cleaned_data.get("title"))
+            art.update(headline = form.cleaned_data.get("headline"))
+            art.update(body = form.cleaned_data.get("body"))
+            messages.success(request, "Article updated!")
+    else:
+        form = ArticleForm(instance=art)
+    return render(request, "author_tools/update.html", {"form": form})
