@@ -40,9 +40,10 @@ def update(request, slug):
     if request.method == "POST":
         form = ArticleForm(request.POST)
         if form.is_valid():
-            art.update(title=form.cleaned_data.get("title"))
-            art.update(headline=form.cleaned_data.get("headline"))
-            art.update(body=form.cleaned_data.get("body"))
+            art.title = form.cleaned_data.get("title")
+            art.headline = form.cleaned_data.get("headline")
+            art.body = form.cleaned_data.get("body")
+            art.save()
             messages.success(request, "Article updated!")
     else:
         form = ArticleForm(instance=art)
