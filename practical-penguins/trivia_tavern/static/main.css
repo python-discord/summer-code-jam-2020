@@ -22,10 +22,6 @@ ul {
     margin: 0;
 }
 
-.bg-steel {
-    background-color: #5f788a;
-}
-
 .bg-brown {
     background-color: #663300;
     background-image: url("../media/logs.jpg");
@@ -135,43 +131,66 @@ created by Pete Blatchford https://codepen.io/555/pen/pdwvBP
 */
 
 .stamp {
+    margin: 10px 10px 10px 10px;
     transform: rotate(5deg);
-    color: #555;
+    opacity: .7
+    color: #666;
     font-size: 1rem;
     font-weight: 900;
-    border: 0.25rem solid #555;
+    border: 0.25rem solid #666;
     display: inline-block;
     padding: 0.25rem 1rem;
     text-transform: uppercase;
     border-radius: 1rem;
     font-family: 'Courier';
-    /*-webkit-mask-image: url('stamp_static.png');*/
+    -webkit-mask-image: url('stamp_static.png');
     -webkit-mask-size: 944px 604px;
     mix-blend-mode: multiply;
 }
 
+.stamp:hover {
+color: #555;
+border: 0.25rem solid #555;
+}
+
 .is-nope {
-    color: #D23;
-    border: 0.5rem double #D23;
+    color: #F02;
+    border: 0.5rem double #F02;
     transform: rotate(3deg);
     -webkit-mask-position: 2rem 3rem;
     font-size: 1rem;
 }
 
+.is-nope:hover {
+color: #D23;
+border: 0.5rem double #D23;
+}
+
 .is-approved {
-    color: #0A9928;
-    border: 0.5rem solid #0A9928;
+    color: #25e64d;
+    border: 0.5rem solid #25e64d;
     -webkit-mask-position: 13rem 6rem;
     transform: rotate(-4deg);
     border-radius: 0;
 }
 
+.is-approved:hover {
+color: #0A9928;
+border: 0.5rem solid #0A9928;
+}
+
+
 .is-draft {
     color: #C4C4C4;
     border: 1rem double #C4C4C4;
-    transform: rotate(-5deg);
+    transform: rotate(0deg);
     font-size: 1rem;
     font-family: "Open sans", Helvetica, Arial, sans-serif;
     border-radius: 0;
     padding: 0.5rem;
+}
+
+.is-draft:hover {
+color: #AAA;
+border: 1rem double #AAA;
 }

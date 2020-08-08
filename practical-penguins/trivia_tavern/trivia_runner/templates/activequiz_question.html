@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
- <div class="row">
-      <div class="col-md-8"><p><strong>Question {{ active_trivia_quiz.current_question_index}}:</strong> {{ cur_question.question_text }} </p></div>
-      <div class="col-md-2">
+<div class="parchment-border ">
+    <div class="row">
+        <div class="col-md-12"><h1>Question {{ active_trivia_quiz.current_question_index}}:</h1></div>
+    </div>
+    <div class="row">
+        <p> {{ cur_question.question_text }} </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button type="submit" class="stamp is-draft" value="Pause time">Pause Timer</button>
+        </div>
+        <div class="col-md-2">
             {% include "trivia_next_step_btn.html" %}
-      </div>
-      <div class="col-md-2">
-          <button type="submit" class="btn btn-outline-warning" value="Pause time">Pause Timer</button>
-      </div>
-  </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
