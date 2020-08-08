@@ -30,16 +30,7 @@ class SMSBot:
             to=recipient
         )
 
-<<<<<<< HEAD
-=======
-    @staticmethod
-    def delayed_send(msg: str, recipient, delay):
-        # TODO This function does not work yet
-        # time.sleep(delay)
-        SMSBot.send(msg, recipient)
 
-    @staticmethod
->>>>>>> master
     def register(phone_number, active_quiz):
         """registers a default player account with the ActiveTriviaQuiz 'quiz'
         and a 'phone_number'
@@ -88,18 +79,12 @@ def sms_reply(request):
             # Player picks a team name
             player.team_name = body
             player.save()
-<<<<<<< HEAD
+
             msg = ( f'Thanks for playing! '
                 f'"{player_quiz.trivia_quiz.name}" will begin soon!'
             )
             ScoreTracker.objects.create(player_phone=player.phone_number,
                                         team_name=player.team_name,
-=======
-            msg = (f'Thanks for playing, {player.name}! '
-                   f'"{player_quiz.trivia_quiz.name}" will begin soon!'
-                   )
-            ScoreTracker.objects.create(player_name=player.name,
->>>>>>> master
                                         session_code=player_quiz.session_code)
             SMSBot.send(msg, from_)
 
@@ -123,13 +108,10 @@ def sms_reply(request):
             current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
                                                           question_index=player_quiz.current_question_index)
             correct_answer = current_question.question_answer
-<<<<<<< HEAD
-            score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=player_quiz.session_code)
-            if score_track.answered_this_round == True:
-=======
+
             score_track = ScoreTracker.objects.get(player_name=player.name, session_code=player_quiz.session_code)
             if score_track.answered_this_round:
->>>>>>> master
+
                 msg = 'You already answered! Don\'t cheat!'
             elif body.upper() == correct_answer.upper():
                 score_track.points += 1
@@ -148,15 +130,11 @@ def sms_reply(request):
 
     elif body in session_codes:
         fetch_quiz = available_quizzes.get(session_code=body)
-<<<<<<< HEAD
+
         welcome = ( f'You registered to play "{fetch_quiz.trivia_quiz.name}." '
                     f'Please choose a team name to join'
         )
-=======
-        welcome = (f'You registered to play "{fetch_quiz.trivia_quiz.name}." '
-                   f'Please choose a player name'
-                   )
->>>>>>> master
+
         SMSBot.send(welcome, from_)
         new_player = SMSBot.register(from_, fetch_quiz)
         new_player.save()
