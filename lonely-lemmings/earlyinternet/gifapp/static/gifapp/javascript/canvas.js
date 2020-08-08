@@ -383,21 +383,19 @@ function SendData(type){
 
 function RequestRender(){
     let xhr = new XMLHttpRequest();
-    let url = "render"
     let name = document.getElementById("project-name").innerText;
+    let url = "project/" + name + "/render"
 
-    xhr.open("POST", url, true);
+    xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     //callback
     xhr.onreadystatechange = function () {
-        if (xhr.status === 400){
-            alert("Cannot find any saved image frames. Create new frames or save existing frames")
+        if (xhr.readyState === 4 && xhr.status === 404){
+            alert("Cannot find any saved image frames. Create new frames or save existing frames");
         }
     }
-
-    let data = JSON.stringify({"project_name": name});
-    xhr.send(data);
+    xhr.send();
 }
 
 function Undo(){
