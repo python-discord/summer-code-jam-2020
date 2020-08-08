@@ -3,4 +3,5 @@ type Mutation {
   register(data: RegisterInput!): Boolean!
 
   createPage(data: PageInput!): Page!
+  updatePage(page_id: ID!, data: PageInput!): Page!
 }

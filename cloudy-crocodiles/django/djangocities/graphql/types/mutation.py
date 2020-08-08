@@ -10,4 +10,4 @@ mutation.set_field("register", user_mutations.resolve_register)
 
 # Page Mutations
 mutation.set_field("createPage", page_mutations.resolve_create_page)
-# mutation.set_field("updatePage", page_mutations.resolve_update_page)
+mutation.set_field("updatePage", page_mutations.resolve_update_page)
