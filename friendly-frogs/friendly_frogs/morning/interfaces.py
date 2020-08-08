@@ -13,3 +13,18 @@ class NewsInterface:
 
     def __repr__(self):
         return f'<NewsInterface::Title: "{self.title}"; Description: "{self.description}">'
+
+
+class Temperature:
+    def __init__(self, celsius: float = None, fahrenheit: float = None):
+        if not celsius and not fahrenheit:
+            raise Exception
+        elif celsius:
+            self.celsius = celsius
+        elif fahrenheit:
+            self.fahrenheit = fahrenheit
+
+
+@dataclass
+class WeatherInterface:
+    temperature: Temperature
