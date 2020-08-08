@@ -1,13 +1,35 @@
+FROM i386/debian:buster AS builder
+
+RUN apt-get -y update       \
+    && apt-get install -y   \
+        gcc                 \
+        git                 \
+        libcap-dev          \
+        make                \
+        linux-headers-686   \
+        wget
+
+WORKDIR /minijail
+RUN git clone                                    \
+        --single-branch                          \
+        --depth 1                                \
+        https://github.com/google/minijail.git . \
+    && make LIBDIR=/lib64
+
+
+
 FROM i386/python:3.8-buster
 
 STOPSIGNAL SIGQUIT
 ENV PIP_NO_CACHE_DIR=false \
-    PIPENV_HIDE_EMOJIS=1 \
+    PIPENV_HIDE_EMOJIS=1   \
     PIPENV_NOSPIN=1
 
 ENTRYPOINT ["python"]
 CMD ["manage.py", "run"]
 
+COPY --from=builder /minijail/libminijail.so /minijail/libminijailpreload.so /lib64/
+COPY --from=builder /minijail/minijail0 /usr/bin/
 RUN pip install -U pipenv
 
 WORKDIR /app
