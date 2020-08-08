@@ -18,15 +18,14 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+""" urls should always end with "/", see example at https://docs.djangoproject.com/en/3.0/topics/http/urls/ """
 urlpatterns = [
-    path("stock/", include("public.urls")),
     path("admin/", admin.site.urls),
     path("", TemplateView.as_view(template_name="index.html"), name="home"),
     path("main", TemplateView.as_view(template_name="mainapp.html"), name="main"),
-    path(
-        "market", TemplateView.as_view(template_name="marketplace.html"), name="market"
-    ),
+    path("market", TemplateView.as_view(template_name="marketplace.html"), name="market"),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("stock/", include("sparrow_django.public.urls")),
 ]
 
 if "debug_toolbar" in settings.INSTALLED_APPS:
