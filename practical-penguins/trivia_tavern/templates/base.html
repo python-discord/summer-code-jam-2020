@@ -55,8 +55,8 @@
       </nav>
     </header>
     <main role="main" class="container">
-      <div class="bulletin-border">
-        <div class="col-md-8">
+      <div class="container bulletin-border">
+        <div class="col-md-12 justify-content-center">
           {% if messages %}
             {%for message in messages %}
               <div class="alert alert-{{ message.tags }}">
