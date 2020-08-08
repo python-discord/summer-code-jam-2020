@@ -39,3 +39,19 @@ class Message(models.Model):
 
     def get_absolute_url(self):
         return reverse('threads-single', kwargs={'pk': self.thread.pk})
+
+
+EVENT_TYPES = Enum(
+    ('create-message', 'CREATE'),
+    ('view-thread', 'VIEW')
+)
+
+
+class UserThreadEvent(models.Model):
+    """
+    we log an event when the user interacts with the thread,
+    whether they be viewing it or making a post
+    """
+    type = EnumField(EVENT_TYPES)  # idk, true would be create, and false would be view?
+    thread = models.ForeignKey(Thread, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(ForumUser, models.DO_NOTHING)
