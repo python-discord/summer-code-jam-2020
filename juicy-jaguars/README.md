@@ -15,20 +15,19 @@
 <h2>A web browser that runs in your browser, that processes webpages to make them reminiscent of the Web of the 80s and 90s.</h2>
 </div>
 
-## Installing
+### Installing
 
-To install and run Web95, you must have Python 3.8 installed.
+To install and run Web95, you must have Python 3.8 installed and have Pip installed and on your PATH.
 
-### On Windows:
+#### On Windows:
 `curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py && python setup.py install`
 
-If installing on Windows, your default Python version on PATH must be python3.8.
+When installing on Windows make sure that your default python version on PATH is Python 3.8.
 
-### On MacOS/Linux:
+#### On MacOS/Linux:
 `curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py; python3 setup.py install`
 
-### Manual Inspection
+#### Manual Inspection
 Feel free to check the `setup.py` script before running it, as this is always best practice.
-`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`
 
-You must already have Pip installed and on your PATH.
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`
