@@ -12,6 +12,7 @@ psycopg2-binary = "*"
 newsapi-python = "*"
 flake8 = "*"
 requests = "*"
+praw = "*"
 
 [requires]
 python_version = "3.8"
