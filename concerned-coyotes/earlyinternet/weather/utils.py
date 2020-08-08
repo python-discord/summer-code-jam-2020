@@ -21,6 +21,6 @@ def get_weather(lat: float, lon: float) -> dict:
         "sunset": datetime.fromtimestamp(
             data['sys']['sunset']),
         "sunrise": datetime.fromtimestamp(
-            data['sys']['sunset']),
+            data['sys']['sunrise']),
     }
     return result
