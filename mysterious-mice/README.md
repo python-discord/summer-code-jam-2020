@@ -13,12 +13,19 @@ In the main `mysterious-mice\` directory:
 
 ### Without Docker
 
-In the main `mysterious-mice\` directory:
-- Run `source venv\Scripts\activate` to activate the virtual environment.
+In the main `mysterious-mice\` directory, create and activate a virtual environment:
+- Windows:
+  - Run `python -m venv venv` to create the virtual environment.
+  - Run `venv\Scripts\Activate` to activate the virtual environment.
+
+- Linux / OS X:
+  - Run `python3 -m venv venv` to create the virtual environment.
+  - Run `source venv\Scripts\activate` to activate the virtual environment.
+  
 - Run `python -m pip install --upgrade pip` to ensure the latest version of pip is installed.
 - Run `python -m pip install -r requirements.txt` to install all the required packages.
 
-In the `spacebook\` subdirectory:
+In the `spacebook\` subdirectory and with the virtual environment active:
 - Run `python manage.py makemigrations`
 - Run `python manage.py migrate`
 - Run `python manage.py loaddata db.json`
@@ -27,6 +34,13 @@ In the `spacebook\` subdirectory:
 ## Updating The Database
 
 If you made changes to the database that you want to commit, run `python manage.py dumpdata > db.json` in the `spacebook\` subdirectory to create a JSON file.
+
+## Admin
+
+To access the admin site, a superuser account will be needed. Run the following command in the `spacebook\` subdirectory to create an account:
+`python manage.py createsuperuser`
+
+Then run the server and navigate to `localhost:8000/admin` and log into the newly created account.
 
 ## Sources
 
