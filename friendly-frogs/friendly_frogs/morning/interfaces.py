@@ -94,3 +94,13 @@ class WeatherInterface:
     wind_deg: Optional[int]
     time: datetime
     clouds: Optional[int]  # percent
+
+
+@dataclass
+class RedditInterface:
+    title: str
+    url: str
+    content: str
+    time_created_unix: int
+    id: str
+    subreddit: str

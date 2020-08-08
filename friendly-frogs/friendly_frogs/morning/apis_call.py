@@ -3,13 +3,17 @@ from datetime import datetime
 from typing import List
 
 import requests
+import praw
 
 from newsapi.newsapi_client import NewsApiClient
 
-from .interfaces import NewsInterface, Temperature, WeatherInterface, WindSpeed
+from .interfaces import NewsInterface, Temperature, WeatherInterface, WindSpeed, RedditInterface
 
 NEWS_SOURCES = (("bbc-news", "BBC NEWS"),)
 OWM_API_KEY = os.getenv("OWM_API_KEY") or ""
+REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
+REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
+REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
 
 class News:
@@ -65,3 +69,26 @@ def get_current_weather(city: str, country: str) -> WeatherInterface:
         clouds=clouds,
         time=dt,
     )
+
+
+def get_reddit_posts(subreddit: str, limit: int = 1):
+    reddit = praw.Reddit(client_id=REDDIT_CLIENT_ID,
+                         client_secret=REDDIT_CLIENT_SECRET,
+                         user_agent=REDDIT_USER_AGENT)
+    posts = []
+    for post in reddit.subreddit(subreddit).top('day', limit=limit):
+        if not post.selftext:
+            content = post.url
+        else:
+            content = post.selftext
+        posts.append(
+            RedditInterface(
+                title=post.title,
+                url='https://www.reddit.com'+post.permalink,
+                content=content,
+                time_created_unix=post.created_utc,
+                id=post.id,
+                subreddit=subreddit
+            )
+        )
+        return posts
