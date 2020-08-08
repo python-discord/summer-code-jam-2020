@@ -80,5 +80,17 @@ def delete_tweet(request):
 def home(request):
     return render(request, 'base.html')
 
+def login_page(request):
+    return render(request, 'login.html')
+
+def register_page(request):
+    return render(request, 'register_.html')
+
+def logout_page(request):
+    return render(request, 'logout.html')
+
+
+
+
 
 
