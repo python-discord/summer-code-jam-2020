@@ -2,6 +2,7 @@
 
 from bs4 import BeautifulSoup
 import re
+import urllib.parse
 
 
 class HtmlParser:
@@ -83,7 +84,9 @@ class HtmlParser:
                 if name in link_attrs:
                     if ":" not in val:
                         element[name] = "/page/" + \
-                          self.link_parent(self.basedir) + val
+                          urllib.parse.quote(self.link_parent(self.basedir)
+                                             + val)
+
                 elif name == "srcset":
                     values = list(map(lambda x: x.split(" "), val.split(",")))
                     values = list(map(self.remove_blanks, values))
@@ -91,8 +94,8 @@ class HtmlParser:
                     print(values)
                     for url, x in values:
                         if ":" not in url:
-                            url = self.link_parent(self.basedir)\
-                             + url
+                            url = urllib.parse.quote(
+                             self.link_parent(self.basedir) + url)
                         new_values.append([url, x])
 
                     print((",".join(list(map(lambda x: "/page/" +
