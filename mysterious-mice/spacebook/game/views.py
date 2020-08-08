@@ -14,7 +14,7 @@ class GameView(View):
         game_data = get_game(request)
         # game_data = new_game()
         command = self.request.POST.get("command")
-        if command is None and command != "":
+        if command is not None and command != "":
             game_data = parse_command(request, game_data, command)
         context = game_data
         return render(request, "game/game.html", context)
