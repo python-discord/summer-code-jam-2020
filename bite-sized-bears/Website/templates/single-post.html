@@ -3,7 +3,7 @@
 {% block content %}
   <div class="col-lg-9">
       <div class="posts">
-        <a href="community/{{post.publisher}}"><b>r/{{post.publisher}}</b></a>
+        <a href="/community/{{post.publisher}}"><b>r/{{post.publisher}}</b></a>
         <p>submitted by /u {{post.author}} on {{post.creation_date}}</p>
         <a href="#"><h3>{{post.title}}</h3></a>
         <p>{{post.description}}</p>
@@ -16,7 +16,7 @@
 
       {% for comment in comments %}
         <div class="comment">
-          <a href="#"><h5>{{comment.author}}<span style="color:grey;"> on {{comment.creation_date}}</span></h5></a>
+          <a><h5>{{comment.author}}<span style="color:grey;"> on {{comment.creation_date}}</span></h5></a>
           <p>{{comment.content}}</p>
         </div>
       {% endfor %}

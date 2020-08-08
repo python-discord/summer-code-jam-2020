@@ -35,7 +35,7 @@
         {% block content %}
         {% endblock %}
 
-    {% if request.path != '/rss/signup' and request.path != '/rss/login'%}
+    {% if request.path != '/signup' and request.path != '/login'%}
     <div class="col-sm-3 nopadding visible-lg side-bar">
          {% if user.is_authenticated %}
          <div class="login">
