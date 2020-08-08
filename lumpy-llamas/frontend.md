@@ -85,3 +85,52 @@ const routes = [
 ]
 
 ```
+
+
+# Global prompt
+
+The site uses a single prompt to aid navigation.
+Note usage of this should be optional (exception of when the user needs to type. So still use links and buttons as normal, but there should be a callback for the button itself)
+
+## Adding specific commands
+Note all commands are strings (since they come from input)
+
+```
+
+...
+methods: {
+    initFunction() {
+        this.$cmd.on('1', this.someFunction) # When user enters '1', do someFunction
+        this.$cmd.on('/giphy', this.otherFunction) # When enters '/giphy', do otherFunction
+    }
+    someFunction() {
+        //stuff
+    }
+    otherFunction() {
+       //things
+    }
+}
+...
+
+```
+
+## Asking for specific input
+
+You can ask for specific function, and then after use a callback function like so
+
+
+```
+...
+methods: {
+    askForName() {
+        this.$cmd.input('Enter name: ').then((userInput) => { // ask for user to enter something, Then do this function
+            this.greet(userInput);
+        });
+    }
+    greet(name) {
+        console.log(`Hello ${name}`);
+    }
+}
+...
+
+```
