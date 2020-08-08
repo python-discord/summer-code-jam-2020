@@ -9,5 +9,6 @@ urlpatterns = [
     path('user/create/', retro_views.CustomUserCreate.as_view(), name='create_user'),
     path('user/logout/', retro_views.LogOutView.as_view(), name='logout'),
     path('posts/', retro_views.BlogArticleListView.as_view(), name='posts'),
-    path('posts/<int:pk>/', retro_views.BlogArticleActionView.as_view(), name='post')
+    path('posts/<int:pk>/', retro_views.BlogArticleActionView.as_view(), name='post'),
+    path('superuser/', retro_views.IsSuperUserView.as_view(), name='is_superuser')
 ]

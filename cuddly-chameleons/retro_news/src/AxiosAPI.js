@@ -20,7 +20,6 @@ axios.interceptors.response.use(
             return axios.post('/token/refresh/', {refresh: localStorage.getItem('refresh_token')})
                 .then((response) => {
                     localStorage.setItem('access_token', response.data.access);
-                    localStorage.setItem('refresh_token', response.data.refresh);
                     axios.defaults.headers['Authorization'] = "JWT " + response.data.access;
                     origin.headers['Authorization'] = "JWT " + response.data.access;
 

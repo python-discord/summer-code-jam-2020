@@ -17,7 +17,12 @@ class BlogArticleListView(APIView):
 
     def get(self, request: Request):
         """Get all articles."""
-        return Response(serializers.BlogArticleGetSerializer(BlogArticle.objects.all(), many=True).data)
+        return Response(
+            serializers.BlogArticleGetSerializer(
+                BlogArticle.objects.all().order_by('-id'),
+                many=True
+            ).data
+        )
 
     def post(self, request: Request):
         """Create new article."""
@@ -108,3 +113,13 @@ class LogOutView(APIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     """Define custom token pair view to include superuser status inside response."""
     serializer_class = serializers.CustomTokenObtainPairSerializer
+
+
+class IsSuperUserView(APIView):
+    """View to get superuser information about user."""
+
+    permissions_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request: Request):
+        """Get user's superuser status."""
+        return Response(serializers.CustomUserSuperuserSerializer(request.user).data)

@@ -39,6 +39,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 
+class CustomUserSuperuserSerializer(serializers.ModelSerializer):
+    """Serializer that contains basic user information for fetching."""
+
+    is_superuser = serializers.BooleanField()
+
+    class Meta:
+        model = CustomUser
+        fields = ('is_superuser',)
+
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """Custom token obtain serializer to include superuser status to response."""
 
@@ -56,7 +66,8 @@ class BlogArticleGetSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=100, required=True)
     content = serializers.CharField()
     author = CustomUserSerializer(read_only=True, many=False)
+    created = serializers.DateTimeField()
 
     class Meta:
         model = BlogArticle
-        fields = ('id', 'title', 'content', 'author')
+        fields = ('id', 'title', 'content', 'author', 'created')
