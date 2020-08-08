@@ -86,7 +86,7 @@ def parse_render_request(request, project_name=None):
 
 def parse_image_request(request, project_name=None) -> HttpResponse:
     """ receives GET request with url with <project_name>,
-    sends a JSON of ["data": <ordered list of images as bytes>]"""
+    sends a JSON of ["data": <ordered list of images>]"""
 
     def encode_serializable_img(image) -> str:
         """encode image as base64 and remove the beginning 'b'"""
