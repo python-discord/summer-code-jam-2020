@@ -1,5 +1,5 @@
 .text-area{
-        height=100%;
+        height:100%;
         display: flex;
         justify-content: center;
         outline: 10px ;
