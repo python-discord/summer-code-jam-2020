@@ -7,8 +7,8 @@ from .views import IndexListView, PostView, LoginView, logout_request, SignupVie
 urlpatterns = [
     path('', IndexListView.as_view()),
     path('rss/feed/community/<str:username>', LatestEntriesFeed()),
-    path('community/<str:community_name>/<int:post_id>/', PostView.as_view()),
-    path('community/<str:community_name>/', CommunityView.as_view()),
+    re_path(r'^community/(?P<community_name>[\w+-_])/(?P<post_id>[0-9])', PostView.as_view()),
+    re_path(r'^community/(?P<community_name>\w+)', CommunityView.as_view()),
     url(r'^login', LoginView.as_view(), name="login"),
     url(r'^logout', logout_request, name="logout"),
     url(r'^signup', SignupView.as_view(), name="signup"),
