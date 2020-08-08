@@ -7,18 +7,19 @@
     {% csrf_token %}
 
     {% for item in form %}
-    <div>
-    <p><label style="font-size: large; font-weight: bold;">{{item.label}}</label><h1 class="resizedTextbox">{{item}}</h1></p>
-    </div>
-    {% endfor %}			
-	<input class="buttonmatch" type="submit" name="login" value="login">					
+    <p>
+        <label style="font-size: large; font-weight: bold; text-align: right">{{item.label}}</label>
+         {{item}}
+        </p>
+    {% endfor %}
+	<input style="margin-left: 256px" class="buttonmatch" type="submit" name="login" value="login">
 </form>
 					
 {% for message in messages %}
     <p id="messages">{{message}}</p>
 {% endfor %}
 <br>							
-    <div style="font-size:large; font-weight: bold;">
+    <p style="font-size:large; font-weight: bold;">
     Don't have an account? <a href="{% url 'earlydating-register' %}">Sign Up</a>
-</div>
+</p>
 {% endblock %}

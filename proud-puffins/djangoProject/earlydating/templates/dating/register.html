@@ -4,16 +4,18 @@
 {% block content %}
 <div class="UserSign">
 
-    <form method="POST" action=""><h1>Register for an Account</h1>
+    <form method="POST" action="">
+        <h1>Register for an Account</h1>
         {% csrf_token %}
     <div class="block"></div>
         {% for item in form %}
         
-            <p><label style="font-size:large; font-weight:bold">{{ item.label }}</label> <h1 class="resizedTextbox">{{ item }}</h1></p>
+            <p><label style="font-size:large; font-weight:bold; text-align: right">{{ item.label }}</label>
+            {{ item }}</p>
         
         {% endfor %}
     </div>
-        <input class="buttonmatch" type="submit" name="Sign Up" value="Sign Up">
+        <input style="margin-left: 256px" class="buttonmatch" type="submit" name="Sign Up" value="Sign Up">
      </form>
     <div style="font-size: large; font-weight: bold;">
         Already have an account? <a href="{% url 'earlydating-login' %}">Login</a>
