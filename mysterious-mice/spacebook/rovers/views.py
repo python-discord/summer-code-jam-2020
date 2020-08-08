@@ -9,9 +9,8 @@ class RoverProfileView(DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
 
+    # add the most recent 8 images that this rover has posted to the context
     def get_context_data(self, **kwargs):
-        # rover = self.request.rover
-        # return ImagePost.objects.filter(rover=rover)
         context = super(RoverProfileView, self).get_context_data(**kwargs)
         context["images"] = ImagePost.objects.filter(rover=context["rover"]).order_by(
             "-date"

@@ -14,7 +14,7 @@
         <div class="header-div full-width"><table class="header-table nav nav-table"><tbody>
             <tr>
                 <td class="nav nav-logo"><a href="{% url 'posts-home' %}">
-                    <img src="{% static 'images/spacebook-logo2.png' %}" class="logo" alt="Spacebook"></a>
+                    <img src="{% static 'images/spacebook-logo.png' %}" class="logo" alt="Spacebook"></a>
                 </td>
                 <td style="vertical-align: middle; padding-left: 10px;">
                     <marquee>The first social media site on Mars!</marquee>
@@ -43,8 +43,5 @@
         <!-- End Navigation -->
         <br>
         {% block body %}{% endblock %}
-        <!--
-        {% block footer %}{% endblock %}
-        -->
     </body>
 </html>

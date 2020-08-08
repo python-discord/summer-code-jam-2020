@@ -4,9 +4,6 @@
 
 {% block body %}
 
-
-
-
 <div class="header-div full-width">
 
 <h2> Guestbook</h2>
@@ -23,21 +20,8 @@
         <p>published: {{ comment.published_date }}</p>
         <p>{{ comment.text|linebreaksbr }}</p>
         <hr noshade>
-    
+
 {% endfor %}
 </div>
 
-
-<!-- </body>
-</html> -->
-
-<!--
-
-<input type=hidden name=fields value="Name,Email,Comments">
-Name: <input type=text name=Name><br>
-Email Address: <input type=text name=Email><br>
-Comments: <br><textarea name=Comments rows=5 cols=60>
-</textarea><br>
-
--->
 {% endblock %}

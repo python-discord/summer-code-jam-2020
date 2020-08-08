@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.views.generic import View
 from .services import get_current_weather, get_week_weather
 
-# Create your views here.
-
 
 class CurrentWeatherView(View):
     """
