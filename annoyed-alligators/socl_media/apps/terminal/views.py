@@ -15,7 +15,7 @@ def run_terminal_command(request):
         response = "No command was specified"
         status = 400
     else:
-        run_command = TerminalCommand(command)
+        run_command = TerminalCommand(command, request)
         result = run_command.run(**request.headers)
         status = 200
         response = HttpResponse(result['response'], status=status)

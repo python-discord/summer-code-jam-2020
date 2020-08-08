@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<img src="{{ user.profile.image.url }}">
-<p>{{ user.username }}</p>
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Profile Info</legend>
-      {{ u_form }}
-      {{ p_form }}
-  </fieldset>
-  <div class="form-group">
-      <button class="btn btn-outline-info" type="submit">Update</button>
-  </div>
-</form>
+<img src="{{ of_user.profile.image.url }}">
+<h3>{{ of_user.username }}</h3>
+<p>Birthday: {{ of_user.profile.date_of_birth|date:"d F" }}</p>
+<p>Gender: {{ of_user.profile.gender}}</p>
+<p>{{ of_user.profile.bio }}</p>
+
+{% if of_user.username == user.username %}
+<button><a href="{% url 'profile_edit' %}">Update Info</a></button>
+{% endif %}
 {% endblock content %}

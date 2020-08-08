@@ -23,12 +23,12 @@ class TerminalCommand():
             response = {'response': f"{self.specified_method}: command not found"}
         return response
 
-    def logout(self, params=None):
+    def logout(self, params=None, **kwargs):
         redirect = reverse('logout')
         message = f"Logged out {self.request.user.username}"
         return {'response': message, 'redirect': redirect}
 
-    def signup(self, params=None):
+    def signup(self, params=None, **kwargs):
         if self.request.user.is_authenticated:
             message = "Log out to create a new account"
             return {'response': message}

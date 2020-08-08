@@ -35,7 +35,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('terminal/', include('socl_media.apps.terminal.urls')),
     path('message-box/', ChatListView.as_view(), name='message-box'),
-    path('profile/', users_views.profile, name='profile')
+    path('profile/<str:username>/', users_views.profile.as_view(), name='profile'),
+    path('profile/edit', users_views.profile_edit, name='profile_edit')
 ]
 
 if settings.DEBUG:
