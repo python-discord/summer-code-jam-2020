@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useHistory} from 'react-router-dom';
 import { Container, Button } from 'nes-react';
 import { Row, Col } from 'react-bootstrap';
 
 import axios from "../AxiosAPI";
 
 function ViewPost(props) {
+     const history = useHistory();
      const [data, setData] = useState({title: "", content: "", author: {username: "", email: ""}});
      const [notFound, setNotFound] = useState(false);
      const [superuser, setSuperuser] = useState(false);
@@ -40,6 +41,16 @@ function ViewPost(props) {
           )
      }
 
+     const deleteAction = async (event) => {
+          event.preventDefault();
+          try {
+               await axios.delete('/posts/' + id + "/");
+               history.push('/');
+          } catch (e) {
+               console.error(e);
+          }
+     };
+
      return (
          <Container title={data.title}>
               <Row>
@@ -52,7 +63,7 @@ function ViewPost(props) {
                              <br />
                              Created: {data.created}
                              <br />
-                             {superuser && props.status ? <Link to={`/posts/edit/${id}`}><Button type="button">Edit</Button></Link> : ""}
+                             {superuser && props.status ? <div><Link to={`/posts/edit/${id}`} className="px-2"><Button type="button">Edit</Button></Link><Button onClick={deleteAction} className="px-2">Delete</Button></div> : ""}
                         </Container>
                    </Col>
               </Row>
