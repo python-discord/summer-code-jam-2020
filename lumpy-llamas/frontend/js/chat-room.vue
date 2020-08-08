@@ -1,44 +1,79 @@
 <template>
   <div>
     <div>
-      <div v-for="message in messages">
-        <span>{{ message }}</span>
-      </div><br>
-      <input id="chat-message-input" v-model="msg" type="text" size="100"><br>
-      <button id="chat-message-submit" @click="sendMessage">Send message</button> 
+      <div>
+        <div class="chat-log">
+          <div v-for="message in messages">
+            <span>{{ message }}</span>
+          </div>
+        </div>
+        <div class="instructions">
+          <p>To send a message, type it out and hit "Enter"</p><br>
+          <p>To exit a chat, send "/exit"</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
+<style>
+.chat-log {
+  height: 80vh;
+  overflow-y: scroll;
+}
+.instructions {
+  bottom: 0;
+  display: grid; 
+  width: 100%; 
+  text-align: center;
+  color:deeppink;
+}
+</style>
 
 <script>
 export default {
   data() {
     return {
       socket: undefined,
-      messages: [],
-      msg: ''
+      messages: []
     }
   },
   beforeMount() {
     this.initSockets();
   },
+  mounted () {
+    this.inputMessage()
+  },
   methods: {
     handleNewMessage(ev) {
-      var new_msg = JSON.parse(ev.data);
-      this.messages.push(new_msg.message);
+      var data = JSON.parse(ev.data);
+      this.messages.push(data.message);
     },
     sendMessage(msg) {
       if (msg) {
+        var now = new Date()
+
         this.socket.send(JSON.stringify({
-          message: this.msg,
+          message: msg,
+          datetime: now.toISOString()
         }));
-        this.msg = '';
       };  
     },
     initSockets() {
       const socketUrl = `ws://${window.location.host}/ws/chat/room/${this.$route.params.roomId}/`
       this.socket = new WebSocket(socketUrl);
       this.socket.onmessage = this.handleNewMessage;
+    },
+    inputMessage() {
+      this.$cmd.input('>>> ').then((msg) => { // ask for input
+        this.$cmd.reset(); // clear message box
+        if (msg === '/exit') {
+            this.$router.push('/chat') // check if command is exit, if so, leave
+        } else {
+            this.sendMessage(msg); // send the message to django
+            this.inputMessage(); // repeat listening
+        }
+      });
     }
   }
 }
