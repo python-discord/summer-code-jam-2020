@@ -1,3 +1,5 @@
+from typing import Tuple, List, Optional
+
 from django.db import models
 from trivia_runner.models import Player
 
@@ -10,13 +12,13 @@ class ScoreTracker(models.Model):
     answered_this_round = models.BooleanField(default=False)
 
     @staticmethod
-    def get_score_list(session_code):
+    def get_score_list(session_code: int) -> List[Optional[Tuple[str, int]]]:
         """get_score_list is a class method that returns all players and their score_list
         for the specified session"""
         return [(x.player_phone, x.points) for x in ScoreTracker.objects.filter(session_code=session_code)]
 
     @staticmethod
-    def get_team_score_list(session_code):
+    def get_team_score_list(session_code: int) -> List[Optional[Tuple[str, int]]]:
         """As above, but for each team"""
         # First get all possible team names
         team_names = [t.team_name for t in Player.objects.all()]
@@ -30,8 +32,12 @@ class ScoreTracker(models.Model):
         return team_scores
 
     @staticmethod
-    def winner(session_code, score_list):
+    def winner(score_list: List[Optional[Tuple[str, int]]]) -> Optional[str]:
         """winner is a class method that returns the winning player
         for the specified session, 'score_list' should be the output
         of one of the above two functions"""
-        return max(score_list, key=lambda x:x[1])[0]
+        sorted_score_list = sorted(score_list, key=lambda x: x[1], reverse=True)
+        if len(sorted_score_list) > 0:
+            return sorted_score_list[0][0]
+        else:
+            return None

@@ -40,7 +40,10 @@ def end_screen(request, active_trivia_quiz):
     question_set = TriviaQuestion.objects.filter(quiz=active_trivia_quiz.trivia_quiz)
 
     score_list = ScoreTracker.get_team_score_list(active_trivia_quiz.session_code)
-    winner = ScoreTracker.winner(active_trivia_quiz.session_code, score_list)
+    winner = ScoreTracker.winner(score_list)
+    if winner is None:
+        winner = "No one participated :("
+
     tally_results = {'winner': winner,
                      'score_list': score_list}
     # release players here
