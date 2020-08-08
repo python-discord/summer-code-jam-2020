@@ -24,6 +24,8 @@ services:
     depends_on:
       - postgres
     tty: true
+    cap_add:
+      - SYS_ADMIN
     environment:
       DEBUG: "${DEBUG-}"
       SMTP_PASS : "${STMP_PASS-}"

@@ -69,6 +69,7 @@ class VMCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form: Form) -> object:
         form.instance.user = self.request.user
+        form.instance.pk = 1260
         return super().form_valid(form)
 
 
