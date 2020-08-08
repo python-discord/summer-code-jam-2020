@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -24,6 +26,9 @@ SECRET_KEY = '@(minjyv&6e=0oxt^#p95sfuew#mtn+c)=vy0yp0jw-zbykcqf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+# Allow for checking if tests are running
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 ALLOWED_HOSTS = []
 
@@ -38,7 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wikipedia.apps.WikipediaConfig'
+    'django_q',
+    # Modules
+    'widget_tweaks',
+    # Apps
+    'news.apps.NewsConfig',
+    'wikipedia.apps.WikipediaConfig',
+    'account',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -101,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -120,3 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Django_Q config
+Q_CLUSTER = {
+    "name": "ScheduledTasks",
+    "orm": "default",  # Use Django's ORM + database for broker
+}
+# Authentication
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/account/login"
+LOGOUT_REDIRECT_URL = "/account/login"

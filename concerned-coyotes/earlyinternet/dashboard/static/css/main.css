@@ -1,0 +1,39 @@
+html, body {
+  margin: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+  height: 100%;
+}
+
+body {
+  background: black;
+  padding: 1rem 10rem;
+  height: max-content;
+}
+
+.background {
+  background-image: url("/static/assets/images/background.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: fixed;
+  z-index: -1;
+  inset: 0px 0px 0px 0px;
+}
+
+main {
+  height: inherit;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: inherit;
+}
+
+.rainbow-text {
+  background-image: linear-gradient(to left, violet, indigo, DodgerBlue, green, yellow, orange, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
