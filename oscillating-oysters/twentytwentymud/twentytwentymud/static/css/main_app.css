@@ -5,7 +5,7 @@
 
 body {
     background-color: #3F3F3F;
-    background-image: linear-gradient(rgb(56, 49, 49), rgb(0, 0, 0));
+    background-image: linear-gradient(rgb(44, 39, 39), rgb(0, 0, 0));
     height: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -24,6 +24,11 @@ h1{
     color: white;
     margin: auto;
     font-family: "Space Mono", monospace; 
+}
+
+.container form p{
+    display: block;
+    text-align: left;
 }
 
 .container p{
@@ -45,6 +50,39 @@ h1{
     color: black;
     border-width: 5px;  
     border-style: outset;
+    margin-bottom: 10px;
+}
+
+
+
+.pull-right{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pull-left{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-logout{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    background-color: grey;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    border-width: 5px;  
+    border-style: outset;
+}
+
+button :hover{
+    color: white;
 }
 
 .btn a{
