@@ -38,6 +38,7 @@ def main():
                 attempts += 1
 
         django.setup()
+        call_command("makemigrations")
         call_command("migrate")
 
         name = os.getenv('ADMIN_USERNAME')

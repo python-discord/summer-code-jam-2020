@@ -2,7 +2,19 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from retro_news.models import CustomUser
+from retro_news.models import CustomUser, BlogArticle
+
+
+class BlogArticleSerializer(serializers.ModelSerializer):
+    """Serializer for BlogArticle objects."""
+
+    title = serializers.CharField(max_length=100, required=True)
+    content = serializers.CharField()
+    author = serializers.PrimaryKeyRelatedField(read_only=True, many=False)
+
+    class Meta:
+        model = BlogArticle
+        fields = ('title', 'author', 'content')
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -35,3 +47,16 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         data['superuser'] = self.user.is_superuser
         return data
+
+
+class BlogArticleGetSerializer(serializers.ModelSerializer):
+    """Serializer for BlogArticle objects getting."""
+
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(max_length=100, required=True)
+    content = serializers.CharField()
+    author = CustomUserSerializer(read_only=True, many=False)
+
+    class Meta:
+        model = BlogArticle
+        fields = ('id', 'title', 'content', 'author')
