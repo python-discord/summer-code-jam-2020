@@ -7,10 +7,6 @@ verify_ssl = true
 
 [packages]
 django = "*"
-django-chatbot = "*"
-chatbotai = "*"
-pytest = "*"
-pytest-django = "*"
 
 [requires]
 python_version = "3.8"

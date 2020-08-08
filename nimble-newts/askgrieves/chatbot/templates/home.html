@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load message_filter %}
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}" type="text/css" />
+    <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<div id="myProgress">
+    <div id="myBar"></div>
+</div>
+<br>
+<button onclick="progress_bar()">Click Me</button>
+<div id='bodybox'>
+
+  <div id='chatborder'>
+    <p id="chatlog7" class="chatlog">&nbsp;</p>
+    <p id="chatlog6" class="chatlog">&nbsp;</p>
+    <p id="chatlog5" class="chatlog">&nbsp;</p>
+    <p id="chatlog4" class="chatlog">&nbsp;</p>
+    <p id="chatlog3" class="chatlog">&nbsp;</p>
+    <p id="chatlog2" class="chatlog">&nbsp;</p>
+    <p id="chatlog1" class="chatlog">&nbsp;</p>
+    <input type="text" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
+  </div>
+</div>
+
+</body>
+</html>
