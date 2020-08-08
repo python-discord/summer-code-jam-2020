@@ -1,0 +1,101 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+
+{% block herocontent %}
+    <div class="hero-head">
+        <div class="container is-fluid">
+            {% if user.is_authenticated %}
+                <h1 class="is-size-1 has-text-weight-semibold">Hello, 
+                {% if pref.name_preference %}
+                    {{ pref.name_preference }}
+                {% else %}
+                    {{ user.username }}
+                {% endif %}
+                </h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid dash">  
+            <div class="columns dash-xl">
+                <div class="column">
+                    <div class="box is-transparent">
+                        <h2 class="title">Morning News</h2>
+                        <article class="media notification">
+                            <div class="media-content">
+                                <div class="content">
+                                    <h3 class="title">Article 1</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed posuere ante, a egestas erat. Vivamus pulvinar pharetra nibh ut aliquet. Curabitur ut semper ligula. Mauris gravida nulla non ante imperdiet, et dignissim ante tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eget consequat metus. Morbi consequat velit et velit maximus, posuere blandit enim convallis. Phasellus imperdiet faucibus semper. Nullam euismod quam non enim aliquam aliquet. Nullam molestie faucibus leo, eu commodo sapien luctus interdum. Vivamus varius eget est sit amet auctor. Quisque dapibus erat purus, ut rutrum justo tempor rhoncus. Nam aliquet neque vel sollicitudin mattis. </p>
+                                </div>
+                            </div>
+                        </article>
+                    
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box is-transparent">
+                        <h2 class="title">To Do</h2>
+                        <article class="media notification">
+                            <div class="media-content">
+                                <div class="content">
+                                    <h3>Journal Entry 1</h3>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="media notification">
+                            <div class="media-content">
+                                <div class="content">
+                                    <h3>Journal Entry 2</h3>
+                                </div>
+                            </div>
+                        </article>
+                        <button class="button is-link" id="journal-btn">Add a Journal Entry</button>
+                        <div class="modal" id="journal-modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">My Journal</p>
+                                    <button class="delete" aria-label="close" id="close-x"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <!-- Content ... -->
+                                    INSERT DIARY FIELD HERE
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button class="button is-success">Save Entry</button>
+                                    <button class="button" id="cancel-btn">Cancel</button>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box is-transparent">
+                        <h2 class="title">Word Cloud</h2>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box is-transparent">
+                        <h2 class="title">Weather</h2>
+                    </div>
+                    <div class="box is-transparent">
+                        <h2 class="title">Links</h2>
+                        <article class="media notification">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>Link 1</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="media notification">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>Link 2</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock herocontent %}
+
