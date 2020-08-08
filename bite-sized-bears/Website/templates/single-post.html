@@ -9,10 +9,18 @@
         <p>{{post.description}}</p>
       </div>
 
-      <form action="comment" method="POST">{% csrf_token %}
-        <input id="content" type="text" name="content" placeholder="Type comment" autocomplete="off">
-        <input type="submit" value="Add comment">
-      </form>
+      {% if user.is_authenticated %}
+          <form action="comment" method="POST">{% csrf_token %}
+            <input id="content" type="text" name="content" placeholder="Type comment" autocomplete="off">
+            <input type="submit" value="Add comment">
+          </form>
+      {% else %}
+          <form action="/login" method="post">{% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input id="fail" type="text" name="content" placeholder="Login first" autocomplete="off" disabled>
+            <input type="submit" value="Press to login/sign up">
+          </form>
+      {% endif %}
 
       {% for comment in comments %}
         <div class="comment">
