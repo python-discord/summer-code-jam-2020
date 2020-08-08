@@ -9,24 +9,16 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 .cursor {
-    width: 20px;
+    width:20px;
     height:20px;
     border: 8px solid #37E5E8;
-    border-radius: 50%;
+    border-radius: 100%;
     position: absolute;
     transition-duration: 200ms;
     transition-timing-function: ease-out;
     animation: cursorAnim .5s infinite alternate;
 }
-.cursor::after {
-    content: "";
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    border: 8px solid #37E5E8;
-    border-radius: 50%;
-    
-}
+
 
 @keyframes cursorAnim {
  from{
