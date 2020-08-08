@@ -80,13 +80,6 @@ class CommunityView(View):
         self.context['posts'] = self.context['community'].post_publisher.all()
         return render(request, self.template_name, self.context)
 
-def add_comment(request, community_name, post_id):
-    author = User.objects.get(name=request.user.get_username())
-    post = Post.objects.get(id = post_id)
-    content = request.POST['content']
-    Comments.objects.create(content = content, author = author, post = post)
-
-    return redirect(f'/community/{community_name}/{post_id}')
 
 class UserView(View):
     template_name = 'user-posts.html'
@@ -99,23 +92,13 @@ class UserView(View):
             .annotate(v_count = Count('views')).order_by('-v_count')
         return render(request, self.template_name, self.context)
 
-class TopCommunityView(View):
+
+class CommunityListView(ListView):
     template_name = 'top-community.html'
-    model = Community
-    context = {}
-
-    def get(self, request):
-        self.context['communities'] = self.model.objects.all()\
-            .annotate(s_count=Count('subscribers')).order_by('-s_count')[:50]
-        return render(request, self.template_name, self.context)
-
-
-class CommunitiesListView(ListView):
-    template_engine = 'top-community.html'
     paginate_by = 25
     queryset = Community.objects.all().annotate(
         s_count=Count('subscribers')
-    ).order_by('-s_count')[:50]
+    ).order_by('-s_count')[:100]
 
 
 class UserProfileUpdate(UpdateView):
@@ -127,3 +110,12 @@ class UserProfileUpdate(UpdateView):
 def logout_request(request):
     auth.logout(request)
     return redirect('/')
+
+
+def add_comment(request, community_name, post_id):
+    author = User.objects.get(name=request.user.get_username())
+    post = Post.objects.get(id = post_id)
+    content = request.POST['content']
+    Comments.objects.create(content = content, author = author, post = post)
+
+    return redirect(f'/community/{community_name}/{post_id}')
