@@ -24,13 +24,13 @@
 
 <!-- The dots/circles -->
 <div style="text-align:center">
-    <a class="btn btn-primary" href="{% url 'earlydating-bothlikes' %}">View matches</a>
+    <a href="{% url 'earlydating-bothlikes' %}"><button class="button-sm">View matches</button></a>
  <form action="{% url 'earlydating-DateMatcher' %}" method='POST'>
     {% csrf_token %}
     <button class="buttonmatch" type="submit" name="Like" value="{{current.pk}}">Like</button>
     <button class="buttonmatch" type="submit" name="Unlike" value="{{current.pk}}">Unlike</button>
     </form>
-    <a class="btn btn-primary" href="{% url 'earlydating-DateMatcher' %}">Next Profile</a>
+    <a href="{% url 'earlydating-DateMatcher' %}"><button class="btn-sm">Next Profile</button></a>
 </div>
 
 
