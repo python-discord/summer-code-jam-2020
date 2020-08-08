@@ -39,7 +39,6 @@ def resolve_page(*_, id):
 
 @query.field("userOwnSites")
 def resolve_user_own_sites(root, info):
-    request = info.context["request"]
     user = load_user(info)
     if not user.is_authenticated:
         raise Exception("You can't do that!")

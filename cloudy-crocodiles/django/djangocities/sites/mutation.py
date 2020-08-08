@@ -7,7 +7,6 @@ from djangocities.sites.models import Site
 
 
 def resolve_create_site(_, info, data):
-    request = info.context["request"]
     user = load_user(info)
     if not user.is_authenticated:
         raise Exception("You can't do that!")
@@ -34,7 +33,6 @@ def resolve_create_site(_, info, data):
 
 
 def resolve_update_site(_, info, site_id, data):
-    request = info.context["request"]
     user = load_user(info)
     if not user.is_authenticated:
         raise Exception("You can't do that!")

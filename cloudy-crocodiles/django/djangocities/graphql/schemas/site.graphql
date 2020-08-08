@@ -4,6 +4,8 @@ type Site {
   user: User!
   address: Int!
   description: String!
+  pages: [Page!]
+  default_page: String
 }
 
 input SiteInput {
