@@ -1,7 +1,6 @@
 from asgiref.sync import async_to_sync
 from game.models import Player, Location
 
-
 class Engine():
     def __init__(self, consumer):
         self.consumer = consumer
@@ -32,20 +31,20 @@ class Engine():
         self.__send(
             'message_to_self',
             f"{self.user} thinks: {thought_content}",
-            sender_channel_name = self.consumer.channel_name,
-            )
+            sender_channel_name=self.consumer.channel_name,
+        )
 
     def look(self, *look_arg):
         if look_arg:
             parsed_look_arg = look_arg[0].split()
             if len(parsed_look_arg) == 1:
                 look_target = parsed_look_arg[0]
-                # check if look_target is a player, item, monster, etc
+                # todo: check if look_target is a player, item, monster, etc
                 return f"You are looking at: {look_target}"
             else:
-                return f"'look' command only takes 1 argument. Please type 'look <target>'"
+                return "'look' command only takes 1 argument. Please type 'look <target>'"
         else:
-            #look at place
+            # todo: look at place
             location_to_look = self.player.location
             players_at_location = Player.objects.filter(location=location_to_look)
             return f"You see:\n {location_to_look.description} \n {players_at_location}"
@@ -56,11 +55,11 @@ class Engine():
     def say(self, say_content=None):
         if say_content is None:
             return "What exactly do you want to say?"
-        
+
         self.__send(
             'same_location_message',
             f"{self.user} says: {say_content}",
-            location = f"{self.player.location}"
+            location=f"{self.player.location}"
         )
 
     def start(self):
@@ -73,7 +72,7 @@ class Engine():
         else:
             return "This is no longer a valid command"
 
-    def __move(self, direction):        # starswith '_' to make some checks
+    def __move(self, direction):        #  starswith '_' to make some checks
         dest_x = self.player.location.x_coord
         dest_y = self.player.location.y_coord
         dest_z = self.player.location.z_coord
@@ -103,14 +102,14 @@ class Engine():
             self.__send(
                 'same_location_message', # não precisa ser not_me
                 f"{self.user} left the area",
-                location = f"{self.player.location}",
+                location=f"{self.player.location}",
             )
             self.player.move_to(dest_location)
             self.__send(
                 'same_location_message_not_me',
                 f"{self.user} just arrived",
-                location = f"{self.player.location}",
-                sender_channel_name = self.consumer.channel_name,
+                location=f"{self.player.location}",
+                sender_channel_name=self.consumer.channel_name,
             )
         except Location.DoesNotExist:
             return False
@@ -153,7 +152,7 @@ class Engine():
         else:
             return "You can't go down from here"
 
-## shortcuts ##
+# Shortcuts to move methods
 
     n = north
     s = south
@@ -174,16 +173,16 @@ class Engine():
         if command_to_help is None:
             message = "This is the list of all commands available in this server:"
             for func in methods_list:
-                message = message + f"\n{func!r}"
+                message = f"{message} \n{func!r}"
             return message
         else:
+            if command_to_help.split
             if command_to_help in methods_list:
                 help_text = getattr(Engine, command_to_help).__doc__
                 return f"This is the 'help' for {command_to_help!r}: {help_text}"
             else:
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
-#        else:
-#            return "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
+        # todo: validation for "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
 
     def __send(self, type, message, **kwargs):
         sending_event = {
