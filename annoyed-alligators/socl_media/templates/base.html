@@ -8,6 +8,7 @@
 
     <meta charset="utf-8">
     <title>SoCL Media</title>
+    <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 	</head>
 
 	<body>
@@ -56,7 +57,7 @@
 						previous_commands: [],
 						current_command_num: 0,
 						response: '',
-						prompt: '$',
+            prompt: '{{ request.path }}:$',
 						followup_count: 0,
 					},
 
@@ -83,10 +84,11 @@
             run_command: function() {
               if(this.command == 'cls' || this.command == 'clear'){
                 this.response = ''
-                this.prompt = "$"
+                this.prompt = "{{ request.path }}:$"
                 this.followup_count = 0
               } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
-                this.prompt = "$"
+                this.prompt = "{{ request.path }}:$"
+
               } else {
                 var header = {dummy: 0}
                 if (this.prompt == "..."){
@@ -97,7 +99,6 @@
                     header = {article: this.command}
                   }
                   var cur_command = this.previous_commands[0] 
-                  {% comment %} `${this.previous_commands[0]}~${this.command} ${this.followup_count}` {% endcomment %}
                 } else {
                   var cur_command = this.command
                 }
@@ -106,7 +107,7 @@
                     if(res.headers.followup == "True"){
                       this.prompt = "..."
                     } else {
-                      this.prompt = "$"
+                      this.prompt = "{{ request.path }}:$"
                       this.followup_count = 0
                     }
                     if (res.headers.redirect) { this.redirect(res.headers.redirect) }
@@ -120,7 +121,8 @@
             },
 
             reset_prompt: function(){
-              this.prompt = '$'
+              this.prompt = "{{ request.path }}:$"
+
               this.followup_count = 0
               this.command = ''
             }
@@ -155,6 +157,7 @@
 	#terminal-output{
 		overflow-y: auto;
 		max-height: 16vh;
+    padding: 15px 0;
 		padding-right: 17px; 
 		box-sizing: content-box;
 		scrollbar-width: none;
@@ -167,13 +170,13 @@
 		color: #1fffff;
 		font: 1rem Inconsolate, monospace;
 		border: 0px;
-		width: 90%;
+		width: 70%;
 	}
 	input:focus, textarea:focus, select:focus{
 		outline: none;
 	}
 	#prompt {
-		color: #7efaff;
+		color: #fde2e2;
 	}
 </style>
 
