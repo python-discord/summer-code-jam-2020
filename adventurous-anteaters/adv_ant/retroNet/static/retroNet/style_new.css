@@ -15,6 +15,19 @@
         border-width: 3px;
         border-left: 1px solid #ccc;
         }
+        ul,ul li{
+        display: block;
+        margin-right: 8px;
+        display:list-item;
+        }
+    span{
+    display: inline-block;
+    border-style: inset;
+    border-width: 3px;
+    border-left: 1px solid #ccc;
+    margin-right: 20;
+    padding-left: 30px;
+    }
 /* Styles for the File Menu Bar. */
 
 .select-editable {position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px;}
@@ -838,3 +851,4 @@ summary:focus {
   width: 16px;
   background-image: svg-load("./icon/button-right.svg");
 }
+

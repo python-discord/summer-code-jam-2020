@@ -1,50 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="window-body"
-    style="background-color: #dfdfdf; height: 100%;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;">
+<div class="window-body" style="background-color: #dfdfdf; height: 100%;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;">
     <div class="text-area">
         <form action="/action_page.php">
-            <div class="container-window">
-                <p style="font-size: 30px;"><b>Register</b>
-                    <br>
-                    <hr
-                        style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
-                    <br>
-                    <span class="vertical-line">
-                        <p><b>Please fill in this form to create an account.</b></p>
-                        <br><br>
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" size="30" placeholder="Enter Username" name="Username" id="username"
-                            required><br>
-                        <br>
-                        <label for="psw"><b>Password</b></label>
-                        <input type="password" size="30" placeholder="Enter Password" name="psw" id="psw" required>
-                        <br>
-                        <br>
+  <div class="container-window" >
+      <br><br>
+    <p style="font-size: 30px;padding-left: 30px;"><b>Register</b>
+      <br>
+      <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
+    <br>
+      <span>
+          <br><br>
+      <p><b>Please fill in this form to create an account.</b></p>
+    <br><br>
+    <label for="username"><b>Username</b></label>
+    <input type="text" size="30" placeholder="Enter Username" name="Username" id="username" required><br>
+    <br>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" size="30" placeholder="Enter Password" name="psw" id="psw" required>
+    <br>
+    <br>
 
-                        <label for="psw-confirmation"><b>Password Confirmation</b></label>
-                        <input type="password" size="30" placeholder="Password Confirmation" name="psw-confirmation"
-                            id="psw-confirmation" required>
-                        <br>
-                        <br>
-                        <ul type="square">
-                            <li>
-                                Your password can’t be too similar to your other personal information.
-                            </li>
-                            <li>Your password must contain at least 8 characters.</li>
-                            <li>Your password can’t be a commonly used password.</li>
-                            <li>Your password can’t be entirely numeric.</li>
-                        </ul>
-                        <br><br>
-                        <button type="submit" class="registerbtn">Register</button>
+    <label for="psw-confirmation"><b>Password Confirmation</b></label>
+    <input type="password" size="30" placeholder="Password Confirmation" name="psw-confirmation" id="psw-confirmation" required>
+    <br>
+    <br>
+          <ul type="square">
+       <li>
+          Your password can’t be too similar to your other personal information.
+       </li>
+        <li>Your password must contain at least 8 characters.</li>
+        <li>Your password can’t be a commonly used password.</li>
+        <li>Your password can’t be entirely numeric.</li>
+    </ul>
+          <br><br>
+    <button type="submit" class="registerbtn">Register</button>
 
-                        <div class="container signin">
-                            <p>Already have an account? <a href="#">Sign in</a>.</p>
-                            <br>
-                        </div>
-                    </span>
-        </form>
+  <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+      <br>
+      </span>
+  </div>
+
+    </form>
     </div>
-</div>
+    </div>
 {% endblock %}
