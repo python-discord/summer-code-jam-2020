@@ -1,0 +1,49 @@
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+{% load custom_filters %}
+
+<div class="nes-container with-title signup-form">
+    <span class="title signup-form-title">{{ post.title }}</span>
+    <small>By: {{ post.author.username }}</small>
+
+    {{ post.content }}
+
+    <!-- Add your own comment -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input class="nes-btn is-success" type="submit" value="Comment">
+    </form>
+
+    <!-- View other comments/reply -->
+    {% for comment in comments %}
+        <p>{{ comment.author.username }} | {{ comment.created }}</p>
+        {{ comment.content | linebreaks }}
+
+        {% for reply in comment.replies.all|dictsort:"created" %}
+            <p>{{ reply.author.username }} | {{ reply.created }}</p>
+            {{ reply.content | linebreaks}}
+        {% endfor %}
+
+        <p>Reply</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <input class="nes-btn is-success" type="submit" value="Reply">
+            </form>
+    {% empty %}
+    
+    <p>There are no comments.</p>
+
+    {% endfor %}
+</div>
+
+{% endblock content %}

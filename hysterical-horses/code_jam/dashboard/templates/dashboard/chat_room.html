@@ -6,10 +6,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/chat.css' %}">
 {% endblock extra_css %}
 
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
+<div class="chat-container">
+    <h3>{{ room_name }}</h3>
+    <textarea id="chat-log" cols="100" rows="20" readonly></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
+</div>
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
@@ -41,7 +44,7 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': "{{user.username}}" + ": " + message
             }));
             messageInputDom.value = '';
         };

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
+    "django_filters"
 ]
 
 MIDDLEWARE = [
@@ -79,9 +79,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "code_jam.wsgi.application"
 
 
-# Database
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -103,7 +100,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)]
+            "hosts": [("redis", 6379)]
         }
     }
 }
@@ -131,3 +128,7 @@ LOGIN_URL = 'users/login'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# change default django model
+AUTH_USER_MODEL = 'users.Account'
+

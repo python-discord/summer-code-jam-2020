@@ -32,8 +32,8 @@ def search_query(search: str, format_text: bool =True):
         def format_entry(entry: dict, tags: List):
             """ Formats a single entry  """
             pat = r'>(.*)</a>(.*)'
-            duckduckgo_cryptic = {'%20', ' ',
-                                  '%20C', ','}
+            duckduckgo_cryptic = {'%20': ' ',
+                                  '%20C': ','}
             text_search = re.search(pat, entry['Result'])
             title = text_search.group(1)
             info = text_search.group(2).replace('<br>', "").replace(',', '')
@@ -77,7 +77,6 @@ def search_query(search: str, format_text: bool =True):
 def engine_results(request, search_text: str):
     """ Renders a page for the request  """
     # queries that have some problems:
-   
     # prevent long searches from overflowing
     wrapper = textwrap.TextWrapper(width=43)
     shortened = wrapper.wrap(text=search_text)[0]
@@ -97,6 +96,7 @@ def engine_results(request, search_text: str):
                 other_results.append(r)
         elif 'description' in r.keys():
             desc = r['description']
+
         
     context = {
         'search': search_text,
@@ -114,8 +114,7 @@ def chat_room(request, room_name):
     return render(request, 'dashboard/chat_room.html', context)
 
 
-# fixes:
-# 
+
 
 
 # things to do:

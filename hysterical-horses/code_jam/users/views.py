@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
+from .forms import AccountCreationForm
 
 
 @login_required()
@@ -11,7 +12,7 @@ def profile(request):
 
 
 def signup_view(request):
-    form = UserCreationForm(request.POST or None)
+    form = AccountCreationForm(request.POST or None)
 
     if form.is_valid():
         form.save()

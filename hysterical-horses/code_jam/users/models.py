@@ -1,16 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-
-    def __str__(self):
-        return f"{self.user.username} Profile"
-
-    @property
-    def score(self):
-        return len(self.user.all_likes.all()) + len(self.user.posts.all())
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 class AccountManager(BaseUserManager):
@@ -41,7 +30,7 @@ class AccountManager(BaseUserManager):
         return user
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     """
     Every user has:
     -username,
@@ -85,8 +74,23 @@ class Account(AbstractBaseUser):
 
     @property
     def number_of_comments(self):
-        return  # No idea what to return here
+        return len(self.comments.all())
 
     @property
     def number_of_messages(self):
-        return  # No idea as well
+        return 0
+
+    @property
+    def score(self):
+        return self.number_of_likes + self.number_of_posts
+
+    @property
+    def is_staff(self):
+        return self.is_admin
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name="profile")
+
+    def __str__(self):
+        return f"{self.user.username} Profile"
