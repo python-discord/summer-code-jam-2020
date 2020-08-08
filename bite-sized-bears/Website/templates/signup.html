@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RSS it</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'css/script.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+  </head>
+
+  <header>
+    <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
+    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
+    <div class="headerlinks">
+      <a href="#">popular</a>
+      <a href="#">top-communities</a>
+      <a href="#">most-viewed</a>
+      <a href="#">location</a>
+      <a href="#">subscribed</a>
+      <a href="#">most-viewed</a>
+      <a href="#">my-communities</a>
+      <a href="#">my-account</a>
+    </div>
+  </header>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 post-container">
+        <fieldset>
+            <legend>Sign up now!</legend>
+            <form method="post" action="signup">
+                {% csrf_token %}
+            <label>Username: </label>
+            <input type="text", name="username" required>
+            <br>
+            <label>Password: </label>
+            <input type="password", name="password1" required>
+            <br>
+            <label>Confirm Password</label>
+            <input type="password", name="password2" required>
+            <br><br>
+            <input type="submit", value="submit">
+            <input type="reset", value="reset">
+                <br><br>
+            <lable style="color:red;"><b>{{message|safe}}<b><label><br>
+                {% if created %}
+                <a href="{% url 'login' %}"><button>Login</button></a>
+                {% endif %}
+            </form>
+        </fieldset>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

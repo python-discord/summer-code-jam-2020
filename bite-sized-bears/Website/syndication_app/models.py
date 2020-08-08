@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User as AuthUser
 
 
 class User(models.Model):
@@ -58,3 +60,11 @@ class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comment_post')
     content = models.TextField()
     creation_date = models.DateTimeField(auto_now=True)
+
+
+def create_profile(sender, **kwargs):
+    if kwargs['created']:
+        user = AuthUser.objects.create_user(username=kwargs['instance'].name, password=kwargs['instance'].password, is_staff=True)
+
+
+post_save.connect(create_profile, sender=User)
