@@ -1,5 +1,6 @@
 import json
 import datetime
+from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.db import transaction
 from chat.models import ChatRoom, Message, User, _model_field_limits
@@ -10,6 +11,7 @@ class UserNotFound(Exception):
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    @sync_to_async
     def create_or_get_group(self):
         try:
             chat_room = ChatRoom.objects.get(name=self.room_name)
@@ -20,6 +22,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         finally:
             return chat_room.pk
 
+    @sync_to_async
     def get_user(self):
         try:
             user = User.objects.get(username=self.user.username)
@@ -82,6 +85,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'message': message
         }))
 
+    @sync_to_async
     def save_message(self, message_data):
         chunks, chunk_size = len(message_data['message']), _model_field_limits['Message__message__max_length']
         message_chunks = [message_data['message'][i:i+chunk_size] for i in range(0, chunks, chunk_size)]
