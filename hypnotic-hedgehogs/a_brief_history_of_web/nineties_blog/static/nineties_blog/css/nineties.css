@@ -1,10 +1,10 @@
-body {
+#body {
     background-image: url('../nineties_background.jpg');
     background-repeat: repeat;
 }
 
 
-body > .main{
+#body > .main{
     display: grid; 
     grid-template:
             "a a" 40px
