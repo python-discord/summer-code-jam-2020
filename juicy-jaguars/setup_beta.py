@@ -2,20 +2,21 @@
 import os
 import sys
 import subprocess
-
 subprocess.call(["pip3", "install", "scprint"], stdout=open(os.devnull, 'w')); from scprint import print
 
 def install(Verbose=False):
     """Install Web95."""
     if Verbose:
         stdout = sys.stdout
+        stderr = sys.stderr
     else:
         stdout = open(os.devnull, 'w')
+        stderr = open(os.devnull, 'w')
     
-    print("Cloning Repository...", color="Aqua")
+    print("Cloning Repository...", color="Orange1")
     result = subprocess.call(["git", "clone",
                               "https://github.com/Juicy-Jaguars/\
-summer-code-jam-2020"])
+summer-code-jam-2020"], stdout=stdout, stderr=stderr)
     os.chdir("summer-code-jam-2020/juicy-jaguars")
 
     if result != 0:
@@ -24,8 +25,8 @@ summer-code-jam-2020"])
 
     print("Repository successfully cloned.", color="Green")
     print()
-    print("Installing dependencies...", color="Aqua")
-    result = subprocess.call(["pip3", "install", "-r", "requirements.txt"])
+    print("Installing dependencies...", color="Orange1")
+    result = subprocess.call(["pip3", "install", "-r", "requirements.txt"], stdout=stdout)
 
     if result != 0:
         print("Error installing Dependencies. Exiting...", color="Red")
@@ -33,10 +34,10 @@ summer-code-jam-2020"])
 
     print("Dependencies successfully installed.", color="Green")
     print()
-    print("Making migrations...", color="Aqua")
+    print("Making migrations...", color="Orange1")
     result = subprocess.call(["python",
                               os.path.join("Web95", "manage.py"),
-                              "migrate"])
+                              "migrate"], stdout=stdout)
 
     if result != 0:
         print("Error making migrations. Exiting...", color="Red")
@@ -45,8 +46,7 @@ summer-code-jam-2020"])
     print("Made migrations successfully.", color="Green")
     print()
     print("Successfully installed. Run with 'python Web95/manage.py\
- runserver' from summer-code-jam-2020/juicy-jaguars/", color="Green")
-
+ runserver' from summer-code-jam-2020/juicy-jaguars/", color="LightGreen")
 
 if __name__ == "__main__":
     try:
