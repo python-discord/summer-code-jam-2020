@@ -1,4 +1,5 @@
 import math
+import random
 
 # All coordinates are stored as tuples of (x, y)
 # x is east-west with east being positive
@@ -15,13 +16,13 @@ def new_game():
         "rover": (0, 0),
         "battery": 100,
         "power_usage": 5,
+        "is_stuck": False,
         "plutonium": (7, 5),
         "has_plutonium": False,
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
-        "dust_storm": (0, 2),
         "wind": (-1, 0),
-        "small_crater": (-4, -3),
+        "obstacles": {"dust_storm": (0, 2), "small_crater": (-4, -3),},
         "item_messages": {
             "plutonium": "There is a plume of smoke in the distance.",
             "solar_panels": "There is an object reflecting light in the distance.",
@@ -61,7 +62,28 @@ def new_game():
         "game_over": False,
         "victorious": False,
     }
+
+    randomize_positions(game_data)
     return game_data
+
+
+def randomize_positions(game_data):
+    """
+    randomizes the loacation of parts and obstacles
+    """
+
+    game_data.update(
+        {
+            "plutonium": (random.randint(-6, 6), random.randint(-6, 6)),
+            "solar_panels": (random.randint(-3, 3), random.randint(-3, 3)),
+        }
+    )
+    game_data["obstacles"].update(
+        {
+            "dust_storm": (random.randint(-5, 5), random.randint(-5, 5)),
+            "small_crater": (random.randint(-3, 3), random.randint(-3, 3)),
+        }
+    )
 
 
 def get_game(request):
@@ -122,74 +144,134 @@ def command_move(game_data, direction):
     old_position = game_data["rover"]
     success = True
 
+    # check if current position contains an obstacle
+    for obstacle in game_data["obstacles"]:
+        if (
+            game_data["obstacles"][obstacle][0] == old_position[0]
+            and game_data["obstacles"][obstacle][1] == old_position[1]
+        ):
+            # if the obstacle is a dust stom there is a 50% chace power comsumption will increase
+            if obstacle == "dust_storm":
+                if random.randint(1, 10) > 5:
+                    game_data["power_usage"] += 5
+                    game_data["messages"].append(
+                        {
+                            "from_rover": False,
+                            "message": f"Sand has gotten stuck in the treads. Moving becomes less efficient.",
+                        }
+                    )
+            # if the obstacle is a small crater there is a 50% chance to get stuck
+            if obstacle == "small_crater":
+
+                # In not already stuck there is a chance to become stuck
+                if not game_data["is_stuck"]:
+                    if random.randint(1, 10) > 5:
+                        game_data["is_stuck"] = True
+                        game_data["messages"].append(
+                            {"from_rover": False, "message": f"You are stuck!",}
+                        )
+
+                # If you are stuck there is a chance to become unstuck
+                else:
+                    if random.randint(1, 10) > 5:
+                        game_data["is_stuck"] = False
+                        game_data["messages"].append(
+                            {
+                                "from_rover": False,
+                                "message": f"You are no longer stuck.",
+                            }
+                        )
+                    else:
+                        game_data["messages"].append(
+                            {"from_rover": False, "message": f"You are stuck!",}
+                        )
+
     # Attempt to move the rover
-    if direction in ["n", "north"]:
-        new_position = (old_position[0], old_position[1] + 1)
-    elif direction in ["e", "east"]:
-        new_position = (old_position[0] + 1, old_position[1])
-    elif direction in ["s", "south"]:
-        new_position = (old_position[0], old_position[1] - 1)
-    elif direction in ["w", "west"]:
-        new_position = (old_position[0] - 1, old_position[1])
+    if not game_data["is_stuck"]:
+        if direction in ["n", "north"]:
+            new_position = (old_position[0], old_position[1] + 1)
+        elif direction in ["e", "east"]:
+            new_position = (old_position[0] + 1, old_position[1])
+        elif direction in ["s", "south"]:
+            new_position = (old_position[0], old_position[1] - 1)
+        elif direction in ["w", "west"]:
+            new_position = (old_position[0] - 1, old_position[1])
+        else:
+            new_position = old_position
+            success = False
     else:
-        new_position = old_position
         success = False
 
-    # Deplete battery if successfully moved
-    if success:
+    # If stuck depleat the battery
+    if game_data["is_stuck"]:
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
 
-    # Move components with rover
-    if game_data["has_solar_panels"]:
-        game_data["solar_panels"] = new_position
-    if game_data["has_plutonium"]:
-        game_data["plutonium"] = new_position
+    # If successfully moved depleat battery, handel components, and update position
+    if success:
 
-    # Pick up components
-    if (
-        new_position[0] == game_data["solar_panels"][0]
-        and new_position[1] == game_data["solar_panels"][1]
-        and not game_data["has_solar_panels"]
-    ):
-        game_data["has_solar_panels"] = True
-        game_data["messages"].append(
-            {"from_rover": False, "message": f"You have retrieved the solar panels!"}
-        )
-        game_data["messages"].append(
-            {
-                "from_rover": False,
-                "message": f"It will take less energy to traverse the terrain of Mars now!",
-            }
-        )
-    if (
-        new_position[0] == game_data["plutonium"][0]
-        and new_position[1] == game_data["plutonium"][1]
-        and not game_data["has_plutonium"]
-    ):
-        game_data["has_plutonium"] = True
-        game_data["messages"].append(
-            {"from_rover": False, "message": f"You have retrieved the plutonium!"}
-        )
+        # depleat battery
+        game_data["battery"] = game_data["battery"] - game_data["power_usage"]
+        if game_data["has_solar_panels"]:
+            game_data["battery"] = game_data["battery"] + 2
 
-    game_data["messages"].append(
-        {"from_rover": False, "message": f"Your new location is {new_position}"}
-    )
-    game_data["rover"] = new_position
+        # Move components with rover
+        if game_data["has_solar_panels"]:
+            game_data["solar_panels"] = new_position
+        if game_data["has_plutonium"]:
+            game_data["plutonium"] = new_position
+
+        # Pick up components
+        if (
+            new_position[0] == game_data["solar_panels"][0]
+            and new_position[1] == game_data["solar_panels"][1]
+            and not game_data["has_solar_panels"]
+        ):
+            game_data["has_solar_panels"] = True
+            game_data["messages"].append(
+                {
+                    "from_rover": False,
+                    "message": f"You have retrieved the solar panels!",
+                }
+            )
+            game_data["messages"].append(
+                {
+                    "from_rover": False,
+                    "message": f"It will take less energy to traverse the terrain of Mars now!",
+                }
+            )
+        if (
+            new_position[0] == game_data["plutonium"][0]
+            and new_position[1] == game_data["plutonium"][1]
+            and not game_data["has_plutonium"]
+        ):
+            game_data["has_plutonium"] = True
+            game_data["messages"].append(
+                {"from_rover": False, "message": f"You have retrieved the plutonium!"}
+            )
+
+        game_data["messages"].append(
+            {"from_rover": False, "message": f"Your new location is {new_position}"}
+        )
+        game_data["rover"] = new_position
     return game_data
 
 
 def command_look(game_data, direction):
     """
-    checks direction for parts and obsticals
+    checks direction for parts and obstacles
     """
     new_message = []
 
     # list of items on the map
     check_list = [
+        "dust_storm",
         "plutonium",
         "solar_panels",
+        "small_crater",
+    ]
+    obstacles_list = [
         "dust_storm",
         "small_crater",
     ]
@@ -199,8 +281,14 @@ def command_look(game_data, direction):
 
     # check the angle of each item
     for item in check_list:
-        x_dis = abs(rover[0] - game_data[item][0])
-        y_dis = abs(rover[1] - game_data[item][1])
+        if item in obstacles_list:
+            x_dis = abs(rover[0] - game_data["obstacles"][item][0])
+            y_dis = abs(rover[1] - game_data["obstacles"][item][1])
+            item_pos = game_data["obstacles"][item]
+        else:
+            x_dis = abs(rover[0] - game_data[item][0])
+            y_dis = abs(rover[1] - game_data[item][1])
+            item_pos = game_data[item]
 
         if x_dis == 0:
             angle = 0
@@ -210,24 +298,33 @@ def command_look(game_data, direction):
         # if the angle is 0 check if the camera is facing the right direction
         d = ""  # the direction that the item is in
         if angle == 0:
-            if rover[0] > game_data[item][0]:
+            if rover[0] > item_pos[0]:
                 d = "w"
-            elif rover[0] < game_data[item][0]:
+            elif rover[0] < item_pos[0]:
                 d = "e"
-            elif rover[1] > game_data[item][1]:
+            elif rover[1] > item_pos[1]:
                 d = "s"
-            elif rover[1] < game_data[item][1]:
+            elif rover[1] < item_pos[1]:
                 d = "n"
 
         # if the item is in the right direction update the messages
         if direction == d:
-            new_message = [
-                {"from_rover": False, "message": game_data["item_messages"][item]}
-            ]
+            if x_dis == 1 or y_dis == 1:
+                new_message.append(
+                    {"from_rover": False, "message": game_data["item_messages"][item]}
+                )
+            else:
+                new_message.append(
+                    {"from_rover": False, "message": game_data["item_messages"][item]}
+                )
 
+    # If no new_message is added use this default message.
     if new_message == []:
         new_message = [
-            {"from_rover": False, "message": "Red sand and rocks and more rocks."}
+            {
+                "from_rover": False,
+                "message": "The barren wasteland of Mars stretches out to the horizon.",
+            }
         ]
 
     game_data["messages"] = game_data["messages"] + new_message
