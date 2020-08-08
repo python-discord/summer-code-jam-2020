@@ -23,5 +23,4 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ["status", "image", "background"] # background
-        
+        fields = ["status", "image", "background"]
