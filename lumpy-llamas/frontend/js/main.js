@@ -14,6 +14,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
+Vue.use(require('vue-moment'));
 
 const router = new VueRouter({
   mode: 'history',

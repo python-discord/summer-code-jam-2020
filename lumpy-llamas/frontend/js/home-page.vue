@@ -48,6 +48,7 @@
 <script>
 const MENU_PAGES = [
   { title: 'Login/Register', page: 'login_page' },
+  { title: 'Forum/Thread-list', page: 'forum' },
   { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
 ];
 
