@@ -1,5 +1,5 @@
 .vscode
-timescape/engine/tokens.json
+timescape/tokens.json
 
 ### Django ###
 *.log
