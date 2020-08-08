@@ -25,6 +25,7 @@ urlpatterns = [
     path("", include("mars_weather.urls")),
     path("", include("guestbook.urls")),
     path("", include("welcome_page.urls")),
+    path("", include("game.urls")),
 ]
 
 if settings.DEBUG:
