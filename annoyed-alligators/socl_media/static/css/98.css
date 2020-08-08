@@ -11,7 +11,7 @@ body{
 .title-bar,.window,button,label,option,select,textarea,ul.tree-view{
     font-family:"Pixelated MS Sans Serif",Arial;-webkit-font-smoothing:none;font-size:0.9rem;
 }
-.win98input{
+input{
     font-family:"Pixelated MS Sans Serif",Arial;-webkit-font-smoothing:none;font-size:0.9rem;
 }
 h1{
@@ -170,7 +170,10 @@ input[type=email],input[type=password],input[type=text]{
     border:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;border-radius:0
 }
 input[type=email],input[type=password],input[type=text],select{
-    padding:3px 4px;box-shadow:inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;background-color:#fff;box-sizing:border-box
+    padding: 3px 4px;
+    box-shadow: inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;
+    background-color:#fff;
+    box-sizing: border-box
 }
 select,textarea{
     border:none

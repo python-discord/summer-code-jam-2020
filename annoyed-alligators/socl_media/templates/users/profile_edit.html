@@ -4,12 +4,48 @@
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Profile Info</legend>
-      {{ u_form.as_p }}
-      {{ p_form.as_p }}
+    <legend class="border-bottom mb-4">Profile Info</legend>
+    <div class="row">
+      <div class="column1" >
+      {% for field in u_form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      </div>
+      <div class="column2">
+      {% for field in p_form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      </div>
+    </div>
   </fieldset>
   <div class="form-group">
       <button class="btn btn-outline-info" type="submit">Update</button>
   </div>
 </form>
+
+<style>
+.row {
+  display: flex;
+}
+.column1 {
+  flex: 30vw;
+  border-right: 1px solid gray;
+}
+.column2 {
+  padding-left: 3vw; 
+  flex: 70vw;
+}
+</style>
 {% endblock content %}

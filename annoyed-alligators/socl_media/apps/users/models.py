@@ -12,10 +12,10 @@ class Profile(models.Model):
     date_of_birth: contains user date of birth
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="default.png",
+    image = models.ImageField(default="default.png", null=True,
                               upload_to="profile_pics")
     bio = models.TextField(default="I'm using socl_media", max_length=280,
-                           blank=True)
+                           blank=True, null=True)
     date_of_birth = models.DateField(null=True, blank=True)
 
     GENDER_CHOICES = (
@@ -23,7 +23,7 @@ class Profile(models.Model):
         ('M', 'Male',),
         ('O', 'Other',),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
 
     def __str__(self):
         return f'{self.user.username}'

@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.views.generic import ListView
 from .forms import UserUpdateForm, ProfileUpdateForm, UserRegisterForm
 from socl_media.apps.feed.models import Post
-
+from .models import Profile
 
 def signup(request):
     """
@@ -18,7 +18,10 @@ def signup(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            print(user.id)
+            user_profile = Profile(user=user)
+            user_profile.save()
             return redirect('/login')
         else:
             return render(request, 'users/signup.html', {'form': form})
@@ -66,10 +69,10 @@ def profile_edit(request):
                                    instance=request.user.profile)
         
         if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
+            user = u_form.save()
             p_form.save()
             messages.success(request, "Account Information Updated!")
-            return redirect('profile', username)
+            return redirect('profile', user.username)
 
     else:
         u_form = UserUpdateForm(instance=request.user)

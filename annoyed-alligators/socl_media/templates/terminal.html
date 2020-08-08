@@ -39,7 +39,6 @@
     },
 
     methods: {
-
       populate_previous: function() {
         if(this.current_command_num < this.previous_commands.length){
           this.command = this.previous_commands[this.current_command_num];
@@ -71,7 +70,6 @@
               header = {article: this.command}
             }
             var cur_command = this.previous_commands[0] 
-            {% comment %} `${this.previous_commands[0]}~${this.command} ${this.followup_count}` {% endcomment %}
           } else {
             var cur_command = this.command
           }
@@ -138,11 +136,15 @@
     display: none;
   }
   .terminal-input-text{
-    background-color: #000;
-    color: #1fffff;
-    font: 1rem Inconsolate, monospace;
-    border: 0px;
+    background-color: #000000 !important;
+    color: #1fffff;    
+    font-family: "Lucida Console", Courier, monospace !important;
+    font-size: 1rem;
+    border: 0px !important;
     width: 90%;
+    height: 50px;
+    line-height: 3;
+    box-shadow: none !important;
   }
   input:focus, textarea:focus, select:focus{
       outline: none;
