@@ -20,11 +20,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             try:
                 self.player = await database_sync_to_async(Player.objects.get)(user=self.scope["user"])
             except Player.DoesNotExist:
-                await self.send_message("Current User has no Player!")
+                await self.send_message("Current User has no Player!")  # TODO Give user ability to specify their own name
                 await self.close()
                 return
 
-            # If all is good, go online, send a welcome and joing the global an room chats
+            # If all is good, go online, send a welcome and join the global and room chats
             self.isOnline = True
             await self.send_welcome()
             await self.join_room('dungeon')
@@ -77,6 +77,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_welcome(self):
         await self.send_json({'message': colorize('brightBlue', ART['BANNER'])})
+        await self.send_json({'message': f"Hello {colorize('brightMagenta', self.player.name)}"})
+        # TODO: add Current Date: {date_from_room_model}
 
     async def send_tutorial(self):
         '''
@@ -84,10 +86,10 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         '''
         # I can't indent because it affects how it's displayed in the terminal
         # TODO: Fix below to meet flake8 requirements and also display nicely in terminal
-        tutorial_message_1 = '''Current Date: January 1, 1970\n'''
-        tutorial_message_2 = f'''Hello traveler, unfortunately there has been a glitch in the matrix and it appears \
+        tutorial_message_1 = '''Current Date: January 1, 1970\n'''  # Get rid of this once TODO in send_welcome is done
+        tutorial_message_2 = f'''Unfortunately there has been a glitch in the matrix and it appears \
 you have been pulled through a quantum computer to the past. \
-You are currently in {colorize('brightGreen', 'ARPANET')}. Somewhere on this server there is a connection \
+You are currently in {colorize('brightGreen', self.player.room.name)}. Somewhere on this server there is a connection \
 that should allow you to travel to a different server. \
 Each server is connected to a different point in time. \n'''
         tutorial_message_3 = '''Your mission is to return to 2020 by traveling through different servers,
