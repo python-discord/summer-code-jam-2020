@@ -7,8 +7,11 @@
     <p style="text-align: center; margin-left: 200px">
     <img src="{{ user.profile.img.url }}">
     </p>
+{% else %}
+    <p style="text-align: center; margin-left: 200px">
+    <img src="{% url 'media\images\Proud_Puffin_default_user.jpg' %}">
 {% endif %}
-<div style="margin-left: 220px; margin-right: 220px">
+<div style="margin-left: 220px; margin-right: 220px; text-align: center">
 <h1>{{user.first_name}} {{user.last_name}}</h1>
 <h1>Age: {{user.profile.age}}</h1>
 <h1>Sex: {{user.profile.sex}}</h1>

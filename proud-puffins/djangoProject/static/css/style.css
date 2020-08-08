@@ -290,10 +290,26 @@ label {
   /*margin: 100px;*/
   transition: transform 0.5s linear;
   text-align: center;
-    vertical-align: middle;
-    width: 100%;
+  vertical-align: middle;
+  width: 100%;
 }
 
 input[type=checkbox]:checked ~ label > img {
   transform: scale(3);
+}
+
+.aspectwrapper {
+  display: inline-block; /* shrink to fit */
+  width: 100%;           /* whatever width you like */
+  position: relative;    /* so .content can use position: absolute */
+}
+.aspectwrapper::after {
+  padding-top: 56.25%; /* percentage of containing block _width_ */
+  display: block;
+  content: '';
+}
+.content {
+  position: absolute;
+  top: 0; bottom: 0; right: 0; left: 0;  /* follow the parent's edges */
+  outline: thin dashed green;            /* just so you can see the box */
 }

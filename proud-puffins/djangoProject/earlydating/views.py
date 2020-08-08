@@ -96,7 +96,6 @@ def DateMatcher(request):
         elif liked_pk := request.POST.get('Dislike'):
             voted = User.objects.get(pk=liked_pk)
             UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=False)
-        
 
         return redirect('earlydating-DateMatcher')
     elif request.method == 'GET':
@@ -106,6 +105,7 @@ def DateMatcher(request):
         return render(request, 'dating/DateMatcher.html', context)
 
 
+# Currently not using
 def get_unvoted(voter):
     try:
         votes = UserVote.objects.filter(voter=voter)
@@ -131,7 +131,8 @@ def likedmatches(request):
     page_obj_likes = page_likes.get_page(page_number)
     page_obj_liked = page_liked.get_page(page_number)
 
-    context = {'liked_you': liked_you, 'you_liked': you_liked, 'obj_liked': page_obj_liked, 'obj_likes': page_obj_likes}
+    context = {'liked_you': liked_you, 'you_liked': you_liked,
+               'obj_liked': page_obj_liked, 'obj_likes': page_obj_likes}
     return render(request, 'dating/mylikes.html', context)
 
 
