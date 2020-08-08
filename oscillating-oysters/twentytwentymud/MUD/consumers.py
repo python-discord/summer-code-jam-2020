@@ -1,5 +1,6 @@
 import asyncio
 import ansiwrap
+import datetime
 
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
@@ -28,6 +29,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
             # If all is good, go online, send a welcome and join the global and room chats
             self.isOnline = True
+            await self.update_player_online_status(True)
             await self.send_welcome()
             await self.join_room('dungeon')
             await self.join_room(await self.get_current_room_name())
@@ -46,6 +48,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                 await self.send_room(content["message"])
             elif command == "help":
                 await self.send_help()
+            elif command == "status":
+                await self.send_status()
             elif command == "look":
                 await self.send_room_description()
             elif command == "go":
@@ -71,6 +75,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                         await self.send_message("Invalid room.")
                 else:
                     await self.send_message("No room specified.")
+            elif command == self.player.room.command_keyword:
+                self.player.room.secret_connection_active = True
+                await self.send_command_response()
             else:
                 await self.send_unknown(command)
         except Exception as e:
@@ -78,7 +85,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     async def disconnect(self, code):
         try:
+            await self.update_player_online_status(False)
             await self.leave_group()
+
         except Exception:
             pass
 
@@ -92,7 +101,18 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
     async def send_welcome(self):
         await self.send_json({'message': colorize('brightBlue', ART['BANNER'])})
         await self.send_json({'message': f"Hello {colorize('brightMagenta', self.player.name)}"})
-        # TODO: add Current Date: {date_from_room_model}
+
+    async def send_status(self):
+        room_name = await self.get_current_room_name()
+        server_name = await self.get_current_server_name()
+        server_date = await self.get_current_server_date()
+        message = (f"Player name: {colorize('brightMagenta', self.player.name)}\n"
+                   f"Location: {colorize('brightGreen', room_name)} on {colorize('brightGreen', server_name)}\n"
+                   f"Current Date: {colorize('green', server_date)}\n"
+                   )
+        await self.send_json({
+            'message': message
+        })
 
     async def send_tutorial(self):
         '''
@@ -104,7 +124,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
         tutorial = [
             # Get rid of this once TODO in send_welcome is done
-            ("Current Date: January 1, 1970\n"),
+            (f"Current Date: {colorize('blue', 'January 1, 1970')}\n"),
             ("Unfortunately there has been a glitch in the matrix and it appears "
              "you have been pulled through a quantum computer to the past. "
              f"You are currently in {colorize('brightGreen', self.player.room.name)}. "
@@ -138,7 +158,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         })
 
     async def send_help(self):
-        options = ['help', 'send', 'leave', 'look', 'go <room>', 'go <room number>']
+        options = ['help', 'status', 'send <message>', 'leave', 'look', 'go <room>', 'go <room number>']
         await self.send_json({
             'message': "COMMANDS: \r\n    " + colorize("brightGreen", ", ".join(options))
         })
@@ -149,13 +169,34 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             'message': message
         })
 
+    async def send_command_response(self):
+        await self.send_json({
+            'message': self.player.room.command_response
+        })
+
+    @database_sync_to_async
+    def update_player_online_status(self, status):
+        self.player.online = status
+        self.player.save()
+
     @database_sync_to_async
     def get_current_room_name(self):
         return self.player.room.name
 
     @database_sync_to_async
     def get_current_room_connection_name_by_index(self, index):
-        return self.player.room.connections.all()[index].name
+        if self.player.room.secret_connection_active:
+            return (list(self.player.room.connections.all()) + list(self.player.room.secret_room_connects.all()))[index].name
+        else:
+            return self.player.room.connections.all()[index].name
+
+    @database_sync_to_async
+    def get_current_server_name(self):
+        return self.player.room.server.name
+
+    @database_sync_to_async
+    def get_current_server_date(self):
+        return self.player.room.server.server_date.strftime("%B %m, %Y")
 
     @database_sync_to_async
     def get_current_room_description(self):
@@ -164,23 +205,30 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         players = (
             Room.objects.get(name=self.player.room.name).player_set.all()
                         .exclude(name=self.player.name)
+                        .exclude(online=False)
                         .values_list('name', flat=True)
         )
         if players:
-            players_string = "Players here: " + colorize('brightBlue', ", ".join(players)) + "\r\n"
+            players_string = f'''Players here: {colorize('brightBlue', ", ".join(players))}\r\n'''
         else:
             players_string = ""
 
         exits = list(self.player.room.connections.all())
+        if self.player.room.secret_connection_active:
+            exits = exits + list(self.player.room.secret_room_connects.all())
         for i in range(len(exits)):
             exits[i] = f"[{i}] {exits[i].name}"
 
+        server_date = self.player.room.server.server_date.strftime("%B %m, %Y")
+
         message = (
-                   "You are in " + colorize('brightGreen', self.player.room.name) + "\r\n\n" +
-                   self.player.room.description + "\r\n\n" +
-                   players_string +
-                   "Exits: " + ", ".join([colorize('brightGreen', exit) for exit in exits])
-                  )
+                 f'''You are in {colorize('brightGreen', self.player.room.name)}\r\n\n'''
+                 f'''The current date is: {colorize('green', server_date)}\r\n\n'''
+                 f'''{self.player.room.description}\r\n\n'''
+                 f'''{self.player.room.command_description}\r\n\n'''
+                 f'''{players_string}'''
+                 f'''Exits: {", ".join([colorize('brightGreen', exit) for exit in exits])}'''
+                 )
 
         return message
 
@@ -192,7 +240,14 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             self.player.room = self.player.room.connections.get(name__iexact=room_name.lower())
             self.player.save()
         except Room.DoesNotExist:
-            return False
+            if self.player.room.secret_connection_active:  # TODO There should be a better way to do this
+                try:
+                    self.player.room = self.player.room.secret_room_connects.get(name__iexact=room_name.lower())
+                    self.player.save()
+                except Room.DoesNotExist:
+                    return False
+            else:
+                return False
         return self.player.room.name
 
     async def join_room(self, room_name):

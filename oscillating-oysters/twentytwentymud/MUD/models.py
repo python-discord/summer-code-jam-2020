@@ -2,19 +2,27 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import random
 
 
-# TODO Move this to a JSON file so it's easier to adjust and edit
-list_of_hackers = ['Acid Burn', 'Phantom Phreak', 'Lord Nikon',
-                   'The Plague', 'Zero Cool', 'Crash Override',
-                   'Master of Disaster', 'Cereal Killer']
+class Server(models.Model):
+    name = models.CharField(max_length=50, default="Server")
+    server_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.name
 
 
 class Room(models.Model):
     name = models.CharField(max_length=50, default="Room")
     description = models.TextField(max_length=512)
+    server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='rooms', null=True)
     connections = models.ManyToManyField('self', blank=True)
+    command_description = models.TextField(max_length=512, blank=True)
+    command_keyword = models.TextField(max_length=512, blank=True)
+    command_response = models.TextField(max_length=512, blank=True)
+    secret_connection_active = models.BooleanField(default=False)
+    secret_room_connects = models.ManyToManyField('self', blank=True)
+    next_server_connect = models.ManyToManyField(Server, blank=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +38,7 @@ class Player(models.Model):
     name = models.CharField(max_length=50)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, null=True, on_delete=models.SET_NULL)
+    online = models.BooleanField(default=False)
 
     objects = PlayerManager()
 
@@ -44,6 +53,10 @@ def create_player(sender, instance, created, **kwargs):
     Catches if user creates account through sign-up form.
     '''
     if created:
-        player_name = random.choice(list_of_hackers)  # TODO ensure some sort of uniqueness to this
-        room_name = Room.objects.get(name='ARPANET-1')
+        player_name = instance.username
+        try:
+            room_name = Room.objects.get(name='ARPANET-1')
+        except Room.DoesNotExist:
+            Room.objects.create(name='ARPANET-1')
+            room_name = Room.objects.get(name='ARPANET-1')
         Player.objects.create_player(instance, player_name, room_name)
