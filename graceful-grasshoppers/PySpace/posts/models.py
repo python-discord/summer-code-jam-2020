@@ -50,3 +50,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.author}"
+
+
+class PostComment(models.Model):
+    content = models.TextField
+    user_commented = models.ForeignKey(CustomUser, models.CASCADE)
+    post = models.ForeignKey(post_models.Post, models.CASCADE)

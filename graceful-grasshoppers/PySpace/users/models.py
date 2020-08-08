@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+import post.models as post_models
 
 
 class CustomUser(AbstractUser):
@@ -28,3 +29,5 @@ class ProfileComment(models.Model):
 
     def __str__(self):  # Returns a short intro of 20 words
         return " ".join(self.content.split(" ")[:20])
+
+

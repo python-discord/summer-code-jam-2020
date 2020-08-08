@@ -18,8 +18,11 @@ def get_posts(request):
     user via the `user` query parameter"""
     posts = Post.objects.all()
     user_id = request.query_params.get("user", None)
+    post_id = request.query_params.get("post", None)
     if user_id is not None:
         posts = posts.filter(author=user_id)
+    if post_id is not None:
+        posts = posts.filter(id=post_id)
     serializer = PostSerializer(posts, many=True)
     return JsonResponse({"posts": serializer.data})
 
