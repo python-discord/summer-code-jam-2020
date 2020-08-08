@@ -14,7 +14,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.png",
                               upload_to="profile_pics")
-    bio = models.TextField(default="I'm using socl_media", max_length=280,
+    bio = models.TextField(default="I'm using SoCL Media!", max_length=280,
                            blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
 
