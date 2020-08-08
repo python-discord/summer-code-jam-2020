@@ -21,7 +21,7 @@
         <h5>History</h5>
         <ul class="nes-list is-circle">
             {% for e in past_history  %}
-            <li align="center"><a href="{{ e }}">{{ e }}</a></li>
+            <li align="center"><a href="{{ e.1 }}">{{ e.0 }}</a></li>
             {% endfor  %}
         </ul>
     </div>
@@ -30,6 +30,14 @@
 <br>
 {% include 'dashboard/search-engine/searchbar.html'  %} <br>
 
+{% if desc == ''  %}
+
+{% else  %}
+<div id="desc" class="nes-container is-rounded" style="margin-left: 2%; margin-right: 2%;">
+    <p style="text-align: center">Description: </p>
+    <p style="text-align: center">{{ description  }}</p>
+</div> <br>
+{% endif  %}
 
     <div id="engine-res" class="nes-container" style="margin-left: 2%; margin-right: 2%; overflow:hidden;">
         <p id="time-complete" style="font-size:13px;">Collected {{ entries_length  }} results in {{ time_taken  }} seconds.</p>
