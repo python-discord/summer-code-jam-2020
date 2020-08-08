@@ -82,7 +82,8 @@ def page(request, url):
         for key, val in request.GET.items():
             params.append(key+"="+val)
 
-        url += "?"+("&".join(params))
+        if len(params) > 0:
+            url += "?"+("&".join(params))
         print(params)
 
         if request.method == "GET":
