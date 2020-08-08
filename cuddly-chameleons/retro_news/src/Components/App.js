@@ -7,6 +7,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import ViewPost from "./ViewPost";
 import ViewPosts from "./ViewPosts";
+import CreatePost from './CreatePost';
 
 class App extends React.Component {
     constructor(props) {
@@ -27,6 +28,7 @@ class App extends React.Component {
                 <Switch>
                     <Route path="/login" children={<Login handler={this.toggleLogin} />}/>
                     <Route path="/signup" children={<SignUp handler={this.toggleLogin} />}/>
+                    <Route path="/posts/new" children={<CreatePost status={this.state.logged_in} />} />
                     <Route path="/posts/:id" children={<ViewPost />} />
                     <Route path={["/", "/posts"]} children={<ViewPosts />} />
                 </Switch>
