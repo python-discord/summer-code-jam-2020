@@ -65,8 +65,11 @@ def thread_details(request, thread_id):
     :param thread_id: ID of thread to filter on
     :return: JsonResponse
     """
-    qs = ThreadMessage.objects.filter(thread_id=thread_id).values('date', 'message', 'user', title=F('thread__title'))
-    data = list(qs)
+    qsueryset = ThreadMessage.objects.filter(thread_id=thread_id).values('date', 'message', 'user', title=F('thread__title'))
+    data = list(qsueryset)
+    if not data:
+        JsonResponse([{'title': 'Sorry, nothing here'}], status=201, safe=False)
+
     return JsonResponse(data, status=201, safe=False)
 
 
