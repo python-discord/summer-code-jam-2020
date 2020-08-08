@@ -136,3 +136,8 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
+
+
+# Redirect to home URL after login
+# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
+LOGIN_REDIRECT_URL = '/'
