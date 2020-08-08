@@ -9,15 +9,22 @@
     <textarea id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
+    {{ room.id|json_script:"room-id" }}
     <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    // List messages if they are exists
+        {% if messages %}
+            {% for message in messages %}
+                document.querySelector('#chat-log').value += ("{{ message }}" + "\n")
+            {% endfor %}
+        {% endif %}
+
+        const roomId = JSON.parse(document.getElementById('room-id').textContent);
 
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
             + '/ws/chat/'
-            + roomName
+            + roomId
             + '/'
         );
 
@@ -37,11 +44,13 @@
             }
         };
 
+        //Sending message text and date of its creation to websocket
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'created_at': new Date(Date.now()).toISOString(),
             }));
             messageInputDom.value = '';
         };
