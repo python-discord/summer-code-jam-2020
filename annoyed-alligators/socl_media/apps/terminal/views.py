@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
-from .methods import TerminalCommand
-# Create your views here.
+from .command_runner import TerminalCommandRunner
 
 
 def index(request):
@@ -15,8 +13,8 @@ def run_terminal_command(request):
         response = "No command was specified"
         status = 400
     else:
-        run_command = TerminalCommand(command, request)
-        result = run_command.run(**request.headers)
+        command_runner = TerminalCommandRunner(command, request)
+        result = command_runner.run(**request.headers)
         status = 200
         response = HttpResponse(result['response'], status=status)
         
