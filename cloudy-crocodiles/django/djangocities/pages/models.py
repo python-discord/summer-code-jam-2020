@@ -10,10 +10,11 @@ class Page(models.Model):
 
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     version = models.CharField(max_length=2, choices=VERSION_CHOICES, default=HTML_1)
+    file_name = models.CharField(max_length=256)
     content = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "pages"
 
     def __str__(self):
-        return self.filename
+        return self.file_name
