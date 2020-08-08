@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'background_app.apps.BackgroundConfig',
     'users.apps.UsersConfig',
+    'news.apps.NewsConfig',
     'diary.apps.DiaryConfig',
 ]
 
@@ -158,7 +159,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets')
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 LOGIN_URL = 'login'

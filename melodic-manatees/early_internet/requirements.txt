@@ -29,3 +29,5 @@ toml==0.10.1
 typed-ast==1.4.1
 typing-extensions==3.7.4.2
 Werkzeug==1.0.1
+python-decouple==3.3
+requests==2.24.0

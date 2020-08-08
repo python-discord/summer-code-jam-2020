@@ -31,7 +31,8 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
     path('img2ascii/', include('img2ascii.urls')),
     path('diary/', include('diary.urls')),
-    path('backgrounds/', include('background_app.urls'))
+    path('backgrounds/', include('background_app.urls')),
+    path('news/', include('news.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()
