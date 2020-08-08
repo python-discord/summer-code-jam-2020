@@ -52,11 +52,13 @@ function wm_setup(elem) {
                 document.getElementById(windows[i].id+"-lstbtn").classList.remove("nav-item-focused");
 
                 if (windows[i].style.zIndex > x.style.zIndex) {
-                    windows[i].style.zIndex = (parseInt(windows[i].style.zIndex)-1).toString();
+                    windows[i].style.zIndex = (parseInt(windows[i].style.zIndex)-2).toString();
 
                     children = windows[i].children;
                     for (var j = 0; j < children.length; j++) {
-                        children[j].style.zIndex = (parseInt(windows[i].style.zIndex)-1).toString();
+                        if (children[j] != windows[i]) {
+                            children[j].style.zIndex = (parseInt(windows[i].style.zIndex)-2).toString();
+                        }
                     }
                 }
             }
@@ -64,7 +66,7 @@ function wm_setup(elem) {
 
         x.windowstate = "focused";
         x.classList.add("card-tertiary");
-        x.style.zIndex = (windows.length - 1).toString();
+        x.style.zIndex = (windows.length*2 - 2).toString();
         x_tb.classList.add("nav-item-focused");
     }
 
