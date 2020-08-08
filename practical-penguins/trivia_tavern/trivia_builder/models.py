@@ -4,8 +4,10 @@ from django.urls import reverse
 
 
 class TriviaQuiz(models.Model):
+
     name = models.CharField(max_length=30, blank=False,)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=500,)
     date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

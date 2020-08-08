@@ -37,7 +37,6 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'trivia_builder.apps.TriviaBuilderConfig',
-    'trivia_hub.apps.TriviaHubConfig',
     'trivia_runner.apps.TriviaRunnerConfig',
     'users.apps.UsersConfig',
     'twilio_messenger.apps.TwilioMessengerConfig',
@@ -140,7 +139,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'main_hub'
+LOGIN_REDIRECT_URL = 'home_page'
 LOGIN_URL = 'login'
 HOST_TWILIO_NUMBER = os.getenv('TWILIO_NUMBER')
 HOST_TWILIO_SID = os.getenv('TWILIO_ACCOUNT_SID')

@@ -1,37 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-{% if active_quizzes %}
+
   <div class="row justify-content-md-center">
     <div class="parchment-border col-md-auto bulletin-title">
-        <h1 class="justify-content-center bulletin-title">Quizzes currently active</h1>
+        <h1 class="justify-content-center bulletin-title">Trivia quiz packs</h1>
     </div>
   </div>
 
 
-  {% for quiz in active_quizzes %}
-    <div class="row ">
-      <article class="media parchment-border">
-        <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
-        <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-quizzes' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
-            <small class="text-muted">Quiz started on: {{ quiz.start_time|date:"F d, Y" }} </small>
-          </div>
-          <h2><a class="article-title" href="{% url 'activequiz' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>
-          <p class="article-content">Number of questions: {{ quiz.trivia_quiz.triviaquestion_set.count }}</p>
-          <p class="article-content">Session code: {{ quiz.session_code }}</p>
+{% for quiz in quizzes %}
+    <article class="media parchment-border">
+      <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
         </div>
-      </article>
-    </div>
-  {% endfor %}
-{% else %}
-  <div class="row justify-content-md-center">
+        <h2>
+            <a class="article-title" href="{% url 'quiz-detail' quiz.id %}">{{ quiz.name }}</a> by
+            <a class="article-metadata" href="{% url 'user' quiz.author.username %}">{{ quiz.author }}</a>
+        </h2>
+        <p class="article-content">Trivia pack description: {{ quiz.description }}</p>
+        <p class="article-content">Number of questions: {{ quiz.triviaquestion_set.count }}</p>
+      </div>
+    </article>
+{% empty %}
+
+<div class="row justify-content-md-center">
     <div class="col-md-auto parchment-border justify-content-center">
-        <h1 class="justify-content-center bulletin-title">No quizzes in session</h1>
+        <h1 class="justify-content-center bulletin-title">No trivia packs exists,
+            <a class="ml-2" href="{% url 'quiz-create' %}">create new one?</a>
+        </h1>
     </div>
   </div>
-{% endif %}
-
+{% endfor %}
 {% if is_paginated %}
 
   {% if page_obj.has_previous %}

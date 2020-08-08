@@ -1,6 +1,7 @@
 from django.db import models
 from trivia_runner.models import Player
 
+
 class ScoreTracker(models.Model):
     player_phone = models.CharField(max_length=12)
     team_name = models.CharField(max_length=24, default='')
@@ -8,11 +9,13 @@ class ScoreTracker(models.Model):
     session_code = models.CharField(max_length=6)
     answered_this_round = models.BooleanField(default=False)
 
+    @staticmethod
     def get_score_list(session_code):
         """get_score_list is a class method that returns all players and their score_list
         for the specified session"""
         return [(x.player_phone, x.points) for x in ScoreTracker.objects.filter(session_code=session_code)]
 
+    @staticmethod
     def get_team_score_list(session_code):
         """As above, but for each team"""
         # First get all possible team names
@@ -26,7 +29,7 @@ class ScoreTracker(models.Model):
 
         return team_scores
 
-
+    @staticmethod
     def winner(session_code, score_list):
         """winner is a class method that returns the winning player
         for the specified session, 'score_list' should be the output

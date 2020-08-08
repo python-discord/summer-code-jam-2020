@@ -1,12 +1,20 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, ListView
 
 from trivia_builder.models import TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz, Player
 from twilio_messenger.views import SMSBot
 from twilio_messenger.views import ScoreTracker
+
+
+class ActiveTriviaQuizListView(ListView):
+    model = ActiveTriviaQuiz
+    template_name = 'active_sessions.html'
+    context_object_name = 'active_quizzes'
+    ordering = ['-start_time']
+    paginate_by = 10
 
 
 def setup(request, active_trivia_quiz):
@@ -21,7 +29,7 @@ def question(request, active_trivia_quiz):
         score_track.answered_this_round = False
         score_track.save()
         SMSBot.send_question(cur_question, player)
-    #for player in Player.objects.all():
+    # for player in Player.objects.all():
     #    SMSBot.delayed_send('TIME IS UP!', player, 10)
 
     return render(request, 'activequiz_question.html',
@@ -39,10 +47,16 @@ def end_screen(request, active_trivia_quiz):
     for player in Player.objects.all():
         score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=active_trivia_quiz.session_code)
 
+<<<<<<< HEAD
         goodbye = ( f'The session has ended, thanks for playing!\n'
                     f'Team {winner} was the winner!\n'
                     f'Your score was: {score_track.points}/{len(question_set)}'
         )
+=======
+        goodbye = (f'Thanks for playing {player.name}!\n'
+                   f'Your score was: {score_track.points}/{len(question_set)}'
+                   )
+>>>>>>> master
         SMSBot.send(goodbye, player.phone_number)
         SMSBot.send(player.get_answers(), player.phone_number)
         player.delete()
