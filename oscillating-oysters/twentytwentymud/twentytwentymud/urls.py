@@ -22,7 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='splash-screen'),
     path('mud/', include('terminal.urls'), name='terminal'),
-    path('command/', include('MUD.urls')),
     path('accounts/login/', LoginView.as_view(), name='login-view'),
     path('accounts/logout/', views.logout_view, name='logout-view'),
     path('accounts/signup/', views.SignUp.as_view(), name='signup-view')
