@@ -4,7 +4,7 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 
 
-class InventoryAdditionForm(LoginRequiredMixin, CreateView):
+class InventoryCreate(LoginRequiredMixin, CreateView):
     model = models.InventoryRecord
     template_name = "core/inventory_form.html"
     success_url = reverse_lazy("dashboard")

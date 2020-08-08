@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from core import models
 
 
-class ReviewCreateView(LoginRequiredMixin, CreateView):
+class ReviewCreate(LoginRequiredMixin, CreateView):
     model = models.Review
     fields = ["trade", "rating", "description"]
     template_name = "core/review_create_form.html"

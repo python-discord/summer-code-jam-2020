@@ -20,7 +20,7 @@ from core import views
 from django.urls import reverse_lazy
 
 urlpatterns = [
-    path("", views.HomeView.as_view(), name="home"),
+    path("", views.Home.as_view(), name="home"),
     path("listings/", views.ListingList.as_view(), name="listings"),
     path("admin/", admin.site.urls),
     path("register/", views.Register.as_view(), name="register"),
@@ -35,10 +35,6 @@ urlpatterns = [
         name="logout",
     ),
     path("dashboard/", views.TraderDashboard.as_view(), name="dashboard"),
-    path("review/", views.ReviewCreateView.as_view(), name="review"),
-    path(
-        "inventory/create",
-        views.InventoryAdditionForm.as_view(),
-        name="inventory-create",
-    ),
+    path("review/", views.ReviewCreate.as_view(), name="review"),
+    path("inventory/create", views.InventoryCreate.as_view(), name="inventory-create",),
 ]
