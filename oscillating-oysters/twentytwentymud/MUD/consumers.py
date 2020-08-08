@@ -130,9 +130,9 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         })
 
     async def send_help(self):
-        # we should have a set() of commands/options
+        options = ['help', 'send', 'leave', 'look', 'go <room>', 'go <room number>']
         await self.send_json({
-            'message': 'options: help, send, leave, look, go <room>, go <room number>'
+            'message': "COMMANDS: \r\n    " + colorize("brightGreen", ", ".join(options))
         })
 
     async def send_room_description(self):
