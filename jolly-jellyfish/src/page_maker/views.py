@@ -176,8 +176,9 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     slug_field = 'name'
     slug_url_kwarg = 'pagename'
     fields = [
-        'template_used', 'user_title', 'user_text_1', 'user_text_2', 'user_text_3',
-        'user_image_1', 'user_image_2', 'user_image_3', 'user_image_4'
+            'name', 'template_used', 'user_title',
+            'user_text_1', 'user_text_2', 'user_text_3',
+            'user_image_1', 'user_image_2', 'user_image_3'
     ]
 
     def test_func(self):
@@ -189,13 +190,16 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('webpage-view', kwargs={'pagename': self.kwargs['pagename']})
 
+    def get_success_url(self):
+        return reverse_lazy('webpage-view', kwargs={'pagename': self.kwargs.get('pagename')})
+
 
 class WebpageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Webpage
     template_name = 'page_maker/webpage_delete.html'
+    success_url = reverse_lazy('webpage-list-recent')
     slug_field = 'name'
     slug_url_kwarg = 'pagename'
-    success_url = '/'
 
     def test_func(self):
         webpage = self.get_object()

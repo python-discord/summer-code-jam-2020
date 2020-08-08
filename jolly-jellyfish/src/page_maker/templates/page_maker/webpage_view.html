@@ -32,4 +32,8 @@
 <p>
   <a href="{% url 'user-detail' username=webpage.author.username %}">{{ webpage.author.username }}</a>
 </p>
+{% if request.user == webpage.author %}
+<a href="{% url 'webpage-update' pagename=webpage.name %}">Edit page</a>
+<a href="{% url 'webpage-delete' pagename=webpage.name %}">Delete page</a>
+{% endif %}
 {% endblock %}
