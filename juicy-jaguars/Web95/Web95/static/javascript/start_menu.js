@@ -40,7 +40,7 @@ function toggle_start() {
 
     if (start.style.display == "none") {
         start.style.display = "block";
-        start.style.zIndex = document.getElementsByClassName("draggable").length;
+        start.style.zIndex = document.getElementsByClassName("draggable").length*2;
 
         for (var i = 0; i < start_lvl2.length; i++) {
             start_lvl2[i].style.zIndex = document.getElementsByClassName("draggable").length+1;
