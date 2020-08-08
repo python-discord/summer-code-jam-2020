@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from . import models
 from . import serializers
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -20,9 +21,12 @@ class UserListView(generics.ListAPIView):
         return queryset
 
 
-class UserView(APIView):
+class LoggedInUserView(APIView):
     """Returns information about currently logged in user"""
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         user = request.user
+        print(user)
         serializer = serializers.UserSerializer(user)
         return Response(serializer.data)
