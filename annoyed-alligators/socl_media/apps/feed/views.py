@@ -7,6 +7,7 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
+from .forms import PostForm
 
 
 class PostListView(LoginRequiredMixin, ListView):
@@ -31,11 +32,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     This view is called to create a new post.
     """
     model = Post
-    fields = ['post_content']
-
-    def form_valid(self, form):
-        form.instance.posted_by = self.request.user
-        return super().form_valid(form)
+    form_class = PostForm
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
@@ -43,7 +40,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     This view is called to update the post we want to edit.
     """
     model = Post
-    fields = ['post_content']
+    fields = ['post_content', 'post_image']
     success_url = "/"
 
 
