@@ -1,5 +1,8 @@
+from PIL import Image
+
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 class AccountManager(BaseUserManager):
@@ -90,7 +93,21 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(Account, on_delete=models.CASCADE,
+                                related_name="profile")
+    biography = models.CharField(max_length=200, null=True, blank=True)
+    avatar = models.ImageField(default='default.png', upload_to='avatars/',
+                               max_length=300)
 
     def __str__(self):
         return f"{self.user.username} Profile"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.avatar.path)

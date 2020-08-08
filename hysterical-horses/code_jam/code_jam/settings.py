@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -127,8 +126,12 @@ STATIC_URL = "/static/"
 LOGIN_URL = 'users/login'
 LOGIN_REDIRECT_URL = '/'
 
+# Media-related
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # change default django model
 AUTH_USER_MODEL = 'users.Account'
-
