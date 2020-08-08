@@ -11,7 +11,7 @@
 
 {% block content %}
     <h1>{{ art.headline }}</h1>
-    <p>{{ art.body }}</p>
+    <p>{{ art.body | linebreaks }}</p>
     <p>Reporter: {{ art.author }}</p>
     <p>Published: {{ art.publication_date|date }}</p>
     <p>Date: {{ now|date }}</p>
@@ -19,7 +19,7 @@
     <h3>Comments</h3>
     {% for comment in comments %}
     <p><em>{{ comment.author.username|default:"Anonymous" }} says:</em> &nbsp; &nbsp; {{ comment.date }} </p>
-    <p>{{ comment.text }}
+    <p>{{ comment.text | linebreaks }}
     {% empty %}
         <li>No comments yet.</li>
     {% endfor %}
