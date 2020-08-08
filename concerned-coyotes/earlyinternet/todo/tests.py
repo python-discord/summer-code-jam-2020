@@ -11,6 +11,13 @@ def test_user():
     return user
 
 
+def test_todo():
+    todo, _ = TodoEntry.objects.get_or_create(
+        name='test-todo', user=test_user()
+    )
+    return todo
+
+
 class TestTodoEntry(TestCase):
 
     def setUp(self) -> None:
@@ -39,6 +46,7 @@ class TestTodoCreateView(TestCase):
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(resp.url, '/account/login?next=/todo/add/')
 
+
     def test_add_entry(self):
         logged_in = self.client.login(username='John Doe', password='hunter2')
         self.assertEqual(logged_in, True)
@@ -53,3 +61,33 @@ class TestTodoCreateView(TestCase):
         created = TodoEntry.objects.get(name='test-todo-entry')
         self.assertIsNotNone(created)
         self.assertEqual(created.user, self.user)
+
+
+class TestTodoUpdateView(TestCase):
+
+    def setUp(self) -> None:
+        self.user = test_user()
+
+    def test_login_required(self):
+        test_todo()
+        resp = self.client.get(
+            '/todo/update/1'
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.url, '/account/login?next=/todo/update/1')
+
+    def test_update(self):
+        # create a new todo entry
+        todo = test_todo()
+
+        self.client.login(username='John Doe', password='hunter2')
+
+        resp = self.client.post(
+            '/todo/update/1', {'done': "on", "name": todo.name}
+        )
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.url, '/')
+
+        todo = TodoEntry.objects.get(id=todo.id)
+        self.assertIs(todo.done, True)
+
