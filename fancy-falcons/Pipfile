@@ -10,6 +10,7 @@ django = "*"
 flake8 = "*"
 pillow = "*"
 pre-commit = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.8"
