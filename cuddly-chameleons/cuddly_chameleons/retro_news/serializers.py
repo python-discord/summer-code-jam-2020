@@ -39,6 +39,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 
+class CustomUserSuperuserSerializer(serializers.ModelSerializer):
+    """Serializer that contains basic user information for fetching."""
+
+    is_superuser = serializers.BooleanField()
+
+    class Meta:
+        model = CustomUser
+        fields = ('is_superuser',)
+
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """Custom token obtain serializer to include superuser status to response."""
 
