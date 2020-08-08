@@ -99,7 +99,7 @@ def logout_page(request):
             logout(request)
         except AttributeError:  # handle AttributeError during unit test
             pass
-        
+
         return redirect("/")
 
     return render(request, "logout.html")

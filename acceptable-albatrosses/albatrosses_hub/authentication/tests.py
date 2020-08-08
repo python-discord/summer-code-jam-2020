@@ -1,4 +1,3 @@
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, AnonymousUser
 from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse, resolve
@@ -11,11 +10,11 @@ class AuthTestCase(TestCase):
     def test_register_url(self):
         response = Client().get(reverse("register_page"))
         self.assertEqual(response.status_code, 200)
-    
+
     def test_login_url(self):
         response = Client().get(reverse("login_page"))
         self.assertEqual(response.status_code, 200)
-    
+
     def test_logout_url(self):
         response = Client().get(reverse("logout_page"))
         self.assertIn(response.status_code, (200, 302))
@@ -159,4 +158,3 @@ class AuthViewTest(TestCase):
 
         response = logout_page(request)
         self.assertRedirects(response, "/", fetch_redirect_response=False)
-
