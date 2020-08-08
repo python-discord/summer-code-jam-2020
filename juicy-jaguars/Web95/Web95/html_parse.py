@@ -81,8 +81,17 @@ class HtmlParser:
         for element in self.soup.find_all(re.compile(".*")):
             for name, val in element.attrs.items():
                 if name in link_attrs:
-                    if val.startswith("/"):
-                        element[name] = self.basedir + val
+                    if ":" not in val:
+                        element[name] = self.link_parent(self.basedir) + val
+
+    def link_parent(self, link):
+        """Get the parent of a link."""
+        link_parts = link.split("/")
+
+        if len(link_parts) == 3:
+            return "/".join(link_parts)
+        else:
+            return "/".join(link_parts[:-1])
 
     def parse_color(self):
         """Make document greyscale."""
