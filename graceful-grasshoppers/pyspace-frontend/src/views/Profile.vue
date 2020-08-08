@@ -26,13 +26,17 @@
 		},
 		methods: {
 			init() {
-				const query_url = this.userId == null ? '/users/self/' : `/users/?username=${this.userId}`;
-				console.log(query_url)
-				axios
-				.get(query_url, { headers: authHeader() })
-				.then((response) => {
-					Object.assign(this.user, response.data);
-				})
+				if (this.userId == null) {
+					axios
+					.get('/users/self/', { headers: authHeader() })
+					.then((response) => { Object.assign(this.user, response.data); })
+				} else {
+					axios
+					.get(`/users/?username=${this.userId}`)
+					.then((response) => {
+						Object.assign(this.user, response.data[0]);
+					})
+				}
 			}
 		},
 		mounted() {

@@ -24,9 +24,6 @@ export default {
 			axios
 			.get("/users/self", { headers: authHeader() })
 			.then((response) => {
-				console.log(authHeader())
-				console.log(response)
-				console.log(response.data)
 				Object.assign(this.user, response.data);
 			})
 		}

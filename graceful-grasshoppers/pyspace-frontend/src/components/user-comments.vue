@@ -34,7 +34,14 @@
 			submitComment() {
 				console.log(authHeader())
 				axios
-				.post("/users/comment/", {headers: authHeader() })
+				.post("/users/comment/", 
+				{
+					user_commented_on: this.user.username,
+					content: this.content,
+				},
+				{
+					headers: authHeader()
+				})
 				.then((response) => {
 					console.log(response);
 				})
