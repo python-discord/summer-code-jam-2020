@@ -82,7 +82,34 @@ class HtmlParser:
             for name, val in element.attrs.items():
                 if name in link_attrs:
                     if ":" not in val:
-                        element[name] = self.link_parent(self.basedir) + val
+                        element[name] = "/page/" + \
+                          self.link_parent(self.basedir) + val
+                elif name == "srcset":
+                    values = list(map(lambda x: x.split(" "), val.split(",")))
+                    values = list(map(self.remove_blanks, values))
+                    new_values = []
+                    print(values)
+                    for url, x in values:
+                        if ":" not in url:
+                            url = self.link_parent(self.basedir)\
+                             + url
+                        new_values.append([url, x])
+
+                    print((",".join(list(map(lambda x: "/page/" +
+                                                       (" ".join(x)),
+                                                       new_values)))))
+
+                    element[name] = (",".join(list(map(lambda x: "/page/" +
+                                                       (" ".join(x)),
+                                                       new_values))))
+
+    def remove_blanks(self, x):
+        """Remove blank strings from x."""
+        y = []
+        for item in x:
+            if item != " "*len(item):
+                y.append(item)
+        return y
 
     def link_parent(self, link):
         """Get the parent of a link."""
