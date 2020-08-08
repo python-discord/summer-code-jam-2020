@@ -225,41 +225,6 @@ def command_look(game_data, direction):
                 {"from_rover": False, "message": game_data["item_messages"][item]}
             ]
 
-    """
-    rover = game_data.get("rover")
-    plutonium = game_data.get("plutonium")
-    solar_panels = game_data.get("solar_panels")
-    plutonium_message = "There is a plume of smoke in the distance."
-    panel_message = "There is an object reflecting light in the distance."
-    new_message = []
-
-    if direction in ["n", "north"]:
-        if rover[0] == plutonium[0] and rover[1] < plutonium[1]:
-            new_message.append({"from_rover": False, "message": plutonium_message})
-        if rover[0] == solar_panels[0] and rover[1] < solar_panels[1]:
-            new_message.append({"from_rover": False, "message": panel_message})
-    elif direction in ["s", "south"]:
-        if rover[0] == plutonium[0] and rover[1] > plutonium[1]:
-            new_message.append({"from_rover": False, "message": plutonium_message})
-        if rover[0] == solar_panels[0] and rover[1] > solar_panels[1]:
-            new_message.append({"from_rover": False, "message": panel_message})
-    elif direction in ["w", "west"]:
-        if rover[1] == plutonium[1] and rover[0] > plutonium[0]:
-            new_message.append({"from_rover": False, "message": plutonium_message})
-        if rover[1] == solar_panels[1] and rover[0] > solar_panels[0]:
-            new_message.append({"from_rover": False, "message": panel_message})
-    elif direction in ["e", "east"]:
-        if rover[1] == plutonium[1] and rover[0] < plutonium[0]:
-            new_message.append({"from_rover": False, "message": plutonium_message})
-        if rover[1] == solar_panels[1] and rover[0] < solar_panels[0]:
-            new_message.append({"from_rover": False, "message": panel_message})
-
-    if new_message == []:
-        new_message = [
-            {"from_rover": False, "message": "Red sand and rocks and more rocks."}
-        ]
-    """
-
     if new_message == []:
         new_message = [
             {"from_rover": False, "message": "Red sand and rocks and more rocks."}
