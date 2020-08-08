@@ -67,3 +67,9 @@ def delete_profile(request):
 @login_required(login_url='/login/')
 def delete_tweet(request):
     return HttpResponse("Wait for templates")
+
+def home(request):
+    return render(request, 'base.html')
+
+
+

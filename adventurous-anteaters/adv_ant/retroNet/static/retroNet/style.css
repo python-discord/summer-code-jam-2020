@@ -241,6 +241,15 @@ ul li {
   font-size: 0;
 }
 
+#footer { 
+  position: fixed; 
+  padding: 10px 10px 0px 10px; 
+  bottom: 0; 
+  width: 100%; 
+  /* Height of the footer*/  
+  height: 40px; 
+} 
+
 .footer_boxes {
   display: inline-block;
   *display: inline;
@@ -300,6 +309,7 @@ ul li {
   min-width:48px;
   vertical-align: middle;
   height:18px;
+  text-align:center;
 }
 
 .vertical-line {

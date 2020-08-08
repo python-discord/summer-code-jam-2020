@@ -1,7 +1,5 @@
 {% load static %}
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,20 +13,22 @@
   <title>RetroNet</title>
 </head>
 
+
 <body onload="startTime()">
 
-  <div class="window">
-    <div class="title-bar" style=" height: 20px;">
-      <div class="title-bar-text" style="font-size: 15px;">Welcome to RetroNet!</div>
-      <div class="title-bar-controls">
-        <button aria-label="Minimize"></button>
-        <button aria-label="Maximize"></button>
-        <button aria-label="Close"></button>
-      </div>
+<div class="window">
+  <div class="title-bar" style=" height: 20px;">
+    <div class="title-bar-text" style="font-size: 15px;">Welcome to RetroNet!</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
     </div>
-
+  </div>
 
     <!-- Main menu -->
+
+    <!-- Main menu - File Menu -->
     <div class="window-body">
       <div class="dropdown">
         <button class="dropbtn" onclick="open_dropdown('dd_file')">File</button>
@@ -75,118 +75,131 @@
         </div>
       </div>
     </div>
-
+   <!-- Main Menu - File Menu End -->  
     <hr style="margin:2px;">
 
+    <!-- Main Menu - Icon Bar -->
+
     <div class="menu">
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src="{% static 'retroNet/images/back-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Back</div>
       </button>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src=  "{% static 'retroNet/images/forward-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Forward</div>
       </button>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src="{% static 'retroNet/images/ie-stop-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Stop</div>
       </button>
+
        <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src= "{% static 'retroNet/images/ie-refresh-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Refresh</div>
       </button>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src="{% static 'retroNet/images/ie-home-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Home</div>
       </button>
+
       <div class="divider1"></div>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src=  "{% static 'retroNet/images/ie-search-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Search</div>
       </button>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src= "{% static 'retroNet/images/folderFavorites24-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Favorites</div>
       </button>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src= "{% static 'retroNet/images/ie-history-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">History</div>
       </button>
+
       <div class="divider2"></div>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src="{% static 'retroNet/images/ie-mail-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Mail</div>
       </button>
+
       <button class="dropbtn" class="btn BtnIconwText">
         <div class="BtnIcon-icon">
             <img src= "{% static 'retroNet/images/ie-print-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Print</div>
       </button>
+
     </div>
+    <!-- Main Menu - Icon Bar End -->
     <hr style="margin:2px">
-    <span class="address_label"></span>Address<span class="address_label"></span>
 
-    <select>
-        <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
-        https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
-        <option><img src= "{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
-        https://github.com/padraigfl/packard-belle-desktop/tree/master/src/retroNet/images</option>
-        <option><img src= "{% static 'retroNet/images/htmlFile16-min.png' %}"
-          alt="no">https://thenextweb.com/dd/2020/04/22/windows-98-css-library-html/</option>
-        <option><img src=  "{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
-        https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
-        <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
-    </select>
-     <button id="go" class="dropbtn"><img src="retroNet/images/ie-go-min.png" alt=""></i>
-      Go
-    </button>
-    <span class="vertical-line"></span>
-    <button id="links" class="dropbtn">Links<i class="fas fa-angle-double-right"></i></button>
+    <!-- Main Menu - Address Bar -->
 
-    <div class="window-body" style="background-color: #e5e9e7; height: 400px;margin-left: 10px;margin-right: 10px;">
-      <br>
-      <br>
-      <br>
-      <br>
-      <p>There's so much room for activities!</p>
-      <br>
-      <br>
-      <br>
-      <br>
+    <div>
+        <span class="address_label"></span>Address<span class="address_label"></span>
+        <select>
+            <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
+            https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
+            <option><img src= "{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
+            https://github.com/padraigfl/packard-belle-desktop/tree/master/src/retroNet/images</option>
+            <option><img src= "{% static 'retroNet/images/htmlFile16-min.png' %}"
+              alt="no">https://thenextweb.com/dd/2020/04/22/windows-98-css-library-html/</option>
+            <option><img src=  "{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
+            https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
+            <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
+        </select>
+        <button id="go" class="dropbtn"><img src="{% static 'retroNet/images/ie-go-min.png' %}" alt=""></i>
+          Go
+        </button>
+        <span class="vertical-line"></span>
+        <button id="links" class="dropbtn">Links<i class="fas fa-angle-double-right"></i></button>
     </div>
+    <!-- Main Menu - Address Bar  End -->
 
   </div>
+    <!-- Main Menu End -->
+    
+    {% block content %}
 
-    <footer class="window" id="footer">
+    {% endblock %}
+
+
+<footer class="window" id="footer">
     <div class="container">
-      <div class="footer_boxes" id="left"><img src="retroNet/images/e.png" id="e_style">Done</div>
+        <div class="footer_boxes" id="left"><img src="{% static 'retroNet/images/e.png' %}" id="e_style">Done</div>
       <div class="footer_boxes" id="middle1"></div>
       <div class="footer_boxes" id="middle2"></div>
       <div class="footer_boxes" id="middle3"></div>
-      <div class="footer_boxes" id="right"><img src="retroNet/images/earth.png" id="earth">Internet</div>
+      <div class="footer_boxes" id="right"><img src="{% static 'retroNet/images/earth.png' %}" id="earth">Internet</div>
       <div class="footer_boxes" id="time"></div>
     </div>
-    </footer>
+</footer>
 
 </body>
-
-</html>
