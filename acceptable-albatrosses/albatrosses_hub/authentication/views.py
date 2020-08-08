@@ -1,4 +1,4 @@
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from .models import HubUser
@@ -93,7 +93,7 @@ def logout_page(request):
 
     if request.method == "POST":
         request.session.flush()
-        
+
         return redirect("/")
 
     return render(request, "logout.html")
