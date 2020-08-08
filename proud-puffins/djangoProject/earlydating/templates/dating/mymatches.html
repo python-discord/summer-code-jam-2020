@@ -8,7 +8,7 @@
 {% csrf_token %}
     {% for item in liked_you %}
     <div class="grid-container">
-        <h3 style="font-weight: bold; font-size: large;">{{ item.voter.username }}</h3><br>
+        <h3 style="font-weight: bold; font-size: large;"><a href="{% url 'earlydating-profile' item.voter.id %}">{{ item.voter.username }}</a></h3><br>
         <img src="/media/{{ item.voter.profile.img }}" height="250"><br>
         <h2>{{item.voter.profile.bio}}</h2>
     </div>

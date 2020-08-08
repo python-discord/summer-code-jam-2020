@@ -89,16 +89,19 @@ def DateMatcher(request):
     logged_user = request.user
     if request.method == 'POST':
         print(request.POST)
-        if liked_pk := request.POST.get('Like'):
-            voted = User.objects.get(pk=liked_pk)
-            UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=True)
-            return
-        return redirect('earlydating-DateMatcher')
+        if like_pk := request.POST.get('Like'):
+            voted = User.objects.get(pk=like_pk)
+            vote, _ = UserVote.objects.get_or_create(user=voted, voter=logged_user)
+            vote.vote = True
+        elif like_pk := request.POST.get('Unlike'):
+            voted = User.objects.get(pk=like_pk)
+            vote, _ = UserVote.objects.get_or_create(user=voted, voter=logged_user)
+            vote.vote = False
+        vote.save()
+        return redirect('earlydating-profile', pk=like_pk)
     elif request.method == 'GET':
-
         user = get_unvoted(logged_user)
-        context = {'current': user}
-        return render(request, 'dating/DateMatcher.html', context)
+        return redirect('earlydating-profile', pk=user.pk)
 
 
 def get_unvoted(voter):
@@ -138,12 +141,25 @@ def get_unvoted(voter):
 @allowed_users(allowed_roles=['profile'])
 def matches(request):
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
-    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
+    liked_you = UserVote.objects.filter(user=logged_user, vote=True).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user, vote=True).exclude(user=logged_user)
     both_liked = liked_you.intersection(you_liked)
     whole_list = liked_you.union(you_liked)
     context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
     return render(request, 'dating/mymatches.html', context)
+
+
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
+def profile(request, pk):
+    logged_user = request.user
+    user = User.objects.get(pk=pk)
+    try:
+        like = UserVote.objects.get(user=user, voter=logged_user).vote
+    except UserVote.DoesNotExist:
+        like = False
+    context = {'current': user, 'like': like}
+    return render(request, 'dating/profile.html', context)
 
 
 @login_required(login_url='earlydating-login')
