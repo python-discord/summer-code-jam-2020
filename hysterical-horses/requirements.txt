@@ -61,3 +61,4 @@ virtualenv==20.0.29
 zope.interface==5.1.0
 geocoder==1.38.1
 geopy==2.0.0
+pytz==2020.1
