@@ -7,24 +7,24 @@
 <a href="{% url 'user-delete' pk=viewed_user.id %}">delete</a>
 {% endif %}
 <table>
-    <tr>
-        <th>Preview</th>
-        <th>Webpage Title</th>
-    </tr>
-    {% for webpage in user_pages %}
-    <tr>
-        <td>
-            {% if "placeholder_img" not in webpage.thumbnail.url %}
-            <img src="{{ webpage.thumbnail.url }}">
-            {% else %}
-            Go to page itself to generate a thumbnail for it.
-            {% endif %}
-        </td>
-        <td>
-            <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
-        </td>
-    </tr>
-    {% endfor %}
+  <tr>
+    <th>Preview</th>
+    <th>Webpage Title</th>
+  </tr>
+  {% for webpage in user_pages %}
+  <tr>
+    <td>
+      {% if "placeholder_img" not in webpage.thumbnail.url %}
+      <img src="{{ webpage.thumbnail.url }}">
+      {% else %}
+      Go to page itself to generate a thumbnail for it.
+      {% endif %}
+    </td>
+    <td>
+      <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
+    </td>
+  </tr>
+  {% endfor %}
 </table>
 
 {% endblock %}

@@ -3,27 +3,27 @@
 {% block content %}
 <h1><span>{{ webpage.user_title }}</span></h1>
 <p>
-    {% if webpage.user_image_1 %}
-        <img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image">
-    {% endif %}
+  {% if webpage.user_image_1 %}
+  <img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image">
+  {% endif %}
 </p>
 <p>{{ webpage.user_text_1 }}</p>
 <p>
-    {% if webpage.user_image_2 %}
-        <img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image">
-    {% endif %}
+  {% if webpage.user_image_2 %}
+  <img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image">
+  {% endif %}
 </p>
 <p>{{ webpage.user_text_2 }}</p>
 <p>
-    {% if webpage.user_image_3 %}
-        <img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image">
-    {% endif %}
+  {% if webpage.user_image_3 %}
+  <img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image">
+  {% endif %}
 </p>
 <p>{{ webpage.user_text_3 }}</p>
 <p>
-    <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
+  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
 </p>
 <p>
-    <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
+  <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>
 </p>
 {% endblock %}

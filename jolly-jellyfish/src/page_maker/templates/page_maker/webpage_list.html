@@ -4,24 +4,24 @@
 <h2>Top pages</h2>
 {% if webpages %}
 <table>
-    <tr>
-        <th>Preview</th>
-        <th>Webpage Title</th>
-    </tr>
-    {% for webpage in webpages %}
-    <tr>
-        <td>
-            {% if "placeholder_img" not in webpage.thumbnail.url %}
-                <img src="{{ webpage.thumbnail.url }}">
-            {% else %}
-                Go to page itself to generate a thumbnail for it.
-            {% endif %}
-        </td>
-        <td>
-            <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
-        </td>
-    </tr>
-    {% endfor %}
+  <tr>
+    <th>Preview</th>
+    <th>Webpage Title</th>
+  </tr>
+  {% for webpage in webpages %}
+  <tr>
+    <td>
+      {% if "placeholder_img" not in webpage.thumbnail.url %}
+      <img src="{{ webpage.thumbnail.url }}">
+      {% else %}
+      Go to page itself to generate a thumbnail for it.
+      {% endif %}
+    </td>
+    <td>
+      <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
+    </td>
+  </tr>
+  {% endfor %}
 </table>
 {% else %}
 <p>No sites have been created yet!</p>

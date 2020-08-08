@@ -3,18 +3,18 @@
 {% block content %}
 <div><h1>{{ webpage.user_title }}</h1></div>
 <div>
-    {% for comment in comments %}
-    <div>
-        <p>{{ comment.author.username }}: {{ comment.title }}</p>
-        <p>{{ comment.content }}</p>
-    </div>
-    {% endfor %}
+  {% for comment in comments %}
+  <div>
+    <p>{{ comment.author.username }}: {{ comment.title }}</p>
+    <p>{{ comment.content }}</p>
+  </div>
+  {% endfor %}
 </div>
 <div>
-    <form method="POST" enctype="multipart/form-data" action="{% url 'comment-create' pagename=webpage.name %}">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Add comment</button>
-    </form>
+  <form method="POST" enctype="multipart/form-data" action="{% url 'comment-create' pagename=webpage.name %}">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add comment</button>
+  </form>
 </div>
 {% endblock %}
