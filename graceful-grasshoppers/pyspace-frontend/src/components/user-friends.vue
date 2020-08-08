@@ -7,7 +7,7 @@
     <h6 v-else>{{ user.username }} has {{ user.friends.length }} friends!</h6>
     <div class="friend" style="width: 100px;" v-for="friend in user.friends" :key="friend.id">
         <img src="http://placehold.it/100x100">
-        <a v-bind:href="'/profile'+friend.username">{{ friend.username }}</a>
+        <a v-bind:href="'/profile/'+friend.username">{{ friend.username }}</a>
     </div>
 </div>
 </template>
