@@ -125,6 +125,11 @@ class HtmlParser:
 
     def parse_color(self):
         """Make document greyscale."""
-        head = self.soup.head
-        head.append(self.soup.new_tag('style', type='text/css'))
-        head.style.append('html {filter: grayscale(100%) !important;}')
+        try:
+            head = self.soup.head
+            head.append(self.soup.new_tag('style', type='text/css'))
+            head.style.append('html {filter: grayscale(100%) !important;}')
+        except KeyError:
+            pass
+        except AttributeError:
+            pass
