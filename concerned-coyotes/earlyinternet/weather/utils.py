@@ -1,5 +1,6 @@
-import requests
 from datetime import datetime
+
+import requests
 
 
 def get_weather(lat: float, lon: float) -> dict:
@@ -14,12 +15,12 @@ def get_weather(lat: float, lon: float) -> dict:
     # list_of_data contain json encoded content
     data = source.json()
     result = {"weather": {
-        "celsius": int(data['main']['temp'])-272,
-        "fahrenheit": int(((data['main']['temp'])-272)*1.8+32)},
+        "celsius": int(data['main']['temp']) - 272,
+        "fahrenheit": int(((data['main']['temp']) - 272) * 1.8 + 32)},
         "city": str(data['name']),
         "sunset": datetime.fromtimestamp(
             data['sys']['sunset']),
         "sunrise": datetime.fromtimestamp(
             data['sys']['sunset']),
-        }
+    }
     return result
