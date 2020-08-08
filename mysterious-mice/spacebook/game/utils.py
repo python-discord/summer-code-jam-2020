@@ -1,3 +1,5 @@
+import math
+
 # All coordinates are stored as tuples of (x, y)
 # x is east-west with east being positive
 # y is north-south with north being positive
@@ -12,13 +14,20 @@ def new_game():
         "initials": "",
         "rover": (0, 0),
         "battery": 100,
+        "power_usage": 5,
         "plutonium": (7, 5),
         "has_plutonium": False,
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
-        "dust_storm": (-3, 2),
+        "dust_storm": (0, 2),
         "wind": (-1, 0),
         "small_crater": (-4, -3),
+        "item_messages": {
+            "plutonium": "There is a plume of smoke in the distance.",
+            "solar_panels": "There is an object reflecting light in the distance.",
+            "dust_storm": "A dust storm billows in the distance.",
+            "small_crater": "There is a small crater in the distance.",
+        },
         "messages": [
             {"from_rover": False, "message": "Crash Landing!"},
             {"from_rover": False, "message": ""},
@@ -128,7 +137,7 @@ def command_move(game_data, direction):
 
     # Deplete battery if successfully moved
     if success:
-        game_data["battery"] = game_data["battery"] - 5
+        game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
 
@@ -172,6 +181,51 @@ def command_move(game_data, direction):
 
 
 def command_look(game_data, direction):
+    """
+    checks direction for parts and obsticals
+    """
+    new_message = []
+
+    # list of items on the map
+    check_list = [
+        "plutonium",
+        "solar_panels",
+        "dust_storm",
+        "small_crater",
+    ]
+
+    # rover position
+    rover = game_data["rover"]
+
+    # check the angle of each item
+    for item in check_list:
+        x_dis = abs(rover[0] - game_data[item][0])
+        y_dis = abs(rover[1] - game_data[item][1])
+
+        if x_dis == 0:
+            angle = 0
+        else:
+            angle = math.tan(y_dis / x_dis)
+
+        # if the angle is 0 check if the camera is facing the right direction
+        d = ""  # the direction that the item is in
+        if angle == 0:
+            if rover[0] > game_data[item][0]:
+                d = "w"
+            elif rover[0] < game_data[item][0]:
+                d = "e"
+            elif rover[1] > game_data[item][1]:
+                d = "s"
+            elif rover[1] < game_data[item][1]:
+                d = "n"
+
+        # if the item is in the right direction update the messages
+        if direction == d:
+            new_message = [
+                {"from_rover": False, "message": game_data["item_messages"][item]}
+            ]
+
+    """
     rover = game_data.get("rover")
     plutonium = game_data.get("plutonium")
     solar_panels = game_data.get("solar_panels")
@@ -180,13 +234,9 @@ def command_look(game_data, direction):
     new_message = []
 
     if direction in ["n", "north"]:
-        if (
-            rover[0] == plutonium[0] and rover[1] < plutonium[1]
-        ):  # if the rover is inline wih plutonium and plutonium is north of rover
+        if rover[0] == plutonium[0] and rover[1] < plutonium[1]:
             new_message.append({"from_rover": False, "message": plutonium_message})
-        if (
-            rover[0] == solar_panels[0] and rover[1] < solar_panels[1]
-        ):  # if the rover is inline wih solar panels and solar panels is north of rover
+        if rover[0] == solar_panels[0] and rover[1] < solar_panels[1]:
             new_message.append({"from_rover": False, "message": panel_message})
     elif direction in ["s", "south"]:
         if rover[0] == plutonium[0] and rover[1] > plutonium[1]:
@@ -203,6 +253,12 @@ def command_look(game_data, direction):
             new_message.append({"from_rover": False, "message": plutonium_message})
         if rover[1] == solar_panels[1] and rover[0] < solar_panels[0]:
             new_message.append({"from_rover": False, "message": panel_message})
+
+    if new_message == []:
+        new_message = [
+            {"from_rover": False, "message": "Red sand and rocks and more rocks."}
+        ]
+    """
 
     if new_message == []:
         new_message = [
