@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "blogs.apps.BlogsConfig",
     "users.apps.UsersConfig",
     "channels",
+    "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -102,6 +103,13 @@ CHANNEL_LAYERS = {
             "hosts": [("redis", 6379)]
         }
     }
+}
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }
 
 
