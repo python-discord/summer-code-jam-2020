@@ -11,6 +11,7 @@ django-simple-bulma = "*"
 psycopg2-binary = "*"
 newsapi-python = "*"
 flake8 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
