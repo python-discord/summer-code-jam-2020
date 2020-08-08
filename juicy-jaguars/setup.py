@@ -55,7 +55,8 @@ summer-code-jam-2020"])
     print(green+"Dependencies successfully installed."+reset)
     print()
     print(yellow+"Making migrations...")
-    result = subprocess.call([os.path.join("Web95", "manage.py"),
+    result = subprocess.call(["python",
+                              os.path.join("Web95", "manage.py"),
                               "makemigrations"])
 
     if result != 0:
