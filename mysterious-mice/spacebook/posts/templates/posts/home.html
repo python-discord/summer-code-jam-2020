@@ -14,13 +14,13 @@
 
 {% block body %}
     <div class="body-div full-width">
-        <span class="page-header">
+        <h2>
             {% if username %}
                 {{ username }}'s Posts
             {% else %}
                 All Posts
             {% endif %}
-        </span>
+        </h2>
         {% if is_paginated %}
             {% if page_obj.has_previous %}
                 <a href="?{{ username_get }}page=1">First</a>
