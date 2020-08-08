@@ -13,7 +13,7 @@ class FloppyCreateForm(forms.ModelForm):
     # then set the VirtualMachine modelchoicefield so that it'll only contain the user's virtualmachines.
 
     def __init__(self, *args: list, **kwargs: dict) -> None:
-        if kwargs.get('user', False) is not False:
-            user = kwargs.pop('user')
+
+        user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         self.fields['VirtualMachine'].queryset = VMachine.objects.filter(user=user)
