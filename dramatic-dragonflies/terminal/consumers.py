@@ -13,6 +13,8 @@ class TerminalConsumer(AsyncWebsocketConsumer):
         await self.accept()
         self.process = await subprocess.create_subprocess_shell(
             '../build/process_watch bash', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.pid = int(await self.process.stdout.read(20), 16)
+        print('==== started with pid', self.pid, '====')
         self.task_err = asyncio.tasks.create_task(
             self.handle_sending(self.process.stderr))
         self.task_out = asyncio.tasks.create_task(
@@ -24,7 +26,6 @@ class TerminalConsumer(AsyncWebsocketConsumer):
         self.task_out.cancel()
 
     async def handle_sending(self, stream: StreamReader) -> None:
-        print('starting', stream)
         try:
             while True:
                 to_send = await stream.read(256)

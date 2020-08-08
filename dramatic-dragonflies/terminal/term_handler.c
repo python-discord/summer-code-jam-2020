@@ -31,7 +31,6 @@ int main(int argc, char **argv)
     if (pid == 0)
     {
         //slave
-        printf("starting %s\n", argv[1]);
         execvp(argv[1], argv + 1);
     }
     else
@@ -42,6 +41,10 @@ int main(int argc, char **argv)
         settings.c_lflag &= ~ICANON;
         settings.c_lflag &= ~ECHO;
         tcsetattr(0, TCSANOW, &settings);
+        char u[21];
+        sprintf(u, "%020x", pid);
+        write(1, u, 20);
+
         for (;;)
         {
             fd_set read_set;

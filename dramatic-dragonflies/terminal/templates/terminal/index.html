@@ -1,13 +1,14 @@
+{% extends 'users/base.html' %}
 {% load static %}
-<!doctype html>
-<html>
 
-<head>
-    <link rel="stylesheet" href="{% static 'xterm/css/xterm.css' %}" />
-    <script src="{% static 'xterm/lib/xterm.js' %}"></script>
-</head>
+{% block head %}
+<link rel="stylesheet" href="{% static 'xterm/css/xterm.css' %}" />
+<script src="{% static 'xterm/lib/xterm.js' %}"></script>
+{% endblock head %}
+  {% block content %}
 
-<body>
+
+<div id = "main">
     <div id="terminal"></div>
     <script>
         const ws = new WebSocket(`ws://${window.location.host}/ws/terminal/`);
@@ -24,10 +25,11 @@
         term.open(document.getElementById('terminal'));
         term._initialized = true;
         term.onData((e) => {
+            console.log(e)
             ws.send(e);
         })
         term.write('starting\r\n');
     </script>
-</body>
+    </div>
 
-</html>
+{% endblock content %}

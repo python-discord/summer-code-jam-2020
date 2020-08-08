@@ -11,6 +11,10 @@ def _home_with_error(request: HttpRequest, error_msg: str) -> HttpResponse:
     return redirect('home')
 
 
+def test(request: HttpRequest) -> HttpResponse:
+    return render(request, 'terminal/index.html')
+
+
 def index(request: HttpRequest, storage_id: int, vm_id: int) -> HttpResponse:
     try:
         virtual_machine = VMachine.objects.get(pk=vm_id)

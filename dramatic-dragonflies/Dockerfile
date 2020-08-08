@@ -2,18 +2,18 @@ FROM i386/debian:buster AS builder
 
 RUN apt-get -y update       \
     && apt-get install -y   \
-        gcc                 \
-        git                 \
-        libcap-dev          \
-        make                \
-        linux-headers-686   \
-        wget
+    gcc                 \
+    git                 \
+    libcap-dev          \
+    make                \
+    linux-headers-686   \
+    wget
 
 WORKDIR /minijail
 RUN git clone                                    \
-        --single-branch                          \
-        --depth 1                                \
-        https://github.com/google/minijail.git . \
+    --single-branch                          \
+    --depth 1                                \
+    https://github.com/google/minijail.git . \
     && make LIBDIR=/lib64
 
 
@@ -37,7 +37,7 @@ RUN tar -xzf /rom.tar.gz && rm /rom.tar.gz
 RUN pip install -U pipenv
 
 WORKDIR /app
-COPY Pipfile*  terminal/term_handler.c ./
+COPY Pipfile*  ./
 RUN mkdir -p ../build/
 COPY package.json package-lock.json ../build/
 RUN pipenv install --system --deploy
@@ -45,12 +45,11 @@ RUN pipenv install --system --deploy
 RUN apt-get -y update \
     && apt-get install -y \
     npm=5.8.* \
-    gcc \
     #vim just for testing the terminal, we should remove it later
     vim \
     && rm -rf /var/lib/apt/lists/* \
     && npm install --prefix ../build/ \
-    && gcc -o ../build/process_watch term_handler.c -O3 -Wall -Wextra -lutil\
-    && apt-get --purge -y autoremove npm gcc
-
+    && apt-get --purge -y autoremove npm
+COPY terminal/term_handler.c ./
+RUN  gcc -o ../build/process_watch term_handler.c -O3 -Wall -Wextra -lutil
 COPY . .
