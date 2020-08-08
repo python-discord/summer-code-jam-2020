@@ -27,8 +27,8 @@
 
 #### A completely functional Window Manager
 With Minimise, Maximise, full Z-Ordering and draggable windows!
-![Window Manager Demo 1](https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/src/demos/window_manager_1.png)
-![Window Manager Demo 2](https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/src/demos/window_manager_2.png)
+![Window Manager Demo 1](https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/src/demos/win_manage_1.png)
+![Window Manager Demo 2](https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/src/demos/win_manage_2.png)
 
 #### A functioning Start Menu
 Only the Settings Menu holds anything usable, but this allows you to change the Theme of the OS and the Wallpaper.
@@ -46,6 +46,8 @@ Search with Google, Bing and more;
 Check the news;
 ![IE Demo 3](https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/src/demos/ie_3.png)
 Download the latest version of Python;
+![IE Demo 4](https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/src/demos/ie_4.png)
+Even watch YouTube Videos!
 
 #### Easter Eggs...
 If you look close enough, maybe you'll find one of Web95's hidden Easter Eggs!
