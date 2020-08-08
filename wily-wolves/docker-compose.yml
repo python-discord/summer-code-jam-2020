@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+    mud:
+        build: .
+        command: >
+            bash -c "python mud/manage.py makemigrations
+            && python mud/manage.py migrate
+            && python mud/manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - .:/code
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
+            - redis
+
+    redis:
+        image: redis
+
+    postgres:
+        image: postgres
+        environment:
+            POSTGRES_USER: wilywolf
+            POSTGRES_PASSWORD: mypassword
+            POSTGRES_DB: mud

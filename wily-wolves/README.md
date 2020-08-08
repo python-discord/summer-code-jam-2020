@@ -3,22 +3,11 @@ This is the default README of your team's project. Please replace this by a READ
 
 ## Setup
 
-Have python version 3.8 installed
+This require Docker to be installed on your system.
 
-Have PostgreSQL (>= v10) installed
+While in the `wily-wolves` directory, run the following commands:
 
-Set up the database: `./setup_db.sh`
+* `docker-compose up --detatch`
+* `docker exec -it wily-wolves_mud_1 python mud/manage.py createsuperuser` and follow instructions.
 
-Install pipenv: `pip install pipenv`
-
-Install the dependencies: `pipenv install`
-
-Run the migrations: `cd mud && python manage.py migrate`
-
-Create a superuser: `cd mud && python manage.py createsuperuser`
-
-
-## Start the server:
-
-`cd mud && python manage.py runserver`
-
+Then head to `localhost:8000/mud` to access the game.
