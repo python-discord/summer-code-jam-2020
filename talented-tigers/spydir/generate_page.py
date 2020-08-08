@@ -17,7 +17,7 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] \
+    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 99.1, 0.05, 0.05])[0] \
         if page_type is None else page_type
 
     # Define the different fields needed for different page types here
@@ -37,15 +37,15 @@ def generate_page(page_name, page_type=None):
             blog_post.save()
             page_object.blog_posts.add(blog_post)
 
-        download_thread = threading.Thread(target=generate_gpt2, args=(page_object.blog_posts,))
-        download_thread.start()
+        post_thread = threading.Thread(target=generate_gpt2, args=(page_object.blog_posts,))
+        post_thread.start()
 
     elif page_object.page_type == 'INFO':
         wikipedia_page = generate_information(page_name)
         page_object.page_content = wikipedia_page[0]
         page_object.page_source_url = wikipedia_page[1]
-
         page_object.page_author = generate_page_author()
+
         page_images = generate_images(False, 1, page_name)
         for page_image in page_images:
             page_image.save()
@@ -55,6 +55,18 @@ def generate_page(page_name, page_type=None):
         faker = Faker()
         page_object.business_phone_num = faker.phone_number()
         page_object.business_email = faker.email()
+
+        page_images = generate_images(False, 1, page_name)
+        for page_image in page_images:
+            page_image.save()
+            page_object.page_images.add(page_image)
+
+        page_object.business_about = "Loading. . ."
+        page_object.business_mission = "Loading. . ."
+
+        info_thread = threading.Thread(target=generate_business_statements,
+                                       args=(page_name, page_object,))
+        info_thread.start()
 
     elif page_object.page_type == 'FOOD':
         pass
@@ -166,7 +178,29 @@ def generate_gpt2(posts):
         post.save()
         output = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title,
                                length=100)[0]
-        cutoff = max([output.rfind("."), output.rfind("?"), output.rfind("!")])
-        post.content = parse_result(output[:cutoff+1])
-        print(post.content)
+
+        post.content = parse_result(splice_sentence(output))
         post.save()
+
+
+def generate_business_statements(page_name, page_object):
+    # Currently, the model is loaded everytime this function is called, which may be slow. Putting it outside doesnt
+    # work
+    model_name = "124M"
+    sess = gpt2.start_tf_sess()
+    gpt2.load_gpt2(sess, model_name=model_name)
+
+    about = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True,
+                          prefix=f"{page_name} Co. is", length=100)[0]
+    page_object.business_about = parse_result(splice_sentence(about))
+    page_object.save()
+
+    mission = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=f"Our Mission",
+                            length=100)[0]
+    page_object.business_mission = parse_result(splice_sentence(mission))
+    page_object.save()
+
+
+def splice_sentence(word):
+    cutoff = max([word.rfind("."), word.rfind("?"), word.rfind("!")])
+    return word[:cutoff + 1]
