@@ -4,6 +4,8 @@ from .rss_feed import LatestEntriesFeed
 from .views import IndexListView, PostView, LoginView, logout_request, SignupView, CommunityView, TopCommunityView, UserView\
     , UserProfileUpdate
 
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', IndexListView.as_view()),
@@ -16,4 +18,7 @@ urlpatterns = [
     url(r'^top-communities', TopCommunityView.as_view(), name="top-communities"),
     path('user/<int:pk>', UserProfileUpdate.as_view(), name="user-profile"),
     path('user/<str:username>/posts', UserView.as_view()),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

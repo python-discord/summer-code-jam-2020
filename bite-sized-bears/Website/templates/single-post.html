@@ -9,7 +9,7 @@
         <p>{{post.description}}</p>
       </div>
 
-      <form action="./{{ post.id }}/comment" method="POST">{% csrf_token %}
+      <form action="comment" method="POST">{% csrf_token %}
         <input id="content" type="text" name="content" placeholder="Type comment" autocomplete="off">
         <input type="submit" value="Add comment">
       </form>
