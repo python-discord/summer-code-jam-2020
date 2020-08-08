@@ -8,10 +8,15 @@
 </div>
  <!-- Slideshow container -->
 <div id='current-profile' class="slideshow-container">
+    {% if like %}
+        <h2>You already liked</h2>
+     {% endif %}
+
         <img src="/media/{{current.profile.img}}" width="250">
         <h1>{{current.first_name}} {{current.last_name}}</h1>
         <h1>Age: {{current.profile.age}}</h1>
         <h1>Sex: {{current.profile.sex}}</h1>
+        <h1>Sex: {{current.profile.preference}}</h1>        
         <hr>
         <p style="font-size: 1.75em; font-weight: bold; margin-left: 200px; margin-right: 200px; ">{{current.profile.bio}}</p>
 </div>
@@ -19,12 +24,13 @@
 
 <!-- The dots/circles -->
 <div style="text-align:center">
- <form method='POST'>
+    <a class="btn btn-primary" href="{% url 'earlydating-bothlikes' %}">View matches</a>
+ <form action="{% url 'earlydating-DateMatcher' %}" method='POST'>
     {% csrf_token %}
     <button class="buttonmatch" type="submit" name="Like" value="{{current.pk}}">Like</button>
-    <button class="buttonmatch" type="submit" name="Dislike" value="{{current.pk}}">Dislike</button>
+    <button class="buttonmatch" type="submit" name="Unlike" value="{{current.pk}}">Unlike</button>
     </form>
-
+    <a class="btn btn-primary" href="{% url 'earlydating-DateMatcher' %}">Next Profile</a>
 </div>
 
 

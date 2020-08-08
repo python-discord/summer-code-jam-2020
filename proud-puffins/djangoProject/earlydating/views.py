@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from random import randint
 from collections.abc import Iterable
+from django.db.models import Q
 from .models import UserVote
 from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
 from .decorators import unauthenticated_user, allowed_users
@@ -89,33 +90,61 @@ def DateMatcher(request):
     logged_user = request.user
     if request.method == 'POST':
         print(request.POST)
-        if liked_pk := request.POST.get('Like'):
-            voted = User.objects.get(pk=liked_pk)
-            UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=True)
-
-        elif liked_pk := request.POST.get('Dislike'):
-            voted = User.objects.get(pk=liked_pk)
-            UserVote.objects.get_or_create(user=voted, voter=logged_user, vote=False)
-
-        return redirect('earlydating-DateMatcher')
+        if like_pk := request.POST.get('Like'):
+            voted = User.objects.get(pk=like_pk)
+            vote, _ = UserVote.objects.get_or_create(user=voted, voter=logged_user)
+            vote.vote = True
+        elif like_pk := request.POST.get('Unlike'):
+            voted = User.objects.get(pk=like_pk)
+            vote, _ = UserVote.objects.get_or_create(user=voted, voter=logged_user)
+            vote.vote = False
+        vote.save()
+        return redirect('earlydating-profile', pk=like_pk)
     elif request.method == 'GET':
+        user = get_unvoted(logged_user)[0]
+        return redirect('earlydating-profile', pk=user.pk)
 
-        user = get_unvoted(logged_user)
-        context = {'current': user}
-        return render(request, 'dating/DateMatcher.html', context)
+
+def getfilters(user):
+    u_sex = user.profile.sex
+    gender = ['Male', 'Female']
+    try:
+        if user.profile.preference == 'straight':
+            Q1 = Q(profile__sex=gender[int(not gender.index(u_sex))])
+            Q2 = Q(profile__preference__in=['straight', 'bisexual'])
+            return Q1 & Q2
+
+        elif user.profile.preference == 'gay':
+            Q1 = Q(profile__sex=u_sex)
+            Q2 = Q(profile__preference__in=['gay', 'bisexual'])
+            return Q1 & Q2
+
+        elif user.profile.preference == 'bisexual':
+            Q1 = Q(profile__sex=u_sex)
+            Q2 = Q(profile__preference='gay')
+            Q3 = Q(profile__sex=gender[int(not gender.index(u_sex))])
+            Q4 = Q(profile__preference='straight')
+            Q5 = Q(profile__preference='bisexual')
+            return (Q1 & Q2) | (Q3 & Q4) | Q5
+
+    except Exception as e:
+        print(e)
+        return None
 
 
 # Currently not using
-def get_unvoted(voter):
+def get_unvoted(voter, num=1):
     try:
-        votes = UserVote.objects.filter(voter=voter)
+        votes = UserVote.objects.filter(voter=voter, vote=True)
         if not isinstance(votes, Iterable):
             votes = [votes]
         voted_pk = [vote.user.pk for vote in votes] + [voter.pk]
     except UserVote.DoesNotExist:
         voted_pk = [voter.pk]
-    unvoted = User.objects.exclude(pk__in=voted_pk).order_by('?')[0]
-    return unvoted
+    unvoted = User.objects.exclude(pk__in=voted_pk)
+    if (filter := getfilters(voter)) is not None:
+        unvoted = unvoted.filter(filter)
+    return unvoted.order_by('?')[:num]
 
 
 @login_required(login_url='earlydating-login')
@@ -140,8 +169,8 @@ def likedmatches(request):
 @allowed_users(allowed_roles=['profile'])
 def bothliked(request):
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user)
-    you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user)
+    liked_you = UserVote.objects.filter(user=logged_user, vote=True).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user, vote=True).exclude(user=logged_user)
     both_liked = liked_you.intersection(you_liked)
     whole_list = liked_you.union(you_liked)
     context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
@@ -151,10 +180,23 @@ def bothliked(request):
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
+def profile(request, pk):
+    logged_user = request.user
+    user = User.objects.get(pk=pk)
+    try:
+        like = UserVote.objects.get(user=user, voter=logged_user).vote
+    except UserVote.DoesNotExist:
+        like = False
+    context = {'current': user, 'like': like}
+    return render(request, 'dating/profile.html', context)
+
+
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
 def your_profile(request):
     profile = request.user
     num_likebacks = randint(2, 5)
-    other_users = User.objects.exclude(pk=profile.pk).order_by('?')[:num_likebacks]
+    other_users = get_unvoted(profile, num_likebacks)
     for other_user in other_users:
         votes, created = UserVote.objects.get_or_create(user=profile, voter=other_user, vote=True)
         if created:
