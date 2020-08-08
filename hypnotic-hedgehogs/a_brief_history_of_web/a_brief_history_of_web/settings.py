@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'first_youtube',
     'ninetys_blog',
     'web_portal',
-    'win95'
+    'win95',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Istanbul'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -126,5 +127,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static")
 ]
+
+# Media files (user uploaded).
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Crispy and bootstrap.
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
