@@ -5,7 +5,15 @@ from django.shortcuts import render
 def homepage(request):
     """Views to render the homepage."""
 
-    return render(request, "home.html")
+    context = {
+        "login" : False,
+    }
+
+    if "email" in request.session:
+        context["username"] = request.session["username"]
+        context["login"] = True
+
+    return render(request, "home.html", context)
 
 def aboutus(request):
     """ Views to render the About Us page. """

@@ -7,6 +7,10 @@
 
 
 {% block content %}
+    {% if login %}
+    <h2 style="color: blue;">Hello, {{ username }}!</h2>
+    <br>
+    {% endif %}
     <p id="homepage-content">
         Albatrosses Hub is a fun website where you can spend your time playing Mafia Game
         or discussing about something in the forum. You also can access some hot news by using
