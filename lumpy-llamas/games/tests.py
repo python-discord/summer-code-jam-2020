@@ -41,6 +41,21 @@ class TicTacToeTest(TestCase):
         self.assertFalse(game_over)
         self.assertEqual(score, 0)
 
+    def test_player_wins(self):
+        board_start = [
+            'X', None, None,
+            'O', 'X', None,
+            None, 'O', None,
+        ]
+        board, game_over, score = play_game(board_start, 'X', 8)
+        self.assertEqual(board, [
+            'X', None, None,
+            'O', 'X', None,
+            None, 'O', 'X',
+        ])
+        self.assertTrue(game_over)
+        self.assertEqual(score, 1)
+
     def test_play_defensive(self):
         board_start = [
             'X', 'O', None,
