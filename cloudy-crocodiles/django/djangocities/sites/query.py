@@ -1,9 +1,8 @@
 from djangocities.cities.models import City
 from djangocities.graphql import query
-from djangocities.sites.models import Site
-from djangocities.pages.models import Page
-from djangocities.folders.models import Folder
 from djangocities.iam.jwt import load_user
+from djangocities.pages.models import Page
+from djangocities.sites.models import Site
 
 
 @query.field("allSites")
@@ -14,11 +13,6 @@ def resolve_all_sites(*_):
 @query.field("site")
 def resolve_site(*_, id):
     return Site.objects.get(id=id)
-
-@query.field("siteFolder")
-def resolve_site_folder(*_, id, path):
-    site = Site.objects.get(id=id)
-    return Folder.objects.get(site=site, path=path)
 
 
 @query.field("citySites")
@@ -41,6 +35,7 @@ def resolve_all_pages(*_):
 @query.field("page")
 def resolve_page(*_, id):
     return Page.objects.get(id=id)
+
 
 @query.field("userOwnSites")
 def resolve_user_own_sites(root, info):
