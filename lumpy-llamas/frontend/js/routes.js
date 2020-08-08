@@ -1,5 +1,7 @@
 import Home from './home-page.vue';
 import Newsfeed from './news-feed.vue'
+import Login from './login.vue';
+
 
 const routes = [
   {
@@ -14,6 +16,12 @@ const routes = [
     name: 'news_feed',
     component: Newsfeed,
   },
+  {
+    path: '/login',
+    name: 'login_page',
+    component: Login,
+  },
+
 ];
 
 export default routes;
