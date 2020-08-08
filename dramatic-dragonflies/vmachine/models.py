@@ -28,10 +28,3 @@ class Floppy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vm = models.ForeignKey(VMachine, on_delete=models.CASCADE, default=None)
 
-    def __str__(self) -> str:
-        return str(self.name) + "(" + self.vm.name + ")"
-
-    def save(self, force_insert: bool = False, force_update: bool = False, using: None = None,
-             update_fields: None = None) -> None:
-        self.storage_id = "from_save"
-        super().save()

@@ -7,7 +7,7 @@ from django.views.generic import CreateView, DeleteView
 from django.forms import Form
 from django.contrib import messages
 from .forms import FloppyCreateForm
-
+from the_htvms.runner.disk import create_disk
 
 @login_required
 def create_floppy(request: HttpRequest) -> HttpResponse:
@@ -36,6 +36,7 @@ def create_floppy(request: HttpRequest) -> HttpResponse:
                 if vm.user == request.user:
                     form.instance.user = request.user
                     form.instance.vm = form.cleaned_data['VirtualMachine']
+                    form.instance.storage_id = create_disk(type_="blank")
                     form.save()
                 else:
                     messages.error(request, "This is not your VM!")
