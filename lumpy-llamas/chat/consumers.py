@@ -1,9 +1,13 @@
 import json
 import datetime
+import logging
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.db import transaction
 from chat.models import ChatRoom, Message, User, _model_field_limits
+
+
+logger = logging.getLogger(__name__)
 
 
 class UserNotFound(Exception):
@@ -13,24 +17,17 @@ class UserNotFound(Exception):
 class ChatConsumer(AsyncWebsocketConsumer):
     @sync_to_async
     def create_or_get_group(self):
-        try:
-            chat_room = ChatRoom.objects.get(name=self.room_name)
-        except Exception as e:
-            print(e)
-            chat_room = ChatRoom(name=self.room_name)
-            chat_room.save()
-        finally:
-            return chat_room.pk
+        chat_room, created = ChatRoom.objects.get_or_create(name=self.room_name)
+        if created:
+            logger.info(f'Created new chat_room "{self.room_name}"')
+        return chat_room.pk
 
     @sync_to_async
     def get_user(self):
-        try:
-            user = User.objects.get(username=self.user.username)
-        except Exception as e:
-            print(e)
-            raise UserNotFound(f'No user "{self.user.username}"')
-        else:
-            return user.pk
+        user, created = User.objects.get_or_create(username=self.user.username)
+        if created:
+            logger.warning(f'New user "{self.user.username}" created during connection to room "{self.room_name}"')
+        return user.pk
 
     async def connect(self):
         self.user = self.scope["user"]
@@ -46,6 +43,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
+        logger.info(f'User "{self.user.username}" is connected to room "{self.room_name}"')
 
     async def disconnect(self, close_code):
         # Leave room group
@@ -53,6 +51,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
+        logger.info(f'User "{self.user.username}" is disconnected to room "{self.room_name}"')
 
     # Receive message from WebSocket
     async def receive(self, text_data):
