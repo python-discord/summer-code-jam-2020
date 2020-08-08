@@ -30,6 +30,10 @@ CMD ["manage.py", "run"]
 
 COPY --from=builder /minijail/libminijail.so /minijail/libminijailpreload.so /lib64/
 COPY --from=builder /minijail/minijail0 /usr/bin/
+COPY rom.tar.gz /
+
+RUN tar -xzf /rom.tar.gz && rm /rom.tar.gz
+
 RUN pip install -U pipenv
 
 WORKDIR /app
