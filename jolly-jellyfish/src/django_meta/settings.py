@@ -1,4 +1,4 @@
-"""Django settings for early_windows project."""
+"""Django settings for halfway project."""
 import json
 import os
 import random
@@ -128,5 +128,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 STATIC_URL = '/static/'

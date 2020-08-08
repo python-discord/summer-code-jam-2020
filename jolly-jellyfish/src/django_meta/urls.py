@@ -1,4 +1,4 @@
-"""early_windows URL Configuration"""
+"""halfway URL Configuration"""
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin

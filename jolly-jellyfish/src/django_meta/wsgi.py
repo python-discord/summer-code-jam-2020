@@ -1,5 +1,5 @@
 """
-WSGI config for early_windows project.
+WSGI config for halfway project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

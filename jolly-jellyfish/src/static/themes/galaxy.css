@@ -1,0 +1,78 @@
+/**
+ * Galaxy GIF in background, images in corner.
+ * Green text with black border and white "3D" effect.
+ * Text fades in and out in very wide font.
+ * Headers stretch and shrink.
+ * Requires "static/images/galaxy.png" and "static/images/galaxy.gif" static files.
+ * Headers must be written as:
+ *      <h1><span>Header Text</span></h1>
+ * (Compatible with hotdog requirement.)
+ * Images have a border, constantly blur and un-blur, and must be written as:
+ *     <div class="img-wrapper"><img .../></div>
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap');
+
+body {
+  background: url("../images/galaxy.png") 10px 10px / 170px 150px no-repeat,
+              url("../images/galaxy.png") 10px calc(100% - 10px) / 170px 150px no-repeat,
+              url("../images/galaxy.png") calc(100% - 10px) 10px / 170px 150px no-repeat,
+              url("../images/galaxy.png") calc(100% - 10px) calc(100% - 10px) / 170px 150px no-repeat,
+              url("../images/galaxy.gif") top left / 25vw 14vw;
+  color: #0a0;
+  text-shadow: -1px -1px #000, -1px 1px #000, 1px -1px #000, 1px 1px #000, 2px -2px #fff, 3px -3px #fff, 4px -4px #fff;
+  padding: 0 180px;
+  font-family:  "Lexend Zetta", monospace;
+}
+
+.img-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  max-width: 100%;
+  max-height: 60vh;
+  margin: auto;
+  border: 124px solid transparent;
+  border-image: url("../images/galaxy-border.png") 124 round;
+  animation: blur 5s linear infinite;
+}
+
+body p:nth-child(even) {
+  animation: fade1 5s linear infinite;
+}
+
+body p:nth-child(odd) {
+  animation: fade2 5s linear infinite;
+}
+
+h1 > span, h2 > span, h3 > span, h4 > span, h5 > span {
+  animation: stretch 2s linear infinite;
+  transform-origin: left center;
+  display: inline-block;
+}
+
+@keyframes fade1 {
+  0% {opacity: 100%}
+  50% {opacity: 50%}
+  100% {opacity: 100%}
+}
+
+@keyframes fade2 {
+  0% {opacity: 50%}
+  50% {opacity: 100%}
+  100% {opacity: 50%}
+}
+
+@keyframes blur {
+  0% {filter: blur(0px)}
+  50% {filter: blur(5px)}
+  100% {filter: blur(0px)}
+}
+
+@keyframes stretch {
+  0% {transform: scale(2, 1)}
+  50% {transform: scale(0.5, 1)}
+  100% {transform: scale(2, 1)}
+}

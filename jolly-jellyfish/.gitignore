@@ -1,2 +1,3 @@
 venv/*
 src/config.json
+user_media/*

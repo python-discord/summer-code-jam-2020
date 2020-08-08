@@ -1,0 +1,6 @@
+# requirements.txt version of Pipfile
+# this may be out of date, but it should
+# be easier to read at the very least...
+
+# webpages:
+django ~= 3.0
