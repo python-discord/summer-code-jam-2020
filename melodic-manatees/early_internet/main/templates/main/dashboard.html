@@ -21,15 +21,20 @@
                 <div class="column">
                     <div class="box is-transparent">
                         <h2 class="title">Morning News</h2>
+                        {% for story in news %}
                         <article class="media notification">
+                            <figure class="media-left image is-128x128">
+                                <img src="{{ story.img_small }}">
+                            </figure>
                             <div class="media-content">
                                 <div class="content">
-                                    <h3 class="title">Article 1</h3>
-                                    {% include "news/news.html" %}
+                                    <h3 class="title is-5">{{ story.title }}</h3>
+                                    <p>{{ story.abstract }}</p>
+                                    <a href="{{story.url}}">Full Article</a>
                                 </div>
                             </div>
                         </article>
-                    
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="column">
