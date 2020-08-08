@@ -21,6 +21,11 @@ ADD . /app
 RUN useradd appuser && chown -R appuser /app
 USER appuser
 
+# Collect static files
+RUN cd spacebook
+RUN python manage.py collectstatic --noinput
+RUN cd ..
+
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 # File wsgi.py was not found in subfolder:mysterious-mice. Please enter the Python path to wsgi file.
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "spacebook.wsgi"]
