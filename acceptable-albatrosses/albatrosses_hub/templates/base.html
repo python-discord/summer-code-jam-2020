@@ -20,14 +20,24 @@
 </head>
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #abadb3;">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'img/albatrosses-logo.png' %}" alt="LOGO" width="64" height="64">
-            </a>
-            <a class="navbar-brand" href="/game">GAME</a>
-            <a class="navbar-brand" href="/forums">FORUM</a>
-            <a class="navbar-brand" href="#">NEWSLETTER</a>
-            <a class="navbar-brand" href="#">ABOUT US</a>
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #abadb3;">
+            <div class="navbar order-1 w-100 order-md-0">
+                <ul class="navbar-nav">
+                    <a class="navbar-brand" href="#">
+                        <img src="{% static 'img/albatrosses-logo.png' %}" alt="LOGO" width="64" height="64">
+                    </a>
+                    <a class="navbar-brand align-self-center" href="{% url 'gamepage' %}">GAME</a>
+                    <a class="navbar-brand align-self-center" href="#">FORUM</a>
+                    <a class="navbar-brand align-self-center" href="#">NEWSLETTER</a>
+                    <a class="navbar-brand align-self-center" href="#">ABOUT US</a>
+                </ul>
+            </div>
+            <div class="navbar order-2 order-md-1">
+                <ul class="navbar-nav">
+                    <a class="navbar-brand" href="{% url 'login_page' %}"><b>LOGIN</b></a>
+                    <a class="navbar-brand" href="{% url 'register_page' %}"><b>REGISTER</b></a>
+                </ul>
+            </div>
         </nav>
         {% block content %}
 

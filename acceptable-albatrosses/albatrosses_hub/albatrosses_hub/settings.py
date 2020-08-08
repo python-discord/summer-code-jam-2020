@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "home",
     "game",
     "forums",
+    "authentication",
 ]
 
 MIDDLEWARE = [
