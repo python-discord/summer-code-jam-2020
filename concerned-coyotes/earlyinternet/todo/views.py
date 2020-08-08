@@ -1,4 +1,3 @@
-from django import http
 from django.views.generic.edit import CreateView, UpdateView
 
 from .models import TodoEntry

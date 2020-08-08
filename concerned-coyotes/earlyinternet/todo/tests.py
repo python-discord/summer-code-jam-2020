@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
+from django.test import TestCase
 
 from .models import TodoEntry
 
@@ -46,7 +46,6 @@ class TestTodoCreateView(TestCase):
         self.assertEqual(resp.status_code, 302)
         self.assertEqual(resp.url, '/account/login?next=/todo/add/')
 
-
     def test_add_entry(self):
         logged_in = self.client.login(username='John Doe', password='hunter2')
         self.assertEqual(logged_in, True)
@@ -90,4 +89,3 @@ class TestTodoUpdateView(TestCase):
 
         todo = TodoEntry.objects.get(id=todo.id)
         self.assertIs(todo.done, True)
-
