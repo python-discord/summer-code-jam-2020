@@ -11,9 +11,9 @@
     <div class="profile-div"><table><tbody><tr>
         <td class="profile-column">
             <div class="body-div"><table><tbody>
-                <tr><td>
+                <tr><td><h2>
                     {{ rover.username }}
-                </td></tr>
+                </h2></td></tr>
                 <tr><td><table><tbody><tr>
                     <td>
                         <!-- profile picture -->
@@ -36,9 +36,10 @@
             <div class="body-div"><table><tbody>
                 <tr>
                     <td colspan="2">
-                        About {{ rover.username }}
+                        {{ rover.username }}'s Details
                     </td>
                 </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
                 {% if rover.launch_date %}
                     <tr>
                         <td>
@@ -106,7 +107,7 @@
             {% if rover.about_me %}
                 <div class="body-div">
                     About {{ rover.username }}
-                    <br>
+                    <br><br>
                     {{ rover.about_me }}
                 </div>
                 <br>
