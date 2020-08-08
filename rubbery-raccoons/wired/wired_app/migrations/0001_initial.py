@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ("slug", models.SlugField()),
                 ("headline", models.TextField()),
                 ("body", models.TextField()),
-                ("publication_date", models.DateTimeField()),
+                ("publication_date", models.DateField()),
                 ("created", models.DateTimeField(auto_now_add=True)),
                 ("updated", models.DateTimeField(auto_now=True)),
                 (
