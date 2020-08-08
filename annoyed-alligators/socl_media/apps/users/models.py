@@ -14,7 +14,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.png",
                               upload_to="profile_pics")
-    bio = models.TextField(default="I'm using socl_media", max_length=280,
+    bio = models.TextField(default="I'm using SoCL Media!", max_length=280,
                            blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     first_name = models.CharField(max_length=20, blank=True)
@@ -37,9 +37,9 @@ class Profile(models.Model):
         super().save()
 
         img = Image.open(self.image.path)
-        img = img.resize((48, 48), resample=Image.BILINEAR)
+        img = img.resize((112, 112), resample=Image.BILINEAR)
 
-        output_size = (64, 64)
+        output_size = (120, 120)
         img = img.resize(output_size, Image.NEAREST)
         img.thumbnail(output_size)
         img.save(self.image.path)

@@ -137,6 +137,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'socl_media', 'static')]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'socl_media', 'static', 'media')
+MEDIA_URL = '/media/'
+
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
@@ -147,5 +156,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'socl_media', 'static', 'media')
-MEDIA_URL = '/media/'
