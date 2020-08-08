@@ -70,11 +70,6 @@ def parse_render_request(request):
         pass
 
 
-def return_home(request):
-    """sends user back to feed page"""
-    pass  # note: feed page is not fully complete so just give a blank url for now
-
-
 def parse_image_request(request, project_name=None):
     """ receives GET request with url /?q=<project_name>,
     sends a JSON of ["data": <ordered list of images as bytes>]"""
