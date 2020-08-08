@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-# from django.urls import reverse_lazy
 from django.contrib import messages
-# from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
+from random import randint
+from collections.abc import Iterable
 from .models import UserVote
 from .forms import CreateUserForm, ProfileUpdateForm, UserUpdateForm
 from .decorators import unauthenticated_user, allowed_users
-from random import randint
-from collections.abc import Iterable
 
 
 # Create your views here.
@@ -24,7 +23,10 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+        if user is not None and user.last_login is None:
+            login(request, user)
+            return redirect('earlydating-editprofile')
+        elif user is not None:
             login(request, user)
             return redirect('earlydating-yourprofile')
         else:
@@ -80,8 +82,6 @@ def editprofile(request):
 
     return render(request, 'dating/edit_profile.html', context)
 
-#  WORK IN PROCESS : Below is the list of views for creating user matches ####
-
 
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
@@ -104,6 +104,7 @@ def DateMatcher(request):
         return redirect('earlydating-profile', pk=user.pk)
 
 
+# Currently not using
 def get_unvoted(voter):
     try:
         votes = UserVote.objects.filter(voter=voter, vote=True)
@@ -119,34 +120,35 @@ def get_unvoted(voter):
     return unvoted
 
 
-# @login_required(login_url='earlydating-login')
-# @allowed_users(allowed_roles=['profile'])
-# def matches(request):
-#     logged_user = request.user
-#     liked_you = UserVote.objects.filter(user=logged_user).exclude(voter=logged_user).values_list('voter')
-#     you_liked = UserVote.objects.filter(voter=logged_user).exclude(user=logged_user).values_list('user')
-#     both_liked = liked_you.intersection(you_liked)
-#     whole_list = liked_you.union(you_liked)
-#     table = []
-#     header = ['name', 'liked you', 'you liked', 'email']
-#     for user in whole_list:
-#         row = [user[0]]
-#         row += [True] if user in liked_you else [False]
-#         row += [True] if user in you_liked else [False]
-#         row += [User.objects.get(pk=user[0]).email] if user in both_liked else ['']
-#     context = {'table': table, 'header': header, 'liked_you': liked_you, 'both_liked': both_liked,
-#         'whole_list': whole_list, 'you_liked': you_liked}
-#     return render(request, 'dating/matches.html', context)
 @login_required(login_url='earlydating-login')
 @allowed_users(allowed_roles=['profile'])
-def matches(request):
+def likedmatches(request):
+    logged_user = request.user
+    liked_you = UserVote.objects.filter(user=logged_user, vote=1).exclude(voter=logged_user)
+    you_liked = UserVote.objects.filter(voter=logged_user, vote=1).exclude(user=logged_user)
+    page_likes = Paginator(liked_you, 9)
+    page_liked = Paginator(you_liked, 9)
+
+    page_number = request.GET.get('page')
+    page_obj_likes = page_likes.get_page(page_number)
+    page_obj_liked = page_liked.get_page(page_number)
+
+    context = {'liked_you': liked_you, 'you_liked': you_liked,
+               'obj_liked': page_obj_liked, 'obj_likes': page_obj_likes}
+    return render(request, 'dating/mylikes.html', context)
+
+
+@login_required(login_url='earlydating-login')
+@allowed_users(allowed_roles=['profile'])
+def bothliked(request):
     logged_user = request.user
     liked_you = UserVote.objects.filter(user=logged_user, vote=True).exclude(voter=logged_user)
     you_liked = UserVote.objects.filter(voter=logged_user, vote=True).exclude(user=logged_user)
     both_liked = liked_you.intersection(you_liked)
     whole_list = liked_you.union(you_liked)
     context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
-    return render(request, 'dating/mymatches.html', context)
+
+    return render(request, 'dating/bothlikes.html', context)
 
 
 @login_required(login_url='earlydating-login')

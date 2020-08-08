@@ -14,7 +14,8 @@ urlpatterns = [
     path('profile/<str:pk>', views.profile, name='earlydating-profile'),
     path('edit_profile/', views.editprofile, name='earlydating-editprofile'),
     path('DateMatcher/', views.DateMatcher, name='earlydating-DateMatcher'),
-    path('mymatches/', views.matches, name='earlydating-mymatches')
+    path('mylikes/', views.likedmatches, name='earlydating-mylikes'),
+    path('bothlikes/', views.bothliked, name='earlydating-bothlikes')
 ]
 
 

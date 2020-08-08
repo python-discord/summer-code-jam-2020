@@ -35,7 +35,14 @@
         <div class="home_h1">
             <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
             <img src="/static/images/Proud_Puffin_motion.gif";  height="40"; align="Left">
-                <span style="text-align: start; font-size: 2.5em">&nbsp;PAGE TITLE GOES HERE</span>
+                <span style="text-align: start; font-size: 2.5em">
+                    {% if title %}
+                        {{ title }}
+                    {% else %}
+                        Early Dating
+                    {% endif %}
+
+                </span>
 
                 <span style="text-align: end; font-size: 1.0em" >
                     <!-- (Page menus go here) -->
@@ -60,23 +67,21 @@
 
 {% load random_image %}
     <div class="row">
-
+{#        Leave this image tage WITHOUT length-600 in them. Wrong and too ugly - Ergo#}
         <div class="columnleft">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600"></img><br>
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600" ></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="200"  ></img>
         </div>
 
         <div class="columnright">
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600" ></img><br>
-           <img src="{{MEDIA_URL}}{% random_image %}" width="250" height="600"></img>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img><br>
+           <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img>
         </div>
 
-    <div class="columncenter" >
-        {% block content %}
-        {% endblock %}
-  </div>
-
-    </div>
+        <div class="columncenter" >
+            {% block content %}
+            {% endblock %}
+        </div>
 
   <footer>
     <audio preload="auto" controls autoplay loop muted src=/static/sounds/romantic-song.mp3></audio>

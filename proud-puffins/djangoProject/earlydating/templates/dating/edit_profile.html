@@ -7,11 +7,11 @@
         {% csrf_token %}
         <fieldset class="form-group">
                 {% for item in u_form %}
-                <p><label style="font-size:large; font-weight:bold">{{ item.label }}</label> <h1 class="resizedTextbox">{{ item }}</h1></p>
+                <p><label style="font-size:large; font-weight:bold; text-align: right">{{ item.label }}</label> {{ item }}</p>
                 {% endfor %}
 
                 {% for item in p_form %}
-                <p><label style="font-size:large; font-weight:bold">{{ item.label }}</label> <h1 class="resizedTextbox">{{ item }}</h1></p>
+                <p><label style="font-size:large; font-weight:bold text-align: right">{{ item.label }}</label> {{ item }}</p>
                 {% endfor %}
         </fieldset>
 

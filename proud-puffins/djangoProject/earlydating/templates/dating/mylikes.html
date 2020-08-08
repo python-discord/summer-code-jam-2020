@@ -1,0 +1,36 @@
+{% extends 'dating/base.html' %}
+
+{% block title %}Your Match{% endblock %}
+{% block content %}
+
+{% csrf_token %}
+{% for item in obj_liked %}
+<p style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
+        border-style: inset; border-width: 4px; margin: 30px 200px 0px 200px; width:50%; "><a href="{% url 'earlydating-profile' item.user.id %}">{{ item.user.username }}</a>
+</p>
+<p style="text-align: center; vertical-align: middle; width: 659px; margin-left: 200px"><br>
+<img src="/media/{{ item.user.profile.img }}" height="250"; ><br>
+<h3 style="margin-left: 220px; margin-right: 200px">{{item.user.profile.bio}}</h3>
+</p>
+{% endfor %}
+
+<div class='pagination'>
+    <span class="step-links">
+        {% if obj_liked.has_previous %}
+        <a href="?page=1"><img src="{{ '\static\images\baseline_first_page_black_18dp.png' }}"></a>
+        <a href="?page={{ obj_liked.previous_page_number }}"><img src="{{ '\static\images\baseline_navigate_before_black_18dp.png' }}"></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ obj_liked.number }} of {{ obj_liked.paginator.num_pages }}.
+        </span>
+
+        {% if obj_liked.has_next %}
+        <a href="?page={{ obj_liked.next_page_number }}"><img src="{{'\static\images\baseline_navigate_next_black_18dp.png' }}"></a>
+        <a href="?page={{ obj_liked.paginator.num_pages }}"><img src="{{ '\static\images\baseline_last_page_black_18dp.png' }}"></a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endblock %}
