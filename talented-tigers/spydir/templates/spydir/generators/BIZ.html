@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <meta charset="UTF-8">
     <title></title>
     <style>
@@ -38,7 +38,7 @@
 
     <div class="content">
         <h1>About {{ page.page_title }} Co.</h1>
-        <p>{{ page.business_about|safe }}</p>
+        <p id="about">{{ page.business_about|safe }}</p>
         <h1>Our Mission</h1>
         <p> {{ page.business_mission|safe }} </p>
     </div>
@@ -51,5 +51,8 @@
         </div>
     </footer>
 
+    <script>
+        setTimeout(function(){window.location.reload()},5000)
+    </script>
 </body>
 </html>

@@ -37,7 +37,7 @@ def load_generated_page(request, page_name):
     page = None
     try:
         page = GeneratedPage.objects.get(page_title=page_name)
-        if page.is_generated == False:
+        if not page.is_generated:
             page = generate_page.generate_page(page_name)
     except GeneratedPage.DoesNotExist:
         return render(request, "spydir/404.html")
@@ -45,6 +45,7 @@ def load_generated_page(request, page_name):
     ctx = {
         'page': page
     }
+
     if page.page_type == "SCAM":
         return render(request, f"spydir/generators/scams/{page.scam_type}.html", context=ctx)
     return render(request, f"spydir/generators/{page.page_type}.html", context=ctx)

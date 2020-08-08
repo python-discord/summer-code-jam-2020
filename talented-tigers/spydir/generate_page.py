@@ -16,7 +16,7 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [0.3, 0.5, 0.1, 0.05, 0.05])[0] \
+    page_object.page_type = random.choices(possible_page_types, [10.3, 0.5, 0.1, 0.05, 0.05])[0] \
         if page_type is None else page_type
 
     # Define the different fields needed for different page types here
@@ -203,6 +203,7 @@ def generate_business_statements(page_name, page_object):
 def splice_sentence(word):
     cutoff = max([word.rfind("."), word.rfind("?"), word.rfind("!")])
     return word[:cutoff + 1]
+
 
 authorize_page('internet')
 generate_page('internet', 'INFO')
