@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.views import generic
+
 from .models import Stock
 
 
@@ -10,5 +12,17 @@ def stock(request, stock_ticker):
     :param stock_ticker: the ticker value to be displayed
     :return: An HttpResponse containing the raw QuerySet
     """
-    list = Stock.objects.filter(ticker_symbol=stock_ticker)
-    return HttpResponse(list)
+    stock_list = Stock.objects.filter(ticker_symbol=stock_ticker)
+    return HttpResponse(stock_list)
+
+
+class IndexView(generic.ListView):
+    """
+    lists all stocks
+    """
+
+    model = Stock
+    paginate_by = 10
+    template_name = "stock_index.html"
+    context_object_name = "stock_index"
+    queryset = Stock.objects.all()

@@ -53,7 +53,6 @@ input[type="checkbox"]:checked {
 
 input[type="radio"] {
     content: url("../images/radio-off.png");
-    
 }
 
 input[type="radio"]:checked {
