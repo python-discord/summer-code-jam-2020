@@ -18,19 +18,16 @@ const routes = [
   },
   {
     path: '/forum',
-    alias: '/for',
     name: 'forum',
     component: Forum,
   },
   {
     path: '/forum/new',
-    alias: '/new-thread',
     name: 'new-thread',
     component: PostThread,
   },
   {
     path: '/forum/:id',
-    alias: '/thread-view',
     name: 'thread-view',
     component: Thread,
   },

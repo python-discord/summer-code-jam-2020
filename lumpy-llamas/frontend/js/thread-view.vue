@@ -65,7 +65,7 @@ export default {
         this.textarea = "";
         console.log(res.data.thread_id);
       }).catch((err) => {
-        alert(err.response.data.error)
+        alert(err.response.data.message)
         console.log(err) // eslint-disable-line no-console
       });
   },
