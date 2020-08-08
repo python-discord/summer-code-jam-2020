@@ -14,6 +14,8 @@ def index(request):
     paginator = Paginator(all_comments, 5)
     first_page = paginator.page(1).object_list
     page_range = paginator.page_range
+    if request.method == 'POST':
+        print("successss but first youtube")
     context = {
         'comment_form': comment_form,
         'comments': all_comments,

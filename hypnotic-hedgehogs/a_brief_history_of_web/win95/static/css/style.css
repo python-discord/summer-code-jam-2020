@@ -603,7 +603,6 @@ form .close::after {
     right: 70px;
     top: 150px;
     width: 210px;
-    height: 507px;
 }
 #app-notepad textarea {
   display: block;

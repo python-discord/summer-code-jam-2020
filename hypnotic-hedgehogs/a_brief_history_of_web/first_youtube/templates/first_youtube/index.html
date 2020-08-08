@@ -110,7 +110,7 @@
                 <h5><strong>Me at the zoo</strong></h5>
                 <object width="425" height="350">
 
-                    <embed src="http://www.youtube.com/v/jNQXAC9IVRw?autoplay=1" type="application/x-shockwave-flash"
+                    <embed src="http://www.youtube.com/v/jNQXAC9IVRw?autoplay=0" type="application/x-shockwave-flash"
                            wmode="transparent"
                            width="425" height="350"></embed>
                 </object>
@@ -248,11 +248,12 @@
 
                 <h2 style="font-size: 16px;font-weight: bold;" class="mt-2">Comments & Responses</h2>
                 <div class="form-group mb-4">
-                    <form method="POST" id="form">
+                    <form method="POST" id="form" style="visibility: visible;position: relative;border: none;padding: 0px;background-color: white">
                         {% csrf_token %}
-                        <div>{{comment_form.as_p}}</div>
+                        <div>{{comment_form}}</div>
                         <input type="submit" class="float-right mt-2" value="Comment">
                     </form>
+
                 </div>
                 <div class="mt-4">
                     <b style="font-size: 14px;">Text Comments (</b>
@@ -296,7 +297,7 @@
         var page_n = $(this).attr('href');
         $.ajax({
             type: "POST",
-            url: "{% url 'first_youtube:index' %}", // name of url
+            url: "{% url 'main-page' %}", // name of url
             data: {
                 page_n: page_n, //page_number
                 csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -329,7 +330,7 @@
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: '{% url "first_youtube:index" %}',
+            url: '{% url "main-page" %}',
             data: $('#form').serialize(),
             dataType: 'json',
             success: function (response) {
