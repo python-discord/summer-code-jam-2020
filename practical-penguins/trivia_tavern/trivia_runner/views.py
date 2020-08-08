@@ -29,8 +29,7 @@ def question(request, active_trivia_quiz):
         score_track.answered_this_round = False
         score_track.save()
         SMSBot.send_question(cur_question, player)
-    # for player in Player.objects.all():
-    #    SMSBot.delayed_send('TIME IS UP!', player, 10)
+
 
     return render(request, 'activequiz_question.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
