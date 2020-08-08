@@ -82,6 +82,7 @@ class HtmlParser:
         for element in self.soup.find_all(re.compile(".*")):
             for name, val in element.attrs.items():
                 if name in link_attrs:
+<<<<<<< HEAD
                     if ":" not in val:
                         element[name] = "/page/" + \
                           urllib.parse.quote(self.link_parent(self.basedir)
@@ -122,6 +123,10 @@ class HtmlParser:
             return "/".join(link_parts)
         else:
             return "/".join(link_parts[:-1])
+=======
+                    if val.startswith("/"):
+                        element[name] = self.basedir + val
+>>>>>>> parent of 1b49785... Added better link processing
 
     def parse_color(self):
         """Make document greyscale."""
