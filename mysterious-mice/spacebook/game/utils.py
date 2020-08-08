@@ -232,7 +232,7 @@ def parse_command(request, game_data, command):
             game_data["messages"].append(
                 {"from_rover": False, "message": f"Command not understood: {command}"}
             )
-    elif command == "newgame":
+    if command == "newgame":
         game_data = new_game()
         request.session["game_data"] = new_game()
 
