@@ -18,7 +18,7 @@ class ImagePost(models.Model):
     rover = models.ForeignKey(Rover, on_delete=models.CASCADE)
 
     def __str__(self):
-        if self.description == None or self.description == "":
+        if self.description is None or self.description == "":
             # if no description provided, return the rover's username
             return f"{self.rover.username}'s Image"
         else:
