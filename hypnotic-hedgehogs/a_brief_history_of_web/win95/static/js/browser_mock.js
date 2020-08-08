@@ -21,5 +21,23 @@ function change_page() {
     } else {
         document.getElementById("404-interface").classList.remove("d-none");
     }
+}
+
+// App specific functions
+
+// google search function
+function googleSearch(){
+    let search_text = $("#search-box").val()
+    if (search_text.length === 0) {
+        search_text = "google"
+    }
+    let search_results = fetch("/first_google/results/" + search_text)
+    search_results.then(r=>
+            r.text()
+        ).then(
+            r => {
+                document.getElementById("web-page").innerHTML = r
+            }
+        )
 
 }

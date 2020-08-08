@@ -4,9 +4,6 @@ from pathlib import PurePath
 
 # Create your views here.
 def index(request):
-    if request.method == "POST":
-        search_key = request.POST.get('search_text', '')
-        return redirect('first_google:results', search_text=search_key)
 
     index_path = PurePath('first_google/index.html')
     return render(request, index_path)
