@@ -1,6 +1,7 @@
 from asgiref.sync import async_to_sync
 from game.models import Player, Location
 
+
 class Engine():
     def __init__(self, consumer):
         self.consumer = consumer
@@ -72,7 +73,7 @@ class Engine():
         else:
             return "This is no longer a valid command"
 
-    def __move(self, direction):        #  starswith '_' to make some checks
+    def __move(self, direction):
         dest_x = self.player.location.x_coord
         dest_y = self.player.location.y_coord
         dest_z = self.player.location.z_coord
@@ -100,7 +101,7 @@ class Engine():
         try:
             dest_location = Location.objects.get(x_coord=dest_x, y_coord=dest_y, z_coord=dest_z)
             self.__send(
-                'same_location_message', # não precisa ser not_me
+                'same_location_message',
                 f"{self.user} left the area",
                 location=f"{self.player.location}",
             )
@@ -167,22 +168,21 @@ class Engine():
 
         methods_list = [
             func for func in dir(Engine)
-            if (callable(getattr(Engine, func))
-                and not func.startswith("_") and len(func) > 1)
+            if (callable(getattr(Engine, func)) and
+                not func.startswith("_") and len(func) > 1)
         ]
         if command_to_help is None:
             message = "This is the list of all commands available in this server:"
             for func in methods_list:
-                message = f"{message} \n{func!r}"
+                message = message + f"\n{func!r}"
             return message
         else:
-            if command_to_help.split
             if command_to_help in methods_list:
                 help_text = getattr(Engine, command_to_help).__doc__
                 return f"This is the 'help' for {command_to_help!r}: {help_text}"
             else:
                 return f"{command_to_help!r} is not a valid command. We can't help you with that."
-        # todo: validation for "Invalid input. You can either use 'help' or 'help <command>', but nothing more."
+        # todo: validation for too long input
 
     def __send(self, type, message, **kwargs):
         sending_event = {

@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import make_password
 from passlib.hash import django_pbkdf2_sha256
 from game.engine import Engine
 
+
 welcome_text = (
     f"{figlet_format('Wily Wolves', font='starwars')} "
     f"\nThis is the Wily Wolves MUD project for the Python Discord: Summer-code-jam-2020"
@@ -169,7 +170,7 @@ class MudConsumer(WebsocketConsumer):
             self.send(text_data=json.dumps({
                 'message': message
             }))
-    
+
     def global_message_login_required_not_me(self, event):
         message = event['message']
         if self.scope['user'].is_authenticated and self.channel_name != event['sender_channel_name']:
@@ -197,7 +198,8 @@ class MudConsumer(WebsocketConsumer):
     def same_location_message_not_me(self, event):
         message = event['message']
         # Send a message to the players in the same location
-        if str(Player.objects.get(user=self.user).location) == event['location'] and self.channel_name != event['sender_channel_name']:
+        if (str(Player.objects.get(user=self.user).location) == event['location'] and
+                self.channel_name != event['sender_channel_name']):
             self.send(text_data=json.dumps({
                 'message': message
             }))
