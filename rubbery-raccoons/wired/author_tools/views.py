@@ -1,7 +1,9 @@
 from datetime import date
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 from django.views.generic.list import ListView
 
@@ -9,6 +11,7 @@ from .forms import ArticleForm, CommentForm
 from wired_app.models import Article
 
 
+@login_required
 def compose(request):
     if request.method == "POST":
         form = ArticleForm(request.POST)
@@ -30,6 +33,7 @@ def compose(request):
     return render(request, "author_tools/compose.html", {"form": form})
 
 
+@login_required
 def update(request, slug):
     art = get_object_or_404(Article, slug=slug)
     if request.method == "POST":
@@ -44,6 +48,7 @@ def update(request, slug):
     return render(request, "author_tools/update.html", {"form": form})
 
 
+@method_decorator(login_required, name="dispatch")
 class AuthorsArticleView(ListView):
     template_name = "author_tools/authors_article_view.html"
     context_object_name = "articles"
