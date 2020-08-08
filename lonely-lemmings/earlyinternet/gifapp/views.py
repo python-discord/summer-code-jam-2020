@@ -103,3 +103,7 @@ def parse_image_request(request, project_name=None) -> HttpResponse:
             image_data_list = []
         data_dict = {"data": image_data_list}
         return HttpResponse(json.dumps(data_dict), content_type="application/json")
+
+
+def return_home(request):
+    return render(request, 'home.html')

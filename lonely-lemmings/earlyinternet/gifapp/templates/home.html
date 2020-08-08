@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for project in projects %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ project.user_id.username }}</a>
+                    <small class="text-muted">{{ project.date_created|date:"F d, Y" }}</small>
+                </div>
+                <h2><a class="article-title" href="{% url 'project-detail' project.id %}">{{ project.name }}</a></h2>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
