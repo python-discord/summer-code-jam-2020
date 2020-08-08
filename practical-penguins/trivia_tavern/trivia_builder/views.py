@@ -19,6 +19,14 @@ from trivia_builder.models import TriviaQuiz, TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz
 
 
+class TriviaQuizListView(ListView):
+    model = TriviaQuiz
+    template_name = 'trivia_builder/quiz_list.html'
+    context_object_name = 'quizzes'
+    ordering = ['-date_posted']
+    paginate_by = 10
+
+
 class PassRequestToFormViewMixin:
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -28,7 +36,7 @@ class PassRequestToFormViewMixin:
 
 class UserTriviaQuizListView(ListView):
     model = TriviaQuiz
-    template_name = 'trivia_hub/user_quizzes.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'trivia_builder/user_quizzes.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'TriviaQuiz'
     paginate_by = 5
 

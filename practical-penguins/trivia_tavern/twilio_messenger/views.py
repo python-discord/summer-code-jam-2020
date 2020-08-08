@@ -7,14 +7,17 @@ from trivia_builder.models import TriviaQuiz, TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz, Player
 from .models import ScoreTracker
 
-class SMSBot():
+
+class SMSBot:
     """SMSBot is a helper class to implement the main receving 'sms_reply'
     functions and process the input received from texts
     @send: send a string 'msg' to a phone number 'recipient'
     @register: register a new player with a 'phone_number' for requested 'active_quiz'
     @send_question: sends question #'qnumber' from a 'trivia_quiz' to 'player'
     """
-    def send(msg, recipient):
+
+    @staticmethod
+    def send(msg: str, recipient):
         """send will send a message 'msg' to a 'recipient'
         This is not really a view method, but a helper method for the main
         sms_reply method
@@ -27,11 +30,13 @@ class SMSBot():
             to=recipient
         )
 
-    def delayed_send(msg, recipient, delay):
-        #This function does not work yet
-        #time.sleep(delay)
+    @staticmethod
+    def delayed_send(msg: str, recipient, delay):
+        # TODO This function does not work yet
+        # time.sleep(delay)
         SMSBot.send(msg, recipient)
 
+    @staticmethod
     def register(phone_number, active_quiz):
         """registers a default player account with the ActiveTriviaQuiz 'quiz'
         and a 'phone_number'
@@ -42,11 +47,13 @@ class SMSBot():
             phone_number=phone_number,
         )
 
+    @staticmethod
     def send_question(question, player):
         """sends the specified question 'question' to 'player'
         """
         msg = question.question_text
         SMSBot.send(msg, player.phone_number)
+
 
 @csrf_exempt
 def sms_reply(request):
@@ -69,7 +76,7 @@ def sms_reply(request):
     # check if the text is from a registered Player, can be null
     player = Player.objects.filter(phone_number=from_)
     available_quizzes = ActiveTriviaQuiz.objects.all()
-    session_codes = [ q.session_code for q in available_quizzes ]
+    session_codes = [q.session_code for q in available_quizzes]
 
     if player.exists():
         player = player.first()
@@ -78,9 +85,9 @@ def sms_reply(request):
             # Player picks a username
             player.name = body
             player.save()
-            msg = ( f'Thanks for playing, {player.name}! '
-                f'"{player_quiz.trivia_quiz.name}" will begin soon!'
-            )
+            msg = (f'Thanks for playing, {player.name}! '
+                   f'"{player_quiz.trivia_quiz.name}" will begin soon!'
+                   )
             ScoreTracker.objects.create(player_name=player.name,
                                         session_code=player_quiz.session_code)
             SMSBot.send(msg, from_)
@@ -91,10 +98,10 @@ def sms_reply(request):
         else:
             # Player is answering the question
             current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
-                                                      question_index=player_quiz.current_question_index)
+                                                          question_index=player_quiz.current_question_index)
             correct_answer = current_question.question_answer
             score_track = ScoreTracker.objects.get(player_name=player.name, session_code=player_quiz.session_code)
-            if score_track.answered_this_round == True:
+            if score_track.answered_this_round:
                 msg = 'You already answered! Don\'t cheat!'
             elif body.upper() == correct_answer.upper():
                 msg = 'That\'s correct!'
@@ -108,9 +115,9 @@ def sms_reply(request):
 
     elif body in session_codes:
         fetch_quiz = available_quizzes.get(session_code=body)
-        welcome = ( f'You registered to play "{fetch_quiz.trivia_quiz.name}." '
-                    f'Please choose a player name'
-        )
+        welcome = (f'You registered to play "{fetch_quiz.trivia_quiz.name}." '
+                   f'Please choose a player name'
+                   )
         SMSBot.send(welcome, from_)
         new_player = SMSBot.register(from_, fetch_quiz)
         new_player.save()
@@ -118,9 +125,9 @@ def sms_reply(request):
         fetch_quiz.save()
 
     else:
-        msg = ( 'This number has not started any quizzes. '
-                'Please send a valid session code to start!'
-        )
+        msg = ('This number has not started any quizzes. '
+               'Please send a valid session code to start!'
+               )
         SMSBot.send(msg, from_)
 
     # no page to display, sorry :(, redirect to another

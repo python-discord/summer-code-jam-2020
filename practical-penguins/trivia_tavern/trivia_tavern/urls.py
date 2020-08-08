@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 
+from trivia_tavern.views import home
 from users import views as user_views
 
 
@@ -28,11 +29,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
+    path('profile/<str:username>/', user_views.profile_user, name='user'),
     path('results/', user_views.results, name='results'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('sms/', include('twilio_messenger.urls')),
-    path('', include('trivia_hub.urls')),
+    path('', home, name='home_page'),
     path('quiz/', include('trivia_builder.urls')),
     path('activequiz/', include('trivia_runner.urls')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico')))

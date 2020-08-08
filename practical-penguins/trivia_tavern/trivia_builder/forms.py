@@ -21,7 +21,7 @@ class TriviaQuizForm(ModelForm):
 
     class Meta:
         model = TriviaQuiz
-        fields = ['name']
+        fields = ['name', 'description']
 
 
 
