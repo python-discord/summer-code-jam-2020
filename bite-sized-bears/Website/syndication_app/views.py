@@ -79,6 +79,14 @@ class CommunityView(View):
         self.context['posts'] = self.context['community'].post_publisher.all()
         return render(request, self.template_name, self.context)
 
+def add_comment(request, community_name, post_id):
+    author = User.objects.get(name=request.user.get_username())
+    post = Post.objects.get(id = post_id)
+    content = request.POST['content']
+    Comments.objects.create(content = content, author = author, post = post)
+
+    return redirect(f'/community/{community_name}/{post_id}')
+
 class UserView(View):
     template_name = 'user-posts.html'
     model = User
