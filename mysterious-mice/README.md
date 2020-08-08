@@ -30,5 +30,5 @@ If you made changes to the database that you want to commit, run `python manage.
 
 ## Sources
 
-All photos take on or of Mars are courtesy of NASA.  
+All photos taken on or of Mars are courtesy of NASA.  
 The starry background image is courtesy of [1-background.com](https://1-background.com/stars_1.htm)
