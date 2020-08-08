@@ -1,6 +1,9 @@
 import typing
+import logging
 
-from django.shortcuts import render
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.http import HttpResponse, HttpRequest
 from django.views.generic import (
     ListView,
@@ -9,9 +12,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import Project
 from .forms import UserRegisterForm
+
+
+logger = logging.getLogger(__name__)
 
 
 def home(request: HttpRequest) -> HttpResponse:
@@ -26,6 +33,15 @@ def home(request: HttpRequest) -> HttpResponse:
     return render(request, 'home.html', context)
 
 
+def about(request: HttpRequest) -> HttpResponse:
+    """
+    Handles feed home GET request
+    :param request:
+    :return: Feed home with context
+    """
+    return render(request, 'about.html')
+
+
 def register(request: HttpRequest) -> HttpResponse:
     """
     Handles register endpoint POST request
@@ -38,26 +54,57 @@ def register(request: HttpRequest) -> HttpResponse:
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
-            return redirect('feed-home')
+            return redirect('home')
     else:
         form = UserRegisterForm()
 
     return render(request, 'register.html', { 'form': form })
 
 
-def login(request: HttpRequest) -> HttpResponse:
-    """
-    Handles login request
-    :param request:
-    :return:
-    """
-    return render(request, 'login.html')
-
-
 def profile(request: HttpRequest) -> HttpResponse:
+    return render(request, 'profile.html')
 
-    return render(request, 'profile.html', context)
+
+class ProjectListView(ListView):
+    model = Project
+    context_object_name = 'projects'
 
 
-class PostListView(ListView):
-    model =
+class ProjectCreateView(LoginRequiredMixin, CreateView):
+    model = Project
+    fields = ['name', 'upload_version', 'is_gif']
+
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super().form_valid(form)
+
+
+class ProjectDetailView(DetailView):
+    model = Project
+    fields = ['name', 'upload_version', 'is_gif']
+
+
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Project
+    fields = ['name', 'upload_version', 'is_gif']
+
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        project = self.get_object()
+        return self.request.user == project.user_id
+
+
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Project
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        project = self.get_object()
+        return self.request.user == project.user_id

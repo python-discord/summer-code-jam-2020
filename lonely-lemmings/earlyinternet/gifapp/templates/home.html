@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if feed %}
-        {% for feed_post in feed %}
-            <article class="media content-section">
-                <div class="media-body">
-                    <div class="article-metadata">
-                        <a class="mr-2" href="#">{{ post.author }}</a>
-                        <!-- datetime_obj|date:"format" is a filter for the datetime object -->
-                        <!-- Django date documentation: https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#date -->
-                        <small class="text-muted">{{ post.date_last_modified|date:"F d, Y" }}</small>
-                    </div>
-                    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+    {% for project in projects %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ project.user_id.username }}</a>
+                    <small class="text-muted">{{ project.date_created|date:"F d, Y" }}</small>
                 </div>
-            </article>
-        {% endfor %}
-    {% endif %}
+                <h2><a class="article-title" href="{% url 'project-detail' project.id %}">{{ project.name }}</a></h2>
+            </div>
+        </article>
+    {% endfor %}
 {% endblock content %}
