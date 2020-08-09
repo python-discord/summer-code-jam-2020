@@ -28,7 +28,7 @@ export default {
 			liked: false,
 			disliked: false,
 		}
-	}
+	},
 	methods: {
 		like_post(post_id) {
 			alert(post_id);

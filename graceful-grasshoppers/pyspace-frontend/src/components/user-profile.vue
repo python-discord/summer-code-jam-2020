@@ -3,7 +3,7 @@
     <h1>{{ user.username }}</h1>
     <div class="details-box flex-row">
       <span class="profile-picture">
-        <img width="150" src="https://placehold.it/100">
+        <img width="150" v-bind:src="baseURL+'/media/'+user.profile_picture">
       </span>
       <div class="flex-col">
        <span class="age">{{ user.age }} years old</span>
@@ -31,9 +31,15 @@
 
 <script>
 // @ is an alias to /src
+import axios from '../http-common.js'
 export default {
   name: 'UserProfile',
   props: ['user', 'logged_in'],
+  data: function() {
+    return {
+      baseURL: axios.defaults.baseURL,
+    }
+  }
 };
 
 </script>
