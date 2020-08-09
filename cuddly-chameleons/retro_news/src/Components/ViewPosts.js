@@ -37,7 +37,7 @@ function ViewPosts() {
                 return (
                     <div key={i}>
                         <Container title={<Link to={`/posts/${post.id}`}>{`${post.title} (from ${post.author.username})`}</Link>}>
-                            <div style={{ whiteSpace: "pre" }}>
+                            <div style={{ whiteSpace: "pre", overflow: "auto" }}>
                                 {post.content.substring(0, 100)}...
                             </div>
                         </Container>

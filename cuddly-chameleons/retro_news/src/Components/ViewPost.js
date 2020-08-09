@@ -58,7 +58,7 @@ function ViewPost(props) {
      return (
          <Container title={data.title}>
               <Row>
-                   <Col md="8" style={{ whiteSpace: "pre" }}>
+                   <Col md="8" style={{ whiteSpace: "pre", overflow: "auto" }}>
                         {data.content}
                    </Col>
                    <Col md="4">
