@@ -24,10 +24,10 @@
     </article>
 {% empty %}
 
-<div class="row justify-content-md-center">
-    <div class="col-md-auto parchment-border justify-content-center">
-        <h1 class="justify-content-center bulletin-title">No trivia packs exists,
-            <a class="ml-2" href="{% url 'quiz-create' %}">create new one?</a>
+<div class="row">
+    <div class="col-md-12 parchment-border">
+        <h1 class="justify-content-center">No trivia packs exists, <br>
+            <a href="{% url 'quiz-create' %}">create new one?</a>
         </h1>
     </div>
   </div>
