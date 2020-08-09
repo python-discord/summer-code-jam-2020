@@ -31,11 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'users.apps.UsersConfig',
-    # 'chat.apps.ChatConfig',
     'anon.apps.AnonConfig',
     'messages.apps.MessagesConfig',
-    # 'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,26 +123,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/www/'
+STATICFILES_DIRS = [
+    '/dist/',
+]
+
+MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = [
        'anon.backends.AnonBackend',
 ]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
-# CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-LOGIN_REDIRECT_URL = 'chat'
-LOGIN_URL = 'login'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ['EMAIL_USER']
-# EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
 
 CHANNEL_LAYERS = {
     "default": {
