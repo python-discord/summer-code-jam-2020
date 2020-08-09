@@ -3,6 +3,7 @@ from rest_framework import routers
 
 from . import views
 
+# use automatic router for ViewSets
 router = routers.DefaultRouter()
 router.register(r'boards', views.BoardViewSet)
 router.register(r'posts', views.PostViewSet)

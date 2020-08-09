@@ -2,11 +2,12 @@ from django.db import models
 
 from .utils import shorten_text
 
+
 # Create your models here.
 
 
 class Board(models.Model):
-    board = models.CharField(max_length=20, unique=True)  # , primary_key=True)
+    board = models.CharField(max_length=20, unique=True)
     title = models.CharField(max_length=50)
 
     def __str__(self):
