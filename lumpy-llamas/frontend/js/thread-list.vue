@@ -1,17 +1,13 @@
 <template>
   <div v-if="ready">
-    <router-link :to="{name: 'home_page'}"><h2 class="some-heading">Hello and welcome to Angry LLamas Forum</h2></router-link>
-    <div class="container">
-      <h2 class="some-heading">Threads</h2><button class="btn" @click="$router.push('/forum/new')">New thread</button>
-    </div>
-
-    <ul>
+    <h2>Forum</h2>
+    <ol class="home-menu-options">
       <li v-for="item in myStuff">
         <router-link :to="{ name: 'thread-view', params: {id:item.id}}">{{ item.title }} - Posted:
           {{ item.created_date | moment("DD.MM.YY, hh:mm")  }} by {{item.created_by_id}}
         </router-link>
       </li>
-    </ul>
+    </ol>
   </div>
 </template>
 
@@ -28,14 +24,40 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      myStuff: null,
+      myStuff: [],
       ready: false,
+      errorCallback: undefined,
     };
   },
   beforeMount() {
     this.getData();
   },
+  mounted() {
+    this.errorCallback = this.$cmd.onUnknown(this.enterThread);
+    this.$cmd.on('/open <number>', () => undefined, 'Read thread <number>');
+    this.$cmd.on('/new', () => this.$router.push('/forum/new'), 'Open a new thread');
+  },
   methods: {
+    enterThread(command) {
+      if (command.startsWith('/open ')) {
+        const cmd = command.split(' ')[1];
+        if (isNaN(cmd)) {
+          this.errorCallback(command);
+        } else {
+          this.goToThread(Number(cmd) - 1);
+        }
+      } else {
+        this.errorCallback(command);
+      }
+    },
+    goToThread(threadIndex) {
+      this.$router.push({
+        name: 'thread-view',
+        params: {
+          id: this.myStuff[threadIndex].id,
+        },
+      });
+    },
     getData() {
       axios.get('/api/forum/').then((response) => {
         this.myStuff = response.data;

@@ -2,15 +2,14 @@
 <div v-if="ready">
   <fieldset>
     <legend>Post a new thread</legend>
-        <div class="form-group">
-          <label for="text">Title</label>
-          <input v-model="title" id="text" name="itext" type="text" placeholder="Enter thread title" minlength="3" maxlength="120">
-        </div>
-        <div class="form-group">
-          <label for="itext">Message</label>
-          <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter thread title" minlength="3"></textarea>
-        </div>
-        <button v-on:click="newThread" class="btn btn-default">Make new thread</button>
+    <div class="form-group">
+      <label for="text">Title</label>
+      <input v-model="title" id="text" name="itext" type="text" minlength="3" maxlength="120" :disabled="true">
+    </div>
+    <div class="form-group">
+      <label for="itext">Message</label>
+      <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" minlength="3" :disabled="true"></textarea>
+    </div>
   </fieldset>
 </div>
 </template>
@@ -33,8 +32,22 @@ export default {
       ready: true,
     };
   },
-
+  mounted() {
+    this.askForTitle();
+  },
   methods: {
+    askForTitle() {
+      this.$cmd.input('Title: ').then((title) => {
+        this.title = title;
+        this.askForMessage();
+      });
+    },
+    askForMessage() {
+      this.$cmd.input('Body: ').then((body) => {
+        this.message = body;
+        this.newThread();
+      });
+    },
     newThread() {
       axios.post('/api/forum/post/thread', {
         title: this.title,
