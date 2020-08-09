@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
 def createpost(request):
-    return render(request, 'tweet.html')
+    return render(request, 'create_tweet.html')
 
 
 @login_required(login_url='/login/')
