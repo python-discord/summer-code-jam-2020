@@ -1,6 +1,6 @@
 
 # ![Trivia Tavern](trivia_tavern/static/header_logo.png) by Practical :penguin:
- 
+
 ## Table of Contents
 
 1. [About](#about)
@@ -8,27 +8,27 @@
     1. [Create Trivia Packs (session master)](#create)
     2. [Host trivia session (session master)](#host)
     3. [Join session using your phone (participant)](#participate)
-    4. [View Trivia packs by user (session master/participant)](#profile) 
+    4. [View Trivia packs by user (session master/participant)](#profile)
 3. [Installation](#Installation)
-5. [how to run your own server locally](#how-to-run-your-own-server-locally) 
+5. [how to run your own server locally](#how-to-run-your-own-server-locally)
 6. [Future Ideas](#Ideas-and-Feature-for-the-future)
 
 ## About
 This django web application allows people to create and organize trivia events. Participants can then answer trivia
  question using their phones.
- 
+
 ## App features
-We are hosting our app publicly for a limited time [here](https://a95e3eb77ce9.ngrok.io). To run your 
+We are hosting our app publicly for a limited time [here](https://a95e3eb77ce9.ngrok.io). To run your
 own server with your own twilio account [see here](#how-to-run-your-own-server-locally).
 
 For basic operation, you need only create an account, and when you're ready just hit "Run Quiz" to
 complete setting up your first quiz session. When you run it, you'll see the current question display
 ###Create
 You can host your own trivia packs by creating them in "Create Trivia Pack"
-![alt text](screenshots/create_form.png?raw=True)
+![alt text](screenshots/create_form.PNG?raw=True)
 
 ###Host
-![alt text](screenshots/setup_screen.png?raw=True)
+![alt text](screenshots/setup_screen.PNG?raw=True)
 ![alt text](screenshots/quiz-run.png?raw=True)
 
 
@@ -39,7 +39,7 @@ or select from prebuilt trivia packs provited by us truly
 
 ###Participate
 Participants can join using their phone by texting the the trivia session code to the phone number provided 
-![alt text](screenshots/invite.png?raw=True)
+![alt text](screenshots/invite.PNG?raw=True)
 
 ![alt text](screenshots/sms_screenshot.jpg?raw=True)
 
@@ -60,7 +60,7 @@ cd practical-penguins
 run setup.py
 
     python setup.py install
-  
+
 **Note: you might run into some difficulty with Pillow on windows machine if so please see [here](#pillow-issues)**
 
 initialize database
