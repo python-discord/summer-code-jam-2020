@@ -8,9 +8,6 @@ from users.models import Profile
 
 @login_required
 def index(request):
-    # Post-Friends model implementation:
-    # context = {"friends": Friends.objects.all()}
-    # return render(request, "blog/home.html", context)
     if request.method == "POST":
         form = RoomCreationForm(request.POST)
         if form.is_valid():
@@ -18,12 +15,13 @@ def index(request):
             room, room_created = Room.objects.get_or_create(name=room_name)
             RoomMember.objects.get_or_create(user=request.user, room=room)
             return redirect("room", room_name)
+
     else:
         form = RoomCreationForm()
 
     context = {
         "form": form,
-        "friends": Profile.objects.filter(user=request.user).first().friends.all()
+        "friends": Profile.objects.get(user=request.user).friends.all(),
     }
 
     return render(request, "chat/index.html", context)
