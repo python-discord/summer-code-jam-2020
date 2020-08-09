@@ -27,7 +27,7 @@ def default(request):
         if form.is_valid():
             profile_name = form.cleaned_data["username"]
             return redirect("wall1", profile_name)
-        messages.warning(request, f"Invalid input")
+        messages.warning(request, "Invalid input")
 
     else:
         form = WallCreationForm()
