@@ -22,6 +22,10 @@ class PostView(View):
 
     def get(self, request, community_name, post_id):
         post = self.model.objects.get(id=post_id)
+        if request.user.is_authenticated:
+            user = User.objects.get(name=request.user.get_username())
+            if user not in post.views.all():
+                post.views.add(user)
         comments = post.comment_post.all()
         self.context = {"comments": comments, "post": post}
         return render(request, self.template_name, self.context)
