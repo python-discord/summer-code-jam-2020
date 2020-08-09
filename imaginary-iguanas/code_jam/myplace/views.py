@@ -64,4 +64,15 @@ def add_profile_comment(request, profile: Profile):
 
 
 def blog(request, username_or_id: Union[int, str]):
-    return render(request, 'myplace/blog.html')
+    try:
+        profile = _get_profile(username_or_id)
+    except Profile.DoesNotExist:
+        messages.error(request, 'That user profile does not exist.')
+        return render(request, 'users/home.html')
+
+    context = {
+        'profile': profile,
+        'title': profile,
+        'custom_css': profile.profile_css,
+    }
+    return render(request, 'myplace/blog.html', context)
