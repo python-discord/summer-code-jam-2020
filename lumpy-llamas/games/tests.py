@@ -1,6 +1,7 @@
 import json
 from unittest.mock import patch
 from django.test import TestCase, Client
+from django.contrib.auth.models import User
 
 from games.tictactoe import play_game
 
@@ -10,7 +11,10 @@ class TicTacToeTest(TestCase):
     @patch('games.views.play_game')
     def test_make_move(self, play):
         play.return_value = 'board', 'over', 'score'
+        User.objects.create_user('bla', password='test')
+
         client = Client()
+        client.login(username='bla', password='test')
 
         res = client.post('/api/games/ttt', json.dumps({
             'player': 'X',
