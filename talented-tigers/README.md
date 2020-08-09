@@ -4,6 +4,8 @@
   <img src="readme/coollogo.gif">
 </p>
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
 <p align="center">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/thaniel-c/summer-code-jam-2020">
     <img alt="GitHub" src="https://img.shields.io/github/license/thaniel-c/summer-code-jam-2020?color=%23009dff%20">
@@ -73,8 +75,16 @@ For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for
 API_KEY=your_key_here
 ```
 written inside of it.
+<!--- 
+Add this with your information as a bullet:
 
+### FIRST LAST &nbsp; [<i class="fab fa-github"></i> (GH-NAME)](https://github.com/GH-NAME) &nbsp; [<i class="fab fa-discord"></i> (DISCORD-TAG)](https://discordapp.com/channels/@me/DISCORD-USER-ID/)
+-->
 # Authors
+Talented Tigers Is..
+* ### Nathan Coulas  &nbsp; [<i class="fab fa-github"></i> (thaniel-c)](https://github.com/thaniel-c) &nbsp; [<i class="fab fa-discord"></i> (thaniel#3631)](https://discordapp.com/channels/@me/703922100112457778/)
+* 
+
 <p align="center">
 <a href="#" >
     <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=100%>
