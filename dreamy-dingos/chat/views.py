@@ -12,7 +12,7 @@ def room(request, room_id: int):
     # If room exists then give it and its messages to context
     room_from_db = RoomService.get_room_by_id(room_id)
     if room_from_db is not None:
-        messages = MessageService.get_distinct_messages()
+        messages = MessageService.get_distinct_messages(room_id)
         return render(request, "chat/room.html", {
             'room': room_from_db,
             'messages': messages,
