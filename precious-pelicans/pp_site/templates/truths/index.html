@@ -12,7 +12,9 @@
 {% block content %}
     <h1 style="text-align:center"><em>You have been lied all your life!</em></h1>
     <h3 style="text-align:center">Read all the truths here</h3>
-    <a href="{% url 'upload-truth' %}" style="text-align:center">Know a truth? share it with us.</a>
+    <a href="/" style="text-align:left">Return Home</a>
+    <br>
+    <a href="{% url 'upload-truth' %}" style="text-align:right">Know a truth? share it with us.</a>
     <hr>
     <div id="papers">
         {% for paper in papers_list %}
