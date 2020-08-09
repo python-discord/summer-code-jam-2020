@@ -197,6 +197,11 @@ body {
     text-align: center;
 }
 
+/* Public profile */
+.earl-details {
+    min-height: 80vh;
+}
+
 /*
  * Footer
  */

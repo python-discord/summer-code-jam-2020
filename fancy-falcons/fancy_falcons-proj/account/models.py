@@ -50,7 +50,7 @@ class Account(AbstractBaseUser):
     short_bio =     models.CharField(max_length=300, blank=True)
     image =         models.ImageField(default='default.jpg', upload_to='profile_pics')
     birthday =      models.DateField(blank=True, null=True)
-    is_user =       models.BooleanField(default=True)    
+    is_user =       models.BooleanField(default=True)
     is_admin =      models.BooleanField(default=False)
     is_active =     models.BooleanField(default=True)
     is_staff =      models.BooleanField(default=False)
@@ -86,5 +86,5 @@ class Account(AbstractBaseUser):
 
     @property
     def get_html_url(self):
-        url = reverse('earlcal:event_edit', args=(self.id,))
+        url = reverse('earls:earldetail', args=(self.id,))
         return f'<a href="{url}"> {self.first_name} </a>'

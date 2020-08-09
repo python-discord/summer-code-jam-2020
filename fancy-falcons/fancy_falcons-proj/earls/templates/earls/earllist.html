@@ -11,6 +11,17 @@
     }
 </script>
 
+<div class="row">
+    <div class="col-sm-12 mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'earls:earl-list' %}">Earls</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Viewing all Earls</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
 <div class="container" id="grid" style="display: none">
     <h2>Early list</h2>
     <p>
@@ -26,7 +37,7 @@
         <h3>Users</h3>
         <ul>
         {% for earl in users %}
-            <li><a href="{% url 'earldetail' earl.id %}"> {{ earl }} </a></li>
+            <li><a href="{% url 'earls:earldetail' earl.id %}"> {{ earl }} </a></li>
         {% endfor %}
         </ul>
     {% endif %}
@@ -34,7 +45,7 @@
         <h3>Historical and Fictional Earls</h3>
         <ul>
         {% for earl in ficthist %}
-            <li><a href="{% url 'earldetail' earl.id %}"> {{ earl }} </a></li>
+            <li><a href="{% url 'earls:earldetail' earl.id %}"> {{ earl }} </a></li>
         {% endfor %}
         </ul>
     {% endif %}
@@ -55,7 +66,7 @@
         <div class="grid">
             <div style="width:100%">
             {% for earl in users %}
-            <a href="{% url 'earldetail' earl.id %}">
+            <a href="{% url 'earls:earldetail' earl.id %}">
                 <img width="120"
                     height="120"
                     src="{{ earl.image.url }}"
@@ -70,7 +81,7 @@
         <div class="grid">
             <div style="width:100%">
             {% for earl in ficthist %}
-            <a href="{% url 'earldetail' earl.id %}">
+            <a href="{% url 'earls:earldetail' earl.id %}">
                 <img width="120"
                     height="120"
                     src="{{ earl.image.url }}"

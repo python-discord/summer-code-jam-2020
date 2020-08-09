@@ -14,4 +14,4 @@ def earl_list_view(request):
 
 def earl_public_page(request,pk):
     earl = Account.objects.get(id = pk)
-    return render(request, 'earls/public_page.html', {'earl': earl})
+    return render(request, 'earls/public_page.html', {'earl': earl, "active_page": "browse"})
