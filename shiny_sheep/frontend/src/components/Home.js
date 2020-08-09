@@ -20,6 +20,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.onTabChange = this.onTabChange.bind(this);
+    this.joinChatRoom = this.joinChatRoom.bind(this);
     this.state = {
       activeChat: "#intro",
       chats: undefined,
@@ -53,7 +54,7 @@ class Home extends Component {
       "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
     );
     const chatRoom = {
-      websocket: chatWebsocket,
+      websocket: chatWebSocket,
       chatLogs: [],
     };
     this.updateRoom(roomName, chatRoom);
@@ -71,7 +72,7 @@ class Home extends Component {
     this.setupWebsockets(chatWebSocket, "#intro", chatRoom);
   }
   onTabChange(event, value) {
-    this.setState({ ...this.state, activeTab: value });
+    this.setState({ ...this.state, activeChat: value });
   }
   componentWillUnmount() {
     for (const [roomName, chatRoom] of Object.entries(this.state.chats)) {
@@ -94,7 +95,7 @@ class Home extends Component {
           </Tabs>
           <TabBody>
             {this.state.chats !== undefined && (
-              <Chat chat={this.state.chats[this.state.activeChat]} />
+              <Chat joinChatRoom={this.joinChatRoom} chat={this.state.chats[this.state.activeChat]} />
             )}
           </TabBody>
         </WindowContent>
