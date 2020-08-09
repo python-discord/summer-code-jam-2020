@@ -1,10 +1,9 @@
-from django.shortcuts import render
-from .models import PrivateMessage
-from django.http import JsonResponse
-from core.helpers import jsonbody
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.http import JsonResponse
 
+from core.helpers import jsonbody
+from .models import PrivateMessage
 
 MESSAGE_SCHEMA = {
     'type': 'object',
@@ -28,7 +27,7 @@ MESSAGE_SCHEMA = {
 
 def list_messages(request):
     current_user = request.user.username
-    queryset = PrivateMessage.objects.filter(Q(to_user=request.user.username)| Q(from_user=request.user.username)).\
+    queryset = PrivateMessage.objects.filter(Q(to_user=request.user.username) | Q(from_user=request.user.username)). \
         values('message', 'subject', 'created_date', 'from_user', 'to_user', 'id').order_by('-created_date')
     data = list(queryset)
     json_data = {'query': data, 'current_user': current_user}
