@@ -36,4 +36,10 @@ def create_message(room: Room, sender: SimpleUser, time: timezone, text: str) ->
 
 
 def save_message_to_database(message: Message) -> NoReturn:
+    """
+    Saves a message to the database.
+
+    :param message: The message to save to the database.
+    """
+
     message.save()
