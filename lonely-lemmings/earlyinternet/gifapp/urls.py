@@ -14,7 +14,8 @@ urlpatterns = [
     path("project/<str:project_name>/view", editorviews.parse_view_request, name="view"),
     path("project/<str:project_name>/publish", editorviews.parse_post_request, name="publish"),
     path("project/<str:project_name>/load", editorviews.parse_image_request, name="images"),
-    path("project/<str:project_name>/detail", userviews.detail, name="project-detail"),
+    path("project/<str:user>/<str:project_name>/detail", userviews.detail, name="project-detail"),
+    path("project/<str:user>/<str:project_name>/comment", userviews.submit_comment, name="submit-comment"),
 
     path("", userviews.home, name="home"),
 

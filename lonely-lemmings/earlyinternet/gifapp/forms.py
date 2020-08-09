@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Project
+from .models import Project, Comment
 
 
 class ProjectForm(forms.Form):
@@ -15,6 +15,15 @@ class ProjectForm(forms.Form):
             raise forms.ValidationError("Already existing project name")
 
         return project_name
+
+
+class CommentForm(forms.ModelForm):
+    """Form for making a comment on a post"""
+    content = forms.CharField(label="Comment", widget=forms.TextInput())
+
+    class Meta:
+        model = Comment
+        fields = ["content"]
 
 
 class UserRegisterForm(UserCreationForm):
