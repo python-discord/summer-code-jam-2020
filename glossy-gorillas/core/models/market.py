@@ -26,7 +26,7 @@ class Listing(models.Model):
     a check is done on the corresponding fields.
     """
 
-    item = models.ForeignKey(
+    item = models.OneToOneField(
         InventoryRecord, verbose_name=_("Listed Item"), on_delete=models.CASCADE
     )
     # Silver field
