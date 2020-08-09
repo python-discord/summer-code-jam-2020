@@ -1,6 +1,10 @@
 <template>
   <div class="instructions-panel">
-    Dont do this
+    <h2>Help</h2>
+    <div class="instruction-set" v-for="command in fullCommands">
+      <span class="command">{{command.cmd}}</span>
+      <span v-if="command.help" class="command-help">{{command.help}}</span>
+    </div>
   </div>
 </template>
 
@@ -14,4 +18,31 @@
   border-left: 2px solid var(--font-color);
   padding-left: 1em;
 }
+
+.instruction-set {
+  font-size: 12pt;
+}
+.instruction-set .command {
+  font-weight: bolder;
+  font-size: 14pt;
+}
 </style>
+
+<script>
+const DEFAULT_COMMANDS = [
+  { cmd: '/home' },
+  { cmd: '/logout' },
+];
+export default {
+  data() {
+    return {
+      commands: DEFAULT_COMMANDS,
+    };
+  },
+  computed: {
+    fullCommands() {
+      return this.commands.concat(this.$cmd.instructions);
+    },
+  },
+};
+</script>

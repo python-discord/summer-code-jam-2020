@@ -27,7 +27,7 @@ urlpatterns = [
     path('api/newsfeed', include('newsfeed.urls')),
     path('api/games/', include('games.urls')),
     path('api/forum/', include('forum.urls')),
-    path('api/newsfeed', include('newsfeed.urls'))
+    path('api/newsfeed/', include('newsfeed.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
     re_path(r'^.*$', core_views.index, name='unmatched'),
