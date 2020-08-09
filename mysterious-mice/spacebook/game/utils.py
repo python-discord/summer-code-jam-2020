@@ -87,6 +87,7 @@ def new_game(request):
             "dust_storm": False,
             "small_crater": False,
             "large_rock": False,
+            "better_path": False,
         },
         "messages": [
             {"from_rover": False, "message": "Crash Landing!"},
@@ -320,6 +321,9 @@ def command_move(game_data, direction):
             0, len(game_data["ground_descriptions"]) - 1
         )
 
+        # Reset option to find better path
+        game_data["found"]["better_path"] = False
+
         # Change close up text
         game_data["item_msg_selector"] = random.randint(
             1, len(game_data["item_messages"]["plutonium"]) - 1
@@ -442,9 +446,11 @@ def command_look(game_data, direction):
         message = game_data["ground_descriptions"][game_data["ground_desc_selector"]]
         new_message.append({"from_rover": False, "message": message})
 
-        # if the last option is chosen the battery is increased
-        if (game_data["ground_desc_selector"] == len(game_data["ground_descriptions"]) - 1):
-            game_data["battery"] += 3
+        if not game_data["found"]["better_path"]:
+            # if the last option is chosen the battery is increased
+            if (game_data["ground_desc_selector"] == len(game_data["ground_descriptions"]) - 1):
+                game_data["battery"] += 3
+                game_data["found"]["better_path"] = True
 
     # If no new_message is added use this default message.
     if new_message == []:
