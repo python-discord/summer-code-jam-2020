@@ -18,7 +18,7 @@
 {% if user.is_authenticated and user == post.author %}
   <form method='POST' action='url'>
     {% csrf_token %}
-    <input type="hidden" id="post_id" value="{{post.id}}" />
+    <input type="hidden" name="post_id" id="post_id" value="{{post.id}}" />
     <button type='submit' name='delete' style='float:right;'>Delete</button>
   </form>
 {% else %}
@@ -43,9 +43,6 @@
     <div style="padding-left:  {% widthratio comment.thread_level 1 50 %}px;">
       <div style="padding: 5px; background-color: lightblue; width: 500px; height: 200px">
 
-<!-- 
-        <a name="{{comment.id}}" class='upvote_comment'><img src="{% static 'icons/upvote.png' %}"></a>
-        <a name="{{comment.id}}" class='downvote_comment'><img src="{% static 'icons/downvote.png' %}"></a> -->
         <p>
           <a style='color:blue;' href='/user/{{post.author}}'>{{comment.author}}</a>
           <a name="{{comment.id}}" class='upvote_comment'><img height="15px;" src="{% static 'icons/upvote.png' %}"></a>
