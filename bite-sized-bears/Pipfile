@@ -12,6 +12,7 @@ django-environ = "*"
 psycopg2-binary = "*"
 pillow = "*"
 channels = "*"
+asgiref = "*"
 
 [requires]
 python_version = "3.8"

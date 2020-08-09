@@ -1,11 +1,12 @@
-from django.urls import path, re_path
 from django.conf.urls import url
+from django.conf import settings
+from django.urls import path, re_path
+from django.conf.urls.static import static
+
 from .rss_feed import LatestEntriesFeed
 from .views import IndexListView, PostView, LoginView, logout_request, SignupView, CommunityView, CommunityListView, UserView\
-    , UserProfileUpdate, subscription_request, MyCommunityListView, MostViewedPost, add_comment, HomeListView
+    , UserProfileUpdate, subscription_request, MyCommunityListView, MostViewedPost, add_comment, HomeListView # TODO: order
 
-from django.conf.urls.static import static
-from django.conf import settings
 
 urlpatterns = [
     path('', IndexListView.as_view()),

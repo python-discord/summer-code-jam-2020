@@ -1,4 +1,5 @@
 from django.contrib.syndication.views import Feed
+
 from .models import Post, User, Community
 
 

@@ -1,11 +1,12 @@
-from django.views.generic import ListView
-from django.views.generic.edit import UpdateView
 from django.views import View
-from .models import Post, Comments, User, Community
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import auth
 from django.db.models import Count
+from django.views.generic import ListView
+from django.contrib.auth.models import auth
+from django.shortcuts import render, redirect
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.decorators import login_required
+
+from .models import Post, Comments, User, Community
 
 
 class IndexListView(ListView):
@@ -215,8 +216,7 @@ class HomeListView(ListView):
     paginate_by = 25
 
     def get_queryset(self):
-        queryset = Post.objects.filter(publisher__in=Community.objects
-                                       .prefetch_related('subscribers')
-                                       .filter(subscribers__name__exact=self.request.user.get_username())
-                                       ).annotate(post_views=Count('views')).order_by('-post_views')
+        queryset = Post.objects.filter(
+            publisher__in=Community.objects.prefetch_related('subscribers')
+                .filter(subscribers__name__exact=self.request.user.get_username())).annotate(post_views=Count('views')).order_by('-post_views')
         return queryset

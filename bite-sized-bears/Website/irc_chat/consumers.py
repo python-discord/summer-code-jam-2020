@@ -1,10 +1,13 @@
-from asgiref.sync import async_to_sync
-from channels.generic.websocket import WebsocketConsumer
 import json
+
+from channels.generic.websocket import WebsocketConsumer
+from asgiref.sync import async_to_sync
+
 from django.db.models import F
+from channels.db import database_sync_to_async
+
 from .models import Message, UserProfile
 from syndication_app.models import User
-from channels.db import database_sync_to_async
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -17,14 +20,14 @@ class ChatConsumer(WebsocketConsumer):
             UserProfile.objects.create(community=community_name,
                                        count=0)
         what = UserProfile.objects.filter(community__exact=community_name)\
-               .update(count=F('count') + 1)
+            .update(count=F('count') + 1)
         print(what)
 
     @database_sync_to_async
     def update_user_decr(self, community_name):
         print(community_name)
         what = UserProfile.objects.filter(community__exact=community_name)\
-                           .update(count=F('count') - 1)
+            .update(count=F('count') - 1)
         print(what)
 
     def fetch_messages(self, data):
