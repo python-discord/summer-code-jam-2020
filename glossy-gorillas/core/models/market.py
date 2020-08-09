@@ -30,7 +30,7 @@ class Listing(models.Model):
         InventoryRecord, verbose_name=_("Listed Item"), on_delete=models.CASCADE
     )
     # Silver field
-    silver_per_unit = models.IntegerField(
+    silver_price = models.IntegerField(
         verbose_name=_("Weight in Silver per traded unit"), null=True
     )
 
@@ -41,8 +41,8 @@ class Listing(models.Model):
         null=True,
         on_delete=models.CASCADE,
     )
-    barter_qty_per_unit = models.IntegerField(
-        verbose_name=_("Barter unit(s) per traded unit"), null=True
+    barter_product_quantity = models.IntegerField(
+        verbose_name=_("Barter quantity"), null=True
     )
 
     # Offer field
@@ -64,7 +64,7 @@ class Listing(models.Model):
     objects = ListingQuerySet.as_manager()
 
     def __str__(self) -> str:
-        return f"{self.item.product.name}: {self.silver_per_unit} | {self.status}"
+        return f"{self.item.product.name}: {self.silver_price} | {self.status}"
 
 
 class Trade(models.Model):

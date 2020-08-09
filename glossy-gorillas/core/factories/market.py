@@ -7,13 +7,13 @@ from core.factories.trader import InventoryRecordFactory, TraderFactory
 
 class ListingFactory(factory.DjangoModelFactory):
     item = factory.SubFactory(InventoryRecordFactory)
-    silver_per_unit = factory.LazyFunction(
+    silver_price = factory.LazyFunction(
         lambda: random.choice([random.randint(1, 100), None])
     )
     barter_product = factory.LazyFunction(
         lambda: random.choice([None, ProductFactory()])
     )
-    barter_qty_per_unit = factory.LazyAttribute(
+    barter_product_quantity = factory.LazyAttribute(
         lambda obj: random.randint(1, 100) if obj.barter_product else None
     )
     allow_offers = factory.LazyFunction(lambda: random.choice([True, False]))

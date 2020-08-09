@@ -20,13 +20,13 @@
             {% endif %}
         </td>
         <td>
-            {% if ls.silver_per_unit %}
-                {{ ls.silver_per_unit }} Silver |
+            {% if ls.silver_price %}
+                {{ ls.silver_price }} Silver |
             {% endif %}
             {% if ls.barter_product %}
                 {% with ls.barter_product as bp %}
                 {{ bp.name }}
-                ( {{ ls.barter_qty_per_unit }}
+                ( {{ ls.barter_product_quantity }}
                 {% if bp.quantity_type == "G" %}
                     grams
                 {% elif bp.quantity_type == "K" %}

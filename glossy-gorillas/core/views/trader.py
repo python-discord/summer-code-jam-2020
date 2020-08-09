@@ -22,9 +22,9 @@ class TraderDashboard(LoginRequiredMixin, DetailView):
                 "item__product__name",
                 "item__quantity",
                 "item__quantity_type",
-                "silver_per_unit",
+                "silver_price",
                 "barter_product",
-                "barter_qty_per_unit",
+                "barter_product_quantity",
                 "allow_offers",
             )
         )
