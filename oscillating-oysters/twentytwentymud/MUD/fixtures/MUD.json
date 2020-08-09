@@ -159,9 +159,7 @@
       4,
       9
     ],
-    "secret_room_connects": [
-      3
-    ],
+    "secret_room_connects": [],
     "next_server_connect": []
   }
 },
@@ -216,9 +214,7 @@
     "command_response": "",
     "secret_connection_active": false,
     "connections": [],
-    "secret_room_connects": [
-      6
-    ],
+    "secret_room_connects": [],
     "next_server_connect": []
   }
 },
