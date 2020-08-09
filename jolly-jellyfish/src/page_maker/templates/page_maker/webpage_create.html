@@ -1,14 +1,10 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<h2>Create a webpage</h2>
-<div>
-  <form method="POST" enctype="multipart/form-data">
+<h2>Create your page!</h2>
+<form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
-    <div>
-      {{ form.as_p }}
-      <button type="submit">Create page</button>
-    </div>
-  </form>
-</div>
+  {{ form.as_p }}
+  <button type="submit">Create page</button>
+</form>
 {% endblock %}

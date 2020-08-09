@@ -14,8 +14,9 @@ class WebpageForm(forms.ModelForm):
     class Meta:
         model = Webpage
         fields = [
-            'name', 'template_used', 'user_title', 'user_text_1', 'user_text_2', 'user_text_3',
-            'user_image_1', 'user_image_2', 'user_image_3', 'user_image_4'
+            'name', 'template_used', 'user_title',
+            'user_text_1', 'user_text_2', 'user_text_3',
+            'user_image_1', 'user_image_2', 'user_image_3'
         ]
 
 

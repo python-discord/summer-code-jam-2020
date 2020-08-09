@@ -5,16 +5,29 @@
 {% endblock %}
 
 {% block content %}
-<div><h1>{{ webpage.user_title }}</h1></div>
-<img src="{{ webpage.user_image_1.url }}">
-<div>{{ webpage.user_text_1 }}</div>
-<img src="{{ webpage.user_image_2.url }}">
-<div>{{ webpage.user_text_2 }}</div>
-<img src="{{ webpage.user_image_3.url }}">
-<div>{{ webpage.user_text_3 }}</div>
-<img src="{{ webpage.user_image_4.url }}">
+<h1><span><span>{{ webpage.user_title }}</span></span></h1>
 <p>
-  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Comment on my page</a>
+  {% if webpage.user_image_1 %}
+  <div class="img-wrapper"><img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image"></div>
+  {% endif %}
+</p>
+<p>{{ webpage.user_text_1 }}</p>
+<p>
+  {% if webpage.user_image_2 %}
+  <div class="img-wrapper"><img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image"></div>
+  {% endif %}
+</p>
+<p>{{ webpage.user_text_2 }}</p>
+<p>
+  {% if webpage.user_image_3 %}
+  <div class="img-wrapper"><img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image"></div>
+  {% endif %}
+</p>
+<p>{{ webpage.user_text_3 }}</p>
+
+<p>
+  {{ num_likes }} like{{ num_likes|pluralize }}<br>
+  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Like and comment on my page!</a>
 </p>
 <p>
   <a href="{% url 'user-detail' pk=webpage.author.id %}">{{ webpage.author.username }}</a>

@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 pillow = "*"
+django-relativefilepathfield = "*"
+selenium = "*"
 pyyaml = "*"
 
 [requires]

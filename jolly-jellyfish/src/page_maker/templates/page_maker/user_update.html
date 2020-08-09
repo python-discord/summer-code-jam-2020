@@ -1,13 +1,10 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<div>
-  <form method="POST">
+<h2>Update profile</h2>
+<form method="POST">
   {% csrf_token %}
-    <div>
-      {{ form.as_p }}
-      <button type="submit">Update</button>
-    </div>
-  </form>
-</div>
+  {{ form.as_p }}
+  <button type="submit">Update</button>
+</form>
 {% endblock %}
