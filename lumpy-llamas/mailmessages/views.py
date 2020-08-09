@@ -29,15 +29,16 @@ MESSAGE_SCHEMA = {
 def list_messages(request):
     current_user = request.user.username
     queryset = PrivateMessage.objects.filter(Q(to_user=request.user.username)| Q(from_user=request.user.username)).\
-        values('message', 'subject', 'created_date', 'from_user', 'to_user', 'id')
+        values('message', 'subject', 'created_date', 'from_user', 'to_user', 'id').order_by('-created_date')
+    print(queryset)
     data = list(queryset)
-    data.append(current_user)
+    json_data = {'query': data, 'current_user': current_user}
 
-    return JsonResponse(data, status=201, safe=False)
+    return JsonResponse(json_data, status=201, safe=False)
 
 
 def get_users(request):
-    queryset = User.objects.values('id', 'username')
+    queryset = User.objects.values('id', 'username').filter(~Q(username=request.user.username))
     data = list(queryset)
 
     return JsonResponse(data, status=201, safe=False)

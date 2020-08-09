@@ -9,12 +9,21 @@
     </div>
 
     <ul>
-      <li v-for="item in myStuff">
-          <div v-if="item.from_user === ">Message from: {{ item.from_user }} on: {{ item.created_date | moment("DD.MM.YY, hh:mm") }}
-          {{ item.created_by_id }}
-          </div>
+      <li v-for="item in myStuff.query">
+          <div class="from" v-if="item.from_user === myStuff.current_user">Message sent by you on: {{ item.created_date | moment("DD.MM.YY, hh:mm") }} to:
+          {{ item.to_user }}
+
           <h2>Subject: {{item.subject}}</h2>
           <p>{{item.message}}</p>
+          </div>
+
+          <div v-else>
+            Message sent by {{ item.from_user }} on: {{ item.created_date | moment("DD.MM.YY, HH:MM") }}
+
+          <h2>Subject: {{item.subject}}</h2>
+          <p>{{item.message}}</p>
+          </div>
+
       </li>
     </ul>
   </div>
@@ -24,6 +33,9 @@
 .some-heading {
   font-size: xx-large;
   color: pink;
+}
+.from {
+  color: cadetblue;
 }
 </style>
 

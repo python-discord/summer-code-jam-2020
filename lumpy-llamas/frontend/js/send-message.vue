@@ -1,10 +1,10 @@
 <template>
 <div v-if="ready">
   <fieldset>
-    <legend>Post a new thread</legend>
+    <legend>Send a message</legend>
         <div class="form-group">
-          <label for="text">Title</label>
-          <input v-model="title" id="text" name="itext" type="text" placeholder="Enter thread title" minlength="3" maxlength="120">
+          <label for="text">Subject</label>
+          <input v-model="subject" id="text" name="itext" type="text" placeholder="Enter message subject" minlength="3" maxlength="120">
         </div>
       <div class="form-group">
         <label for="select">To user:</label>
@@ -14,9 +14,9 @@
       </div>
       <div class="form-group">
           <label for="itext">Message</label>
-          <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter thread title" minlength="3"></textarea>
+          <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter message" minlength="3"></textarea>
         </div>
-        <button v-on:click="newMessage" class="btn btn-default">Make new thread</button>
+        <button v-on:click="newMessage" class="btn btn-default">Send message</button>
   </fieldset>
 </div>
 </template>
