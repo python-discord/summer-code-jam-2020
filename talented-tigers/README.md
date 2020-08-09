@@ -2,8 +2,6 @@
   <img src="readme/coollogo.gif">
 </p>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-
 <p align="center">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/thaniel-c/summer-code-jam-2020">
     <img alt="GitHub" src="https://img.shields.io/github/license/thaniel-c/summer-code-jam-2020?color=%23009dff%20">
@@ -12,23 +10,23 @@
     </a>
 </p>
 
-Blast off to the past and surf the web 90s style! With SpydirWeb, you can browse a realistic version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and more! 
+Blast off to the past and surf the web 90s style! With SpydirWeb, you can browse a your own private version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and other methods to bring you an immersive experience! 
 
-### Table of Contents
+## Table of Contents
   * [Overview](#overview)
   * [Installation](#installation)
   * [License](#license)
   * [Authors](#Authors)
 
-### Overview
+## Overview
 
-**SpydirWeb** has three different types of pages: information pages, blog pages, and business pages. The blog and business pages use [Openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are retrieved using the [Pixabay API](https://pixabay.com/api/docs/).
+**SpydirWeb** has three different types of pages: Information, Blogs, and Business. The blog and business pages use [OpenAi's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [Wikipedia](https://pypi.org/project/wikipedia/) package. Images are retrieved using the [Pixabay API](https://pixabay.com/api/docs/).
 
 Click one of the three links listed on the home page to get started browsing Spydirweb.
 
 ![](readme/home.png)
 
-Click any underlined link to continue browsing.
+Click any link on the page to browse further.
 
 ![](readme/info.png)
 
@@ -36,11 +34,13 @@ The text in the blog and business pages may take a while to load, as they are ge
 
 ![](readme/blog.png)
 
-And thats it. Have fun browsing!
+That's it! Have fun browsing!
 
 ![](readme/blogdone.png)
  
-### Installation
+## Installation
+
+Before we start, make sure you have at least 1 GB of free space.
 
 **Code Jam Judges Only**:
 Please check the `#talented-tigers` channel on the discord server. Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
@@ -55,7 +55,7 @@ written inside of it (replace `your_key_here` with your API key)
 **Requirements (All)**:
   * [Git](https://git-scm.com/)
 
-**Setup (Windows)**:
+**Setup (Windows) (Not Fully Tested)**:
   * Install [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * Install [Docker](https://docs.docker.com/engine/install/) in the WSL 2 terminal.
   * Open WSL 2 and clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
@@ -63,7 +63,7 @@ written inside of it (replace `your_key_here` with your API key)
   * Then run these following commands:
     * `cd summer-code-jam-2020/talented-tigers`
     * `pipenv run python3 run-linux.py`
-  * The last command will run the website locally, you will be able to view the website at the adress `0.0.0.0:8000`.
+  * The last command will run the website locally, you will be able to view the website at the address `0.0.0.0:8000`.
 
 **Setup (Linux)**:
   * Install [Docker](https://docs.docker.com/engine/install/) (Or for Arch - [Docker on Arch](https://www.google.com/search?client=firefox-b-1-d&q=docker+arch))
@@ -74,7 +74,9 @@ written inside of it (replace `your_key_here` with your API key)
     * `pipenv run python3 run-linux.py`
   * The last command will run the website locally, you will be able to view the website at the address `0.0.0.0:8000`.
 
-### License
+Installation and loading can take a while as we need to setup the models for the AI as well as the dictionary for the link parser. Hang in there!
+
+## License
 MIT License
 
 Copyright (c) 2020 Python Discord
@@ -97,8 +99,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-### Authors
-The Talented Tigers Are..
+## Authors
+Team Talented Tigers is..
 * **Nathan Coulas (GitHub: [thaniel-c](https://github.com/thaniel-c), Discord: [thaniel#3631](https://discordapp.com/channels/@me/703922100112457778/))**
 * **Sloopoo (GitHub: [flextian](https://github.com/flextian))**
 * **Garfellow (GitHub: [Garfellow](https://github.com/GarfellowGMOD))**
