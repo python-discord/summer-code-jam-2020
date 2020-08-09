@@ -111,24 +111,32 @@ class InfoView(TemplateView):
         if "delete" in request.POST:
             post.delete()
             return redirect("topic", name=kwargs["name"])
-        elif "comment_post" in request.POST:
-            body = request.POST["comment_body"]
-            Comment.objects.create(body=body, author=author, post=post)
-            return self.get(request, *args, **kwargs)
-        elif "reply_to_comment" in request.POST:
-            body = request.POST["comment_body"]
-            comment_id = request.POST.get("comment_id")
-            comment = Comment.objects.get(id=comment_id)
-            thread_level = comment.thread_level + 1
 
-            Comment.objects.create(
-                body=body,
-                author=author,
-                post=post,
-                thread_level=thread_level,
-                comment_thread=comment,
-            )
-            return self.get(request, *args, **kwargs)
+        elif "comment_post" in request.POST:
+            if request.user.is_authenticated:
+                body = request.POST["comment_body"]
+                Comment.objects.create(body=body, author=author, post=post)
+                return self.get(request, *args, **kwargs)
+            else:
+                return redirect('info', name=post.topic, slug=post.slug)
+
+        elif "reply_to_comment" in request.POST:
+            if request.user.is_authenticated:
+                body = request.POST["comment_body"]
+                comment_id = request.POST.get("comment_id")
+                comment = Comment.objects.get(id=comment_id)
+                thread_level = comment.thread_level + 1
+
+                Comment.objects.create(
+                    body=body,
+                    author=author,
+                    post=post,
+                    thread_level=thread_level,
+                    comment_thread=comment,
+                )
+                return self.get(request, *args, **kwargs)
+            else:
+                return redirect('info', name=post.topic, slug=post.slug)
 
 
 class LoginView(TemplateView):
@@ -204,7 +212,8 @@ class UserView(TemplateView):
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(CustomUser, username=kwargs["user"])
         posts = Post.objects.filter(author=user.id)
-        context = {"user": user, "posts": posts}
+        comments = Comment.objects.filter(author=user.id)
+        context = {"user": user, "posts": posts, 'comments': comments}
         return render(request, self.template_name, context)
 
 

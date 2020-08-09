@@ -5,6 +5,7 @@
   <tr>
     <td>
       {% if 'posts' in request.path %}
+       <h1><a href='../{{user}}'>Comments</a> | <a href='../{{user}}/posts'>Posts</a></h1>
         {% for post in posts %}
           <div class='w3-card' style='width:100%; overflow-x: auto; overflow-y: hidden; margin-left:90px;'>
             <header class='w3-container'>
@@ -15,7 +16,21 @@
             </div>
           </div>
         {% endfor %}
+        {% else %}
+        <h1><a href='./{{user}}'>Comments</a> | <a href='{{user}}/posts'>Posts</a></h1>
+            {% for comment in comments %}
+            <div class='w3-card w3-margin'>
+            Topic : <a style='color: blue;' href='/topic/{{comment.post.topic}}'>
+            {{comment.post.topic}}</a> | 
+            Title: 
+            <a href='../topic/{{comment.post.topic}}/{{comment.post.slug}}' style='color: blue;'>{{comment.post.title}}</a> 
+            Points: {{comment.upvotes}}<br>
+            {{ comment.body }}<br>
+            {{comment.created}}
+            </div>
+            {% endfor %}
       {% endif %}
+      
     </td>
     <td style='float: right;'>
       {% if user.profile_img %}
