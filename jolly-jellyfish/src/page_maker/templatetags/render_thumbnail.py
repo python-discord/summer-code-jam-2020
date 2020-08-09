@@ -101,7 +101,8 @@ def render_thumbnail(request: HttpRequest, url_to_render: str, page_obj: Union[W
             driver = webdriver.Firefox(executable_path=DRIVER_PATH, options=options)
         else:
             raise Exception('The driver specified in SELENIUM_DRIVER is not supported.\n'
-                            "Currently, only Chrome/Chromium ('chromedriver') and Firefox ('geckodriver') are supported.\n"
+                            "Currently, only Chrome/Chromium ('chromedriver') and "
+                            "Firefox ('geckodriver') are supported.\n"
                             'Please install one of these browsers and the associated driver.')
 
         url = request.build_absolute_uri(url_to_render) + '?rendering=true'
