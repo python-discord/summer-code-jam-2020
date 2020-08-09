@@ -51,7 +51,7 @@ def next_month(d):
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
-    return
+    return month
 
 def event_view(request, event_id=None):
     instance = Event()
