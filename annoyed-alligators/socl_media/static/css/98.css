@@ -59,19 +59,28 @@ button::-moz-focus-inner{
     box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #dfdfdf,inset -2px -2px grey,inset 2px 2px #fff;background:silver;padding:3px
 }
 .title-bar{
-    background:linear-gradient(90deg,navy,#1084d0);padding:3px 2px 3px 3px;display:flex;justify-content:space-between;align-items:center
+    background:linear-gradient(90deg,navy,#1084d0);
+    padding:3px 2px 3px 3px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center
 }
 .title-bar.inactive{
     background:linear-gradient(90deg,grey,#b5b5b5)
 }
 .title-bar-text{
-    font-weight:700;color:#fff;letter-spacing:0;margin-right:24px
+    font-weight:700;
+    color:#fff;
+    letter-spacing:0;
+    margin-right:24px
 }
 .title-bar-controls{
     display:flex
 }
 .title-bar-controls button{
-    padding:0;display:block;min-width:16px;min-height:14px
+    padding:0;
+    display:block;
+    min-width:16px;min-height:14px
 }
 .title-bar-controls button:active{
     padding:0
