@@ -8,6 +8,7 @@ from django.utils import timezone
 from trivia_builder.models import TriviaQuiz, TriviaQuestion
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class Player(models.Model):
     team_name = models.CharField(max_length=24, default='')
     phone_number = models.CharField(max_length=12)
@@ -59,6 +60,7 @@ class ActiveTriviaQuiz(models.Model):
                 f'q#:{self.current_question_index} '
                 f' players:{self.players.count()}'
                 )
+
 
 class PhoneNumber(models.Model):
     phone_number = PhoneNumberField()
