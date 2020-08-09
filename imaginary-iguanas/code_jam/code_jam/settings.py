@@ -130,7 +130,7 @@ STATICFILES_DIRS = [
 ]
 
 # TODO LOGIN_REDIRECT_URL should maybe go to user profile page?
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/user/home'
 LOGOUT_REDIRECT_URL = 'home'
 
 ASGI_APPLICATION = 'code_jam.routing.application'
