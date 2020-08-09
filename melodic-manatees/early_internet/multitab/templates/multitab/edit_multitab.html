@@ -1,0 +1,19 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+<div>
+    <h1>Morning spirit</h1>
+    <section>
+        <h1>edit multitab page</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form in formset %}
+                {{ form.as_p }}
+                <p>form</p>
+            {% endfor %}
+            <button type="submit">edit multitab</button>
+        </form>
+    </section>
+</div>
+{% endblock content %}

@@ -7,6 +7,8 @@
     {% load django_simple_bulma %}
     {% bulma %}
     {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
 
     <title>Main Base Template</title>
     <style>
@@ -17,7 +19,7 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr minmax(0, 624px) 1fr;
+    grid-template-columns: [long-start] 1fr minmax(0, 624px) 1fr [long-end];
 }
 
 .grid * { grid-column: 2/3; }
@@ -34,8 +36,21 @@
     grid-row: tall; 
 }
 
+.carousel-grid {
+    grid-column: long;
+}
+
+.box.scroll-box{
+    height: 450px;
+    overflow-y: auto;
+}
+
 .box.is-transparent {
     background-color: hsla(0, 0%, 100%, 0.2);
+}
+
+.box.is-semitransparent {
+    background-color: hsla(0, 0%, 100%, 0.6);
 }
 
 fieldset {
@@ -65,7 +80,7 @@ fieldset {
 
     </style>
 </head>
-<body>
+<body onload="startTime()">
     <header>
         <!-- Navbar in here-->
         <nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
@@ -76,6 +91,25 @@ fieldset {
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
+            </div>
+            <div class="navbar-item" id="clock">
+                <script>
+                    function startTime() {
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    var s = today.getSeconds();
+                    m = checkTime(m);
+                    s = checkTime(s);
+                    document.getElementById('clock').innerHTML =
+                    h + ":" + m + ":" + s;
+                    var t = setTimeout(startTime, 500);
+                    }
+                    function checkTime(i) {
+                    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+                    return i;
+                    }
+                </script>
             </div>
         <!--Right side nav bar-->
             <div id="right_nav" class="navbar-menu">
@@ -91,48 +125,30 @@ fieldset {
             </div>
         </nav>
     </header>
-    <div class="hero is-fullheight is-light has-background">
+    <div class="hero is-fullheight-with-navbar is-light has-background">
         {% if user.is_authenticated %}
             <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background failed to load" />
         {% else %}
             <img class="hero-background" src="{% static 'images/sunrise.jpg' %}" alt="Sunrise Over Mountains" />
         {% endif %}
-
-        {% if '/login/' not in request.path %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="notification is-{{ message.tags }} is-light">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="notification is-{{ message.tags }} is-light">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
-
+        
         {% block herocontent %}
             
         {% endblock herocontent %}
     </div>
-    <section class="section">
-        
-        <!-- this is the main base template -->
-        {% if '/login/' in request.path %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="notification is-{{ message.tags }} is-light">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endif %}
-    
     {% block content %}
-        <h1>this is the main base template</h1>
-        <a href="{% url 'background-home' %}">background homepage</a>
-
-    {% endblock content%}
-    </section>
+    {% endblock content %}
 
     <!-- JavaScript -->
     <script type="text/javascript" src="{% static 'main/js/bulma-modal.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>	
+    <script type="text/javascript" src="{% static 'main/js/carousel.js' %}"></script>
 </body>
 </html>
