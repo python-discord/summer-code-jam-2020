@@ -58,7 +58,8 @@ Now, sit back and use this :)), you have effectively started the next technologi
 > * Mainframe development
 > * Search engine back-end
 > * Managed main repository
-
+> 
+> *"talk is dirty, let's code."*
 
 ###
 > ## **[Arhaan](https://github.com/Arhaan)** *(Arhaan#0249)*
@@ -81,5 +82,5 @@ Now, sit back and use this :)), you have effectively started the next technologi
 ###
 > ## **[nopeless](https://github.com/nopeless)** *(nope#7777)*
 > * Created about us page and a handler for that page
-> * Wrote our README.md file
+> * Wrote most of the README.md file
 > * Rewrote HTML structure
