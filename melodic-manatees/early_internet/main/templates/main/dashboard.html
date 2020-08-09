@@ -42,6 +42,16 @@
                                         <div class="content">
                                             <h3>{{ entry.title }}</h3>
                                             <p>{{ entry.content }}</p>
+                                            <div class="field">
+                                                <form action="{% url 'diary-update' entry.pk %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input class="button is-link is-outlined" type="submit" value="Update">
+                                                </form>
+                                                <form action="{% url 'diary-delete' entry.pk %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input class="button is-danger is-outlined" type="submit" value="Delete">
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </article>
