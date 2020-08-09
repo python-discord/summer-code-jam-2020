@@ -47,12 +47,13 @@ def landing_page(request):
     walllist = []  # List of wallpaper Button elements
 
     for n in themes:
-        themelist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" + n
-                         + "'>" + n + "</a></li>")  # Add all theme buttons to list
+        # Add all theme buttons to list
+        themelist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" + n + "'>" + n + "</a></li>")
 
     for n in wallpapers:
-        walllist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" +
-                        theme + "&wallpaper=" + n + "'>" + n + "</a></li>")  # Add all wallpaper buttons to list
+        # Add all wallpaper buttons to list
+        walllist.append(
+            "<li class=\"start-lvl3-item\"> <a href='?theme=" + theme + "&wallpaper=" + n + "'>" + n + "</a></li>")
 
     return render(request,
                   "Web95/landing_page.html",
@@ -87,21 +88,20 @@ def page(request, url):  # Url is the URL we want to visit
         content = "<img src='/static/images/mother-russia.jpg' height='100%'>"
         return render(request, "Web95/blank.html", {"content": content})
     else:  # Ensure that the URL has a scheme
-        if not(url.startswith("http://")
-               or url.startswith("https://")):
+        if not(url.startswith("http://") or url.startswith("https://")):
             url = "http://" + url
 
         url = urllib.parse.unquote(url)  # The URL is parsed on the page to ensure URL chars dont mess with it
-        print("\u001b[32m"+url+"\u001b[0m")  # Log the URL we parsed.
+        print("\u001b[32m" + url + "\u001b[0m")  # Log the URL we parsed.
 
         params = []  # URL Params. Sometimes these are parsed properly,
 # so we need to hand them from our URL to the site
 
         for key, val in request.GET.items():  # Go through our GET params
-            params.append(key+"="+val)  # Process those GET params
+            params.append(key + "=" + val)  # Process those GET params
 
         if len(params) > 0:  # If we have GET params to add, add them to the URL
-            url += "?"+("&".join(params))
+            url += "?" + ("&".join(params))
 
         if request.method == "GET":  # If the HTTP method is GET, send a GET request to the target
             req = requests.get(url, params={'User-Agent': request.META["HTTP_USER_AGENT"]})  # Send request.
@@ -155,9 +155,9 @@ def page(request, url):  # Url is the URL we want to visit
 
                     resize_factor = 3  # Factor to pixellate the image
                     # Reduce image resolution
-                    img = img.resize(list(map(lambda x: floor(x/resize_factor), img.size)), resample=Image.NEAREST)
+                    img = img.resize(list(map(lambda x: floor(x / resize_factor), img.size)), resample=Image.NEAREST)
                     # Scale image back up, but use NEAREST so it becomes blocky
-                    img = img.resize(list(map(lambda x: floor(x*resize_factor), img.size)), resample=Image.NEAREST)
+                    img = img.resize(list(map(lambda x: floor(x * resize_factor), img.size)), resample=Image.NEAREST)
                     img.save(response, f_ext)  # Save image into our HttpResponse
                 except UnidentifiedImageError:  # If PIL doesnt know what the image is,
                     # Log that the image loading failed.
