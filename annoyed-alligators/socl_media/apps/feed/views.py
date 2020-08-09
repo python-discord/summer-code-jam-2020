@@ -15,9 +15,10 @@ class PostListView(LoginRequiredMixin, ListView):
     This view is called at the home screen to display all the posts.
     Lists out all the posts in the feed with the latest ones first.
     """
+    paginate_by = 3
     model = Post
     ordering = ['-post_date_posted']
-    paginate_by = 3
+    
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):

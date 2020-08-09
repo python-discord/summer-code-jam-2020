@@ -37,11 +37,11 @@
   
   <div id="main-content">
     {% if messages %}                                                     
-    {% for message in messages %}                                         
-      <div class="alert alert-{{ message.tags }}">                          
-        {{ message }}                                                       
-      </div>   
-    {% endfor %}
+      {% for message in messages %}                                         
+        <div class="alert alert-{{ message.tags }}">                          
+          {{ message }}                                                       
+        </div>   
+      {% endfor %}
     {% endif %}
 
     {% block content %}
@@ -58,11 +58,10 @@
     body {
       background-color: #efefef;
       overflow-x: hidden;
-      overflow-y: hidden;
+      overflow-y: auto;
     }
     #main-content {
       padding: 66px 0 25vh 2vw;
-      overflow-y: auto;
     }
     header {
       display: flex;

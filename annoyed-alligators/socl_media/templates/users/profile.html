@@ -36,6 +36,7 @@
       <p>{{ post.post_content }}</p>
     </div>
   </div>
+  <hr>
 {% endfor %}
 </div>
 <script>
@@ -55,6 +56,10 @@
   .post-profile-pic {
     width: 64px;
     height: auto;
+  }
+  hr {
+    border-top: 1px solid #555;
+    margin-right: 20px;
   }
 </style>
 {% endblock content %}
