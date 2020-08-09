@@ -10,6 +10,7 @@ class HomepageView(ListView, ArchiveIndexView):
     paginate_by = 10
     template_name = "wired_app/homepage.html"
     context_object_name = "articles"
+    allow_empty = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
