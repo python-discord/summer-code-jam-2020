@@ -43,13 +43,16 @@ def index(request: HttpRequest) -> HttpResponse:
 
     # Wikipedia article
     wikipedia_article = WikipediaArticle.objects.order_by("-date")[0]
-    context.update({
-        "wikipedia_article": {
-            "title": wikipedia_article.title,
-            "content": wikipedia_article.content,
-            "url": wikipedia_article.url
-        }
-    })
+    if wikipedia_article:
+        context.update({
+            "wikipedia_article": {
+                "title": wikipedia_article.title,
+                "content": wikipedia_article.content,
+                "url": wikipedia_article.url
+            }
+        })
+    else:
+        context["wikipedia_article"] = None
 
     # News articles
     news_articles = Article.objects.order_by("-published_at")[:3]
