@@ -28,8 +28,11 @@ class Post(models.Model):
         This function will resize and add a pixelating effect to the images.
         """
         super().save()
-
-        img = Image.open(self.post_image.path)
+        try:
+            img = Image.open(self.post_image.path)
+        except Exception as E:
+            print("No image was attached with the post\n", repr(E))
+            return None
         img = img.resize((240, 240), resample=Image.BILINEAR)
 
         output_size = (240, 240)
