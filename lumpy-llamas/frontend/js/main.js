@@ -8,6 +8,7 @@ import axios from 'axios';
 import routes from './routes';
 import KeyboardInput from './input.vue';
 import KeyboardHandler from './keyboard-handler';
+import InstructionsPanel from './instructions.vue';
 
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -57,6 +58,7 @@ new Vue({
   store,
   components: {
     'bbs-input': KeyboardInput,
+    instructions: InstructionsPanel,
   },
   mounted() {
     if (!this.$store.getters.isLoggedIn && this.$route.name !== 'login_page') {

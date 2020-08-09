@@ -1,6 +1,5 @@
 <template>
   <div v-if="ready">
-
     <router-link :to="{name: 'home_page'}"><h2 class="some-heading">Hello and welcome to Angry LLamas Forum</h2></router-link>
     <div class="container">
       <h2 class="some-heading">Threads</h2><button class="btn" @click="$router.push('/forum/new')">New thread</button>
@@ -25,8 +24,6 @@
 
 <script>
 import axios from 'axios';
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-axios.defaults.xsrfCookieName = "csrftoken"
 
 export default {
   data() {
@@ -45,6 +42,6 @@ export default {
         this.ready = true;
       });
     },
-  }
-}
+  },
+};
 </script>

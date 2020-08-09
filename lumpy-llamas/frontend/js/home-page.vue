@@ -1,15 +1,7 @@
 <template>
   <div class="home-grid">
-    <div class="home-calendar item">
-      <h2>Calendar</h2>
-      Some events probably
-    </div>
     <div class="home-newsfeed item">
-      <h2> Newsfeed</h2>
-      <ul>
-        <li>Fake news</li>
-        <li>Llamas rule. Alpacas drool</li>
-      </ul>
+      <newsfeed :current-mode="newsMode"></newsfeed>
     </div>
     <div class="home-menu item">
       <h2>Menu</h2>
@@ -35,7 +27,7 @@
 }
 
 .home-menu {
-  grid-column: span 2;
+  /* grid-column: span 2; */
 }
 
 .home-menu-options li:before {
@@ -46,33 +38,42 @@
 </style>
 
 <script>
+import NewsFeed from './news-feed.vue';
+
 const MENU_PAGES = [
-  { title: 'Login/Register', page: 'login_page' },
   { title: 'Forum/Thread-list', page: 'forum' },
-  { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
   { title: 'Chat Lobby', page: 'chatlobby_page' },
+  { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
 ];
 
 export default {
+  components: {
+    newsfeed: NewsFeed,
+  },
   data() {
     return {
       pages: MENU_PAGES,
+      newsMode: 'new_news',
     };
   },
   beforeMount() {
-    this.$cmd.on('1', this.goToLogin);
-    this.$cmd.on('2', this.goToforum);
+    this.$cmd.on('1', this.goToForum);
+    this.$cmd.on('2', this.goToChatLobby);
     this.$cmd.on('3', this.goToGame);
-    this.$cmd.on('4', this.goToChatLobby);
+    this.$cmd.on('/news new', this.setNewNews, 'Get newest articles');
+    this.$cmd.on('/news top', this.setTopNews, 'Get top articles');
   },
   methods: {
-    goToLogin() {
-      this.$router.push({ name: 'login_page' });
+    setNewNews() {
+      this.newsMode = 'new_news';
+    },
+    setTopNews() {
+      this.newsMode = 'best_news';
     },
     goToChatLobby() {
       this.$router.push({ name: 'chatlobby_page' });
     },
-    goToforum() {
+    goToForum() {
       this.$router.push({ name: 'forum' });
     },
     goToGame() {

@@ -1,27 +1,17 @@
 <template>
   <div>
-      <button type="button" class="button" v-on:click="setNew()">[1] New news</button>
-      <button type="button" class="button" v-on:click="setBest()">[2] Best news</button> 
-      <div>
-        <h2 v-text="currentTitle"></h2>
-        <ul>
-          <li v-for="item in myData" :key="item">
-            <a :href="item.url" target="_blank">{{item.title}}</a>
-          </li>
-        </ul>
-      </div>
-    # Links can be done like this
-    # <router-link :to="{ name: 'some_page_name' }">Click Here</router-link>
+    <h2 v-text="currentTitle"></h2>
+    <ul>
+      <li v-for="item in myData" :key="item.url">
+        <a :href="item.url" target="_blank">{{item.title}}</a>
+      </li>
+    </ul>
   </div>
 </template>
 
 <style>
-.some-heading {
-  font-size: xx-large;
-  color: pink;
-}
-.button {
-  background-color:  #262626; 
+.news-button {
+  background-color:  #262626;
   border: none;
   padding: 10px 24px;
   color: white;
@@ -32,7 +22,7 @@
   transition-duration: 0.4s;
 }
 
-.button:hover {
+.news-button:hover {
   background-color: orange; /* Green */
   color: white;
 }
@@ -41,33 +31,39 @@
 
 <script>
 import axios from 'axios';
+
 export default {
+  props: {
+    currentMode: {
+      type: String,
+      default: 'new_news',
+    },
+  },
   data() {
     return {
       myData: [],
-      currentMode: 'new_news',
-      currentTitle: 'New news:'
     };
   },
   beforeMount() {
     this.getData();
   },
+  watch: {
+    currentMode() {
+      this.myData = [];
+      this.getData();
+    },
+  },
+  computed: {
+    currentTitle() {
+      return this.currentMode === 'new_news' ? 'News (New)' : 'News (Top)';
+    },
+  },
   methods: {
-    setNew(){
-      this.currentMode = 'new_news'
-      this.currentTitle = 'New news:'
-      this.getData()        
-    },
-    setBest(){
-      this.currentMode = 'best_news'
-      this.currentTitle = 'Best news:'
-      this.getData()
-    },
     getData() {
       axios.get(`/api/newsfeed/${this.currentMode}`).then((response) => {
         this.myData = response.data.news;
-      })  
+      });
     },
-  }
-}
+  },
+};
 </script>

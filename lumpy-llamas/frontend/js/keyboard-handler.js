@@ -7,6 +7,7 @@ class KeyboardNavigator {
     this.inputCallback = undefined;
     this.clearText = undefined;
     this.textRelayInProgress = false;
+    this.instructions = [];
   }
 
   init(onUnknown, askForInput, clearText) {
@@ -28,11 +29,17 @@ class KeyboardNavigator {
     return this.inputCallback(prompter, hidden);
   }
 
-  on(commandName, callback) {
+  on(commandName, callback, instructions) {
     if (this.watchers[commandName] === undefined) {
       this.watchers[commandName] = [];
     }
     this.watchers[commandName].push(callback);
+    if (instructions) {
+      this.instructions.push({
+        cmd: commandName,
+        help: instructions,
+      });
+    }
   }
 
   onUnknown(callback) {
@@ -58,6 +65,7 @@ class KeyboardNavigator {
     this.watchers = this.getDefaultWatchers();
     this.unkownCommand = this.defaultUnknown;
     this.textRelayInProgress = false;
+    this.instructions = [];
     this.clearText();
   }
 }
