@@ -1,5 +1,7 @@
 # Trivia Tavern by Practical Penguins
 
+![alt text](screenshots/home-page.png?raw=True)
+
 ## about
 This django web application allows people to create and organize trivia events. Participants can then answer trivia
  question using their phones.
@@ -16,7 +18,16 @@ https://a95e3eb77ce9.ngrok.io
 But you can easily host this run this server at home without having to pay for your own server
 hosting costs.
 
-Scroll down for instructions on this
+Scroll down for instructions on this.
+
+For basic operation, you need only create an account, and when you're ready just hit "Run Quiz" to
+complete setting up your first quiz session. When you run it, you'll see the current question display
+
+![alt text](screenshots/quiz-run.png?raw=True)
+
+Not sure where to start? We have a few trivia packs pre-made by yours truly!
+
+![alt text](screenshots/trivia_pack_page.png?raw=True)
 
 ## installation
 git clone and cd to this project with:
