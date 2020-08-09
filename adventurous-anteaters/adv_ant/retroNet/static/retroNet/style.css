@@ -479,7 +479,23 @@ font-size: 0;
 /*--------------------home_page-----------------------------*/
 
 .home{
-  max-height: 70vh;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  overflow: auto;
+  padding: 10px;
+}
+
+.right-section{
+  grid-column: 2/5;
+}
+
+.user-info img{
+  width: 500px;
+  height: 400px;
+}
+
+.home .all_tweets{
+  max-height: 58.5vh;
   overflow-y: auto;
 }
 
