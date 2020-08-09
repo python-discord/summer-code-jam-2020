@@ -81,5 +81,5 @@ Now, sit back and use this :)), you have effectively started the next technologi
 ###
 > ## **[nopeless](https://github.com/nopeless)** *(nope#7777)*
 > * Created about us page and a handler for that page
-> * Wrote our README.md file
+> * Wrote most of the README.md file
 > * Rewrote HTML structure
