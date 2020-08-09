@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="col-lg-9">
-      <div class="posts"><h3><b>Top communities of RSSit</b></h3></div>
+      <div class="posts"><h3><b>Your communities</b></h3></div>
       {% for community in object_list %}
         <div class="posts">
           <a href="/community/{{community.name}}"><h3><b>c/{{community.name}}</b></h3></a>

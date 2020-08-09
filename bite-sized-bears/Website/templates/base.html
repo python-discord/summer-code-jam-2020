@@ -23,7 +23,7 @@
       <a href="{% url 'top-communities' %}">communities</a>
       <a href="{% url 'most-viewed' %}">most-viewed</a>
       {% if user.is_authenticated %}
-      <a href="/user/{{user.get_username}}/my-communities">my-communities</a>
+      <a href="{% url 'my-communities' %}">my-communities</a>
       <a href="/user/{{user.get_username}}/posts">my-posts</a>
       <a href="/user/{{user.id}}">my-profile: {{user.username}}</a>
       {% else %}
