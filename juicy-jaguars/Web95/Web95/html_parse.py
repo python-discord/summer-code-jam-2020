@@ -33,7 +33,7 @@ class HtmlParser:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
             head.style.append('body {background-color:#C0C0C0 !important;}')
-        except KeyError:
+        except KeyError:  # excepts KeyError & AttributeError as in some cases website do not have a <head> tag
             pass
         except AttributeError:
             pass
@@ -54,7 +54,7 @@ class HtmlParser:
                 font-weight: normal;
                 font-style: normal;
                 }}""".format("http://"+self.request.META["HTTP_HOST"], "http://"+self.request.META["HTTP_HOST"]))
-        except KeyError:
+        except KeyError:  # excepts KeyError & AttributeError as in some cases website do not have a <head> tag
             pass
         except AttributeError:
             pass
@@ -63,6 +63,8 @@ class HtmlParser:
             try:
                 element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;" + element["style"]
             except KeyError:
+                # If an element does not have a style a KeyError will be raised.
+                # We catch this and create a style attribute
                 element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;"
 
     def parse_derounder(self):
