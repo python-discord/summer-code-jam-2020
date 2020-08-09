@@ -14,7 +14,8 @@
     "apollo-link-context": "^1.0.20",
     "core-js": "^3.6.5",
     "jwt-decode": "^2.2.0",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "codemirror": "5.56.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

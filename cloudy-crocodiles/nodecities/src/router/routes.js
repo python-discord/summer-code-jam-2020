@@ -27,7 +27,9 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/pages')},
+      { path: 'add', component: () => import('pages/pages/add')},
       { path: ':id', component: () => import('pages/pages/_id'), props: true},
+      { path: ':id/edit', component: () => import('pages/pages/_id/edit'), props: true},
     ]
   },
   {

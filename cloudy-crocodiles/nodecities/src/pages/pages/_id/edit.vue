@@ -1,11 +1,11 @@
 <template>
   <q-page padding>
-    <div v-if="page" v-html="page.content" />
+    <page-form v-if="page" :page="page" />
   </q-page>
 </template>
 
 <script>
-// import PageForm from 'components/PageForm'
+import PageForm from 'components/PageForm'
 
 import gql from "graphql-tag";
 
@@ -23,7 +23,7 @@ export default {
   name: "PagePage",
   props: ["id"],
   components: {
-    // PageForm
+    PageForm
   },
   data() {
     return {
