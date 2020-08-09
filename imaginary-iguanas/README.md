@@ -8,19 +8,25 @@ MyPlace is a social media app written in Django, celebrating the MySpace era whe
 ###### Prerequisites:
 - Python 3.8
 - Pipenv installed in your global environment
-- Git
-- Redis installed as a Python package and separately on your desktop
+- Dependencies from our `imaginary-iguanas/Pipfile`
+- Redis server installed on your machine and running on port 6379 (if you're having troubles for Windows you can use [memurai](https://docs.memurai.com/))
 
 1. Clone Git repo (master branch)
-2. Load up the project in PyCharm
-3. File -> Settings -> Project -> Project Interpreter
-4. Click the gear icon, then select Add
-5. In the popup window, select Pipenv Environment, make sure 'Install packages from Pipfile' is checked, then click OK.
-6. Now to initialize the database. `cd` to `imaginary_iguanas`
-7. `python manage.py makemigrations`
-8. `python manage.py migrate`
+2. Activate environment
 
-To run the project, simply open the Terminal in PyCharm, `cd` to `imaginary-iguanas`, then `cd` to `code_jam` and `python manage.py runserver`
+    For PyCharm: File -> Settings -> Project -> Project Interpreter
+    
+    Click the gear icon, then select Add. In the popup window, select Pipenv Environment, make sure 'Install packages from Pipfile' is checked, then click OK.
+
+    For terminal: Just cd to imaginary-iguanas, shell into environment `pipenv shell` and install dependencies `pipenv install`
+
+6. Now to initialize the database. 
+
+    You can either cd to `imaginary-iguanas/code_jam` and run `python manage.py makemigrations` and `python manage.py migrate`
+    or you can use pipenv scripts `pipenv run make` and `pipenv run migrate`
+
+To run the project, simply open the Terminal in PyCharm, `cd` to `imaginary-iguanas/code_jam` and `python manage.py runserver`
+There's a shortcut script for this too `pipenv run start`
 You should now be able to access the site through localhost:8000.
 
 ## Getting Around
