@@ -11,6 +11,7 @@ JSVue = VuePkg.default
 
 LIFECYCLE = set(['created'])
 
+
 def clone_data(data):
     if isinstance(data, dict):
         new_data = dict(data)
@@ -89,7 +90,9 @@ class Component:
             else:
                 __pragma__("js", "{}", "methods[i] = func")
 
-        # console.log(methods)
+        # __pragma__ ('skip')
+        methods = 0    # Prevent complaints by optional static checker
+        # __pragma__ ('noskip')
 
         # __pragma__("tconv")
         if methods:
