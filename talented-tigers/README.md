@@ -30,9 +30,14 @@ Please message the team for the .env file.
 ### Overview
 ### Getting Started ###
 
-**SpydirWeb** has three different types of pages: [info pages](#info-pages), [blog pages](#blog-and-business-pages), and [business pages](#blog-and-business-pages).
-The [blog and business pages](#blog-and-business-pages) use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the [info pages](#info-pages) use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
+**SpydirWeb** has three different types of pages: information pages, blog pages, and business pages. The blog and business pages use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
 
-Click one of the three links listed to get started browsing Spydirweb.
+Click one of the three links listed on the home page to get started browsing Spydirweb.
+
+Click any underlined link to continue browsing.
+
+The text in the blog and business pages may take a while to load, as they are generated with an AI.
+
+And thats it. Have fun browsing!
  
 ### License
