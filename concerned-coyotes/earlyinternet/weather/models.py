@@ -1,12 +1,13 @@
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
 
 
 class WeatherManager(models.Manager):
 
     def get_weather_at(self, lat, lon):
         return super().get_queryset().filter(
-            location__lat=lat, location__lon=lon
+            latitude=lat, longitude=lon,
+            day=timezone.now()
         ).order_by("-day").first()
 
 
