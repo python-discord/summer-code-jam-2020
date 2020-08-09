@@ -9,7 +9,7 @@
   <span class="author">
       {{post.posted_by.username}}
   </span>
-  <div class="hide">{{post.posted_by.bio}}</div>
+  <div class="hide">{{post.posted_by.profile.bio}}</div>
   <span class="post-time">{{post.post_date_posted}}</span>
   <p class="content">{{post.post_content}}</p>
   {% if post.post_image %}
