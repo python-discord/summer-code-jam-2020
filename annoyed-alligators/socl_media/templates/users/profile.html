@@ -51,6 +51,7 @@
   </div>
   <div class="w3-col w3-container m1 l2"></div>
 </div>
+
 <script>
   let gender = "{{ of_user.profile.gender}}"
   if(gender == 'M'){
@@ -58,17 +59,46 @@
   } else if(gender == 'F'){
     gender = 'Female'
   } else if(gender == 'O'){
-    gender = 'Others'
+    gender = 'Other'
   } else {
     gender = "Not specified"
   }
   document.getElementById("gender").innerHTML = "Gender: " + gender;
 </script>
+
 <style>
+  .author {
+      font-size: 0.9rem;
+      font-weight: bold;
+  }
+  .author:hover + div {
+    display: block;
+    color: blue;
+  }
+  .content {
+      font-size: 1rem
+  }
+  .post-time {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: #555;
+  }
+  .hide {
+    display: none;
+  }
   .post-profile-pic {
-    width: 30px;
-    height: auto;
-    float: left;
+    border-radius: 50%;
+    width: 20px;
+  }
+  .socl {
+    border-top: 1px solid #555;
+    margin-right: 20px;
+  }
+  .info {
+    background-color: blue;
+    color: white;
+    position: static;
+    text-align: center;
   }
   hr {
     border-top: 1px solid #555;
