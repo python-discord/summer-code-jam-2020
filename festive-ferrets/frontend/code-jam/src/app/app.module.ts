@@ -14,6 +14,8 @@ import {MatListModule} from '@angular/material/list';
 import { PostViewComponent } from './post-view/post-view.component';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { BoardComponent } from './board/board.component';
+import { SquareComponent } from './square/square.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CreatePostComponent } from './create-post/create-post.component';
     BoardViewComponent,
     PostViewComponent,
     CreateCommentComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    BoardComponent,
+    SquareComponent
   ],
   imports: [
     BrowserModule,
