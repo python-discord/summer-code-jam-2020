@@ -3,7 +3,7 @@ from django.db.models import Count
 from django.views.generic import ListView
 from django.contrib.auth.models import auth
 from django.shortcuts import render, redirect
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import classonlymethod
 from functools import update_wrapper
@@ -51,11 +51,8 @@ class View(views):
         view.view_class = cls
         view.view_initkwargs = initkwargs
 
-        # take name and docstring from class
         update_wrapper(view, cls, updated = ())
 
-        # and possible attributes set by decorators
-        # like csrf_exempt from dispatch
         update_wrapper(view, cls.dispatch, assigned = ())
         return view
 
@@ -252,6 +249,26 @@ def add_comment(request, community_name, post_id):
 
     return redirect(f'/community/{community_name}/{post_id}')
 
+class store_args():
+    pass
+
+class PostCreate(CreateView, View):
+    model = Post
+    fields = ['title','description']
+    template_name_suffix = '_create_form'
+    valves = store_args()
+
+    def get(self, request, *args, **kwargs):
+        for val in args:
+            setattr(self.valves,val,val)
+        for key,val in kwargs.items():
+            setattr(self.valves,key,val)
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.publisher = Community.objects.get(name=self.valves.community_name)
+        return super().form_valid(form)
 
 @login_required
 def subscription_request(request, community_name):
