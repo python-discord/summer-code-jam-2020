@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RSS it</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'css/script.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+  </head>
+
+  <header>
+    <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
+    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
+    <div class="headerlinks">
+      <a href="{% url 'home' %}">home</a>
+      <a href="{% url 'top-communities' %}">communities</a>
+      <a href="{% url 'most-viewed' %}">most-viewed</a>
+      <a href="/user/{{user.get_username}}/my-communities">my-communities</a>
+      <a href="/user/{{user.get_username}}/posts">my-posts</a>
+      <a href="/user/{{user.id}}">my-profile{{user.username}}, {{user.id}}</a>
+    </div>
+  </header>
+
+  <body>
+    <div class="container">
+
+    <div class="col-lg-9">
+    <div class="community-bar">
+            <a href="#"><h1><b>Welcome to {{room_title}} chat room!</b></h1></a>
+    </div>
+    <textarea id="chat-log" cols="100" rows="20" class="override textarea" disabled></textarea><br>
+    <input id="chat-message-input" type="text" class="override" size="93">
+    <input id="chat-message-submit" type="button" class="override" value="Send">
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        var ws;
+        var username = {{ username }};
+        // const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        var roomName = {{ room_name_json }};
+        console.log("first" + roomName);
+        start = function(){
+        	console.log("HEYYY");
+            ws = new WebSocket(
+                'ws://'
+                + window.location.host
+                + '/ws/chat/'
+                + roomName
+                + '/',
+            );
+            console.log(ws);
+            ws.onopen = function(e) {
+            console.error("Connected");
+            ws.send(JSON.stringify({
+                'command': 'fetch_messages'
+            }));
+        	};
+
+            ws.onerror = function (error) {
+            	console.log(error);
+            };
+            ws.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                if(data['command'] == 'new_message')
+                {
+                    document.querySelector('#chat-log').value += (data.message.author + ':' + data.message.content + '\n');
+                }
+                else{
+                    for(index in data.messages){
+                        document.querySelector('#chat-log').value += (data.messages[index].author + ':' + data.messages[index].content + '\n');
+                    }
+                }
+            };
+
+            ws.onclose = function(event) {
+              if (event.wasClean) {
+                     alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                } else {
+                    console.error('Chat socket closed unexpectedly');
+                    console.error('Reconnecting ....');
+                    console.error(event);
+                    // Try to reconnect in 5 seconds
+                    setTimeout(function(){ws = start();}, 5000);
+                }
+            };
+            return ws;
+        };
+        console.log("heyyyy");
+        ws = start();
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            ws.send(JSON.stringify({
+                'command': 'new_message',
+                'message': message,
+                'from': username
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+    </div>
+      </div>
+    </div>
+  </body>
+</html>

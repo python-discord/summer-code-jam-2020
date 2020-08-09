@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-lg-9 post-container posts">
+        <fieldset>
+            <form method="post" action="login" id="login">{% csrf_token %}</form>
+            <legend>Sign up now!</legend>
+            <form method="post" action="signup">
+                {% csrf_token %}
+            <label>Username: </label>
+            <input type="text", name="username" required class="override">
+            <br>
+            <label>Password: </label>
+            <input type="password", name="password1" required class="override">
+            <br>
+            <label>Confirm Password</label>
+            <input type="password", name="password2" required class="override">
+            <br><br>
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+            <input type="submit", value="signup" class="override">
+            <input type="reset", value="reset" class="override">
+                {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}" form="login">
+                        <span>Already have an account? <input type="submit", value="Login!" form="login" class="override"></span>
+                 {% else %}
+                    <span>Already have an account? <a href="{% url 'login' %}">Login!</a></span>
+                {% endif %}
+                <br><br>
+            <label style="color:red;"><b>{{message|safe}}</b></label><br>
+            </form>
+            {% if created %}
+                {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}" form="login">
+                        <span>Click here to <input type="submit", value="Login!" form="login" class="override"></span>
+                 {% else %}
+                    Click here to <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            {% endif %}
+        </fieldset>
+    </div>
+{% endblock %}

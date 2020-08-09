@@ -1,0 +1,32 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+
+[packages]
+django = "==3.0.7"
+django-environ = "*"
+psycopg2-binary = "*"
+pillow = "*"
+channels = "*"
+asgiref = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+makemigrations = 'python Website\\manage.py makemigrations'
+migrate = 'python Website\\manage.py migrate'
+server = 'python Website\\manage.py runserver'
+lint = 'python -m flake8'
+createsuperuser = 'python Website\\manage.py createsuperuser'
+collectstatic = 'python Website\\manage.py collectstatic'
+makemigrations-l = 'python3 Website/manage.py makemigrations'
+migrate-l = 'python3 Website/manage.py migrate'
+server-l = 'python3 Website/manage.py runserver'
+lint-l = 'python3 -m flake8'
+createsuperuser-l = 'python3 Website/manage.py createsuperuser'
+collectstatic-l = 'python Website/manage.py collectstatic'

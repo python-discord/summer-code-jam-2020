@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="col-lg-9">
+      <div class="posts"><h3><b>Top posts of {{user_data.name}}</b></h3></div>
+      {% for post in posts %}
+        <div class="posts">
+            <a href="/community/{{post.publisher}}"><b>c/{{post.publisher}}</b></a>
+            <p>submitted on {{post.creation_date}} has {{post.views.count}} views</p>
+            <a href="/community/{{post.publisher}}/{{post.id}}"><h3>{{post.title}}</h3></a>
+            <p>{{post.description}}</p>
+        </div>
+      {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-lg-9 post-container posts">
+        <fieldset>
+            <legend>Login !</legend>
+            <form method="post" action="signup" id="signup">{% csrf_token %}</form>
+            <form method="post" action="login">
+                {% csrf_token %}
+            <label>Username: </label>
+            <input type="text", name="username" required class="override">
+            <br><br>
+            <label>Password: </label>
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+            <input type="password", name="password" required class="override">
+            <br><br>
+            <input type="submit", value="login" class="override">
+            <input type="reset", value="reset" class="override">
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" form="signup">
+                <span>Dont have an account? <input type="submit" value="Sign up!" form="signup" class="override"></span>
+             {% else %}
+                <span>Dont have an account? <a href="{% url 'signup' %}">Sign up!</a></span>
+            {% endif %}
+                <br><br>
+            <label style="color:red;"><b>{{message|safe}}</b></label>
+            </form>
+                {% if not created %}
+                    {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" form="signup">
+                            <span>Click here to <input type="submit", value="Sign up!" form="signup" class="override"></span>
+                     {% else %}
+                        Click here to <a href="{% url 'signup' %}">Sign up</a>
+                    {% endif %}
+                {% endif %}
+        </fieldset>
+    </div>
+{% endblock %}
