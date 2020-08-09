@@ -3,6 +3,7 @@ from userwall.forms import WallCreationForm
 from django.contrib import messages
 from users.models import Profile, User
 
+
 # Create your views here.
 
 # test website (blank)
