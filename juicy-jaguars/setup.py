@@ -22,11 +22,7 @@ def install(color=False):
     else:
         green, yellow, red, reset = "", "", "", ""
 
-<<<<<<< HEAD
     print(yellow + "Cloning Repository..." + reset)
-=======
-    print(yellow+"Cloning Repository..." + reset)
->>>>>>> 9c34ed224026bde375190676c9c1e370c4c362e4
     result = subprocess.call(["git", "clone", "https://github.com/Juicy-Jaguars/summer-code-jam-2020"])
     os.chdir("summer-code-jam-2020/juicy-jaguars")
 
