@@ -49,6 +49,7 @@ urlpatterns = [
     path("", include("blog.urls")),
     path("chat/", include("chat.urls")),
     path("users/", include("users.urls")),
+    path("userwall/", include("userwall.urls")),
 ]
 
 

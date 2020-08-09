@@ -42,7 +42,7 @@
             );
 
             chatSocket.onmessage = function (e) {
-                const { username, text, connected } = JSON.parse(e.data);
+                const { username, text, connected, timestamp } = JSON.parse(e.data);
                 if (document.querySelector(`#active-${currUsername}`) === null) {
                     document.querySelector("#active-users-list").innerHTML += `<div id="active-${currUsername}">${currUsername}</div>`;
                 }
@@ -53,7 +53,7 @@
                     const child = document.querySelector(`#active-${username}`);
                     parent.removeChild(child);
                 } else if (text !== undefined) {
-                    document.querySelector("#chat-log").value += `${username}: ${text}` + "\n";
+                    document.querySelector("#chat-log").value += `[${timestamp}] ${username}: ${text}` + "\n";
                 }
             };
 
