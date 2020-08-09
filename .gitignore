@@ -131,3 +131,5 @@ dmypy.json
 
 # PyCharm Project folder
 .idea/
+
+.fuse_hidden**
