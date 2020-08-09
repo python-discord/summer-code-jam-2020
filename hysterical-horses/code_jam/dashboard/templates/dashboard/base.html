@@ -21,14 +21,18 @@
         <a class="text-primary" href="{% url 'logout' %}">Logout</a>
     {% else %}
         <a class="text-primary" href="{% url 'login' %}">Login</a>
-    {% endif %}
+        {% endif %}
 </div>
 
 {% block content %}{% endblock %}
 
-{% block extra_scripts %}{% endblock %}
+{% block extra_scripts %}
 
 
+
+{% endblock %}
+
+<p style="font-size: 10px;">Thank you Nes.css for giving this awesome <a href="https://nostalgic-css.github.io/NES.css/" target="_blank">retro package</a>.</p>
 </body>
 <p style="font-size: 10px;">
     Thank you Nes.css for giving this awesome <a href="https://nostalgic-css.github.io/NES.css/" target="_blank">retro package</a>.
