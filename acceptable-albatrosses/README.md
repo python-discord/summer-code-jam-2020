@@ -32,7 +32,7 @@ See [CONTRIBUTING.md][CONTRIBUTE-url]
 
 See [NOTICE.md][NOTICE-url]
 
-[logo-url]: ./albatrosses_hub/static/img/albatrosses-logo-small.png
+[logo-url]: ./albatrosses_hub/home/static/albatrosses_hub/img/albatrosses-logo-small.png
 [LICENSE-url]: ../LICENSE
 [NOTICE-url]: ./NOTICE.md
 [CONTRIBUTE-url]: ./CONTRIBUTING.md
