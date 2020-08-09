@@ -4,8 +4,13 @@
     font-family: Helvetica, Arial, sans-serif;
 }
 
+.header {
+    background-color: #010081;
+}
+
 .header p {
     margin-block-end: 0.1em;
+    color: white;
 }
 
 .center {
