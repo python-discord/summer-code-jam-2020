@@ -66,9 +66,11 @@ class Comments(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
 
 
-def create_profile(sender, **kwargs):
+def create_profile(sender, **kwargs):  # noqa
     if kwargs['created']:
-        user = AuthUser.objects.create_user(username=kwargs['instance'].name, password=kwargs['instance'].password, is_staff=True)
+        user = AuthUser.objects.create_user(username=kwargs['instance'  # noqa
+                ].name, password=kwargs['instance'].password,
+                is_staff=True)
 
 
 post_save.connect(create_profile, sender=User)

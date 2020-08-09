@@ -30,8 +30,8 @@ class ChatConsumer(WebsocketConsumer):
             .update(count=F('count') - 1)
         print(what)
 
-    def fetch_messages(self, data):
-        messages = Message.last_15_messages(self=Message, community=self.room_name)
+    def fetch_messages(self, data):  # noqa
+        messages = Message.last_15_messages(self=Message, community=self.room_name)  # noqa
         print(messages)
         content = {
             'command': 'messages',
@@ -58,7 +58,7 @@ class ChatConsumer(WebsocketConsumer):
             result.append(self.message_to_json(message))
         return result
 
-    def message_to_json(self, message):
+    def message_to_json(self, message):  # noqa
         return {
             'author': message.author.name,
             'content': message.content,
@@ -71,9 +71,9 @@ class ChatConsumer(WebsocketConsumer):
     }
 
     def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.room_name = self.scope['url_route']['kwargs']['room_name']  # noqa
         self.update_user_incr(self.room_name)
-        self.room_group_name = 'chat_%s' % self.room_name
+        self.room_group_name = 'chat_%s' % self.room_name  # noqa
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name
@@ -83,7 +83,7 @@ class ChatConsumer(WebsocketConsumer):
         print(self.room_name + ": count :",
               UserProfile.objects.filter(community__exact=self.room_name).values('count'))
 
-    def disconnect(self, close_code):
+    def disconnect(self, close_code):  # noqa
         print("DISCONNECTING")
         self.update_user_decr(self.room_name)
         print("Done ... decremented")

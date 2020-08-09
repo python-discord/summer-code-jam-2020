@@ -1,3 +1,5 @@
+from functools import update_wrapper
+
 from django.views import View as ParentView
 from django.db.models import Count
 from django.views.generic import ListView
@@ -6,13 +8,15 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import classonlymethod
-from functools import update_wrapper
 from django.contrib.auth.models import User as AuthUser
 
 from .models import Post, Comments, User, Community
 
 
 class View(ParentView):
+    """
+    Extending the Django User model with extra fields
+    """
     @classonlymethod
     def as_view(cls, **initkwargs):
         for key in initkwargs:
@@ -36,7 +40,7 @@ class View(ParentView):
                             setattr(request.user, meth, getattr(auth_user, meth))
                         except Exception as e:
                             pass
-            except:
+            except Exception:
                 pass
             if hasattr(self, 'get') and not hasattr(self, 'head'):
                 self.head = self.get
@@ -51,9 +55,9 @@ class View(ParentView):
         view.view_class = cls
         view.view_initkwargs = initkwargs
 
-        update_wrapper(view, cls, updated = ())
+        update_wrapper(view, cls, updated=())
 
-        update_wrapper(view, cls.dispatch, assigned = ())
+        update_wrapper(view, cls.dispatch, assigned=())
         return view
 
 
@@ -63,12 +67,38 @@ class IndexListView(ListView, View):
     queryset = Post.objects.all()
 
 
+class MostViewedPost(ListView, View):
+    template_name = 'most-viewed.html'
+    paginate_by = 15
+    queryset = Post.objects.annotate(
+        v_count=Count('views')
+    ).order_by('-v_count')
+
+
+class CommunityListView(ListView, View):
+    template_name = 'top-community.html'
+    paginate_by = 20
+    queryset = Community.objects.all().annotate(
+        s_count=Count('subscribers')
+    ).order_by('-s_count')[:100]
+
+
+class MyCommunityListView(ListView, View):
+    template_name = 'my-communities.html'
+    paginate_by = 15
+
+    def get_queryset(self):
+        queryset = \
+            Community.objects.filter(subscribers__name=self.request.user.get_username())
+        return queryset
+
+
 class PostView(View):
     template_name = 'single-post.html'
     model = Post
     context = {}
 
-    def get(self, request, community_name, post_id):
+    def get(self, request, community_name, post_id): # noqa
         post = self.model.objects.get(id=post_id)
         if request.user.is_authenticated:
             user = User.objects.get(name=request.user.get_username())
@@ -85,13 +115,13 @@ class SignupView(View):
     def get(self, request):
         try:
             return render(request, self.template_name, {'next': request.POST['next']})
-        except:
+        except Exception:
             return render(request, self.template_name, {'next': False})
 
     def post(self, request):
         try:
             username = request.POST["username"]
-        except:
+        except Exception:
             to_render = self.get(request)
             return to_render
         password1 = request.POST["password1"]
@@ -115,11 +145,11 @@ class SignupView(View):
             next = request.POST['next']
             if created:
                 return redirect(next)
-        except:
+        except Exception:
             pass
         try:
             return render(request, self.template_name, {"message": message, "created": created, 'next': next})
-        except:
+        except Exception:
             return render(request, self.template_name, {"message": message, "created": created, 'next': False})
 
 
@@ -129,26 +159,26 @@ class LoginView(View):
     def get(self, request):
         try:
             return render(request, self.template_name, {"created": True, 'next': request.POST['next']})
-        except:
+        except Exception:
             return render(request, self.template_name, {"created": True, 'next': False})
 
     def post(self, request):
         try:
             username = request.POST["username"]
-        except:
+        except Exception:
             to_render = self.get(request)
             return to_render
         password = request.POST["password"]
         user = auth.authenticate(username=username, password=password)
         try:
             next = request.POST['next']
-        except:
+        except Exception:
             pass
         if user is not None:
             auth.login(request, user)
             try:
                 return redirect(next)
-            except:
+            except Exception:
                 return redirect('/')
         else:
             try:
@@ -159,7 +189,7 @@ class LoginView(View):
                                          'next': next
                                          }
                 )
-            except:
+            except Exception:
                 return render(
                     request,
                     self.template_name, {"message": "Account does not exist",
@@ -195,31 +225,6 @@ class UserView(View):
         return render(request, self.template_name, self.context)
 
 
-class MostViewedPost(ListView, View):
-    template_name = 'most-viewed.html'
-    paginate_by = 15
-    queryset = Post.objects.annotate(
-        v_count=Count('views')
-    ).order_by('-v_count')
-
-
-class CommunityListView(ListView, View):
-    template_name = 'top-community.html'
-    paginate_by = 20
-    queryset = Community.objects.all().annotate(
-        s_count=Count('subscribers')
-    ).order_by('-s_count')[:100]
-
-
-class MyCommunityListView(ListView, View):
-    template_name = 'my-communities.html'
-    paginate_by = 15
-
-    def get_queryset(self):
-        queryset = Community.objects.filter(subscribers__name=self.request.user.get_username())
-        return queryset
-
-
 class UserProfileUpdate(UpdateView, View):
     model = User
     fields = ['avatar']
@@ -228,23 +233,23 @@ class UserProfileUpdate(UpdateView, View):
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
         user=context.pop('user')
-        context['user_data']=user
+        context['user_data'] = user
         return self.response_class(
-            request = self.request,
-            template = self.get_template_names(),
-            context = context,
-            using = self.template_engine,
+            request=self.request,
+            template=self.get_template_names(),
+            context=context,
+            using=self.template_engine,
             **response_kwargs
         )
 
 
-class store_args():
+class store_args:
     pass
 
 
 class PostCreate(CreateView, View):
     model = Post
-    fields = ['title','description']
+    fields = ['title', 'description']
     template_name_suffix = '_create_form'
     valves = store_args()
 
@@ -252,9 +257,9 @@ class PostCreate(CreateView, View):
         if not self.request.user.is_authenticated:
             return redirect(request.META['HTTP_REFERER'])
         for val in args:
-            setattr(self.valves,val,val)
-        for key,val in kwargs.items():
-            setattr(self.valves,key,val)
+            setattr(self.valves, val, val)
+        for key, val in kwargs.items():
+            setattr(self.valves, key, val)
         return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -285,10 +290,10 @@ class HomeListView(ListView, View):
 
     def get_queryset(self):
         queryset = \
-            Post.objects.filter(publisher__in=Community.objects.prefetch_related('subscribers'
-                                ).filter(subscribers__name__exact=self.request.user.get_username()))\
-                .annotate(post_views=Count('views'))\
-                .order_by('-post_views')
+            Post.objects.filter(
+                publisher__in=Community.objects.prefetch_related('subscribers')
+                    .filter(subscribers__name__exact = self.request.user.get_username()
+                            )).annotate(post_views=Count('views')).order_by('-post_views')
         return queryset
 
 
@@ -307,7 +312,7 @@ def subscription_request(request, community_name):
 
 def add_comment(request, community_name, post_id):
     author = User.objects.get(name=request.user.get_username())
-    post = Post.objects.get(id = post_id)
+    post = Post.objects.get(id=post_id)
     content = request.POST['content']
     Comments.objects.create(content=content, author=author, post=post)
 
@@ -317,4 +322,3 @@ def add_comment(request, community_name, post_id):
 def logout_request(request):
     auth.logout(request)
     return redirect('/')
-
