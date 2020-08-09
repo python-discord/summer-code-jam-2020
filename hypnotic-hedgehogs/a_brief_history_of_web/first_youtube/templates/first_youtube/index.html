@@ -291,13 +291,19 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+    $("form").keypress(function(e) {
+  //Enter key
+  if (e.which == 13) {
+    return false;
+  }
+});
 
     $('.paginator-exe').click(function (event) {
         event.preventDefault();
         var page_n = $(this).attr('href');
         $.ajax({
             type: "POST",
-            url: "{% url 'main-page' %}", // name of url
+            url: "{% url 'first_youtube:index' %}", // name of url
             data: {
                 page_n: page_n, //page_number
                 csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -330,7 +336,7 @@
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: '{% url "main-page" %}',
+            url: '{% url "first_youtube:index" %}',
             data: $('#form').serialize(),
             dataType: 'json',
             success: function (response) {
