@@ -2,7 +2,14 @@
 
 <hr>
 
-### Installation:
+### Production Installation:
+1. Clone master branch
+
+2. copy prod.env into `/hysterical-horses'
+
+3. navigate to `hysterical-horses/` and run `docker-compose up --build`
+
+### Development Installation:
 1. Clone repository
 
 2. Create virtual environment for this project ([virtualenv](https://pypi.org/project/virtualenv/))

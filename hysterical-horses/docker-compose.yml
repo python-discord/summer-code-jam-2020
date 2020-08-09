@@ -10,7 +10,7 @@ services:
     depends_on: 
       - redis
     env_file: 
-      - dev.env
+      - prod.env
   redis:
     image: "redis"
     ports: 

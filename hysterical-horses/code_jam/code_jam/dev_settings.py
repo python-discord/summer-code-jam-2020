@@ -2,9 +2,7 @@
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 import os
-from .settings import *
-
-DEBUG = True
+from .settings import BASE_DIR
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

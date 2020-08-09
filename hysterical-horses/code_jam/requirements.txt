@@ -29,6 +29,7 @@ future==0.18.2
 geocoder==1.38.1
 geographiclib==1.50
 geopy==2.0.0
+gunicorn==20.0.4
 hiredis==1.1.0
 hyperlink==19.0.0
 identify==1.4.25
