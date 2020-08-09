@@ -2,7 +2,9 @@ import React, {useEffect, useState, useCallback} from 'react';
 import {Tabs,Tab } from '@react95/core';
 import Chat from "./Chat";
 import "./Home.css";
+import UserTable from "./UserTable";
 
+const USERS = ['Ami','Layla','Eric','John'];
 
 const Home = () =>{
     return (
@@ -15,13 +17,15 @@ const Home = () =>{
                 </Tab>
                 <Tab title ="#lobby">
                     <div className = "main-Content">
-                        <div class="row mt-5">
-                            <div class="col">
+                        <div className="row mt-5">
+                            
+                            <div className="col-md-8" style={{paddingLeft:"10px"}}>
                                 <Chat/>
                             </div>
-                            <div class="col">
-                                <p>List goes here</p>
+                            <div className="col-sm-1 mr-5" style ={{backgroundColor:"white",float:"left"}}>
+                                <UserTable  users = {USERS}/>
                             </div>
+                           
                         </div>
                     </div>
                 </Tab>

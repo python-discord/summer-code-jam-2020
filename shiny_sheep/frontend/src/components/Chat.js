@@ -39,7 +39,7 @@ class Chat extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{float:"right"}}>
         <textarea value={this.state.chatLogs} id="chat-log" cols="100" rows="20"></textarea>
         <br />
         <form onSubmit={this.handleSubmit}>
