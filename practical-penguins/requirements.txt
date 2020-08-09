@@ -1,8 +1,8 @@
-django
+django==3.0.8
 wheel
-Pillow
+Pillow==7.2.0
 django-crispy-forms
 django-formset-js
-twilio
+twilio==6.44.2
 django-phonenumber-field
 phonenumbers
