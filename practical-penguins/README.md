@@ -1,10 +1,14 @@
 
 # ![Trivia Tavern](trivia_tavern/static/header_logo.png) by Practical :penguin:
  
-# Table of Contents
+## Table of Contents
 
 1. [About](#about)
 2. [App features](#tour-of-the-app)
+    1. [Create Trivia Packs (session master)](#create)
+    2. [Host trivia session (session master)](#host)
+    3. [Join session using your phone (participant)](#participate)
+    4. [View Trivia packs by user (session master/participant)](#profile) 
 3. [Installation](#Installation)
 5. [how to run your own server locally](#how-to-run-your-own-server-locally) 
 6. [Future Ideas](#Ideas-and-Feature-for-the-future)
@@ -14,19 +18,33 @@ This django web application allows people to create and organize trivia events. 
  question using their phones.
  
 ## App features
-We are hosting our app publicly for a limited time at this development [URL](https://a95e3eb77ce9.ngrok.io)
-
-But you can easily host this run this server at home without having to pay for your own server
-hosting costs ([see below](#how-to-run-your-own-server-locally)).
+We are hosting our app publicly for a limited time [here](https://a95e3eb77ce9.ngrok.io). To run your 
+own server with your own twilio account [see here](#how-to-run-your-own-server-locally).
 
 For basic operation, you need only create an account, and when you're ready just hit "Run Quiz" to
 complete setting up your first quiz session. When you run it, you'll see the current question display
+###Create
+You can host your own trivia packs by creating them in "Create Trivia Pack"
+![alt text](screenshots/create_form.png?raw=True)
 
+###Host
+![alt text](screenshots/setup_screen.png?raw=True)
 ![alt text](screenshots/quiz-run.png?raw=True)
 
-Not sure where to start? We have a few trivia packs pre-made by yours truly!
+
+or select from prebuilt trivia packs provited by us truly
+
 
 ![alt text](screenshots/trivia_pack_page.PNG?raw=True)
+
+###Participate
+Participants can join using their phone by texting the the trivia session code to the phone number provided 
+![alt text](screenshots/invite.png?raw=True)
+
+![alt text](screenshots/sms_screenshot.jpg?raw=True)
+
+###Profile
+
 
 ## Installation
 This package is tested on python 3.8
