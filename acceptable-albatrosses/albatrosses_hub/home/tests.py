@@ -1,4 +1,5 @@
-from django.test import TestCase, Client
+from django.contrib.auth.models import User
+from django.test import TestCase, Client, RequestFactory
 from django.urls import resolve
 from .views import homepage, about_us
 
@@ -34,12 +35,19 @@ class HomeTestCase(TestCase):
 class HomeViewTest(TestCase):
     """Class to perform some tests related to views."""
 
-    def test_logged_in_user_access_home(self):
-        session = self.client.session
-        session["email"] = "test@example.com"
-        session.save()
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username="tester",
+            email="test@example.com",
+            password="tester12345"
+        )
 
-        response = Client().get("/")
+    def test_logged_in_user_access_home(self):
+        request = self.factory.get("/")
+        request.user = self.user
+
+        response = homepage(request)
         self.assertEqual(response.status_code, 200)
 
     def test_anonymous_user_access_home(self):
