@@ -1,4 +1,6 @@
 from numpy.random import choice
+from random import choice as c2
+from random import randint, getrandbits
 import json
 import sys
 
@@ -14,8 +16,17 @@ with open('raw.json', 'r') as f:
     raw = json.load(f)
 
 
-def email_gen(first_name, last_name):
-    pass
+booler = lambda : bool(getrandbits(1))
+
+def email_gen(row):
+    first = row['fields']['first_name']
+    last = row['fields']['last_name']
+    first = first.title() if booler() else first
+    last = last.title() if booler() else last
+    domains = ['aol', 'msn', 'hotmail']
+    separator = ['_', '']
+    num = randint(1, 999)
+    return f"{first}{c2(separator)}{last}{num}@{c2(domains)}.com"
 
 
 def genusers():
@@ -26,7 +37,7 @@ def genusers():
         row['model'] = 'auth.user'
         row['fields']['username'] = f"{row['fields']['first_name']} {row['fields']['last_name']}"
         row['fields']['password'] = password
-        row['fields']['email'] = f"{row['fields']['first_name']}{row['fields']['last_name']}@aol.com"
+        row['fields']['email'] = email_gen(row)
     with open('users.json', 'w') as f:
         json.dump(raw, f, indent=4)
 
