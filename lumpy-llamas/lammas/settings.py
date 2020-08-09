@@ -129,3 +129,6 @@ STATICFILES_DIRS = (
 )
 
 CSRF_COOKIE_NAME = "csrftoken"
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
