@@ -4,7 +4,7 @@ from core.models.trader import Trader, InventoryRecord
 from core.models.product import Product
 from core.models.market import Listing, Trade, ListingStatus
 from core.models.review import Review
-from core.factories import trader, market, product, review
+from core.factories import trader, market, product, review, news_feed
 from typing import List, Tuple
 
 
@@ -14,6 +14,10 @@ def create_product_set() -> None:
 
 def create_trader_set() -> None:
     trader.TraderFactory.create_batch(100)
+
+
+def create_news_set() -> None:
+    news_feed.NewsFeedFactory.create_batch(200)
 
 
 def create_trader_inventories() -> None:

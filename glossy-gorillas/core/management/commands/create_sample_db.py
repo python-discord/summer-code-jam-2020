@@ -30,4 +30,6 @@ class Command(BaseCommand):
         fixtures.create_trade_set()
         print("initializing reviews...")
         fixtures.create_review_set()
+        print("initializing news feed...")
+        fixtures.create_news_set()
         print("All done!")
