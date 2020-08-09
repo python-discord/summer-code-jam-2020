@@ -109,6 +109,14 @@
                         </td></tr>
                     </tbody></table>
                 </td>
+                <td>
+                    <td style="vertical-align: top;"><table class="nav-table"><tbody>
+                        High Scores
+                        {% for score in scores %}
+                        <p>{{score.0}}: {{score.1}}</p>
+                        {% endfor %}
+                    </tbody></table></td>
+                </td>
             </tr>
         </tbody></table>
     </div>

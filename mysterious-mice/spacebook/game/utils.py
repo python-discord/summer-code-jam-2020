@@ -132,7 +132,6 @@ def get_game(request):
         game_data = new_game(request)
     else:
         game_data = request.session["game_data"]
-
     return game_data
 
 
