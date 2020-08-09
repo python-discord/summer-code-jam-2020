@@ -52,37 +52,30 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 
 Now, sit back and use this :)), you have effectively started the next technological revolution on your system.
 
-
-
 #
 ### contributers
 > ## [zuck](https://github.com/arthtyagi) *(zuck#9454)* - Head developer
 > * Mainframe development
-> * thing 2
-> * thing 3
+> * Email Client Development
 
-> *"fancy quote here"*
+> *"talk is dirty, let's code."*
 
 ###
 > ## **[Arhaan](https://github.com/Arhaan)** *(Arhaan#0249)* -
-> * emailclient backend
-> * 2
-> * 3
+> * Email Client Backend
+> * search engine client
 
 ###
 > ## **[Multi](https://github.com/telugu-boy)** *(multi#3304)* -
-> * Developed inbox.js
-> * Designed base of frontend, gave lots of design advice to FantasticHD
-> * Added search functionality backend
+> * Added search to email-client
+> * Designed base of frontend
 
 ###
 > ## **[FantasticHD](https://github.com/Fantasticlegend1000)** *(FantasticHD#9968)* -
-> * front end
+> * Worked on the frontedn of Email-client
 > * designed assets and icon i.e Company logo
-> * 3
 
 ###
 > ## **[nopeless](https://github.com/nopeless)** *(nope#7777)* -
 > * Created about us page and a handler for that page
-> * Wrote our README.md file
-> * Helped fantastic push git
+> * Created most of this Readme
