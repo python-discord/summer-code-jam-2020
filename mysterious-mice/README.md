@@ -11,6 +11,8 @@ In the main `mysterious-mice\` directory:
 - Run `docker-compose build` to build the Docker image.
 - Run `docker-compose up -d` to build, create, start and attach the container. The `d` runs the container in the background.
 
+Open the web app by going to `localhost:8000` in your web browser.
+
 ### Without Docker
 
 In the main `mysterious-mice\` directory, create and activate a virtual environment:
@@ -21,7 +23,6 @@ In the main `mysterious-mice\` directory, create and activate a virtual environm
 - Linux / OS X:
   - Run `python3 -m venv venv` to create the virtual environment.
   - Run `source venv\Scripts\activate` to activate the virtual environment.
-  
 - Run `python -m pip install --upgrade pip` to ensure the latest version of pip is installed.
 - Run `python -m pip install -r requirements.txt` to install all the required packages.
 
@@ -30,6 +31,8 @@ In the `spacebook\` subdirectory and with the virtual environment active:
 - Run `python manage.py migrate`
 - Run `python manage.py loaddata db.json`
 - Run `python manage.py runserver`
+
+Open the web app by going to `localhost:8000` in your web browser.
 
 ## Updating The Database
 
