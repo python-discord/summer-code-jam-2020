@@ -34,7 +34,7 @@ class ArticleTestCase(TestCase):
         """
         article = {
             'source': {'id': 'news-com-au', 'name': 'News.com.au'},
-            'author': 'unknown'
+            'author': 'unknown',
             'title': 'F1 British Grand Prix live: updates, results, starting grid, Vettel reacts to Ferrari sabotage '
                      'questions',
             'description': 'The British Grand Prix has ended in incredible drama as the last lap went down to the '
