@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+<div class="input-group mb-3">
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="input-group-append">
+      <input type="{{ form.username.type }}" name="{{ form.username.name }}" class="form-control" placeholder="Username"
+        aria-label="Recipient's username" aria-describedby="basic-addon2" style="margin: 500px 0 5 0; font-size: 1em;">
+      <button  class="btn btn-primary" type="submit">Search</button>
+
+    </div>
+  </form>
+</div>
+
+
+{% endblock content %}
