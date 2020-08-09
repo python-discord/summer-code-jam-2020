@@ -17,7 +17,7 @@ import Chat from "./Chat";
 import "./Home.css";
 import UserTable from "./UserTable";
 
-const USERS = ['Ami','Layla','Eric','John'];
+const USERS = ["Ami", "Layla", "Eric", "John"];
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -39,12 +39,13 @@ class Home extends Component {
   setupWebsockets(chatWebSocket, roomName, chatRoom) {
     chatWebSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      chatRoom.chatLogs.push((<span>User: {data.message}</span>), (<br/>));
+      chatRoom.chatLogs.push(<span>User: {data.message}</span>, <br />);
       this.updateRoom(roomName, chatRoom);
     };
     chatWebSocket.onclose = (event) => {
       chatRoom.chatLogs.push(
-        (<span class="websocketMessage">WebSocket: Disconnected!</span>), (<br/>)
+        <span class="websocketMessage">WebSocket: Disconnected!</span>,
+        <br />
       );
       this.updateRoom(roomName, chatRoom);
     };
@@ -84,7 +85,11 @@ class Home extends Component {
     const chatTabs = [];
     if (this.state.chats !== undefined) {
       for (let chat of Object.keys(this.state.chats)) {
-        chatTabs.push(<Tab key={chat} value={chat}>{chat}</Tab>);
+        chatTabs.push(
+          <Tab key={chat} value={chat}>
+            {chat}
+          </Tab>
+        );
       }
     }
     return (
@@ -95,20 +100,24 @@ class Home extends Component {
             {chatTabs}
           </Tabs>
           <TabBody>
-                    <div className = "main-Content">
-                        <div className="row mt-5">
-                            
-                            <div className="col-md-8" style={{paddingLeft:"10px"}}>
-            {this.state.chats !== undefined && (
-              <Chat joinChatRoom={this.joinChatRoom} chat={this.state.chats[this.state.activeChat]} />
-            )}
-                            </div>
-                            <div className="col-sm-1 mr-5" style ={{backgroundColor:"white",float:"left"}}>
-                                <UserTable  users = {USERS}/>
-                            </div>
-                           
-                        </div>
-                    </div>
+            <div className="main-Content">
+              <div className="">
+                <div className="col-md-8" style={{ paddingLeft: "10px" }}>
+                  {this.state.chats !== undefined && (
+                    <Chat
+                      joinChatRoom={this.joinChatRoom}
+                      chat={this.state.chats[this.state.activeChat]}
+                    />
+                  )}
+                </div>
+                <div
+                  className="col-md-4"
+                  style={{ backgroundColor: "white", float: "left" }}
+                >
+                  <UserTable users={USERS} />
+                </div>
+              </div>
+            </div>
           </TabBody>
         </WindowContent>
       </Window>

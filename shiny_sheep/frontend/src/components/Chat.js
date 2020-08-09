@@ -34,7 +34,7 @@ class Chat extends Component {
 
   render() {
     return (
-      <div style={{float:"right"}}>
+      <div>
         <div>{this.props.chat.chatLogs}</div>
         <br />
         <form onSubmit={this.handleSubmit}>
