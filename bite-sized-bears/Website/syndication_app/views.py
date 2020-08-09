@@ -104,10 +104,32 @@ class CommunityListView(ListView):
     ).order_by('-s_count')[:100]
 
 
+class MyCommunityListView(ListView):
+    template_name = 'my-communities.html'
+    paginate_by = 25
+    def get_queryset(self):
+        print(self.request.user.get_username())
+        queryset = Community.objects.filter(subscribers__name=self.request.user.get_username())
+        print(queryset)
+        return queryset
+
 class UserProfileUpdate(UpdateView):
     model = User
     fields = ['avatar']
     template_name_suffix = '_update_form'
+
+    def render_to_response(self, context, **response_kwargs):
+        response_kwargs.setdefault('content_type', self.content_type)
+        user=context.pop('user')
+        context['user_data']=user
+        return self.response_class(
+            request = self.request,
+            template = self.get_template_names(),
+            context = context,
+            using = self.template_engine,
+            **response_kwargs
+        )
+
 
 
 def logout_request(request):
