@@ -3,6 +3,10 @@ from pyvue import Component
 from websocket import WebSocket
 from common import MessageTypes
 
+# __pragma__ ('skip')
+console = window = 0
+# __pragma__ ('noskip')
+
 console.log(MessageTypes)
 
 # __pragma__ ('skip')
@@ -53,10 +57,10 @@ class MessageSocket(WebSocket):
     def __init__(self, callback):
         room_name = "test"
         super().__init__('ws://'
-                                            + window.location.host
-                                            + '/ws/chat/'
-                                            + room_name
-                                            + '/')
+                         + window.location.host
+                         + '/ws/chat/'
+                         + room_name
+                         + '/')
         self.callback = callback
 
     def message(self, event):
