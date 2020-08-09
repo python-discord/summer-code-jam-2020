@@ -1,5 +1,4 @@
 # Credits and Sources
-Where we'll track where we got data from.
 
 ### First names
 * Social Security, US government. Top names from the 1970's
