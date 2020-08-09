@@ -9,7 +9,6 @@ pytest-django = "*"
 
 [packages]
 django = "*"
-chatterbot = "==1.0.4"
 wikipedia-api = "*"
 gunicorn = "*"
 
