@@ -44,8 +44,12 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                 self.isOnline = False
                 await self.leave_room(self.player.room.name)
                 await self.close()
-            elif command == "send":
-                await self.send_room(content["message"])
+            elif command == "send" or command == "say":
+                if content["message"]:
+                    await self.send_room(content["message"])
+                else:
+                    await self.send_message(f"usage: {colorize('brightGreen', 'send(say)')} MESSAGE")
+
             elif command == "help":
                 await self.send_help()
             elif command == "status":
@@ -75,6 +79,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                         await self.send_message("Invalid room.")
                 else:
                     await self.send_message("No room specified.")
+                    await self.send_message(f"example: {colorize('brightGreen', 'go')} ARPANET-2")
+                    await self.send_message(f"         {colorize('brightGreen', 'go')} 1")
             elif command == self.player.room.command_keyword:
                 self.player.room.secret_connection_active = True
                 await self.send_command_response()
