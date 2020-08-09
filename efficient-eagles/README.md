@@ -1,4 +1,6 @@
 # Efficient Eagles
+Social media app that will bring back those good old days.
+
 ## How to set-up
 Build containers:
 
