@@ -37,7 +37,7 @@ agentSpeak(agent, "Once a wise man named Arthur Clarke said: Any sufficiently ad
     agentSpeak(agent, "This magical technology has made knowledge accessible and equal to all. Thus, it provided us with the opportunity to obtain and share information and to create a brand new reality in a digital and abstract layer, in a layer where everything is possible, by getting rid of the constraints of physical conditions.")
                   agent.play("Reading")
 
-    agentSpeak(agent,"Listen, there’s a hell of a good universe next door; choose one of the urls from the notepad on the left, paste it to the address bar of the browser, click to Go button and let’s go!");
+    agentSpeak(agent,"Listen, there’s a hell of a good universe next door; choose one of the urls from the notepad on the left by descending order, then paste it to the address bar of the browser, click to Go button and let’s go!");
     agent.play("");
     setTimeout(() => {
         agent.hide();
