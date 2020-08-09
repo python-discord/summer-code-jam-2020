@@ -29,10 +29,6 @@ def chat_page(request, bot_name):
     return render(request, 'home.html', {'name_json': bot_name})
 
 
-def experimental(request):
-    return render(request, 'landing_page.html')
-
-
 def get_wikipedia(request):
     article_name = request.GET.get('article_name')
     wiki_page = WIKI_WIKI.page(article_name)
