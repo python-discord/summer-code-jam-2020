@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class MudUser(User):
-    now_connected_character_name = models.TextField(max_length=100, default='')
+    now_connected_character_name = models.TextField(max_length=100, default='', blank=True, null=True,)
 
     def create_character(self, name: str):
         pass
