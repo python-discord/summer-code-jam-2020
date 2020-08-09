@@ -10,7 +10,7 @@ import {tap} from 'rxjs/operators';
 export class CommentService {
 
   constructor(private http:HttpClient) { }
-  commentUrl="http://127.0.0.1:8000/nchan/comments/";
+  commentUrl="http://127.0.0.1:80/nchan/comments/";
 
   addComment(comment):Observable<Comment>{
     return this.http.post<Comment>(`${this.commentUrl}`,comment).pipe(
