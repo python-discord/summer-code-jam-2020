@@ -1,29 +1,107 @@
-import React, {useEffect, useState, useCallback} from 'react';
-import {Tabs,Tab } from '@react95/core';
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  Component,
+  createContext,
+} from "react";
+import {
+  Tabs,
+  Tab,
+  TabBody,
+  Window,
+  WindowHeader,
+  WindowContent,
+} from "react95";
 import Chat from "./Chat";
 import "./Home.css";
 import UserTable from "./UserTable";
 
 const USERS = ['Ami','Layla','Eric','John'];
-
-const Home = () =>{
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.onTabChange = this.onTabChange.bind(this);
+    this.joinChatRoom = this.joinChatRoom.bind(this);
+    this.state = {
+      activeChat: "#intro",
+      chats: undefined,
+    };
+  }
+  updateRoom(roomName, chatRoom) {
+    const chats = { ...this.state.chats };
+    chats[roomName] = chatRoom;
+    this.setState({
+      ...this.state,
+      chats: chats,
+    });
+  }
+  setupWebsockets(chatWebSocket, roomName, chatRoom) {
+    chatWebSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      chatRoom.chatLogs.push((<span>User: {data.message}</span>), (<br/>));
+      this.updateRoom(roomName, chatRoom);
+    };
+    chatWebSocket.onclose = (event) => {
+      chatRoom.chatLogs.push(
+        (<span class="websocketMessage">WebSocket: Disconnected!</span>), (<br/>)
+      );
+      this.updateRoom(roomName, chatRoom);
+    };
+  }
+  joinChatRoom(roomName) {
+    // TODO: Check if chatRoom exists
+    const chatWebSocket = new WebSocket(
+      "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
+    );
+    const chatRoom = {
+      websocket: chatWebSocket,
+      chatLogs: [],
+    };
+    this.updateRoom(roomName, chatRoom);
+    this.setupWebsockets(chatWebSocket, roomName, chatRoom);
+  }
+  componentDidMount() {
+    const chatWebSocket = new WebSocket(
+      "ws://" + window.location.host + "/ws/intro/"
+    );
+    const chatRoom = {
+      websocket: chatWebSocket,
+      chatLogs: [],
+    };
+    this.updateRoom("#intro", chatRoom);
+    this.setupWebsockets(chatWebSocket, "#intro", chatRoom);
+  }
+  onTabChange(event, value) {
+    this.setState({ ...this.state, activeChat: value });
+  }
+  componentWillUnmount() {
+    for (const [roomName, chatRoom] of Object.entries(this.state.chats)) {
+      chatRoom.websocket.close();
+    }
+  }
+  render() {
+    const chatTabs = [];
+    if (this.state.chats !== undefined) {
+      for (let chat of Object.keys(this.state.chats)) {
+        chatTabs.push(<Tab key={chat} value={chat}>{chat}</Tab>);
+      }
+    }
     return (
-        <div>
-            <Tabs active Tab="Home" >
-                <Tab title = "Home">
-                    <div className ="main-Content">
-                       <div className="row my-auto" >
-                           <div className="col offset-md-6">Welcome!
-                               </div>
-                       </div>
-                    </div>
-                </Tab>
-                <Tab title ="#lobby">
+      <Window>
+        <WindowHeader>IRC</WindowHeader>
+        <WindowContent>
+          <Tabs value={this.state.activeChat} onChange={this.onTabChange}>
+            {chatTabs}
+          </Tabs>
+          <TabBody>
                     <div className = "main-Content">
                         <div className="row mt-5">
                             
                             <div className="col-md-8" style={{paddingLeft:"10px"}}>
-                                <Chat/>
+            {this.state.chats !== undefined && (
+              <Chat joinChatRoom={this.joinChatRoom} chat={this.state.chats[this.state.activeChat]} />
+            )}
                             </div>
                             <div className="col-sm-1 mr-5" style ={{backgroundColor:"white",float:"left"}}>
                                 <UserTable  users = {USERS}/>
@@ -31,10 +109,10 @@ const Home = () =>{
                            
                         </div>
                     </div>
-                </Tab>
-            </Tabs>
-        </div>
+          </TabBody>
+        </WindowContent>
+      </Window>
     );
+  }
 }
-
 export default Home;

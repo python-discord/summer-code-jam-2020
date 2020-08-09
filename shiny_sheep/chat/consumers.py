@@ -1,6 +1,9 @@
 import json
+import re
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+
+command_re = re.compile(r'^/(?P<command>\w+) ?(?P<arguments>.*)')
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
@@ -44,3 +47,25 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps({
             'message': message
         }))
+
+class IntroConsumer(WebsocketConsumer):
+    def connect(self):
+        # TODO: Check if the user is already logged in
+        self.accept()
+        self.send(json.dumps({
+          'message': 'Welcome to the 90s!'
+        }))
+
+    def disconnect(self, close_code):
+        pass
+
+    # Receive message from WebSocket
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        re_result = command_re.match(text_data_json['message'])
+        if re_result:
+            if re_result.group('command') == 'test':
+                self.send(json.dumps({
+                    'message': 'Test commands works :)'
+                }))
+

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import {ThemeProvider} from '@react95/core';
+import { ThemeProvider } from 'styled-components';
 import Home from "./Home";
-
-
+import CustomContext from "./CustomContext";
+import original from "react95/dist/themes/original";
 
 class App extends Component {
   constructor(props) {
@@ -22,16 +22,14 @@ class App extends Component {
   
   render() {
     return (
-      <div> 
-            <ThemeProvider>
-             
+      <div>
+            <ThemeProvider theme={original}>
               <div style={{float:"right"}}>
                 <button onClick={this.signOut}>Sign Out</button>
                 <button onClick={this.changePssd}>Change Password</button>
               </div>
               <Home/>
             </ThemeProvider>
-         
       </div>
     )
   }
