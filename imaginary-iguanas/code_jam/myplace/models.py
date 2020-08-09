@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxLengthValidator
 
 from users.models import Profile
 
@@ -15,7 +16,7 @@ class BlogPost(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
-    comment = models.CharField(max_length=500)
+    content = models.TextField(blank=True, max_length=1000, validators=[MaxLengthValidator(1000)])
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
