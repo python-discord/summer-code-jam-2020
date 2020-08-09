@@ -46,6 +46,9 @@ class PostListView(ListView):
         """
         context = super().get_context_data(**kwargs)
         context['board'] = self.board
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
         return context
 
 
@@ -63,6 +66,9 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(
             post=context['post']).order_by('-created_at')
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
         return context
 
 
@@ -81,6 +87,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.board_id = get_object_or_404(
             Board, name=self.kwargs['board']).id
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -107,6 +123,16 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form.instance.updated_at = timezone.now()
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
+
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
@@ -129,6 +155,16 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
+
 
 class UserPostListView(ListView):
     """
@@ -147,12 +183,32 @@ class UserPostListView(ListView):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(created_by=user).order_by('-created_at')
 
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
+
 
 class CommentDetailView(DetailView):
     """
     View of particular comment (not useful in most cases).
     """
     model = Comment
+
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
@@ -180,6 +236,16 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return reverse('board-detail', kwargs={'board':
                        self.kwargs['board'], 'pk': self.kwargs['pk']})
 
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
+
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
@@ -203,7 +269,18 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         """
         form.instance.updated_by = self.request.user
         form.instance.updated_at = timezone.now()
+
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
 
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -228,6 +305,17 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
+
+
 class BoardCreateView(LoginRequiredMixin, CreateView):
     """
     View of page when creating posts.
@@ -237,3 +325,13 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
             return reverse("forums-home")
+
+    def get_context_data(self, **kwargs):
+        """
+        Get context from logged in user status and current page.
+        """
+        context = super().get_context_data(**kwargs)
+        context["login"] = self.request.user.is_authenticated
+        context["page"] = "forum"
+
+        return context
