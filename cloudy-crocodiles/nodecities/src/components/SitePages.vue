@@ -1,5 +1,11 @@
 <template>
   <q-page padding>
+    <q-toolbar v-if="site">
+      <q-toolbar-title>
+        Pages
+      </q-toolbar-title>
+      <q-btn mini fab icon="note_add" color="accent" :to="`/pages/add/site/${site.id}`" />
+    </q-toolbar>
     <q-list v-if="site">
       <q-item v-for="page in site.pages" :key="page.id">
         <q-item-section avatar>
@@ -12,9 +18,9 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="add" color="accent" to="/pages/add" />
-    </q-page-sticky>
+    <!-- <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn fab icon="add" color="accent" :to="`/pages/add/site/${site.id}`" />
+    </q-page-sticky> -->
   </q-page>
 </template>
 
