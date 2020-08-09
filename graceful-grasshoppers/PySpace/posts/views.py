@@ -55,7 +55,8 @@ def create_post(request):
         )
         serializer = PostSerializer(post)
         return JsonResponse(
-            {"books": serializer.data}, safe=False, status=status.HTTP_201_CREATED
+            {"books": serializer.data}, safe=False,
+            status=status.HTTP_201_CREATED
         )
     except ObjectDoesNotExist as e:
         return JsonResponse(
@@ -78,7 +79,7 @@ def delete_post(request, post_id):
     try:
         post = Post.objects.get(id=post_id, author=user.id)
         post.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return response(status=status.HTTP_204_NO_CONTENT)
     except ObjectDoesNotExist as e:
         return JsonResponse(
             {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
@@ -127,7 +128,8 @@ def like_post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
 
-        # Check if the user has previously disliked the post, if so, remove the dislike
+        # Check if the user has previously disliked the post, if so,
+        # remove the dislike
         dislikes = post.dislikes.filter(user_disliked=user.id)
         for dislike in dislikes:
             dislike.delete()
@@ -135,7 +137,8 @@ def like_post(request, post_id):
         # Don't go any further if the user has already liked this post
         likes = post.likes.filter(user_liked=user.id)
         if likes.count() > 0:
-            return JsonResponse({"posts": None}, safe=False, status=status.HTTP_200_OK)
+            return JsonResponse({"posts": None}, safe=False,
+                                status=status.HTTP_200_OK)
 
         like = Like(user_liked=user)
         like.save()
@@ -166,7 +169,8 @@ def dislike_post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
 
-        # Check if the user has previously liked the post, if so, remove the like
+        # Check if the user has previously liked the post, if so,
+        # remove the like
         likes = post.likes.filter(user_liked=user.id)
         for like in likes:
             like.delete()
@@ -174,7 +178,8 @@ def dislike_post(request, post_id):
         # Don't go any further if the user has already disliked this post
         dislikes = post.dislikes.filter(user_disliked=user.id)
         if dislikes.count() > 0:
-            return JsonResponse({"posts": None}, safe=False, status=status.HTTP_200_OK)
+            return JsonResponse({"posts": None}, safe=False,
+                                status=status.HTTP_200_OK)
 
         dislike = Dislike(user_disliked=user)
         dislike.save()

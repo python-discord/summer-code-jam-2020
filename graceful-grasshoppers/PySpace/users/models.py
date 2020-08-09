@@ -14,8 +14,10 @@ class CustomUser(AbstractUser):
 
 class Friendship(models.Model):
     """Describes a friendship between two users"""
-    requester = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="following", default=None)
-    friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="followers", default=None)
+    requester = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
+                                  related_name="following", default=None)
+    friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE,
+                               related_name="followers", default=None)
     friends = []
     pending = models.BooleanField(default=True)
 
@@ -23,8 +25,11 @@ class Friendship(models.Model):
 class ProfileComment(models.Model):
     """A comment on a user's profile"""
     content = models.TextField()
-    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_commented")
-    user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_profile_commented_on")
+    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE,
+                                          related_name="user_commented")
+    user_commented = models.ForeignKey(
+        CustomUser, models.CASCADE,
+        related_name="user_profile_commented_on")
 
     def __str__(self):  # Returns a short intro of 20 words
         return " ".join(self.content.split()[:20])

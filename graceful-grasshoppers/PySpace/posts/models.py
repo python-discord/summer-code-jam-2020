@@ -20,6 +20,7 @@ class Dislike(models.Model):
     def __str__(self):
         return f"{self.user_disliked}'s dislike"
 
+
 class Post(models.Model):
     """A model for the post a user makes"""
     title = models.CharField(max_length=150)
@@ -39,5 +40,7 @@ class Post(models.Model):
 
 class PostComment(models.Model):
     content = models.TextField
-    user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="commenting_user")
-    post = models.ForeignKey(Post, models.CASCADE, related_name="post_commented_on")
+    user_commented = models.ForeignKey(CustomUser, models.CASCADE,
+                                       related_name="commenting_user")
+    post = models.ForeignKey(Post, models.CASCADE,
+                             related_name="post_commented_on")
