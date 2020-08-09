@@ -4,9 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+flake8 = "*"
 
 [packages]
 django = "*"
+chatterbot = "==1.0.4"
+wikipedia-api = "*"
 
 [requires]
 python_version = "3.8"
