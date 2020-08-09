@@ -6,16 +6,10 @@
     <title>does this like actually do stuff</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
 </head>
 {% block content %}
-    <a href={% url "new-thread" %}>Create New Thread</a><br>
+    <a href={% url "new-thread" tpc="general"%}>Create New Thread</a><br>
     <body>
-    Show-all-threads page
-    <br>
-    <h1>FORUMTHING</h1>
-    {% for thread in threads %}
-        {% if forloop.counter <= 20 %}  <!-- only show the first 20 threads ~kevin -->
-            <a href="{% url 'threads-single' thread.id %}">{{ thread.title }}</a>
-        {% endif %}
-        <br><br>
+    {% for t in topics %}
+        <a href="{% url 'single-topic' tpc=t %}"><h3>{{ t }}</h3></a>
     {% endfor %}
     </body>
 {% endblock %}

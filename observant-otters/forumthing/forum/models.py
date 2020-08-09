@@ -4,11 +4,14 @@ from django.urls import reverse
 from enum_field import Enum, EnumField
 from user.models import ForumUser
 
+TOPICS = ['General', 'Coding', 'Jokes']
+
 
 class Thread(models.Model):
     """
     the model for a thread/conversation
     """
+    topic = models.CharField(max_length=50, default='General')
     title = models.CharField(max_length=200)
     content = models.TextField(default="")
     date_created = models.DateTimeField(default=timezone.now)
@@ -18,7 +21,7 @@ class Thread(models.Model):
         return f'Thread with title {self.title} created on {self.date_created}'
 
     def get_absolute_url(self):
-        return reverse('threads-single', kwargs={'id': self.pk})
+        return reverse('threads-single', kwargs={'pk': self.pk})
 
 
 class Message(models.Model):
@@ -35,7 +38,7 @@ class Message(models.Model):
         return f'Message posted on {self.date_posted} with content {self.content}'
 
     def get_absolute_url(self):
-        return reverse('threads-single', kwargs={'id': self.thread.pk})
+        return reverse('threads-single', kwargs={'pk': self.thread.pk})
 
 
 EVENT_TYPES = Enum(

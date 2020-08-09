@@ -8,42 +8,42 @@ urlpatterns = [
         name="forum-homepage"
     ),
     path(
-        'forum/threads',
-        views.threads,
-        name="threads-all"
+        'forum/<str:tpc>/threads',
+        views.topic,
+        name="single-topic"
     ),
     path(
-      'forum/threads/<int:id>',
+      'forum/<str:tpc>/threads/<int:pk>',  # tpc=topic
       views.threads,
       name='threads-single'
     ),
     path(
-        'forum/threads/new',
+        'forum/<str:tpc>/threads/new',
         views.NewThread.as_view(),
         name="new-thread"
     ),
     path(
-        'forum/threads/<int:pk>/edit',
+        'forum/<str:tpc>/threads/<int:pk>/edit',
         views.EditThread.as_view(),
         name="edit-thread"
     ),
     path(
-        'forum/threads/<int:pk>/delete',
+        'forum/<str:tpc>/threads/<int:pk>/delete',
         views.DeleteThread.as_view(),
         name="delete-thread"
     ),
     path(
-        'forum/threads/<int:id>/new',
+        'forum/<str:tpc>/threads/<int:pk>/new',
         views.NewMessage.as_view(),
         name="new-message"
     ),
     path(
-        'forum/threads/<int:pk>/<int:msg_id>/edit',
+        'forum/<str:tpc>/threads/<int:pk>/<int:msg_id>/edit',
         views.EditMessage.as_view(),
         name="edit-message"
     ),
     path(
-        'forum/threads/<int:pk>/<int:msg_id>/delete',
+        'forum/<str:tpc>/threads/<int:pk>/<int:msg_id>/delete',
         views.DeleteMessage.as_view(),
         name="delete-message"
     ),

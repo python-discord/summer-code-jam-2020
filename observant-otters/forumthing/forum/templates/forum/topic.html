@@ -1,0 +1,19 @@
+{% extends "forum/base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ topic }}</title>
+</head>
+{% block content %}
+    <body>
+    <a href="{% url 'new-thread' topic %}"><h3>Create New Thread</h3></a>
+    <br><br>
+    {% for t in threads %}
+        {% if forloop.counter <= 20 %}
+            <a href="{% url 'threads-single' tpc=topic pk=t.id %}">{{ t.title }}</a>
+            <br><br>
+        {% endif %}
+    {% endfor %}
+    </body>
+{% endblock %}
+</html>
