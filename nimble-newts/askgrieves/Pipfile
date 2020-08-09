@@ -13,3 +13,5 @@ wikipedia-api = "*"
 
 [requires]
 python_version = "3.8"
+
+Django~=3.1
