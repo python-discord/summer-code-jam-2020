@@ -14,9 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path #, include
+from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 # from users import views as user_views
 from anon import views as anon_views
 
@@ -25,7 +26,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('anonuser/', anon_views.test),
     path('auth/', anon_views.get_auth_token, name='get-auth'),
-    path('data/', anon_views.get_user_data, name='get-data')
+    path('data/', anon_views.get_user_data, name='get-data'),
+    re_path(r'^$', serve, kwargs={
+        'path': 'index.html', 'document_root': 'www/dist'}),
+    re_path(r'^(?P<path>.*)$', serve, {
+        'document_root': 'www/dist',
+    }),
+
+
 ]
 
 if settings.DEBUG:

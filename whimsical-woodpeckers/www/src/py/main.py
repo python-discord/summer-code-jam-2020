@@ -66,8 +66,8 @@ class MessageList(Vue):
         self.data['textbox'] = ""
 
 
-test2 = MessageList("#app1")
+# test2 = MessageList("#app1")
 
-test3 = MessageList("#app2")
+# test3 = MessageList("#app2")
 
 app = App("#app")
