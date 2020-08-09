@@ -39,6 +39,9 @@ section .section-header {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 1.5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 /* Weather */
@@ -83,4 +86,15 @@ ul.todo-list {
 
 ul.todo-list li:not(:first-child) {
   margin-top: 0.5rem;
+}
+
+li.todo-list-element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.icon-link {
+  margin-left: 15px;
 }

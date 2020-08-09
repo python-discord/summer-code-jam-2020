@@ -54,10 +54,23 @@
     
       <!--Todo-->
       <section class="grid-item todo">
-        <span class="section-header">To-Do</span>
+        <div class="section-header">
+          <span>To-Do</span>
+          <a href="{% url 'todo-create' %}" class="icon-link">
+            <img src="static/assets/icons/plus.svg" alt="add" width="30">
+          </a>
+        </div>
         <ul class="todo-list">
-          {% for todo in todos %}
-            <li>{{todo}}</li>
+          {% if todos is None %}
+            <li>Nothing todo today! :)</li>
+          {% endif %}
+          {% for id, todo in todos %}
+            <li class="todo-list-element">
+              {{todo}}
+              <a href="{% url 'todo-update' id%}" class="icon-link">
+                <img src="static/assets/icons/pencil.svg" alt="edit" width="20">
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </section>
