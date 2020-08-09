@@ -28,6 +28,7 @@ function ViewPost(props) {
                     result.data.created = new Date(result.data.created).toString();
                     setData(result.data);
                } catch (e) {
+                    console.error(e);
                     setNotFound(true);
                }
           }
