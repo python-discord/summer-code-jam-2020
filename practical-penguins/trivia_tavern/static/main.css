@@ -44,6 +44,18 @@ input[type=text]:focus{
     border-bottom: 3px solid #000000;
 }
 
+input[type=tel] {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
+input[type=tel]:focus{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
 p {
     margin: 0;
     font-size: large;
@@ -208,30 +220,30 @@ created by Pete Blatchford https://codepen.io/555/pen/pdwvBP
     border: 0.5rem double #D23;
 }
 
-.is-approved {
-    color: #25e64d;
-    border: 0.5rem solid #25e64d;
+.is-approved2 {
+    color: #5291ff;
+    border: 0.5rem solid #5291ff;
     -webkit-mask-position: 13rem 6rem;
     transform: rotate(-4deg);
     border-radius: 0;
 }
 
-.is-approved:hover {
-    color: #0A9928;
-    border: 0.5rem solid #0A9928;
+.is-approved2:hover {
+    color: #00078a;
+    border: 0.5rem solid #00078a;
 }
 
-.is-approved2 {
-    color: #008080;
-    border: 0.5rem solid #008080;
+.is-approved {
+    color: #0ad100;
+    border: 0.5rem solid #0ad100;
     -webkit-mask-position: 13rem 6rem;
     transform: rotate(4deg);
     border-radius: 0;
 }
 
-.is-approved2:hover {
-    color: #00FFFF;
-    border: 0.5rem solid #00FFFF;
+.is-approved:hover {
+    color: #008080;
+    border: 0.5rem solid #008080;
 }
 
 

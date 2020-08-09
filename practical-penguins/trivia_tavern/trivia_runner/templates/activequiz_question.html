@@ -48,19 +48,15 @@
 </script>
 <div class="parchment-border ">
     <div class="row">
-        <div class="col-md-12"><h1>Question {{ active_trivia_quiz.current_question_index }}:</h1></div>
-        <p> {{ cur_question.question_text }} </p>
-    </div>
-
-
-    <div>
-      Next question in <span id="time"></span>
+        <div class="col-md-12"><h1>Question {{ active_trivia_quiz.current_question_index }}</h1>  </div>
+        <h2> {{ cur_question.question_text }}</h2>
     </div>
     <div class="row justify-content-end">
         {% if request.user == active_trivia_quiz.session_master %}
-            <button type="submit" class="stamp is-draft" value="pause-timer" id="pause-timer">Times up!</button>
+<!--            <button type="submit" class="stamp is-draft" value="pause-timer" id="pause-timer">Times up!</button>-->
         {% endif %}
         {% include "trivia_next_step_btn.html" %}
     </div>
+    <h3>Next question in <span id="time"></span></h3>
 </div>
 {% endblock %}
