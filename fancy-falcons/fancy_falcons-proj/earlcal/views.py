@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.utils.safestring import mark_safe
+from django.contrib.auth.decorators import login_required
 import calendar
 from .models import *
 from .utils import Calendar
@@ -19,10 +20,10 @@ class CalendarView(generic.ListView):
         # use todays date
         d = get_date(self.request.GET.get('month', None))
 
-        # Instantiate calendar class with todays year and date
+        # Create a calendar class instance 
         cal = Calendar(d.year, d.month)
 
-        # Call the formatmonth method which returns the calendar as a table
+        # Formatmonth which returns a html view of the calendar
         html_cal = cal.formatmonth(withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
@@ -50,10 +51,22 @@ def next_month(d):
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
-    return month
-
+    return 
+    
+def event_view(request, event_id=None):
+    instance = Event()
+    if event_id:
+        instance = get_object_or_404(Event, pk=event_id)
+    return render(request, 'earlcal/event_display.html', {"active_page": "calendar", 'event': instance})
 
 def event(request, event_id=None):
+
+    # If the user is not logged in, simple display of event 
+    #if not request.user.is_authenticated:
+    
+
+    # If the user is logged in, editable event display
+    #else :
     instance = Event()
     is_editing = False
     if event_id:

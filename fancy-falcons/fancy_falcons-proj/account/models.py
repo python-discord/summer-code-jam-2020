@@ -87,4 +87,4 @@ class Account(AbstractBaseUser):
     @property
     def get_html_url(self):
         url = reverse('earls:earldetail', args=(self.id,))
-        return f'<a href="{url}"> {self.first_name} </a>'
+        return f'<a href="{url}"> Earl {self.first_name} {self.last_name} </a>'

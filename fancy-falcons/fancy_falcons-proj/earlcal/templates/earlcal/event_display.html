@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery.ui.all.css" />
+<link rel="stylesheet" href="{% static "css/datetime-local-polyfill.css" %}">
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'earlcal:calendar' %}">Calendar</a></li>
+  </ol>
+</nav>
+
+<a href="event/edit/<int:event_id>/">Edit</a>
+
+<div>
+    <p>{{ event.title }}</p>>
+    <p>{{ event.desc }}</p>>
+    <p>{{ event.start_time }}</p>>
+    <p>{{ event.end_time }}</p>>
+</div>
+
+
+<link rel="stylesheet" href="datetime-local-polyfill.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="{% static "js/datetime-local-polyfill.js" %}"></script>
+{% endblock %}
