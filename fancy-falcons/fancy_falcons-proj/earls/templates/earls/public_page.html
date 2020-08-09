@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h3>{{ earl.first_name }} {{ earl.last_name }}</h3>
+    <img class="mt-2" 
+        width="250"
+        height="270"
+        src="{{ earl.image.url }}"
+        title="{{ earl }}"/>
+    <h4>Full Title: </h4>
+    <p>{{ earl }}</p>
+    {% if earl.short_bio %}
+    <h4>Short Bio:</h4>
+    <p class="mt-2">{{ earl.short_bio }}</p>
+    {% else %}
+    <p class="mt-2">This Earl has not provided a bio.</p>
+    {% endif %}
+    {% if earl.birthday %}
+    <p>Born on {{ earl.birthday }} </p>
+    {% endif %}
+</div>
+{% endblock %}
