@@ -1,3 +1,8 @@
+# Project Description
+Imagine a world where the internet had arrived centuries early. What would people have used it for back then? 
+
+TeaBay is a website where merchants and civilians from the 1700s can easily and effectively conduct business within an online marketplace. Long-forgotten is the time of passing around flimsy paper ledgers - there's no better way to spend your time and silver than to survey and purchase the exquisite commodities on TeaBay!
+
 # Installation
 
 1. Clone the repository with `git clone https://github.com/fliepeltje/summerjam-private`
