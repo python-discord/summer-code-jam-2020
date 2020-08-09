@@ -5,6 +5,7 @@ from .forms import Guestbook
 from .models import Guestbook as GbModel
 from django.core.paginator import Paginator
 
+
 class Guestbook(DetailView):
     template_name = "guestbook/guestbook.html"
     form_class = Guestbook
