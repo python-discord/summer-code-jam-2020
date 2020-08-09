@@ -7,7 +7,7 @@ footer {
     font-weight: bold;
     text-align: center;
     display: block;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }

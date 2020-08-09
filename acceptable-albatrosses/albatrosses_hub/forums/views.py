@@ -325,7 +325,7 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
     fields = ["name", "description"]
 
     def get_success_url(self):
-        return reverse("forums-home")
+        return reverse("forums:home")
 
     def get_context_data(self, **kwargs):
         """
