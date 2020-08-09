@@ -20,7 +20,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_online = models.BooleanField(default=False)
-    image = models.ImageField(default='default_pfp.jpg', blank=True, upload_to='profile_pics')
+    image = models.ImageField(default='default_pfp.png', blank=True, upload_to='profile_pics')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     country = models.CharField(blank=True, max_length=2, choices=COUNTRY_CHOICES)
     city = models.CharField(blank=True, max_length=50)
