@@ -76,7 +76,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_likes(self):
-        return len(self.all_likes.all())
+        return self.blog_posts_likes.count()
 
     @property
     def number_of_comments(self):
@@ -84,8 +84,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_messages(self):
-        # How do we count this??
-        return 0
+        print("NUM MESSAGES: ", self.messages.count())
+        return self.messages.count()
 
     @property
     def number_of_searches(self):
