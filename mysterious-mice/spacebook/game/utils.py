@@ -437,7 +437,11 @@ def parse_command(request, game_data, command):
 
     # Direct player to start new game and save score
     if game_data["game_over"]:
+
+        # if the player was victorious they get the option to save their score
         if game_data["victorious"]:
+
+            # When getting the score the input field will be limited to 3 characters
             if game_data["getting_score"]:
                 game_data["initials"] = command
                 HighScore.objects.create(score=game_data["score"], initials=command)
@@ -452,6 +456,7 @@ def parse_command(request, game_data, command):
                         "message": 'Type "new game" to start a new game.',
                     }
                 )
+
             elif command.startswith("save") and game_data["initials"] == "":
                 game_data["input_len"] = 3
                 game_data["messages"].append(
@@ -463,7 +468,7 @@ def parse_command(request, game_data, command):
                 game_data["messages"].append(
                     {"from_rover": False, "message": f"Your score is {score}."}
                 )
-                if game_data["messages"] == "":
+                if game_data["initials"] == "":
                     game_data["messages"].append(
                         {
                             "from_rover": False,
