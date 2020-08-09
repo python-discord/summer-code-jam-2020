@@ -28,7 +28,7 @@
         <div class="posts"><h4><b>Recent posts of {{community.name}} community</b></h4></div>
         {% for post in posts %}
             <div class="comment">
-                <h5><a href="{{post.id}}">{{post.title}}</a><span style="color:grey;"> by <a href="/user/{{post.author}}/posts">{{post.author}}</a> on {{post.creation_date}}</span></h5>
+                <h5><a href="{{post.id}}">{{post.title}}</a><span style="color:grey;"> by <a href="/user/{{post.author}}/posts">{{post.author}}</a> on {{post.creation_date}}</span> has {{post.views.count}} views</h5>
                 <p>{{post.description}}</p>
             </div>
         {% endfor %}
