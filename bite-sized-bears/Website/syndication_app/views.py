@@ -38,7 +38,7 @@ class View(ParentView):
                     if not hasattr(request.user, meth):
                         try:
                             setattr(request.user, meth, getattr(auth_user, meth))
-                        except Exception as e:
+                        except Exception:
                             pass
             except Exception:
                 pass
@@ -232,7 +232,7 @@ class UserProfileUpdate(UpdateView, View):
 
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
-        user=context.pop('user')
+        user = context.pop('user')
         context['user_data'] = user
         return self.response_class(
             request=self.request,
@@ -292,8 +292,8 @@ class HomeListView(ListView, View):
         queryset = \
             Post.objects.filter(
                 publisher__in=Community.objects.prefetch_related('subscribers')
-                    .filter(subscribers__name__exact = self.request.user.get_username()
-                            )).annotate(post_views=Count('views')).order_by('-post_views')
+                .filter(subscribers__name__exact=self.request.user.get_username()
+                        )).annotate(post_views=Count('views')).order_by('-post_views')
         return queryset
 
 
