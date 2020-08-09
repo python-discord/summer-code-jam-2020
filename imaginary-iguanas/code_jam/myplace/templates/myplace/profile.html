@@ -2,14 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="topLeft">
-		<div><h2 class="uName" id="name">{{ profile.user.username }}</h2></div>
+		<div><h2 class="uName" id="name">{{ profile.user.username }}'s profile</h2></div>
 
 		<table class="short">
 			<tr>
 				<td><img src="{{ profile.image.url }}" class="avatar" id="avatar" width="200px"></td>
 
 				<td class="shortRight">
-					<div>"<span id="credo">:-)</span>"</div><br>
 					<div id="gender">{{ profile.get_gender_display }}</div>
 					<div><span id="age">{{ profile.age }}</span> years old</div>
 					<div id="country">{{ profile.city }}<br>{{ profile.get_country_display }}<br></div>

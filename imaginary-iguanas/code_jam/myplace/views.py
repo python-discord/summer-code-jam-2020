@@ -7,6 +7,16 @@ from users.models import Profile
 from myplace.forms import ProfileCommentForm
 
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def home(request):
+    return HttpResponseRedirect(reverse('user-profile', kwargs={'username_or_id': request.user.username}))
+
+
 def user(request, username_or_id: Union[int, str]):
     try:
         profile = _get_profile(username_or_id)
