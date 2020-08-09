@@ -5,14 +5,8 @@ from django.dispatch import receiver
 from users.models import UserProfile
 
 
-# def rename(path, background_title):
-#     def wrapper(instance, filename):
-#         filename = f'{instance.background_title}_{uuid4()}'
-#         return os.path.join(path, filename)
-#     return wrapper
-
-
 class BackgroundFile(models.Model):
+    '''Model field for background image instances'''
     background_title = models.CharField(
         max_length=100,
         default=None
@@ -25,6 +19,7 @@ class BackgroundFile(models.Model):
         UserProfile,
         on_delete=models.CASCADE
     )
+    # created using the image resizer utility from background_utility
     background_thumbnail = models.ImageField(
         upload_to=('backgrounds/'),
         default=None
@@ -33,7 +28,8 @@ class BackgroundFile(models.Model):
     def __str__(self):
         return self.background_title
 
-
+# post_save signal to delete the background image
+# and its thumbnail on pressing the delete button
 @receiver(post_delete, sender=BackgroundFile)
 def delete_file(sender, instance, **kwargs):
     if instance.background_thumbnail:
