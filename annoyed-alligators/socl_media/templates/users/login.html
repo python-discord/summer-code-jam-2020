@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+  <div class="w3-row">
   {% if next %}
       {% if user.is_authenticated %}
       <p>Your account doesn't have access to this page. To proceed,
@@ -11,7 +12,6 @@
       <p>Please login to see this page.</p>
       {% endif %}
   {% endif %}
-  <div class="w3-row">
     <div id="login-form" class="w3-col w3-container m3 l4"></div>
     <div id="login-form" class="w3-col w3-container m5 l3">
       <div class="window">
