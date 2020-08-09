@@ -9,6 +9,7 @@ When you could count all competitors in your field on one hand?
 What would you have created in this situation?
 A buggy message board and an unfinished game of tictactoe? **Exactly**!
 
+Visit the live version of our site [here](code-jam-2020.jannisk.de).
 
 ## Motivation
 
