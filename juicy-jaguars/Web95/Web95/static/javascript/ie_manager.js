@@ -7,6 +7,8 @@ function ie_refresh() {
     if (document.getElementById("ie-addr-bar").value == "about:blank") {
         document.getElementById("ie-iframe").src = document.getElementById("ie-addr-bar").value;
     } else {
+        if (document.getElementById("ie-addr-bar").value == "Mother Russia")
+            document.body.style.backgroundImage = "url('/static/images/soviet.gif')";
         document.getElementById("ie-iframe").src = "/page/"+encodeURIComponent(document.getElementById("ie-addr-bar").value);
     }
 }

@@ -75,6 +75,9 @@ def page(request, url):
     if url == "1995":
         content = "<img src='/static/images/404.gif' height='100%'>"
         return render(request, "Web95/blank.html", {"content": content})
+    elif url == "Mother Russia":
+        content = "<img src='/static/images/mother-russia.jpg' height='100%'>"
+        return render(request, "Web95/blank.html", {"content": content})
     else:
         if not(url.startswith("http://")
                or url.startswith("https://")):
