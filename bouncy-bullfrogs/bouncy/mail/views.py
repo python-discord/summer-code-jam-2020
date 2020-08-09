@@ -27,15 +27,15 @@ def get_mail_queryset(request, query=None):
     if query != None:
         queryset = []
         queries = query.split(" ")
+        user_id = User.objects.get(email=request.user.email).id
+        print(user_id)
         for q in queries:
-            posts = Email.objects.filter(
+            queryset += list(Email.objects.filter(
                         (Q(title__icontains = q) | Q(body__icontains = q)) and
-                        (Q(sender__icontains = request.user.email))
-            ).distinct()
+                        (Q(sender_id__exact = user_id))
+            ).distinct())
 
-            for post in posts:
-                queryset.append(post)
-        return List(set(queryset))
+        return queryset
 
 @csrf_exempt
 @login_required
