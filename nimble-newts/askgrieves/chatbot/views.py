@@ -1,5 +1,12 @@
-from django.http import HttpResponse
+from django.forms.models import model_to_dict
+from django.http import Http404, JsonResponse
 from django.shortcuts import render
+from django.utils.functional import lazy
+from .models import WikiArticle
+
+from wikipediaapi import Wikipedia
+
+WIKI_WIKI = Wikipedia('en')
 
 
 class Message:
@@ -13,16 +20,29 @@ class Message:
         Message.send = not self.send
         self.text = text
 
-# Create your views here.
 
 def home(request):
-    messages = [
-        'Hi',
-        'Hello',
-        'Are you waiting for the bus?',
-        'Yes Im waiting for the bus',
-        'I notice youre not wearing any gollashes',
-    ]
-    return render(
-        request, 'home.html', {f'message_list': [Message(s) for s in messages]}
-    )
+    return render(request, 'home.html', {'name_json': 'Grieves'})
+
+
+def chat_page(request, bot_name):
+    return render(request, 'home.html', {'name_json': bot_name})
+
+
+def get_wikipedia(request):
+    article_name = request.GET.get('article_name')
+    wiki_page = WIKI_WIKI.page(article_name)
+    if not wiki_page.exists():
+        raise Http404('Wiki page does not exist')
+    else:
+        def get_wiki_details():
+            return {
+                'summary': WIKI_WIKI.extracts(wiki_page, exsentences=3),
+                'full_page': wiki_page.text
+            }
+        # Lazy evaluation of wiki page, inspired by https://code.djangoproject.com/ticket/29413
+        article, created = WikiArticle.objects.get_or_create(name=article_name,
+                                                             defaults=lazy(get_wiki_details, dict)())
+        # Serialize article without full text
+        serialized_article = model_to_dict(article, fields=('name', 'summary'))
+    return JsonResponse(serialized_article)
