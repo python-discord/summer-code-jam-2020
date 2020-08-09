@@ -14,8 +14,17 @@ from .models import Comment, Post
 
 
 def like_view(request, pk):
+    """
+    If user already liked the post, remove their like.
+    If the user has not already liked the post, add their like.
+    """
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
+
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+
     return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
 
 
@@ -98,6 +107,13 @@ class BlogDetailView(DetailView):
 
         # Total likes
         context['total_likes'] = blog_post.total_likes
+
+        # Has the user liked?
+        liked = False
+        if blog_post.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        context['liked'] = liked
+
         return context
 
 
