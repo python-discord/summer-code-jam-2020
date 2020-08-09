@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<p class="info">Enter command `n` to go to next page and `p` for previous page.</p>
+<hr class="socl">
 {% for post in post_list %}
   <p class="content">{{post.post_content}}</p>
   <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic">
@@ -43,5 +46,12 @@ img {
   border-top: 1px solid #555;
   margin-right: 20px;
 }
+.info {
+  background-color: blue;
+  color: white;
+  position: static;
+  text-align: center;
+}
 </style>
+
 {% endblock content %}

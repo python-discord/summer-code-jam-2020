@@ -16,22 +16,8 @@
 
 <body>
   <header>
-    <div class="header-col1">
+    <div class="header-col1" align="center">
       <span id="site-title"><a href="/"><img src="{% static 'media/logo.jpg' %}" id="site-logo"></a></span>
-    </div>
-    <div class="header-col2">
-      <a 
-        href="/profile/{{request.user.username}}" 
-        class="profile-link"
-        title="View your profile"
-      >{{request.user.username|capfirst}}</a>
-    </div>
-    <div class="header-col3">
-      {% if request.user.is_authenticated %}
-        <a href="/logout">
-          <img src="{% static 'media/logout.png' %}" id="logout-icon" title="Logout">
-        </a>
-      {% endif %}
     </div>
   </header>
   
