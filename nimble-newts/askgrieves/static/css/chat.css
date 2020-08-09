@@ -1,6 +1,6 @@
 body {
   font: 15px arial, sans-serif;
-  background-color: #d9d9d9;
+  background-color: #D9D9D9;
   padding: 15px 0px;
 }
 
@@ -19,34 +19,21 @@ body {
 
 #chatborder {
   border-style: solid;
-  background-color: #f6f9f6;
+  background-color: #F6F9F6;
   border-width: 3px;
   margin: 20px;
   padding: 10px 20px 15px 15px;
   border-radius: 15px;
   position: relative;
-  height: 260px;
+  height: auto;
 }
 
-.chatmessage {
+.chatlog {
    font: 15px arial, sans-serif;
-}
-
-#chatbox {
-  height: 22px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 15px;
 }
 
 #inputbox {
   font: 17px arial, sans-serif;
+  height: 22px;
   width: 100%;
-  position: absolute;
-  margin-bottom: 15px;
-}
-
-#namebox {
-  
 }
