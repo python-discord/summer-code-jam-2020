@@ -163,6 +163,10 @@ def get_game(request):
     return game_data
 
 
+def on_object(rover, object):
+    return rover[0] == object[0] and rover[1] == object[1]
+
+
 def command_help(game_data):
     """
     Provide text commands to control the rover.
@@ -230,8 +234,7 @@ def command_move(game_data, direction):
 
     # check if current position contains an obstacle
     for obstacle in game_data["obstacles"]:
-        obstacle_position = game_data["obstacles"][obstacle]
-        if obstacle_position[0] == old_position[0] and obstacle_position[1] == old_position[1]:
+        if on_object(old_position, game_data["obstacles"][obstacle]):
             # if the obstacle is a dust stom there is a 50% chace power comsumption will increase
             if obstacle == "dust_storm":
                 if random.randint(1, 10) > 5:
@@ -239,7 +242,6 @@ def command_move(game_data, direction):
                     game_data["messages"].append(
                         {
                             "from_rover": False,
-                            "message": "Sand has gotten stuck in the treads. Moving becomes less efficient.",
                         }
                     )
             # if the obstacle is a small crater there is a 50% chance to get stuck
@@ -281,8 +283,7 @@ def command_move(game_data, direction):
         else:
             new_position = old_position
             success = False
-        rock_position = game_data["obstacles"]["large_rock"]
-        if rock_position[0] == new_position[0] and rock_position[1] == new_position[1]:
+        if on_object(new_position, game_data["obstacles"]["large_rock"]):
             new_position = old_position
             success = False
             game_data["messages"].append(
@@ -322,9 +323,7 @@ def command_move(game_data, direction):
             game_data["plutonium"] = new_position
 
         # Pick up components
-        panels_position = game_data["solar_panels"]
-        on_solar_panels = new_position[0] == panels_position[0] and new_position[1] == panels_position[1]
-        if on_solar_panels and not game_data["has_solar_panels"]:
+        if on_object(new_position, game_data["solar_panels"]) and not game_data["has_solar_panels"]:
             game_data["has_solar_panels"] = True
             game_data["messages"].append(
                 {
@@ -338,9 +337,7 @@ def command_move(game_data, direction):
                     "message": "It will take less energy to traverse the terrain of Mars now!",
                 }
             )
-        pu_position = game_data["plutonium"]
-        on_plutonium = new_position[0] == pu_position[0] and new_position[1] == panels_position[1]
-        if on_plutonium and not game_data["has_plutonium"]:
+        if on_object(new_position, game_data["plutonium"]) and not game_data["has_plutonium"]:
             game_data["has_plutonium"] = True
             game_data["messages"].append(
                 {"from_rover": False, "message": "You have retrieved the plutonium!"}
