@@ -106,6 +106,7 @@ export default {
   },
   mounted() {
     this.getMove();
+    this.$cmd.on('/exit', () => this.$router.push('/'), 'Exit the game');
   },
   methods: {
     makeMove(move) {
@@ -124,6 +125,9 @@ export default {
     },
     getMove() {
       this.$cmd.input('Move (0-8): ').then((move) => {
+        if (move === '/exit') {
+          return;
+        }
         if (isNaN(move) || +move < 0 || +move > 8) {
           this.getMove();
         } else {
