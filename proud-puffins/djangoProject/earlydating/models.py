@@ -20,6 +20,8 @@ class Profile(models.Model):
     sex = models.CharField(max_length=10, null=True, blank=True, choices=Gender_Choices)
     preference = models.CharField(max_length=10, null=True, blank=True, choices=Pref_Choices)
     bio = models.TextField(default="")
+    upper_age = models.PositiveSmallIntegerField(null=True)
+    lower_age = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return str(self.user)
