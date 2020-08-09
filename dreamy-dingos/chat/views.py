@@ -6,7 +6,7 @@ from .models import SimpleUser
 from .forms import RoomNameForm
 from .forms import LoginForm
 from .services import MessageService, RoomService
-import json
+
 
 def index(request):
     return render(request, "chat/index.html", context={"rooms": Room.objects.all()})
