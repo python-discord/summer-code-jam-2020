@@ -22,6 +22,10 @@ def home(request):
     else:
         return HttpResponseRedirect(reverse("login"))
 
+def info(request):
+    # for now, it will only have one url link
+    return render(request, "aboutus.html")
+
 def get_mail_queryset(request, query=None):
     if query != None:
         queryset = []

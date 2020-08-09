@@ -130,5 +130,7 @@ dmypy.json
 
 # PyCharm Project folder
 .idea/
-bouncy-bullfrogs/bouncy/search/search_data/recipes_serp_data.csv
+
+VSCode
+settings.json
 bouncy-bullfrogs/bouncy/search/search_data/recipes_serp_data.csv
