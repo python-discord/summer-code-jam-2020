@@ -16,8 +16,12 @@ function pan_up() {
             stars.style.height = star_width + '%';
             for (i = 0; i < button_zoom.length; i++) {
                 button_zoom[i].style.scale = button_size + "%";
+                button_zoom[i].style.zoom = button_size + "%";
+                if (button_size == 0) {
+                    button_zoom[i].style.visibility = "hidden";
+                }
             }
+
         }
     }
 }
-
