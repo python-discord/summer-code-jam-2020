@@ -10,7 +10,8 @@ class Room(models.Model):
 
 
 class SimpleUser(models.Model):
-    username = models.CharField(max_length=50)
+    objects = models.Manager()
+    username = models.CharField(max_length=50, primary_key=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -18,9 +19,11 @@ class SimpleUser(models.Model):
 
 
 class Message(models.Model):
+    objects = models.Manager()
     text = models.CharField(max_length=500)
     created_at = models.DateTimeField(default=timezone.now())
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    sender = models.ForeignKey(SimpleUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self._format_short_text(self.text)

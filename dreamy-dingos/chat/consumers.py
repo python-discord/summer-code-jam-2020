@@ -15,7 +15,7 @@ class ChatConsumer(WebsocketConsumer):
         self.user_uuid = uuid.uuid4()
         self.room_id = self.scope["url_route"]["kwargs"]["room_id"]
         self.room_group_name = 'chat_%s' % self.room_id
-        self.session_messages : List[Message] = []
+        self.session_messages: List[Message] = []
 
         # Join to the room
         async_to_sync(self.channel_layer.group_add)(
@@ -42,7 +42,9 @@ class ChatConsumer(WebsocketConsumer):
         ]
         messages_to_save = list(
             filter(
-                lambda message: datetime.datetime.strftime(message.created_at, date_format) not in messages_in_db_dates,
+                lambda message:
+                datetime.datetime.strftime(message.created_at, date_format)
+                not in messages_in_db_dates,
                 self.session_messages,
             )
         )
@@ -54,7 +56,6 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
 
-
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
@@ -64,7 +65,7 @@ class ChatConsumer(WebsocketConsumer):
                 'created_at_iso': text_data_json["created_at"],
             },
         )
-    
+
     def chat_message(self, event):
         """Receive message from room group."""
         message = event["message"]
@@ -79,4 +80,3 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps({
             "message": message,
         }))
-

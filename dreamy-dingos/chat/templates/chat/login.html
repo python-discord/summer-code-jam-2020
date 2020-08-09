@@ -1,0 +1,12 @@
+<!-- chat/templates/chat/rooms.html -->
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
