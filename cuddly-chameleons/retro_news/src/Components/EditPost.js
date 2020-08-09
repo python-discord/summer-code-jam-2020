@@ -50,6 +50,7 @@ function EditPost(props) {
                         setTitle(post.data.title);
                         setContent(post.data.content);
                     } catch (e) {
+                        console.error(e);
                         setNotFound(true);
                     }
                 }

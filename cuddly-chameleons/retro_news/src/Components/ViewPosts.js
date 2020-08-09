@@ -13,6 +13,7 @@ function ViewPosts() {
                 const result = await axios.get('/posts');
                 setPosts(result.data);
             } catch (e) {
+                console.error(e);
                 setErrored(true);
             }
         }

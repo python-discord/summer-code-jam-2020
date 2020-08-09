@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from retro_news import serializers
-from retro_news.models import BlogArticle
+from retro_news.models import BlogArticle, ArticleComment
 
 
 class BlogArticleListView(APIView):
@@ -131,3 +131,37 @@ class IsSuperUserView(APIView):
     def get(self, request: Request):
         """Get user's superuser status."""
         return Response(serializers.CustomUserSuperuserSerializer(request.user).data)
+
+
+class ArticleCommentListView(APIView):
+    """View for fetching all articles and creating new comment."""
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request: Request):
+        """Get all comments. Add `post` query parameter to filter all comments that is connected with this post."""
+        if "post" in request.query_params:
+            return Response(
+                serializers.GetArticleCommentSerializer(
+                    ArticleComment.objects.get(
+                        post=int(request.query_params['post'])
+                    ),
+                    many=True
+                ).data
+            )
+
+        return Response(
+            serializers.GetArticleCommentSerializer(
+                ArticleComment.objects.all(),
+                many=True
+            ).data
+        )
+
+    def post(self, request: Request):
+        """Create a new article comment."""
+        serializer = serializers.ArticleCommentSerializer(data=request.data)
+        if serializer.is_valid():
+            comment = serializer.save(author=request.user, post=BlogArticle.objects.get(pk=int(request.data['post'])))
+            if comment:
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

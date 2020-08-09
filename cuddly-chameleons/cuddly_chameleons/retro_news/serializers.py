@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from retro_news.models import CustomUser, BlogArticle
+from retro_news.models import ArticleComment, CustomUser, BlogArticle
 
 
 class BlogArticleSerializer(serializers.ModelSerializer):
@@ -71,3 +71,29 @@ class BlogArticleGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogArticle
         fields = ('id', 'title', 'content', 'author', 'created')
+
+
+class ArticleCommentSerializer(serializers.ModelSerializer):
+    """Serializer for ArticleComment model."""
+
+    comment = serializers.CharField(max_length=10000)
+    author = serializers.PrimaryKeyRelatedField(read_only=True, many=False)
+    post = serializers.PrimaryKeyRelatedField(read_only=True, many=False)
+
+    class Meta:
+        model = ArticleComment
+        fields = ('comment', 'author', 'post')
+
+
+class GetArticleCommentSerializer(serializers.ModelSerializer):
+    """Serializer for ArticleComment getting."""
+
+    id = serializers.IntegerField(read_only=True)
+    comment = serializers.CharField(max_length=10000)
+    author = CustomUserSerializer(read_only=True, many=False)
+    post = serializers.PrimaryKeyRelatedField(read_only=True, many=False)
+    created = serializers.DateTimeField()
+
+    class Meta:
+        model = ArticleComment
+        fields = ('id', 'comment', 'author', 'post', 'created')

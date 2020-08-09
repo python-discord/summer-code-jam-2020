@@ -4,6 +4,7 @@ import { Container, Button } from 'nes-react';
 import { Row, Col } from 'react-bootstrap';
 
 import axios from "../AxiosAPI";
+import Comments from "./Comments";
 
 function ViewPost(props) {
      const history = useHistory();
@@ -27,6 +28,7 @@ function ViewPost(props) {
                     result.data.created = new Date(result.data.created).toString();
                     setData(result.data);
                } catch (e) {
+                    console.error(e);
                     setNotFound(true);
                }
           }
@@ -67,6 +69,7 @@ function ViewPost(props) {
                         </Container>
                    </Col>
               </Row>
+              <Comments postId={id} className="px-5" status={props.status} />
          </Container>
      )
 }

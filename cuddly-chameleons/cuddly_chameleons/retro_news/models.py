@@ -18,3 +18,15 @@ class BlogArticle(models.Model):
 
     def __str__(self):
         return "<BlogArticle: {}>".format(self.title)
+
+
+class ArticleComment(models.Model):
+    """Model for blog article comment."""
+
+    comment = models.CharField(max_length=10000)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=True)
+    post = models.ForeignKey(BlogArticle, on_delete=models.CASCADE, default=None, null=True)
+
+    def __str__(self):
+        return f"Comment by {self.author.username} at {self.created} for post {self.post}"
