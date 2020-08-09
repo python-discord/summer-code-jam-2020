@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save, pre_delete, post_delete
 from .models import Floppy, VMachine
 from django.dispatch import receiver
-from the_htvms.runner.disk import create_disk
+from the_htvms.runner.disk import create_disk, delete_disk
 
 
 @receiver(signal=post_save, sender=Floppy)
@@ -37,7 +37,7 @@ def delete_floppy_from_vm(sender: Floppy, instance: Floppy, **kwargs: dict) -> N
     This Signal will unassign the Floppies from the VMs however, the only way to delete floppies
     is to delete the VM itself.
     """
-    print("Floppy delete")
+    delete_disk(instance.storage_id)
     del instance.vm.floppy_disks_id[instance.vm.floppy_disks_id.index(instance.storage_id)]
     del instance.vm.floppy_disks_name[instance.vm.floppy_disks_name.index(instance.name)]
     instance.vm.save()
