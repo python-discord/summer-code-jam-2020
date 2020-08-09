@@ -7,7 +7,6 @@
         <li class="breadcrumb-item active" aria-current="page">Chat list</li>
     </ol>
 </nav>
-
 <div class="list-group">
     {% for user in users %}
     <a href="{% url 'chat:chat-room' user.pk %}" class="list-group-item list-group-item-action">
@@ -16,9 +15,17 @@
             <div class="flex-fill">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ user }}</h5>
-                    <small>3 days ago</small>
+                    {% for message in last_message %}
+                      {% if message.sender == user or message.reciever == user %}
+                        <small class="mt-1">{{ message.date }}</small>
+                      {% endif %}
+                    {% endfor %}
                 </div>
-                <small class="mt-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</small>
+                {% for message in last_message %}
+                  {% if message.sender == user or message.reciever == user %}
+                    <small class="mt-1">{{ message.content }}</small>
+                  {% endif %}
+                {% endfor %}
             </div>
         </div>
     </a>

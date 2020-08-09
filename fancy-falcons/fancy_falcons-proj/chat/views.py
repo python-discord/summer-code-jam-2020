@@ -25,6 +25,14 @@ class UsersChatView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['active_page'] = "chat"
+        last_message_list = []
+        for user in context['users']:
+            last_message = Message.objects.filter(
+                (Q(reciever=self.request.user) & Q(sender=user)) |
+                (Q(reciever=user) & Q(sender=self.request.user))
+            ).order_by('-date')[:1].first()
+            last_message_list.append(last_message)
+            context['last_message'] = last_message_list
         return context
 
 
