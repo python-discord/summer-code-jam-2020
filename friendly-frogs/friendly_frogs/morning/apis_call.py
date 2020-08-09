@@ -86,7 +86,7 @@ def get_reddit_posts(subreddit: str, limit: int = 1):
         posts.append(
             RedditInterface(
                 title=post.title,
-                url='https://www.reddit.com'+post.permalink,
+                url='https://www.reddit.com' + post.permalink,
                 content=content,
                 time_created_unix=post.created_utc,
                 id=post.id,
