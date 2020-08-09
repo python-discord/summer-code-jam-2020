@@ -32,7 +32,7 @@
 
 		<div class="url box">
 			<div><b>MyPlace URL:</b></div>
-			<div><a style='color:#000;text-decoration:none;' href="{% url 'user-profile' username_or_id=profile.username %}">{{ request.get_host }}/{% url 'user-profile' username_or_id=profile.username %}</a></div>
+			<div><a style='color:#000;text-decoration:none;' href="{% url 'user-profile' username_or_id=profile.username %}">{{ request.get_host }}{% url 'user-profile' username_or_id=profile.username %}</a></div>
 		</div>
 
         {% if profile.audio_track %}

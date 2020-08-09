@@ -13,7 +13,7 @@ def user(request, username_or_id: Union[int, str]):
         profile = _get_profile(username_or_id)
     except Profile.DoesNotExist:
         messages.error(request, 'That user profile does not exist.')
-        return render(request, 'myplace/profile.html')
+        return render(request, 'users/home.html')
 
     if request.method == 'POST':
         return add_profile_comment(request, profile)
@@ -38,6 +38,11 @@ def user(request, username_or_id: Union[int, str]):
 
 
 def _get_profile(username_or_id: Union[int, str]) -> Profile:
+    """
+    Tries to get Profile model object based on user id or username.
+
+    :return: Profile object
+    """
     if isinstance(username_or_id, int):
         return Profile.objects.get(id=username_or_id)
     else:
