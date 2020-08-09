@@ -7,7 +7,7 @@
 Have you ever wondered what it was like to be one of the first web-developers ever?
 When you could count all competitors in your field on one hand?
 What would you have created in this situation?
-A message board? A TicTacToe game? **Why not both**?
+A buggy message board and an unfinished game of tictactoe? **Exactly**!
 
 
 ## Motivation
@@ -44,9 +44,9 @@ python backend/manage.py migrate
 python backend/manage.py test
 ```
 
-Then run the development server on port 8000 using:
+Then run the development server on port 80 using:
 ```bash
-python backend/manage.py runserver
+python backend/manage.py runserver 0.0.0.0:80
 ```
 
 
