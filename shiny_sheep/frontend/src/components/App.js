@@ -1,17 +1,34 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import Chat from "./Chat";
+import {ThemeProvider} from '@react95/core';
+import Home from "./Home";
+import CustomContext from "./CustomContext";
+import Testing2 from "./Testing2";
+
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
 
+
+ 
+   
   render() {
     return (
       <div>
-        <h1>Hello world!</h1>
-        <Chat/>
+          {/* <CustomContext items={this.state.menu}/> */}
+           
+            <ThemeProvider>
+              <Testing2 text="Test1"/>
+              <Testing2 text="Test2"/>
+              {/* <Testing2 test="Test2"/> */}
+              {/* <GlobalStyle/> */}
+              <Home/>
+              {/* <Footer/> */}
+              
+            </ThemeProvider>
+         
       </div>
     )
   }

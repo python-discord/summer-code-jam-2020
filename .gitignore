@@ -333,3 +333,4 @@ shiny_sheep/media/
 
 .vagrant/
 shiny_sheep/static/js/main.js
+db.sqlite
