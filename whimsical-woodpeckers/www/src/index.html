@@ -1,84 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns="http://www.w3.org/2000/svg"
+>
 <head>
-  <meta charset="UTF-8">
-  <title>Whimsical Messaging</title>
+    <meta charset="UTF-8">
+    <title>Whimsical Messaging</title>
 </head>
 
 <body>
-  <div id="app"></div>
+<div id="app"></div>
 <script type="text/x-template" id="color-thing-template">
     <div v-on:click="change" v-bind:style="{backgroundColor: colors[index]}">The background of this text will change on click {{testprop}}</div>
 </script>
 <script type="text/x-template" id="app-template">
     <div id="background"
-    v-bind:class="{
+         v-bind:class="{
       'messenger-app': mode==0,
       'aol-app': mode==1,
       'irc-app': mode==2}">
-    <div id="app"
-    class="container-fluid">
-      <desktop v-bind:mode="mode"></desktop>
-    </div>
+        <div id="app"
+             class="container-fluid">
+            <desktop v-bind:mode="mode"></desktop>
+        </div>
     </div>
 </script>
 <script type="text/x-template" id="directory-template">
 
     <div id="directory">
-      <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">
-          User Directory
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    User Directory
+                </div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <user
+                    v-for="(user, index) in users"
+                    v-bind:key="index"
+                    v-bind:name="user.name"
+                    v-bind:last_online="user.last_online"
+                    v-bind:id="user.id"
+            ></user>
         </div>
-        </div>
-        <user
-          v-for="(user, index) in users"
-          v-bind:key="index"
-          v-bind:name="user.name"
-          v-bind:last_online="user.last_online"
-          v-bind:id="user.id"
-          ></user>
-    </div>
     </div>
 </script>
 <script type="text/x-template" id="messages-template">
     <div id="messages">
         <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">
-          Chat History
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    Chat History
+                </div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div id="chat-name" class="text-center">
+                <h2>{{ chatName }}</h2>
+            </div>
+            <message
+                    v-for="(message, index) in messages"
+                    v-bind:key="index"
+                    v-bind:time="message.time"
+                    v-bind:content="message.content"
+                    v-bind:sender="message.sender"
+            ></message>
         </div>
+        <div id="message-input" class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button id="send-message" @click="sendMessage()" class="btn" v-bind:class="{'btn-primary': mode==0}" type="button">Send Message</button>
+            </div>
+            <div v-if="mode==2"><span id="prepend-input">>&nbsp;</span><input id="send-message-text" v-model="message"  @keyup.enter="sendMessage()" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus></div>
+
+            <input v-else id="send-message-text" v-model="message" @keyup.enter="sendMessage()"  type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>
         </div>
-      <div id="chat-name" class="text-center">
-        <h2>{{ chatName }}</h2>
-      </div>
-        <message
-          v-for="(message, index) in messages"
-          v-bind:key="index"
-          v-bind:time="message.time"
-          v-bind:content="message.content"
-          v-bind:sender="message.sender"
-          ></message>
-    </div>
-      <div id="message-input" class="input-group mb-3">
-        <div class="input-group-prepend">
-          <button id="send-message" @click="sendMessage()" class="btn" v-bind:class="{'btn-primary': mode==0}" type="button">Send Message</button>
-        </div>
-        <div v-if="mode==2"><span id="prepend-input">>&nbsp;</span><input id="send-message-text" v-model="message"  @keyup.enter="sendMessage()" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus></div>
-        
-        <input v-else id="send-message-text" v-model="message" @keyup.enter="sendMessage()"  type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>
-      </div>
     </div>
 </script>
 <script type="text/x-template" id="message-template">
     <div
-      v-bind:title="time"
-      v-bind:class="{
+            v-bind:title="time"
+            v-bind:class="{
         'text-primary': sender==currentUser,
         'text-danger': sender!=currentUser,
         'alert':true}"
-      >
+    >
         <strong>{{ sender }}</strong>: {{ content }}
     </div>
 </script>
@@ -87,36 +97,38 @@
 </script>
 <script type="text/x-template" id="desktop-template">
     <div class="row" v-bind:mode="mode">
-      <login v-if="mode==0||mode==1" v-bind:mode="mode" class="col-lg-3 app"></login>
-      <messages class="col-lg-6 app" v-bind:mode="mode"></messages>
-      <directory v-if="mode==1||mode==0" class="col-lg-3 app"></directory>
+
+        <messages class="col-lg-6 app" v-bind:mode="mode"></messages>
+        <directory v-if="mode==1||mode==0" class="col-lg-3 app"></directory>
     </div>
 </script>
 <script type="text/x-template" id="mobile-template">
     <div class="row">
-      <div class="col-xs-12"></div>
-      <messages class="col-xs-12"></messages>
-      <directory class="col-xs-12"></directory>
+        <div class="col-xs-12"></div>
+        <messages class="col-xs-12"></messages>
+        <directory class="col-xs-12"></directory>
     </div>
 </script>
+<!--
 <script type="text/x-template" id="login-template">
     <div id="login">
-    <div class="window">
-      <div class="title-bar">
-        <div class="title-bar-text">
-          Login
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    Login
+                </div>
+            </div>
+            <div id="logo">
+            </div>
+            <div id="login-form">
+                <input v-model="username" placeholder="Username" class="">
+                <br><br>
+                <button v-on:click="login" v-bind:class="{'btn-primary':mode==0}" class="btn">Set Username</button>
+            </div>
         </div>
-        </div>
-        <div id="logo">
-        </div>
-        <div id="login-form">
-          <input v-model="username" placeholder="Username" class="">
-          <br><br>
-          <button v-on:click="login" v-bind:class="{'btn-primary':mode==0}" class="btn">Set Username</button>
-        </div>
-    </div>
     </div>
 </script>
+-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
