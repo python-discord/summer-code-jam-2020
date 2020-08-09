@@ -1,7 +1,8 @@
+{% load static %}
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-            Logo placeholder
+        <a href="{% url "home" %}">
+            <img src="{% static "TeaBaySmall.png" %}" style="height: 100px; width: 100px;">
         </a>
     </div>
     <div class="navbar-menu">
