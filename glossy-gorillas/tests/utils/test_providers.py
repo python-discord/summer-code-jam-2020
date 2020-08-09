@@ -20,3 +20,6 @@ def test_provider_generates_random_2_part_string(generator: Generator[str, None,
 
 
 auto_test(providers.random_permutations)
+auto_test(providers._spice)
+auto_test(providers._service)
+auto_test(providers._object)
