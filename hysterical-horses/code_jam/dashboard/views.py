@@ -136,9 +136,7 @@ def weather_query(lat: str, lon: str, api_key: str, part: str, format: bool = Tr
                 {
                     "time": convert_unix_to_dt(d["dt"], res["timezone"])[0],
                     "desc": d["weather"][0]["main"],
-                    "icon": "http://openweathermap.org/img/wn/" +
-                            d["weather"][0]["icon"] +
-                            "@2x.png",
+                    "icon": "http://openweathermap.org/img/wn/" + d["weather"][0]["icon"] + "@2x.png",
                     "min_temp": kelvin_to_farenheit(d["temp"]["min"]),
                     "max_temp": kelvin_to_farenheit(d["temp"]["max"]),
                     "avg_temp": kelvin_to_farenheit(d["temp"]["day"]),
@@ -151,9 +149,7 @@ def weather_query(lat: str, lon: str, api_key: str, part: str, format: bool = Tr
             "time": convert_unix_to_dt(res["current"]["dt"], res["timezone"])[1],
             "main": res["current"]["weather"][0]["main"],
             "desc": string.capwords(res["current"]["weather"][0]["description"]),
-            "icon": "http://openweathermap.org/img/wn/" +
-                    res["current"]["weather"][0]["icon"] +
-                    "@2x.png",
+            "icon": "http://openweathermap.org/img/wn/" + res["current"]["weather"][0]["icon"] + "@2x.png",
             "current_temp": kelvin_to_farenheit(res["current"]["temp"]),
             "feels_like": kelvin_to_farenheit(res["current"]["feels_like"]),
             "humidity": res["current"]["humidity"],
@@ -187,7 +183,7 @@ def weather_results(request, ip_address: str):
     else:
         geolocator = Nominatim(user_agent="hyst_horses")
         location = geolocator.geocode(ip_address)
-        latitude, longitude = getattr(location, "latitude", None), getattr(location,"longitude", None)
+        latitude, longitude = getattr(location, "latitude", None), getattr(location, "longitude", None)
         if latitude and longitude:
             wrapper = textwrap.TextWrapper(width=20)
             shortened = wrapper.wrap(text=ip_address)[0]
@@ -239,7 +235,7 @@ class WeatherView(LoginRequiredMixin, LevelRestrictionMixin, View):
             geolocator = Nominatim(user_agent="hyst_horses")
             location = geolocator.geocode(ip_address)
             latitude, longitude = getattr(location, "latitude", None), getattr(location, "longitude", None)
-            if not( latitude and longitude):
+            if not(latitude and longitude):
                 wrapper = textwrap.TextWrapper(width=20)
                 shortened = wrapper.wrap(text=ip_address)[0]
                 if shortened != ip_address:
