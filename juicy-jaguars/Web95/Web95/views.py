@@ -1,58 +1,58 @@
 """Functions for serving pages on the site."""
 
-from django.shortcuts import render, redirect
-from .settings import BASE_DIR
-import os
-import urllib.parse
+from django.shortcuts import render, redirect  # Django utilities
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.http import HttpResponse, HttpResponseNotFound
-from .html_parse import HtmlParser
-from PIL import Image, UnidentifiedImageError
-import io
-import requests
-from math import floor
+import io  # For BytesIO
+import os  # Various functions
+import urllib.parse  # For parsing URLs with escape codes
+import requests  # For fetching webpages
+from math import floor  # For image resizing
+from PIL import Image, UnidentifiedImageError  # For image processing
+from .html_parse import HtmlParser  # Our HTML parser
+from .settings import BASE_DIR  # For Base Directory path
 
 
 def landing_page(request):
-    """Landing Page view."""
+    """Serve the main page of the site.
+
+    This fetches themes, wallpapers etc. and serves the neccessary elements to the webpage.
+    """
     themes = os.listdir(os.path.join(BASE_DIR,
                                      "Web95/static/images/wallpapers"))
 
     try:
-        if request.GET["theme"] in themes:
-            theme = request.GET["theme"]
+        if request.GET["theme"] in themes:  # Check that the theme in URL is valid
+            theme = request.GET["theme"]  # Get theme from URL GET params
         else:
-            theme = "Win95"
+            theme = "Win95"  # If its not a valid theme, set to Win95
     except KeyError:
-        theme = "Win95"
+        theme = "Win95"  # If its not in the GET Params, set to Win95
 
     wallpapers = sorted(os.listdir(os.path.join(BASE_DIR,
-                                                "Web95/static/images/\
-wallpapers",
-                                                theme)))
+                                                "Web95/static/images/wallpapers",
+                                                theme)))  # Get the wallpaper list from directory.
 
     try:
-        if request.GET["wallpaper"] in wallpapers:
-            wallpaper = request.GET["wallpaper"]
+        if request.GET["wallpaper"] in wallpapers:  # Check that the wallpaper in URL is valid
+            wallpaper = request.GET["wallpaper"]  # Get wallpaper from URL GET params
         else:
-            wallpaper = wallpapers[0]
+            wallpaper = wallpapers[0]  # If wallpaper is not valid, set to the first in folder
     except KeyError:
-        wallpaper = wallpapers[0]
+        wallpaper = wallpapers[0]  # If wallpaper is not in URL, set to first in folder
 
-    bg = "/static/images/wallpapers/" + theme + "/" + wallpaper
+    bg = "/static/images/wallpapers/" + theme + "/" + wallpaper  # Set BG path
 
-    themelist = []
-    walllist = []
+    themelist = []  # List of theme Button elements
+    walllist = []  # List of wallpaper Button elements
 
     for n in themes:
         themelist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" + n
-                         + "'>" + n + "</a></li>")
-    print(themelist)
+                         + "'>" + n + "</a></li>")  # Add all theme buttons to list
 
     for n in wallpapers:
         walllist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" +
-                        theme + "&wallpaper=" + n + "'>" + n + "</a></li>")
-    print(walllist)
+                        theme + "&wallpaper=" + n + "'>" + n + "</a></li>")  # Add all wallpaper buttons to list
 
     return render(request,
                   "Web95/landing_page.html",
@@ -60,57 +60,72 @@ wallpapers",
                    "themes": "\n".join(themelist),
                    "wallpapers": "\n".join(walllist),
                    },
-                  )
+                  )  # Serve the webpage.
+# BG puts the path to wallpaper in. Themes and wallpapers are buttons for the start menu
 
 
 def index(request):
-    """Redirect from index.html to /."""
+    """Redirect from index.html to /.
+
+    If someone tries to visit /index.html, we want to redirect them to the proper path for the site index
+    """
     return redirect(landing_page)
 
 
-@xframe_options_sameorigin
-def page(request, url):
-    """Handle /page urls. Used to serve pages to IE."""
+@xframe_options_sameorigin  # Ensure it can be served inside an iFrame
+def page(request, url):  # Url is the URL we want to visit
+    """Handle /page urls. Used to serve pages to IE.
+
+    /page URLs are used to parse pages which will be served in Internet Explorer.
+    It first checks if the URL is for an Easter egg, if not it will process it as a URL
+    """
     print(url)
-    if url == "1995":
+    if url == "1995":  # For 1995 Easter egg?
         content = "<img src='/static/images/404.gif' height='100%'>"
         return render(request, "Web95/blank.html", {"content": content})
-    elif url == "Mother Russia":
+    elif url == "Mother Russia":  # For Soviet Easter egg?
         content = "<img src='/static/images/mother-russia.jpg' height='100%'>"
         return render(request, "Web95/blank.html", {"content": content})
-    else:
+    else:  # Ensure that the URL has a scheme
         if not(url.startswith("http://")
                or url.startswith("https://")):
             url = "http://" + url
 
-        url = urllib.parse.unquote(url)
-        print("\u001b[32m"+url+"\u001b[0m")
+        url = urllib.parse.unquote(url)  # The URL is parsed on the page to ensure URL chars dont mess with it
+        print("\u001b[32m"+url+"\u001b[0m")  # Log the URL we parsed.
 
-        params = []
-        for key, val in request.GET.items():
-            params.append(key+"="+val)
+        params = []  # URL Params. Sometimes these are parsed properly,
+# so we need to hand them from our URL to the site
 
-        if len(params) > 0:
+        for key, val in request.GET.items():  # Go through our GET params
+            params.append(key+"="+val)  # Process those GET params
+
+        if len(params) > 0:  # If we have GET params to add, add them to the URL
             url += "?"+("&".join(params))
 
-        if request.method == "GET":
-            req = requests.get(url, params={'User-Agent': request.META["HTTP_USER_AGENT"]})
-        elif request.method == "POST":
+        if request.method == "GET":  # If the HTTP method is GET, send a GET request to the target
+            req = requests.get(url, params={'User-Agent': request.META["HTTP_USER_AGENT"]})  # Send request.
+        elif request.method == "POST":  # If the HTTP method is POST, send a POST request to the target
             req = requests.post(url, data=request.POST, params={'User-Agent': request.META["HTTP_USER_AGENT"]})
+# Send request with POST params
 
         if req.headers["content-type"].split("/")[0] in ["text", "application"]:
-            content = req.text
+            # If we're processing a text file, then encode and process it as a text file
+            content = req.text  # Our content is just what we recieve
 
             if req.headers["content-type"].split(";")[0] == "text/html":
+                # If its a HTML doc, run it through our HTML parser
                 parser = HtmlParser(content, url, request)
                 parser.parse()
 
                 content = "<!-- Yep, this got parsed! -->\n" + parser.soup.prettify()
+                # Get our HTML from the parser, and put a comment on so we know the site was parsed.
 
+            # Put our content into a HttpResponse for django and add the content type header
             resp = render(request, "Web95/blank.html", {"content": content})
             resp["content-type"] = req.headers["content-type"]
 
-            return resp
+            return resp  # Return our reponse from the View function
         elif req.headers["content-type"].split("/")[0] == "image":
             data = req.content
 
