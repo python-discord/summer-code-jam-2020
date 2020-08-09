@@ -71,7 +71,7 @@ def about_us(request):
     return render(request, "home/about.html", context)
 
 
-def error_404_view(request,exception):
+def error_404_view(request, exception):
     """Views to render the 404 error page."""
 
     render(request, '404.html')
