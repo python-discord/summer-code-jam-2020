@@ -42,5 +42,9 @@ class UserPreferences(models.Model):
     display_news = models.BooleanField(default=True)
     display_music = models.BooleanField(default=True)
 
+    # Weather Location Preferences
+    city_name = models.CharField(max_length=25, default='London')
+    country_name = models.CharField(max_length=25, default='UK')
+
     def __str__(self):
         return f'{self.user.username} Preferences'
