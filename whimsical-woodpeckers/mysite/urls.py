@@ -36,7 +36,7 @@ urlpatterns = [
     # path('', include('chat.urls')),
     path('anonuser/', anon_views.test),
     path('auth/', anon_views.get_auth_token, name='get-auth'),
-    path('data/', auth_views.get_user_data, name='get-data')
+    path('data/', anon_views.get_user_data, name='get-data')
 ]
 
 if settings.DEBUG:
