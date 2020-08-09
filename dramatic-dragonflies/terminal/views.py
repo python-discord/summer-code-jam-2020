@@ -12,7 +12,7 @@ def _home_with_error(request: HttpRequest, error_msg: str) -> HttpResponse:
 
 
 def test(request: HttpRequest) -> HttpResponse:
-    return render(request, 'terminal/index.html')
+    return render(request, 'terminal/index.html', dict(vm_id=0, storage_id=0))
 
 
 def index(request: HttpRequest, storage_id: int, vm_id: int) -> HttpResponse:
@@ -32,4 +32,4 @@ def index(request: HttpRequest, storage_id: int, vm_id: int) -> HttpResponse:
                 if floppy.user != request.user:
                     return _home_with_error(request, "That's not your Floppy!")
                 else:
-                    return render(request, 'terminal/index.html')
+                    return render(request, 'terminal/index.html', dict(storage_id=storage_id, vm_id=vm_id))

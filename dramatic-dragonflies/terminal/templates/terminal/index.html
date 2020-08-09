@@ -9,12 +9,15 @@
 
 
 <div id = "main">
+    {{ storage_id|json_script:"storage_id" }}
+    {{ vm_id|json_script:"vm_id" }}
     <div id="terminal"></div>
     <script>
-        const ws = new WebSocket(`ws://${window.location.host}/ws/terminal/`);
+        const storageId = Number(document.getElementById("storage_id").innerText);
+        const vmId = Number(document.getElementById("vm_id").innerText);
+        const ws = new WebSocket(`ws://${window.location.host}/ws/terminal/${storageId}/${vmId}`);
         const term = new Terminal();
         ws.onmessage = (ev) => {
-            console.log(ev);
             ev.data.text().then(
                 (v) =>  term.write(v.replace(/\n/g, '\r\n'))
             );
@@ -25,7 +28,6 @@
         term.open(document.getElementById('terminal'));
         term._initialized = true;
         term.onData((e) => {
-            console.log(e)
             ws.send(e);
         })
         term.write('starting\r\n');
