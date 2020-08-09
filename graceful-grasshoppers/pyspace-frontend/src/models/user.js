@@ -10,7 +10,7 @@ export default class User {
     this.about = details.about;
     this.greeting = details.greeting;
     this.picture = details.profilePicture;
-    this.profileComments = details.profileComments;
+    this.profile_comments = details.profileComments;
     this.latest_post = {title: null, content: null};
   }
 }

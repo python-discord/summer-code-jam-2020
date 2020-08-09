@@ -16,12 +16,29 @@ from users.models import CustomUser
 def get_posts(request):
     """Returns a list of posts, can be restricted to a particular
     user via the `user` query parameter"""
+
     posts = Post.objects.all()
     user_id = request.query_params.get("user", None)
+    post_id = request.query_params.get("post", None)
+    username = request.query_params.get("username", None)
+
     if user_id is not None:
         posts = posts.filter(author=user_id)
+    if post_id is not None:
+        posts = posts.filter(id=post_id)
+    if username is not None:
+        user = CustomUser.objects.get(username=username)
+        posts = posts.filter(author_id=user.id)
+
     serializer = PostSerializer(posts, many=True)
-    return JsonResponse({"posts": serializer.data})
+    response = {"posts": serializer.data, "liked_posts": []}
+
+    if request.user.is_authenticated:
+        for i, post in enumerate(posts):
+            if post.likes.filter(user_liked=request.user).count() > 0:
+                response["liked_posts"].append(i)
+
+    return JsonResponse(response)
 
 
 @api_view(["POST"])

@@ -3,20 +3,28 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
+    """The user model"""
     name = models.CharField(blank=True, max_length=255)
-    friends = []
-    friend_requests_pending = []
-    friend_requests_sent = []
+    about = models.TextField(default='...', blank=True, max_length=255)
+    age = models.IntegerField(default=14)
 
     def __str__(self):
         return self.email
 
 
-class ProfileComment(models.Model):
+class Friendship(models.Model):
+    """Describes a friendship between two users"""
+    requester = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="following", default=None)
+    friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="followers", default=None)
+    friends = []
+    pending = models.BooleanField(default=True)
 
+
+class ProfileComment(models.Model):
+    """A comment on a user's profile"""
     content = models.TextField()
-    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE)
-    user_commented = models.ForeignKey(CustomUser, models.CASCADE)
+    user_commented_on = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_commented")
+    user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_profile_commented_on")
 
     def __str__(self):  # Returns a short intro of 20 words
-        return " ".join(self.content.split(" ")[:20])
+        return " ".join(self.content.split()[:20])

@@ -1,48 +1,23 @@
 <template>
 	<div>
 		<div>
-			<p class="alert-warning font-weight-bold">{{ user.name }}'s latest post :</p>
-			<p class="font-weight-bold">{{ user.latest_post.title }}</p>
-			<p>{{ user.latest_post.content }}</p>
-			<a href="#">Read full post...</a>
-			<a href="#">See all of {{ user.name }}'s posts</a>
-		</div>
-		<div>
 			<p class="alert-warning font-weight-bold">About Me :</p>
 			<p>{{ user.about }}</p>
+		</div>
+		<div>
+			<p class="alert-warning font-weight-bold">{{ user.username }}'s latest post :</p>
+			<p class="font-weight-bold">{{ user.latest_post.title }}</p>
+			<p>{{ user.latest_post.content }}</p>
+			<a v-if="user.latest_post.date_posted" v-bind:href="'/post/' + user.latest_post.id">Read full post...</a>
+			<p v-else>{{ user.username }} has no posts</p>
+			<a v-if="user.latest_post.date_posted" v-bind:href="'/posts/' + user.username">See all of {{ user.username }}'s posts</a>
 		</div>
 	</div>
 </template>
 
 <script>
-// @ is an alias to /src
-
-// import axios from "../http-common";
-import axios from "axios";
-import User from "../models/user";
-// const authToken = JSON.parse(localStorage.getItem('user')).key;
-
 export default {
 	name: 'UserAbout',
-	data: function() {
-		return {
-			user: new User({}),
-		};
-	},
-	methods: {
-		init() {
-			axios
-			.get('http://www.json-generator.com/api/json/get/bUZiRPcslK?indent=2')
-			.then((response) => {
-				Object.assign(this.user, response.data[0]);
-			})
-		}
-	},
-	mounted() {
-		this.init();
-	},
-	components: {
-	}
+	props: ['user'],
 };
-
 </script>

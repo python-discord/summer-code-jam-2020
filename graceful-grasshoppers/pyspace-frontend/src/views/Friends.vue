@@ -1,17 +1,40 @@
 <template>
-  <div class="home mt-5" style="margin: auto;">
-    <FriendsList logged-in-user='false'/>
-  </div>
+	<div class="home mt-5" style="margin: auto;">
+		<FriendsList v-bind:logged-in-user="false" v-bind:user="user" />
+	</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import FriendsList from '@/components/user-friends';
+	import FriendsList from '@/components/user-friends';
+	import User from '@/models/user';
+	import axios from "../http-common.js";
 
-export default {
-  name: 'Friends',
-  components: {
-  	FriendsList,
-  }
-}
-</script>
+	import authHeader from "@/services/auth-header";
+
+	export default {
+		name: 'Friends',
+		data: function() {
+			return {
+				userId: this.$route.params.userId,
+				user: new User({}),
+			}
+		},
+		methods: {
+			init() {
+				if (this.userId == null) {
+					axios
+					.get("/users/self/", { headers: authHeader() })
+						.then((response) => {
+							Object.assign(this.user, response.data);
+						})
+					}
+				}
+			},
+			mounted() {
+				this.init();
+			},
+			components: {
+				FriendsList,
+			}
+		}
+	</script>
