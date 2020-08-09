@@ -40,8 +40,9 @@ class MUDTerminal {
         t.printReply(
           data.username + " leaves."
         );
+      } else {
+        t.printReply(data.message);
       }
-      t.printReply(data.message);
     };
 
     this.sender = this.sendByWebSocket;
