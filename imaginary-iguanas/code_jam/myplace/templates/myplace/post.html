@@ -1,0 +1,6 @@
+{% extends "myplace/base.html" %}
+{% block content %}
+    {% include "myplace/profile_short.html" %}
+    {% include "myplace/post_snippet.html" with post_description=post.description|safe post=post %}
+
+{% endblock content %}

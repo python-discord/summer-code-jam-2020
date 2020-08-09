@@ -1,0 +1,17 @@
+<table class="short">
+    <tr>
+        <td><img src="{{ profile.image.url }}" class="avatar" id="avatar" width="200px"></td>
+
+        <td class="shortRight">
+            <div id="gender">{{ profile.get_gender_display }}</div>
+            <div><span id="age">{{ profile.age }}</span> years old</div>
+            <div id="country">{{ profile.city }}<br>{{ profile.get_country_display }}<br></div>
+            {% if profile.is_online %}
+                <div id="online" style="margin-top:10px;">Online now</div>
+            {% else %}
+                <div id="offline" style="margin-top:10px;">Offline</div>
+            {% endif %}
+            <div style="font-size:small;margin-top:10px;">Last Login:<br><span id="lastLogin">{{ profile.user.last_login }}</span></div>
+        </td>
+    </tr>
+</table>
