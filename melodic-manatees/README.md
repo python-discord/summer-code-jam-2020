@@ -9,7 +9,7 @@ Some features include:
 
 2. Custom backgrounds, profile pics and feed preferences.
 
-3. A diary to enter your ideas, with a word cloud feature that highlights frequently occurring topics.
+3. MultiTabs that can be customized and provide quick access to your favorite set of web pages. 
 
 4. Clean look and ease of access to features powered by Bulma, an opensource framework based on on Flexbox. 
 
@@ -20,22 +20,40 @@ Some features include:
 
 ## Installation
 
-requirements
+1. Requirements
 
 ```bash
 pip install -r requirements.txt
 ```
+2. Create a `.env` in the same directory as `.gitignore`, enter the following 2 lines in the file.
+```bash
+NEWS_KEY=xt4plrmPw1P1bWNxetAwfFbug2PnNONC
+WEATHER_KEY=ce877c14eae19f1f99bc0787c955233c
+```
+3. Create a user profile using the `register` button on the homepage.
+
+4. **IMPORTANT**: To ensure that MultiTabs works, you will have to disable whichever flavor of pop-up blocker you are using. Allow popups from the website and unlock true early morning power. 
+
+## Sample files
+We've provided a folder `sample_files` that contains backgrounds that can be used to test the working of the website. We encourage you to add and use those files. 
 
 ## Tour guide
 
 1. Tour the website to explore key functions.
 2. Create a user profile, to unlock profile name, avatar and preferences.
-3. Upload custom backgrounds (backgrounds must be high resolution images)
-4. Make entries in your personal diary, a word cloud will then be created that highlights frequent ideas.
-5. Customize your feed and add links to your favorite pages.
+3. Upload custom backgrounds, select and delete background images. 
+4. Customize your feed and add multitabs to your daily must-use pages.
 
-## Further work
+## Made by:
+Anthony [el_cocodrilo] [github link](https://github.com/aedwardg)
 
+Chris [Demonkingj] [github link](https://github.com/cdrandin)
+
+Colin [honorablebrah] [github link](https://github.com/ccbass)
+
+EM [EM] [github link](https://github.com/eunminlee)
+
+Sadiq [r00t] [github link](https://github.com/sadiq-pasha)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
