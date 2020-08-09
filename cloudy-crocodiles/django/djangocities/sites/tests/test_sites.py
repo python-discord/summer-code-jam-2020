@@ -6,7 +6,7 @@ from djangocities.sites.models import Site
 
 @pytest.mark.django_db
 def test_site():
-    city = City(name='testcity', description='my test city', slug='testcity')
+    city = City(name="testcity", description="my test city", slug="testcity")
     city.save()
 
     user = User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")

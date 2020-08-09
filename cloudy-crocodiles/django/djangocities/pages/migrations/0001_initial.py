@@ -9,20 +9,38 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('sites', '0001_initial'),
+        ("sites", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Page',
+            name="Page",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('version', models.CharField(choices=[('H1', 'HTML 1'), ('H2', 'HTML 2')], default='H1', max_length=2)),
-                ('content', models.TextField(blank=True)),
-                ('site', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='sites.site')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "version",
+                    models.CharField(
+                        choices=[("H1", "HTML 1"), ("H2", "HTML 2")],
+                        default="H1",
+                        max_length=2,
+                    ),
+                ),
+                ("content", models.TextField(blank=True)),
+                (
+                    "site",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="sites.site"
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'pages',
-            },
+            options={"verbose_name_plural": "pages",},
         ),
     ]

@@ -29,4 +29,3 @@ class Site(models.Model):
                 self.address = 1
 
         super(Site, self).save(*args, **kwargs)
-

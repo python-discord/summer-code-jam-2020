@@ -22,9 +22,9 @@ from django.views.decorators.csrf import csrf_exempt
 from djangocities.graphql.schema import schema
 
 urlpatterns = [
-    path('', include('djangocities.home.urls')),
+    path("", include("djangocities.home.urls")),
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(GraphQLView.as_view(schema=schema)), name="graphql"),
     # This needs to be last
-    path('', include('djangocities.sites.urls')),
+    path("", include("djangocities.sites.urls")),
 ]

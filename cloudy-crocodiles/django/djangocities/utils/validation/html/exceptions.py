@@ -3,6 +3,7 @@ This module defines some custom exceptions, so we can catch more specific
 exceptions.
 """
 
+
 class HtmlValidationException(Exception):
     """
     Base catch-all class for Html validation errors
