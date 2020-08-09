@@ -1,8 +1,8 @@
 """Module used to parse HTML pages."""
 
-from bs4 import BeautifulSoup  # Used for parsing HTML code
-import re  # Used for matching multiple/all variations of elements
-import urllib.parse  # Used to parse urls to determine if they are relative or absolute
+from bs4 import BeautifulSoup  # For parsing HTML code
+import re  # For matching multiple/all variations of elements
+import urllib.parse  # To parse urls to determine if they are relative or absolute
 
 
 class HtmlParser:
