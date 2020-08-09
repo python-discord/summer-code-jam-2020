@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from core.helpers import jsonbody
 from games.tictactoe import play_game
 
@@ -25,6 +26,7 @@ TIC_TAC_TOE_SCHEMA = {
 }
 
 
+@login_required
 @jsonbody(TIC_TAC_TOE_SCHEMA)
 def make_move(request, data):
     board, over, score = play_game(data['board'], data['player'], data['move'])

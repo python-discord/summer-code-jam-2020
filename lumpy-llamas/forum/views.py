@@ -40,6 +40,7 @@ SCHEMAS = {
 }
 
 
+@login_required
 def list_threads(request):
     """
     View that returns all threads as a json for being parsed by frontend
@@ -53,6 +54,7 @@ def list_threads(request):
     return JsonResponse(data, status=201, safe=False)
 
 
+@login_required
 def thread_details(request, thread_id):
     """
     View that returns all messages in a thread with a given id
