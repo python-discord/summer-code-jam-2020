@@ -13,7 +13,7 @@ An old-internet style site-creation tool that comes with the kitchen sink.
 
 Simply put, users can choose from a variety of templates and customize it any-which-way.
 After this, they can take their site to the forum to get ~~likes~~ feedback.
-The most liked sites appear on the front page, along with the most liked users and most recent sites.
+Users can then explore the created sites by the most recently created pages or the most liked ones.
 
 ## Initial Setup
 ### Selenium
@@ -38,16 +38,17 @@ FIXME: find if we can use docker for celery / redis
 
 ### Using pipenv
 ```sh
-$ cd src
+$ cd jolly-jellyfish
 $ pipenv install
 $ pipenv shell
+(venv) $ cd src
 (venv) $ python manage.py makemigrations  # TODO: this might be optional, depends on migrations already run.
 (venv) $ python manage.py migrate
 ```
 
 ## Usage
 ```sh
-(venv) $ cd src
+(venv) $ cd jolly-jellyfish/src
 (venv) $ python manage.py runserver
 ```
 
