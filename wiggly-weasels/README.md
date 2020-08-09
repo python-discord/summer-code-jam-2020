@@ -26,6 +26,8 @@ Alice: Hey Bob
 
 ## Installation Instructions
 Installation is simple. I will assume that you have `npm` and Python already installed!:
+
+### Server Setup
 First, clone the repository and cd to the directory. We'll cd into the `Backend` folder to setup the server, first. 
 ```
 git clone https://github.com/JetDeveloping/summer-code-jam-2020.git
@@ -35,4 +37,31 @@ Then, we need to install the required packages:
 ```
 pip install requirements.txt
 ```
-Now, all we need to do is run the server code!
+Finally, we need to install postgressql and create a Database called fbdb.
+```
+#Mac
+brew doctor
+brew update
+brew install libpq
+brew link --force libpq ail
+
+#Linux
+sudo apt-get update
+sudo apt-get install postgresql-client
+
+#Windows
+Download it from here: https://www.postgresql.org/download/windows/
+
+```
+
+You can start Postgres by running `psql`. Then you can run `CREATE DATABASE fbdb;`. Make sure the DB server is set to localhost and the port is set to `5443`
+You want to make sure that you have a user named `postgres` with the password as `postgres` as well. 
+Now, all we need to do is run the server code! We can do this by running: `python3 manage.py runserver`. 
+
+### Site Setup
+We will start by assuming that you are still in the `Backend` folder. We can run the following commands to get into the React project folder so we can install our project packages! 
+```
+cd ..
+cd Frontend/flashback
+```
+Installing the packages is simple! Just type `npm install`! Finally, to run our site, type `npm start`.
