@@ -21,6 +21,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # our apps
     'mail.apps.MailConfig',
+    'search.apps.SearchConfig',
     # 3rd party
     'crispy_forms',
     # django

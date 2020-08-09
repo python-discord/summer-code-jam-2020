@@ -2,6 +2,7 @@ from .models import Email, User
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 import json
+from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -12,11 +13,27 @@ from django.http import JsonResponse
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, "mail/inbox.html")
+        context = {}
+        query = ""
+        if request.GET:
+            query = request.GET['q']
+            context['query'] = str(query)
+        return render(request, "mail/inbox.html",context)
     else:
         return HttpResponseRedirect(reverse("login"))
 
+def get_mail_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        posts = Email.objects.filter(
+                     (Q(title__icontains= q) | Q(body__icontains= q)) and
+                     (Q(from_icontains=q))
+        ).distinct()
 
+        for post in posts:
+            queryset.append(post)
+    return List(set(queryset))
 @csrf_exempt
 @login_required
 def compose(request):
