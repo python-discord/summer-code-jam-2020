@@ -6,7 +6,7 @@ from django.utils import timezone
 
 
 class Messages(models.Model):
-    slug = models.SlugField(unique=True, blank=True)
+    # slug = models.SlugField(unique=True, blank=True)
     message = models.CharField(max_length=500, default="")
     time = models.DateTimeField(default=timezone.now)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender")

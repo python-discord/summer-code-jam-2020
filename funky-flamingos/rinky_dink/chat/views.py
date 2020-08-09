@@ -12,17 +12,31 @@ def index(request):
 
 
 def get_messages(request):
+    messages = Messages.objects.all()
     if request.method == "POST":
-        return JsonResponse(
-            {
-                "type": "messages",
-                "messages": [
-                    {"class_name": "other", "content": "Hello world"},
-                    {"class_name": "self", "content": "Hello"},
-                ],
-                "message": "test",
-            }
-        )
+        for message in messages:
+            print(message)
+            print(message.message)
+            if message.sender == request.user:
+                return JsonResponse(
+                    {
+                        "type": "messages",
+                        "messages": [
+                            {"class_name": "self", "content": message.message},
+                        ],
+                        "message": "test",
+                    }
+                )
+            else:
+                return JsonResponse(
+                    {
+                        "type": "messages",
+                        "messages": [
+                            {"class_name": "other", "content": message.message},
+                        ],
+                        "message": "test",
+                    }
+                )
     raise Http404("Page not found")
 
 
