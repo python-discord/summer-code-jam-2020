@@ -85,7 +85,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_messages(self):
-        print("NUM MESSAGES: ", self.messages.count())
         return self.messages.count()
 
     @property
