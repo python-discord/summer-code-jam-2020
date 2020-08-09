@@ -35,7 +35,7 @@ cd summer-code-jam-2020/wiggly-weasels/Backend
 ```
 Then, we need to install the required packages:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Finally, we need to install postgressql and create a Database called fbdb.
 ```
