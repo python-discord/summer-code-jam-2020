@@ -13,12 +13,7 @@
       display: block;
     }
   }
-  
-  /* Add some shadows to create a card effect */
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  }
-  
+    
   /* Some left and right padding inside the container */
   .card-container {
     padding: 0 16px;
@@ -48,5 +43,5 @@
   }
   
   .button:hover {
-    background-color: #555;
+    color: greenyellow;
   }
