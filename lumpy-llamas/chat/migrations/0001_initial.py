@@ -28,8 +28,10 @@ class Migration(migrations.Migration):
                 ('datetime', models.DateTimeField()),
                 ('message', models.CharField(max_length=250)),
                 ('parent_message_id', models.IntegerField(null=True)),
-                ('chat_room_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='chat.ChatRoom')),
-                ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('chat_room_id', models.ForeignKey(
+                    null=True, on_delete=django.db.models.deletion.SET_NULL, to='chat.ChatRoom')),
+                ('user_id', models.ForeignKey(
+                    null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
