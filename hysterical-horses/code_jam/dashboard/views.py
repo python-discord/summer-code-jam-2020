@@ -6,13 +6,12 @@ import textwrap
 from typing import List
 
 import requests
-from pytz import timezone
 
 import geocoder
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sessions.backends.db import SessionStore
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 from geopy.geocoders import Nominatim
@@ -77,12 +76,7 @@ def search_query(search: str, format_text: bool = True):
                 ]  # need to fix this up: DONE
                 for k in duckduckgo_cryptic:
                     title.replace(k, duckduckgo_cryptic[k])
-                base_url = "https://api.duckduckgo.com/"
-                payload_crypt_info = {"q": title, "format": "json", "pretty": "1"}
-                crypt_info_json = requests.get(
-                    base_url, params=payload_crypt_info
-                ).json()
-            punc = string.punctuation
+
 
             # js-freindly-title makes sure the element does not have a punctuation in the id (')
             return {
@@ -131,7 +125,8 @@ def weather_query(lat: str, lon: str, api_key: str, part: str, format: bool = Tr
     parts = ["minutely", "hourly", "daily"]
     parts.remove(part)
     ot_parts = ",".join(parts)
-    base_url = f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={ot_parts}&appid={api_key}"
+    base_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=" \
+               f"{lat}&lon={lon}&exclude={ot_parts}&appid={api_key}"
     res = requests.get(base_url).json()
     if format:
         # format the json
@@ -195,7 +190,7 @@ def weather_results(request, ip_address: str):
         location = geolocator.geocode(ip_address)
         try:
             latitude, longitude = location.latitude, location.longitude
-        except:
+        except Exception as e:
             wrapper = textwrap.TextWrapper(width=20)
             shortened = wrapper.wrap(text=ip_address)[0]
             if shortened != ip_address:

@@ -1,16 +1,14 @@
-import random
-
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, re
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView
 from django.views.generic.list import ListView
 from users.mixins import LevelRestrictionMixin
 
 from .filters import PostFilter
-from .forms import CommentForm, CreatePostForm
+from .forms import CommentForm
 from .models import Comment, Post
 
 

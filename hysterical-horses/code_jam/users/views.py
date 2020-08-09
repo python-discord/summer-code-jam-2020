@@ -1,6 +1,4 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
 from django.views import View
 from users.mixins import LevelRestrictionMixin
