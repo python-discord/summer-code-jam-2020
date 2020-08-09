@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from anon import views as anon_views
 
 
@@ -25,4 +23,5 @@ urlpatterns = [
     path('anonuser/', anon_views.test),
     path('auth/', anon_views.get_auth_token, name='get-auth'),
     path('data/', anon_views.get_user_data, name='get-data'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('recent/', anon_views.get_recent, name='get-recent'),
+]
