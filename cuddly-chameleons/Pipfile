@@ -13,6 +13,7 @@ gunicorn = "*"
 whitenoise = "*"
 djangorestframework-simplejwt = "*"
 djangorestframework = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"
