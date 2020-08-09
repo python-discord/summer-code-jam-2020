@@ -103,3 +103,12 @@ color:white !important;
   display:block;
   background:white;
 }
+
+.green{
+  background: lawngreen !important;
+}
+
+.override{
+  color: black !important;
+  background: whitesmoke !important;
+}

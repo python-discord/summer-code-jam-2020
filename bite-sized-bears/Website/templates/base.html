@@ -51,7 +51,7 @@
             {% else %}
          <div class="login">
            <h3>Login</h3>
-          <form method="post", action="login">
+          <form method="post", action="{% url 'login' %}">
               {% csrf_token %}
             <table>
               <tr>

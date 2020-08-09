@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 from django.contrib import messages
 from django.db.models import Count
+from django.contrib.auth.decorators import login_required
 
 
 class IndexListView(ListView):
@@ -65,7 +66,7 @@ class LoginView(View):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
+            return redirect(request.META['HTTP_REFERER'])
         else:
             return render(request, self.template_name, {"message": "Account does not exist", "created": False})
 
@@ -73,12 +74,14 @@ class LoginView(View):
 class CommunityView(View):
     template_name = 'community.html'
     model = Community
-    context = {}
 
     def get(self, request, community_name):
-        self.context['community'] = self.model.objects.get(name=community_name)
-        self.context['posts'] = self.context['community'].post_publisher.all()
-        return render(request, self.template_name, self.context)
+        community = self.model.objects.get(name=community_name)
+        post = community.post_publisher.all()
+        context = {"community": community, "post": post}
+        if community.subscribers.filter(name=request.user.get_username()):
+            context["subscribed"] = True
+        return render(request, self.template_name, context)
 
 
 class UserView(View):
@@ -119,3 +122,12 @@ def add_comment(request, community_name, post_id):
     Comments.objects.create(content = content, author = author, post = post)
 
     return redirect(f'/community/{community_name}/{post_id}')
+
+
+@login_required
+def subscription_request(request, community_name):
+    username = request.user.get_username()
+    community = Community.objects.get(name=community_name)
+    user = User.objects.get(name=username)
+    community.subscribers.add(user)
+    return redirect(request.META['HTTP_REFERER'])
