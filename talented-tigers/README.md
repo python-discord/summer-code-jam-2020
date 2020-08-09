@@ -45,6 +45,7 @@ And thats it. Have fun browsing!
 ![](readme/blogdone.png)
  
 ### License
+MIT License
 
 ### Authors
 <p align="center">
