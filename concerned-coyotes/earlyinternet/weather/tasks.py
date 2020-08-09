@@ -15,5 +15,7 @@ def fetch_weather():
             city=weather['city'],
             sunrise=weather['sunrise'],
             sunset=weather['sunset'],
-            day=weather['day']
+            day=weather['day'],
+            latitude=lat,
+            longitude=lon
         )

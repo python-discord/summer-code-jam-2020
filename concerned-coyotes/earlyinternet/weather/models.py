@@ -10,3 +10,5 @@ class Weather(models.Model):
     sunrise = models.DateTimeField()
     sunset = models.DateTimeField()
     day = models.DateField(default=timezone.now)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
