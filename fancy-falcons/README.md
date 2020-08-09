@@ -24,3 +24,8 @@ This website uses Python 3.8 and Django 3.0.9
 ## Event calendar
 
 ## Chat function
+
+# Licence
+All code is licenced under the MIT licence.
+
+The information about Earls is pulled from Wikipedia and licenced under the [Creative Commons Attribution-ShareAlike License](https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License) (CC BY-SA 3.0)
