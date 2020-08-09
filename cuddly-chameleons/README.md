@@ -8,6 +8,14 @@
 Our project is simple blog/news site, that implement basic things, like creating, editing, deleting in frontend.
 
 ## Setting up and running
+### Dependencies
+- Docker
+- Docker Compose (may come with Docker)
+- Python 3.8
+- Pipenv
+- NodeJS
+- NPM
+
 ### Django and PostgreSQL
 Simplest thing ever (when you have Docker and Docker Compose installed):
 ```
