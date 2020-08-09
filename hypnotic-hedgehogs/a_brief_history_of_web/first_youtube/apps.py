@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class FirstYoutubeConfig(AppConfig):
-    name = 'first_youtube'
+class FirstGoogleConfig(AppConfig):
+    name = 'first_google'

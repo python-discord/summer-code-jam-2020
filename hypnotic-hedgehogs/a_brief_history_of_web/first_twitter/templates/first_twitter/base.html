@@ -1,0 +1,137 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <title>Twitter</title>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=AlA9XXmH61fMc7ULYl9f0L2HyVmYAag-Bd0T8OuqNNu5T59Onft_A-bGkriuLMUTmyZqNVGXe8UkoZhjCW2bykxsaO7amsJIWf_NPJm_x57c7osPmfn8PVkNyDXVNXdebKUKgpfTaOrSN8-fC3YRtg" charset="UTF-8"></script></head>
+  <body>
+      <style>
+           body {
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 12px;
+    }
+          .container{
+              max-width: 1000px;
+          }
+      </style>
+    <div class="container" style="background-color: #99E4E8;">
+        <nav class="navbar">
+            <a class="navbar-brand" href="{% url 'first_twitter:index' %}">
+                <img src="{% static 'first_twitter/twitter.png' %}" style="width: 200px;" alt="">
+              </a>
+              <div class="ml-auto d-flex justify-content-start" style="background-color: white;">
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Home</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Your Profile</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Invite</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Public timeline</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Badges</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Settings</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Help</a>
+                  <span style="color: #187ECE;" class="mx-1">l</span>
+                  <a href="#" style="text-decoration: underline;" class="mx-1">Sign Out</a>
+
+              </div>
+        </nav>
+        <div class="row">
+            <div class="col-9">
+                <div style="background-color: #EFEFED;border-radius: 3px;" class="shadow-sm">
+                <span style="font-weight: bold;font-size: 18px;" class="p-3 ">What are you doing?</span>
+                <span class="float-right mt-2 mr-2">Characters avaliable: <span style="font-weight: bold;" id="textarea_feedback"></span></span>
+                <div>
+                    <form>
+                        <div class="form-group p-1">
+                            <textarea id="textarea" style="resize:none;" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                          </div>
+                    </form>
+                </div>
+                </div>
+               <div style="width: 100%;position: relative;top: -36px;" class="d-flex justify-content-center">
+                <i class="fas fa-caret-down fa-4x" style="color:#EFEFED;"></i>
+            </div>
+                <div style="width: 100%;margin-top: -40px;" class="d-flex justify-content-center">
+                    <input type="button" value="Update" style="width: 80px;height: 24px;border-radius: 3px;background-color: #F6F6FB;border: 0.5px gray solid; font-weight: bold;">
+            </div>
+            <div class="d-flex justify-content-end mt-4">
+                <div class="mx-1 px-4 py-1" style="background-color: #EBF0F4;text-decoration: underline;">Archive</div>
+                <div class="mx-1 px-4 py-1" style="background-color: #EBF0F4;text-decoration: underline;">Replies</div>
+                <div class="ml-1 px-4 py-1" style="background-color: #FFFFFF;text-decoration: underline;">Recent</div>
+            </div>
+            <div class="bg-white" style="height: 600px;">
+                <div style="height: 8px;"></div>
+                <span style="font-weight: bold;font-size: 18px;" class="p-3">What we are doing?</span>
+
+                <div class="posts p-2">
+                    <div class="examplePost d-flex justify-content start" >
+                        <img src="{% static 'first_twitter/egg.png' %}" style="width: 50px;">
+                        <span style="font-size: 14px;" class="ml-3">
+                        <a class="publisher" style="text-decoration: underline;">jack</a>
+                        <span class="tweetText">just setting up my twittr</span>
+                        <span class="publishDate" style="text-decoration: underline;">1 minute ago</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-3">
+                <div class="p-1 border" style="background-color: #E2FD94;">
+                    <div class="p-4">
+                        <span style="font-size: 14px;">Welcome,</span>
+                        <div><a href="#" style="text-decoration: underline;font-size: 20px;">jack</a></span>
+                        <div style="height: 20px;"></div>
+                        <div style="height: 20px;"></div>
+                        <div><a href="#" style="text-decoration: underline;">Following:</a> 28</div>
+                        <div><a href="#" style="text-decoration: underline;">Followers:</a> 16</div>
+                        <div><a href="#" style="text-decoration: underline;">Favorites:</a> 0</div>
+                        <div><a href="#" style="text-decoration: underline;">Direct Messages:</a> 6</div>
+                        <div><a href="#" style="text-decoration: underline;">Updates:</a> 88</div>
+                        <div style="height: 10px;"></div>
+                        <div>
+                            Send Notifications To:
+                        </div>
+                        <div>
+                            <form>
+                                <input type="radio" name="editList" value="always"> im
+                                <input type="radio" name="editList" value="never"> web-only
+                            </form>
+                        </div>
+                        <div style="height: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+        var text_max = 140;
+        $('#textarea_feedback').html(text_max);
+
+        $('#textarea').keyup(function() {
+        var text_length = $('#textarea').val().length;
+        var text_remaining = text_max - text_length;
+
+        $('#textarea_feedback').html(text_remaining);
+});
+});
+    </script>
+</body>
+</html>

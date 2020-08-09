@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=3.0">
+    <link rel="stylesheet" href="{% static 'nineties_blog/css/nineties.css'%}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>The Greatest 90's blog!!1!</title>
+</head>
+
+<div id="body" style="background-color: #FFFFFF">
+
+<style>
+    .container{
+    max-width: 1000px;
+}
+    .bio {
+  text-align: center;
+  max-width: 70%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.bio p {
+  background-color: rgba(22, 87, 189, 0.6);
+  display:inline-block;
+  margin-bottom: 0;
+    margin-top: 20px;
+  transform: translateX(100%);
+  white-space: nowrap;
+}
+.text-moving {
+  animation: moveText linear 14s -3s forwards infinite;
+}
+
+    @keyframes moveText {
+	from { transform: translateX(100%); }
+	to { transform: translateX(-150%); }
+}
+</style>
+    <div class="container">
+        <img style="width: 1000px" src="{% static 'nineties_blog/title.png' %}">
+
+        <div class="bio">
+            <p class="text-moving"><em>WELCOME TO MY REALLY COOL PAGE!</em></p>
+        </div>
+
+        <div class="mt-3" style="background-color:rgba(22, 87, 189, 0.6) ">
+            <p>
+            Hello! My name is Bob, and this is my very cool blog!
+            </p>
+
+            <p>
+            Here you can check all things ME! I have my music, and the things that I like...this is totally my cyber-home!
+            </p>
+
+            <div class="crazy_gifs d-flex justify-content-around">
+                <img style="width: 150px" src="{% static 'nineties_blog/underconstruction.gif' %}">
+                <img style="width: 150px" src="{% static 'nineties_blog/underconstruction.gif' %}">
+                <img style="width: 150px" src="{% static 'nineties_blog/underconstruction.gif' %}">
+            </div>
+            <br> 
+            <p>
+            This page is still <b>under construction</b> because I keep spending my time learning Python. It is a cool language that is just getting started... I wonder if it could ever help me make a *very cool* webpage?!
+
+            <div class="crazy_gifs d-flex justify-content-around">
+                <img style="width: 100px" src="{% static 'nineties_blog/computer.gif' %}">
+                <img style="width: 100px" src="{% static 'nineties_blog/computer.gif' %}">
+                <img style="width: 100px" src="{% static 'nineties_blog/computer.gif' %}">
+            </div>
+
+            <b>My hobbies are:</b><br>
+                <img style="width: 14px" src="{% static 'nineties_blog/spinningbullet.gif' %}"> watching MTV (N-Sync are <i>totally the best FOR REAL</i>)<br>
+                <img style="width: 14px" src="{% static 'nineties_blog/spinningbullet.gif' %}"> taking care of my Tamagochi,<br>
+                 <img style="width: 14px" src="{% static 'nineties_blog/spinningbullet.gif' %}">    going to the mall with my friends!<br>
+                  <img style="width: 14px" src="{% static 'nineties_blog/spinningbullet.gif' %}">   and brushing my latin up! What? <i>You don't believe me? </i><br>
+
+            <p style="font-size: 14px; font-family: Comic Sans MS">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            
+            <p>See?? I totally know latin!</p>
+        </div>
+
+
+    </div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</div>
+</html>

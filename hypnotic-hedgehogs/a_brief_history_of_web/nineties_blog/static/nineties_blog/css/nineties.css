@@ -1,0 +1,45 @@
+#body {
+    background-image: url('../nineties_background.jpg');
+    background-repeat: repeat;
+    height: 40rem;
+}
+
+
+#body > .main{
+    display: grid; 
+    grid-template:
+            "a a" 40px
+            "b c" 40px
+            "b c" 40px / 1fr 4fr;
+}
+
+.main > img {
+    max-width: 500px;
+    grid-area: a;
+    margin: 0 auto;
+}
+
+.main > .content {
+    margin: 20px 10px auto;
+    grid-area: c;
+    background-color: rgba(22, 87, 189, 0.8);
+    width: max-content;
+    max-width: 70%;
+}
+
+.main > .sidebar {
+    margin-top: 20px;
+}
+
+.sidebar > div {
+    background-color: rgba(22, 87, 189, 0.7);
+    width: max-content;
+}
+
+.main > .crazy_gifs {
+    grid-area: e;
+}
+
+h1 {
+    text-size: 20px;
+}

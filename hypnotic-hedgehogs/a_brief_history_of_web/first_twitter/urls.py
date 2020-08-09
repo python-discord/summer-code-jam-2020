@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import HomePageView
 
 app_name = 'first_twitter'
+
 urlpatterns = [
-    path('', views.index, name='index')
+    path('', HomePageView.as_view(), name='index')
 ]
