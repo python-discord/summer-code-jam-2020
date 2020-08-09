@@ -183,6 +183,20 @@ body {
     border-radius: 0.5em;
 }
 
+/* 404 */
+.four-oh-four {
+    height: 100vh;
+}
+
+.four-oh-four h1 {
+    font-size: 6em;
+    text-align: center;
+}
+
+.four-oh-four h2 {
+    text-align: center;
+}
+
 /*
  * Footer
  */
