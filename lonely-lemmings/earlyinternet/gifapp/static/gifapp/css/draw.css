@@ -1,0 +1,58 @@
+.wrapper {
+	max-width: 1000px;
+	margin: auto;
+	font-family: Arial;
+}
+
+.toolbar {
+	width: 46%;
+	float: left;
+	background-color: #444;
+	overflow: auto;
+}
+
+.toolbar a{
+    float: left;
+    text-align: center;
+    padding: 6px 5px;
+    transition: all 0.5s
+}
+
+.toolbar a:hover{
+    background-color: #000;
+}
+
+.selected{
+    background-color: #000;
+}
+
+#my-canvas{
+    width: 100%;
+    height: 100%;
+    border: 3px solid #000;
+    background: #fff;
+}
+
+.toolbar a img{
+    max-width: 100%;
+    height: 40px;
+}
+
+.color {
+    float: left;
+    padding: 0 5px;
+}
+
+#color-button{
+    background-color: #000;
+    height: 40px;
+    width: 40px;
+}
+
+.customizer {
+    float: right;
+}
+
+.slider {
+    width: 80px;
+}

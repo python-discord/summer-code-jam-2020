@@ -1,0 +1,12 @@
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          failIf: new
+          args: "--isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox --max-line-length=119 ."
