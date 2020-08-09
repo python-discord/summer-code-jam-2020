@@ -1,0 +1,29 @@
+{% extends 'earls/base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h2>Early list</h2>
+  <p>
+    {% if earl_list %}
+    This is a list of currently indexed Earls. 
+    There{% if earl_list.count != 1%} are {{earl_list.count}} Earls{% else %}is 1 Earl{% endif %} in the database.
+    {% else %}
+    There are no Earls in the database yet.
+    {% endif %}
+    {% if earl_list %}
+  </p>
+  <div class="grid">
+    <div style="width:100%">
+        {% for earl in earl_list %}
+            <img width="120"
+                height="120"
+                src="{{ earl.image.url }}"
+                title="{{ earl.title}} {{ earl.first_name}} {{ earl.last_name}}"/>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

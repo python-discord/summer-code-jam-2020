@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'earls.apps.EarlsConfig',
     'chat.apps.ChatConfig',
     'account.apps.AccountConfig',
     'crispy_forms',
