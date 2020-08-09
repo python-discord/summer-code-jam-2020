@@ -29,8 +29,11 @@ class Post(models.Model):
         to give them a more retro and early internet feel.
         """
         super().save()
-
-        img = Image.open(self.post_image.path)
+        try:
+            img = Image.open(self.post_image.path)
+        except Exception as E:
+            print("No image was attached with the post\n", repr(E))
+            return None
         img = img.resize((240, 240), resample=Image.BILINEAR)
 
         output_size = (240, 240)

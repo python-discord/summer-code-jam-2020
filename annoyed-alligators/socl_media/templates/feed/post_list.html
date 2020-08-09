@@ -1,9 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<p class="info">Enter command `n` to go to next page and `p` for previous page.</p>
+<hr class="socl">
 {% for post in post_list %}
-<p>{{post.post_content}}</p>
-<h3>{{post.posted_by}}</h3>
-<h5>{{post.post_date_posted}}</h5>
+  <p class="content">{{post.post_content}}</p>
+  <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic">
+  <span class="author">
+    <a href="/profile/{{post.posted_by}}">
+      {{post.posted_by}}
+    </a>&nbsp;
+  </span>
+  <div class="hide">{{post.posted_by.bio}}</div>
+  <span class="post-time">{{post.post_date_posted}}</span>
+  <hr class="socl">
 {% endfor %}
+
+<style>
+.author {
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+.author:hover + div {
+  display: block;
+  color: blue;
+}
+.content {
+    font-size: 1rem
+}
+.post-time {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #555;
+}
+.hide {
+  display: none;
+}
+img {
+  border-radius: 50%;
+  width: 20px;
+}
+.socl {
+  border-top: 1px solid #555;
+  margin-right: 20px;
+}
+.info {
+  background-color: blue;
+  color: white;
+  position: static;
+  text-align: center;
+}
+</style>
+
 {% endblock content %}

@@ -1,6 +1,14 @@
 <div id="app">
-  <div id="terminal">
-    <div id="terminal-window" class="dummy">
+  <div id="terminal" :style="{height: terminal_hidden? '7vh': '25vh'}">
+    <span class="title-bar">
+      <div class="title-bar-text">Interactive terminal</div>
+      <div class="title-bar-controls">
+        <button :aria-label="title_icon" @click="toggle_terminal"></button>
+        <button aria-label="Help" @click="call_help"></button>
+      </div>
+    </span>
+
+    <div id="terminal-window" class="dummy" :style="{height: terminal_hidden? '0vh': '18vh'}">
       <span id="terminal-output" v-html="response">
       </span>
     </div>
@@ -31,14 +39,17 @@
       previous_commands: [],
       current_command_num: 0,
       {% if messages %}                                                     
-      {% for message in messages %}                                         
-      response: '{{ message }}',                                                      
-      {% endfor %}
-      {% else %}
-      response: '',
+        {% for message in messages %}                                         
+          response: '{{ message }}',                                                      
+        {% endfor %}
+        {% else %}
+          response: '',
       {% endif %}
       prompt: '{{ request.path }}:$',
       followup_count: 0,
+      terminal_hidden: false,
+      title_icon: 'Minimize',
+      help_window: 'none',
     },
 
     mounted: function() {
@@ -48,6 +59,10 @@
     },
 
     methods: {
+      call_help: function(){
+        this.command = 'help',
+        this.run_command()
+      },
 
       redirect: function(url) {
         window.location = url;
@@ -104,6 +119,7 @@
         if(this.prompt != '...') this.previous_commands.unshift(this.command)
         this.command = ''
         this.current_command_num = 0
+        if(this.terminal_hidden) this.toggle_terminal()
       },
 
       reset_prompt: function(){
@@ -111,7 +127,12 @@
 
         this.followup_count = 0
         this.command = ''
-      }
+      },
+      
+      toggle_terminal: function(){
+        this.terminal_hidden = !this.terminal_hidden
+        this.title_icon = this.terminal_hidden? 'Restore':'Minimize'
+      },
     },
     updated: function() { 
       var el = document.getElementById("terminal-output"); el.scrollTop = el.scrollHeight; 
@@ -122,30 +143,28 @@
 
 
 <style scoped>
-#terminal {
-  background-color: #000;
-  width: 100%;
-  height: 20vh;
-  color: #4ef037;
-  font: 1rem Inconsolate, monospace;
-  padding-left: 6px;
-  padding-bottom: 10px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-}
+  #terminal {
+    background-color: #000;
+    width: 100vw;
+    color: #4ef037;
+    font: 1rem Inconsolate, monospace;
+    padding-left: 0px;
+		padding-bottom: 0px;
+    position: fixed;
+		bottom: 0;
+		left: 0;
+  }
   #terminal-window {
-    height: 16vh; 
     width: 100%;
     overflow: hidden;
     display: flex; 
     align-items: flex-end;
+    padding-left: 6px;
   }
   #terminal-output{
+    max-height: 18vh;
     overflow-y: auto;
-    max-height: 16vh;
-    padding: 10px 0;
-    padding-right: 17px; 
+    padding: 10px 17px 0px 6px;
     box-sizing: content-box;
     scrollbar-width: none;
   }
@@ -153,16 +172,25 @@
     display: none;
   }
   .terminal-input-text{
-    background-color: #000;
-    color: #1fffff;
-    font: 1rem Inconsolate, monospace;
-    border: 0px;
-    width: 70%;
+    background-color: #000000 !important;
+    color: #1fffff;    
+    font-family: "Lucida Console", Courier, monospace !important;
+    font-size: 1rem;
+    border: 0px !important;
+    width: 80vw;
+    height: 30px;
+    line-height: 3;
+    box-shadow: none !important;
   }
   input:focus, textarea:focus, select:focus{
     outline: none;
   }
   #prompt {
     color: #fde2e2;
+    padding-left: 8px;
+  }
+  .title-bar {
+    width: 100vw;
+    padding-right: 16px
   }
 </style>
