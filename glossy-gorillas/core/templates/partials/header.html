@@ -14,17 +14,11 @@
             <a class="navbar-item" href="#">
                 {% if request.user.is_authenticated %}
                 <h2>Hello {{request.user.first_name }}</h2>
-                <form method="POST" action={% url "logout" %}>
-                    {% csrf_token %}
-                    <button type="submit">Sign Out</button>
-                </form>
+                <a href="{% url "logout" %}">Sign Out</a>
                 {% else %}
-                <form method="POST" action={% url "login" %}>
-                    {% csrf_token %}
-                    <input type="text" name="username" placeholder="Username" />
-                    <input type="password" name="password" placeholder="Password" />
-                    <button type="submit">Sign In</button>
-                </form>
+                <p>
+                    <a href="{% url "login" %}">Sign In</a> or <a href="{% url "register" %}">Register</a>
+                </p>
                 {% endif %}
             </a>
         </div>
