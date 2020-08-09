@@ -1,5 +1,4 @@
 from django.db import models
-
 # Item Models
 
 # The items can be seperated between magic or physical
@@ -14,8 +13,8 @@ class Item_Category(models.Model):
     class Meta:
         verbose_name_plural = "Item Categories"
 
-    def __str__(self):
-        return f"<{self.type}: {self.item_title}>"
+    # def __str__(self):
+    #     return f"<{self.type}: {self.item_title}>"
 
 
 class Small_Item(models.Model):
