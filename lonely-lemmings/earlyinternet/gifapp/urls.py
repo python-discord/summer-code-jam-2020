@@ -5,6 +5,7 @@ from . import editorviews
 from . import userviews
 
 urlpatterns = [
+    # editor paths
     path("project", editorviews.render_all_projects, name="projects"),
     path("project/create", editorviews.parse_new_project_request, name="new"),
     path("project/<str:project_name>", editorviews.paint, name="paint"),
@@ -16,10 +17,8 @@ urlpatterns = [
     path("project/<str:project_name>/detail", userviews.detail, name="project-detail"),
 
     path("", userviews.home, name="home"),
-    path("about/", userviews.about, name="about"),
 
     # user authentication paths
-    path("profile/", userviews.profile, name="profile"),
     path("login/", auth_views.LoginView.as_view(template_name='login.html'), name="login"),
     path("logout/", auth_views.LogoutView.as_view(template_name='logout.html'), name="logout"),
     path("register/", userviews.register, name="register"),
