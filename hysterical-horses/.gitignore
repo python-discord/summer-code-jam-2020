@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 *.sqlite3
 *.bat
+*.env
+*.DS_Store

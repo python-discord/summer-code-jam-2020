@@ -1,0 +1,14 @@
+.chat-container{
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+.chat-container textarea{
+    width: 95%;
+    color: black;
+}
+.chat-container input{
+    width: 20%;
+}
+
