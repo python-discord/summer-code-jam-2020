@@ -1,3 +1,5 @@
+![Logo][banner.png]
+
 # Oscillating Oysters - TwentyTwentyMUD
 
 You have gone back in time to the beginnings of the internet, can you find
