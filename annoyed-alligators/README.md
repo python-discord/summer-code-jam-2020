@@ -39,7 +39,7 @@ Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the 
 7. Run fixtures to populate the site by some dummy data (This is an optional step, just to have some initial data):
 - `python3 manage.py loaddata Users.json`
 - `python3 manage.py loaddata Post.json`
-- `python manage.py loaddata Message.json`
+- `python3 manage.py loaddata Message.json`
 8. Run the Dev Server by `python3 manage.py runserver`.
 
 ## :zap: Usage
