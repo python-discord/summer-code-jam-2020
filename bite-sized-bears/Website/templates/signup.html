@@ -8,23 +8,23 @@
             <form method="post" action="signup">
                 {% csrf_token %}
             <label>Username: </label>
-            <input type="text", name="username" required>
+            <input type="text", name="username" required class="override">
             <br>
             <label>Password: </label>
-            <input type="password", name="password1" required>
+            <input type="password", name="password1" required class="override">
             <br>
             <label>Confirm Password</label>
-            <input type="password", name="password2" required>
+            <input type="password", name="password2" required class="override">
             <br><br>
             {% if next %}
                 <input type="hidden" name="next" value="{{ next }}">
             {% endif %}
-            <input type="submit", value="signup">
-            <input type="reset", value="reset">
+            <input type="submit", value="signup" class="override">
+            <input type="reset", value="reset" class="override">
                 {% if next %}
                     <form method="post" action="login">
                         <input type="hidden" name="next" value="{{ next }}">
-                        <span>Already have an account? <input type="submit", value="Login!"></span>
+                        <span>Already have an account? <input type="submit", value="Login!" class="override"></span>
                     </form>
                  {% else %}
                     <span>Already have an account? <a href="{% url 'login' %}">Login!</a></span>
@@ -35,7 +35,7 @@
             {% if created %}
                 {% if next %}
                         <input type="hidden" name="next" value="{{ next }}" form="login">
-                        <span>Click here to <input type="submit", value="Login!" form="login"></span>
+                        <span>Click here to <input type="submit", value="Login!" form="login" class="override"></span>
                  {% else %}
                     Click here to <a href="{% url 'login' %}">Login</a>
                 {% endif %}

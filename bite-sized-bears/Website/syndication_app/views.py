@@ -4,7 +4,6 @@ from django.views import View
 from .models import Post, Comments, User, Community
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
-from django.contrib import messages
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 
@@ -183,7 +182,6 @@ class UserProfileUpdate(UpdateView):
         )
 
 
-
 def logout_request(request):
     auth.logout(request)
     return redirect('/')
@@ -209,3 +207,16 @@ def subscription_request(request, community_name):
         community.subscribers.add(user)
 
     return redirect(request.META['HTTP_REFERER'])
+
+
+class HomeListView(ListView):
+
+    template_name = 'index.html'
+    paginate_by = 25
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(publisher__in=Community.objects
+                                       .prefetch_related('subscribers')
+                                       .filter(subscribers__name__exact=self.request.user.get_username())
+                                       ).annotate(post_views=Count('views')).order_by('-post_views')
+        return queryset

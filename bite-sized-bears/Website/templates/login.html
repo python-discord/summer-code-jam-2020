@@ -8,19 +8,19 @@
             <form method="post" action="login">
                 {% csrf_token %}
             <label>Username: </label>
-            <input type="text", name="username" required>
-            <br>
+            <input type="text", name="username" required class="override">
+            <br><br>
             <label>Password: </label>
             {% if next %}
                 <input type="hidden" name="next" value="{{ next }}">
             {% endif %}
-            <input type="password", name="password" required>
+            <input type="password", name="password" required class="override">
             <br><br>
-            <input type="submit", value="login">
-            <input type="reset", value="reset">
+            <input type="submit", value="login" class="override">
+            <input type="reset", value="reset" class="override">
             {% if next %}
                 <input type="hidden" name="next" value="{{ next }}" form="signup">
-                <span>Dont have an account? <input type="submit" value="Sign up!" form="signup"></span>
+                <span>Dont have an account? <input type="submit" value="Sign up!" form="signup" class="override"></span>
              {% else %}
                 <span>Dont have an account? <a href="{% url 'signup' %}">Sign up!</a></span>
             {% endif %}
@@ -30,7 +30,7 @@
                 {% if not created %}
                     {% if next %}
                             <input type="hidden" name="next" value="{{ next }}" form="signup">
-                            <span>Click here to <input type="submit", value="Sign up!" form="signup"></span>
+                            <span>Click here to <input type="submit", value="Sign up!" form="signup" class="override"></span>
                      {% else %}
                         Click here to <a href="{% url 'signup' %}">Sign up</a>
                     {% endif %}

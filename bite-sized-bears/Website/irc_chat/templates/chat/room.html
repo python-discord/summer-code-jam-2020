@@ -1,15 +1,46 @@
-{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
 
-{% block content %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RSS it</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'css/script.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+  </head>
+
+  <header>
+    <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
+    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
+    <div class="headerlinks">
+      <a href="#">home</a>
+      <a href="{% url 'top-communities' %}">communities</a>
+      <a href="#">location</a>
+      <a href="/most-viewed-posts/">most-viewed</a>
+      <a href="/user/{{user.get_username}}/my-communities">my-communities</a>
+      <a href="/user/{{user.get_username}}/posts">my-posts</a>
+      <a href="/user/{{user.id}}">my-profile{{user.username}}, {{user.id}}</a>
+    </div>
+  </header>
+
+  <body>
+    <div class="container">
+
+    <div class="col-lg-9">
     <div class="community-bar">
             <a href="#"><h1><b>c/{{community.name}}</b></h1></a>
             <p> - {{community.description}}</p>
             <p>created by /u <a href="/user/{{community.owner}}/posts">{{community.owner}}</a>, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
             <p>location - {{community.location}}</p>
     </div>
-    <textarea id="chat-log" cols="100" rows="20" disabled></textarea><br>
-    <input id="chat-message-input" type="text" size="100" required><br>
-    <input id="chat-message-submit" type="button" value="Send">
+    <textarea id="chat-log" cols="100" rows="20" class="override textarea" disabled></textarea><br>
+    <input id="chat-message-input" type="text" class="override" size="93">
+    <input id="chat-message-submit" type="button" class="override" value="Send">
     {{ room_name|json_script:"room-name" }}
     <script>
         var ws;
@@ -80,4 +111,8 @@
             messageInputDom.value = '';
         };
     </script>
-{% endblock %}
+    </div>
+      </div>
+    </div>
+  </body>
+</html>

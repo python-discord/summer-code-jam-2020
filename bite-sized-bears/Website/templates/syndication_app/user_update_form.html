@@ -5,14 +5,14 @@
         <h1>Username: {{user.get_username}}</h1>
         <h1>Userid: {{user_data.id}}</h1>
         {% if user_data.avatar.url is not null %}
-            <img src = "{{user_data.avatar.url}}" width="70px" height="70px">
+            <img src = "{{user_data.avatar.url}}" width="70px" height="70px" alt="profile-pic">
          {% endif %}
         <h2>Joining Date: {{user_data.join_date}}</h2>
 
-            <form method="post" enctype=multipart/form-data>
+            <form method="post" enctype=multipart/form-data class="override">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <input type="submit" value="Update">
+                <input type="submit" value="Update" class="override">
             </form>
         </div>
     </div>
