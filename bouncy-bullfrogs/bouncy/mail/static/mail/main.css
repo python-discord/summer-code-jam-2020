@@ -10,12 +10,28 @@ textarea {
     width: 100%;
     background: transparent;
 }
-.search-bar{
 
+.input-bar {
+    position: relative;
+    top: 20px;
+    left: 550px;
     max-width: 500px;
-    width: 100%;
+    display: table;
 }
-form{
+
+.input-bar-item {
+    display: table-cell;
+}
+
+.input-bar-item > input {
+    margin-left: 5px;
+}
+
+.width100 {
+  width: 100%;
+}
+
+form {
     width:100%;
 }
 .media:hover {

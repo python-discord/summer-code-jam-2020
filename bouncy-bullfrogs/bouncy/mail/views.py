@@ -17,23 +17,26 @@ def home(request):
         query = ""
         if request.GET:
             query = request.GET['q']
-            context['query'] = str(query)
-        return render(request, "mail/inbox.html",context)
+            context['query'] = get_mail_queryset(request, query)
+            print(context['query'])
+        return render(request, "mail/inbox.html", context)
     else:
         return HttpResponseRedirect(reverse("login"))
 
-def get_mail_queryset(query=None):
-    queryset = []
-    queries = query.split(" ")
-    for q in queries:
-        posts = Email.objects.filter(
-                     (Q(title__icontains= q) | Q(body__icontains= q)) and
-                     (Q(from_icontains=q))
-        ).distinct()
+def get_mail_queryset(request, query=None):
+    if query != None:
+        queryset = []
+        queries = query.split(" ")
+        for q in queries:
+            posts = Email.objects.filter(
+                        (Q(title__icontains = q) | Q(body__icontains = q)) and
+                        (Q(sender__icontains = request.user.email))
+            ).distinct()
 
-        for post in posts:
-            queryset.append(post)
-    return List(set(queryset))
+            for post in posts:
+                queryset.append(post)
+        return List(set(queryset))
+
 @csrf_exempt
 @login_required
 def compose(request):

@@ -16,16 +16,19 @@
 <body>
 
     {% if user.is_authenticated %}
-    <div class="search-bar mt-sm-2 mr-2">
-        <form method="GET" >
-
-            <input type="text" class='form-control' name='q' id='id_q' placeholder="Search...">
-
-        </form>
-
-
-
+    <div class="input-bar width100">
+        <div class="input-bar-item width100">
+            <form action='/inbox' method="GET" >
+                <div class="input-group">
+                    <input type="text" class='form-control width100' name='q' placeholder="Search...">
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-primary mt-3" value="Search" style="position:relative; top:-16px;">
+                    </span>
+                </div>
+            </form>
+        </div>
     </div>
+
     <p style="font-family:VT323;font-size: 30px;position: absolute;right: 5px;color:black;"><img src="../../static/mail/DefaultAvatar.png" alt="AvatarIcon">{{ request.user.email }}</p>
     <h1><img class="logo" src="/static/mail/MailLogo.png" alt="logo" style="font-family:VT323;font-size: 30px;"></h1>
     <div class="topnav">
