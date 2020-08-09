@@ -152,9 +152,13 @@ button.archive {
 .sidenav {
     height: 100%;
     width: 185px;
+    position: fixed;
+    z-index: 0;
     bottom: 0px;
     left: 0px;
     background-color: rgb(219, 234, 245);
+    overflow-x: hidden;
+    padding-top: 200px;
 }
 
 .sidenav a {
