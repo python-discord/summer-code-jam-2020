@@ -8,10 +8,13 @@
             <img src = "{{user.avatar.url}}" width="70px" height="70px" alt="profile-pic">
          {% endif %}
         <h4>Joining Date: {{user_data.join_date}}</h4>
+        <h2>Joining Date: {{user_data.join_date}}</h2>
+            <form method="post" id="rss" action="/rss/feed/community/{{user.name}}">{% csrf_token %}</form>
 
             <form method="post" enctype=multipart/form-data class="override">
                 {% csrf_token %}
                 {{ form.as_p }}
+                <input type="submit" value="Get rss!" class="override" form="rss" style="float:right;">
                 <span style="color:red">{{message}}</span>
                 <input type="submit" value="Update" class="override">
             </form>
