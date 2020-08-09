@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for user in users %}
+    <div class="card mb-3 mt-3" style="width: 70rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.first_name }}</h5>
+        <a href="{% url 'chat-room' user.pk %}" class="card-link">Chat</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}

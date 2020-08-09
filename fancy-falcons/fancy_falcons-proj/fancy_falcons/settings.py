@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'chat.apps.ChatConfig',
     'account.apps.AccountConfig',
     'crispy_forms',
     'django.contrib.admin',
