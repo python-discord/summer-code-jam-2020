@@ -44,11 +44,16 @@
         <table class="imagepost-table"><tbody><tr>
             {% for post in posts %}
                 {% if forloop.counter == 5 or forloop.counter == 9 or forloop.counter == 13 %}
-                    </tr><tr>
+                    </tr><tr><td colspan=4>&nbsp;</td></tr><tr>
                 {% endif %}
                 <td>
                     <a href="{% url 'posts-detail' post.pk %}?{{ username_get }}">
-                        <img src="{{ post.image.url }}" class="imagepost-thumbnail">
+                        <img src="{{ post.image.url }}" class="imagepost-thumbnail" title="{{ post.description }}">
+                    </a>
+                    <br>
+                    Posted by
+                    <a href="{% url 'rovers:rover-profile' post.rover.username %}">
+                        {{ post.rover.username }}
                     </a>
                 </td>
             {% endfor %}
