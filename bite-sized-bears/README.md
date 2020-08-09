@@ -12,33 +12,53 @@ Some features include:
 - Creation of new posts, communities.
 - Update your User Profile
 - Add Comments to the Posts
-- View Top Posts (based on max views), Top Communities (based on max subscribers)
+- View Top Posts (based on number of  views), Top Communities (based on number of subscribers)
 - Obtain a rss feed of the posts from your subscribed communities.
 ___
 
 ### Table of Contents:
 - Installation Setup
-- Tutorial
-- Settings (Defaults)
-- Background
-- Sources
+- References
+- License
 
 ___
 ## Installation Setup
-Docker-compose need to be installed on the system. Helpful link: [Docker Installation Setup](https://docs.docker.com/compose/install/ "Docker Compose Installation")
-You need to be in the bite-sized-bears directory and run the following command
 
+### Pipenv Installation
+Activate environment
 ```
-cd bite-sized-bears 
-sudo docker-compose up
+pipenv shell
 ```
-___
+Install packages (developers should install the dev package)
+```
+pipenv install 
+```
 
-### Tutorial
+Install dev package (if you are a developer)
+```buildoutcfg
+pipenv install --dev
+```
 
 
+Check if all packages are installed 
+```buildoutcfg
+pip list
+```
+
+Run development server (windows)
+```buildoutcfg
+pipenv run server
+```
+Run development server (Linux)
+```buildoutcfg
+pipenv run server-l
+```
 
 
+Check lint errors 
+```buildoutcfg
+pipenv run lint
+```
 
 ___
 ### References
