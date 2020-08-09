@@ -1,80 +1,86 @@
 /* Core CSS */
 
 @font-face {
-    font-family: 'Tangerine';
-    src: local('Tangerine'),
-         url('../static/Tangerine-Regular.ttf') format("truetype");
+  font-family: "Tangerine";
+  src: local("Tangerine"),
+    url("../static/Tangerine-Regular.ttf") format("truetype");
 }
 
-h1, h2, h3, h4, h5, h6, p {
-    font-family: Tangerine;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: Tangerine;
 }
 
-.sticky{
-    position: sticky;
-    top: 0;
-    opacity: 0.8;
-    background-color: #3d6647;
+.sticky {
+  position: sticky;
+  top: 0;
+  opacity: 0.8;
+  background-color: #3d6647;
 }
 
 .body-content {
-    background-color: #7acc8f;
-    font-size: large;
-    padding: 10px;
-    width: 100%;
-    border-radius: 10px;
+  background-color: #7acc8f;
+  font-size: large;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
 }
-.search{
-    padding: 2px;
-    margin-top: 6px;
-    width: 250px;
-}
-
-.head{
-    font-size: larger;
-    font-weight: 600;
+.search {
+  padding: 2px;
+  margin-top: 6px;
+  width: 250px;
 }
 
-.m{
-    padding: 15px;
+.head {
+  font-size: larger;
+  font-weight: 600;
 }
 
-.rows{
-    margin: 5px;
-}
-.item{
-    font-size: larger;
-    font-weight: 400;
+.m {
+  padding: 15px;
 }
 
-.title{
-    font-size: x-large;
-    margin-top: 20px;
-    margin-left: 20px;
+.rows {
+  margin: 5px;
+}
+.item {
+  font-size: larger;
+  font-weight: 400;
 }
 
-.navbar-item{
-    color: #FEFAE0;
+.title {
+  font-size: x-large;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
-.name{
-    font-size: large;
-    margin-right: 10px;
-    font-weight: 800;
+.navbar-item {
+  color: #fefae0;
 }
 
-a{
-    text-emphasis: none;
-    text-decoration: none;
-    outline: none;
+.name {
+  font-size: large;
+  margin-right: 10px;
+  font-weight: 800;
 }
 
-a:hover{
-    text-emphasis: none;
-    text-decoration: none;
-    outline: none;
+a {
+  text-emphasis: none;
+  text-decoration: none;
+  outline: none;
 }
 
-.navbar-end:hover{
-    background-color: #3d6647;
+a:hover {
+  text-emphasis: none;
+  text-decoration: none;
+  outline: none;
+}
+
+.navbar-end:hover {
+  background-color: #3d6647;
 }
