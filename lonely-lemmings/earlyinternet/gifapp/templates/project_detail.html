@@ -7,6 +7,7 @@
                 <!-- object is the class instance that is passed in by default -->
                 <a class="mr-2">{{ project.name }}</a>
                 <small class="text-muted">{{ project.user_id.username }}</small>
+                <br/>
                 <img src="{{ project.upload_version.url }}">
                 <form action="{% url 'submit-comment' project.user_id.username project.name %}"
                       method="post" class="container">
