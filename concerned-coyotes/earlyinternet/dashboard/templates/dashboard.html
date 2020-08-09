@@ -22,15 +22,22 @@
 
       <!--Weather-->
       <section class="grid-item weather">
-        <span class="section-header">Weather</span>
-        <span class="degree-label">{{weather.degree_celsius}}°C / {{weather.degree_fahrenheit}}°F</span>
-        <span class="location-label">in Germany (<a class="read-more-btn update-location-btn" role="button" href="{% url 'update_location' %}" onclick="return updateLocationBtnClicked()">Update location</a>)</span>
-        <dl class="astral-information">
-          <dt>Sunrise (UTC)</dt>
-          <dd>{{weather.astral_information.sunrise}}</dd>
-          <dt>Sunset (UTC)</dt>
-          <dd>{{weather.astral_information.sunset}}</dd>
-        </dl>
+        {% if weather is None %}
+          <span>Unable to display weather. Please click
+            <a class="read-more-btn update-location-btn" role="button" href="{% url 'update_location' %}" onclick="return updateLocationBtnClicked()">here</a>)</span>
+            to update your location.
+          </span>
+        {% else %}
+          <span class="section-header">Weather</span>
+          <span class="degree-label">{{weather.degree_celsius}}°C / {{weather.degree_fahrenheit}}°F</span>
+          <span class="location-label">in {{weather.city}} (<a class="read-more-btn update-location-btn" role="button" href="{% url 'update_location' %}" onclick="return updateLocationBtnClicked()">Update location</a>)</span>
+          <dl class="astral-information">
+            <dt>Sunrise</dt>
+            <dd>{{weather.astral_information.sunrise}}</dd>
+            <dt>Sunset</dt>
+            <dd>{{weather.astral_information.sunset}}</dd>
+          </dl>
+        {% endif %}
       </section>
 
       <!--Wikipedia Article-->
