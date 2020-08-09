@@ -311,8 +311,6 @@ def command_move(game_data, direction):
         cur_dust[0] += game_data['wind'][0]
         cur_dust[1] += game_data['wind'][1]
         game_data['obstacles'].update({"dust_storm": cur_dust})
-        print('=====================')
-        print(game_data['obstacles']['dust_storm'])
         # depleat battery
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
