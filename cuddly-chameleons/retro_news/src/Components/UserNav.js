@@ -9,11 +9,12 @@ class UserNav extends React.Component {
         if (this.props.status) {
             const logOutAction = async (event) => {
                 event.preventDefault();
-                await axios.post('/user/logout/', {refresh_token: localStorage.getItem('refresh_token')});
+                const refresh_token = localStorage.getItem('refresh_token');
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 localStorage.removeItem('username');
                 this.props.handler(false);
+                await axios.post('/user/logout/', {refresh_token: refresh_token});
             };
 
             return (
