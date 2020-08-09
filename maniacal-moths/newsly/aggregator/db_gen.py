@@ -44,7 +44,7 @@ class Database_Generator:
                             auth = article.get("clean_url").lstrip("https://").lstrip("www.")
                             auth = auth.rstrip(".com").capitalize()
                             auth += " Editor"
-                        
+
                             cont = content_getter(article["link"])
                             cont.download().parse().nlp()
                             cont = cont.text
