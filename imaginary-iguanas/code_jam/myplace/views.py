@@ -73,6 +73,6 @@ def blog(request, username_or_id: Union[int, str]):
     context = {
         'profile': profile,
         'title': profile,
-        'custom_css': profile.profile_css,
+        'custom_css': profile.custom_css,
     }
     return render(request, 'myplace/blog.html', context)
