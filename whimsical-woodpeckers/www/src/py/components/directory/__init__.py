@@ -4,6 +4,11 @@ from datetime import datetime
 from fetch import Fetch
 from websocket import WebSocket
 
+# __pragma__ ('skip')
+console = window = this = parent_this = JSON = 0
+# __pragma__ ('noskip')
+
+
 users = [
     {"name": "John Doe", "last_online": datetime.now().strftime("%B %d, %Y , %H:%M"), "id": 1}
 
@@ -30,15 +35,14 @@ class Directory(Component):
     @staticmethod
     def create_socket():
         # Get info about our authentication
-        callbacks = 2
         this.id = 1234
         this.token = 1234
+        parent_this.callbacks = 2
         parent_this = this
-        callbacks = 2
 
         def callback():
-            callbacks -= 1
-            if callbacks == 0:
+            parent_this.callbacks -= 1
+            if parent_this.callbacks == 0:
                 parent_this.socket = MessageSocket(lambda parent_this: parent_this.handle_message(this),
                                                    parent_this.token, parent_this.id)
 
