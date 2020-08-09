@@ -7,7 +7,7 @@ import platform
 if platform.system() == "Windows":
     # Moves thoughout the directory loading the files as needed to to run the app.
 
-    os.chdir(os.getcwdb())
+    os.chdir("../")
     subprocess.run(["pip", "install", "-r", "requirements.txt"], shell=True)
     os.chdir("./djangoProject")
     subprocess.run(["python", "manage.py", "makemigrations"], shell=True)
@@ -25,7 +25,7 @@ if platform.system() == "Windows":
 
 # Runs for linux and mac
 else:
-    os.chdir(os.getcwdb())
+    os.chdir("../")
     subprocess.run(["pip", "install", "-r", "requirements.txt"])
     os.chdir("./djangoProject")
     subprocess.run(["python", "manage.py", "makemigrations"])
