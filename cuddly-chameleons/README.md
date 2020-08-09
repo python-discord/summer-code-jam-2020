@@ -4,6 +4,9 @@
 - Tushavi
 - dash-ma
 
+## Important!
+This site have to be opened in Safari to work correctly. When using other browsers, you have to log in to see posts because of bug of DRF or DRF Simple JWT. Other browsers append slash to end of URL, but this require authentication at Django side (but it shouldn't).
+
 ## About our project
 Our project is simple blog/news site, that implement basic things, like creating, editing, deleting in frontend.
 
