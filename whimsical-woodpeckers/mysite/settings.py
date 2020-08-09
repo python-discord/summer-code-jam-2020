@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # 'users.apps.UsersConfig',
     # 'chat.apps.ChatConfig',
     'anon.apps.AnonConfig',
+    'messages.apps.MessagesConfig',
     # 'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -145,3 +146,16 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.environ['EMAIL_USER']
 # EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASS']
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
+# You can make a local.py file in mysite to override settings
+try:
+    from mysite.local import *
+except ImportError:
+    pass
+

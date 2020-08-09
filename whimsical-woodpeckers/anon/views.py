@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from anon.models import AnonUser
 import random
 import string
+from django.utils import timezone
 # Create your views here.
 
 def random_string(length):
@@ -29,8 +30,9 @@ def test(request):
 
 def get_auth_token(request):
     auth_token = random_string(30)
-    request.user.auth_token.set(random_string(30))
-    request.user.auth_expiration.set(datetime.datetime.now() + datetime.timedelta(seconds=30))
+    request.user.auth_token = auth_token
+    request.user.auth_expiration = timezone.now() + datetime.timedelta(seconds=30)
+    request.user.save()
     return JsonResponse({"token": auth_token})
 
 
