@@ -31,6 +31,14 @@ function ViewPosts() {
         );
     }
 
+    if (!posts.length) {
+        return (
+            <Container>
+                No posts found
+            </Container>
+        );
+    }
+
     return (
         <div>
             {posts.map((post, i) => {
