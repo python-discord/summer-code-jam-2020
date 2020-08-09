@@ -1,0 +1,51 @@
+{% extends 'main/main-base.html' %}
+
+{% block content%}
+<div>
+    <h2>Morning spirit</h2>
+    <section>
+        <p>Multitab home page</p>
+    </section>
+    <section>
+        <a href="{% url 'edit-multitab' %}">edit multitabs</a><br>
+            <button onclick="openTabs_1()">{{ title_1 }}</button>
+            <script>
+                function openTabs_1() {
+                let tabs_to_open = [];
+                if ('{{site_1_1}}'){
+                    tabs_to_open.push('{{site_1_1}}')
+                }
+                if ('{{site_1_2}}'){
+                    tabs_to_open.push('{{site_1_2}}')
+                }
+                if ('{{site_1_3}}'){
+                    tabs_to_open.push('{{site_1_3}}')
+                }
+                for (let i = 0; i < tabs_to_open.length; i++){
+                    window.open(tabs_to_open[i]);
+                }
+                }
+            </script>
+
+            <button onclick="openTabs_2()">{{ title_2 }}</button>
+            <script>
+                function openTabs_2() {
+
+                let tabs_to_open = [];
+                if ('{{site_2_1}}'){
+                    tabs_to_open.push('{{site_2_1}}')
+                }
+                if ('{{site_2_2}}'){
+                    tabs_to_open.push('{{site_2_2}}')
+                }
+                if ('{{site_2_3}}'){
+                    tabs_to_open.push('{{site_2_3}}')
+                }
+                for (let i = 0; i < tabs_to_open.length; i++){
+                    window.open(tabs_to_open[i]);
+                }
+                }
+            </script>
+    </section>
+</div>
+{% endblock content %}
