@@ -4,8 +4,9 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     """The user model"""
+
     name = models.CharField(blank=True, max_length=255)
-    about = models.TextField(default='...', blank=True, max_length=255)
+    about = models.TextField(default="...", blank=True, max_length=255)
     age = models.IntegerField(default=14)
 
     def __str__(self):
@@ -14,6 +15,7 @@ class CustomUser(AbstractUser):
 
 class Friendship(models.Model):
     """Describes a friendship between two users"""
+
     requester = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="following", default=None)
     friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="followers", default=None)
     friends = []
@@ -22,6 +24,7 @@ class Friendship(models.Model):
 
 class ProfileComment(models.Model):
     """A comment on a user's profile"""
+
     content = models.TextField()
     user_commented_on = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_commented")
     user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="user_profile_commented_on")

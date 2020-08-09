@@ -3,7 +3,7 @@ from .models import Post, Dislike, Like, PostComment
 
 
 class PostCommentSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField('username')
+    user = serializers.SerializerMethodField("username")
 
     def username(self, obj):
         return obj.username
@@ -13,10 +13,10 @@ class PostCommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    dislikes = serializers.SerializerMethodField('dislike_count')
-    likes = serializers.SerializerMethodField('like_count')
-    author = serializers.SerializerMethodField('post_author')
-    comments = serializers.SerializerMethodField('post_comments')
+    dislikes = serializers.SerializerMethodField("dislike_count")
+    likes = serializers.SerializerMethodField("like_count")
+    author = serializers.SerializerMethodField("post_author")
+    comments = serializers.SerializerMethodField("post_comments")
 
     def post_author(self, obj):
         return obj.author.username
