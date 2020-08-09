@@ -1,13 +1,9 @@
-from django.shortcuts import render  # , get_object_or_404
+from django.shortcuts import render 
 from django.http import Http404, JsonResponse
-from .models import Messages  # , Chat
-
-# import json
+from .models import Messages
 
 
 def index(request):
-    # object = get_object_or_404(Chat, slug=slug)
-    # context = {"object": object}
     return render(request, "chat/index.html")
 
 
