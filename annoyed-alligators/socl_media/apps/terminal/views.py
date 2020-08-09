@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 from .command_runner import TerminalCommandRunner
 
@@ -17,7 +17,7 @@ def run_terminal_command(request):
         result = command_runner.run(**request.headers)
         status = 200
         response = HttpResponse(result['response'], status=status)
-        
+
         if 'redirect' in result:
             response['redirect'] = result['redirect']
 
