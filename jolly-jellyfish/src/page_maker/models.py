@@ -14,19 +14,13 @@ def get_theme_path():
 
 
 class Template(models.Model):
-    name = models.CharField(max_length=80, unique=True)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # TODO: ability to upload own stylesheet (validate and sanitize) rather than select from existing
-    #  potentially upload to user_themes within static not media? -
-    #  makes finding easier below in RelativeFilePathField
-
-    # model.FilePathField() does not have a url attribute,
-    # so accessing the files within a html template is awkward.
-    # Using RelativeFilePathField allows for using django static support easily within the template
-    # match uses regex applied to base filename only(.+=at least one character, \.=., $=end of string)
-    style_sheet = RelativeFilePathField(path=get_theme_path, recursive=True, match='.+\.css$')
+    # unsanitized css is not part of our threat model.
+    # however, TODO: proxy all css requests
+    style_sheet = models.FileField(null=False, blank=False, upload_to='styles/')
 
     # null=False and blank=False enforce there always being a thumbnail image associated
     thumbnail = models.ImageField(null=False, blank=False, editable=False,
@@ -43,7 +37,7 @@ def get_user_dir_path(instance, filename):
 
 
 class Webpage(models.Model):
-    name = models.CharField(max_length=80, unique=True)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     last_edit_date = models.DateTimeField(editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -70,9 +64,6 @@ class Webpage(models.Model):
     user_image_3 = models.ImageField(
         null=True, blank=True, verbose_name='footer image', max_length=200,
         upload_to=get_user_dir_path, validators=[validate_image_file_extension])
-
-    def was_created_recently(self):
-        pass
 
     def __str__(self):
         return self.name

@@ -1,18 +1,16 @@
 {% extends "page_maker/base.html" %}
 {% block content %}
-   <div>
-       <h2>Sing Up</h2>
-       <form method="POST">
-           {% csrf_token %}
-            <div>
-                {{ form.as_p }}
-                <button type="submit"> Sign Up </button>
-            </div>
-        </form>
-    <div>
-        <small>
-            Already Have An Account?  <a href="{% url 'login' %}"> Sign In </a>
-        </small>
-    </div>
-    </div>
+<h2>Sign Up</h2>
+<div>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Sign Up </button>
+  </form>
+  <div>
+    <small>
+      Already Have An Account?  <a href="{% url 'login' %}"> Log In </a>
+    </small>
+  </div>
+</div>
 {% endblock content %}

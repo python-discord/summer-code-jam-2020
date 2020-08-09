@@ -9,6 +9,7 @@ import string
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'user_media')
 MEDIA_URL = '/user_media/'
+STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/users/login'
@@ -25,6 +26,12 @@ config_file = os.path.join(BASE_DIR, 'config.json')
 if os.path.exists(config_file):
     with open(config_file) as f:
         config = json.load(f)
+
+    # allow for non-generated keys
+    if config['secret_key'] is None:
+        config['secret_key'] = generate_key()
+        with open(config_file, 'w') as f:
+            json.dump(config, f, indent=4)
 else:
     config = {
         'secret_key': generate_key(),

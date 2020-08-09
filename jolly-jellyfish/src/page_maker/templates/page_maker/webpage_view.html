@@ -1,5 +1,9 @@
 {% extends "page_maker/base.html" %}
 
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{{ webpage.template_used.style_sheet.url }}">
+{% endblock %}
+
 {% block content %}
 <h1><span>{{ webpage.user_title }}</span></h1>
 <p>

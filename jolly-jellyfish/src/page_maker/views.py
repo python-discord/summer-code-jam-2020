@@ -1,3 +1,7 @@
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -69,6 +73,8 @@ class WebpageCreateView(LoginRequiredMixin, FormView):
     template_name = 'page_maker/webpage_create.html'
     form_class = WebpageForm
 
+    # TODO create thumbnail here instead of in template.
+
     # NB: Django pre-sanitizes text input already - https://docs.djangoproject.com/en/dev/topics/security/
     def form_valid(self, form):
         self.form = form
@@ -124,6 +130,12 @@ class WebpageListView(ListView):
 class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Webpage
     template_name = 'page_maker/webpage_update.html'
+    slug_field = 'name'
+    slug_url_kwarg = 'pagename'
+    fields = [
+        'template_used', 'user_title', 'user_text_1', 'user_text_2', 'user_text_3',
+        'user_image_1', 'user_image_2', 'user_image_3', 'user_image_4'
+    ]
 
     def test_func(self):
         webpage = self.get_object()
@@ -131,24 +143,22 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-    def get_queryset(self):
-        webpage_name = self.kwargs.get('pagename')
-        return Webpage.objects.filter(name=webpage_name)
+    def get_success_url(self):
+        return reverse_lazy('webpage-view', kwargs={'pagename': self.kwargs['pagename']})
 
 
 class WebpageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Webpage
     template_name = 'page_maker/webpage_delete.html'
+    slug_field = 'name'
+    slug_url_kwarg = 'pagename'
+    success_url = '/'
 
     def test_func(self):
         webpage = self.get_object()
         if webpage.author == self.request.user or self.request.user.is_superuser:
             return True
         return False
-
-    def get_queryset(self):
-        webpage_name = self.kwargs.get('pagename')
-        return Webpage.objects.filter(name=webpage_name)
 
 
 class TemplateCreateView(LoginRequiredMixin, FormView):
@@ -177,11 +187,25 @@ class TemplateView(DetailView):
     slug_url_kwarg = 'templatename'
 
 
+class TemplateDetailView(DetailView):
+    model = Template
+    template_name = 'page_maker/template_detail.html'
+    context_object_name = 'template'
+
+
+class TemplateListView(ListView):
+    model = Template
+    template_name = 'page_maker/template_list.html'
+    context_object_name = 'templates'
+    paginate_by = 10
+
+
 class TemplateDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Template
     template_name = 'page_maker/template_delete.html'
     slug_field = 'name'
     slug_url_kwarg = 'templatename'
+    success_url = '/'
 
     def test_func(self):
         template = self.get_object()
@@ -205,6 +229,14 @@ class CommentCreateView(LoginRequiredMixin, FormView):
         pagename = self.kwargs.get('pagename')
         return reverse_lazy('webpage-detail', kwargs={'pagename': pagename})
 
+    def handle_no_permission(self):
+        if self.raise_exception or self.request.user.is_authenticated:
+            raise PermissionDenied(self.get_permission_denied_message())
+        # redirect to login with 'next' pointing to detail view
+        return redirect_to_login(reverse_lazy(
+            'webpage-detail', kwargs={'pagename': self.kwargs.get('pagename')}
+        ), self.get_login_url(), self.get_redirect_field_name())
+
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     http_method_names = ['post']
@@ -215,3 +247,11 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if comment.author == self.request.user or self.request.user.is_superuser:
             return True
         return False
+
+    def delete(self, request, *args, **kwargs):
+        comment = self.get_object()  # save pagename for success url
+        self.pagename = comment.parent_page.name
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('webpage-detail', kwargs={'pagename': self.pagename})
