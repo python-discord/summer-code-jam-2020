@@ -14,7 +14,7 @@ In 1999, it was the world's largest software maker by revenue. The word "Bouncy 
 # Our services
 ### Email client
 
-![EmailClientImage](https://cdn.discordapp.com/attachments/738752019392757881/741774392626774037/unknown.png)
+![EmailClientImage](https://cdn.discordapp.com/attachments/738752019392757881/742046327176691742/unknown.png)
 
 Has all your basic Emaill needs such as
 - [x] Sending mails to your friends
@@ -23,7 +23,7 @@ Has all your basic Emaill needs such as
 
 #
 ### Search engine
-![SearchEngineImage](https://cdn.discordapp.com/attachments/738752019392757881/741777945864962098/unknown.png)
+![SearchEngineImage](https://cdn.discordapp.com/attachments/738752019392757881/742046112180863077/unknown.png)
 
 Search abilities comparison                |          **Google**     | **Bullfrog Search**
 -------------------------------------------|-------------------------|---------------------
@@ -53,41 +53,37 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 Now, sit back and use this :)), you have effectively started the next technological revolution on your system.
 
 
-
 #
-### contributers
+### Developers
 > ## [zuck](https://github.com/arthtyagi) *(zuck#9454)* - Head developer
 > * Mainframe development
-> * thing 2
-> * thing 3
+> * Search engine back-end
+> * Managed main repository
 
-> *"fancy quote here"*
-
-###
-> ## **[Arhaan](https://github.com/Arhaan)** *(Arhaan#0249)* - 
-> * emailclient backend
-> * 2
-> * 3
 
 ###
-> ## **[Multi](https://github.com/telugu-boy)** *(multi#3304)* - 
+> ## **[Arhaan](https://github.com/Arhaan)** *(Arhaan#0249)*
+> * Inital framework dev
+> * email client back-end
+> * Search engine back-end
+
+###
+> ## **[Multi](https://github.com/telugu-boy)** *(multi#3304)*
 > * Developed inbox.js
 > * Designed base of frontend, gave lots of design advice to FantasticHD
 > * Added search functionality backend
 
 ###
-> ## **[FantasticHD](https://github.com/Fantasticlegend1000)** *(FantasticHD#9968)* - 
-> * front end
-> * designed assets and icon i.e Company logo
-> * 3
+> ## **[FantasticHD](https://github.com/Fantasticlegend1000)** *(FantasticHD#9968)*
+> * Added base for search functionality front end and brainstormed ideas
+> * Improved UI(improved sidenav bar, added top bar, improved overall design)
+> * Designed icons and assets for the sidenav bar ,team logo and user profile
 
 ###
-> ## **[nopeless](https://github.com/nopeless)** *(nope#7777)* - 
+> ## **[nopeless](https://github.com/nopeless)** *(nope#7777)*
 > * Created about us page and a handler for that page
 > * Wrote our README.md file
-> * Helped fantastic push git
-
-
+> * Rewrote HTML structure
 
 
 

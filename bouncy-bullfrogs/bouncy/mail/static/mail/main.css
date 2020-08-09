@@ -184,3 +184,18 @@ body {
 .btn-red {
     color: rgb(138, 63, 63);
 }
+a:link {
+    color: #041153
+}
+
+a:hover {
+    color: #162779
+}
+
+a:visited {
+    color: #0e163f
+}
+
+a:active {
+    color: #38437c
+}
