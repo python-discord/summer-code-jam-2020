@@ -120,13 +120,16 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             const usernamechat = JSON.parse(document.getElementById('user_id').textContent);
             const message = usernamechat + ': ' + messageInputDom.value;
-           if (/\S/.test(messageInputDom.value)) {
-                chatSocket.send(JSON.stringify({
-                    'message': message
-                }));
-                messageInputDom.value = '';
+            if (/\S/.test(usernamechat)){
+               if (/\S/.test(messageInputDom.value)) {
+                    chatSocket.send(JSON.stringify({'message': message}));
+                    messageInputDom.value = '';
+                }
+            } else {
+            alert("You must be logged in to send a message!")
+            };
+
             }
-        };
 
         document.querySelector('#leave').onclick = function(e) {
             window.location.pathname = '/chat/';
