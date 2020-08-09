@@ -143,4 +143,4 @@ Create an account and log in through it to connect with your friends and access 
     │       └── signup.html
     ├── urls.py
     └── wsgi.py
-    ```
+```
