@@ -12,4 +12,22 @@ h1, h2, h3, h4, h5, h6, p {
 
 .body-content {
     background-color: aqua;
+    font-size: large;
+    padding: 10px;
+    width: 100%;
+    margin: auto;
+}
+.search{
+    padding: 2px;
+    margin-top: 5px;
+    width: 250px;
+}
+
+.head{
+    font-size: larger;
+    font-weight: 600;
+}
+
+mr-5{
+    margin-right: 5px;
 }
