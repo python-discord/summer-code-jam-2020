@@ -22,7 +22,7 @@ class HtmlParser:
         These functions should modify self.soup, and are not required to return
          anything.
         """
-        for name in dir(self):
+        for name in dir(self):  # Searches for functions with "parse_" at the start
             if name.startswith("parse_"):
                 method = getattr(self, name)
                 method()
