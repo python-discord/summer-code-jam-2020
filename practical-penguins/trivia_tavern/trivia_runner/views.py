@@ -23,59 +23,17 @@ def setup(request, active_trivia_quiz):
 
 
 def times_up(request, active_trivia_quiz):
-    for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
-                                               session_code=active_trivia_quiz.session_code)
-
-        if not score_track.answered_this_round:
-            player.wrong_answers.append((active_trivia_quiz.current_question_index, ''))
-            player.save()
-            score_track.answered_this_round = True
-            score_track.save()
-        SMSBot.send('TIME IS UP. NO MORE ANSWERS!', player.phone_number)
-
-    cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
-                                                question_index=active_trivia_quiz.current_question_index)
+    SMSBot.player_timeout(active_trivia_quiz)
     return render(request, 'activequiz_question.html', {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
 
 def question(request, active_trivia_quiz):
-    cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
-                                              question_index=active_trivia_quiz.current_question_index)
-    for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
-                                               session_code=active_trivia_quiz.session_code)
-        score_track.answered_this_round = False
-        score_track.save()
-        SMSBot.send_question(cur_question, player)
-
-
+    SMSBot.send_all_questions(active_trivia_quiz)
     return render(request, 'activequiz_question.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
 
 
 def end_screen(request, active_trivia_quiz):
-    question_set = TriviaQuestion.objects.filter(quiz=active_trivia_quiz.trivia_quiz)
-
-    score_list = ScoreTracker.get_team_score_list(active_trivia_quiz.session_code)
-    winner = ScoreTracker.winner(score_list)
-    if winner is None:
-        winner = "No one participated :("
-
-    tally_results = {'winner': winner,
-                     'score_list': score_list}
-    # release players here
-    for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
-                                               session_code=active_trivia_quiz.session_code)
-
-        goodbye = ( f'The session has ended, thanks for playing!\n'
-                    f'Team {winner} was the winner!\n'
-                    f'Your score was: {score_track.points}/{len(question_set)}'
-        )
-
-        SMSBot.send(goodbye, player.phone_number)
-        SMSBot.send(player.get_answers(), player.phone_number)
-        player.delete()
+    SMSBot.calculate_results(active_trivia_quiz)
     return render(request, 'activequiz_end.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'tally_results': tally_results})
 
