@@ -4,7 +4,7 @@ import logging
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.db import transaction
-from chat.models import ChatRoom, Message, User, _model_field_limits
+from chat.models import ChatRoom, ChatMessage, User, _model_field_limits
 
 
 logger = logging.getLogger(__name__)
@@ -92,7 +92,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         first_message_chunk = message_chunks.pop(0)
 
         with transaction.atomic():
-            message = Message(
+            message = ChatMessage(
                 chat_room_id=self.room_id,
                 user_id=self.user_id,
                 datetime=datetime.fromisoformat(message_data['datetime']),
@@ -103,7 +103,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             parent_message_id = message.pk
 
             for message_chunk in message_chunks:
-                message = Message(
+                message = ChatMessage(
                     chat_room_id=self.room_id,
                     user_id=self.user_id,
                     datetime=datetime.fromisoformat(message_data['datetime']),

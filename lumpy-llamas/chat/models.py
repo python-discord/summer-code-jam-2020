@@ -15,7 +15,7 @@ class ChatRoom(models.Model):
     name = models.CharField(max_length=_model_field_limits['ChatRoom__name__max_length'])
 
 
-class Message(models.Model):
+class ChatMessage(models.Model):
     user_id = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     chat_room_id = models.ForeignKey(ChatRoom, null=True, on_delete=models.SET_NULL)
     datetime = models.DateTimeField()
