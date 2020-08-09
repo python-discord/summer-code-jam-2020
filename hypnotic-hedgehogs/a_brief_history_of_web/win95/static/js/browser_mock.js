@@ -19,7 +19,7 @@ function change_page() {
 );
                       setTimeout(() =>{
                           agent.hide();
-                      },20000)
+                      },23000)
 
                   });
 
@@ -29,6 +29,7 @@ function change_page() {
                       agent.show();
                       agent.speak( "Google, derived from the mathematical term Googol and created by two college students in the garage, literally changed the world, history, and people's lives. Changing the way we reach information, answers, questions, requests and people, this search engine has revolutionized every aspect of life. Thanks to Google, the world is now more integrated, people are more curious and wiser, and life is more interesting. Thank you Google!"
 );
+
                       setTimeout(() =>{
                           agent.hide();
                       },20000)
@@ -39,10 +40,11 @@ function change_page() {
         clippy.load('Merlin', (agent) => {
                       // do anything with the loaded agent
                       agent.show();
+                      agent.speak( "Jack was unaware that by setting up his 'twittr', he was building a site where he would make an unimaginable contribution to freedom of expression, thought sharing, polyphony and diversity. Thanks to Twitter, freedom of expression, polyphony, respect for differences and living in harmony have become possible and spread like never before. Thanks Twitter and Jack for supporting and spreading the freedoms!"
 );
                       setTimeout(() =>{
                           agent.hide();
-                      },20000)
+                      },30000)
 
                   });
 
@@ -56,6 +58,20 @@ function change_page() {
                       setTimeout(() =>{
                           agent.hide();
                       },20000)
+
+                  });
+
+    }    else if (address === "https://blog-area.com"){
+        clippy.load('Merlin', (agent) => {
+                      // do anything with the loaded agent
+                      agent.show();
+                      agent.speak( "And here we are, the end of the trip. But before we split our roads, let me say a few more words.This young technology, which is just 30 years old, has already changed our lives in ways we never imagined, and it continues to change. We hope that this short trip to the history of the Internet has been inspiring and informative for you. And we hope again that the Internet continues to be a democratic, revolutionary, magical and useful technology.Don't just use these beautiful sites and the Internet, but also contribute. Create something and change the world, leave a mark. Do it so that when people will go on a nostalgic trip with a project like this in the future, they will be able to see your creation and contribution.Hokus pokus, abra kadabra! Let time flow forward and the magic of the Internet continues to spread! Keep staying online and magical!"
+);
+
+                      setTimeout(() =>{
+                          agent.play("GestureUp");
+                          agent.hide();
+                      },30000)
 
                   });
 
