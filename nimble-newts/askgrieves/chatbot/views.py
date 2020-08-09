@@ -1,10 +1,12 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from django.http import Http404, JsonResponse
 from django.shortcuts import render
+from django.utils.functional import lazy
 from .models import WikiArticle
 
 from wikipediaapi import Wikipedia
+
+WIKI_WIKI = Wikipedia('en')
 
 
 class Message:
@@ -33,16 +35,18 @@ def experimental(request):
 
 def get_wikipedia(request):
     article_name = request.POST.get('article_name')
-    try:
-        article = WikiArticle.objects.get(name=article_name)
-        serialied_article = model_to_dict(article, fields=('name', 'summary'))
-    except ObjectDoesNotExist:
-        wiki_wiki = Wikipedia('en')
-        wiki_page = wiki_wiki.page(article_name)
-        if not wiki_page.exists():
-            raise Http404('Wiki page does not exist')
-        new_article = WikiArticle.objects.create(name=article_name,
-                                                 summary=wiki_wiki.extracts(wiki_page, excsentences=3),
-                                                 full_page=wiki_page.text)
-        serialied_article = model_to_dict(new_article, fields=('name', 'summary'))
-    return JsonResponse(serialied_article)
+    wiki_page = WIKI_WIKI.page(article_name)
+    if not wiki_page.exists():
+        raise Http404('Wiki page does not exist')
+    else:
+        def get_wiki_details():
+            return {
+                'summary': WIKI_WIKI.extracts(wiki_page, excsentences=3),
+                'full_page': wiki_page.text
+            }
+        # Lazy evaluation of wiki page, inspired by https://code.djangoproject.com/ticket/29413
+        article, created = WikiArticle.objects.get_or_create(name=article_name,
+                                                             defaults=lazy(get_wiki_details, dict)())
+        # Serialize article without full text
+        serialized_article = model_to_dict(article, fields=('name', 'summary'))
+    return JsonResponse(serialized_article)
