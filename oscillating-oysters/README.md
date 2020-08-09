@@ -3,7 +3,7 @@
 # Oscillating Oysters - TwentyTwentyMUD
 
 You have gone back in time to the beginnings of the internet, can you find
-your way back to 2020 with your friends.
+your way back to 2020 with your friends?
 
 ## Installation
 
