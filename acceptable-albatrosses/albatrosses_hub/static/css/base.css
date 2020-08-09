@@ -10,3 +10,8 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+a.active-navbar {
+    text-decoration: underline;
+    font-weight: bold;
+}
