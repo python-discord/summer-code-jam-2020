@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Project(models.Model):
@@ -15,6 +16,9 @@ class Project(models.Model):
         """returns the project name and the owner id that it belongs to"""
         cls = self.__class__.__name__
         return f"{cls} name={self.name!r} owner_id={self.user_id!r}"
+
+    def get_absolute_url(self):
+        return reverse('paint', kwargs={'pk': self.pk, 'project_name': self.name})
 
 
 class Image(models.Model):

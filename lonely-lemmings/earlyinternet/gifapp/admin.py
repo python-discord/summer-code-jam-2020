@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Comment, Project
+
+from .models import Project, Image, Comment
+
 # Register your models here.
-admin.register(Comment)
-admin.register(Project)
+
+admin.site.register(Project)
+admin.site.register(Image)
+admin.site.register(Comment)

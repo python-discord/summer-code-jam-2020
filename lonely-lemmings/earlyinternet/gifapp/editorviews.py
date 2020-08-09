@@ -127,22 +127,25 @@ def parse_view_request(request, project_name=None):
     return render(request, PREVIEW_DIR, context)
 
 
-def render_all_projects(request):
+def render_all_projects(request) -> HttpResponse:
     """displays all projects by the user"""
     projects = Project.objects.filter(user_id=request.user)
-
     return render(request, PROJECT_VIEW_DIR, {"projects": projects, "form": ProjectForm()})
 
 
-def parse_new_project_request(request):
-    if request.method == "POST":
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            project_name = form.cleaned_data["project_name"]
-            Project.objects.create(name=project_name, user_id=request.user)
-            return HttpResponseRedirect(f"/project/{project_name}")
-        else:
-            return HttpResponseRedirect("../project")
+# def parse_new_project_request(request) -> HttpResponseRedirect:
+#     if request.method == "POST":
+#         form = ProjectForm(request.POST)
+#         if form.is_valid():
+#             project_name = form.cleaned_data["project_name"]
+#             Project.objects.create(name=project_name, user_id=request.user)
+#             return HttpResponseRedirect(f"/project/{project_name}")
+#         else:
+#             return HttpResponseRedirect("../project")
+#
+#     else:
+#         return HttpResponseRedirect("../project")
 
-    else:
-        return HttpResponseRedirect("../project")
+
+def return_home(request):
+    return render(request, 'home.html')
