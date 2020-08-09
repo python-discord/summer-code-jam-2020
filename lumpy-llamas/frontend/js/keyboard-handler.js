@@ -8,6 +8,7 @@ class KeyboardNavigator {
     this.clearText = undefined;
     this.textRelayInProgress = false;
     this.store = store;
+    this.store.commit('setInstructions', []);
   }
 
   init(onUnknown, askForInput, clearText) {
@@ -45,6 +46,7 @@ class KeyboardNavigator {
 
   onUnknown(callback) {
     this.unkownCommand = callback;
+    return this.defaultUnknown;
   }
 
   addDefaultUnknown(callback) {

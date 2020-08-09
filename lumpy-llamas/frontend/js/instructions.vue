@@ -11,7 +11,7 @@
 <style>
 #content {
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-columns: 1fr 5fr 2fr;
 }
 .instructions-panel {
   margin-left: 1em;

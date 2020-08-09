@@ -1,5 +1,5 @@
 <template>
-  <div v-if="ready">
+  <div v-if="ready" class="forum-thread">
     <router-link :to="{ name: 'forum'}"><h2>Back to forum list</h2></router-link>
     <h3 class="some-heading">{{myStuff[0].title}} </h3>
     <div class="terminal-timeline">
@@ -10,12 +10,13 @@
         </div>
       </div>
     </div>
-    <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter your message" minlength="3"></textarea>
-    <button v-on:click="newMessage" class="btn btn-default">Post a new message</button>
   </div>
 </template>
 
 <style>
+.forum-thread {
+  overflow-y: auto;
+}
 .some-heading {
   font-size: xx-large;
   color: pink;
@@ -38,26 +39,40 @@ export default {
     return {
       myStuff: null,
       ready: false,
-      message: '',
     };
   },
   beforeMount() {
     this.getData();
   },
+  mounted() {
+    this.errorCallback = this.$cmd.onUnknown(this.replyThread);
+    this.$cmd.on('/reply <message>', () => undefined, 'Reply to thread with <message>');
+    this.$cmd.on('/exit', () => this.$router.push('/forum'), 'Return to thread list');
+  },
   methods: {
+    replyThread(command) {
+      console.log(command);
+      if (command.startsWith('/reply ')) {
+        const cmd = command.split(' ');
+        cmd.shift();
+        this.newMessage(cmd.join(' '));
+      } else if (command !== '/exit') {
+        this.errorCallback(command);
+      }
+    },
     getData() {
       axios.get(`/api/forum/${this.$route.params.id}`).then((response) => {
         this.myStuff = response.data;
         this.ready = true;
       });
     },
-    newMessage() {
+    newMessage(message) {
+      console.log('replying', message);
       axios.post('/api/forum/post/message', {
-        message: this.message,
+        message,
         thread_id: this.$route.params.id,
       }).then((res) => {
         this.getData();
-        this.textarea = '';
         console.log(res.data.thread_id); // eslint-disable-line no-console
       }).catch((err) => {
         console.log(err); // eslint-disable-line no-console
