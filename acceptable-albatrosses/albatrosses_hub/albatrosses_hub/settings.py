@@ -26,8 +26,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = True
 
 
-ALLOWED_HOSTS = ["localhost", "albatrosses_hub.com"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost", "albatrosses_hub.com"]
 
+LOGIN_URL = "/auth/login"
 
 # Application definition
 

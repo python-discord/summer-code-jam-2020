@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title %}404 error page{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock styles %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Page not found</h1>
+    <p class="lead">Sorry!, This page is missing or does not exist.</p>
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{% url 'homepage' %}" role="button">Go to our Hub</a>
+    </p>
+  </div>
+{% endblock content %}
