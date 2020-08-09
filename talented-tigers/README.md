@@ -84,6 +84,7 @@ Add this with your information as a bullet:
 Talented Tigers Is..
 * ### Nathan Coulas  &nbsp; [<i class="fab fa-github"></i> (thaniel-c)](https://github.com/thaniel-c) &nbsp; [<i class="fab fa-discord"></i> (thaniel#3631)](https://discordapp.com/channels/@me/703922100112457778/)
 * ### Sloopoo  &nbsp; [<i class="fab fa-github"></i> (flextian)](https://github.com/flextian)
+* ### Garfellow  &nbsp; [<i class="fab fa-github"></i> (Garfellow)](https://github.com/GarfellowGMOD)
 
 <p align="center">
 <a href="#" >
