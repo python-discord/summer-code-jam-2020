@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:alpine
 WORKDIR /app
 COPY . .
 WORKDIR /app/timescape/frontend

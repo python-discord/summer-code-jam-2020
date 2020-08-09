@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: front.Dockerfile
-    volumes:
-      - '/app/timescape/frontend/node_modules'
     ports:
       - 3000:3000
     stdin_open: true
