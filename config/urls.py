@@ -30,7 +30,7 @@ urlpatterns += [
     # DRF auth token
     path("auth-token/", obtain_auth_token),
     # Rooms API
-    path("rooms-api/", include("shiny_sheep.chat.api.urls")),
+    path("api/chat", include("shiny_sheep.chat.api.urls")),
 ]
 
 if settings.DEBUG:

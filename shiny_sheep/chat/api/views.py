@@ -13,6 +13,20 @@ class RoomCreateView(APIView):
     """View to create a Room"""
     permission_classes = [AllowAny]
 
+    def get_object(self, name):
+        """Get a Room by name"""
+        try:
+            return Room.objects.get(name=name)
+        except Room.DoesNotExist:
+            raise Http404
+
+    def get(self, request):
+        """Returns the JSON representation of a Room by name"""
+        room_name = request.query_params.get('name')
+        room = self.get_object(room_name)
+        serializer = RoomSerializer(room)
+        return Response(serializer.data)
+
     def post(self, request):
         """Creates a Room object with the given data"""
         data = {
@@ -33,6 +47,7 @@ class RoomView(APIView):
     permission_classes = [AllowAny]
 
     def get_object(self, pk):
+        """Get a Room from pk"""
         try:
             return Room.objects.get(pk=pk)
         except Room.DoesNotExist:
@@ -45,6 +60,7 @@ class RoomView(APIView):
         return Response(serializer.data)
 
     def delete(self, request, pk):
+        """Delete a room by pk"""
         room = self.get_object(pk)
         room.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
