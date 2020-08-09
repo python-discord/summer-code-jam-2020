@@ -10,6 +10,7 @@ from .html_parse import HtmlParser
 from PIL import Image, UnidentifiedImageError
 import io
 import requests
+from math import floor
 
 
 def landing_page(request):
@@ -132,6 +133,15 @@ def page(request, url):
                         req.headers["content-type"].split(";")[0].split("/")[1]
                     if f_ext.upper() == "VND.MICROSOFT.ICON":
                         f_ext = "png"
+
+                    resize_factor = 3
+                    img = img.resize(list(map(lambda x: floor(x/resize_factor),
+                                              img.size)),
+                                     resample=Image.NEAREST)
+                    img = img.resize(list(map(lambda x: floor(x*resize_factor),
+                                              img.size)),
+                                     resample=Image.NEAREST)
+
 
                     img.save(response, f_ext)
                 except UnidentifiedImageError:
