@@ -27,8 +27,7 @@ Command Line Interfaces are one of the oldest Human-Computer interaction methods
 So, what if some crazy ~~lonely~~ dude had this idea of making what we now call "Social Media" back then?
 Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the web pages! So here's a **SoCL Media**.
 
-
--------------------- SCREENSHOT HERE
+![Screenshot from 2020-08-09 22-00-43](https://user-images.githubusercontent.com/20405311/89737039-a44c6200-da8b-11ea-8f8d-7cce798e6cbf.png)
 
 ## :electric_plug: Development Setup
 1. Clone this repository by running `git clone https://github.com/akshgpt7/summer-code-jam-2020`.
@@ -78,7 +77,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │   │   ├── admin.py
     │   │   ├── apps.py
     │   │   ├── __init__.py
-    │   │   ├── migrations/
+    │   │   ├── migrations
     │   │   ├── models.py
     │   │   ├── tests.py
     │   │   ├── urls.py
@@ -88,7 +87,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │   │   ├── apps.py
     │   │   ├── forms.py
     │   │   ├── __init__.py
-    │   │   ├── migrations/
+    │   │   ├── migrations
     │   │   ├── models.py
     │   │   ├── tests.py
     │   │   ├── urls.py
@@ -100,7 +99,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │   │   ├── command_runner.py
     │   │   ├── commands.py
     │   │   ├── __init__.py
-    │   │   ├── migrations/
+    │   │   ├── migrations
     │   │   ├── models.py
     │   │   ├── tests.py
     │   │   ├── urls.py
@@ -110,7 +109,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │       ├── apps.py
     │       ├── forms.py
     │       ├── __init__.py
-    │       ├── migrations/
+    │       ├── migrations
     │       ├── models.py
     │       ├── signals.py
     │       ├── tests.py
@@ -120,11 +119,15 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     ├── __init__.py
     ├── settings.py
     ├── static
+    │   ├── css
+    │   │   └── 98.css
     │   ├── favicon.ico
     │   └── media
     │       ├── default.png
-    │       ├── post_images/
-    │       ├── profile_pics/
+    │       ├── logo.jpg
+    │       ├── logout.png
+    │       ├── post_images
+    │       ├── profile_pics
     │       └── README.md
     ├── templates
     │   ├── base.html
