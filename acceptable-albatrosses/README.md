@@ -1,6 +1,8 @@
 # Acceptable Albatrosses
 
-Albatrosses Hub is a fun website where you can spend your time playing Mafia Game or discussing about something in the forum. You also can access some hot news by using the newsletter feature.
+![logo][logo-url]
+
+**Albatrosses Hub** is a fun website where you can spend your time discussing about something in the forum.
 
 ## Installation
 1. Make sure u have git installed.
@@ -24,8 +26,12 @@ See LICENCE.md
 
 ## Contributing guidelines
 
-See CONTRIBUTING.md.
+See [CONTRIBUTING.md][CONTRIBUTE-url]
 
 ## Attribution
 
-See NOTICE.md.
+See [NOTICE.md][NOTICE-url]
+
+[logo-url]: ./albatrosses_hub/static/img/albatrosses-logo-small.png
+[NOTICE-url]: ./albatrosses_hub/NOTICE.md
+[CONTRIBUTE-url]: ./albatrosses_hub/CONTRIBUTING.md
