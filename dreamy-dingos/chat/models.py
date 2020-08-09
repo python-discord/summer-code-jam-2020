@@ -21,9 +21,9 @@ class SimpleUser(models.Model):
 class Message(models.Model):
     objects = models.Manager()
     text = models.CharField(max_length=500)
-    created_at = models.DateTimeField(default=timezone.now())
+    created_at = models.DateTimeField(default=timezone.now)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    sender = models.ForeignKey(SimpleUser, on_delete=models.CASCADE)
+    sender = models.ForeignKey(SimpleUser, on_delete=models.CASCADE, default='')
 
     def __str__(self):
         return self._format_short_text(self.text)
