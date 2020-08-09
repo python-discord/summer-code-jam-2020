@@ -17,6 +17,7 @@ class Profile(models.Model):
     COUNTRY_CHOICES = ((country.alpha_2, country.name) for country in pycountry.countries)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_online = models.BooleanField(default=False)
     image = models.ImageField(default='default_pfp.jpg', blank=True, upload_to='profile_pics')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     country = models.CharField(blank=True, max_length=2, choices=COUNTRY_CHOICES)

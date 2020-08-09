@@ -12,7 +12,7 @@ def valid_age_validator(born: date):
     max_age = 100
     age = calculate_age(born)
     if age < 0:
-        raise ValidationError(f'You cannot use date from future.')
+        raise ValidationError('You cannot use date from future.')
     elif age <= min_age:
         raise ValidationError(f'You have to be older than {min_age}.')
     elif age > max_age:
