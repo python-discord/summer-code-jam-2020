@@ -117,8 +117,6 @@ class InfoView(TemplateView):
                 body = request.POST["comment_body"]
                 Comment.objects.create(body=body, author=author, post=post)
                 return self.get(request, *args, **kwargs)
-            else:
-                return redirect('info', name=post.topic, slug=post.slug)
 
         elif "reply_to_comment" in request.POST:
             if request.user.is_authenticated:
@@ -135,8 +133,8 @@ class InfoView(TemplateView):
                     comment_thread=comment,
                 )
                 return self.get(request, *args, **kwargs)
-            else:
-                return redirect('info', name=post.topic, slug=post.slug)
+
+        return redirect('login')
 
 
 class LoginView(TemplateView):
@@ -248,8 +246,8 @@ class ChangePassword(TemplateView):
         context = {'form': form}
         if request.user.is_authenticated:
             return render(request, self.template_name, context)
-        else:
-            return redirect('login')
+
+        return redirect('login')
 
     def post(self, request):
         form = PasswordChangeForm(request.user, request.POST)
