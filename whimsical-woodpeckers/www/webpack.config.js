@@ -17,7 +17,7 @@ module.exports = {
                         loader: 'py-loader',
                         options: {
                             compiler: 'transcrypt',
-                            pipenv: true
+                            pipenv: path.resolve(__dirname, '..')
                         }
                     }
                 ]

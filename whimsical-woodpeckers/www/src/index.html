@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Whimsical Messaging</title>
 </head>
 <body>
-
+<div id="app1">
+    <span v-on:click="next_message">{{messages[current]}}</span>
+    <input v-model="textbox">
+    <input v-on:click="add_message" type="button" value="Add">
+</div>
+<div id="app2">
+    <span v-on:click="next_message">{{messages[current]}}</span>
+    <input v-model="textbox">
+    <input v-on:click="add_message" type="button" value="Add">
+    <example></example> <!-- components are always referenced in all lowercase -->
+    <colorthing testprop="asidufhu"></colorthing>
+</div>
+<div id="full-app"></div>
+<div id="app"></div>
+<script type="text/x-template" id="color-thing-template">
+    <div v-on:click="change" v-bind:style="{backgroundColor: colors[index]}">The background of this text will change on click {{testprop}}</div>
+</script>
+<script type="text/x-template" id="app-template">
+    <div id="app"><directory></directory><messages></messages></div>
+</script>
+<script type="text/x-template" id="messages-template">
+    <div>
+        <div v-for="message in messages" :key="message.content" v-bind:class="{'alert-primary': (current_user==message.sender), 'alert-info':(current_user!=message.sender)}" class="alert">
+            <span data-toggle="tooltip" data-placement="top" v-bind:title="message.time">{{ message.sender }}</span>
+            : {{ message.content }}
+        </div>
+    </div>
+</script>
 </body>
 </html>

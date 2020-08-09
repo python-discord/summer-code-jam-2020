@@ -8,6 +8,9 @@ verify_ssl = true
 [packages]
 django = "*"
 transcrypt = "*"
+importlab = "*"
+namegenerator = "*"
+channels = "*"
 
 [requires]
 python_version = "3.8"
