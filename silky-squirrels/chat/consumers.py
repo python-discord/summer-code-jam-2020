@@ -2,8 +2,9 @@ import json
 
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from users.models import Profile
+from users.models import Profile, ChatRoomVisit
 from chat.models import RoomMember, Message, Room
+from django.utils import timezone
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -14,7 +15,9 @@ class ChatConsumer(WebsocketConsumer):
         self.room_group_name = "chat_%s" % self.room_name
         self.user = self.scope["user"]
         room = Room.objects.get(name=self.room_name)
-        Profile.objects.filter(user=self.user).update(last_visited=room)
+        profile = Profile.objects.get(user=self.user)
+        ChatRoomVisit.objects.get_or_create(profile=profile, chat_room=room)
+        ChatRoomVisit.objects.filter(user=self.user, chat_room=room).update(timestamp=timezone.now)
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(self.room_group_name, self.channel_name)

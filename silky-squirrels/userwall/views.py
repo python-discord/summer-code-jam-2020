@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from userwall.forms import WallCreationForm
 from django.contrib import messages
-from users.models import Profile, User
+from users.models import Profile, User, ChatRoomVisit
 
 
 # Create your views here.
@@ -16,10 +16,15 @@ def wall(request, profile_name):
     try:
         user = User.objects.get(username=profile_name)
         profile = Profile.objects.get(user=user)
+        chat_room_visits = ChatRoomVisit.objects.filter(profile=profile).order_by("-time_visited")[:10][::-1]
+        empty = len(list(chat_room_visits)) == 0
+        # print(chat_room_visits)
     except (User.DoesNotExist, Profile.DoesNotExist):
         messages.warning(request, f"Profile not found: {profile_name}")
         return redirect("userwall")
-    return render(request, "userwall/pwall.html", {"profile": profile})
+    return render(
+        request, "userwall/pwall.html", {"profile": profile, "chat_room_visits": chat_room_visits, "empty": empty}
+    )
 
 
 def default(request):

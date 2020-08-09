@@ -7,13 +7,18 @@
 		<div class="media-body">
 			<h2 class="account-heading">{{ profile.user.username }}</h2>
 			<p class="text-secondary">{{ profile.user.email }}</p>
-			{% if profile.last_visited == None %}
+			<p class="text-secondary">Status: {{ profile.status }}</p>
+			{% if empty == True %}
 			<p class="text-secondary">This user hasn't visited any chat rooms recently</p>
 			{% else %}
-			<p class="text-secondary">Last chat room visited: {{ profile.last_visited }}</p>
-			{% endif %}
+			<p class="text-secondary">Last chat rooms visited: </p>
+			{% for chat_room_visit in chat_room_visits %}
+			<p class="text-secondary">{{ chat_room_visit.chat_room.name }}</p>
+			{% endfor %} 
+			{% endif %} 
+			
 		</div>
 	</div>
 </div>
 
-{% endblock content %}
+{% endblock content %} 
