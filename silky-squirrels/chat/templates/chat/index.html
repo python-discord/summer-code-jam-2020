@@ -34,8 +34,8 @@
                 <p>Your Friends:</p>
                 <ul>
                     {% for friend in friends %}
-                        <li>{{friend.user}}<span class="text-right"> 
-                        Profile [TODO]
+                        <li>{{friend.user}}<span class="text-right"> | 
+                        Profile <!-- PLEASE LINK FRIEND.PROFILE URL -->[TODO] | 
                         <a href="{% url 'froom' user.id friend.user.id %}">Chat</a>
                     {% endfor %}
                 </ul>

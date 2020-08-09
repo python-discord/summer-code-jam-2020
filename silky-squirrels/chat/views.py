@@ -42,7 +42,7 @@ def room(request, room_name, *args):
             "room_member_id": room_member.id,
             "older_messages_text": "\n".join(
                 f"{older_message.room_member.user.username}: {older_message.text}" for older_message in older_messages
-            ),
+                ),
             }
     if args:
         context['pvt_members'] = args
@@ -52,7 +52,7 @@ def room(request, room_name, *args):
 @login_required
 def froom(request, user_id, friend_id):
     ids = (user_id, friend_id)
-    room_name = f'@{min(ids)}-{max(ids)}'
+    room_name = f'{min(ids)}-{max(ids)}'
     if request.user.id in ids:
         r, room_created = Room.objects.get_or_create(name=room_name)
         RoomMember.objects.get_or_create(user=request.user, room=r)

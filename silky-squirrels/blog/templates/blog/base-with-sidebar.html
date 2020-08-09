@@ -14,8 +14,23 @@
             </div>
             <div class="card-body bg-white">
                 <p class="card-text">
+                Status: {{ profile.status }}<br>
+                Recent Chatrooms [TODO] <!--LINK!--><br>
                 {% if user.is_authenticated %}
-                    [TODO: navigation options, display profile info, profile link, customize status, enter recent chatrooms, view friends]
+                    {% if frequests %}
+                        You have friend requests!<ul>
+                        {% for frequest in frequests %}
+                        <li><a href="{% url 'accept' frequest.id %}">{{frequest.from_user}}</a></li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        You have no new notifications!
+                        <br>
+                    {% endif %}
+                    {% for user in allusers %}
+                        <a href="{% url 'add-friend' user.id %}">{{user}} +</a>
+                        <br>
+                    {% endfor %}
                 {% else %}
                     Please log in or sign up!
                 {% endif %}
