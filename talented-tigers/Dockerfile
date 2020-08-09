@@ -16,6 +16,7 @@ RUN pip install -r ./requirements.txt
 RUN pipenv install --skip-lock
 RUN pipenv run python3 ./manage.py makemigrations 
 RUN pipenv run python3 ./manage.py migrate
+RUN pipenv run python3 ./manage.py generatepages Memes,INFO Pencil,BIZ Tigers,BLOG
 
 # Go into the pipenv shell and run the code
 CMD pipenv run python3 ./manage.py runserver 0.0.0.0:8000
