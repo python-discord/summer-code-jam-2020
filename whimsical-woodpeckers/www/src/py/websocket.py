@@ -1,5 +1,3 @@
-# __pragma__('alias', 'js_websocket', 'WebSocket')
-
 # __pragma__ ('skip')
 window = JSON = this = js_websocket = __new__ = 0    # Prevent complaints by optional static checker
 # __pragma__ ('noskip')
@@ -8,7 +6,7 @@ window = JSON = this = js_websocket = __new__ = 0    # Prevent complaints by opt
 # __pragma__("kwargs")
 class WebSocket:
     def __init__(self, url, protocols=None):
-        self._socket = __new__(js_websocket(url, protocols))
+        self._socket = __new__(window.WebSocket(url, protocols))
         self._socket.onmessage = lambda event: self.on_message(event)
         self._socket.onerror = lambda: self.on_error()
         self._socket.onclose = lambda event: self.on_close(event)

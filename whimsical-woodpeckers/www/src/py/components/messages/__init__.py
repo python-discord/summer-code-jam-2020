@@ -44,28 +44,12 @@ class Messages(Component):
     props = ['mode']
     template = "#messages-template"
 
-    @staticmethod
-    def created():
-        def new_message(data):
-            if data['type'] == "message":
-                this.messages.append(data['data'])
+    # @staticmethod
+    # def created():
+    #     def new_message(data):
+    #         if data['type'] == "message":
+    #             this.messages.append(data['data'])
+    #
+    #     this.socket = MessageSocket(new_message)
 
-        this.socket = MessageSocket(new_message)
 
-
-class MessageSocket(WebSocket):
-    def __init__(self, callback):
-        room_name = "test"
-        super().__init__('ws://'
-                         + window.location.host
-                         + '/ws/chat/'
-                         + room_name
-                         + '/')
-        self.callback = callback
-
-    def message(self, event):
-        data = JSON.parse(event.data)
-        self.callback(data)
-
-    def send(self, data):
-        super().send(JSON.stringify(data))

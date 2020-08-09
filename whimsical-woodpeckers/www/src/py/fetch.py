@@ -1,13 +1,9 @@
-# __pragma__('alias', 'js_fetch', 'fetch')
+# # __pragma__('alias', 'js_fetch', 'fetch')
 
 # __pragma__ ('skip')
-console = JSON = this = js_fetch = __new__ = URL = 0    # Prevent complaints by optional static checker
+console = __new__ = js_fetch = URL = JSON = window = 0   # Prevent complaints by optional static checker
 # __pragma__ ('noskip')
 
-
-# __pragma__ ('skip')
-console = __new__ = js_fetch = URL = JSON = 0
-# __pragma__ ('noskip')
 
 # __pragma__("kwargs")
 # __pragma__('jsiter')
@@ -37,12 +33,13 @@ class Fetch:
             'method': 'GET',
             'headers': headers
         }
-        console.log(full_data, headers)
+        console.log(url, type(url))
         full_data.update(data)
+        url = window.location.href + url
         url = __new__(URL(url))
         # __pragma__('js', 'Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))')
-
-        thing = js_fetch(url.href, full_data)
+        console.log(url, full_data)
+        thing = window.fetch(url.href, full_data)
         return thing
 
     @staticmethod
@@ -63,7 +60,7 @@ class Fetch:
             'body': JSON.stringify(params)
         }
         full_data.update(data)
-        thing = js_fetch(url, full_data)
+        thing = window.fetch(url, full_data)
         return thing
 
 

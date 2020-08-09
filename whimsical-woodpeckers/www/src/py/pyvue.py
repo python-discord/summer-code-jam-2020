@@ -3,12 +3,13 @@
 # __pragma__ ('noalias', 'name')
 
 # __pragma__ ('skip')
-VuePkg = __new__ = this = __new__ = console = 0    # Prevent complaints by optional static checker
+VuePkg = __new__ = this = console = __pragma__ = 0    # Prevent complaints by optional static checker
 # __pragma__ ('noskip')
 
 
 JSVue = VuePkg.default
 
+LIFECYCLE = set(['created'])
 
 def clone_data(data):
     if isinstance(data, dict):
@@ -73,12 +74,23 @@ class Component:
 
     @classmethod
     def get_component(cls):
-        methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func))
-                   and not func.startswith("__")}
         data = {
             "data": cls.get_data,
             "template": cls.template
         }
+
+        # another = dir(cls)
+        test = [func for func in dir(cls) if not func.startswith("__") and callable(getattr(cls, func))]
+        # __pragma__("js", "{}", "let methods = {}")
+        for i in test:
+            func = getattr(cls, i)
+            if i in LIFECYCLE:
+                data[i] = func
+            else:
+                __pragma__("js", "{}", "methods[i] = func")
+
+        # console.log(methods)
+
         # __pragma__("tconv")
         if methods:
             data['methods'] = methods
@@ -87,64 +99,9 @@ class Component:
         if cls.props:
             data['props'] = cls.props
         # __pragma__("notconv")
+        # console.log(data)
         return JSVue.extend(data)
 
     @classmethod
     def get_data(cls):
         return clone_data(cls.data)
-
-#
-#
-# def createComponent(one, two):
-#     console.log(this, one, two)
-#
-# class Component:
-#     data = {}
-#     props = []
-#     template = ""
-#     _registration = None
-#     name = ""
-#     methods = {}
-#
-#     def __init__(self):
-#         self.name = self.name
-#         self.data = clone_data(self.data)
-#         self.methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and
-#                         not func.startswith("__")}
-#         # self._vue = __new__(JSVue.component(self.name, self.__class__))
-#
-#     @classmethod
-#     def get_data(cls):
-#         return clone_data(cls.data)
-#
-#     @classmethod
-#     def create_data(cls):
-#         # methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func)) and
-#                      not func.startswith("__")}
-#         data = clone_data(cls.data)
-#         methods = dict(cls.methods)
-#         methods['created'] = createComponent
-#         console.log(methods)
-#         return {
-#             "name": cls.name,
-#             "data": cls.get_data,
-#             "methods": methods,
-#             "template": cls.template
-#         }
-#
-#
-#
-#
-#     @classmethod
-#     def register(cls, name):
-#         name = name
-#         if not name:
-#             name = cls.__name__
-#         cls.name = name
-#         console.log(name, cls)
-#         data = cls.create_data()
-#         console.log(data)
-#         cls._registration = JSVue.component(name, data)
-#
-#
-#
