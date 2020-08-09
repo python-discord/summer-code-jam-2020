@@ -343,6 +343,10 @@ font-size: 0;
   text-align: center;
 }
 
+.tweet-view h1{
+  font-size: 35px;
+}
+
 .tweet-view div{
   font-size: large;
   margin-top: 30px;
@@ -353,6 +357,8 @@ font-size: 0;
 .tweet-view-content{
   padding: 15px;
   box-shadow: var(--border-window-outer), var(--border-window-inner);
+  max-height: 40vh;
+  overflow-y: auto;
 }
 
 .actions{
