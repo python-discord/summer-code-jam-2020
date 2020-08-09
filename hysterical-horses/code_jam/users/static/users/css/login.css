@@ -1,4 +1,9 @@
-
 body{
     text-align: center;
 }
+
+.login-form{
+    width: 50%
+    margin: 0 auto;
+}
+

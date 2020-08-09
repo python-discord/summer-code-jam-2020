@@ -8,7 +8,7 @@ body{
     top: 50vh;
     left: 50%;
     width: 50%;
-    position: absolute;
+
     transform: translate(-50%,-70%);
 }
 
