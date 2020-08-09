@@ -64,7 +64,7 @@ def new_game(request):
             "dust_storm": [
                 "A dust storm billows in the distance.",
                 "A dust storm billows in front of you.",
-                "The winds are shaping sand dunes, that's good data!",
+                "The winds of the storm are shaping sand dunes, that's good data!",
             ],
             "small_crater": [
                 "There is a small crater in the distance.",
