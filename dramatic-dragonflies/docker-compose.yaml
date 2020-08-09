@@ -24,8 +24,7 @@ services:
     depends_on:
       - postgres
     tty: true
-    cap_add:
-      - SYS_ADMIN
+    privileged: true
     environment:
       DEBUG: "${DEBUG-}"
       SMTP_PASS : "${STMP_PASS-}"
@@ -33,3 +32,7 @@ services:
       DATABASE_URL: "postgres:5432"
     volumes:
     - .:/app
+    - htvms-disk-volume:/var/htvms/disks
+
+volumes:
+  htvms-disk-volume:
