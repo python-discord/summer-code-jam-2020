@@ -43,7 +43,11 @@
          {% if user.is_authenticated %}
          <div class="login">
              <div style="display:inline-block; align: center;vertical-align: middle;" >
-             <img src="{{user.avatar.url}}" width="70px" height="70px" style="float:left;margin-right: 10px;">
+                 {% if user.avatar.url is not null %}
+                    <img src = "{{user.avatar.url}}" width="70px" height="70px" style="float:left;margin-right: 10px;">
+                 {% else %}
+                    <img src = "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png" width="70px" height="70px" style="float:left;margin-right: 10px;">
+                 {% endif %}
              </div>
             <div style="display:inline-block;vertical-align: middle;">
                  <h5>Hi {{user.username}}</h5>
