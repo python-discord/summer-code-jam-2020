@@ -81,20 +81,24 @@
         <div class="columncenter" >
             {% block content %}
             {% endblock %}
+            <p>
+                <audio preload="auto" controls autoplay loop muted src=/static/sounds/romantic-song.mp3></audio>
+
+                <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
+                <PARAM NAME=FileName VALUE=sound.mp3></PARAM>
+                </OBJECT>
+            </p>
         </div>
 
-  <footer>
-    <audio preload="auto" controls autoplay loop muted src=/static/sounds/romantic-song.mp3></audio>
-  </footer>
+    </div>
 
-  <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
-    <PARAM NAME=FileName VALUE=sound.mp3></PARAM>
-      <div class="cursor">
-</div>
-      <script> const cursor = document.querySelector('.cursor');
-      document.addEventListener('mousemove',e => {
-      cursor.setAttribute("style","top: " + (e.pageY - 10) + "px; left: " + (e.pageX- 10) + "px;")
-})</script>
+        <div class="cursor">
+        </div>
+<!--      <script> const cursor = document.querySelector('.cursor');-->
+<!--      document.addEventListener('mousemove',e => {-->
+<!--      cursor.setAttribute("style","top: " + (e.pageY - 10) + "px; left: " + (e.pageX- 10) + "px;")-->
+<!--})</script>-->
+
   </body>
 
 </html>
