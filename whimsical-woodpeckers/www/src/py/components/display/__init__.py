@@ -6,9 +6,6 @@ from components.login import Login
 
 
 class Desktop(Component):
-    data = {
-        "mode": 1  # UI mode
-    }
     template = "#desktop-template"
 
     components = {
@@ -16,6 +13,8 @@ class Desktop(Component):
         "messages": Messages.get_component(),
         "login": Login.get_component(),
     }
+
+    props = ['mode']
 
 
 class Mobile(Desktop):

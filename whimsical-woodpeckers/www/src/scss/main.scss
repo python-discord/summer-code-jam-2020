@@ -6,6 +6,9 @@
   font-family: sans-serif;
   padding-top: 0px;
   margin-top: 0px;
+  #background {
+    background-color: white;
+  }
 }
 
 .aol-app {
@@ -28,6 +31,9 @@
   z-index: 2;
   background-size: 100% 2px, 3px 100%;
   pointer-events: none;
+  #background {
+    background-color: white;
+  }
 }
 
 
@@ -42,14 +48,25 @@
   margin-right: 20vmin;
   padding-top: 0px;
   margin-top: 0px;
+  #background {
+    background-color: black;
+  }
 }
 
 body{
-  background-color: black;
   padding: 0px;
   margin: 0px;
 }
 
 div{
   font-size: 12pt;
+}
+
+#background{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: -100;
+  margin: 0px;
+  padding: 0px;
 }

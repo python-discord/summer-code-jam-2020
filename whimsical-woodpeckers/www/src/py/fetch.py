@@ -3,8 +3,13 @@
 # Example of how to do a fetch
 
 
+# __pragma__ ('skip')
+console = __new__ = js_fetch = URL = JSON = 0
+# __pragma__ ('noskip')
+
 # __pragma__("kwargs")
 # __pragma__('jsiter')
+
 
 def dict_to_iterdict(thing):
     pls = {}

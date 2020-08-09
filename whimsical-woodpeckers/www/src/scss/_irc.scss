@@ -21,12 +21,12 @@ $green:    #28a745;
 $teal:     #20c997;
 $cyan:     #44bec7;
 
-$primary:         $blue;
+$primary:       $indigo;
 $secondary:       $cyan;
 $success:         $pink;
 $info:            $cyan;
 $warning:       $yellow;
-$danger:           $red;
+$danger:         $white;
 $light:       $gray-100;
 $dark:        $gray-800;
 
@@ -130,7 +130,7 @@ $enable-transitions: false;
   width: 100%;
 }
 
-body {
+.container-fluid {
   overflow-y: visible;
   overflow-x: hidden;
   background-color: $black;
@@ -141,7 +141,7 @@ body {
 }
 
 #prepend-input{
-  font-size: 18pt;
+  font-size: 12pt;
 }
 
 input{
@@ -149,7 +149,7 @@ input{
   bottom: 0;
   background:none;
   color: white;
-  font-size: 18pt;
+  font-size: 12pt;
   border: none;
 }
 

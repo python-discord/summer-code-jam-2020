@@ -29,6 +29,10 @@ class Messages(Component):
     components = {
         "message": Message.get_component()
     }
-    
+
     props = ['mode']
     template = "#messages-template"
+
+    @staticmethod
+    def sendMessage(self):
+        pass

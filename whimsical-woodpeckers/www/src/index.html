@@ -12,13 +12,15 @@
     <div v-on:click="change" v-bind:style="{backgroundColor: colors[index]}">The background of this text will change on click {{testprop}}</div>
 </script>
 <script type="text/x-template" id="app-template">
-    <div id="app"
+    <div id="background"
     v-bind:class="{
       'messenger-app': mode==0,
       'aol-app': mode==1,
-      'irc-app': mode==2}"
+      'irc-app': mode==2}">
+    <div id="app"
     class="container-fluid">
-      <desktop></desktop>
+      <desktop v-bind:mode="mode"></desktop>
+    </div>
     </div>
 </script>
 <script type="text/x-template" id="directory-template">
@@ -59,6 +61,14 @@
           v-bind:sender="message.sender"
           ></message>
     </div>
+      <div id="message-input" class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button id="send-message" @click="sendMessage()" class="btn" v-bind:class="{'btn-primary': mode==0}" type="button">Send Message</button>
+        </div>
+        <div v-if="mode==2"><span id="prepend-input">>&nbsp;</span><input id="send-message-text" v-model="message"  @keyup.enter="sendMessage()" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus></div>
+        
+        <input v-else id="send-message-text" v-model="message" @keyup.enter="sendMessage()"  type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" autofocus>
+      </div>
     </div>
 </script>
 <script type="text/x-template" id="message-template">
@@ -76,10 +86,10 @@
     <div><span>{{ name }}</span></div>
 </script>
 <script type="text/x-template" id="desktop-template">
-    <div class="row">
-      <login class="col-lg-3 app"></login>
-      <messages class="col-lg-6 app"></messages>
-      <directory class="col-lg-3 app"></directory>
+    <div class="row" v-bind:mode="mode">
+      <login v-if="mode==0||mode==1" v-bind:mode="mode" class="col-lg-3 app"></login>
+      <messages class="col-lg-6 app" v-bind:mode="mode"></messages>
+      <directory v-if="mode==1||mode==0" class="col-lg-3 app"></directory>
     </div>
 </script>
 <script type="text/x-template" id="mobile-template">
@@ -101,10 +111,8 @@
         </div>
         <div id="login-form">
           <input v-model="username" placeholder="Username" class="">
-          <br>
-          <input v-model="password" placeholder="Password" class="">
-          <br>
-          <button v-on:click="login" class="btn btn-primary">Login</button>
+          <br><br>
+          <button v-on:click="login" v-bind:class="{'btn-primary':mode==0}" class="btn">Set Username</button>
         </div>
     </div>
     </div>

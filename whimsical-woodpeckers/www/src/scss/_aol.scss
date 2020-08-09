@@ -38,10 +38,11 @@ $enable-caret: false;
 $enable-rounded: false;
 $enable-transitions: false;
 
+@import "bootstrap_defaults";
+
 @import "XP.css-main/gui/index";
 @import "XP.css-main/themes/XP/index";
 
-@import "bootstrap_defaults";
 
 // AOL Theme
 
@@ -84,6 +85,7 @@ $enable-transitions: false;
 
 #login{
   text-align: center;
+  color: black;
 }
 
 // #login *{
@@ -91,10 +93,10 @@ $enable-transitions: false;
 // 
 // }
 
-#chat-window{
+#messages{
 /*  position: absolute;*/
   height: 90vh;
-  background: $gray-400;
+/*  background: #f0f0f0;*/
   overflow-y: scroll;
 }
 
@@ -112,7 +114,7 @@ body{
   bottom: 0;
   right: 0;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 2;
+  z-index: 9999999999999999;
   background-size: 100% 2px, 3px 100%;
   pointer-events: none;
 }
