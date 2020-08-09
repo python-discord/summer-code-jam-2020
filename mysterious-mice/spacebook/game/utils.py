@@ -109,7 +109,7 @@ def randomize_positions(game_data):
 
     game_data.update(
         {
-            "plutonium": (1, 1),
+            "plutonium": (random.randint(-8, 8), random.randint(-8, 8)),
             "solar_panels": (random.randint(-3, 3), random.randint(-3, 3)),
         }
     )
