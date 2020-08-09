@@ -3,6 +3,8 @@ from users.models import UserProfile
 
 
 class MultiTab(models.Model):
+    '''Model for Multitabs, takes one title field and three URL's
+    URL's must be complete (example: https://www.google.com/)'''
     multitab_owner = models.ForeignKey(
         UserProfile,
         on_delete=models.CASCADE,

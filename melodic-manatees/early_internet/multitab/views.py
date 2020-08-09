@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from .models import MultiTab
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
+'''Views for the MultiTab app'''
 
 
 @login_required(login_url='login')
 def multitab_home(request):
+    # get all MultiTab objects for the current user
     multitabs = MultiTab.objects.filter(multitab_owner=request.user.profile)
     if multitabs:
         if len(multitabs) == 1:
@@ -56,6 +58,7 @@ def multitab_home(request):
 
 @login_required(login_url='login')
 def add_multitab(request):
+    # create a formset with the base form to a max of 2 forms.
     multitab_form = modelformset_factory(
         MultiTab,
         fields=(
@@ -74,6 +77,7 @@ def add_multitab(request):
                 multitab_owner=request.user.profile)
         )
         if formset.is_valid():
+            # if valid, for every formset, save that instance.
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.multitab_owner = request.user.profile
