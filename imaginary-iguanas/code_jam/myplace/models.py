@@ -20,7 +20,7 @@ class Comment(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Comment by {self.author.user.username} content: {self.comment}'
+        return f'Comment by {self.author.user.username} content: {self.content}'
 
 
 class BlogComment(Comment):
