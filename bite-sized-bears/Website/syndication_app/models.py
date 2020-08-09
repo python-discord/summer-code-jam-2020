@@ -47,7 +47,7 @@ class Post(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return '/rss/feed/posts/' + str(self.id)
+        return f'/community/{self.publisher}/{self.id}/'
 
     def get_short_intro(self):
         if len(self.description) <= 200:
