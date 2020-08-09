@@ -209,7 +209,11 @@ def command_help(game_data):
         },
         {
             "from_rover": False,
-            "message": "Additional points can be found by looking around alot.",
+            "message": 'Weather can be checked by typing "weather".',
+        },
+        {
+            "from_rover": False,
+            "message": "Additional points can be found by looking around a lot.",
         },
         {"from_rover": False, "message": ""},
         {
