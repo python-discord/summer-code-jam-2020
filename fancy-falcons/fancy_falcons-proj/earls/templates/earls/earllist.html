@@ -7,9 +7,10 @@
   <p>
     {% if earl_list %}
     This is a list of currently indexed Earls. 
-    There{% if earl_list.count() != 1%} are {{earl_list.count}} Earls{% else %}is 1 Earl{% endif %} in the database.
+    There{% if earl_list.count != 1%} are {{earl_list.count}} Earls{% else %}is 1 Earl{% endif %} in the database.
     {% else %}
     There are no Earls in the database yet.
+    {% endif %}
     {% if earl_list %}
   </p>
   <ul>
@@ -18,5 +19,6 @@
     {% endfor %}
   </ul>
 </div>
+{% endif %}
 
 {% endblock %}
