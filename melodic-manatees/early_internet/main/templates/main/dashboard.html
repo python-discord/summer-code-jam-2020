@@ -21,15 +21,20 @@
                 <div class="column">
                     <div class="box is-transparent">
                         <h2 class="title">Morning News</h2>
+                        {% for story in news %}
                         <article class="media notification">
+                            <figure class="media-left image is-128x128">
+                                <img src="{{ story.img_small }}">
+                            </figure>
                             <div class="media-content">
                                 <div class="content">
-                                    <h3 class="title">Article 1</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sed posuere ante, a egestas erat. Vivamus pulvinar pharetra nibh ut aliquet. Curabitur ut semper ligula. Mauris gravida nulla non ante imperdiet, et dignissim ante tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque eget consequat metus. Morbi consequat velit et velit maximus, posuere blandit enim convallis. Phasellus imperdiet faucibus semper. Nullam euismod quam non enim aliquam aliquet. Nullam molestie faucibus leo, eu commodo sapien luctus interdum. Vivamus varius eget est sit amet auctor. Quisque dapibus erat purus, ut rutrum justo tempor rhoncus. Nam aliquet neque vel sollicitudin mattis. </p>
+                                    <h3 class="title is-5">{{ story.title }}</h3>
+                                    <p>{{ story.abstract }}</p>
+                                    <a href="{{story.url}}">Full Article</a>
                                 </div>
                             </div>
                         </article>
-                    
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="column">
