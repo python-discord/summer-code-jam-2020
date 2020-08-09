@@ -71,7 +71,7 @@ function toggle_start_settings() {
 
     if (start_settings.style.display == "none") {
         start_settings.style.display = "block";
-        start_settings.style.zIndex = document.getElementsByClassName("draggable").length+1;
+        start_settings.style.zIndex = (document.getElementsByClassName("draggable").length*2)+1;
     } else {
         start_settings.style.display = "none";
         start_themes.style.display = "none";
@@ -85,7 +85,7 @@ function toggle_start_themes() {
 
     if (start_themes.style.display == "none") {
         start_themes.style.display = "block";
-        start_themes.style.zIndex = document.getElementsByClassName("draggable").length+2;
+        start_themes.style.zIndex = (document.getElementsByClassName("draggable").length*2)+2;
 
         start_wallpapers.style.display = "none";
     } else {
@@ -99,7 +99,7 @@ function toggle_start_wallpapers() {
 
     if (start_wallpapers.style.display == "none") {
         start_wallpapers.style.display = "block";
-        start_wallpapers.style.zIndex = document.getElementsByClassName("draggable").length+2;
+        start_wallpapers.style.zIndex = (document.getElementsByClassName("draggable").length*2)+2;
 
         start_themes.style.display = "none";
     } else {
