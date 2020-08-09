@@ -1,0 +1,17 @@
+{% extends "aggregator/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <h3 class="article-title">{{ object.author }} - {{object.clean_url}}</h3>
+            <h3 class="article-title"><a class="mr-2" href={{ object.link }} target="_blank">Visit the Source Here</a></h3>
+            <h3 class="article-title">{{ object.published_date|date:"F d, Y" }}</h2>
+        </div>
+        <h2 class="article-title">{{ object.title }}</h2>
+        <p class="article-content">{{ object.content }}</p>
+    </div>
+
+
+</article>
+<button class="btn btn-outline-info" type="submit" onclick="javascript:history.back()">Back</button>
+{% endblock content %}
