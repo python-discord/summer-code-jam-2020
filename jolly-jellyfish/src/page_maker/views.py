@@ -1,8 +1,6 @@
-from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
-from django.core.exceptions import PermissionDenied
-from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.views import redirect_to_login
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -178,7 +176,7 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = [
             'name', 'template_used', 'user_title',
             'user_text_1', 'user_text_2', 'user_text_3',
-            'user_image_1', 'user_image_2', 'user_image_3'
+            'user_image_1', 'user_image_2', 'user_image_3',
     ]
 
     def test_func(self):
@@ -189,9 +187,6 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('webpage-view', kwargs={'pagename': self.kwargs['pagename']})
-
-    def get_success_url(self):
-        return reverse_lazy('webpage-view', kwargs={'pagename': self.kwargs.get('pagename')})
 
 
 class WebpageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -238,6 +233,8 @@ class TemplateDetailView(DetailView):
     model = Template
     template_name = 'page_maker/template_detail.html'
     context_object_name = 'template'
+    slug_field = 'name'
+    slug_url_kwarg = 'templatename'
 
 
 class TemplateListView(ListView):
