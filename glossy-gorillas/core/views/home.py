@@ -1,5 +1,5 @@
 from django.views.generic.list import ListView
-from core.models.market import Listing, Trade
+from core.models import Listing, Trade, Product
 
 
 class Home(ListView):
@@ -13,4 +13,5 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["trades"] = Trade.objects.newest_10()
+        context["most_common"] = Product.objects.most_common
         return context
