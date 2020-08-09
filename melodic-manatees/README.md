@@ -25,18 +25,29 @@ Some features include:
 ```bash
 pip install -r requirements.txt
 ```
-2. **If running for the Python Dicord's CJ2020 Event:** Copy and paste the `.env` file sent to you at the root level in the same directory as `.gitignore`.
+2. Make migrations to setup the server databases.
+```bash
+python manage.py makemigrations
+pything manage.py migrate
+```
 
-2. **If running after the Python Dicord's CJ2020 Event:** Create a `.env` in the same directory as `.gitignore`, enter the following 2 lines in the file. Replace each *** with the API key for the NY Times and OpenWeatherAPI.
+3. **If running for the Python Dicord's CJ2020 Event:** Copy and paste the `.env` file sent to you at the root level in the same directory as `.gitignore`.
+
+4. **If running after the Python Dicord's CJ2020 Event:** Create a `.env` in the same directory as `.gitignore`, enter the following 2 lines in the file. Replace each *** with the API key for the NY Times and OpenWeatherAPI.
 ```bash
 NEWS_KEY=***
 WEATHER_KEY=***
 ```
-3. Create a user profile using the `register` button on the homepage.
+5. Start the server.
+```bash
+python manage.py runserver
+```
 
-4. **IMPORTANT**: To ensure that MultiTabs works, you will have to disable whichever flavor of pop-up blocker you are using. Allow popups from the website and unlock true early morning power. 
+6. Create a user profile using the `register` button on the homepage.
 
-5. **IMPORTANT**: Links added to MultiTab fields have to be the complete URL. 
+7. **IMPORTANT**: To ensure that MultiTabs works, you will have to disable whichever flavor of pop-up blocker you are using. Allow popups from the website and unlock true early morning power. 
+
+8. **IMPORTANT**: Links added to MultiTab fields have to be the complete URL. 
 
 Example: correct - `https://www.google.com/` incorrect - `google` 
 
