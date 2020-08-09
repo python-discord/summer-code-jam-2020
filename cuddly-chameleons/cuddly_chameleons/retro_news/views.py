@@ -17,6 +17,14 @@ class BlogArticleListView(APIView):
 
     def get(self, request: Request):
         """Get all articles."""
+        if "title" in request.query_params:
+            return Response(
+                serializers.BlogArticleGetSerializer(
+                    BlogArticle.objects.filter(title__icontains=request.query_params["title"]),
+                    many=True
+                ).data
+            )
+
         return Response(
             serializers.BlogArticleGetSerializer(
                 BlogArticle.objects.all().order_by('-id'),
