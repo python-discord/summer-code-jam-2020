@@ -26,7 +26,6 @@ urlpatterns = [
     path('first_google', include('first_google.urls', namespace='first_google')),
     path('first_twitter', include('first_twitter.urls', namespace='first_twitter')),
     path('first_youtube', include('first_youtube.urls', namespace='first_youtube')),
-    path('win95', include('win95.urls', namespace='win95')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
