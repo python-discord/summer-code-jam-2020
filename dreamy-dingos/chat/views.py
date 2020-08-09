@@ -44,7 +44,7 @@ def create_room(request):
         form = RoomNameForm(request.POST)
         if form.is_valid():
             Room(name=form.cleaned_data).save()
-            return HttpResponseRedirect('/chat/rooms/')
+            return HttpResponseRedirect('/rooms/')
     else:
         form = RoomNameForm()
     return render(request, 'chat/rooms.html', {'form': form})

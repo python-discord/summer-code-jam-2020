@@ -9,7 +9,6 @@
     {% block rooms %}
 
     <ul class="rooms">
-        What chat room would you like to enter?<br>
         {% for room in rooms %}
             <p>{{ room }} <a href="{% url 'room' room.id %}">Join</a></p>
         {% endfor %}
