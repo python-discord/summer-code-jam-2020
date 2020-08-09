@@ -314,7 +314,7 @@ def news_func(request, topic: str, start_date: str = None, end_date: str = None,
         news_items = ast.literal_eval(news_list.news_articles)
         if page_num != 0:
             article_start_num = page_num * 3
-            articles = news_items[article_start_num:article_start_num+3]
+            articles = news_items[article_start_num:article_start_num + 3]
         elif article_num != 0:
             article = news_items[article_num - 1]
             article_link = '<a href="{}" target="_blank">Read full article</a>'.format(article['link'])

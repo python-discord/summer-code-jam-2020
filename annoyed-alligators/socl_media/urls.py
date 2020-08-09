@@ -10,7 +10,7 @@ from socl_media.apps.chat.views import ChatListView
 urlpatterns = [
     path('', include('socl_media.apps.feed.urls')),
     path('login/', auth_views.LoginView.as_view(
-          template_name='users/login.html'), name="login"),
+        template_name='users/login.html'), name="login"),
     path('signup/', users_views.signup, name="signup"),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('password-reset/', auth_views.PasswordResetView.as_view(
@@ -20,11 +20,11 @@ urlpatterns = [
         name="password_reset_done"),
     path('password-reset-confirm/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(
-          template_name='users/password_reset_confirm.html'),
+             template_name='users/password_reset_confirm.html'),
          name="password_reset_confirm"),
     path('password-reset-complete',
          auth_views.PasswordResetCompleteView.as_view(
-          template_name='users/password_reset_complete.html'),
+             template_name='users/password_reset_complete.html'),
          name="password_reset_complete"),
     path('password-change/', auth_views.PasswordChangeView.as_view(
         template_name='users/password_change_form.html'),
