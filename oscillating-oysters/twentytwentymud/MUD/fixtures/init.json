@@ -1,9 +1,0 @@
-[
-  {
-    "model": "MUD.player",
-    "pk": 1,
-    "fields": {
-      "name": "Deckard the Beast"
-    }
-  }
-]

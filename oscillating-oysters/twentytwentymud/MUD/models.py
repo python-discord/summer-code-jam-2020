@@ -59,4 +59,7 @@ def create_player(sender, instance, created, **kwargs):
         except Room.DoesNotExist:
             Room.objects.create(name='ARPANET-1')
             room_name = Room.objects.get(name='ARPANET-1')
-        Player.objects.create_player(instance, player_name, room_name)
+        try:
+            Player.objects.get(name=player_name)
+        except Player.DoesNotExist:
+            Player.objects.create_player(instance, player_name, room_name)
