@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 
 from users.models import Profile
+from myplace.models import BlogPost
 from myplace.forms import ProfileCommentForm
 
 
@@ -76,3 +77,20 @@ def blog(request, username_or_id: Union[int, str]):
         'custom_css': profile.custom_css,
     }
     return render(request, 'myplace/blog.html', context)
+
+
+def post(request, username_or_id: Union[int, str], post_id: int):
+    try:
+        blog_post = BlogPost.objects.get(id=post_id)
+    except BlogPost.DoesNotExist:
+        messages.error(request, 'That blog post does not exist.')
+        return render(request, 'users/home.html')
+
+    profile = blog_post.author
+    context = {
+        'post': post,
+        'profile': profile,
+        'title': blog_post.title,
+        'custom_css': profile.custom_css,
+    }
+    return render(request, 'myplace/post.html', context)

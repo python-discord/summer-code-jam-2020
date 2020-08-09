@@ -1,0 +1,12 @@
+<div class='box blog'>
+  <div><b class='date'>{{ post.creation_date }}</b></div>
+  <a href="{% url 'user-blog-post' username_or_id=profile.user.id post_id=post.id %}">
+     <div class='blogCorpus'>
+        <h1>{{ post.title }}</h1>
+     </div>
+  </a>
+  <div class='blogCorpus'>
+     {{ post_description }}
+     <a href="{% url 'user-blog-post' username_or_id=profile.user.id post_id=post.id %}"><small>{{ post.comment_count }} comments</small><br><small class="blinkViolet"></small></a>
+  </div>
+</div>

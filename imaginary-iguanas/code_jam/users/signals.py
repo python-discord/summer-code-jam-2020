@@ -4,6 +4,7 @@ from django.dispatch import receiver
 
 
 def ignore_admin(func):
+    """Admins create with manage.py createsuper user do not have a profile."""
     def wrapper(*args, **kwargs):
         try:
             func(*args, **kwargs)

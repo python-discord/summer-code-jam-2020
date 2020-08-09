@@ -1,0 +1,6 @@
+{% extends "myplace/base.html" %}
+{% block content %}
+    {% include "myplace/profile_short.html" %}
+    {% include "myplace/post_snippet.html" with post_post_description=post.description %}
+
+{% endblock content %}
