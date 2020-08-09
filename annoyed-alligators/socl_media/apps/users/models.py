@@ -27,7 +27,7 @@ class Profile(models.Model):
         ('M', 'Male',),
         ('O', 'Other',),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user.username}'
