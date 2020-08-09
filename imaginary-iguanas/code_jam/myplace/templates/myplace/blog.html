@@ -6,7 +6,7 @@
         <div class="blogs">
         {% for post in profile.posts.all %}
 
-               {% include "myplace/post_snippet.html" with post_post_description=post.description|safe|truncatechars:150 %}
+               {% include "myplace/post_snippet.html" with post_description=post.description|safe|truncatechars:150 post=post %}
 
         {% endfor %}
         </div>

@@ -88,9 +88,10 @@ def post(request, username_or_id: Union[int, str], post_id: int):
 
     profile = blog_post.author
     context = {
-        'post': post,
+        'post': blog_post,
         'profile': profile,
         'title': blog_post.title,
         'custom_css': profile.custom_css,
     }
+
     return render(request, 'myplace/post.html', context)
