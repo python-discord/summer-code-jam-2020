@@ -36,7 +36,11 @@ Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the 
 4. To activate a virtual environment for the project, run `pipenv shell`. After this, you'll be inside the virtual environment.
 5. Install the dependencies by running `pipenv install`.
 6. Run migrations by `python3 manage.py makemigrations` and then `python3 manage.py migrate`.
-7. Run the Dev Server by `python3 manage.py runserver`.
+7. Run fixtures to populate the site by some dummy data (This is an optional step, just to have some initial data):
+- `python3 manage.py loaddata Users.json`
+- `python3 manage.py loaddata Post.json`
+- `python manage.py loaddata Message.json`
+8. Run the Dev Server by `python3 manage.py runserver`.
 
 ## :zap: Usage
 Just like you use any other social media platform, but there's a catch. You have a command for almost everything!<br>
