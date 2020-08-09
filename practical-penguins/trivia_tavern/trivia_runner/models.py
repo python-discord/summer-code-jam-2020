@@ -15,8 +15,13 @@ class Player(models.Model):
     # Model name needs to be in quotes according to
     # https://docs.djangoproject.com/en/3.0/ref/models/fields/#foreignkey
     active_quiz = models.ForeignKey('ActiveTriviaQuiz', on_delete=models.CASCADE)
-    correct_answers = []
-    wrong_answers = []
+
+    def __init__(self, *args, **kwargs):
+        super(Player, self).__init__(self, *args, **kwargs)
+        # TODO this should NOT be set manually
+        id = self.pk
+        correct_answers = []
+        wrong_answers = []
 
     def get_answers(self):
         answers = 'Here\'s what you got right:\n'
