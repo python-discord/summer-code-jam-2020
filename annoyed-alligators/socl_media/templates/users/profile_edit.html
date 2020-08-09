@@ -5,8 +5,8 @@
   {% csrf_token %}
   <fieldset class="form-group">
     <legend class="border-bottom mb-4">Profile Info</legend>
-    <div class="row">
-      <div class="column1" >
+    <div class="w3-row">
+      <div class="w3-col w3-container m4 l3" >
       {% for field in u_form %}
         <p>
           {{ field.label_tag }}<br>
@@ -17,7 +17,7 @@
         </p>
       {% endfor %}
       </div>
-      <div class="column2">
+      <div class="w3-col w3-container m8 l9" style="border-left: 1px solid #333;">
       {% for field in p_form %}
         <p>
           {{ field.label_tag }}<br>
@@ -36,17 +36,4 @@
   </div>
 </form>
 
-<style>
-.row {
-  display: flex;
-}
-.column1 {
-  flex: 30vw;
-  border-right: 1px solid gray;
-}
-.column2 {
-  padding-left: 3vw; 
-  flex: 70vw;
-}
-</style>
 {% endblock content %}

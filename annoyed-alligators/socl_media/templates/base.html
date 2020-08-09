@@ -6,8 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script> {% endcomment %}
   <link rel="stylesheet" href="{% static 'css/98.css' %}">
   <title>SoCL Media</title>
 </head>
@@ -22,7 +20,7 @@
         href="/profile/{{request.user.username}}" 
         class="profile-link"
         title="View your profile"
-      >{{request.user.username}}</a>
+      >{{request.user.username|capfirst}}</a>
     </div>
     <div class="header-col3">
       {% if request.user.is_authenticated %}

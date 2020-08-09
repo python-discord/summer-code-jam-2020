@@ -24,14 +24,14 @@
 
 {% for post in posts %}
   <div class="w3-row" style="margin: 6px 0 6px 0;">
-    <div class="w3-col w3-container m3 l2">
-	    <img src="{{ post.posted_by.profile.image.url }}">
+    <div class="w3-col w3-container m2 l1">
+	    <img src="{{ post.posted_by.profile.image.url }}" class="post-profile-pic">
     </div>
-    <div class="w3-col w3-container m9 l10">
-			<p>
+    <div class="w3-col w3-container m10 l11">
+			<span>
         <a href="{% url 'profile' post.posted_by.username %}">By: {{ post.posted_by}}</a>
 				<small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
-			</p>
+			</span>
 				
       <p>{{ post.post_content }}</p>
     </div>
@@ -52,21 +52,9 @@
   document.getElementById("gender").innerHTML = "Gender: " + gender;
 </script>
 <style>
-  .main-content {
-    display: flex; 
-    width: 100vw;
-    height: 20vh;
-  }
-  .profile-image {
-    flex: 15vw; 
-  }
-  .profile-info {
-    flex: 85vw; 
-  }
-  .main-content:after {
-    content: "";
-    display: table;
-    clear: both;
+  .post-profile-pic {
+    width: 64px;
+    height: auto;
   }
 </style>
 {% endblock content %}
