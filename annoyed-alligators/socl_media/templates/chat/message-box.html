@@ -6,24 +6,26 @@
   <div class="w3-col w3-container m10 l8">
     <div class="window">
       {% for message in object_list %}
-      <p><strong>{{message.body}}</strong></p>
+        <p><strong>{{message.body}}</strong></p>
           
-          <span style="color: #555;">Sent by:</span>
-            <a href="/profile/{{message.sender}}" title="username: {{message.sender}}">
-              {% if message.sender.first_name %}
-                {{message.sender.first_name|capfirst}} 
-              {% else %}
-                {{message.sender}}
-              {% endif %}
-              {% if message.sender.last_name %}
-                {{message.sender.last_name}}
-              {% endif %}
-            </a>
-          <span class="post-time">
-            on {{message.sent_at}}
-          </span>
-          <p></p>
-          <hr style="border-top: 1px solid black;">
+        <span style="color: #555;">Sent by:</span>
+          <a href="/profile/{{message.sender}}" title="username: {{message.sender}}">
+            {% if message.sender.first_name %}
+              {{message.sender.first_name|capfirst}} 
+            {% else %}
+              {{message.sender}}
+            {% endif %}
+            {% if message.sender.last_name %}
+              {{message.sender.last_name}}
+            {% endif %}
+          </a>
+        <span class="post-time">
+          on {{message.sent_at}}
+        </span>
+        <p></p>
+        <hr style="border-top: 1px solid black;">
+      {% empty %}
+        <p>You don't have any messages</p>
       {% endfor %}
     </div>
   </div>
