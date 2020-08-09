@@ -242,6 +242,7 @@ def command_move(game_data, direction):
                     game_data["messages"].append(
                         {
                             "from_rover": False,
+                            "message": "Sand has gotten stuck in the treads. Moving becomes less efficient.",
                         }
                     )
             # if the obstacle is a small crater there is a 50% chance to get stuck
