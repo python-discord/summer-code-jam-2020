@@ -16,6 +16,6 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class ProfileCommentCreationForm(forms.ModelForm):
-    class Meta:
-        model = ProfileComment
-        fields = ('user_commented_on', 'content')
+	class Meta:
+		model = ProfileComment
+		fields = ('user_commented_on', 'content')
