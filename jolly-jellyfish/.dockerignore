@@ -1,0 +1,4 @@
+venv/*
+src/user_media/*
+!src/user_media/static
+src/db.sqlite3

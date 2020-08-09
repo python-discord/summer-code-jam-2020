@@ -15,6 +15,8 @@ from .views import (
     TemplateCreateView,
     TemplateView,
     TemplateDeleteView,
+    TemplateDetailView,
+    TemplateListView,
     CommentCreateView,
     CommentDeleteView
 )
@@ -37,6 +39,7 @@ urlpatterns = [
     path('pages/<str:pagename>/comment', CommentCreateView.as_view(), name='comment-create'),
     path('comments/<int:pk>/delete', CommentDeleteView.as_view(), name='comment-delete'),
 
+    path('templates', TemplateListView.as_view(), name='template-list'),
     path('templates/new', TemplateCreateView.as_view(), name='template-create'),
     path('templates/<str:templatename>', TemplateView.as_view(), name='template-view'),
     path('templates/<str:templatename>/delete', TemplateDeleteView.as_view(), name='template-delete'),

@@ -1,7 +1,7 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<div><h1>{{ webpage.user_title }}</h1></div>
+<h1><span><span>{{ webpage.user_title }}</span></span></h1>
 <div>
   {{ num_likes }} like{{ num_likes|pluralize }}
   <form method="POST" action="">
@@ -12,6 +12,14 @@
   {% for comment in comments %}
   <div>
     <p>{{ comment.author.username }}: {{ comment.title }}</p>
+    <p>
+      {% if comment.author == user or user.is_superuser %}
+      <form method="POST" action="{% url 'comment-delete' pk=comment.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete comment</button>
+      </form>
+      {% endif %}
+    </p>
     <p>{{ comment.content }}</p>
   </div>
   {% endfor %}

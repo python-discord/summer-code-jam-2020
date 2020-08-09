@@ -5,14 +5,12 @@ from .models import Comment, Webpage, Template, User
 
 
 class CommentForm(forms.ModelForm):
-
     class Meta:
         model = Comment
         fields = ['title', 'content']
 
 
 class WebpageForm(forms.ModelForm):
-
     class Meta:
         model = Webpage
         fields = [
@@ -23,7 +21,6 @@ class WebpageForm(forms.ModelForm):
 
 
 class TemplateForm(forms.ModelForm):
-
     class Meta:
         model = Template
         fields = ['name', 'style_sheet']
