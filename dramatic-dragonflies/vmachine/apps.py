@@ -5,4 +5,4 @@ class VmachineConfig(AppConfig):
     name = 'vmachine'
 
     def ready(self) -> None:
-        import vmachine.signals
+        import vmachine.signals  # NOQA: F401
