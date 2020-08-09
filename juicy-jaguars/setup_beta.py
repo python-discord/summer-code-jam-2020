@@ -21,7 +21,7 @@ def install(Verbose=False):
         stderr = open(os.devnull, 'w')
 
     print("Cloning Repository...", color="Orange1")
-    result = subprocess.call(["git", "clone","https://github.com/Juicy-Jaguars/summer-code-jam-2020"],
+    result = subprocess.call(["git", "clone", "https://github.com/Juicy-Jaguars/summer-code-jam-2020"],
                              stdout=stdout, stderr=stderr)
     os.chdir("summer-code-jam-2020/juicy-jaguars")  # Changes directory to our project folder
 
