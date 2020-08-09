@@ -9,8 +9,8 @@ class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = '__all__'
-        read_only_fields = '__all__'
+        fields = ['name', 'owner', 'average_rating', 'game_type', 'game_id']
+        read_only_fields = ['name', 'owner', 'average_rating', 'game_type', 'game_id']
 
     def validate_average_rating(self, value):
         """Check to see if the rating is between 1 and 5"""
@@ -21,3 +21,8 @@ class RoomSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['owner'] = User.objects.filter(username=validated_data['owner']).first()
         return Room.objects.create(**validated_data)
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['owner'] = instance.owner.username
+        return ret
