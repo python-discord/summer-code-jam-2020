@@ -2,8 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="topLeft">
-		<div><h2 class="uName" id="name">{{ profile.user.username }}'s profile</h2></div>
+		<div><h2 class="uName" id="name">{{ profile }}</h2></div>
 
+		{% include "myplace/profile_short.html" %}
 		<table class="short">
 			<tr>
 				<td><img src="{{ profile.image.url }}" class="avatar" id="avatar" width="200px"></td>
