@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for project in feed %}
-        <article class="media content-section">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2">{{ project.user_id.username }}</a>
-                    <small class="text-muted">{{ project.date_created|date:"F d, Y" }}</small>
+    {% if feed %}
+        {% for project in feed %}
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2">{{ project.user_id.username }}</a>
+                        <small class="text-muted">{{ project.date_created|date:"F d, Y" }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{% url 'project-detail' project.user_id.username project.name %}">
+                        {{ project.name }}</a></h2>
+                    <img src="{{ project.upload_version.url }}">
                 </div>
-                <h2><a class="article-title" href="{% url 'project-detail' project.user_id.username project.name %}">
-                    {{ project.name }}</a></h2>
-                <img src="{{ project.upload_version.url }}">
-            </div>
-        </article>
-    {% endfor %}
+            </article>
+        {% endfor %}
+    {% else %}
+        <h2>There are no projects available yet! Be the first to post!</h2>
+    {% endif %}
 {% endblock content %}
