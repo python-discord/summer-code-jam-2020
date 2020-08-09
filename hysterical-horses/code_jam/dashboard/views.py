@@ -5,11 +5,16 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import HttpResponse
+import geocoder
 import textwrap
+import datetime
 import string
+import os
+from geopy.geocoders import Nominatim
+from pytz import timezone
+# import clipboard # for some debugging
 from users.mixins import level_check
 from .models import Search
-# import clipboard # for some debugging
 
 
 @login_required()
@@ -76,6 +81,94 @@ def search_query(search: str, format_text: bool =True):
     else:
         return results # else return results as is
 
+
+def kelvin_to_farenheit(temp: float):
+    """ Converts kelvin to farenheit  """
+    far = (temp - 273.15) * (9/5) + 32
+    return int(far)
+
+def convert_unix_to_dt(timestamp: int, zone: str):
+    """ Converts a unix to timestamp to a datetime object  """
+    # first part is the date, second is time
+    dt_obj = datetime.datetime.fromtimestamp(timestamp).astimezone(timezone(zone))
+    return dt_obj.strftime('%m/%d %H:%M %p').split()
+
+# queries for weather data
+def weather_query(lat: str, lon: str, api_key: str, part: str, format: bool = True):
+    # lon: longitude
+    parts = ['minutely', 'hourly', 'daily']
+    parts.remove(part)
+    ot_parts = ','.join(parts)
+    base_url = f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={ot_parts}&appid={api_key}'
+    res = requests.get(base_url).json()
+    if format:
+        # format the json
+        forecast = {}
+        days = []
+        for d in res['daily']:
+            days.append({'time': convert_unix_to_dt(d['dt'], res['timezone'])[0],
+                         'desc': d['weather'][0]['main'],
+                         'icon': 'http://openweathermap.org/img/wn/' + d['weather'][0]['icon']  + '@2x.png',
+                         'min_temp': kelvin_to_farenheit(d['temp']['min']),
+                         'max_temp': kelvin_to_farenheit(d['temp']['max']),
+                         'avg_temp': kelvin_to_farenheit(d['temp']['day']),
+                         'precip': int(d['pop'] * 100)})
+        forecast['daily'] = days[1:]
+        forecast['current'] = {'date': convert_unix_to_dt(res['current']['dt'], res['timezone'])[0],
+                               'time': convert_unix_to_dt(res['current']['dt'], res['timezone'])[1],
+                               'main': res['current']['weather'][0]['main'],
+                               'desc': string.capwords(res['current']['weather'][0]['description']),
+                               'icon': 'http://openweathermap.org/img/wn/' + res['current']['weather'][0]['icon']  + '@2x.png',
+                               'current_temp': kelvin_to_farenheit(res['current']['temp']),
+                               'feels_like': kelvin_to_farenheit(res['current']['feels_like']),
+                               'humidity': res['current']['humidity'],
+                               'wind_speed': res['current']['wind_speed'],
+                               'sunrise': convert_unix_to_dt(res['current']['sunrise'], res['timezone'])[1],
+                               'sunset': convert_unix_to_dt(res['current']['sunset'], res['timezone'])[1]}
+        forecast['tz'] = res['timezone']
+        return forecast
+    else:
+        return res # return as is
+
+@login_required()
+def weather_results(request, ip_address: str):
+    api_key = os.environ.get('weather_api_key')
+    pat = re.compile('^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')
+    error_msg = ''
+    if re.search(pat, ip_address):
+        user_data = geocoder.ip(ip_address).latlng # change to visitor_ip_address in developement
+        latitude, longitude  = user_data[0], user_data[1] # easily get lat. and lon. of location
+    else:
+        geolocator = Nominatim(user_agent="hyst_horses")
+        location = geolocator.geocode(ip_address)
+        try:
+            latitude, longitude = location.latitude, location.longitude
+        except:
+            wrapper = textwrap.TextWrapper(width=20)
+            shortened = wrapper.wrap(text=ip_address)[0]
+            if shortened != ip_address:
+                shortened += '...'
+            error_msg = f'No weather found for {shortened}.'
+            latitude, longitude = '', ''
+    if latitude and longitude:
+        forecast = weather_query(latitude, longitude, api_key, 'daily')
+        current_time = datetime.datetime.now(timezone(forecast['tz'])).strftime('%H:%M %p')
+    else:
+        forecast = {'daily': '',
+                    'current': ''}
+        current_time = ''
+    context = {
+        'day_forecast': forecast['daily'],
+        'current_details': forecast['current'],
+        'ending': '°F',
+        'current_time': current_time,
+        'error_msg': error_msg,
+    }
+    return render(request, 'dashboard/weather/weather.html', context=context)
+
+
+
+
 # needs to be global otherwise session gets
 # reinstantiated each time
 global hist_store;
@@ -85,7 +178,7 @@ def engine_results(request, search_text: str):
     """ Renders a page for the request  """
     # queries that have some problems:
     # prevent long searches from overflowing
-    wrapper = textwrap.TextWrapper(width=15)
+    wrapper = textwrap.TextWrapper(width=12)
     shortened = wrapper.wrap(text=search_text)[0]
     if shortened != search_text:
         shortened += '...'
@@ -94,9 +187,9 @@ def engine_results(request, search_text: str):
     
     try:
         old_val = hist_store['history']
-        hist_store['history'] = old_val + [shortened]
+        hist_store['history'] = old_val + [(shortened, search_text)]
     except KeyError:
-        hist_store['history'] = [shortened]
+        hist_store['history'] = [(shortened, search_text)]
     hist = hist_store['history'][-3:]
 
     
