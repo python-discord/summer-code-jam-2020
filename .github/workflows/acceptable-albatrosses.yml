@@ -46,4 +46,4 @@ jobs:
               if: ${{ always() }}
               run: |
                   cd acceptable-albatrosses
-                  pipenv run black albatrosses_hub --check -l 119
+                  pipenv run black albatrosses_hub --check -l 119 --exclude migrations
