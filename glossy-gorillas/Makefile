@@ -1,9 +1,13 @@
-verify:
+setup:
+	python3.8 get-poetry.py
+	source $HOME/.poetry/env
 	poetry install
-	poetry shell
-	pytest
+
+verify:
+	poetry check
+	poetry run pytest
 
 reset_db:
-	poetry run ./manage.py flush --no-input
+	rm db.sqlite3
 	poetry run ./manage.py migrate
 	poetry run ./manage.py create_sample_db
