@@ -2,11 +2,17 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from anon.models import AnonUser
-
+import random
+import string
 # Create your views here.
 
 def random_string(length):
-    return ""
+    i = 0
+    pw = ""
+    while i < length:
+        pw = pw+random.choice(string.printable)
+        i += 1
+    return pw
 
 
 def get_user(user_id):
