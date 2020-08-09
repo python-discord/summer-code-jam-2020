@@ -22,6 +22,11 @@ class UsersChatView(LoginRequiredMixin, ListView):
         user = get_object_or_404(get_user_model(), first_name=self.request.user.first_name)
         return get_user_model().objects.exclude(first_name=user.first_name)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_page'] = "chat"
+        return context
+
 
 class UserChatRoom(LoginRequiredMixin, DetailView):
     model = get_user_model()
@@ -34,6 +39,7 @@ class UserChatRoom(LoginRequiredMixin, DetailView):
             (Q(sender=self.request.user) & Q(reciever=self.object)) |
             (Q(sender=self.object) & Q(reciever=self.request.user))
         ).order_by('-date')
+        context['active_page'] = "chat"
         return context
 
 
