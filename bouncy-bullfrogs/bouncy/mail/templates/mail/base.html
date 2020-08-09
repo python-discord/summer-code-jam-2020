@@ -28,7 +28,7 @@
             </form>
         </div>
     </div>
-
+    
     <p style="font-family:VT323;font-size: 30px;position: absolute;right: 5px;color:black;"><img src="../../static/mail/DefaultAvatar.png" alt="AvatarIcon">{{ request.user.email }}</p>
     <h1><img class="logo" src="/static/mail/MailLogo.png" alt="logo" style="font-family:VT323;font-size: 30px;"></h1>
     <div class="topnav">
@@ -53,6 +53,7 @@
 
 
     <div class="container">
+        
         {% block body %}
         {% endblock %}
     </div>

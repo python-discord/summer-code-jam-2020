@@ -6,11 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
-django-crispy-forms = "*"
-django-ckeditor = "*"
-pre-commit = "*"
-pandas = "*"
 
 [requires]
 python_version = "3.8"
