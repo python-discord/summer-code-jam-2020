@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 """ urls should always end with "/", see example at https://docs.djangoproject.com/en/3.0/topics/http/urls/ """
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", TemplateView.as_view(template_name="index.html"), name="home"),
+    path("", TemplateView.as_view(template_name="start.html"), name="home"),
     path("main", TemplateView.as_view(template_name="mainapp.html"), name="main"),
     path(
         "market", TemplateView.as_view(template_name="marketplace.html"), name="market"
