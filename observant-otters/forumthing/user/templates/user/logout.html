@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+{% block content %}
+    You have logged out. <br>
+    <a href="{% url 'login' %}">Login Again</a>
+{% endblock %}
+</html>

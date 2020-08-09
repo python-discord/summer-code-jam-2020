@@ -16,6 +16,9 @@ import os
 DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
 DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
 SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = "l(#6-5+d*w0zis_adroah2u_+^56e&_go$el!&a+&18!bcilm+"
+DISCORD_CLIENT_ID = 739270907306180659
+DISCORD_CLIENT_SECRET = "sS4161QABYmDEj0X_d4E8bXlXiyi8cMb"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,15 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'forum.apps.ForumConfig',
     'user.apps.UserConfig',
-    'django.contrib.sites',  # django-allauth dep
-
-    # django-allauth config
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.discord',
-    # crispy forms
-    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -121,9 +115,6 @@ AUTH_USER_MODEL = 'user.ForumUser'
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 
@@ -148,18 +139,5 @@ STATIC_URL = '/static/'
 
 # Other config
 SITE_ID = 1
-
-# django-allauth
-
-# Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'discord': {
-        'APP': {
-            'client_id': DISCORD_CLIENT_ID,
-            'secret': DISCORD_CLIENT_SECRET,
-        },
-        'SCOPE': ['identify']
-    }
-}
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
