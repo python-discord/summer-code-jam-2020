@@ -1,4 +1,4 @@
-# Spydirweb
+# SpydirWeb
 
 <p align="center">
   <img src="readme/coollogo.gif">
@@ -12,26 +12,15 @@
     </a>
 </p>
 
-Blast off to the past and surf the web 90s style! With Spydirweb, you can browse a realistic version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and more! 
+Blast off to the past and surf the web 90s style! With SpydirWeb, you can browse a realistic version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and more! 
 
-### Table of Contents
-  * [Installation](#installation)
+# Table of Contents
   * [Overview](#overview)
+  * [Installation](#installation)
   * [License](#license)
   * [Authors](#Authors)
 
-### Installation
-
-For the judges, please check the `#talented-tigers` channel on the discord server.
-Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
-
-For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [their website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with only 
-```
-API_KEY=your_key_here
-```
-written inside of it.
-
-### Overview
+# Overview
 
 **SpydirWeb** has three different types of pages: information pages, blog pages, and business pages. The blog and business pages use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
 
@@ -51,10 +40,20 @@ And thats it. Have fun browsing!
 
 ![](readme/blogdone.png)
  
-### License
-MIT License
+# License
 
-### Authors
+# Installation
+
+For the judges, please check the `#talented-tigers` channel on the discord server.
+Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
+
+For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [their website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with only 
+```
+API_KEY=your_key_here
+```
+written inside of it.
+
+# Authors
 <p align="center">
 <a href="#" >
     <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=100%>
