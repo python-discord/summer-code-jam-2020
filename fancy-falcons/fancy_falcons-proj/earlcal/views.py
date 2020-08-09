@@ -27,6 +27,7 @@ class CalendarView(generic.ListView):
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
+        context['active_page'] = "calendar"
         return context
 
 
@@ -54,8 +55,10 @@ def next_month(d):
 
 def event(request, event_id=None):
     instance = Event()
+    is_editing = False
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
+        is_editing = True
     else:
         instance = Event()
 
@@ -63,4 +66,4 @@ def event(request, event_id=None):
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('earlcal:calendar'))
-    return render(request, 'earlcal/event.html', {'form': form})
+    return render(request, 'earlcal/event.html', {'form': form, "active_page": "calendar", "editing": is_editing})

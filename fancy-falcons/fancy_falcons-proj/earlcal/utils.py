@@ -18,13 +18,13 @@ class Calendar(HTMLCalendar):
 
 		d = ''
 		for earl in earls_per_day:
-			d += f'<li> {earl.get_html_url} </li>'
+			d += f'<br><span class="badge badge-success">{earl.get_html_url} </span>'
 
 		for event in events_per_day:
-			d += f'<li> {event.get_html_url} </li>'
+			d += f'<br><span class="badge badge-info"> {event.get_html_url} </span>'
 
 		if day != 0:
-			return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
+			return f"<td><span class='date'>{day}</span>{d}</td>"
 		return '<td></td>'
 
 	# formats a week as a tr
@@ -45,4 +45,5 @@ class Calendar(HTMLCalendar):
 		cal += f'{self.formatweekheader()}\n'
 		for week in self.monthdays2calendar(self.year, self.month):
 			cal += f'{self.formatweek(week, earls, events)}\n'
+		cal += '</table>'
 		return cal
