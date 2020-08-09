@@ -13,9 +13,9 @@ class TimeStampedModel(models.Model):
 
 
 class CustomUser(AbstractUser):
-    profile_img = models.ImageField(upload_to="profile_imgs/", null=True)
+    profile_img = models.ImageField(upload_to="profile_imgs/", null=True, blank=True)
     bio = models.TextField(
-        max_length=100, default="Hi, I am a HoneyFeed User", null=True
+        max_length=100, default="Hi, I am a HoneyFeed User", null=True, blank=True
     )
 
     def __str__(self):
