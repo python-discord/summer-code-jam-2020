@@ -29,7 +29,7 @@
           </q-card>
         </q-dialog>
       </div>
-      <city-sites :city="city" />
+      <city-sites :city="city" ref="citySites" />
     </div>
   </q-page>
 </template>
@@ -96,6 +96,7 @@ export default {
           }
         }
       }).then((data) => {
+        this.$refs.citySites.$apollo.queries.citySites.refetch();
         console.log(data);
         console.log(data.data.createSite.address);
       });
