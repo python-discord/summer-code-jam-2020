@@ -155,7 +155,6 @@ CHANNEL_LAYERS = {
 
 # You can make a local.py file in mysite to override settings
 try:
-    from mysite.local import *
+    from mysite.local import *  # noqa: F401,F403
 except ImportError:
     pass
-
