@@ -102,7 +102,7 @@ class PostsTests(TestCase):
                                  text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
         Comment.objects.create(post=Post.objects.get(pk=p1.id), commenter='glossy-gorillas',
                                text='URL namespace "admin" isn"t unique. You may not be'
-                               'able to reverse all URLs in this namespace')
+                                    'able to reverse all URLs in this namespace')
         resp = self.client.get(f'/nchan/posts/{p1.id}/comments/')
         self.assertIn('glossy-gorillas', str(resp.data))
 
@@ -117,6 +117,6 @@ class CommentsTests(TestCase):
                                  text='Lorem ipsum dolor sit amet, consectetur adipiscing elit')
         Comment.objects.create(post=Post.objects.get(pk=p1.id), commenter='glossy-gorillas',
                                text='URL namespace "admin" isn"t unique. You may'
-                               'not be able to reverse all URLs in this namespace')
+                                    'not be able to reverse all URLs in this namespace')
         resp = self.client.get('/nchan/comments/')
         self.assertIn('glossy-gorillas', str(resp.data))

@@ -16,8 +16,8 @@ export class PostsService {
   constructor(private _http: HttpClient) {
   }
 
-  private boardsUrl = 'http://127.0.0.1:8000/nchan/boards/';
-  private postsUrl = 'http://127.0.0.1:8000/nchan/posts/';
+  private boardsUrl = 'http://127.0.0.1:80/nchan/boards/';
+  private postsUrl = 'http://127.0.0.1:80/nchan/posts/';
 
   getPostsForBoard(id): Observable<PostContext> {
     return this._http.get<PostContext>(`${this.boardsUrl}${id}/posts?format=json`);
