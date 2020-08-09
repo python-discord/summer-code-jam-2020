@@ -199,10 +199,3 @@ def splice_sentence(word):
     cutoff = max([word.rfind("."), word.rfind("?"), word.rfind("!")])
     return word[: cutoff + 1]
 
-
-authorize_page("internet")
-generate_page("internet", "INFO")
-authorize_page("code")
-generate_page("code", "INFO")
-authorize_page("meme")
-generate_page("meme", "INFO")

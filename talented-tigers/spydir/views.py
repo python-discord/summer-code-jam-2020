@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from .models import GeneratedPage
-from . import generate_page
+from .generate_page import generate_page, authorize_page
 
 
 def homepage(request):
+    authorize_page("internet")
+    generate_page("internet", "INFO")
+    authorize_page("code")
+    generate_page("code", "INFO")
+    authorize_page("meme")
+    generate_page("meme", "INFO")
+
     lengths = [
         len(GeneratedPage.objects.filter(page_type="BLOG")),
         len(GeneratedPage.objects.filter(page_type="INFO")),
@@ -31,7 +38,7 @@ def load_generated_page(request, page_name):
     try:
         page = GeneratedPage.objects.get(page_title=page_name)
         if not page.is_generated:
-            page = generate_page.generate_page(page_name)
+            page = generate_page(page_name)
     except GeneratedPage.DoesNotExist:
         return render(request, "spydir/404.html")
 
