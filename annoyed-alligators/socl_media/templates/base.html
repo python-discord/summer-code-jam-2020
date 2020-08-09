@@ -27,6 +27,7 @@
 					<div id="terminal-input"> 
 						<span id="prompt">[[prompt]]</span>
 						<input type="text" 
+             id="command-input"
 						 class="terminal-input-text" 
 			       autofocus="autofocus" 
 		         @keyup.enter="run_command" 
@@ -59,6 +60,12 @@
             prompt: '{{ request.path }}:$',
 						followup_count: 0,
 					},
+
+          mounted: function() {
+            this.$nextTick(function () {
+              document.getElementById("command-input").focus();
+            })
+          },
 
 					methods: {
 
@@ -129,6 +136,7 @@
           updated: function() { 
             var el = document.getElementById("terminal-output"); el.scrollTop = el.scrollHeight; 
           }
+
         });
 			</script>
 

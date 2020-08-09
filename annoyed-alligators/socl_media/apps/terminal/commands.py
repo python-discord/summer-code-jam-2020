@@ -27,6 +27,36 @@ def add_linebreaks(msg: str):
     return "<br>" + msg
 
 
+def home(request, params: str, **kwargs):
+    redirect = reverse('home')
+    message = "Welcome home!"
+    messages.success(request, message)
+    return {'response': add_linebreaks(message), 'redirect': redirect}
+
+
+home = Command(name='home', help_text="""Takes you to the home page.<br>
+Usage: home<br>""",
+                 action=home)
+
+
+def view_post(request, params: str, **kwargs):
+    if len(params.split()) < 1:
+        message = "Incorrect usage. See: view-post --help"
+        return {'response': add_linebreaks(message)}
+    else:
+        post_id = params.split()[0]
+        redirect = reverse('post-detail', args=[post_id])
+        message = f"On post {post_id}"
+        messages.success(request, message)
+    
+    return {'response': add_linebreaks(message), 'redirect': redirect}
+
+
+view_post = Command(name='view-post', help_text="""View a particular Post.<br>
+Usage: view-post [post number]<br>""",
+                 action=view_post)
+
+
 def logout(request, params: str, **kwargs):
     if request.user.is_authenticated:
         redirect = reverse('logout')
@@ -57,6 +87,21 @@ signup = Command(name='signup', help_text="""Register a new user.<br>
 Make sure you are logged out to register a new user.<br>
 Usage: signup<br>""",
                  action=signup)
+
+
+def change_password(request, params: str, **kwargs):
+    if request.user.is_authenticated:
+        redirect = reverse('password_change')
+        message = "Change your password."
+        messages.success(request, message)
+    else:
+        message = "No user logged in."
+    return {'response': add_linebreaks(message), 'redirect': redirect}
+
+
+home = Command(name='change-password', help_text="""Change your password.<br>
+Usage: change-password<br>""",
+                 action=change_password)
 
 
 def message(request, params: str, **kwargs):
