@@ -1,17 +1,17 @@
 <h2 class="title">Newest Listings</h2>
 <table style="border-spacing: 10px 0;">
-    <tr class="row">
-        <td class="head mr-5">Owner</td>
-        <td class="head mr-5">Item</td>
-        <td class="head mr-5">Quantity</td>
-        <td class="head mr-5">Cost (per unit)</td>
+    <tr class="rows">
+        <td class="head m">Owner</td>
+        <td class="head m">Item</td>
+        <td class="head m">Quantity</td>
+        <td class="head m">Cost (per unit)</td>
     </tr>
     {% for ls in listings %}
     {% with item=ls.item %}
-    <tr class="row">
-        <td class="item mr-5">{{ item.owner.user.get_username }}</td>
-        <td class="item mr-5">{{ item.product.name }}</td>
-        <td class="item mr-5">
+    <tr class="rows">
+        <td class="item m">{{ item.owner.user.get_username }}</td>
+        <td class="item m">{{ item.product.name }}</td>
+        <td class="item m">
             {{ item.quantity }}
             {% if item.quantity_type == "G" %}
                 grams

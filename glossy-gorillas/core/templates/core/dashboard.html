@@ -6,14 +6,14 @@
 
 <h2 class="title">Inventory</h2>
 <table>
-    <tr class="row">
-        <td class="head mr-5">
+    <tr class="rows">
+        <td class="head m">
             Product Name
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Quantity
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Type Of Quantity
         </td>
         <td>
@@ -21,14 +21,14 @@
         </td>
     </tr>
     {% for product in inventory %}
-    <tr class="row">
-        <td class="item mr-5">
+    <tr class="rows">
+        <td class="item m">
             {{ product.product__name }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ product.quantity }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ product.quantity_type }}
         </td>
         <td class="item mr-5">
@@ -44,50 +44,50 @@
 
 <h2 class="title">Listing</h2>
 <table>
-    <tr class="row">
-        <td class="head mr-5">
+    <tr class="rows">
+        <td class="head m">
             Product Name
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Quantity
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Type Of Quantity
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Silver Per Unit
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Barter Product
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Barter Per Unit
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Offers Allowed
         </td>
     </tr>
     {% for listing in listings %}
-    <tr class="row">
-        <td class="item mr-5">
+    <tr class="rows">
+        <td class="item m">
             {{ listing.item__product__name }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ listing.item__quantity }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ listing.item__quantity_type }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ listing.silver_per_unit }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ listing.barter_product }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ listing.barter_qty_per_unit }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ listing.allow_offers }}
         </td>
     </tr>
@@ -97,26 +97,26 @@
 
 <h2 class="title">Review</h2>
 <table>
-    <tr class="row">
-        <td class="head mr-5">
+    <tr class="rows">
+        <td class="head m">
             Trade
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Rating
         </td>
-        <td class="head mr-5">
+        <td class="head m">
             Description
         </td>
     </tr>
     {% for review in reviews %}
-    <tr class="row">
-        <td class="item mr-5">
+    <tr class="rows">
+        <td class="item m">
             {{ review.trade }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ review.rating }}
         </td>
-        <td class="item mr-5">
+        <td class="item m">
             {{ review.description }}
         </td>
     </tr>

@@ -2,7 +2,7 @@
 {% block content %}
 <ul>
     {% for listing in page_obj %}
-    <li>{{ listing }}</li>
+    <li class="item m">{{ listing }}</li>
     {% endfor %}
 </ul>
 <div class="pagination">
@@ -12,7 +12,7 @@
             <a href="?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
 
-        <span class="current">
+        <span class="current item m">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
