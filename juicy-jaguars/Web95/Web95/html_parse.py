@@ -1,8 +1,8 @@
 """Module used to parse HTML pages."""
 
-from bs4 import BeautifulSoup  # Used for parsing HTML code
-import re
-import urllib.parse  # Used to parse urls to determine if they are relative or absolute
+from bs4 import BeautifulSoup  # For parsing HTML code
+import re  # For matching multiple/all variations of elements
+import urllib.parse  # To parse urls to determine if they are relative or absolute
 
 
 class HtmlParser:
@@ -61,11 +61,13 @@ class HtmlParser:
         except AttributeError:
             pass
 
-        for element in self.soup.find_all(re.compile(".*")):
+        for element in self.soup.find_all(re.compile(".*")):  # Gets all the elements of the target website
+            # ^ ".*" matches any charecter any number of times
             try:
                 element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;" + element["style"]
+                # ^ If a style attribute already exists it append a font-family to it, else \/
             except KeyError:
-                # If an element does not have a style a KeyError will be raised.
+                # If an element does not have a style attribute a KeyError will be raised.
                 # We catch this and create a style attribute
                 element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;"
 
@@ -81,11 +83,14 @@ class HtmlParser:
         """Parse all links in document."""
         link_attrs = ["src", "href", "action", "data", "background", "formaction", "icon"]
 
-        for element in self.soup.find_all(re.compile(".*")):
-            for name, val in element.attrs.items():
-                if name in link_attrs:
+        for element in self.soup.find_all(re.compile(".*")):  # \/
+            for name, val in element.attrs.items():  # Returns each atribute of every element on the target webpage
+                if name in link_attrs:  # Checks if the atribute should be a link or not
                     if ":" not in val:
+                        # ^ If no ":" is found in the link atribute, it is asummed that the link is relative
+                        # ^ "http://example.com/image.png" vs "../Images/image.png"
                         element[name] = "/page/" + urllib.parse.quote(self.link_parent(self.basedir) + val)
+                        # ^ Converts relative links to absolute links
 
                 elif name == "srcset":
                     values = list(map(lambda x: x.split(" "), val.split(",")))
