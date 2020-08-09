@@ -15,6 +15,7 @@ class Post(models.Model):
     title = models.CharField(max_length=300, blank=False, null=False, unique=True)
     content = models.TextField(blank=False, null=False)
     date_published = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name="blog_posts")
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
@@ -23,8 +24,8 @@ class Post(models.Model):
         return reverse('blog_detail', kwargs={'pk': self.pk})
 
     @property
-    def likes(self):
-        return len(self.all_likes.all())
+    def total_likes(self):
+        return self.likes.count()
 
     class Meta:
         ordering = ('author__username',)
