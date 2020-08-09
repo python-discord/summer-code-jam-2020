@@ -3,22 +3,22 @@
 {% block content %}
 
 <div class="container">
-  <h2>Early list</h2>
-  <p>
+    <h2>Early list</h2>
+    <p>
+    This is a list of currently indexed Earls.
     {% if earl_list %}
-    This is a list of currently indexed Earls. 
-    There{% if earl_list.count != 1%} are {{earl_list.count}} Earls{% else %}is 1 Earl{% endif %} in the database.
+        There{% if earl_list.count != 1 %} are {{earl_list.count}} Earls{% else %} is 1 Earl{% endif %} in the database.
     {% else %}
-    There are no Earls in the database yet.
+        There are no Earls in the database yet.
     {% endif %}
+    </p>
     {% if earl_list %}
-  </p>
-  <ul>
+    <ul>
     {% for earl in earl_list %}
-        <li> {{earl.title}} {{earl.first_name}} {{earl.last_name}} </li>
+        <li> {{ earl }} </li>
     {% endfor %}
-  </ul>
+    </ul>
+    {% endif %}
 </div>
-{% endif %}
 
 {% endblock %}
