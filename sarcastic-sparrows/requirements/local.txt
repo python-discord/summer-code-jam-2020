@@ -3,8 +3,7 @@
 Werkzeug==1.0.1 # https://github.com/pallets/werkzeug
 watchgod==0.6  # https://github.com/samuelcolvin/watchgod
 ipdb==0.13.3  # https://github.com/gotcha/ipdb
-requests==2.24.0
-
+requests==2.24
 # Testing
 # ------------------------------------------------------------------------------
 mypy==0.782  # https://github.com/python/mypy

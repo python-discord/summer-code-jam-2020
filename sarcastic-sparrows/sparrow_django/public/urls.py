@@ -7,5 +7,5 @@ urlpatterns = [
     # Ex: stock/ebay, or, stock/amzn
     path("<stock_ticker>/", views.stock, name="stock"),
     # Ex: stock/index/
-    path("index/", views.IndexView, name="index"),
+    path("<stock_ticker>/index/", views.IndexView, name="index"),
 ]
