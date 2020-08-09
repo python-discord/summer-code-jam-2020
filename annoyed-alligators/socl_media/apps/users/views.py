@@ -15,15 +15,12 @@ def signup(request):
     """
 
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('home')
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            print(user.id)
-            user_profile = Profile(user=user)
-            user_profile.save()
-            return redirect('/login')
+            form.save()
+            return redirect('login')
         else:
             return render(request, 'users/signup.html', {'form': form})
     else:
