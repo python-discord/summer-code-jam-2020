@@ -29,6 +29,10 @@ def new_game(request):
     if temperature is None or temperature == "":
         temperature = -60
 
+    # Get wind direction
+    wind_direction = (random.randint(-1,1), random.randint(-1,1))
+
+
     game_data = {
         "initials": "",
         "input_len": 16,
@@ -42,7 +46,7 @@ def new_game(request):
         "has_plutonium": False,
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
-        "wind": (-1, 0),
+        "wind": wind_direction,
         "wind_speed": wind_speed,
         "temperature": temperature,
         "obstacles": {
@@ -302,6 +306,11 @@ def command_move(game_data, direction):
     # If successfully moved depleat battery, handel components, and update position
     if success:
 
+        # Move dust storm
+        game_data['obstacles']['dust_storm'][0] += game_data['wind'][0]
+        game_data['obstacles']['dust_storm'][1] += game_data['wind'][1]
+        print('=====================')
+        print(game_data['obstacles']['dust_storm'])
         # depleat battery
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
