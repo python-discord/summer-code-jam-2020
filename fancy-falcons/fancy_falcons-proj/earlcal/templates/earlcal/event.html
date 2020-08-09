@@ -11,6 +11,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'earlcal:calendar' %}">Calendar</a></li>
     {% if editing %}
+    <li class="breadcrumb-item"><a href="{% url 'earlcal:event_view' event.pk %}">{{ event.title }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit event</li>
     {% else %}
     <li class="breadcrumb-item active" aria-current="page">New event</li>

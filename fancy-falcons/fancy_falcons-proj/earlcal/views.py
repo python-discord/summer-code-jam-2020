@@ -20,7 +20,7 @@ class CalendarView(generic.ListView):
         # use todays date
         d = get_date(self.request.GET.get('month', None))
 
-        # Create a calendar class instance 
+        # Create a calendar class instance
         cal = Calendar(d.year, d.month)
 
         # Formatmonth which returns a html view of the calendar
@@ -51,32 +51,24 @@ def next_month(d):
     last = d.replace(day=days_in_month)
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
-    return 
-    
+    return
+
 def event_view(request, event_id=None):
     instance = Event()
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
     return render(request, 'earlcal/event_display.html', {"active_page": "calendar", 'event': instance})
 
+@login_required
 def event(request, event_id=None):
-
-    # If the user is not logged in, simple display of event 
-    #if not request.user.is_authenticated:
-    
-
-    # If the user is logged in, editable event display
-    #else :
     instance = Event()
     is_editing = False
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
         is_editing = True
-    else:
-        instance = Event()
 
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('earlcal:calendar'))
-    return render(request, 'earlcal/event.html', {'form': form, "active_page": "calendar", "editing": is_editing})
+    return render(request, 'earlcal/event.html', {'form': form, "event": instance, "active_page": "calendar", "editing": is_editing})
