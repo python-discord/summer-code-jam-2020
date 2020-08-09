@@ -103,6 +103,7 @@ class TicTacToe:
         :type b: str
         :type c: str
         :return: Returns True if all the variables are non empty strings and are equal
+        :rtype: bool
         """
         return a == b == c and a != ''
 
