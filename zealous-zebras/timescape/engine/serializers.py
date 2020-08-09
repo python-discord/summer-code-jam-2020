@@ -12,3 +12,4 @@ class SearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Search
         fields = '__all__'
+        extra_kwargs = {'results': {'required': False}}
