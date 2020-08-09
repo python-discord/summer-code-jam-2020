@@ -1,5 +1,4 @@
-
-# ![Trivia Tavern](trivia_tavern/static/header_logo.png) 
+# ![Trivia Tavern](trivia_tavern/static/header_logo.png)
 by Practical :penguin:
  
 ## Table of Contents
