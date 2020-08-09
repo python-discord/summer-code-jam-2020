@@ -1,15 +1,64 @@
-from django.views import View
+from django.views import View as views
 from django.db.models import Count
 from django.views.generic import ListView
 from django.contrib.auth.models import auth
 from django.shortcuts import render, redirect
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import classonlymethod
+from functools import update_wrapper
+from django.contrib.auth.models import User as AuthUser
 
 from .models import Post, Comments, User, Community
 
+class View(views):
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        for key in initkwargs:
+            if key in cls.http_method_names:
+                raise TypeError("You tried to pass in the %s method name as a "
+                                "keyword argument to %s(). Don't do that."
+                                % (key, cls.__name__))
+            if not hasattr(cls, key):
+                raise TypeError("%s() received an invalid keyword %r. as_view "
+                                "only accepts arguments that are already "
+                                "attributes of the class." % (cls.__name__, key))
 
-class IndexListView(ListView):
+        def view(request, *args, **kwargs):
+            self = cls(**initkwargs)
+            try:
+                request.user = User.objects.get(name = request.user.get_username())
+                auth_user = AuthUser.objects.get(username=request.user.name)
+                for meth in dir(auth_user):
+                    if not hasattr(request.user, meth):
+                        try:
+                            setattr(request.user, meth, getattr(auth_user,meth))
+                        except Exception as e:
+                            pass
+            except:
+                pass
+            if hasattr(self, 'get') and not hasattr(self, 'head'):
+                self.head = self.get
+            self.setup(request, *args, **kwargs)
+            if not hasattr(self, 'request'):
+                raise AttributeError(
+                    "%s instance has no 'request' attribute. Did you override "
+                    "setup() and forget to call super()?" % cls.__name__
+                )
+            return self.dispatch(request, *args, **kwargs)
+
+        view.view_class = cls
+        view.view_initkwargs = initkwargs
+
+        # take name and docstring from class
+        update_wrapper(view, cls, updated = ())
+
+        # and possible attributes set by decorators
+        # like csrf_exempt from dispatch
+        update_wrapper(view, cls.dispatch, assigned = ())
+        return view
+
+class IndexListView(ListView,View):
     paginate_by = 25
     template_name = 'index.html'
     queryset = Post.objects.all()
@@ -122,14 +171,6 @@ class CommunityView(View):
             context["subscribed"] = True
         return render(request, self.template_name, context)
 
-def add_comment(request, community_name, post_id):
-    author = User.objects.get(name=request.user.get_username())
-    post = Post.objects.get(id = post_id)
-    content = request.POST['content']
-    Comments.objects.create(content = content, author = author, post = post)
-
-    return redirect(f'/community/{community_name}/{post_id}')
-
 class UserView(View):
     template_name = 'user-posts.html'
     model = User
@@ -142,7 +183,7 @@ class UserView(View):
         return render(request, self.template_name, self.context)
 
 
-class MostViewedPost(ListView):
+class MostViewedPost(ListView,View):
     template_name = 'most-viewed.html'
     model = Post
     context = {}
@@ -152,7 +193,7 @@ class MostViewedPost(ListView):
         return render(request, self.template_name, self.context)
 
 
-class CommunityListView(ListView):
+class CommunityListView(ListView,View):
     template_name = 'top-community.html'
     paginate_by = 25
     queryset = Community.objects.all().annotate(
@@ -160,14 +201,14 @@ class CommunityListView(ListView):
     ).order_by('-s_count')[:100]
 
 
-class MyCommunityListView(ListView):
+class MyCommunityListView(ListView,View):
     template_name = 'my-communities.html'
     paginate_by = 25
     def get_queryset(self):
         queryset = Community.objects.filter(subscribers__name=self.request.user.get_username())
         return queryset
 
-class UserProfileUpdate(UpdateView):
+class UserProfileUpdate(UpdateView,View):
     model = User
     fields = ['avatar']
     template_name_suffix = '_update_form'
@@ -212,7 +253,7 @@ def subscription_request(request, community_name):
     return redirect(request.META['HTTP_REFERER'])
 
 
-class HomeListView(ListView):
+class HomeListView(ListView,View):
 
     template_name = 'index.html'
     paginate_by = 25
