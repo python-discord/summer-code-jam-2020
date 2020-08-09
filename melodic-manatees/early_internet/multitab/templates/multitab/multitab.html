@@ -1,25 +1,27 @@
 {% extends 'main/main-base.html' %}
 
-<!-- <div class="box is-transparent">
-    <h2 class="title">MultiTab</h2>
-    <article class="media notification">
-        <div class="media-content">
-            <div class="content">
-                <h3 class="title">Article 1</h3>
-            </div>
-        </div>
-    </article>
-
-</div> -->
 {% block content%}
 <div>
     <h2>Morning spirit</h2>
     <section>
-        <p>multitab</p>
+        <p>background home page</p>
     </section>
     <section>
-        <a href="{% url 'edit-multitab' %}">edit multitabs</a>
-        
+        <a href="{% url 'edit-multitab' %}">edit multitab</a>
+        <h1>current backgrounds</h1>
+   
+            <button onclick="openTabs_1">{{ title_1 }}</button>
+            <script>
+                window.onclick = openTabs_1() {
+                let tabs_to_open = ['{{site_1_1}}']
+                for (let i = 0; i < tabs_to_open.length; i++){
+                    alert(tabs_to_open[i]);
+                }
+                }
+            </script>
+
+            <button onclick="openTabs_2()">{{ title_2 }}</button>
+
     </section>
 </div>
 {% endblock content %}
