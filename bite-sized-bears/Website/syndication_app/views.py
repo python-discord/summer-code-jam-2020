@@ -136,8 +136,8 @@ class UserView(View):
     context = {}
 
     def get(self, request, username):
-        self.context['user'] = self.model.objects.get(name=username)
-        self.context['posts'] = self.context['user'].post_author.all() \
+        self.context['user_data'] = self.model.objects.get(name=username)
+        self.context['posts'] = self.context['user_data'].post_author.all() \
             .annotate(v_count=Count('views')).order_by('-v_count')
         return render(request, self.template_name, self.context)
 
