@@ -24,11 +24,10 @@
     </div>
     <div class="col-md-4 offset-md-1 text-center">
         <h3>Upcoming birthdays</h3>
-        <h2>Next week</h2>
         <ul>
-            <li><span class="bday">16.04</span> <a href="#">Saer de Quincy</a></li>
-            <li><span class="bday">16.04</span> <a href="#">John of Wick</a></li>
-            <li><span class="bday">16.04</span> <a href="#">Neo of Matrix</a></li>
+        {% for birthday in upcoming %}
+            <li><span class="bday">{{ birthday.birthday }}</span> <a href={% url 'earldetail' birthday.id %}>{{ birthday }}</a></li>
+        {% endfor %}
         </ul>
         <h2 class="mt-5">This month</h2>
         <ul>
