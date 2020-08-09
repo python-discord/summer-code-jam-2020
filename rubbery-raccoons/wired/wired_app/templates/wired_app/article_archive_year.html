@@ -6,7 +6,8 @@
     <ul>
     {% for article in articles %}
         <a href="{% url 'article-detail' article.slug %}">{{ article.publication_date|date }} - {{ article.title }} -
-        {{ article.headline }}</a>    
+        {{ article.headline }}</a>
+        <p>{{ article.brief_body }}</p>    
     {% endfor %}
     </ul>
 </div>
