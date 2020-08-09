@@ -5,7 +5,8 @@ from anon.models import AnonUser
 class Conversation(models.Model):
     id = models.AutoField(primary_key=True)
     # participants = models.ManyToManyField(AnonUser, on_delete=models.CASCADE)
-    user_one = models.ForeignKey(AnonUser, related_name="%(app_label)s_%(class)s_one", on_delete=models.CASCADE)  # User with lower id will always be user 1
+    # User with lower id will always be user 1
+    user_one = models.ForeignKey(AnonUser, related_name="%(app_label)s_%(class)s_one", on_delete=models.CASCADE)
     user_two = models.ForeignKey(AnonUser, related_name="%(app_label)s_%(class)s_two", on_delete=models.CASCADE)
 
 
