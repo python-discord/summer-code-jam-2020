@@ -29,7 +29,6 @@ urlpatterns = [
     path('api/games/', include('games.urls')),
     path('api/forum/', include('forum.urls')),
     path('api/mail/', include('mailmessages.urls')),
-    path('api/forum/', include('forum.urls')),
     path('api/newsfeed/', include('newsfeed.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 

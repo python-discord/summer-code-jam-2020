@@ -1,8 +1,6 @@
 <template>
   <div v-if="ready">
-
-    <router-link :to="{name: 'home_page'}"><h2 class="some-heading">Hello and welcome to Angry LLamas Forum</h2>
-    </router-link>
+    <h2 class="some-heading">Electronic Mail</h2>
     <div class="container">
       <h2 class="some-heading">Messages</h2>
 
