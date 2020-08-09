@@ -25,3 +25,4 @@ then, to start:
 npm start
 ```
 After these steps, you can visit site at `localhost:3000`.
+Default superuser (only superusers can create posts) username is `admin` and password too `admin`.
