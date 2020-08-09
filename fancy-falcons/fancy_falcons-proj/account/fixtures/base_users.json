@@ -1,0 +1,86 @@
+[
+    {
+        "model": "account.account",
+        "pk": 1,
+        "fields": {
+            "password": "SaerdeQuincy",
+            "last_login": null,
+            "email": "nonuser1@example.org",
+            "title": "Earl",
+            "first_name": "Saer",
+            "last_name": "de Quincy",
+            "earldom": "Winchester",
+            "short_bio": "Saer de Quincy, 1st Earl of Winchester (c. 1170 – 3 November 1219) was one of the leaders of the baronial rebellion against John, King of England, and a major figure in both the kingdoms of Scotland and England in the decades around the turn of the twelfth and thirteenth centuries. ",
+            "image": "/profile_pics/quincy.svg",
+            "birthday": "1170-08-16",
+            "is_user": false,
+            "is_admin": true,
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true
+        }
+    },
+    {
+        "model": "account.account",
+        "pk": 2,
+        "fields": {
+            "password": "DowntonAbbey",
+            "last_login": null,
+            "email": "nonuser2@example.org",
+            "title": "Earl",
+            "first_name": "Robert",
+            "last_name": "Crawley",
+            "earldom": "Grantham",
+            "short_bio": "Robert Crawley, 7th Earl of Grantham (b. 1866) is the Earl of Grantham in the TV series Downton Abbey. He is portrayed by actor Hugh Bonneville.",
+            "image": "/profile_pics/Grantham_Arms.jpg",
+            "birthday": "1866-09-08",
+            "is_user": false,
+            "is_admin": true,
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true
+        }
+    },
+    {
+        "model": "account.account",
+        "pk": 3,
+        "fields": {
+            "password": "PGWodehouse",
+            "last_login": null,
+            "email": "nonuser3@example.org",
+            "title": "Earl",
+            "first_name": "Clarence",
+            "last_name": "Threepwood",
+            "earldom": "Emsworth",
+            "short_bio": "Lord Emsworth is a recurring fictional character in the Blandings stories by British comic writer P. G. Wodehouse. He is the amiable and somewhat absent-minded head of the large Threepwood family.",
+            "image": "/profile_pics/Emsworth_Coat_of_Arms.png",
+            "birthday": "1856-08-17",
+            "is_user": false,
+            "is_admin": true,
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true
+        }
+    },
+    {
+        "model": "account.account",
+        "pk": 4,
+        "fields": {
+            "password": "WalterScott",
+            "last_login": null,
+            "email": "nonuser4@example.org",
+            "title": "Earl",
+            "first_name": "William",
+            "last_name": "Neville",
+            "earldom": "Glenallan",
+            "short_bio": "William, Earl of Glenallan, otherwise Lord Glenallan, is a character in Sir Walter Scott's 1816 novel The Antiquary, a Scottish aristocrat whose life has been ruined by the suicide of his wife and the belief that he has unwittingly committed incest",
+            "image": "default.jpg",
+            "birthday": "1776-08-29",
+            "is_user": false,
+            "is_admin": true,
+            "is_active": true,
+            "is_staff": true,
+            "is_superuser": true
+        }
+    }
+]

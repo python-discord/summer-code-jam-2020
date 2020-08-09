@@ -1,12 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% for user in users %}
-    <div class="card mb-3 mt-3" style="width: 70rem;">
-      <div class="card-body">
-        <h5 class="card-title">{{ user.first_name }}</h5>
-        <a href="{% url 'chat-room' user.pk %}" class="card-link">Chat</a>
-      </div>
-    </div>
-  {% endfor %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'chat:chat-list' %}">Chat</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chat list</li>
+    </ol>
+</nav>
+<div class="list-group">
+    {% for user in users %}
+    <a href="{% url 'chat:chat-room' user.pk %}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <img src="{{ user.image.url }}" style="width: 100px; max-height: 100px" class="mr-3">
+            <div class="flex-fill">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ user }}</h5>
+                    {% for message in last_message %}
+                      {% if message.sender == user or message.reciever == user %}
+                        <small class="mt-1">{{ message.date }}</small>
+                      {% endif %}
+                    {% endfor %}
+                </div>
+                {% for message in last_message %}
+                  {% if message.sender == user or message.reciever == user %}
+                    <small class="mt-1">{{ message.content }}</small>
+                  {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
 {% endblock content %}
