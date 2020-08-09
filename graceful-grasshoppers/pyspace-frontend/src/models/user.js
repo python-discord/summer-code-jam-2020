@@ -3,6 +3,7 @@ export default class User {
     this.id = details.id;
     this.username = details.username;
     this.password = details.password;
+    this.confirm_password = details.confirm_password;
     this.email = details.email;
     this.name = details.name;
     this.age = details.age;

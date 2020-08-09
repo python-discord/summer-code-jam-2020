@@ -31,7 +31,7 @@
       <label for="input-4">Confirm Password</label>
       <input
         id="input-4"
-        v-model="confirmPassword"
+        v-model="user.confirm_password"
         type="password"
         required
         placeholder="Confirm password"
@@ -52,7 +52,6 @@
     data() {
       return {
         user: new User('', ''),
-        confirmPassword: "",
         message: '',
       };
     },
@@ -69,8 +68,8 @@
     methods: {
       onSubmit() {
         if (this.user.username && this.user.password) {
-          if (this.user.password === this.confirmPassword) {
-            this.$store.dispatch('auth/register', this.user, this.confirmPassword).then(
+          if (this.user.password === this.user.confirm_password) {
+            this.$store.dispatch('auth/register', this.user).then(
               (response) => {
                 this.message = "Succesfully registered!";
                 console.log(response);
