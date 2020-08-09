@@ -18,20 +18,21 @@
 
 Blast off to the past and surf the web 90s style! With Spydirweb, you can browse a realistic version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and more! 
 
-## Table of Contents
+### Table of Contents
   * [Installation](#installation)
   * [Overview](#overview)
   * [License](#license)
 
- ## Installation
+### Installation
 
- ## Overview
- 
- 
- **SpydirWeb** has three different types of pages; [info pages](#info-pages), [blog pages](#blog-and-business-pages), and [business pages](#blog-and-business-pages).
- 
- The [blog and business pages](#blog-and-business-pages) use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the [info pages](#info-pages) use the [wikipedia package on PyPi](https://pypi.org/project/wikipedia/). Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
+Please message the team for the .env file.
 
- Note: You will need your own API key, see [Installation](#installation).
+### Overview
+### Getting Started ###
 
- ## License
+**SpydirWeb** has three different types of pages: [info pages](#info-pages), [blog pages](#blog-and-business-pages), and [business pages](#blog-and-business-pages).
+The [blog and business pages](#blog-and-business-pages) use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the [info pages](#info-pages) use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
+
+Click one of the three links listed to get started browsing Spydirweb.
+ 
+### License
