@@ -70,6 +70,10 @@ def sms_reply(request):
     player = Player.objects.filter(phone_number=from_)
     available_quizzes = ActiveTriviaQuiz.objects.all()
     session_codes = [q.session_code for q in available_quizzes]
+    if body.upper() == '!QUIT':
+        player.delete()
+        SMSBot.send('You have left the quiz. Thanks for playing!', from_)
+        return redirect('/')
 
     if player.exists():
         player = player.first()
@@ -87,7 +91,7 @@ def sms_reply(request):
             SMSBot.send(msg, from_)
 
         elif player_quiz.current_question_index == 0:
-            if body.split('/')[0].upper() == 'EDIT':
+            if body.split('/')[0].upper() == '!EDIT':
                 player.team_name = body.split('/')[1]
                 player.save()
                 score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
