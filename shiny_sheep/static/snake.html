@@ -1,218 +1,145 @@
 <html>
     <head>
-        <script type ="text/js">
-            var config = {
-                type: Phaser.WEBGL,
-                width: 640,
-                height: 480,
-                backgroundColor: "#000000",
-                parent: "gameDiv",
-                scene: {
-                  preload: preload,
-                  create: create,
-                  update: update
-                }
-              };
-              var snake;
-              var food;
-              var cursors;
-              var UP = 0;
-              var DOWN = 1;
-              var LEFT = 2;
-              var RIGHT = 3;
-              var game = new Phaser.Game(config);
-              function preload() {
-                this.load.image("food", "https://i.imgur.com/ISrNL1J.png");
-                this.load.image("body", "https://i.imgur.com/dgfBf1F.png");
-              }
-              function create() {
-                var text = this.add.text(300, 25, "0", {
-                  font: "16px Courier",
-                  fill: "#FFFFFF"
-                });
-                var Food = new Phaser.Class({
-                  Extends: Phaser.GameObjects.Image,
-              
-                  initialize: function Food(scene, x, y) {
-                    Phaser.GameObjects.Image.call(this, scene);
-                    this.setTexture("food");
-                    this.setPosition(x * 16, y * 16);
-                    this.setOrigin(0);
-                    this.total = 0;
-                    scene.children.add(this);
-                  },
-                  eat: function () {
-                    this.total++;
-                    text.setText(this.total.toString());
-                  }
-                });
-                var Snake = new Phaser.Class({
-                  initialize: function Snake(scene, x, y) {
-                    this.headPosition = new Phaser.Geom.Point(x, y);
-                    this.body = scene.add.group();
-                    this.head = this.body.create(x * 16, y * 16, "body");
-                    this.head.setOrigin(0);
-                    this.alive = true;
-                    this.speed = 100;
-                    this.moveTime = 0;
-                    this.tail = new Phaser.Geom.Point(x, y);
-                    this.heading = RIGHT;
-                    this.direction = RIGHT;
-                  },
-                  update: function (time) {
-                    if (time >= this.moveTime) {
-                      return this.move(time);
-                    }
-                  },
-                  faceLeft: function () {
-                    if (this.direction === UP || this.direction === DOWN) {
-                      this.heading = LEFT;
-                    }
-                  },
-                  faceRight: function () {
-                    if (this.direction === UP || this.direction === DOWN) {
-                      this.heading = RIGHT;
-                    }
-                  },
-                  faceUp: function () {
-                    if (this.direction === LEFT || this.direction === RIGHT) {
-                      this.heading = UP;
-                    }
-                  },
-                  faceDown: function () {
-                    if (this.direction === LEFT || this.direction === RIGHT) {
-                      this.heading = DOWN;
-                    }
-                  },
-                  move: function (time) {
-                    switch (this.heading) {
-                      case LEFT:
-                        this.headPosition.x = Phaser.Math.Wrap(
-                          this.headPosition.x - 1,
-                          0,
-                          40
-                        );
-                        break;
-                      case RIGHT:
-                        this.headPosition.x = Phaser.Math.Wrap(
-                          this.headPosition.x + 1,
-                          0,
-                          40
-                        );
-                        break;
-                      case UP:
-                        this.headPosition.y = Phaser.Math.Wrap(
-                          this.headPosition.y - 1,
-                          0,
-                          30
-                        );
-                        break;
-                      case DOWN:
-                        this.headPosition.y = Phaser.Math.Wrap(
-                          this.headPosition.y + 1,
-                          0,
-                          30
-                        );
-                        break;
-                    }
-                    this.direction = this.heading;
-                    Phaser.Actions.ShiftPosition(
-                      this.body.getChildren(),
-                      this.headPosition.x * 16,
-                      this.headPosition.y * 16,
-                      1,
-                      this.tail
-                    );
-                    var hitBody = Phaser.Actions.GetFirst(
-                      this.body.getChildren(),
-                      { x: this.head.x, y: this.head.y },
-                      1
-                    );
-                    if (hitBody) {
-                      this.alive = false;
-                      return false;
-                    } else {
-                      this.moveTime = time + this.speed;
-                      return true;
-                    }
-                  },
-                  grow: function () {
-                    var newPart = this.body.create(this.tail.x, this.tail.y, "body");
-                    newPart.setOrigin(0);
-                  },
-                  collideWithFood: function (food) {
-                    if (this.head.x === food.x && this.head.y === food.y) {
-                      this.grow();
-                      food.eat();
-                      if (this.speed > 20 && food.total % 5 === 0) {
-                        this.speed -= 5;
-                      }
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  },
-                  updateGrid: function (grid) {
-                    this.body.children.each(function (segment) {
-                      var bx = segment.x / 16;
-                      var by = segment.y / 16;
-                      grid[by][bx] = false;
-                    });
-                    return grid;
-                  }
-                });
-                food = new Food(this, 3, 4);
-                snake = new Snake(this, 8, 8);
-                cursors = this.input.keyboard.createCursorKeys();
-              }
-              function update(time, delta) {
-                if (!snake.alive) {
-                  return;
-                }
-                if (cursors.left.isDown) {
-                  snake.faceLeft();
-                } else if (cursors.right.isDown) {
-                  snake.faceRight();
-                } else if (cursors.up.isDown) {
-                  snake.faceUp();
-                } else if (cursors.down.isDown) {
-                  snake.faceDown();
-                }
-                if (snake.update(time)) {
-                  if (snake.collideWithFood(food)) {
-                    repositionFood();
-                  }
-                }
-              }
-              function repositionFood() {
-                var testGrid = [];
-                for (var y = 0; y < 30; y++) {
-                  testGrid[y] = [];
-              
-                  for (var x = 0; x < 40; x++) {
-                    testGrid[y][x] = true;
-                  }
-                }
-                snake.updateGrid(testGrid);
-                var validLocations = [];
-                for (var y = 0; y < 30; y++) {
-                  for (var x = 0; x < 40; x++) {
-                    if (testGrid[y][x] === true) {
-                      validLocations.push({ x: x, y: y });
-                    }
-                  }
-                }
-                if (validLocations.length > 0) {
-                  var pos = Phaser.Math.RND.pick(validLocations);
-                  food.setPosition(pos.x * 16, pos.y * 16);
-                  return true;
-                } else {
-                  return false;
-                }
-              }
+        <script type="text/javascript" src="https://github.com/photonstorm/phaser-ce/releases/download/v2.16.0/phaser.min.js
+"></script>
+        <script type ="text/javascript">
+            // https://github.com/photonstorm/phaser-ce/releases/download/v2.16.0/phaser.min.js
+
+var HEIGHT = 400,
+  WIDTH = 600;
+
+var mainState = {
+  preload: function () {
+    game.load.crossOrigin = "anonymous";
+
+    game.load.image("wall", "https://i.imgur.com/WQUKFVC.png");
+    game.load.image("ball", "https://i.imgur.com/xtFdsIU.png");
+  },
+
+  create: function () {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.arcade.checkCollision.right = false;
+    game.physics.arcade.checkCollision.left = false;
+    game.input.keyboard.addKeyCapture([
+      Phaser.Keyboard.UP,
+      Phaser.Keyboard.DOWN
+    ]);
+    this.cursor = game.input.keyboard.createCursorKeys();
+    this.wasd = {
+      up: game.input.keyboard.addKey(Phaser.Keyboard.W),
+      down: game.input.keyboard.addKey(Phaser.Keyboard.S)
+    };
+    this.player = game.add.sprite(30, game.world.centerY, "wall");
+    this.player.anchor.setTo(0.5, 0.5);
+    this.player.scale.x = 0.55;
+    this.player.scale.y = 0.25;
+    game.physics.arcade.enable(this.player);
+    this.player.body.collideWorldBounds = true;
+    this.player.body.immovable = true;
+    this.player2 = game.add.sprite(WIDTH - 30, game.world.centerY, "wall");
+    this.player2.anchor.setTo(0.5, 0.5);
+    this.player2.scale.x = 0.55;
+    this.player2.scale.y = 0.25;
+    game.physics.arcade.enable(this.player2);
+    this.player2.body.collideWorldBounds = true;
+    this.player2.body.immovable = true;
+    this.ball = game.add.sprite(game.world.centerX, game.world.centerY, "ball");
+    game.physics.arcade.enable(this.ball);
+    this.ball.body.velocity.set(-200, 0);
+    this.ball.onPaddlePlayer = false;
+    this.ball.onPaddlePlayer2 = false;
+    this.ball.body.bounce.set(1);
+    this.ball.body.collideWorldBounds = true;
+    this.score = [0, 0];
+    this.text = this.add.text(300, 25, "", {
+      font: "16px Courier",
+      fill: "#FFFFFF"
+    });
+    this.left = -1;
+  },
+  update: function () {
+    this.movePlayer();
+    this.movePlayer2();
+    this.ballCollision();
+    if (this.ball.onPaddlePlayer) {
+      this.ball.body.velocity.y =
+        Math.random() * 50 - 25 + this.player.body.velocity.y;
+      this.ball.body.velocity.x += 0.1 * this.ball.body.velocity.x;
+      this.ball.onPaddlePlayer = false;
+    } else if (this.ball.onPaddlePlayer2) {
+      this.ball.body.velocity.y =
+        Math.random() * 50 - 25 + this.player2.body.velocity.y;
+      this.ball.body.velocity.x += 0.1 * this.ball.body.velocity.x;
+      this.ball.onPaddlePlayer2 = false;
+    }
+    if (this.ball.x >= game.width) {
+      this.score[0] += 1;
+      this.ballLost();
+    } else if (this.ball.x <= 0) {
+      this.score[1] += 1;
+      this.ballLost();
+    }
+    this.text.setText(
+      this.score[0].toString() + " : " + this.score[1].toString()
+    );
+  },
+  movePlayer: function () {
+    if (this.wasd.up.isDown) {
+      this.player.body.velocity.y = -300;
+    } else if (this.wasd.down.isDown) {
+      this.player.body.velocity.y = 300;
+    } else {
+      this.player.body.velocity.y = 0;
+    }
+  },
+  movePlayer2: function () {
+    if (this.cursor.up.isDown) {
+      this.player2.body.velocity.y = -300;
+    } else if (this.cursor.down.isDown) {
+      this.player2.body.velocity.y = 300;
+    } else {
+      this.player2.body.velocity.y = 0;
+    }
+  },
+  ballCollision: function () {
+    this.ball.onPaddlePlayer = this.ball.onPaddlePlayer2 = false;
+    game.physics.arcade.collide(
+      this.player,
+      this.ball,
+      function () {
+        this.ball.onPaddlePlayer = true;
+      },
+      null,
+      this
+    );
+    game.physics.arcade.collide(
+      this.player2,
+      this.ball,
+      function () {
+        this.ball.onPaddlePlayer2 = true;
+      },
+      null,
+      this
+    );
+  },
+  ballLost: function () {
+    this.ball.reset(game.world.centerX, game.world.centerY);
+    this.left *= -1;
+    game.time.events.add(
+      2000,
+      function () {
+        this.ball.body.velocity.set(this.left * 200, 0);
+      },
+      this
+    );
+  }
+};
+
+var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, "gameDiv", mainState);
         </script>
     </head>
     <body>
         <div id="gameDiv"></div>
+    <p>P1 : WSDA, P2: Arrows</p>
     </body>
 </html>

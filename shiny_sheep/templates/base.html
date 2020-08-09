@@ -33,6 +33,20 @@
     body {
       background-color: #c0c0c0;
     }
+
+    .template-topbar {
+      overflow: no-display;
+    }
+    .template-topbar > * {
+      /* display: inline-block; */
+
+      margin: 0;
+      float: right;
+
+    }
+    .template-topbar:after {
+      clear: right;
+    }
     </style>
 
     <!-- This file stores project-specific CSS -->
@@ -45,6 +59,11 @@
   </head>
 
   <body>
+    <span class="template-topbar">
+      <button class="btn" onclick="changeToIfNotEqual(changePwd);">Change Password</button>
+      <button class="btn" onclick="changeToIfNotEqual(logoutUrl);">Logout</button>
+      <button class="btn" onclick="window.open('/static/snake.html');">🥚</button>
+    </span>
     <div class="container">
 
       {% if messages %}
