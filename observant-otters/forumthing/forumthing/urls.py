@@ -21,3 +21,4 @@ urlpatterns = [
     path('', include('forum.urls')),
     path('accounts/', include('user.urls')),
 ]
+print('wait what can i push to master myself')
