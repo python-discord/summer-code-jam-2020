@@ -5,8 +5,15 @@
 {{ object.description }}
 
 <h2>Inventory</h2>
-{% for product in inventory %}
-<li>{{ product }}</li>
+{% for record in inventory %}
+<li>
+{% if record.listing__id %}
+    {{ record }}
+{% else %}
+    {{ record }}
+    <a href="{% url 'listing-create' item_id=record.id %}" class="btn">List Item</a>
+{% endif %}
+</li>
 {% endfor %}
 
 <h2>Listing</h2>

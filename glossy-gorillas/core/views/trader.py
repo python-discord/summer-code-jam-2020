@@ -31,7 +31,7 @@ class TraderDashboard(LoginRequiredMixin, DetailView):
 
         context["inventory"] = models.InventoryRecord.objects.filter(
             owner=self.object
-        ).values("product__name", "quantity", "quantity_type",)
+        ).values("id", "product__name", "quantity", "quantity_type", "listing__id")
 
         context["reviews"] = models.Review.objects.filter(
             trade__listing__item__owner=self.object
