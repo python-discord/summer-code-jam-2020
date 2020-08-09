@@ -4,7 +4,6 @@ from trivia_builder.views import (TriviaQuizDeleteView,
                                   TriviaQuizUpdateView,
                                   TriviaQuizCreateView,
                                   TriviaQuizDetailView,
-                                  UserTriviaQuizListView,
                                   TriviaQuizListView)
 
 urlpatterns = [

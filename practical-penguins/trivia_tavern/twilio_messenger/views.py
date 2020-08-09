@@ -36,7 +36,7 @@ class SMSBot:
         and a 'phone_number'
         """
 
-        player = Player.objects.create( team_name='', active_quiz=active_quiz, phone_number=phone_number,)
+        player = Player.objects.create(team_name='', active_quiz=active_quiz, phone_number=phone_number,)
         return player
 
     @staticmethod
@@ -115,7 +115,6 @@ class SMSBot:
         msg = 'Thanks for your answer! Please wait for the next question...'
         return SMSBot.send(msg, player.phone_number)
 
-
     @staticmethod
     def player_timeout(active_trivia_quiz):
         for player in Player.objects.all():
@@ -125,7 +124,7 @@ class SMSBot:
             if not score_track.answered_this_round:
                 current_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
                                                               question_index=active_trivia_quiz.current_question_index)
-                ans = Answer.objects.create(value="", player=player, question=current_question)
+                Answer.objects.create(value="", player=player, question=current_question)
                 score_track.answered_this_round = True
                 score_track.save()
             SMSBot.send('TIME IS UP. NO MORE ANSWERS!', player.phone_number)

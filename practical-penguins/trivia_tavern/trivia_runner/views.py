@@ -1,13 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DeleteView, ListView
 
 from trivia_builder.models import TriviaQuestion
-from trivia_runner.models import ActiveTriviaQuiz, Player
+from trivia_runner.models import ActiveTriviaQuiz
 from twilio_messenger.views import SMSBot
-from twilio_messenger.views import ScoreTracker
-from django.views.decorators.csrf import csrf_exempt
 
 
 class ActiveTriviaQuizListView(ListView):

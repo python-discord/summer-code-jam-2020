@@ -27,6 +27,3 @@ class TriviaQuizForm(ModelForm):
         labels = {
             'name': ugettext_lazy('Trivia Pack Name'),
         }
-
-
-

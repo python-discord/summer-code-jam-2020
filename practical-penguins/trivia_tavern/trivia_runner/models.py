@@ -1,6 +1,5 @@
 import random
 import string
-from typing import List
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -23,9 +22,10 @@ class Player(models.Model):
             if answer.is_correct():
                 answers += f'Question {i}: your answer: {answer.value} is correct\n'
             else:
-                answers += f'Question {i}: your answer: {answer.value} does not match {answer.question.question_answer}\n'
+                answers += f'Question {i}: your answer: {answer.value} ' \
+                           f'does not match {answer.question.question_answer}\n'
         if len(answers) == 0:
-            answers = f"hmm something went wrong you didn't have any answers"
+            answers = "hmmm something went wrong you didn\'t have any answers"
         return answers
 
     def __str__(self):

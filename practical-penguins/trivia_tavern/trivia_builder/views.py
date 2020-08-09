@@ -51,7 +51,8 @@ class TriviaQuizDetailView(DetailView):
     template_name = 'trivia_builder/triviaquiz_detail.html'
 
     def post(self, request, *args, **kwargs):
-        active_trivia_quiz = ActiveTriviaQuiz.objects.create(trivia_quiz=self.get_object(), session_master=request.user)
+        active_trivia_quiz = ActiveTriviaQuiz.objects.create(trivia_quiz=self.get_object(),
+                                                             session_master=request.user)
         active_trivia_quiz.save()
         return HttpResponseRedirect(reverse('activequiz', kwargs={'pk': active_trivia_quiz.pk}))
 
