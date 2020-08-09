@@ -42,9 +42,8 @@
                                         <div class="content">
                                             <h3>{{ entry.title }}</h3>
                                             <p>{{ entry.content }}</p>
-                                            <div class="field">
-                                                <form action="{% url 'diary-update' entry.pk %}" method="POST">
-                                                    {% csrf_token %}
+                                            <div class="field is-grouped">
+                                                <form action="{% url 'diary-update' entry.pk %}" method="GET">
                                                     <input class="button is-link is-outlined" type="submit" value="Update">
                                                 </form>
                                                 <form action="{% url 'diary-delete' entry.pk %}" method="POST">
@@ -77,7 +76,7 @@
                                     {% csrf_token %}
                                     <section class="modal-card-body">
                                     <!-- Content ... -->
-                                    
+                            
                                         <fieldset>
                                             <div class="field">
                                                 <div class="control">

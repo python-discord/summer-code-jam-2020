@@ -44,7 +44,7 @@ def diary_entry_update(request, id):
 
     if form.is_valid():
         form.save()
-        return redirect('diary-list')
+        return redirect('/')
 
     return render(request, 'diary/update.html', {'form': form})
 
@@ -56,6 +56,6 @@ def diary_entry_delete(request, id):
 
     if request.method == 'POST':
         obj.delete()
-        return redirect('diary-list')
+        return redirect('/')
 
     return render(request, 'diary/delete.html', {'object': obj})
