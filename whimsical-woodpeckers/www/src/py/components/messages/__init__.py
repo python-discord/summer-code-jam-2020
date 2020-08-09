@@ -22,6 +22,7 @@ messages = [
 class Message(Component):
     data = {
         'currentUser': 'Jane Doe',
+
     }
     props = ['title', 'sender', 'content', 'time']
     template = "#message-template"
@@ -30,11 +31,13 @@ class Message(Component):
 class Messages(Component):
     data = {
         'messages': messages,
+        'chatName': 'John Doe',
     }
     components = {
         "message": Message.get_component()
     }
 
+    props = ['mode']
     template = "#messages-template"
 
     @staticmethod

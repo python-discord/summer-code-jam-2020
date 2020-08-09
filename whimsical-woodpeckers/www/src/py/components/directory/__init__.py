@@ -17,3 +17,5 @@ class Directory(Component):
     }
 
     template = "#directory-template"
+
+    props = ['mode']
