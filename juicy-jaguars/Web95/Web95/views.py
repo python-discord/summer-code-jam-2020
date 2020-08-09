@@ -71,8 +71,10 @@ def index(request):
 @xframe_options_sameorigin
 def page(request, url):
     """Handle /page urls. Used to serve pages to IE."""
+    print(url)
     if url == "1995":
         content = "<img src='/static/images/404.gif' height='100%'>"
+        return render(request, "Web95/blank.html", {"content": content})
     else:
         if not(url.startswith("http://")
                or url.startswith("https://")):
