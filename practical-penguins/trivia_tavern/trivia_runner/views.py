@@ -25,7 +25,8 @@ def question(request, active_trivia_quiz):
     cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
                                               question_index=active_trivia_quiz.current_question_index)
     for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=active_trivia_quiz.session_code)
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                               session_code=active_trivia_quiz.session_code)
         score_track.answered_this_round = False
         score_track.save()
         SMSBot.send_question(cur_question, player)
@@ -48,7 +49,8 @@ def end_screen(request, active_trivia_quiz):
                      'score_list': score_list}
     # release players here
     for player in Player.objects.all():
-        score_track = ScoreTracker.objects.get(player_phone=player.phone_number, session_code=active_trivia_quiz.session_code)
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                               session_code=active_trivia_quiz.session_code)
 
         goodbye = ( f'The session has ended, thanks for playing!\n'
                     f'Team {winner} was the winner!\n'
