@@ -18,9 +18,7 @@ export class BoardsService {
   getBoards(): Observable<BoardsContext> {
     return this.http.get<BoardsContext>(`${this.appUrl}?format=json`);
   }
-  _getBoards():Observable<Board[]>{
-    return this.http.get<Board[]>(`/assets/mock_boards.json`);
-  }
+
 
   getBoard(id): Observable<Board> {
     return this.http.get<Board>(`${this.appUrl}${id}?format=json`);
