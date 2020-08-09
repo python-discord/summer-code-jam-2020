@@ -11,14 +11,13 @@
     <ul class="rooms">
         What chat room would you like to enter?<br>
         {% for room in rooms %}
-            <p>{{ room.name }} <a href="{% url 'room' room.id %}">Join</a></p>
+            <p>{{ room }} <a href="{% url 'room' room.id %}">Join</a></p>
         {% endfor %}
         {% endblock %}
-        
     </ul>
 
     {% block form %}
-    <form action="#" method="post">
+    <form action="/chat/rooms/create/" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Add a room">
