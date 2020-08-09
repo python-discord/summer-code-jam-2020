@@ -1,0 +1,94 @@
+/* !HTML5 DateTime-Local polyfill | Jonathan Stipe | https://github.com/jonstipe/datetime-local-polyfill */
+button.datetime-local-datepicker-button:after {
+  display: inline-block;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.4em 0.4em 0em 0.4em;
+  border-color: black transparent transparent transparent;
+  margin: 0em 0em 0.2em 0.7em;
+  vertical-align: middle; }
+
+.csstransitions div.datetime-local-calendar-dialog.datetime-local-closed {
+  -moz-transition: opacity 0.4s linear;
+  -webkit-transition: opacity 0.4s linear;
+  -o-transition: opacity 0.4s linear;
+  -ms-transition: opacity 0.4s linear;
+  transition: opacity 0.4s linear;
+  opacity: 0; }
+.csstransitions div.datetime-local-calendar-dialog.datetime-local-open {
+  -moz-transition: opacity 0.4s linear;
+  -webkit-transition: opacity 0.4s linear;
+  -o-transition: opacity 0.4s linear;
+  -ms-transition: opacity 0.4s linear;
+  transition: opacity 0.4s linear;
+  opacity: 1; }
+
+div.datetime-local-spin-btn-container {
+  display: inline-block;
+  position: relative;
+  vertical-align: bottom;
+  margin: 0;
+  padding: 0; }
+
+div.datetime-local-spin-btn {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px outset #CCCCCC;
+  background-color: #CCCCCC;
+  width: 1.2em; }
+
+div.datetime-local-spin-btn-up {
+  -moz-border-radius: 3px 3px 0px 0px;
+  -webkit-border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
+  border-bottom-width: 1px; }
+
+div.datetime-local-spin-btn-down {
+  -moz-border-radius: 0px 0px 3px 3px;
+  -webkit-border-radius: 0px 0px 3px 3px;
+  border-radius: 0px 0px 3px 3px;
+  border-top-width: 1px; }
+
+div.datetime-local-spin-btn-up:before,
+div.datetime-local-spin-btn-down:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  left: 50%;
+  margin: -0.15em 0 0 -0.3em;
+  padding: 0; }
+
+div.datetime-local-spin-btn-up:before {
+  border-width: 0 0.3em 0.3em 0.3em;
+  border-color: transparent transparent black transparent;
+  top: 25%; }
+
+div.datetime-local-spin-btn-down:before {
+  border-width: 0.3em 0.3em 0 0.3em;
+  border-color: black transparent transparent transparent;
+  top: 75%; }
+
+div.datetime-local-spin-btn:hover {
+  cursor: pointer; }
+
+div.datetime-local-spin-btn:active {
+  border: 2px inset #999999;
+  background-color: #999999; }
+
+div.datetime-local-spin-btn-up:active:before {
+  border-color: transparent transparent white transparent;
+  top: 26%;
+  left: 51%; }
+
+div.datetime-local-spin-btn-down:active:before {
+  border-color: white transparent transparent transparent;
+  top: 76%;
+  left: 51%; }
+
+div.datetime-local-calendar-dialog {
+  z-index: 100; }

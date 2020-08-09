@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm
 
+class UserLoginView(LoginView):
+
+  def get_context_data(self, **kwargs):
+    kwargs['active_page'] = "login"
+    return super().get_context_data(**kwargs)
 
 def register(request):
     if request.method == 'POST':
@@ -14,7 +20,7 @@ def register(request):
             return redirect('home')
     else:
         form = UserRegisterForm()
-    return render(request, 'account/register.html', {'form': form})
+    return render(request, 'account/register.html', {'form': form, "active_page": "signup"})
 
 
 @login_required
@@ -30,6 +36,6 @@ def profile(request):
     else:
         user_form = UserUpdateForm(instance=request.user)
 
-    context = {'user_form': user_form}
+    context = {'user_form': user_form, "active_page": "profile"}
 
     return render(request, 'account/profile.html', context)
