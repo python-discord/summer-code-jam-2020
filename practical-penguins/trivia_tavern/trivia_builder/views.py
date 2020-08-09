@@ -93,8 +93,8 @@ class TriviaQuizCreateView(PassRequestToFormViewMixin, LoginRequiredMixin, Creat
 
     def get(self, request, *args, **kwargs):
         quiz_form = TriviaQuizForm()
-        TriviaQuestionFormSet = modelformset_factory(TriviaQuestion, form=TriviaQuestionForm)
-        question_formset = TriviaQuestionFormSet()
+        TriviaQuestionFormSet = modelformset_factory(TriviaQuestion, form=TriviaQuestionForm, extra=1)
+        question_formset = TriviaQuestionFormSet(queryset=TriviaQuestion.objects.none())
         return render(request, self.template_name, {'quiz_form': quiz_form, 'question_formset': question_formset})
 
 
