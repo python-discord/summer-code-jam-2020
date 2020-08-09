@@ -58,7 +58,7 @@ xo#1111 (BACKEND DEV)
 c3a#1737 (BACKEND/FRONTEND DEV)
 [GITHUB](https://github.com/Chris-C3A)
 
-DAzVise#1666 (BACKEND / EMOTIONAL SUPPORT)
+DAzVise#1666 (BACKEND)
 [GITHUB](https://github.com/DAzVise)
 
 Vthechamp#3454 (BACKEND/FRONTEND DEV)
