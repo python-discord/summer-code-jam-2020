@@ -4,6 +4,7 @@ import TicTacToe from './tic-tac-toe.vue';
 import Forum from './thread-list.vue';
 import Thread from './thread-view.vue';
 import PostThread from './new-thread.vue';
+import Newsfeed from './news-feed.vue';
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/forum/:id',
     name: 'thread-view',
     component: Thread,
+  },
+  {
+    path: '/newsfeed',
+    name: 'newsfeed',
+    component: Newsfeed,
   },
 
 ];

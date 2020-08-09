@@ -67,6 +67,9 @@ export default {
     goToLogin() {
       this.$router.push({ name: 'login_page' });
     },
+    goToForum() {
+      this.$router.push({ name: 'forum' });
+    },
     goToGame() {
       this.$router.push({ name: 'tictactoe_page' });
     },
