@@ -1,12 +1,4 @@
-<p align="center">
-<a href="#" >
-    <img src="banner.png" alt="LogoMakr_5RDTOc" width=75%>
-</a>
-</p>
-
-<p align="center">
-(Made by neon, a helper on the <a href="https://pythondiscord.com/">Python Discord Server</a> using <a href="https://logomakrcom">logomakr</a>)
-</p>
+# Spydirweb
 
 <p align="center">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/thaniel-c/summer-code-jam-2020">
@@ -22,22 +14,41 @@ Blast off to the past and surf the web 90s style! With Spydirweb, you can browse
   * [Installation](#installation)
   * [Overview](#overview)
   * [License](#license)
+  * [Authors](#Authors)
 
 ### Installation
 
 Please message the team for the .env file.
 
 ### Overview
-### Getting Started ###
 
 **SpydirWeb** has three different types of pages: information pages, blog pages, and business pages. The blog and business pages use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
 
 Click one of the three links listed on the home page to get started browsing Spydirweb.
 
+![](readme/home.png)
+
 Click any underlined link to continue browsing.
+
+![](readme/info.png)
 
 The text in the blog and business pages may take a while to load, as they are generated with an AI.
 
+![](readme/blog.png)
+
 And thats it. Have fun browsing!
+
+![](readme/blogdone.png)
  
 ### License
+
+### Authors
+<p align="center">
+<a href="#" >
+    <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=75%>
+</a>
+</p>
+
+<p align="center">
+(Made by neon, a helper on the <a href="https://pythondiscord.com/">Python Discord Server</a> using <a href="https://logomakrcom">logomakr</a>)
+</p>
