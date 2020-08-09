@@ -18,7 +18,7 @@ class ThreadMessage(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET('Deleted'), to_field='username')
     date = models.DateTimeField('Date created', auto_now_add=True)
-    message = models.TextField()
+    message = models.TextField(max_length=3000)
 
     def __str__(self):
         return (f'Message by {self.user} created {self.date} | '
