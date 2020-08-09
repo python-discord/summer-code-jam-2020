@@ -36,12 +36,28 @@ Sources:
 
 ## Running in development mode
 
+There are two ways to run this app. One is standard, the other loads fixtures prior to startup.
+
+### Standard way
+
 ```bash
 $ docker-compose -f docker-compose.dev.yml up
 ```
 
+### Load Fixtures
+
+**DANGER ZONE** - This can cause data loss, and should only be run before you run this project for the first time (or if you do not care about changes you made to the database).
+
+You can load fixtures prior to startup by setting the environment variable `LOAD_FIXTURES=True`. On a Linux system, you can do so by executing the following command:
+
+```bash
+$ LOAD_FIXTURES=True docker-compose -f docker-compose.dev.yml up
+```
+
+You can also set it directly in `docker-compose.dev.yml`.
+
 > Frontend will be served on [http://localhost:8080](http://localhost:8080)
 
-> You should now be able to connect to Django at [http://localhost:1234](http://localhost:1234)
+> You should now be able to connect to Django at [http://localhost:1234](http://localhost:1234). Additionally, you can access the Django administration interface at [http://localhost:1234/admin/](http://localhost:1234/admin/) With user `admin` and password `admin`, provided that you have loaded the fixtures, and play with the `graphiql` interface at [http://localhost:1234/graphql/](http://localhost:1234/graphql/).
 
 Press `ctrl-c` to kill the servers.
