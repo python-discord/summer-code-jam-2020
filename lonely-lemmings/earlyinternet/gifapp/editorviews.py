@@ -6,8 +6,9 @@ from typing import Union
 
 from PIL import Image as PILImage
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import ProjectForm
@@ -20,6 +21,7 @@ PREVIEW_DIR = os.path.join("editor", "preview.html")
 PROJECT_VIEW_DIR = os.path.join("editor", "view_projects.html")
 
 
+@login_required
 def paint(request, project_name=None) -> HttpResponse:
     context = {
         "name": project_name
@@ -27,6 +29,7 @@ def paint(request, project_name=None) -> HttpResponse:
     return render(request, CANVAS_DIR, context)
 
 
+@login_required
 @csrf_exempt
 def parse_save_request(request, project_name=None) -> HttpResponse:
     """receives POST request of images as bytes, decodes and saves image paths to database"""
@@ -66,6 +69,7 @@ def get_img_path(image: Image) -> str:
     return os.path.join(MEDIA_DIR, img_name)
 
 
+@login_required
 @csrf_exempt
 def parse_render_request(request, project_name=None) -> Union[HttpResponse, HttpResponseNotFound]:
     """receives GET request with project_name.
@@ -90,6 +94,7 @@ def parse_render_request(request, project_name=None) -> Union[HttpResponse, Http
         return HttpResponseNotFound("Cannot Find Enough Frames")
 
 
+@login_required
 def parse_image_request(request, project_name=None) -> HttpResponse:
     """ receives GET request with url with <project_name>,
     sends a JSON of ["data": <ordered list of images>]"""
@@ -110,13 +115,15 @@ def parse_image_request(request, project_name=None) -> HttpResponse:
     return HttpResponse(json.dumps(data_dict), content_type="application/json")
 
 
+@login_required
 def parse_post_request(request, project_name=None):
     project = Project.objects.filter(name=project_name, user_id=request.user)[0]
     project.upload_version = project.preview_version
     project.save()
-    return HttpResponse()
+    return redirect("home")
 
 
+@login_required
 def parse_view_request(request, project_name=None):
     """displays a page that shows the built gif"""
     project = Project.objects.filter(name=project_name, user_id=request.user)[0]
@@ -127,25 +134,23 @@ def parse_view_request(request, project_name=None):
     return render(request, PREVIEW_DIR, context)
 
 
+@login_required
 def render_all_projects(request) -> HttpResponse:
     """displays all projects by the user"""
     projects = Project.objects.filter(user_id=request.user)
     return render(request, PROJECT_VIEW_DIR, {"projects": projects, "form": ProjectForm()})
 
 
-# def parse_new_project_request(request) -> HttpResponseRedirect:
-#     if request.method == "POST":
-#         form = ProjectForm(request.POST)
-#         if form.is_valid():
-#             project_name = form.cleaned_data["project_name"]
-#             Project.objects.create(name=project_name, user_id=request.user)
-#             return HttpResponseRedirect(f"/project/{project_name}")
-#         else:
-#             return HttpResponseRedirect("../project")
-#
-#     else:
-#         return HttpResponseRedirect("../project")
+@login_required
+def parse_new_project_request(request) -> HttpResponseRedirect:
+    if request.method == "POST":
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project_name = form.cleaned_data["project_name"]
+            Project.objects.create(name=project_name, user_id=request.user)
+            return HttpResponseRedirect(f"/project/{project_name}")
+        else:
+            return HttpResponseRedirect("../project")
 
-
-def return_home(request):
-    return render(request, 'home.html')
+    else:
+        return HttpResponseRedirect("../project")

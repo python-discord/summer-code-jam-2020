@@ -6,29 +6,17 @@ from . import userviews
 
 urlpatterns = [
     path("project", editorviews.render_all_projects, name="projects"),
-    #path("project/create", editorviews.parse_new_project_request, name="new"),
+    path("project/create", editorviews.parse_new_project_request, name="new"),
     path("project/<str:project_name>", editorviews.paint, name="paint"),
     path("project/<str:project_name>/save", editorviews.parse_save_request, name="save"),
     path("project/<str:project_name>/render", editorviews.parse_render_request, name="render"),
     path("project/<str:project_name>/view", editorviews.parse_view_request, name="view"),
     path("project/<str:project_name>/publish", editorviews.parse_post_request, name="publish"),
     path("project/<str:project_name>/load", editorviews.parse_image_request, name="images"),
+    path("project/<str:project_name>/detail", userviews.detail, name="project-detail"),
 
-
-    path("feed/", userviews.home, name="home"),
+    path("", userviews.home, name="home"),
     path("about/", userviews.about, name="about"),
-
-    # template is project_form.html
-    path("feedproject/new/", userviews.create, name="project-create"),
-    # template is project_detail.html
-    path("feedproject/<int:pk>/",
-         userviews.ProjectDetailView.as_view(template_name="project_detail.html"),
-         name="project-detail"),
-    # template is project_confirm_delete.html
-    path("feedproject/<int:pk>/delete/",
-         userviews.ProjectDeleteView.as_view(template_name="project_confirm_delete.html"), name="project-delete"),
-    # template is project_detail.html
-    path("feedproject/<int:pk>/update/", userviews.ProjectUpdateView.as_view(), name="project-update"),
 
     # user authentication paths
     path("profile/", userviews.profile, name="profile"),

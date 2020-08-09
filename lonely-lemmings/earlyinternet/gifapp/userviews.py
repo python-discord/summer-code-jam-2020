@@ -1,21 +1,11 @@
 import logging
 
-from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    FormView,
-    UpdateView,
-    DeleteView
-)
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponse, HttpRequest
 
-from .models import Project
-from .forms import UserRegisterForm, ProjectForm
+from .models import Project, Comment
+from .forms import UserRegisterForm
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +17,7 @@ def home(request: HttpRequest) -> HttpResponse:
     :return: Feed home with context
     """
     context = {
-        "feed": Project.objects.all()
+        "feed": Project.objects.exclude(upload_version="")
     }
     return render(request, 'home.html', context)
 
@@ -61,74 +51,22 @@ def register(request: HttpRequest) -> HttpResponse:
 
 
 def profile(request: HttpRequest) -> HttpResponse:
+    """shows profile of the current user"""
     return render(request, 'profile.html')
 
 
-class ProjectCreateView(LoginRequiredMixin, FormView):
-    template_name = "project_form.html"
-    form_class = ProjectForm
-    success_url = reverse_lazy("project-detail")
+def detail(request, project_name=None) -> HttpResponse:
+    """displays view for project and its comments"""
+    # there can only be one
+    project = Project.objects.filter(name=project_name, user_id=request.user)[0]
+    comments = Comment.objects.filter(post_id=project)
+    comment_dict = {}
 
-    def form_valid(self, form):
-        form.instance.user_id = self.request.user
-        return super().form_valid(form)
+    list_of_branches = filter(lambda x: x.parent_id is None, comments)
 
-
-def create(request):
-    if request.method == "POST":
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            project_name = form.cleaned_data["project_name"]
-            Project.objects.create(name=project_name, user_id=request.user)
-            return HttpResponseRedirect(f"/project/{project_name}")
-        else:
-            return HttpResponseRedirect("/")
-
-    else:
-        return HttpResponseRedirect("/")
-
-
-class ProjectListView(ListView):
-    model = Project
-    context_object_name = 'projects'
-
-
-# class ProjectCreateView(LoginRequiredMixin, FormView):
-#     template_name = "project_form.html"
-#     form_class = ProjectForm
-#     success_url = reverse_lazy("project-detail")
-#
-#     def form_valid(self, form):
-#         form.instance.user_id = self.request.user
-#         return super().form_valid(form)
-
-
-class ProjectDetailView(DetailView):
-    model = Project
-    fields = ['name', 'upload_version', 'is_gif']
-
-
-class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Project
-    fields = ['name', 'upload_version', 'is_gif']
-
-    def form_valid(self, form):
-        form.instance.user_id = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        project = self.get_object()
-        return self.request.user == project.user_id
-
-
-class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Project
-    success_url = '/'
-
-    def form_valid(self, form):
-        form.instance.user_id = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        project = self.get_object()
-        return self.request.user == project.user_id
+    # def get_branches(branch_list):  represent tree structure of comments as a dictionary
+    #     for item in branch_list:
+    #         subcomments = filter(lambda x: x.parent_id is item)
+    #         comment_dict[item] = {}
+    #         get_branches(subcomments)
+    return render(request, "project_detail.html", {"project": project, "comments": comments})

@@ -9,8 +9,8 @@ class Project(models.Model):
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     is_gif = models.BooleanField(null=False, default=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    preview_version = models.ImageField(null=True)
-    upload_version = models.ImageField(null=True)
+    preview_version = models.ImageField(null=True, default=None)
+    upload_version = models.ImageField(null=True, default=None)
 
     def __repr__(self) -> str:
         """returns the project name and the owner id that it belongs to"""
