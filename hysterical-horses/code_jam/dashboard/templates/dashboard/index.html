@@ -8,14 +8,16 @@
 
 {% endblock extra_css %}
 
-
-<div class="row ml-3">
-    <div class="col">
-        <a class="text-primary" href="{% url 'chat-room' room_name='lobby' %}">Messenger</a>
-    </div>
-
-    <div class="col">
-        <a class="text-primary" href="{% url 'engine-results' %}">Default Search Engine</a>
+<div class="nes-container" style="margin: 2%;" >
+    <h3 style="text-align: center;">Welcome <span class="nes-text is-primary">{{ username  }}</span>.</h3> <br>
+    <progress class="nes-progress is-pattern" value="{{ current_points }}" max=""></progress> <br>
+    <div style="display: flex;">
+        <div id="profile" class="nes-container">
+            <img src="{{ avatar  }}" />
+        </div>
+        <div id="status">
+        
+        </div>
     </div>
 </div>
 

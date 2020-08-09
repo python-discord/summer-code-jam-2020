@@ -19,6 +19,9 @@ from pytz import timezone
 def index(request):
     return render(request, 'dashboard/index.html')
 
+def about(request):
+    return render(request, 'dashboard/about.html')
+
 
 def search_query(search: str, format_text: bool =True):
     """ Takes in a search query and requests an API for results  """
