@@ -16,6 +16,13 @@ def get_news():
     for article in articles:
         if not article['description']:
             continue
+
+        if not article['content']:
+            continue
+
+        if not article['author']:
+            continue
+
         Article.objects.create_article(article)
 
     print(f"Added {len(articles)} Articles")

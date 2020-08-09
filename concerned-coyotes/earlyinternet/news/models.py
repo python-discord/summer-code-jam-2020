@@ -20,12 +20,6 @@ class ArticleManager(models.Manager):
         # convert timezone aware iso date string to datetime.datetime
         published_at = parse_datetime(raw_article['publishedAt'])
 
-        if raw_article['author'] is None:
-            raw_article['author'] = 'unknown'
-
-        if raw_article['content'] is None:
-            raw_article['content'] = '...'
-
         article = self.create(
             source=raw_article['source']['name'],
             author=raw_article['author'],
