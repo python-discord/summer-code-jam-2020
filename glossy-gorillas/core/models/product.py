@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
+from core.querysets.product import ProductQuerySet
 
 
 class ProductType(models.TextChoices):
@@ -18,3 +19,5 @@ class Product(models.Model):
         choices=ProductType.choices,
         default=ProductType.SPICE,
     )
+
+    objects = ProductQuerySet.as_manager()
