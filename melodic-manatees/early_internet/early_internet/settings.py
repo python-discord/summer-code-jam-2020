@@ -33,7 +33,6 @@ INTERNAL_IPS = ['127.0.0.1']
 
 INSTALLED_APPS = [
     # Django default
-    'django_simple_bulma',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
+    'django_simple_bulma',
     'debug_toolbar',
     'django_extensions',
 
@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'background_app.apps.BackgroundConfig',
     'users.apps.UsersConfig',
     'multitab.apps.MultitabConfig'
+    'news.apps.NewsConfig',
+    'diary.apps.DiaryConfig',
 ]
 
 MIDDLEWARE = [

@@ -30,8 +30,10 @@ urlpatterns = [
     path('logout/', user_views.user_logout, name='logout'),
     path('profile/', user_views.profile, name='profile'),
     path('img2ascii/', include('img2ascii.urls')),
+    path('multitab/', include('multitab.urls')),
+    path('diary/', include('diary.urls')),
     path('backgrounds/', include('background_app.urls')),
-    path('multitab/', include('multitab.urls'))
+    path('news/', include('news.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -4,10 +4,13 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    background_image = models.ImageField(upload_to="backgrounds", default='defaults/sunrise.jpg')
+    background_image = models.FileField(
+        upload_to=('backgrounds/'),
+        default='defaults/sunrise.jpg'
+    )
 
     def __str__(self):
-        return f'{self.user.username}'
+        return f'{self.user.username} Profile'
 
 
 class UserPreferences(models.Model):
@@ -38,6 +41,10 @@ class UserPreferences(models.Model):
     display_weather = models.BooleanField(default=True)
     display_news = models.BooleanField(default=True)
     display_music = models.BooleanField(default=True)
+
+    # Weather Location Preferences
+    city_name = models.CharField(max_length=25, default='London')
+    country_name = models.CharField(max_length=25, default='UK')
 
     def __str__(self):
         return f'{self.user.username} Preferences'
