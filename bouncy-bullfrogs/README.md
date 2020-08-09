@@ -27,7 +27,7 @@
 
 
 ### contributers
-> ## @arthtyagi *(zuck#9454)* - Head developer
+> ## [zuck](https://github.com/arthtyagi) *(zuck#9454)* - Head developer
 > * thing 1
 > * thing 2
 > * thing 3
@@ -35,10 +35,10 @@
 > *"fancy quote here"*
 
 ###
-> ## **Arhaan** *(Arhaan#0249)* - 
+> ## **[Arhaan](https://github.com/Arhaan)** *(Arhaan#0249)* - 
 
 ###
-> ## **Multi** *(multi#3304)* - 
+> ## **[Multi](https://github.com/telugu-boy)** *(multi#3304)* - 
 
 
 
@@ -50,12 +50,12 @@
 > > more and  more test
 
 ###
-> ## **FantasticHD** *(FantasticHD#9968)* - 
+> ## **[FantasticHD](https://github.com/Fantasticlegend1000)** *(FantasticHD#9968)* - 
 > * front end
 * designed Company logo
 
 ###
-> ## @nopeless *(nope#7777)* - 
+> ## **[nopeless](https://github.com/nopeless)** *(nope#7777)* - 
 > * created crappy about us page
 > * wrote this md file
 
