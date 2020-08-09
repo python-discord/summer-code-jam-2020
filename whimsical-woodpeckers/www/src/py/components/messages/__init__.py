@@ -2,6 +2,9 @@ from datetime import datetime
 from pyvue import Component
 from websocket import WebSocket
 
+# __pragma__ ('skip')
+window = JSON = this = 0    # Prevent complaints by optional static checker
+# __pragma__ ('noskip')
 
 messages = [
     {"sender": "John Doe", "content": "lol hi", "time": datetime.now().strftime("%B %d, %Y , %H:%M")},

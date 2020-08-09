@@ -2,6 +2,10 @@ from pyvue import Vue, Component, VueTest
 from app import App
 from fetch import Fetch
 
+# __pragma__ ('skip')
+this = 0    # Prevent complaints by optional static checker
+# __pragma__ ('noskip')
+
 
 # Components are a little hacky and not very pythonic but they are functional now
 class Example(Component):

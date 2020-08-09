@@ -1,5 +1,9 @@
 # __pragma__('alias', 'js_websocket', 'WebSocket')
 
+# __pragma__ ('skip')
+window = JSON = this = js_websocket = __new__ = 0    # Prevent complaints by optional static checker
+# __pragma__ ('noskip')
+
 
 # __pragma__("kwargs")
 class WebSocket:

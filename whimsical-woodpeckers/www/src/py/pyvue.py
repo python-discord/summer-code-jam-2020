@@ -2,6 +2,10 @@
 # __pragma__ ('noalias', 'default')
 # __pragma__ ('noalias', 'name')
 
+# __pragma__ ('skip')
+VuePkg = __new__ = this = __new__ = console = 0    # Prevent complaints by optional static checker
+# __pragma__ ('noskip')
+
 
 JSVue = VuePkg.default
 
