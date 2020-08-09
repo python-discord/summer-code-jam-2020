@@ -3,13 +3,13 @@
 # Email client and Search engine suite
 *better than microsoft™️*
 
-Our goal is to establish online services where people can enjoy safe searching 
+Our goal is to establish online services where people can enjoy safe searching
 
 
 Bouncy Bullfrogs is an American multinational technology company with headquarters in Python Discord. It develops, manufactures, licenses, supports, and sells computer software and related services. Its best known software products are the Bouncy Bullfrog Mail and Bouncy Bullfrog Search.
 
 In 1999, it was the world's largest software maker by revenue. The word "Bouncy Bullfrog" is an ingenuine created by its pioneers. Bouncy Bullfrog is ranked No. 30 in the 1998 Fortune 500 rankings of the largest United States corporations by total revenue. It is considered one of the Big Five technology companies alongside Amazon, Apple, Google, and Facebook.
-    
+
 
 # Our services
 ### Email client
@@ -33,7 +33,7 @@ Has intuitive UI                           | <center>❌</center>    | <center>�
 Can give you a warm hug                    | <center>❌</center>    | <center>Yes absolutely</center>
 
 > *"It was our priority to create a better user experience"*
-> 
+>
 > \- Zuck (*founder of BouncyBullfrogs co.*)
 
 # INSTALLATION AND SETUP
@@ -51,7 +51,6 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 - `python3 manage.py runserver` to run your localhost server.
 
 Now, sit back and use this :)), you have effectively started the next technological revolution on your system.
-
 
 #
 ### Developers
@@ -84,32 +83,3 @@ Now, sit back and use this :)), you have effectively started the next technologi
 > * Created about us page and a handler for that page
 > * Wrote our README.md file
 > * Rewrote HTML structure
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
