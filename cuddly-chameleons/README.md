@@ -37,3 +37,6 @@ npm start
 ```
 After these steps, you can visit site at `localhost:3000`.
 Default superuser (only superusers can create posts) username is `admin` and password too `admin`.
+
+## Using
+After logging in as admin, you see button for creating new post in header. When you are in single-post mode and you are admin, you can edit and create posts what is in box. You can see all comments, but for creating new comments, you have to log in. It's impossible to edit or delete comments in frontend (only in backend). New users can register using Sign Up feature. There is also search button in header.
