@@ -76,7 +76,7 @@ class SMSBot:
                                                session_code=player_quiz.session_code)
         player.delete()
         score_track.delete()
-        SMSBot.send('You have left the quiz. Thanks for playing!', from_)
+        SMSBot.send('You have left the quiz.', from_)
 
     @staticmethod
     def pre_quiz(body, player):
@@ -190,6 +190,10 @@ def sms_reply(request):
     player = Player.objects.filter(phone_number=from_)
     available_quizzes = ActiveTriviaQuiz.objects.all()
     session_codes = [q.session_code for q in available_quizzes]
+    
+    if body.upper() == '!QUIT':
+        SMSBot.player_quit(player)
+        return redirect('/')
 
     if player.exists():
         player = player.first()
@@ -200,10 +204,6 @@ def sms_reply(request):
                 SMSBot.send('Sorry that name is taken!', from_)
             else:
                 SMSBot.pick_team(body, player)
-
-        elif body.upper() == '!QUIT':
-            SMSBot.player_quit(player)
-            return redirect('/')
 
         elif player_quiz.current_question_index == 0:
             SMSBot.pre_quiz(body, player)

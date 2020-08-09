@@ -3,10 +3,13 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DeleteView, ListView
+from django.contrib import messages
 
 from trivia_builder.models import TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz
 from twilio_messenger.views import SMSBot
+
+from .forms import PhoneNumberForm
 
 
 class ActiveTriviaQuizListView(ListView):
@@ -18,7 +21,22 @@ class ActiveTriviaQuizListView(ListView):
 
 
 def setup(request, active_trivia_quiz):
-    return render(request, 'activequiz_setup.html', {'active_trivia_quiz': active_trivia_quiz})
+    print(request.POST)
+    if 'phone_number' in request.POST:
+        form = PhoneNumberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            number = form.cleaned_data.get('phone_number').__str__()
+            messages.success(request, f'Invite sent to {number}!')
+            intro = ( f'Hello! You\'ve been invited to play {active_trivia_quiz.trivia_quiz.name}'
+                        f'If you\'re not game, just text back !quit we won\'t bother you!'
+                        f'Otherwise, please text back a team name to join')
+            SMSBot.send(intro, number)
+            SMSBot.register(number, active_trivia_quiz)
+    else:
+        form = PhoneNumberForm()
+
+    return render(request, 'activequiz_setup.html', {'active_trivia_quiz': active_trivia_quiz, 'form': form})
 
 
 def times_up(request, active_trivia_quiz):

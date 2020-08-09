@@ -4,3 +4,5 @@ Pillow
 django-crispy-forms
 django-formset-js
 twilio
+django-phonenumber-field
+phonenumbers
