@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const server = {
-  host: "192.168.43.1",
+  host: "localhost",
   port: "8000",
 };
 

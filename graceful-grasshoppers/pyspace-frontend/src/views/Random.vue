@@ -1,5 +1,3 @@
-<template></template>
-
 <script>
 	import axios from "../http-common.js";
 	export default {
