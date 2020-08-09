@@ -1,81 +1,64 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        {% load static %}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width = device-width, initial-scale = 1">
-        <title>GIF App</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/draw.css'%}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/main.css' %}">
-        <script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
-    </head>
-    <body>
-        <header class="site-header">
-            <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-                <div class="container">
-                    <a class="navbar-brand mr-4" href="{% url 'home' %}">Dank GIFs</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarToggle">
-                        <div class="navbar-nav mr-auto">
-                            <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
-                        </div>
-                        <!-- Navbar Right Side -->
-                        <div class="navbar-nav">
-                            {% if user.is_authenticated %}
-                                <a onclick="SendData('save')" class="nav-item nav-link">Save To Server</a> {% csrf_token %}
-                                <a onclick="Previous()" class="nav-item nav-link">Previous</a>
-                                <a onclick="Next()" class="nav-item nav-link">Next</a>
-                                <a onclick="Delete()" class="nav-item nav-link">Delete Frame</a>
-                                <a onclick="RequestRender()" class="nav-item nav-link">Render</a> {% csrf_token %}
-                                <a href="{{ name }}/view" class="nav-item nav-link">View</a>
-                                <a class="nav-item nav-link" href="{% url 'projects' %}">New Project</a>
-                                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                            {% else %}
-                                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper" id="project-name">
-            <h6>{{name}}</h6>
-        </div>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
+<div class="wrapper" id="project-name">
+    <h6>{{name}}</h6>
+</div>
+    {% if user.is_authenticated %}
+    <div class="span8">
+    {% else %}
+    <div>
+    {% endif %}
         <div class="wrapper">
-            <div class="toolbar">
-                <a href="#" id="clear" onclick="Clear()">
-                    <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
-                </a>
-                <a href="#" id="save" onclick="SaveImage()">
-                    <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
-                </a>
-                <a href="#" id="undo" onclick="Undo()">
-                    <img src="{% static 'gifapp/icons/undo.png' %}" alt="undo">
-                </a>
-                <a href="#" id="eraser" onclick="ChangeTool('eraser')">
-                    <img src="{% static 'gifapp/icons/eraser.png' %}" alt="erase">
-                </a>
-                <a class="selected" href="#" id="brush" onclick="ChangeTool('brush')">
-                    <img src="{% static 'gifapp/icons/pencil.png' %}" alt="pencil">
-                </a>
-                <a href="#" id="line" onclick="ChangeTool('line')">
-                    <img src="{% static 'gifapp/icons/line.png' %}" alt="line">
-                </a>
-                <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
-                    <img src="{% static 'gifapp/icons/rectangle.png' %}" alt="rectangle">
-                </a>
-                <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
-                    <img src="{% static 'gifapp/icons/ellipse.png' %}" alt="ellipse">
-                </a>
-                <a href="#" id="polygon" onclick="ChangeTool('polygon')">
-                    <img src="{% static 'gifapp/icons/polygon.png' %}" alt="polygon">
-                </a>
+            <div class="subnav" style="height:100px">
+                <ul class="nav nav-pills toolbar">
+                    <li>
+                        <a href="#" id="clear" onclick="Clear()">
+                            <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="save" onclick="SaveImage()">
+                            <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="undo" onclick="Undo()">
+                            <img src="{% static 'gifapp/icons/undo.png' %}" alt="undo">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="eraser" onclick="ChangeTool('eraser')">
+                            <img src="{% static 'gifapp/icons/eraser.png' %}" alt="erase">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="selected" href="#" id="brush" onclick="ChangeTool('brush')">
+                            <img src="{% static 'gifapp/icons/pencil.png' %}" alt="pencil">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="line" onclick="ChangeTool('line')">
+                            <img src="{% static 'gifapp/icons/line.png' %}" alt="line">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
+                            <img src="{% static 'gifapp/icons/rectangle.png' %}" alt="rectangle">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
+                            <img src="{% static 'gifapp/icons/ellipse.png' %}" alt="ellipse">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="polygon" onclick="ChangeTool('polygon')">
+                            <img src="{% static 'gifapp/icons/polygon.png' %}" alt="polygon">
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div class="customizer">
                 <div class="color">
@@ -109,5 +92,31 @@
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
         </div>
-    </body>
-</html>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="span4">
+            Sidebar
+            <div class="navbar-nav">
+                <li>
+                    <a onclick="SendData('save')" class="nav-item nav-link">Save To Server</a> {% csrf_token %}
+                </li>
+                <li>
+                    <a onclick="Previous()" class="nav-item nav-link">Previous</a>
+                </li>
+                <li>
+                    <a onclick="Next()" class="nav-item nav-link">Next</a>
+                </li>
+                <li>
+                    <a onclick="Delete()" class="nav-item nav-link">Delete Frame</a>
+                </li>
+                <li>
+                    <a onclick="RequestRender()" class="nav-item nav-link">Render</a> {% csrf_token %}
+                </li>
+                <li>
+                    <a href="{{ name }}/view" class="nav-item nav-link">View</a>
+                </li>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+{% endblock content %}
