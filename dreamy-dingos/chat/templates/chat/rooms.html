@@ -17,7 +17,7 @@
     </ul>
 
     {% block form %}
-    <form action="/chat/rooms/create/" method="post">
+    <form action="/rooms/create/" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Add a room">

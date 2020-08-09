@@ -12,7 +12,7 @@ class Room(models.Model):
 class SimpleUser(models.Model):
     objects = models.Manager()
     username = models.CharField(max_length=50, primary_key=True)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.username

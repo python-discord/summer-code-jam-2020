@@ -6,9 +6,9 @@
     <title>Chat Rooms</title>
 </head>
 <body>
-    What chat room would you like to enter?<br>
-    {% for room in rooms %}
-        <p>{{ room.name }} <a href="{% url 'room' room.id %}">Join</a></p>
-    {% endfor %}
+    <div>
+        <h1>Welcome to Chat Rooms</h1>
+        <p><a href="{% url 'rooms' %}">View rooms here</a></p>
+    </div>
 </body>
 </html>
