@@ -105,6 +105,7 @@ The Talented Tigers Are..
 * **Sloopoo (Github: [flextian](https://github.com/flextian))**
 * **Garfellow (Github: [Garfellow](https://github.com/GarfellowGMOD))**
 * **SuperMaZingCoder (Github: [CodeForeverAndEver](https://github.com/CodeForeverAndEver))**
+* **Ice Wolfy (Github: [Icebluewolf](https://github.com/Icebluewolf))**
 
 <p align="center">
 <a href="#" >
