@@ -46,3 +46,7 @@ Other useful commands:
 docker-compose run --rm web python manage.py createsuperuser
 docker-compose up -d
 ```
+
+## Credits
+- SpaceMono-Regular.ttf: Copyright 2016 Google Inc. All Rights Reserved.
+- SpaceMono-Bold.ttf: Copyright 2016 Google Inc. All Rights Reserved.
