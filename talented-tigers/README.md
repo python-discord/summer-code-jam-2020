@@ -57,10 +57,11 @@ MIT License
 ### Authors
 <p align="center">
 <a href="#" >
-    <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=75%>
+    <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=100%>
 </a>
 </p>
 
+<sub>
 <p align="center">
-(Made by neon, a helper on the <a href="https://pythondiscord.com/">Python Discord Server</a> using <a href="https://logomakrcom">logomakr</a>)
-</p>
+(Talented Tigers logo made by neon#9865, a helper on the <a href="https://pythondiscord.com/">Python Discord</a> </a> using <a href="https://logomakrcom">logomakr</a>)
+</p></sub>
