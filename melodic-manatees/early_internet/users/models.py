@@ -31,16 +31,8 @@ class UserPreferences(models.Model):
         default=NORMAL,
     )
 
-    # Need to configure a timezone field to allow UTC+/- that aren't server dependent.
-    # time_zone
-
     # If a user wants to change their display name instead of their User object's name registered.
     name_preference = models.CharField(max_length=20)
-
-    # Display preferences for apps to be displayed?  Defaults all to be on.
-    display_weather = models.BooleanField(default=True)
-    display_news = models.BooleanField(default=True)
-    display_music = models.BooleanField(default=True)
 
     # Weather Location Preferences
     city_name = models.CharField(max_length=25, default='London')

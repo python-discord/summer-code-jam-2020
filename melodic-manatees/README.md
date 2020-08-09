@@ -25,10 +25,12 @@ Some features include:
 ```bash
 pip install -r requirements.txt
 ```
-2. Create a `.env` in the same directory as `.gitignore`, enter the following 2 lines in the file.
+2. **If running for the Python Dicord's CJ2020 Event:** Copy and paste the `.env` file sent to you at the root level in the same directory as `.gitignore`.
+
+2. **If running after the Python Dicord's CJ2020 Event:** Create a `.env` in the same directory as `.gitignore`, enter the following 2 lines in the file. Replace each *** with the API key for the NY Times and OpenWeatherAPI.
 ```bash
-NEWS_KEY=xt4plrmPw1P1bWNxetAwfFbug2PnNONC
-WEATHER_KEY=ce877c14eae19f1f99bc0787c955233c
+NEWS_KEY=***
+WEATHER_KEY=***
 ```
 3. Create a user profile using the `register` button on the homepage.
 

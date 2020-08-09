@@ -21,6 +21,5 @@ class UserPreferencesForm(ModelForm):
         model = UserPreferences
         exclude = ['user']
         labels = {
-            'weather_preference': "Weather Clothing Suggestions:",
             'name_preference': 'Display Name:'
         }
