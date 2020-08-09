@@ -20,7 +20,10 @@ class ActiveTriviaQuizListView(ListView):
 def setup(request, active_trivia_quiz):
     return render(request, 'activequiz_setup.html', {'active_trivia_quiz': active_trivia_quiz})
 
-
+def times_up(request, active_trivia_quiz):
+    print('timesup!')
+    return render(request, 'activequiz_question.html')
+    
 def question(request, active_trivia_quiz):
     cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
                                               question_index=active_trivia_quiz.current_question_index)
@@ -69,6 +72,8 @@ def active_trivia(request, pk):
             active_trivia_quiz.current_question_index = active_trivia_quiz.current_question_index + 1
         elif 'show-results' in request.POST:
             active_trivia_quiz.current_question_index = -1
+        elif 'times-up' in request.POST:
+            response = times_up(request, active_trivia_quiz)
 
     if active_trivia_quiz.current_question_index == 0:
         response = setup(request, active_trivia_quiz)
