@@ -80,3 +80,8 @@ npm install && npm start
 ```
 Installing the packages is simple! Just type `npm install`! Finally, to run our site, type `npm start`.
 
+### Screenshots
+![IRC Client](https://raw.githubusercontent.com/JetDeveloping/summer-code-jam-2020/master/wiggly-weasels/screenshots/IRC1.png)
+
+![IRC Login](https://raw.githubusercontent.com/JetDeveloping/summer-code-jam-2020/master/wiggly-weasels/screenshots/IRC2.png)
+
