@@ -198,8 +198,9 @@ class MudConsumer(WebsocketConsumer):
     def same_location_message_not_me(self, event):
         message = event['message']
         # Send a message to the players in the same location
-        if (str(Player.objects.get(user=self.user).location) == event['location']
-                and self.channel_name != event['sender_channel_name']):
+        is_same_location = str(Player.objects.get(user=self.user).location) == event['location']
+        is_different_channel = self.channel_name != event['sender_channel_name']
+        if (is_same_location and is_different_channel):
             self.send(text_data=json.dumps({
                 'message': message
             }))
