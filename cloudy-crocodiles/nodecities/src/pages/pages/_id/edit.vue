@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <page-form v-if="page" :page="page" @submit="submit" />
+    <page-form edit v-if="page" :page="page" @submit="submit" />
   </q-page>
 </template>
 

@@ -11,9 +11,10 @@
           </q-card-section>
           <q-card-section>{{ site.description }}</q-card-section>
           <q-card-actions>
-            <a
-              :href="`http://localhost:1234/${site.city.slug}/${site.address}/index.html`"
-            >Preview</a>
+            <q-btn
+              @click="preview(site)"
+            >Preview
+            </q-btn>
           </q-card-actions>
         </q-card>
       </div>
@@ -45,5 +46,10 @@ export default {
       query: userOwnSites,
     },
   },
+  methods: {
+    preview(site) {
+      window.location.href = `http://localhost:1234/${site.city.slug}/${site.address}/index.html`
+    }
+  }
 };
 </script>
