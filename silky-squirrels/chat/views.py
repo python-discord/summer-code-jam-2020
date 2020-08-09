@@ -29,6 +29,7 @@ def room(request, room_name):
     try:
         room = Room.objects.get(name=room_name)
         room_member = RoomMember.objects.get(user=request.user, room=room)
+        active_room_members = RoomMember.objects.filter(room=room, active=True)
     except (Room.DoesNotExist, RoomMember.DoesNotExist):
         messages.warning(request, f"Room not found: {room_name}")
         return redirect("chat")
@@ -43,5 +44,7 @@ def room(request, room_name):
                 f"[{older_message.timestamp}] {older_message.room_member.user.username}: {older_message.text}"
                 for older_message in older_messages
             ),
+            "active_room_members": active_room_members,
+            "curr_username": request.user.username,
         },
     )
