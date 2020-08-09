@@ -16,12 +16,12 @@ class Room(models.Model):
     name = models.CharField(max_length=50, default="Room")
     description = models.TextField(max_length=512)
     server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='rooms', null=True)
-    connections = models.ManyToManyField('self', blank=True)
+    connections = models.ManyToManyField('self', blank=True, related_name='connects')
     command_description = models.TextField(max_length=512, blank=True)
     command_keyword = models.TextField(max_length=512, blank=True)
     command_response = models.TextField(max_length=512, blank=True)
     secret_connection_active = models.BooleanField(default=False)
-    secret_room_connects = models.ManyToManyField('self', blank=True)
+    secret_room_connects = models.ManyToManyField('self', blank=True, symmetrical=False)
     next_server_connect = models.ManyToManyField(Server, blank=True)
 
     def __str__(self):
