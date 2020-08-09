@@ -1,4 +1,4 @@
-from django.views import View as views
+from django.views import View as ParentView
 from django.db.models import Count
 from django.views.generic import ListView
 from django.contrib.auth.models import auth
@@ -12,7 +12,7 @@ from django.contrib.auth.models import User as AuthUser
 from .models import Post, Comments, User, Community
 
 
-class View(views):
+class View(ParentView):
     @classonlymethod
     def as_view(cls, **initkwargs):
         for key in initkwargs:
@@ -198,7 +198,9 @@ class UserView(View):
 class MostViewedPost(ListView, View):
     template_name = 'most-viewed.html'
     paginate_by = 15
-    queryset = Post.objects.annotate(v_count = Count('views')).order_by('-v_count')
+    queryset = Post.objects.annotate(
+        v_count=Count('views')
+    ).order_by('-v_count')
 
 
 class CommunityListView(ListView, View):
@@ -236,21 +238,9 @@ class UserProfileUpdate(UpdateView, View):
         )
 
 
-def logout_request(request):
-    auth.logout(request)
-    return redirect('/')
-
-
-def add_comment(request, community_name, post_id):
-    author = User.objects.get(name=request.user.get_username())
-    post = Post.objects.get(id = post_id)
-    content = request.POST['content']
-    Comments.objects.create(content = content, author = author, post = post)
-
-    return redirect(f'/community/{community_name}/{post_id}')
-
 class store_args():
     pass
+
 
 class PostCreate(CreateView, View):
     model = Post
@@ -272,9 +262,10 @@ class PostCreate(CreateView, View):
         form.instance.publisher = Community.objects.get(name=self.valves.community_name)
         return super().form_valid(form)
 
+
 class CommunityCreate(CreateView, View):
     model = Community
-    fields = ['name','description', 'location']
+    fields = ['name', 'description', 'location']
     template_name_suffix = '_create_form'
 
     def get(self, request, *args, **kwargs):
@@ -285,6 +276,21 @@ class CommunityCreate(CreateView, View):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+
+class HomeListView(ListView, View):
+
+    template_name = 'index.html'
+    paginate_by = 25
+
+    def get_queryset(self):
+        queryset = \
+            Post.objects.filter(publisher__in=Community.objects.prefetch_related('subscribers'
+                                ).filter(subscribers__name__exact=self.request.user.get_username()))\
+                .annotate(post_views=Count('views'))\
+                .order_by('-post_views')
+        return queryset
+
 
 @login_required
 def subscription_request(request, community_name):
@@ -299,13 +305,16 @@ def subscription_request(request, community_name):
     return redirect(request.META['HTTP_REFERER'])
 
 
-class HomeListView(ListView, View):
+def add_comment(request, community_name, post_id):
+    author = User.objects.get(name=request.user.get_username())
+    post = Post.objects.get(id = post_id)
+    content = request.POST['content']
+    Comments.objects.create(content=content, author=author, post=post)
 
-    template_name = 'index.html'
-    paginate_by = 25
+    return redirect(f'/community/{community_name}/{post_id}')
 
-    def get_queryset(self):
-        queryset = Post.objects.filter(
-            publisher__in=Community.objects.prefetch_related('subscribers')
-                .filter(subscribers__name__exact=self.request.user.get_username())).annotate(post_views=Count('views')).order_by('-post_views')
-        return queryset
+
+def logout_request(request):
+    auth.logout(request)
+    return redirect('/')
+
