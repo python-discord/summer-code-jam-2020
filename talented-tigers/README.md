@@ -72,12 +72,9 @@ written inside of it (replace `your_key_here` with your API key)
   * Then run these following commands:
     * `cd summer-code-jam-2020/talented-tigers`
     * `pipenv run python3 run-linux.py`
-  * The last command will run the website locally, you will be able to view the website at the adress `0.0.0.0:8000`.
-  
-  finally run the command "python manage.py generatepages Memes,INFO Pencil,BIZ Tigers,BLOG"
+  * The last command will run the website locally, you will be able to view the website at the address `0.0.0.0:8000`.
 
 ### License
-```
 MIT License
 
 Copyright (c) 2020 Python Discord
@@ -99,15 +96,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```
 
 ### Authors
 The Talented Tigers Are..
-* **Nathan Coulas (Github: [thaniel-c](https://github.com/thaniel-c), Discord: [thaniel#3631](https://discordapp.com/channels/@me/703922100112457778/))**
-* **Sloopoo (Github: [flextian](https://github.com/flextian))**
-* **Garfellow (Github: [Garfellow](https://github.com/GarfellowGMOD))**
-* **SuperMaZingCoder (Github: [CodeForeverAndEver](https://github.com/CodeForeverAndEver))**
-* **Ice Wolfy (Github: [Icebluewolf](https://github.com/Icebluewolf))**
+* **Nathan Coulas (GitHub: [thaniel-c](https://github.com/thaniel-c), Discord: [thaniel#3631](https://discordapp.com/channels/@me/703922100112457778/))**
+* **Sloopoo (GitHub: [flextian](https://github.com/flextian))**
+* **Garfellow (GitHub: [Garfellow](https://github.com/GarfellowGMOD))**
+* **SuperMaZingCoder (GitHub: [CodeForeverAndEver](https://github.com/CodeForeverAndEver))**
+* **Ice Wolfy (GitHub: [Icebluewolf](https://github.com/Icebluewolf))**
 
 <p align="center">
 <a href="#" >
