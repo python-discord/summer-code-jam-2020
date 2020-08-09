@@ -10,7 +10,7 @@ The `Refresh Database` button on the website is meant to get the latest articles
 1) DM me on discord(hot9cups#3125) and I'll provide you my key.
 2) Get your own key. 
 
-If you're getting your own key, this is explained very well [here](https://newscatcherapi.com/how-to-start).  
+If you're getting your own key, steps to do that are explained very well [here](https://newscatcherapi.com/how-to-start).  
 Head to their official [site](https://rapidapi.com/newscatcher-api-newscatcher-api-default/api/newscatcher/pricing). Select the free Basic Plan, and sign up. Then navigate to 'Test Endpoints' and there you will find a section called 'Code Snippets' towards the right which will contain your unique API key.
 
 After you've obtained your key, head to the file `db_gen.py` inside the directory `aggregator`. There, you'll find a `self.headers` attribute inside the class `Database_Generator`. Insert your key in the place of "SECRET-ID-HERE".  
