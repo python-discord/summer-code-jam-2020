@@ -297,13 +297,13 @@ def command_move(game_data, direction):
     else:
         success = False
 
-    # If stuck depleat the battery
+    # If stuck deplete the battery
     if game_data["is_stuck"]:
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
 
-    # If successfully moved depleat battery, handel components, and update position
+    # If successfully moved deplete battery, handel components, and update position
     if success:
 
         # Move dust storm
@@ -311,7 +311,7 @@ def command_move(game_data, direction):
         cur_dust[0] += game_data['wind'][0]
         cur_dust[1] += game_data['wind'][1]
         game_data['obstacles'].update({"dust_storm": cur_dust})
-        # depleat battery
+        # deplete battery
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
