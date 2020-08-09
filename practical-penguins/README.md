@@ -39,8 +39,9 @@ initialize database
 
 ```bash
 cd trivia_tavern
-python manage.py migrate
 python manage.py makemigrations
+python manage.py migrate
+python manage.py loaddata fixtures/fixture_trivia_packs.json
 ```
 
 set environment variables to your Twilio account
