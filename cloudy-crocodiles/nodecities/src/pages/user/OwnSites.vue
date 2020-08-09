@@ -12,7 +12,7 @@
           <q-card-section>{{ site.description }}</q-card-section>
           <q-card-actions>
             <a
-              :href="`http://localhost:1234/cdn/${site.city.slug}/${site.address}/index.html`"
+              :href="`http://localhost:1234/${site.city.slug}/${site.address}/index.html`"
             >Preview</a>
           </q-card-actions>
         </q-card>
