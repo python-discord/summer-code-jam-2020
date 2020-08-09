@@ -6,6 +6,7 @@ import TicTacToe from './tic-tac-toe.vue';
 import Forum from './thread-list.vue';
 import Thread from './thread-view.vue';
 import PostThread from './new-thread.vue';
+import ListMessages from './list-messages.vue';
 
 const routes = [
   {
@@ -54,6 +55,13 @@ const routes = [
     name: 'thread-view',
     component: Thread,
   },
+  {
+    path: '/messages/',
+    name: 'list-messages',
+    component: ListMessages,
+  },
+
+
 ];
 
 export default routes;

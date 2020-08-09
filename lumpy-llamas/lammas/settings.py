@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'channels',
     'chat',
     'forum.apps.ForumConfig',
+    'mailmessages.apps.MailmessagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
