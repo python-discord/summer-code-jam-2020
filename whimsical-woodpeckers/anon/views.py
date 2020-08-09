@@ -5,6 +5,9 @@ from anon.models import AnonUser
 
 # Create your views here.
 
+def random_string(length):
+    return ""
+
 
 def get_user(user_id):
     try:
