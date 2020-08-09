@@ -10,7 +10,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('earls/', include('earls.urls')),
     path('account/', include('account.urls')),
-    path('', include('earlcal.urls')),
+    path('calendar/', include('earlcal.urls')),
 ]
 
 if settings.DEBUG:
