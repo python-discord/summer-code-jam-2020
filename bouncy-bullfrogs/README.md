@@ -36,9 +36,21 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 > 
 > \- Zuck (*founder of BouncyBullfrogs co.*)
 
+# INSTALLATION AND SETUP
 
+- Clone this Repository on your system using - `git clone "https://github.com/python-discord/summer-code-jam-2020"`.
 
+- `cd` into `bouncy-bullfrogs/bouncy` directory.
 
+- `pipenv shell` to activate the pipenv environment.
+
+- run `pipenv install` to install the required packages for this project.
+
+- `python3 manage.py migrate` to apply all the migrations.
+
+- `python3 manage.py runserver` to run your localhost server.
+
+Now, sit back and use this :)), you have effectively started the next technological revolution on your system.
 
 
 

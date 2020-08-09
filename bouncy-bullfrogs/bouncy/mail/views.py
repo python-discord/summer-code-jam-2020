@@ -18,7 +18,9 @@ def home(request):
         if request.GET:
             query = request.GET['q']
             context['query'] = get_mail_queryset(request, query)
-        return render(request, "mail/inbox.html", context)
+            return render(request, "mail/inbox.html", context)
+        else:
+            return render(request,"mail/inbox.html")
     else:
         return HttpResponseRedirect(reverse("login"))
 
@@ -151,7 +153,7 @@ def login_view(request):
     else:
         return render(request, "mail/login.html")
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("login"))
