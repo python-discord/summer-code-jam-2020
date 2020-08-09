@@ -8,6 +8,7 @@ class GameView(View):
     def get(self, request):
         game_data = get_game(request)
         context = game_data
+        context.update({"scores": self.get_scores()})
         return render(request, "game/game.html", context)
 
     def post(self, request):
