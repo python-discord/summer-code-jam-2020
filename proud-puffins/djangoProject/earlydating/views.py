@@ -200,17 +200,13 @@ def DateMatcher(request):
 def likedmatches(request):
     """Page for the profiles you liked"""
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user, vote=1).exclude(voter=logged_user)
     you_liked = UserVote.objects.filter(voter=logged_user, vote=1).exclude(user=logged_user)
-    page_likes = Paginator(liked_you, 9)
     page_liked = Paginator(you_liked, 9)
 
     page_number = request.GET.get('page')
-    page_obj_likes = page_likes.get_page(page_number)
     page_obj_liked = page_liked.get_page(page_number)
 
-    context = {'liked_you': liked_you, 'you_liked': you_liked,
-               'obj_liked': page_obj_liked, 'obj_likes': page_obj_likes}
+    context = {'you_liked': you_liked, 'obj_liked': page_obj_liked}
     return render(request, 'dating/mylikes.html', context)
 
 
@@ -219,10 +215,12 @@ def likedmatches(request):
 def bothliked(request):
     """Page for your matches (both liked eachother)"""
     logged_user = request.user
-    liked_you = UserVote.objects.filter(user=logged_user, vote=True).exclude(voter=logged_user)
-    you_liked = UserVote.objects.filter(voter=logged_user, vote=True).exclude(user=logged_user)
+    liked_you = UserVote.objects.filter(user=logged_user, vote=True).exclude(voter=logged_user).values_list('voter')
+    you_liked = UserVote.objects.filter(voter=logged_user, vote=True).exclude(user=logged_user).values_list('user')
     both_liked = liked_you.intersection(you_liked)
-    whole_list = liked_you.union(you_liked)
-    context = {'liked_you': liked_you, 'you_liked': you_liked, 'both_liked': both_liked, 'everyone': whole_list}
 
+    matches = []
+    for ele in both_liked:
+        matches.append(User.objects.get(pk=ele[0]))
+    context = {'both_liked': matches}
     return render(request, 'dating/bothlikes.html', context)

@@ -10,14 +10,19 @@
 
         {% for item in both_liked %}
             <div class="grid-container">
-                <h3 style="font-weight: bold; font-size: large;"><a href="{% url 'earlydating-profile' item.user.id %}">{{ item.user.username }}</a></h3><br>
-                <img src="/media/{{ item.user.profile.img }}" height="250"><br>
-                <h2>{{item.user.profile.bio }}</h2>
+                <h3 style="font-weight: bold; font-size: large;"><a href="{% url 'earlydating-profile' item.pk %}">{{ item.username }}</a></h3><br>
+                <img src="/media/{{ item.profile.img }}" height="250"><br>
+                <h2>{{item.profile.bio }}</h2><br>
+                <h1> Chat With Me! {{item.email}}</h1>
             </div>
-        {% endfor %}
-
+            <br><br><br>
+        {% empty %}
         <img src="../static/images/puffin_none.gif"><br>
         <h1>Keep fishing, plenty of fish in the sea.</h1>
+        
+
+        {% endfor %}
+
 
 
 {% endblock %}
