@@ -3,37 +3,24 @@
 
 {% block body %}
 
-<div class="input-bar width100">
-    <div class="input-bar-item width100">
-        <form action='/inbox' method="GET" >
-            <div class="input-group">
-                <input type="text" class='form-control width100' name='q' placeholder="Search...">
-                <span class="input-group-btn">
-                    <input type="submit" class="btn btn-primary mt-3" value="Search" style="position:relative; top:-16px;">
-                </span>
-            </div>
-        </form>
-    </div>
-</div>
 {%if query%}
-
-<h3>Searched results</h3>
-{%for emails in query%}
-<div id="emails-view" style="display: block;">
-    <ul id="emails-list" class="list-unstyled">
-        <li id="email-4" class="media read-email"><img class="mr-2" src="../static/mail/read.png" alt="email icon">
+    
+    <h3>Searched results</h3>
+        {%for emails in query%}
+        <div id="emails-view" style="display: block;">
+            <ul id="emails-list" class="list-unstyled">
+            <li id="email-4" class="media read-email"><img class="mr-2" src="../static/mail/read.png" alt="email icon">
             <div class="media-body">
-                <h5 class="mt-0 mb-2">{{emails.sender}}  <small style="float:right">{{emails.timestamp}}</small></h5>
-                <b>Subject:</b>{{emails.subject}}
-            </div>
-        </li>
-    </ul>
-</div>
+              <h5 class="mt-0 mb-2">{{emails.sender}}  <small style="float:right">{{emails.timestamp}}</small></h5>
+              <b>Subject:</b>{{emails.subject}}
+            </div></li>
+        </ul>
+        </div>
+        
+            
 
 
-
-
-{%endfor%}
+        {%endfor%}
 {% else %}
 <hr>
 <div id="message-box">
