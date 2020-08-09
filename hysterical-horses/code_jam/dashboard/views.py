@@ -22,13 +22,18 @@ def index(request):
     return render(request, 'dashboard/index.html')
 
 
+@login_required()
+def about_view(request):
+    return render(request, 'dashboard/about.html', {})
+
+
 def search_query(search: str, format_text: bool =True):
     """ Takes in a search query and requests an API for results  """
     base_url = 'https://api.duckduckgo.com/'
     payload = {"q": search, "format": "json", "pretty": "1"}
     results = requests.get(base_url, params = payload).json()
     # clipboard.copy(str(results)) # REMEMBER TO COMMENT IN AFTER DEBUGGING
-    
+
     if format_text:  # formats response
         # NOTE:
         # returns as a list of entries
