@@ -23,7 +23,20 @@
         <title>Django Blog</title>
     {% endif %}
 </head>
-<body class="bg-secondary">
+{% if user.profile.background %}
+    <style>
+        .bg-secondary {
+        background-image: url('{{ user.profile.background.url }}');
+        }
+    </style>
+{% else %}
+    <style>
+        .bg-secondary {
+            background-color: #008081;
+        }
+    </style>
+{% endif %}
+<body id="main-body" class="bg-secondary">
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="d-flex align-items-center w-100">
