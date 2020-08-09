@@ -73,6 +73,8 @@ written inside of it (replace `your_key_here` with your API key)
     * `cd summer-code-jam-2020/talented-tigers`
     * `pipenv run python3 run-linux.py`
   * The last command will run the website locally, you will be able to view the website at the adress `0.0.0.0:8000`.
+  
+  finally run the command "python manage.py generatepages Memes,INFO Pencil,BIZ Tigers,BLOG"
 
 ### License
 ```
