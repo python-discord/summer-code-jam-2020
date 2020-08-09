@@ -37,4 +37,9 @@ urlpatterns = [
     path("dashboard/", views.TraderDashboard.as_view(), name="dashboard"),
     path("review/", views.ReviewCreate.as_view(), name="review"),
     path("inventory/create", views.InventoryCreate.as_view(), name="inventory-create",),
+    path(
+        "listing/create/<int:item_id>",
+        views.ListingCreate.as_view(),
+        name="listing-create",
+    ),
 ]
