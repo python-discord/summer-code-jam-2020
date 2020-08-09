@@ -50,5 +50,3 @@ def move_user(username: str, to_room: Room) -> typing.NoReturn:
 
     # Get the user with the matching username and update their room.
     SimpleUser.objects.filter(username=username).update(room=to_room)
-
-

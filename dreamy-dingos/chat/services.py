@@ -20,7 +20,7 @@ class MessageService:
     def get_distinct_messages():
         """Returns distinct text values ordered by created_at of messages from database."""
         return [item["text"] for item in
-            Message.objects.order_by('created_at').values('text', 'created_at').distinct()]
+                Message.objects.order_by('created_at').values('text', 'created_at').distinct()]
 
     @staticmethod
     def get_all():

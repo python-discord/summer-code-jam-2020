@@ -1,2 +1,11 @@
 # Dreamy Dingos
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+
+## How to install
+
+```
+docker-compose run web python manage.py makemigrations
+docker-compose run web python manage.py migrate
+docker-compose up -d
+```
+
+## How to use

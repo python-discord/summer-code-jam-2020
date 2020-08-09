@@ -6,23 +6,24 @@
     <title>Chat Rooms</title>
 </head>
 <body>
-    {% block content %}
+    {% block rooms %}
 
     <ul class="rooms">
+        What chat room would you like to enter?<br>
         {% for room in rooms %}
-            <li class="room-link" data-room-id="{{ room.id }}">{{ room }}</li>
-        {% empty %}
-            <form action="#" method="post">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Add a room">
-            </form>
+            <p>{{ room.name }} <a href="{% url 'room' room.id %}">Join</a></p>
         {% endfor %}
+        {% endblock %}
+        
     </ul>
 
-    <div id="chats">
-    </div>
+    {% block form %}
+    <form action="#" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add a room">
+    </form>
 
-{% endblock %}
+    {% endblock %}
 </body>
 </html>

@@ -7,18 +7,21 @@ from .forms import RoomNameForm
 from .forms import LoginForm
 from .services import MessageService, RoomService
 
+
 def index(request):
     return render(request, "chat/index.html", context={"rooms": Room.objects.all()})
-  
+
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             SimpleUser(username=form.cleaned_data).save()
-            return HttpResponseRedirect('/chat/login/')
+            return HttpResponseRedirect('/chat/rooms/')
     else:
         form = LoginForm()
     return render(request, 'chat/login.html', {'form': form})
+
 
 def room(request, room_id: int):
     # If room exists then give it and its messages to context
@@ -31,6 +34,7 @@ def room(request, room_id: int):
         })
     else:
         return HttpResponseNotFound("<h1>Room not found!</h1>")
+
 
 def create_room(request):
     """
@@ -45,11 +49,13 @@ def create_room(request):
         form = RoomNameForm()
     return render(request, 'chat/rooms.html', {'form': form})
 
+
 def remove_room(request, name):
     """
     Removes a room from rooms table.
     """
     Room.objects.remove(name=name)
+
 
 def all_rooms(request):
     """
