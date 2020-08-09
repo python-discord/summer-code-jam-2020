@@ -8,7 +8,7 @@
 
 {% block content %}
 {% load custom_filters %}
-
+<a class="nes-btn" href="{% url 'blogs_list' %}">Back To Blogs</a>
 <div class="nes-container with-title signup-form">
     <span class="title signup-form-title">{{ post.title }}</span>
     <small>By: {{ post.author.username }}</small>

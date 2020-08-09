@@ -11,6 +11,7 @@
 
 <div class="nes-container with-title signup-form">
     <span class="title signup-form-title">Blogs</span>
+    <a class="nes-btn" href="{% url 'blog-create' %}">Create</a>
 
     <form action="" method="get">
         {{ filterset.form.as_p }}
