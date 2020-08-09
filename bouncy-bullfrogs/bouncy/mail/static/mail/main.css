@@ -13,8 +13,8 @@ textarea {
 
 .input-bar {
     position: relative;
-    top: 20px;
-    left: 550px;
+    top: 5px;
+    right:5px;
     max-width: 500px;
     display: table;
 }
