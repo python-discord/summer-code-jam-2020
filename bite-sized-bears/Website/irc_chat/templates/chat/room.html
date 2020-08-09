@@ -18,10 +18,9 @@
     <marquee> Some random news updates   Some random news updates   Some random news updates</marquee>
     <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
     <div class="headerlinks">
-      <a href="#">home</a>
+      <a href="{% url 'home' %}">home</a>
       <a href="{% url 'top-communities' %}">communities</a>
-      <a href="#">location</a>
-      <a href="/most-viewed-posts/">most-viewed</a>
+      <a href="{% url 'most-viewed' %}">most-viewed</a>
       <a href="/user/{{user.get_username}}/my-communities">my-communities</a>
       <a href="/user/{{user.get_username}}/posts">my-posts</a>
       <a href="/user/{{user.id}}">my-profile{{user.username}}, {{user.id}}</a>
@@ -44,7 +43,9 @@
     {{ room_name|json_script:"room-name" }}
     <script>
         var ws;
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        var username = {{ username }};
+        // const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        var roomName = {{ room_name_json }};
         console.log("first" + roomName);
         start = function(){
         	console.log("HEYYY");
@@ -106,7 +107,8 @@
             const message = messageInputDom.value;
             ws.send(JSON.stringify({
                 'command': 'new_message',
-                'message': message
+                'message': message,
+                'from': username
             }));
             messageInputDom.value = '';
         };

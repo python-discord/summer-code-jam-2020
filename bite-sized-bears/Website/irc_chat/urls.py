@@ -4,5 +4,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^(?P<room_name>\w+)/', views.room, name='chat'),
+    path('<str:room_name>/', views.room, name='room'),
+    url(r'^(?P<room_name>[\w]+)/', views.room, name='chat'),
+
 ]
