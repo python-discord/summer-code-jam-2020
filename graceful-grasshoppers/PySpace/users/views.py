@@ -51,16 +51,14 @@ def comment_on_profile(request):
     user = request.user
     try:
         comment = models.ProfileComment.objects.create(
-            user_commented_on=models.CustomUser.objects.get(
-                username=payload["user_commented_on"]),
+            user_commented_on=models.CustomUser.objects.get(username=payload["user_commented_on"]),
             user_commented=models.CustomUser.objects.get(id=user.id),
             content=payload["content"],
         )
         print(comment)
         serializer = serializers.ProfileCommentSerializer(comment)
         return JsonResponse(
-            {"comment": serializer.data}, safe=False,
-            status=status.HTTP_201_CREATED
+            {"comment": serializer.data}, safe=False, status=status.HTTP_201_CREATED
         )
     except ObjectDoesNotExist as e:
         print(e)

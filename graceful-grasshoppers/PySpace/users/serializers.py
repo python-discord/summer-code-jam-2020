@@ -34,10 +34,8 @@ class UserSerializer(serializers.ModelSerializer):
     profile_comments = serializers.SerializerMethodField('comments')
 
     def friend_list(self, obj):
-        queryset = [i.friend_id for i in models.Friendship.objects.filter(
-            requester_id=obj.id)]
-        queryset += [i.requester_id for i in models.Friendship.objects.filter(
-            friend_id=obj.id)]
+        queryset = [i.friend_id for i in models.Friendship.objects.filter(requester_id=obj.id)]
+        queryset += [i.requester_id for i in models.Friendship.objects.filter(friend_id=obj.id)]
         queryset = [models.CustomUser.objects.get(id=i) for i in queryset]
         return FriendshipSerializer(queryset, many=True).data
 
@@ -49,14 +47,12 @@ class UserSerializer(serializers.ModelSerializer):
         return serializer.data
 
     def most_recent_post(self, obj):
-        queryset = post_models.Post.objects.filter(author=obj.id).order_by(
-            'date_posted').first()
+        queryset = post_models.Post.objects.filter(author=obj.id).order_by('date_posted').first()
         serializer = post_serializers.PostSerializer(queryset,)
         return serializer.data
 
     def comments(self, obj):
-        queryset = models.ProfileComment.objects.filter(
-            user_commented_on=obj.id)
+        queryset = models.ProfileComment.objects.filter(user_commented_on=obj.id)
         return ProfileCommentSerializer(queryset, many=True).data
 
     class Meta:
