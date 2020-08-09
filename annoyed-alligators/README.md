@@ -46,8 +46,11 @@ Create an account and log in through it to connect with your friends and access 
 *(Pro tip: Imagine yourself to be in the 80s for the best feels!)*
 
 #### Commands:
+You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle through your command history (only if the page has not been redirected).
+
 (Type `[command name] --help` for details and usage of a particular command)
 - `help`: Display a list of all available commands
+- `clear` or `cls`: Clear all the terminal output
 - `home`: Jump to home screen (feed)
 - `n`: Takes you to the next page in feed
 - `p`: Takes you to the previous page in feed
