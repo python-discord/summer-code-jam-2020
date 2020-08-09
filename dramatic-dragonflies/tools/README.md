@@ -10,3 +10,6 @@ extract the generated `rom.tar.gz` file.
 build environment for the ROM. It is also downloading the Arch ISO.
 
 * `make_image.sh` : Script ran inside the build container in order to generate the ROM.
+
+* `process_watch` : opens a process in a pty and passes its stdio to it, allowing using
+pipe based IPC while still getting the advantages of a pty

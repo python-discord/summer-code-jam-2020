@@ -1,2 +1,9 @@
 # Dramatic Dragonflies
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+Creation of jailed legacy OS VMs
+setup:
+    1. run tools/build_image with the appropiate extension for your OS
+    2. run docker-compose up
+usage:
+    1. register an account
+    2. create a new VM, it will automatically get a storage
+    3. navigate to disks and click start VM

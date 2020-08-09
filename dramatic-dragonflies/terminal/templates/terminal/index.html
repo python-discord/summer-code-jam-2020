@@ -1,0 +1,37 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'xterm/css/xterm.css' %}" />
+<script src="{% static 'xterm/lib/xterm.js' %}"></script>
+{% endblock head %}
+  {% block content %}
+
+
+<div id = "main">
+    {{ storage_id|json_script:"storage_id" }}
+    {{ vm_id|json_script:"vm_id" }}
+    <div id="terminal"></div>
+    <script>
+        const storageId = Number(document.getElementById("storage_id").innerText);
+        const vmId = Number(document.getElementById("vm_id").innerText);
+        const ws = new WebSocket(`ws://${window.location.host}/ws/terminal/${storageId}/${vmId}`);
+        const term = new Terminal();
+        ws.onmessage = (ev) => {
+            ev.data.text().then(
+                (v) =>  term.write(v.replace(/\n/g, '\r\n'))
+            );
+        };
+        ws.onclose = (ev) => {
+            term.write("lost connection \r\n");
+        }
+        term.open(document.getElementById('terminal'));
+        term._initialized = true;
+        term.onData((e) => {
+            ws.send(e);
+        })
+        term.write('starting\r\n');
+    </script>
+    </div>
+
+{% endblock content %}

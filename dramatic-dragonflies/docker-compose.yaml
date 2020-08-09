@@ -7,12 +7,20 @@ services:
       POSTGRES_PASSWORD: "thehtvms"
       POSTGRES_USER: "thehtvms"
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on:
+      - web
+
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "127.0.0.1:5000:5000"
     depends_on:
       - postgres
     tty: true
@@ -20,6 +28,8 @@ services:
       - SYS_ADMIN
     environment:
       DEBUG: "${DEBUG-}"
+      SMTP_PASS : "${STMP_PASS-}"
+      SMTP_USER : "${STMP_USER-}"
       DATABASE_URL: "postgres:5432"
     volumes:
     - .:/app

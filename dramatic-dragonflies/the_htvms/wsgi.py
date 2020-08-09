@@ -14,3 +14,5 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'the_htvms.settings')
 
 application = get_wsgi_application()
+
+raise SystemExit("this project does not support wsgi, please use asgi instead")

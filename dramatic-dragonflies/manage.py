@@ -14,6 +14,7 @@ from django.core.management import call_command
 DATABASE_RETIES = 10
 DATABASE_WAIT = 0.5
 
+
 class SiteManager:
     """
     Manages the preparation and serving of the website.
