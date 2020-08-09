@@ -7,6 +7,7 @@ from trivia_builder.models import TriviaQuestion
 from trivia_runner.models import ActiveTriviaQuiz, Player
 from twilio_messenger.views import SMSBot
 from twilio_messenger.views import ScoreTracker
+from django.views.decorators.csrf import csrf_exempt
 
 
 class ActiveTriviaQuizListView(ListView):
@@ -21,6 +22,22 @@ def setup(request, active_trivia_quiz):
     return render(request, 'activequiz_setup.html', {'active_trivia_quiz': active_trivia_quiz})
 
 
+def times_up(request, active_trivia_quiz):
+    for player in Player.objects.all():
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                               session_code=active_trivia_quiz.session_code)
+
+        if not score_track.answered_this_round:
+            player.wrong_answers.append((active_trivia_quiz.current_question_index, ''))
+            player.save()
+            score_track.answered_this_round = True
+            score_track.save()
+        SMSBot.send('TIME IS UP. NO MORE ANSWERS!', player.phone_number)
+
+    cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
+                                                question_index=active_trivia_quiz.current_question_index)
+    return render(request, 'activequiz_question.html', {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
+
 def question(request, active_trivia_quiz):
     cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
                                               question_index=active_trivia_quiz.current_question_index)
@@ -30,8 +47,7 @@ def question(request, active_trivia_quiz):
         score_track.answered_this_round = False
         score_track.save()
         SMSBot.send_question(cur_question, player)
-    # for player in Player.objects.all():
-    #    SMSBot.delayed_send('TIME IS UP!', player, 10)
+
 
     return render(request, 'activequiz_question.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
@@ -63,7 +79,7 @@ def end_screen(request, active_trivia_quiz):
     return render(request, 'activequiz_end.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'tally_results': tally_results})
 
-
+@csrf_exempt
 def active_trivia(request, pk):
     active_trivia_quiz = get_object_or_404(ActiveTriviaQuiz, pk=pk)
 
@@ -72,6 +88,9 @@ def active_trivia(request, pk):
             active_trivia_quiz.current_question_index = active_trivia_quiz.current_question_index + 1
         elif 'show-results' in request.POST:
             active_trivia_quiz.current_question_index = -1
+        elif 'times-up' in request.POST:
+            return times_up(request, active_trivia_quiz)
+
 
     if active_trivia_quiz.current_question_index == 0:
         response = setup(request, active_trivia_quiz)
