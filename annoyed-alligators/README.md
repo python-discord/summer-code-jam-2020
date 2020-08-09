@@ -78,7 +78,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │   │   ├── admin.py
     │   │   ├── apps.py
     │   │   ├── __init__.py
-    │   │   ├── migrations/
+    │   │   ├── migrations
     │   │   ├── models.py
     │   │   ├── tests.py
     │   │   ├── urls.py
@@ -88,7 +88,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │   │   ├── apps.py
     │   │   ├── forms.py
     │   │   ├── __init__.py
-    │   │   ├── migrations/
+    │   │   ├── migrations
     │   │   ├── models.py
     │   │   ├── tests.py
     │   │   ├── urls.py
@@ -100,7 +100,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │   │   ├── command_runner.py
     │   │   ├── commands.py
     │   │   ├── __init__.py
-    │   │   ├── migrations/
+    │   │   ├── migrations
     │   │   ├── models.py
     │   │   ├── tests.py
     │   │   ├── urls.py
@@ -110,7 +110,7 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     │       ├── apps.py
     │       ├── forms.py
     │       ├── __init__.py
-    │       ├── migrations/
+    │       ├── migrations
     │       ├── models.py
     │       ├── signals.py
     │       ├── tests.py
@@ -120,11 +120,15 @@ You can press the <kbd>&uparrow;</kbd> or <kbd>&downarrow;</kbd> keys to circle 
     ├── __init__.py
     ├── settings.py
     ├── static
+    │   ├── css
+    │   │   └── 98.css
     │   ├── favicon.ico
     │   └── media
     │       ├── default.png
-    │       ├── post_images/
-    │       ├── profile_pics/
+    │       ├── logo.jpg
+    │       ├── logout.png
+    │       ├── post_images
+    │       ├── profile_pics
     │       └── README.md
     ├── templates
     │   ├── base.html
