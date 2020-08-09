@@ -22,6 +22,7 @@ class AnonUser(AbstractBaseUser):
     password = models.CharField(max_length=5, default="abcde")
     objects = AnonUserManager()
     auth_token = models.CharField(max_length=30, default="")
+    auth_expiration = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = 'id'
 
