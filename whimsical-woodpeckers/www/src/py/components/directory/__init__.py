@@ -70,8 +70,8 @@ class MessageSocket(WebSocket):
     def __init__(self, component, token, id):
         room_name = "test"
         console.log(token, id)
-        super().__init__('ws://' + window.location.host + '/ws/chat/' +
-                         room_name + '/')
+        super().__init__('ws://' + window.location.host + '/ws/chat/'
+                         + room_name + '/')
         self.component = component
         self.send({"type": "auth", "auth_token": token, "id": id})
 
