@@ -1,34 +1,21 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import {ThemeProvider} from '@react95/core';
+import { ThemeProvider } from 'styled-components';
 import Home from "./Home";
 import CustomContext from "./CustomContext";
-import Testing2 from "./Testing2";
-
+import original from "react95/dist/themes/original";
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
-
-
- 
    
   render() {
     return (
       <div>
-          {/* <CustomContext items={this.state.menu}/> */}
-           
-            <ThemeProvider>
-              <Testing2 text="Test1"/>
-              <Testing2 text="Test2"/>
-              {/* <Testing2 test="Test2"/> */}
-              {/* <GlobalStyle/> */}
+            <ThemeProvider theme={original}>
               <Home/>
-              {/* <Footer/> */}
-              
             </ThemeProvider>
-         
       </div>
     )
   }

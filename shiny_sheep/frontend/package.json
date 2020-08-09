@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./src/index.js --output ../static/js/main.js",
+    "dev": "webpack --watch --mode development ./src/index.js --output ../static/js/main.js",
     "build": "webpack --mode production ./src/index.js --output ../static/js/main.js"
   },
   "keywords": [],
@@ -28,6 +28,7 @@
     "@react95/clippy": "^0.1.1",
     "@react95/core": "^2.10.4",
     "@react95/icons": "^0.3.0",
+    "react95": "^3.0.1",
     "style-loader": "^1.2.1",
     "styled-components": "^5.1.1"
   }
