@@ -12,7 +12,7 @@ class UserRegisterForm(UserCreationForm):
             'email',
             'first_name',
             'last_name',
-            'passport_id',
+            'earldom',
             'password1',
             'password2',
         ]
@@ -24,6 +24,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = [
             'first_name',
             'last_name',
+            'earldom',
             'email',
             'image',
         ]
