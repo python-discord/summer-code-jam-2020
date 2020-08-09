@@ -59,7 +59,7 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 
 ###
 > ## **[Multi](https://github.com/telugu-boy)** *(multi#3304)* - 
-> * 1
+> * Developed inbox.js
 > * 2
 > * 3
 
@@ -71,7 +71,7 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 
 ###
 > ## **[nopeless](https://github.com/nopeless)** *(nope#7777)* - 
-> * Created about us page
+> * Created about us page and a handler for that page
 > * Wrote our README.md file
 > * Helped fantastic push git
 
