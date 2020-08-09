@@ -13,8 +13,8 @@
     {{ vm_id|json_script:"vm_id" }}
     <div id="terminal"></div>
     <script>
-        const storageId = Number(document.getElementById("storage_id").innerText);
-        const vmId = Number(document.getElementById("vm_id").innerText);
+        const storageId = document.getElementById("storage_id").innerText;
+        const vmId = document.getElementById("vm_id").innerText;
         const ws = new WebSocket(`ws://${window.location.host}/ws/terminal/${storageId}/${vmId}`);
         const term = new Terminal();
         ws.onmessage = (ev) => {
