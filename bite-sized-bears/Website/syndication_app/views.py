@@ -11,6 +11,7 @@ from django.contrib.auth.models import User as AuthUser
 
 from .models import Post, Comments, User, Community
 
+
 class View(views):
     @classonlymethod
     def as_view(cls, **initkwargs):
@@ -27,12 +28,12 @@ class View(views):
         def view(request, *args, **kwargs):
             self = cls(**initkwargs)
             try:
-                request.user = User.objects.get(name = request.user.get_username())
+                request.user = User.objects.get(name=request.user.get_username())
                 auth_user = AuthUser.objects.get(username=request.user.name)
                 for meth in dir(auth_user):
                     if not hasattr(request.user, meth):
                         try:
-                            setattr(request.user, meth, getattr(auth_user,meth))
+                            setattr(request.user, meth, getattr(auth_user, meth))
                         except Exception as e:
                             pass
             except:
@@ -58,7 +59,8 @@ class View(views):
         update_wrapper(view, cls.dispatch, assigned = ())
         return view
 
-class IndexListView(ListView,View):
+
+class IndexListView(ListView, View):
     paginate_by = 25
     template_name = 'index.html'
     queryset = Post.objects.all()
@@ -104,7 +106,7 @@ class SignupView(View):
             else:
                 user = User(name=username, password=password1)
                 user.save()
-                user = auth.authenticate(username = username, password = password1)
+                user = auth.authenticate(username=username, password=password1)
                 auth.login(request, user)
                 message = "Account created successfully"
                 created = True
@@ -119,9 +121,9 @@ class SignupView(View):
         except:
             pass
         try:
-            return render(request, self.template_name,{"message": message, "created": created, 'next': next})
+            return render(request, self.template_name, {"message": message, "created": created, 'next': next})
         except:
-            return render(request, self.template_name,{"message": message, "created": created, 'next': False})
+            return render(request, self.template_name, {"message": message, "created": created, 'next': False})
 
 
 class LoginView(View):
@@ -129,9 +131,9 @@ class LoginView(View):
 
     def get(self, request):
         try:
-            return render(request, self.template_name, {"created": True, 'next':request.POST['next']})
+            return render(request, self.template_name, {"created": True, 'next': request.POST['next']})
         except:
-            return render(request, self.template_name, {"created": True, 'next':False})
+            return render(request, self.template_name, {"created": True, 'next': False})
 
     def post(self, request):
         try:
@@ -153,9 +155,21 @@ class LoginView(View):
                 return redirect('/')
         else:
             try:
-                return render(request, self.template_name, {"message": "Account does not exist", "created": False, 'next':next})
+                return render(
+                    request,
+                    self.template_name, {"message": "Account does not exist",
+                                         "created": False,
+                                         'next': next
+                                         }
+                )
             except:
-                return render(request, self.template_name,{"message": "Account does not exist", "created": False, 'next': False})
+                return render(
+                    request,
+                    self.template_name, {"message": "Account does not exist",
+                                         "created": False,
+                                         'next': False
+                                         }
+                )
 
 
 class CommunityView(View):
@@ -171,6 +185,7 @@ class CommunityView(View):
             context["subscribed"] = True
         return render(request, self.template_name, context)
 
+
 class UserView(View):
     template_name = 'user-posts.html'
     model = User
@@ -183,30 +198,30 @@ class UserView(View):
         return render(request, self.template_name, self.context)
 
 
-class MostViewedPost(ListView,View):
+class MostViewedPost(ListView, View):
     template_name = 'most-viewed.html'
-    paginate_by = 25
+    paginate_by = 15
     queryset = Post.objects.annotate(v_count = Count('views')).order_by('-v_count')
 
 
-
-class CommunityListView(ListView,View):
+class CommunityListView(ListView, View):
     template_name = 'top-community.html'
-    paginate_by = 25
+    paginate_by = 20
     queryset = Community.objects.all().annotate(
         s_count=Count('subscribers')
     ).order_by('-s_count')[:100]
 
 
-class MyCommunityListView(ListView,View):
+class MyCommunityListView(ListView, View):
     template_name = 'my-communities.html'
-    paginate_by = 25
+    paginate_by = 15
 
     def get_queryset(self):
         queryset = Community.objects.filter(subscribers__name=self.request.user.get_username())
         return queryset
 
-class UserProfileUpdate(UpdateView,View):
+
+class UserProfileUpdate(UpdateView, View):
     model = User
     fields = ['avatar']
     template_name_suffix = '_update_form'
@@ -251,7 +266,7 @@ def subscription_request(request, community_name):
     return redirect(request.META['HTTP_REFERER'])
 
 
-class HomeListView(ListView,View):
+class HomeListView(ListView, View):
 
     template_name = 'index.html'
     paginate_by = 25
