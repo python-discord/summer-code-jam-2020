@@ -14,8 +14,7 @@ def index(request):
         form = RoomCreationForm(request.POST)
         if form.is_valid():
             room_name = form.cleaned_data["name"]
-            room, room_created = Room.objects.get_or_create(name=room_name)
-            RoomMember.objects.get_or_create(user=request.user, room=room)
+            Room.objects.get_or_create(name=room_name)
             return redirect("room", room_name)
     else:
         form = RoomCreationForm()
@@ -28,9 +27,9 @@ def room(request, room_name):
     # print(room_name)
     try:
         room = Room.objects.get(name=room_name)
-        room_member = RoomMember.objects.get(user=request.user, room=room)
+        room_member, room_member_created = RoomMember.objects.get_or_create(user=request.user, room=room)
         active_room_members = RoomMember.objects.filter(room=room, active=True)
-    except (Room.DoesNotExist, RoomMember.DoesNotExist):
+    except (Room.DoesNotExist):
         messages.warning(request, f"Room not found: {room_name}")
         return redirect("chat")
     older_messages = reversed(Message.objects.filter(room=room).order_by("-timestamp")[:19])
