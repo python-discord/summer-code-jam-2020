@@ -15,11 +15,11 @@ Including another URLconf
 """
 from chatbot import views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('chat/', views.chat_page, name='chat'),
+    re_path(r'^chat/(?P<bot_name>\w+)/$', views.chat_page, name='chat'),
     path('getwiki/', views.get_wikipedia)
 ]
