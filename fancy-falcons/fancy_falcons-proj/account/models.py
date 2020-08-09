@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from PIL import Image
 
@@ -81,7 +82,12 @@ class Account(AbstractBaseUser):
 
     def clean(self):
         # Create username from first and last name
-        self.username = self.first_name + '.' + self.last_name
+        self.username = f'{self.first_name}.{self.last_name}'
 
     def has_module_perms(self, app_label):
         return True
+
+    @property
+    def get_html_url(self):
+        url = reverse('earlcal:event_edit', args=(self.id,))
+        return f'<a href="{url}"> {self.first_name} </a>'
