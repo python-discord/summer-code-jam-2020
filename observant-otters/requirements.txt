@@ -10,3 +10,4 @@ requests==2.24.0
 requests-oauthlib==1.3.0
 sqlparse==0.3.1
 urllib3==1.25.10
+django-enum-field==0.2
