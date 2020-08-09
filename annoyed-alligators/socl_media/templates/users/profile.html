@@ -39,6 +39,7 @@
       <p>{{ post.post_content }}</p>
     </div>
   </div>
+  <hr>
 {% endfor %}
 </div>
 <script>
@@ -59,6 +60,10 @@
     width: 30px;
     height: auto;
     float: left;
+  }
+  hr {
+    border-top: 1px solid #555;
+    margin-right: 20px;
   }
 </style>
 {% endblock content %}

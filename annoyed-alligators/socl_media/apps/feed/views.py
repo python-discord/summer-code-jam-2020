@@ -15,6 +15,7 @@ class PostListView(LoginRequiredMixin, ListView):
     This view is called at the home screen to display all the posts.
     Lists out all the posts in the feed with the latest ones first.
     """
+
     model = Post
     ordering = ['-post_date_posted']
     paginate_by = 3
@@ -22,9 +23,9 @@ class PostListView(LoginRequiredMixin, ListView):
 
 class PostDetailView(LoginRequiredMixin, DetailView):
     """
-    This view is called at the home screen to display all the posts.
-    Lists out all the posts in the feed with the latest ones first.
+    This view is called to display one particular post.
     """
+
     model = Post
 
 
@@ -32,10 +33,11 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     """
     This view is called to create a new post.
     """
+
     model = Post
     form_class = PostForm
 
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
         form.instance.posted_by = self.request.user
         return super().form_valid(form)
 
@@ -44,6 +46,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     """
     This view is called to update the post we want to edit.
     """
+
     model = Post
     fields = ['post_content', 'post_image']
 
