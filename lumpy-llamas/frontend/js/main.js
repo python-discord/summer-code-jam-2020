@@ -14,6 +14,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
+Vue.use(require('vue-moment'));
 
 const router = new VueRouter({
   mode: 'history',
@@ -40,5 +41,11 @@ new Vue({
   store,
   components: {
     'bbs-input': KeyboardInput,
+  },
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      this.$cmd.reset();
+      next();
+    });
   },
 }).$mount('#app');

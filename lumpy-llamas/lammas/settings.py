@@ -37,7 +37,8 @@ DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
 
 ALLOWED_HOSTS = [
     'llamma-xbiguwvyua-ew.a.run.app',
-    'localhost'
+    'localhost',
+    '127.0.0.1',
 ]
 
 
@@ -46,6 +47,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'channels',
     'chat',
+    'forum.apps.ForumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -149,3 +151,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+
+CSRF_COOKIE_NAME = "csrftoken"
