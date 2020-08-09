@@ -58,12 +58,12 @@ You can start Postgres by running `psql`(Linux:`sudo -u postgres psql`). Then yo
 You want to make sure that you have a user named `postgres` with the password as `postgres` as well. 
 Now, all we need to do is migrate and run the server code! 
 ```
-#First make migrations
-python3 manage.py makemigrations
-python3 manage.py migrate
-
 #Change to the Backend/flashback directory
 cd Backend/flashback
+
+#Then make migrations
+python3 manage.py makemigrations
+python3 manage.py migrate
 
 #Start the server (Warning: Make sure this server is running before site setup)
 python3 manage.py runserver
