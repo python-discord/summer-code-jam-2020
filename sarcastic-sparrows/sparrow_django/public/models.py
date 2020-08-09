@@ -18,3 +18,23 @@ class Stock(models.Model):
             self.high,
             self.low,
         )
+
+
+class Buy(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    date = models.DateField()
+    ticker_symbol = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    volume = models.IntegerField()
+
+    def __str__(self):
+        return f"Name: {self.ticker_symbol} Date: {str(self.date)} Size: {self.volume}"
+
+
+class Sell(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    date = models.DateField()
+    ticker_symbol = models.ForeignKey(Stock, on_delete=models.CASCADE)
+    volume = models.IntegerField()
+
+    def __str__(self):
+        return f"Name: {self.ticker_symbol} Date: {str(self.date)} Size: {self.volume}"
