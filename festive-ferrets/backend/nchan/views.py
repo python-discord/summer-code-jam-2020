@@ -14,11 +14,11 @@ class BoardViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'id'
 
     @action(detail=True, url_path='posts')
-    def get_posts(self, request, board_id=None):
+    def get_posts(self, request, id=None):
         """
         Returns the 10 latest posts posted to board with board_id
         """
-        post_objects = Post.objects.all().filter(board__exact=board_id).order_by('-publication_date')
+        post_objects = Post.objects.all().filter(board__exact=id).order_by('-publication_date')
         paginator = PageNumberPagination()
         paginator.page_size = 10
         result_page = paginator.paginate_queryset(post_objects, request)
@@ -31,11 +31,11 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     @action(detail=True, url_path='comments')
-    def get_comments(self, request, post_id=None):
+    def get_comments(self, request, id=None):
         """
         Returns the 10 latest comments commented on post with post_id
         """
-        comment_objects = Comment.objects.all().filter(post__exact=post_id).order_by('-publication_date')
+        comment_objects = Comment.objects.all().filter(post__exact=id).order_by('-publication_date')
         paginator = PageNumberPagination()
         paginator.page_size = 10
         result_page = paginator.paginate_queryset(comment_objects, request)
