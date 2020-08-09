@@ -1,6 +1,10 @@
 # Spydirweb
 
 <p align="center">
+  <img src="readme/coollogo.gif">
+</p>
+
+<p align="center">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/thaniel-c/summer-code-jam-2020">
     <img alt="GitHub" src="https://img.shields.io/github/license/thaniel-c/summer-code-jam-2020?color=%23009dff%20">
     <a href="https://discord.gg/python">
