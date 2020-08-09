@@ -17,7 +17,7 @@ class PostListView(LoginRequiredMixin, ListView):
     """
     model = Post
     ordering = ['-post_date_posted']
-    paginate_by = 3
+    paginate_by = 5
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
@@ -35,7 +35,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
 
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
         form.instance.posted_by = self.request.user
         return super().form_valid(form)
 

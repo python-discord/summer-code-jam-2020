@@ -1,9 +1,11 @@
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from typing import Callable
 from .models import NewsHistory
 from socl_media.apps.chat.models import Message
+from socl_media.apps.feed.models import Post
 from GoogleNews import GoogleNews
 import ast
 
@@ -43,7 +45,79 @@ def help_func(request, params: str, **kwargs):
 
 help_command = Command(name='help', help_text="""<br>Display a list of all available commands<br>
 Usage: help<br>""",
-               action=help_func)
+                       action=help_func)
+
+
+def next_page_func(request, params: str, **kwargs):
+    posts = Post.objects.all().order_by('-post_date_posted')
+    p = Paginator(posts, 5)
+    current_url = kwargs.get('Referer')
+
+    if (current_url.split('/')[3] == '') or ('page' in current_url.split('/')[3]):
+        # Check if the command is run from home page only
+        if current_url.split('/')[3] == '':
+            # if request is sent from page 1
+            current_page = 1
+        else:
+            current_page = int(current_url[current_url.find('page') + 5:])
+
+        page_obj = p.get_page(current_page)
+
+        if page_obj.has_next():
+            next_pg = current_page + 1
+            message = f'Page {next_pg}'
+            messages.success(request, message)
+            redirect = reverse('home') + '?page=' + str(next_pg)
+        else:
+            message = "You've reached the last page"
+            return {'response': add_linebreaks(message)}
+
+    else:
+        message = "Cannot run command `n` from this page"
+        return {'response': add_linebreaks(message)}
+
+    return {'response': add_linebreaks(message), 'redirect': redirect}
+
+
+next_page = Command(name='n', help_text="""<br>Takes you to the next page in feed.<br>
+Usage: n<br>""",
+                    action=next_page_func)
+
+
+def prev_page_func(request, params: str, **kwargs):
+    posts = Post.objects.all().order_by('-post_date_posted')
+    p = Paginator(posts, 5)
+    current_url = kwargs.get('Referer')
+
+    if (current_url.split('/')[3] == '') or ('page' in current_url.split('/')[3]):
+        # Check if the command is run from home page only
+        if current_url.split('/')[3] == '':
+            # if request is sent from page 1
+            current_page = 1
+        else:
+            current_page = int(current_url[current_url.find('page') + 5:])
+
+        page_obj = p.get_page(current_page)
+
+        if page_obj.has_previous():
+            prev_pg = current_page - 1
+            message = f'Page {prev_pg}'
+            messages.success(request, message)
+            redirect = reverse('home') + '?page=' + str(prev_pg)
+        else:
+            message = "You've reached the first page"
+            return {'response': add_linebreaks(message)}
+
+    else:
+        message = "Cannot run command `p` from this page"
+        return {'response': add_linebreaks(message)}
+
+    return {'response': add_linebreaks(message), 'redirect': redirect}
+
+
+prev_page = Command(name='p', help_text="""<br>Takes you to the previous page in feed.<br>
+Usage: p<br>""",
+                    action=prev_page_func)
 
 
 def home_func(request, params: str, **kwargs):

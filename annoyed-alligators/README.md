@@ -1,10 +1,10 @@
 <div align="center">
-  
+
 ![socl -crop](https://user-images.githubusercontent.com/20405311/89612675-021b5700-d89e-11ea-8c0e-f6825f1672fd.jpg)
 # SoCL Media 
 **SoCommandLine Media**<br>
 By a bunch of Annoyed Alligators
-  
+ 
 ---
 
 <a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" border="0" alt="Made with Django." title="Made with Django." /></a>  ![Built with Love](https://img.shields.io/badge/Built%20With-%E2%99%A5-critical?style=for-the-badge&logo=ko-fi)
@@ -48,6 +48,8 @@ Create an account and log in through it to connect with your friends and access 
 (Type `[command name] --help` for details and usage of a particular command)
 - `help`: Display a list of all available commands
 - `home`: Jump to home screen (feed)
+- `n`: Takes you to the next page in feed
+- `p`: Takes you to the previous page in feed
 - `new-post`: Create a new post
 - `view-post`: View a particular post by its number
 - `logout`: Log Out of your account
