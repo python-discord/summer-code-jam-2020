@@ -38,5 +38,7 @@ application
 2. Once logged in, on the top right-hand side, click "New Project" and enter a name for the new project. Click "OK"
 3. On the next page, you're presented with a canvas and a set of tools. You can draw each frame of your GIF here. You
 can advance to the next frame by hitting next. A minimum of 2 frames is required.
-4. When you are done drawing, click the "View" button to preview your creation, and then click "Save to Server".
+4. When you are done drawing, render the drawing with "Render" and click the "View" button to preview your creation, and then click "Save to Server".
+5. Note: The save icon simply saves the frame to the total frames that are to be saved and "Save to Server" actually saves
+6. Clicking "Post" will add the image to the feed, otherwise the creation is private
 
