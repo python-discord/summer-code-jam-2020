@@ -3,8 +3,8 @@
     "model": "user.customuser",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$180000$6FqgVTwMhRbg$IodJpUlntpzyys6AisaxVQWvaL+r9j6iCiSubUN/UgU=",
-      "last_login": "2020-08-05T02:25:20.479Z",
+      "password": "pbkdf2_sha256$216000$jzMXuAd20PJa$b9Dsfdu5Kti/KDZ8IVZ0kAAIYYcsCrXVHLqW2JsQ8k8=",
+      "last_login": "2020-08-08T16:58:36.956Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "Admin",
@@ -22,18 +22,122 @@
     "pk": 1,
     "fields": {
       "name": "Area 51",
-      "description": "science fiction and fantasy",
+      "description": "Science Fiction, Fantasy.",
       "slug": "area-51"
     }
   },
   {
+    "model": "cities.city",
+    "pk": 2,
+    "fields": {
+      "name": "Athens",
+      "description": "Education, literature, poetry, philosophy.",
+      "slug": "athens"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 3,
+    "fields": {
+      "name": "Baja",
+      "description": "Four Wheeling, SUVs (4WDs), off-roading, adventure travel.",
+      "slug": "baja"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 4,
+    "fields": {
+      "name": "Enchanted forest",
+      "description": "A neighborhood by kids, for kids.",
+      "slug": "enchanted-forest"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 5,
+    "fields": {
+      "name": "MotorCity",
+      "description": "Cars, trucks, motorcycles.",
+      "slug": "motorcity"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 6,
+    "fields": {
+      "name": "Pentagon",
+      "description": "Military men and women.",
+      "slug": "pentagon"
+    }
+  },
+  {
+    "model": "cities.city",
+    "pk": 7,
+    "fields": {
+      "name": "Silicon Valley",
+      "description": "Hardware, software, programming.",
+      "slug": "silicon-valley"
+    }
+  },
+  {
     "model": "sites.site",
-    "pk": 1,
+    "pk": 5,
     "fields": {
       "city": 1,
       "user": 1,
       "address": 1,
-      "description": "My groovy site"
+      "description": "Underworld"
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 6,
+    "fields": { "city": 1, "user": 1, "address": 2, "description": "Vault" }
+  },
+  {
+    "model": "sites.site",
+    "pk": 7,
+    "fields": { "city": 7, "user": 1, "address": 1, "description": "Yote" }
+  },
+  {
+    "model": "sites.site",
+    "pk": 8,
+    "fields": {
+      "city": 2,
+      "user": 1,
+      "address": 1,
+      "description": "Greek stuff"
+    }
+  },
+  {
+    "model": "pages.page",
+    "pk": 3,
+    "fields": {
+      "site": 5,
+      "version": "H1",
+      "file_name": "index.html",
+      "content": "<HTML>\r\n<HEAD>\r\n<TITLE>The Lion's Keep, A Voltron Fan Site</TITLE>\r\n<META NAME=\"TITLE\" CONTENT=\"The Lion's Keep; A Voltron Fansite\">\r\n<META NAME=\"DESCRIPTION\" CONTENT=\"A Voltron Fansite with fanfics (mostly K&A), links and images\">\r\n<META NAME=\"KEYWORDS\" CONTENT=\"Voltron V3D fanfiction Allura Keith Lance Lotor Pidge Hunk Zarkon Haggar Hagar images links Arus\">\r\n<META NAME=\"OWNER\" CONTENT=\"lances_kitten@yahoo.com\">\r\n<META NAME=\"AUTHOR\" CONTENT=\"Lances Kitten\">\r\n<META HTTP-EQUIV=\"EXPIRES\" CONTENT=\"\">\r\n<META HTTP-EQUIV=\"CHARSET\" CONTENT=\"ISO-8859-1\">\r\n<META HTTP-EQUIV=\"CONTENT-LANGUAGE\" CONTENT=\"English\">\r\n<META HTTP-EQUIV=\"VW96.OBJECT TYPE\" CONTENT=\"Homepage\">\r\n<META NAME=\"RATING\" CONTENT=\"General\">\r\n<META NAME=\"ROBOTS\" CONTENT=\"index,follow\">\r\n<META NAME=\"REVISIT-AFTER\" CONTENT=\"4 weeks\">\r\n</HEAD>\r\n\r\n<BODY BGCOLOR=\"#FFFFFF\" LINK=\"#336699\" ALINK=\"#333366\" VLINK=\"#336699\">\r\nHello there!  I suppose that you're here looking for my website, <A HREF=\"http://thelionskeep.ourprofile.net/index.html\" TARGET=\"_new\">The Lion's Keep</A>... :) Well, thank you so much for stopping by to visit, but I've had to move. I have just become so fed up with Geocities - imagine this...<BR><BR>\r\nI've had my site here for, let's see, going on 7 years now.  When I recently updated and added a new section (on another yahoo geocities account that I've had), it was an about me section with pictures of my kids and what not, geocities told me that it was in violation of their terms of service because of the outside links... They tried to tell me that my site was just a redirection to outside sites... O_o<BR><BR>\r\nI argued with them - what kind of website is it if you can't link to other sites - and why in the world would they think that it's a redirect, please go and look at my site and see what I've got there, you'll realize that I have links to similar sites, and sites that are of interest to me and to visitors of my site, but it's not a redirect...<BR><BR>\r\nBut after almost 2 weeks and multipule emails, I still have only received one response from them, explaining that the outside links on my site violated their TOS... I can't even imagine - they have to be nuts. My best guess is that the person who did this was either new or they just didn't get it...<BR><BR>\r\nSo, I'm going to leave up a links page - so many wonderful sites - and there is no where in the TOS that says you cannot link to other sites - isn't that what the internet is all about - if there were no links to other sites, there would be no internet - right? Am I crazy here?<BR><BR>\r\nAnyway, please feel free to visit my <A HREF=\"linksb.html\" TARGET=\"_top\">links page</A> - and please visit my new site! And if you need to reach me, please feel free to email me at one of the following addresses - or at all of them... ~_^<BR><BR>\r\nLances_Kitten@yahoo.com<BR><BR>or<BR><BR>shanshanf@yahoo.com<BR><BR>or<BR><BR>shanire@yahoo.com<BR><BR>Thanks for visiting - and please bookmark my new site - and if you have been so kind as to link to me, please, when you have the chance, please change the link to <A HREF=\"http://thelionskeep.ourprofile.net/index.html\" TARGET=\"_new\">http://thelionskeep.ourprofile.net/index.html</A>\r\n\r\n<BR><BR>\r\n<HR ALIGN=center WIDTH=65% SIZE=1 COLOR=\"#336699\"><P>\r\n<B>Please Note:</B><BR><BR>\r\nAll commentary and pages within this site Copyright &#169; <A HREF=\"mailto:lances_kitten@yahoo.com\" TARGET=\"_new\">ShanShan</A>.<BR><BR>\r\n\r\nVoltron: Defender Of The Universe, Voltron The Third Dimension<BR>and all associated characters are owned and copyrighted &#169; by<BR><A HREF=\"http://www.wep.com/\" TARGET=\"_top\">World Events Productions, Ltd.</A>\r\n\r\n<BR><BR>Stories, new and original characters, etc., copyright &#169; their respective authors/creators.\r\n\r\n<BR><BR>These pages are meant for entertainment purposes only - no infringement is intended.\r\n<P>\r\n<BR><BR>\r\n</BODY>\r\n</HTML>"
+    }
+  },
+  {
+    "model": "pages.page",
+    "pk": 4,
+    "fields": {
+      "site": 6,
+      "version": "H1",
+      "file_name": "index.html",
+      "content": "<html>\r\n  <head>\r\n    <title>Welcome to area 51</title>\r\n  </head>\r\n\r\n  <body bgcolor=\"yellow\">\r\n    <h1>Hello, fellow Alien</h1>\r\n    <h2>Hello, fellow Alien</h2>\r\n    <h3>Hello, fellow Alien</h3>\r\n    <h4>Hello, fellow Alien</h4>\r\n    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n    Something about us\r\n    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n    carbon smells good\r\n  </body>\r\n</html>"
+    }
+  },
+  {
+    "model": "pages.page",
+    "pk": 5,
+    "fields": {
+      "site": 7,
+      "version": "H1",
+      "file_name": "index.html",
+      "content": "<html>\r\n  <head>\r\n    <title>DjangoCities is awesome</title>\r\n  </head>\r\n\r\n  <body bgcolor=\"orange\">\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <br />\r\n    <table>\r\n      <tr>\r\n        <th>\r\n          My\r\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n        </th>\r\n        <th>\r\n          First\r\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n        </th>\r\n        <th>\r\n          Web\r\n          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r\n        </th>\r\n      </tr>\r\n      <tr>\r\n        <td>\r\n          Page\r\n        </td>\r\n        <td>Hello</td>\r\n        <td>World</td>\r\n      </tr>\r\n      <tr>\r\n        <td>this</td>\r\n        <td>is</td>\r\n        <td>stupid</td>\r\n      </tr>\r\n    </table>\r\n  </body>\r\n</html>"
     }
   }
 ]

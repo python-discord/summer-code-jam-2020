@@ -12,6 +12,9 @@ services:
     environment:
       - DEBUG=TRUE
       - DJANGO_SECRET_KEY=UNSAFELYpushDEVsecretsToGitbutITSnotFORprodSOwtv
+      # Set LOAD_FIXTURES=True to load fixtures on server startup
+      # DANGER ZONE! This may cause data loss in your DB
+      - LOAD_FIXTURES=${LOAD_FIXTURES-False}
       - POSTGRES_DB=${POSTGRES_DB-djangocities}
       - POSTGRES_HOST=${POSTGRES_HOST-pgcities}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD-djangocities}
