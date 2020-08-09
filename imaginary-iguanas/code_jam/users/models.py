@@ -2,6 +2,8 @@ import pycountry
 from django.db import models
 from django.contrib.auth.models import User
 
+from .validators import valid_age_validator
+
 
 class Profile(models.Model):
     GENDER_CHOICES = (
@@ -18,7 +20,7 @@ class Profile(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     country = models.CharField(blank=True, max_length=2, choices=COUNTRY_CHOICES)
     city = models.CharField(blank=True, max_length=50)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(validators=[valid_age_validator])
     audio_track = models.FileField(null=True, blank=True, upload_to='profile_audio')
     profile_css = models.CharField(null=True, blank=True, max_length=10_000)
 
