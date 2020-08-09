@@ -11,7 +11,7 @@
 				<td class="shortRight">
 					<div id="gender">{{ profile.get_gender_display }}</div>
 					<div><span id="age">{{ profile.age }}</span> years old</div>
-					<div id="country">{{ profile.city }}<br>{{ profile.get_country_display }}<br></div>
+					<div id="country">{{ profile.place }}<br>{{ profile.get_country_display }}<br></div>
                     {% if profile.is_online %}
 					    <div id="online" style="margin-top:10px;">Online now</div>
                     {% else %}

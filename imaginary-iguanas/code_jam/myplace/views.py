@@ -30,7 +30,7 @@ def user(request, username_or_id: Union[int, str]):
         context = {
             'profile': profile,
             'title': profile,
-            'custom_css': profile.profile_css,
+            'custom_css': profile.custom_css,
             'new_comment_form': ProfileCommentForm()
         }
         return render(request, 'myplace/profile.html', context)
