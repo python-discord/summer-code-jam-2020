@@ -11,7 +11,9 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/sites')},
+      { path: 'add', component: () => import('pages/sites/add'), props: true},
       { path: ':id', component: () => import('pages/sites/_id'), props: true},
+      { path: ':id/edit', component: () => import('pages/sites/_id/edit'), props: true},
     ]
   },
   {

@@ -1,7 +1,12 @@
 <template>
   <q-page padding>
     <div v-if="site">
-      <h1>{{ site.city.name }}{{ site.address }}</h1>
+      <q-toolbar>
+        <q-toolbar-title>
+          {{ site.city.name }}{{ site.address }}
+        </q-toolbar-title>
+      </q-toolbar>
+
       {{ site.description }}
       <site-pages :site="site" />
     </div>

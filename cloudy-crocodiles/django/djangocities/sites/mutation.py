@@ -6,6 +6,11 @@ from djangocities.pages.models import Page
 from djangocities.sites.models import Site
 
 
+def create_default_page(site):
+    page = Page.objects.create(site=site, file_name="index.html")
+    return page
+
+
 def resolve_create_site(_, info, data):
     user = load_user(info)
     if not user.is_authenticated:
@@ -28,6 +33,7 @@ def resolve_create_site(_, info, data):
         raise Exception("City not found")
 
     site = Site.objects.create(city=city_obj, description=description, user=user)
+    create_default_page(site)
 
     return site
 
