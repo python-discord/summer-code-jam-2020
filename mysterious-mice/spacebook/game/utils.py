@@ -1,5 +1,6 @@
 import math
 import random
+from .models import HighScore
 
 # All coordinates are stored as tuples of (x, y)
 # x is east-west with east being positive
@@ -9,6 +10,7 @@ import random
 MARS_URL = (
     "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"
 )
+
 
 def get_current_weather(request):
     """
@@ -34,6 +36,7 @@ def get_current_weather(request):
 
     return context
 
+
 def new_game(request):
     """
     Generates a new game, resetting the location of all components and the rover.
@@ -41,6 +44,8 @@ def new_game(request):
 
     game_data = {
         "initials": "",
+        "input_len": 16,
+        "getting_score": False,
         "score": 0,
         "rover": (0, 0),
         "battery": 100,
@@ -51,7 +56,7 @@ def new_game(request):
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
         "wind": (-1, 0),
-        "temperature": get_current_weather(request)['AT']['av'],
+        "temperature": get_current_weather(request)["AT"]["av"],
         "obstacles": {"dust_storm": (0, 2), "small_crater": (-4, -3),},
         "item_messages": {
             "plutonium": "There is a plume of smoke in the distance.",
@@ -104,7 +109,7 @@ def randomize_positions(game_data):
 
     game_data.update(
         {
-            "plutonium": (1,1),
+            "plutonium": (1, 1),
             "solar_panels": (random.randint(-3, 3), random.randint(-3, 3)),
         }
     )
@@ -361,6 +366,10 @@ def command_look(game_data, direction):
     return game_data
 
 
+def save_score(s, i):
+    HighScore.objects.create(score=s, initials=i)
+
+
 def parse_command(request, game_data, command):
     """
     Parses the user's input and runs the applicable command.
@@ -388,7 +397,9 @@ def parse_command(request, game_data, command):
     if game_data["has_plutonium"] and not game_data["victorious"]:
         game_data["victorious"] = True
         game_data["game_over"] = True
-        score = game_data["battery"] * abs(game_data["temperature"])
+        game_data["score"] = int(
+            game_data["battery"] * abs(game_data["temperature"]) // 10
+        )
         game_data["messages"].append({"from_rover": False, "message": ""})
         game_data["messages"].append(
             {"from_rover": False, "message": "CONGRATULATIONS!"}
@@ -396,7 +407,7 @@ def parse_command(request, game_data, command):
         game_data["messages"].append(
             {
                 "from_rover": False,
-                "message": f"Your rover was able to reconnect its power supply! Your score is {score}.",
+                "message": f"Your rover was able to reconnect its power supply!",
             }
         )
 
@@ -411,11 +422,46 @@ def parse_command(request, game_data, command):
         game_data["messages"].append({"from_rover": False, "message": "GAME OVER!"})
         game_data["game_over"] = True
 
-    # Direct player to start new game if
+    # Direct player to start new game and save score
     if game_data["game_over"]:
-        game_data["messages"].append(
-            {"from_rover": False, "message": 'Type "new game" to start a new game.'}
-        )
+        if game_data["victorious"]:
+            if game_data["getting_score"]:
+                HighScore.objects.create(score=game_data["score"], initials=command)
+                game_data["input_len"] = 16
+                game_data["getting_score"] = False
+                game_data["messages"].append(
+                    {"from_rover": False, "message": "Your score has been recorded."}
+                )
+                game_data["messages"].append(
+                    {
+                        "from_rover": False,
+                        "message": 'Type "new game" to start a new game.',
+                    }
+                )
+            elif command.startswith("save"):
+                game_data["input_len"] = 3
+                game_data["messages"].append(
+                    {"from_rover": False, f"message": "Enter initials."}
+                )
+                game_data["getting_score"] = True
+            else:
+                score = game_data["score"]
+                game_data["messages"].append(
+                    {"from_rover": False, "message": f"Your score is {score}."}
+                )
+                game_data["messages"].append(
+                    {"from_rover": False, "message": 'Type "save" to save your score.'}
+                )
+                game_data["messages"].append(
+                    {
+                        "from_rover": False,
+                        "message": 'Type "new game" to start a new game.',
+                    }
+                )
+        else:
+            game_data["messages"].append(
+                {"from_rover": False, "message": 'Type "new game" to start a new game.'}
+            )
 
     request.session["game_data"] = game_data
     return game_data

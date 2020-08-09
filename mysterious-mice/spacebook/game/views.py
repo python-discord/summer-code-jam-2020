@@ -17,4 +17,5 @@ class GameView(View):
         if command is not None and command != "":
             game_data = parse_command(request, game_data, command)
         context = game_data
+        
         return render(request, "game/game.html", context)

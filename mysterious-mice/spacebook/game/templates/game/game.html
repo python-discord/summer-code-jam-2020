@@ -102,7 +102,7 @@
                                 &gt;&gt;
                                 <form action="/game/" method="post">
                                     {% csrf_token %}
-                                    <input type="text" name="command" id="command-input" maxlength="16">
+                                    <input type="text" name="command" id="command-input" maxlength={{input_len}}>
                                     <input type="submit" class="button" id="command-submit" value="[Submit]">
                                 </form>
                             </div>
