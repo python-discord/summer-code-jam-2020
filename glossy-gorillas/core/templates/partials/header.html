@@ -14,7 +14,7 @@
         </div>
 
         <div class="navbar-end">
-            <a class="navbar-item" href="#">
+            <div class="navbar-item">
                 {% if request.user.is_authenticated %}
                 <a class="navbar-item" href="{% url "dashboard" %}">
                     <h2>Hello {{request.user.first_name }}</h2>
@@ -25,7 +25,7 @@
                     <a href="{% url "login" %}">Sign In</a> or <a href="{% url "register" %}">Register</a>
                 </p>
                 {% endif %}
-            </a>
+            </div>
         </div>
     </div>
 </nav>
