@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from chat.forms import RoomCreationForm
 from chat.models import Room, RoomMember, Message
+from users.models import Profile
 
 
 @login_required
@@ -19,7 +20,13 @@ def index(request):
             return redirect("room", room_name)
     else:
         form = RoomCreationForm()
-    return render(request, "chat/index.html", {"form": form})
+
+    context = {
+        "form": form,
+        "friends": Profile.objects.filter(user=request.user).first().friends.all()
+    }
+
+    return render(request, "chat/index.html", context)
 
 
 @login_required
