@@ -23,7 +23,6 @@
   data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=lAkuJXGldrM"}] }'>
 </video>
 
-<<<<<<< HEAD
 {% if user.is_authenticated %}
 <h4>Hello {{ user }}</h4>
 {% if frequests %}
@@ -63,22 +62,6 @@ You have no friend requests!
 </article>
 {% endfor %}
 {% if is_paginated %}
-=======
-  {% for post in posts %}
-      <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-        <div class="media-body">
-          <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-          </div>
-          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.content }}</p>
-        </div>
-      </article>
-  {% endfor %}
-  {% if is_paginated %}
->>>>>>> e53780117a2af9b08c50a49d2009f1838c0eae24
 
 {% if page_obj.has_previous %}
 <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
