@@ -12,4 +12,6 @@ RUN pip install -r requirements.txt
 
 COPY backend/ .
 
+RUN chmod +x entrypoint.sh
+
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
