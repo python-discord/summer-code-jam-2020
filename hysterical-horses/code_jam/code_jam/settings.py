@@ -22,12 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("summer_jam_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = os.environ.get("django_debug")
+
+DEBUG = os.environ.get("django_debug", True)
 
 if DEBUG:
-    from .dev_settings import *
+    from .dev_settings import DATABASES as db
+
 else:
-    from .production_settings import *
+    from .production_settings import DATABASES as db
+
+DATABASES = db
 
 ALLOWED_HOSTS = []
 
@@ -130,7 +135,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+#     "/code/static/"
+# ]
+
 STATIC_URL = "/static/"
+STATIC_ROOT = "/code/static/"
 LOGIN_URL = 'users/login'
 LOGIN_REDIRECT_URL = '/'
 
