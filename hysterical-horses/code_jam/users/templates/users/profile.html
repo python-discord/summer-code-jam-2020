@@ -25,7 +25,24 @@ This template shouuld show
         {% csrf_token %}
         <fieldset>
             {{ user_form }}
-            {{ profile_form }}
+            {% for field in profile_form %}
+            
+            <!-- Exclude biography if not unlocked -->
+            {% if field.name == "biography" and user.bio_unlocked == False %}
+            {% else %}
+
+            <div class="nes-field is-inline signup-input" align="center">
+                <label>{{ field.label }}</label>
+                {{ field|addclass:"nes-input" }}
+            </div>
+
+            {% endif %}
+    
+            {% for error in field.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+            {% endfor %}
+            <!-- {{ profile_form }} -->
         </fieldset>
 
         <input class="nes-btn is-success" type="submit" value="Update">

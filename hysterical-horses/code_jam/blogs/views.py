@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView
 from django.views.generic.list import ListView
-from users.mixins import level_check
+from users.mixins import LevelRestrictionMixin
 
 from .filters import PostFilter
 from .forms import CommentForm, CreatePostForm
@@ -30,11 +30,14 @@ def like_view(request, pk):
     return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
 
 
-class HomeView(LoginRequiredMixin, ListView):
+class HomeView(LoginRequiredMixin, LevelRestrictionMixin, ListView):
     model = Post
     template_name = 'blogs_list.html'
 
     filterset_class = PostFilter
+
+    def test_func(self):
+        return self.request.user.blogs_unlocked
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -49,9 +52,12 @@ class HomeView(LoginRequiredMixin, ListView):
         return context
 
 
-class BlogDetailView(LoginRequiredMixin, DetailView):
+class BlogDetailView(LoginRequiredMixin, LevelRestrictionMixin, DetailView):
     model = Post
     template_name = "blog_detail.html"
+
+    def test_func(self):
+        return self.request.user.blogs_unlocked
 
     def get_parent_id(self):
         """
@@ -119,16 +125,13 @@ class BlogDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, LevelRestrictionMixin, CreateView):
     model = Post
     fields = ['title', 'content']
 
     def test_func(self):
-        return level_check(self.request.user, unlock=5)
+        return self.request.user.blogs_posting_unlocked
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-    def handle_no_permission(self):
-        return redirect("dashboard-index")
