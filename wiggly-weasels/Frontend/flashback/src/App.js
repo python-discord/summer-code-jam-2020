@@ -1,3 +1,11 @@
+//    ______ _           _     _                _    
+//   |  ____| |         | |   | |              | |   
+//   | |__  | | __ _ ___| |__ | |__   __ _  ___| | __
+//   |  __| | |/ _` / __| '_ \| '_ \ / _` |/ __| |/ /
+//   | |    | | (_| \__ \ | | | |_) | (_| | (__|   < 
+//   |_|    |_|\__,_|___/_| |_|_.__/ \__,_|\___|_|\_\
+//                                                   
+// 
 import React, {useState} from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
@@ -130,6 +138,8 @@ const App = () => {
   {session_id ? (
     <div style = {{display:"flex", justifyContent: "center"}}>
       <Terminal hideTopBar
+      color = 'green'
+      msg = 'Welcome to the FlashBack IRC Client. Type "help", "credits" for more information.'
         commands={{
           join: {
             method: (args, print, runCommand) => {
@@ -192,6 +202,12 @@ const App = () => {
                 window.hack_messages += 1
               })
             })
+          }
+        },
+        help:{
+          method: (args, print, runCommand)=> {
+            print('These are common Flashback IRC commands used in various situations:\n\njoin [group-name]\t\
+- Join an active Group\n\ncreate [group-name]\t- Create a group\n\nsend [message]\t- Send a message to the group\n\nread\t- Read all awaiting messages\n\nclear\t- Clear the screen\n\nexit\t- Exit current group\n')
           }
         }
         }}
