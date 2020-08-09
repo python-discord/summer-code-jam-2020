@@ -13,6 +13,9 @@ Shiny Sheep
 
 :License: MIT
 
+Assets & Other Resource Citations
+_________________________________
+See ASSETS.md , but the list isn't comprehensive. It does not list dependencies.
 
 Settings
 --------
