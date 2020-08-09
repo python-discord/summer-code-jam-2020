@@ -30,44 +30,37 @@ class Database_Generator:
         """Searches for articles matching the preferred language and country"""
 
         for topic in self.topics:
-            query = {"topic": topic, "lang": lang, "country": country}
-            response = requests.request(
-                "GET", self.url, headers=self.headers, params=query
-            )
-            data = json.loads(response.text)
+            try:
+                query = {"topic": topic, "lang": lang, "country": country}
+                response = requests.request(
+                    "GET", self.url, headers=self.headers, params=query
+                )
+                data = json.loads(response.text)
 
-            if data["status"] == "ok":
-                for article in data["articles"]:
-                    auth = article.get("author", None)
-                    if auth in [
-                        "None",
-                        None,
-                    ]:  # Sometimes the api returns the String "None"
-                        auth = (
-                            article.get("clean_url")
-                            .lstrip("https://")
-                            .lstrip("www.")
-                            .rstrip(".com")
-                            .capitalize() +
-                            " Editor"
-                        )
-                    try:
-                        cont = content_getter(article["link"])
-                        cont.download().parse().nlp()
-                        cont = cont.text
-                        Article.objects.create(
-                            title=article.get("title", "News Article"),
-                            topic=article.get("topic", "General"),
-                            summary=article.get("summary"),
-                            published_date=article.get(
-                                "published_date", datetime.datetime.now()
-                            ),
-                            author=auth,
-                            clean_url=article.get("clean_url", "#"),
-                            link=article.get("link", "#"),
-                            language=article.get("language", "en"),
-                            country=article.get("country", "US"),
-                            content=cont,
-                        )
-                    except KeyError:
-                        print("Skipping Corrupted Article")
+                if data["status"] == "ok":
+                    for article in data["articles"]:
+                        auth = article.get("author", None)
+                        if auth in ["None", None]:  # Sometimes the api returns the String "None"
+                            auth = article.get("clean_url").lstrip("https://").lstrip("www.")
+                            auth = auth.rstrip(".com").capitalize()
+                            auth += " Editor"
+                        
+                            cont = content_getter(article["link"])
+                            cont.download().parse().nlp()
+                            cont = cont.text
+                            Article.objects.create(
+                                title=article.get("title", "News Article"),
+                                topic=article.get("topic", "General"),
+                                summary=article.get("summary"),
+                                published_date=article.get(
+                                    "published_date", datetime.datetime.now()
+                                ),
+                                author=auth,
+                                clean_url=article.get("clean_url", "#"),
+                                link=article.get("link", "#"),
+                                language=article.get("language", "en"),
+                                country=article.get("country", "US"),
+                                content=cont,
+                            )
+            except KeyError:
+                print("Skipping Corrupted Article")
