@@ -86,8 +86,6 @@
     </select>
 
 
-    <br>Username? (TESTING ONLY)<br>
-    <input id="username" type="text" size="20"><br>
     <input id="room-name-submit" type="button" value="Enter">
 
     <script>
@@ -100,8 +98,6 @@
 
         document.querySelector('#room-name-submit').onclick = function(e) {
             var roomName = document.querySelector('#room-name-input').value;
-            var userName = document.querySelector('#username').value
-            localStorage["usern"] = userName;
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>

@@ -42,10 +42,6 @@ class ChatConsumer(WebsocketConsumer):
     def chat_message(self, event):
         message = event['message']
 
-        if message.isspace() is True or message == '':
-            pass
-        else:
-            # Send message to WebSocket
-            self.send(text_data=json.dumps({
+        self.send(text_data=json.dumps({
                 'message': message
             }))
