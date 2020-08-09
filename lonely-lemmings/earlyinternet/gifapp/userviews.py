@@ -22,15 +22,6 @@ def home(request: HttpRequest) -> HttpResponse:
     return render(request, 'home.html', context)
 
 
-def about(request: HttpRequest) -> HttpResponse:
-    """
-    Handles feed home GET request
-    :param request:
-    :return: Feed home with context
-    """
-    return render(request, 'about.html')
-
-
 def register(request: HttpRequest) -> HttpResponse:
     """
     Handles register endpoint POST request
@@ -48,11 +39,6 @@ def register(request: HttpRequest) -> HttpResponse:
         form = UserRegisterForm()
 
     return render(request, 'register.html', {'form': form})
-
-
-def profile(request: HttpRequest) -> HttpResponse:
-    """shows profile of the current user"""
-    return render(request, 'profile.html')
 
 
 def detail(request, project_name=None) -> HttpResponse:
