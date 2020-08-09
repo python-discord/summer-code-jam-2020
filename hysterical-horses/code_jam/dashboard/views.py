@@ -2,7 +2,7 @@ import requests
 import re
 from typing import List
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import HttpResponse
 import geocoder
@@ -13,6 +13,8 @@ import os
 from geopy.geocoders import Nominatim
 from pytz import timezone
 # import clipboard # for some debugging
+from users.mixins import level_check
+from .models import Search
 
 
 @login_required()
@@ -192,6 +194,14 @@ def engine_results(request, search_text: str):
 
     
     res = search_query(search_text)
+
+    if search_text not in Search.objects.filter(author=request.user, content=search_text):
+        this_search = Search.objects.create(
+            author=request.user,
+            content=search_text
+        )
+        this_search.save()
+
     top_results = []
     other_results = []
     desc = ''
@@ -217,7 +227,9 @@ def engine_results(request, search_text: str):
 
     return render(request, 'dashboard/search-engine/results.html', context=context)
 
+
 @login_required()
+@user_passes_test(lambda user: level_check(user, unlock=3), login_url="dashboard-index", redirect_field_name=None)
 def chat_room(request, room_name):
     context = {'room_name': room_name}
     return render(request, 'dashboard/chat_room.html', context)
