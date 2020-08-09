@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="window">
+  <div class="title-bar">
+    <div class="title-bar-text">{{ name }}</div>
+    <div class="title-bar-controls">
+      <a href="{% url 'dashboard'%}"><button aria-label="Close"></button></a>
+    </div>
+  </div>
+  <div class="window-body">
+    <pre >{{ text }}</pre>
+  </div>
+</div>
+
+{% endblock %}

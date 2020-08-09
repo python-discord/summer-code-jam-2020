@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="window-center popup" id="helpbox">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+      <div class="title-bar-text">Help</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="document.getElementById('helpbox').style.display='none';"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <div class="dialog-box">
+        <div><img src="{% static 'icons/users_encrypted.png' %}" alt="users icon"></div>
+        <div class="ml-1"><h4>Joining a Team</h4></div>
+      </div>
+        <p>Enter the name of the team you want to join, and enter the password to enter the team given to you by the team creator.</p>
+    </div>
+  </div>
+</div>
+
+<div class="window-center">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+    <div class="title-bar-text">Join a team</div>
+    <div class="title-bar-controls">
+      <button aria-label="Help" onclick="document.getElementById('helpbox').style.display='block';"></button>
+      <a href="{% url 'dashboard' %}"><button aria-label="Close"></button></a>
+    </div>
+    </div>
+    <div class="window-body">
+      <form method="POST">
+        {% csrf_token %}
+        <table>
+          <tbody>
+            <tr>
+              <td><label for="teamname">Team Name</label></td><td><input type="text" name="teamname" required></td>
+            </tr>
+            <tr>
+              <td><label for="password">Password</label></td><td><input type="password" name="password" required></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit" class="btn-my-1">Join Team</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content%}

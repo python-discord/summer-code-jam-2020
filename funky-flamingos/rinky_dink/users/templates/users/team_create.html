@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="window-center popup" id="helpbox">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+      <div class="title-bar-text">Help</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="document.getElementById('helpbox').style.display='none';"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <div class="dialog-box">
+        <div><img src="{% static 'icons/users.png' %}" alt="users icon"></div>
+        <div class="ml-1"><h4>Teams</h4></div>
+      </div>
+        <p>Use Teams to create a group for you and your friends to chit-chat. A name for team and password is needed and you can optionally add a description as well.</p>
+        <p>Share the team name and password with your friends to let them join your group.</p>
+    </div>
+  </div>
+</div>
+
+<div class="window-center">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+    <div class="title-bar-text">Register your team</div>
+    <div class="title-bar-controls">
+      <button aria-label="Help" onclick="document.getElementById('helpbox').style.display='block';"></button>
+      <a href="{% url 'dashboard' %}"><button aria-label="Close"></button></a>
+    </div>
+    </div>
+    <div class="window-body">
+      <form id="my_form" method="POST">
+          {% csrf_token %}
+          <table>
+            <tbody>
+              {% for field in form %}
+                <tr>
+                  <td><label>{{ field.label_tag }}</label></td><td>{{ field }}</td>
+                </tr>
+                {% for error in field.errors %}
+                  <tr>
+                   <td>{{ error }}</td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+          
+        <button class="btn-my-1" type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content%}

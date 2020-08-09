@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="window-center">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+    <div class="title-bar-text">Register</div>
+    <div class="title-bar-controls">
+      <a href="{% url 'index' %}"><button aria-label="Close"></button></a>
+    </div>
+    </div>
+    <div class="window-body">
+      <form id="my_form" method="POST">
+          {% csrf_token %}
+          <table>
+            <tbody>
+              {% for field in form %}
+                <tr>
+                  <td><label>{{ field.label_tag }}</label></td><td>{{ field }}</td>
+                </tr>
+                {% for error in field.errors %}
+                  <tr>
+                   <td>{{ error }}</td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+          
+        <button class="btn-my-1" type="submit">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

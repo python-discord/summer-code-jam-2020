@@ -1,0 +1,74 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    background-color: #008080;
+}
+
+.btn-my-1{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.ml-1{
+    margin-left: 0.5rem;
+}
+
+.window-center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog-box{
+    display: flex;
+    align-items: center;
+}
+
+summary{
+    font-size: 12px;
+}
+
+.logout-btn {
+    position: fixed;
+    right: 16px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.pre-console-win {
+    font-family: "Perfect DOS VGA 437 Win";
+    display: block;
+    padding: 12px 8px;
+    background-color: #000;
+    color: silver;
+    font-size: 1rem;
+    margin: -8px;
+}
+
+.btn-row{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.mx-2{
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+}
+
+.popup{
+    z-index: 3;
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
