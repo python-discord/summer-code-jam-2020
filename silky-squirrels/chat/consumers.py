@@ -2,8 +2,8 @@ import json
 
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-
-from chat.models import RoomMember, Message
+from users.models import Profile
+from chat.models import RoomMember, Message, Room
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -12,6 +12,9 @@ class ChatConsumer(WebsocketConsumer):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         # noinspection PyAttributeOutsideInit
         self.room_group_name = "chat_%s" % self.room_name
+        self.user = self.scope["user"]
+        room = Room.objects.get(name=self.room_name)
+        Profile.objects.filter(user=self.user).update(last_visited=room)
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(self.room_group_name, self.channel_name)

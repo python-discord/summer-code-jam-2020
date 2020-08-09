@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from chat.models import Room
 from PIL import Image
 
 
@@ -8,6 +9,7 @@ class Profile(models.Model):
     image = models.ImageField(default="default.jpg", upload_to="profile_pics")
     status = models.CharField(default=":-)", max_length=100)
     friends = models.ManyToManyField("self", blank=True)
+    last_visited = models.ForeignKey(Room, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user.username} Profile"
