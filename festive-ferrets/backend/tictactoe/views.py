@@ -1,6 +1,4 @@
 from django.http import JsonResponse, HttpResponse
-from django.middleware import csrf
-from django.shortcuts import render
 
 # Create your views here.
 from rest_framework.decorators import api_view
@@ -15,22 +13,22 @@ tictactoe = None
 def start_playing(request):
     data = json.loads(request.body)
     global tictactoe
-    tictactoe = TicTacToe(data["turn"])
+    tictactoe = TicTacToe(data['turn'])
     return HttpResponse('ok')
 
 
 @api_view(['GET'])
 def get_preview(request):
     data = tictactoe.preview()
-    test = dict()
+    preview = {}
     for i in range(len(data)):
         for j in range(len(data[i])):
-            test[f"{i}{j}"] = data[i][j]
-    return JsonResponse(test)
+            preview[f'{i}{j}'] = data[i][j]
+    return JsonResponse(preview)
 
 
 @api_view(['POST'])
 def make_move(request):
     data = json.loads(request.body)
-    winner = tictactoe.make_move(data["x"], data["y"])
+    winner = tictactoe.make_move(data['x'], data['y'])
     return JsonResponse({'winner': winner}, safe=False)
