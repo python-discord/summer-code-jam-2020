@@ -10,10 +10,12 @@ class Profile(models.Model):
     image: for profile picture (optional)
     bio: to update user Bio (optional)
     date_of_birth: contains user date of birth
+    gender: the user's gender
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.png",
-                              upload_to="profile_pics")
+                              upload_to="profile_pics",
+                              blank=True)
     bio = models.TextField(default="I'm using SoCL Media!", max_length=280,
                            blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
@@ -23,7 +25,8 @@ class Profile(models.Model):
         ('M', 'Male',),
         ('O', 'Other',),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,)
+    gender = models.CharField(max_length=1, blank=True, null=True,
+                              choices=GENDER_CHOICES,)
 
     def __str__(self):
         return f'{self.user.username}'
