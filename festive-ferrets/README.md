@@ -1,10 +1,13 @@
-# NAME TBD
+# MyFirstWebsite by Team Festive-Ferrets
 
 ![test-frontend](https://github.com/jannisko/summer-code-jam-2020/workflows/test-frontend/badge.svg)
 ![test-django](https://github.com/jannisko/summer-code-jam-2020/workflows/test-django/badge.svg)
 ![.github/workflows/lint.yml](https://github.com/jannisko/summer-code-jam-2020/workflows/.github/workflows/lint.yml/badge.svg)
 
-short description
+Have you ever wondered what it was like to be one of the first web-developers ever?
+When you could count all competitors in your field on one hand?
+What would you have created in this situation?
+A message board? A TicTacToe game? **Why not both**?
 
 
 ## Motivation
@@ -32,8 +35,12 @@ First install all necessary Python packages:
 pip install -r requirements.txt
 ```
 
+By default the Django will use the config file ```backend/dev.env```.
+You can change some of the behavior there.
+
 Run all tests:
 ```bash
+python backend/manage.py migrate
 python backend/manage.py test
 ```
 
@@ -59,6 +66,15 @@ npm start
 ```
 
 ## Deployment
+
+To deploy using Docker first rename ```db.env.example``` to ```db.env.prod``` and ```django.env.example``` to ```django.env.prod```.
+You should also change these files to suit your needs.
+
+To then start all services type:
+```bash
+docker-compose up -d
+```
+
 
 ## Team Members
 
