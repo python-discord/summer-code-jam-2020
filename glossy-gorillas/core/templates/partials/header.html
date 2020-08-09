@@ -16,7 +16,9 @@
         <div class="navbar-end">
             <a class="navbar-item" href="#">
                 {% if request.user.is_authenticated %}
-                <h2>Hello {{request.user.first_name }}</h2>
+                <a class="navbar-item" href="{% url "dashboard" %}">
+                    <h2>Hello {{request.user.first_name }}</h2>
+                </a>
                 <a href="{% url "logout" %}">Sign Out</a>
                 {% else %}
                 <p>
