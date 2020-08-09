@@ -76,8 +76,8 @@ Feel free to check the `setup.py` script before running it, as this is always go
 
 ```shell
 curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py
-python setup.py install & rem For Windows
-python3 setup.py install # For Mac/Linux
+python setup.py install         # Windows
+python3 setup.py install        # Mac/Linux
 ```
 
 **Windows:** `python setup.py install` **Mac/Linux:** `python3 setup.py install`
