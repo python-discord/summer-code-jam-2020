@@ -209,8 +209,11 @@ class UserView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(CustomUser, username=kwargs["user"])
-        posts = Post.objects.filter(author=user.id)
-        comments = Comment.objects.filter(author=user.id)
+        print("user", user)
+        posts = Post.objects.filter(author=user)
+
+        comments = Comment.objects.filter(author=user)
+        print("user", posts, comments)
         context = {"user": user, "posts": posts, 'comments': comments}
         return render(request, self.template_name, context)
 

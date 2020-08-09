@@ -1,13 +1,19 @@
 {% extends 'main.html' %}
 
+{% load static %}
+
 {% block content %}
+
 
 <div class='w3-container w3-white' style='width: 1000px; height: 520px;'>
 
 <h5 class="title">{{post.title}}</h5>
+
 <p>
-  Upvotes: <span id="upvotes_post_{{post.id}}">{{post.upvotes}}</span>
-  | Downvotes: <span id="downvotes_post_{{post.id}}">{{post.downvotes}}</span>
+  <a id="upvote_post" ><img src="{% static 'icons/upvote.png' %}"></a>
+  <span id="upvotes_post_{{post.id}}">{{post.upvotes}}</span>
+  <a id="downvote_post" ><img src="{% static 'icons/downvote.png' %}"></a>
+  <span id="downvotes_post_{{post.id}}">{{post.downvotes}}</span>
 </p>
 {% if user.is_authenticated and user == post.author %}
   <form method='POST' action='url'>
@@ -21,9 +27,7 @@
 
 
 <h6>submitted by <a style='color:blue;' href='/user/{{post.author}}'>{{post.author}}</a> on {{post.created}}</h6>
-<textarea  style='resize: none; width: 100%; height: 200px;' disabled>{{post.body}}</textarea>
-<button id='upvote_post'>UPVOTE</button>
-<button id='downvote_post'>DOWNVOTE</button>
+<textarea style='resize: none; width: 100%; height: 200px;' disabled>{{post.body}}</textarea>
 
 <form method='POST'>
   {% csrf_token %}
@@ -37,13 +41,18 @@
 <div>
   {% for comment in comments %}
     <div style="padding-left:  {% widthratio comment.thread_level 1 50 %}px;">
-      <div style="background-color: lightblue; width: 500px; height: 150px">
-        <button name="{{comment.id}}" class='upvote_comment'>UPVOTE</button><button name="{{comment.id}}" class='downvote_comment'>DOWNVOTE</button>
+      <div style="padding: 5px; background-color: lightblue; width: 500px; height: 150px">
+
+<!-- 
+        <a name="{{comment.id}}" class='upvote_comment'><img src="{% static 'icons/upvote.png' %}"></a>
+        <a name="{{comment.id}}" class='downvote_comment'><img src="{% static 'icons/downvote.png' %}"></a> -->
         <p>
           <a style='color:blue;' href='/user/{{post.author}}'>{{comment.author}}</a>
-           | Upvotes: <span id="upvotes_comment_{{comment.id}}">{{comment.upvotes}}</span>
-           | Downvotes: <span id="downvotes_comment_{{comment.id}}">{{comment.downvotes}}</span>
-           | {{comment.created}}
+          <a name="{{comment.id}}" class='upvote_comment'><img height="15px;" src="{% static 'icons/upvote.png' %}"></a>
+          <span id="upvotes_comment_{{comment.id}}">{{comment.upvotes}}</span>
+          <a name="{{comment.id}}" class='downvote_comment'><img height="15px;" src="{% static 'icons/downvote.png' %}"></a>
+          <span id="downvotes_comment_{{comment.id}}">{{comment.downvotes}}</span>
+          | {{comment.created}}
         </p>
         <p>
           {{comment.body}}

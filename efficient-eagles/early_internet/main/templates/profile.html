@@ -4,8 +4,7 @@
 <table style='width: 100%;'>
   <tr>
     <td>
-      {% if 'posts' in request.path %}
-       <h1><a href='../{{user}}'>Comments</a> | <a href='../{{user}}/posts'>Posts</a></h1>
+       <h1><a>Comments</a> | <a>Posts</a></h1>
           {% for post in posts %}
             <div class='w3-card' style='width:100%; overflow-x: auto; overflow-y: hidden; margin-left:90px;'>
               <header class='w3-container'>
@@ -16,7 +15,6 @@
               </div>
             </div>
           {% endfor %}
-      {% endif %}
       
     </td>
     <td style='float: right;'>
