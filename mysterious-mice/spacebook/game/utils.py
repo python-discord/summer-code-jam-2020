@@ -1,5 +1,6 @@
 import math
 import random
+import requests
 from .models import HighScore
 
 # All coordinates are stored as tuples of (x, y)

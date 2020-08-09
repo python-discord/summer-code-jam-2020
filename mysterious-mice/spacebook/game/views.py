@@ -19,7 +19,6 @@ class GameView(View):
             game_data = parse_command(request, game_data, command)
         context = game_data
         context.update({"scores": self.get_scores()})
-
         return render(request, "game/game.html", context)
 
     def get_scores(self):
@@ -28,9 +27,11 @@ class GameView(View):
         """
         scores = HighScore.objects.order_by("score")
         score_list = []
-        i = 10
+        i = len(scores)
+        if i > 10:
+            i = 10
         while i > 0:
-            s = scores[i]
+            s = scores[i - 1]
             score_list.append([s.initials, s.score])
             i -= 1
         return score_list
