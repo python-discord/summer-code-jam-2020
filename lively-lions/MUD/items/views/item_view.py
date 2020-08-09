@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
 from django.shortcuts import render
 from items.models import Item_Category, Small_Item, Large_Item
 from django.views.generic import DetailView
@@ -19,14 +20,17 @@ def item_category_detail_view(request):
 
 def item_category_view(request, item_id):
     item_cat = Item_Category.objects.get(pk=item_id)
-    return HttpResponse(f"Category -> {item_cat.item_title}: {item_cat.type}")
+    dict_obj = model_to_dict(item_cat)
+    return JsonResponse(dict_obj)
 
 
 def small_item_view(request, item_id):
     small_item = Small_Item.objects.get(pk=item_id)
-    return HttpResponse(f"Item {small_item.item_title}:{small_item.type}")
+    dict_obj = model_to_dict(small_item)
+    return JsonResponse(dict_obj)
 
 
 def large_item_view(request, item_id):
-    item_cat = Large_Item.objects.get(pk=item_id)
-    return HttpResponse(f"Item {item_cat.item_title}:{item_cat.type}")
+    large_item = Large_Item.objects.get(pk=item_id)
+    dict_obj = model_to_dict(large_item)
+    return JsonResponse(dict_obj)
