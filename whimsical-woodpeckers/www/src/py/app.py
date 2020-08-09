@@ -1,6 +1,11 @@
 from pyvue import Vue
-from components.directory import Directory
-from components.messages import Messages
+# from components.directory import Directory
+# from components.messages import Messages
+from components.display import Desktop, Mobile
+
+# __pragma__ ('skip')
+navigator = window = 0
+# __pragma__ ('noskip')
 
 
 class App(Vue):
@@ -9,6 +14,6 @@ class App(Vue):
         "mode": 0  # UI mode
     }
     components = {
-        "directory": Directory.get_component(),
-        "messages": Messages.get_component()
+        "desktop": Desktop.get_component(),
+        "mobile": Mobile.get_component()
     }

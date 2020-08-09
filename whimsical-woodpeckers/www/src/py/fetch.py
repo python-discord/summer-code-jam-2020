@@ -5,8 +5,13 @@ console = JSON = this = js_fetch = __new__ = URL = 0    # Prevent complaints by 
 # __pragma__ ('noskip')
 
 
+# __pragma__ ('skip')
+console = __new__ = js_fetch = URL = JSON = 0
+# __pragma__ ('noskip')
+
 # __pragma__("kwargs")
 # __pragma__('jsiter')
+
 
 def dict_to_iterdict(thing):
     pls = {}
