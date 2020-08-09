@@ -25,8 +25,10 @@ urlpatterns = [
     path('api/login', core_views.login_endpoint),
     path('api/register', core_views.register_endpoint),
     path('api/chat/', include('chat.urls')),
+    path('api/newsfeed', include('newsfeed.urls')),
     path('api/games/', include('games.urls')),
-    path('api/forum/', include('forum.urls'))
+    path('api/forum/', include('forum.urls')),
+    path('api/newsfeed', include('newsfeed.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
     re_path(r'^.*$', core_views.index, name='unmatched'),

@@ -4,3 +4,6 @@ channels==2.4.0
 channels_redis==3.0.1
 pyyaml==5.3.1
 fastjsonschema==2.14.4
+channels==2.4.0
+channels-redis==3.0.1
+requests==2.24.0

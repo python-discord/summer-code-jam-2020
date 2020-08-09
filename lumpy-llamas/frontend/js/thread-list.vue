@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get('/api/forum').then((response) => {
+      axios.get('/api/forum/').then((response) => {
         this.myStuff = response.data;
         this.ready = true;
       });

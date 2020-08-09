@@ -48,9 +48,9 @@
 <script>
 const MENU_PAGES = [
   { title: 'Login/Register', page: 'login_page' },
-  { title: 'Chat Lobby', page: 'chatlobby_page' },
   { title: 'Forum/Thread-list', page: 'forum' },
   { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
+  { title: 'Chat Lobby', page: 'chatlobby_page' },
 ];
 
 export default {
@@ -61,9 +61,9 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToLogin);
-    this.$cmd.on('2', this.goToChatLobby);
-    this.$cmd.on('3', this.goToforum);
-    this.$cmd.on('4', this.goToGame);
+    this.$cmd.on('2', this.goToforum);
+    this.$cmd.on('3', this.goToGame);
+    this.$cmd.on('4', this.goToChatLobby);
   },
   methods: {
     goToLogin() {
