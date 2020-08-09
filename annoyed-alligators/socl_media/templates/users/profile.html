@@ -3,44 +3,53 @@
 {% block content %}
 
 <div class="w3-row">
-  <div class="w3-col w3-container m3 l2">
-  	<img src="{{ of_user.profile.image.url }}">
-  </div>
-  <div class="w3-col w3-container m9 l10">
-  	<h4>{{ of_user.username }}</h4>
-    <h5>{{ of_user.first_name }} {{ of_user.last_name }}</h5>
-	  <p>Birthday: {{ of_user.profile.date_of_birth|date:"jS F" }}</p>
-	  <p id="gender"></p>
-  </div>
-<div>
+  <div class="w3-col w3-container m1 l2"></div>
+  <div class="w3-col w3-container m10 l8">
+    <div class="window" style="padding-top: 1vh;">
+      <div class="w3-row">
+        <div class="w3-col w3-container m4 l3">
+          <img src="{{ of_user.profile.image.url }}">
+        </div>
+        <div class="w3-col w3-container m8 l9">
+          <h4 style="margin-top:0;">{{ of_user.username }}</h4>
+          <h5>{{ of_user.first_name }} {{ of_user.last_name }}</h5>
+          <p>Birthday: {{ of_user.profile.date_of_birth|date:"jS F" }}</p>
+          <p id="gender"></p>
+        </div>
+      {% comment %} </div> {% endcomment %}
 
-<div style="float: left;">
-<p>{{ of_user.profile.bio }}</p>
+      <div style="float: left;">
+        <p>{{ of_user.profile.bio }}</p>
 
-{% if of_user.username == user.username %}
-<a href="{% url 'profile_edit' %}"><button>Update Info</button></a>
-{% endif %}
+        {% if of_user.username == user.username %}
+          <a href="{% url 'profile_edit' %}"><button>Update Info</button></a>
+        {% endif %}
 
-<hr style="border-color: black;">
+        <hr style="border-color: black;">
 
-<h3>Posts ({{ num_posts }})</h3>
+        <h4>Posts ({{ num_posts }})</h4>
 
-{% for post in posts %}
-  <div class="w3-row" style="margin: 6px 0 6px 0;">
-    <div class="w3-col w3-container m2 l1">
-	    <img src="{{ post.posted_by.profile.image.url }}" class="post-profile-pic">
+        {% for post in posts %}
+          <div class="w3-row" style="margin: 6px 0 6px 0;">
+            <div class="w3-col w3-container m2 l1">
+              <img src="{{ post.posted_by.profile.image.url }}" class="post-profile-pic">
+            </div>
+            <div class="w3-col w3-container m10 l11">
+              <span>
+                <span>{{ post.posted_by}},</span>
+                <small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
+              </span>
+                
+              <p>{{ post.post_content }}</p>
+            </div>
+          </div>
+          <hr>
+        {% endfor %}
+        </div>
+      </div>
     </div>
-    <div class="w3-col w3-container m10 l11">
-			<span>
-        <span>{{ post.posted_by}},</span>
-				<small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
-			</span>
-				
-      <p>{{ post.post_content }}</p>
-    </div>
   </div>
-  <hr>
-{% endfor %}
+  <div class="w3-col w3-container m1 l2"></div>
 </div>
 <script>
   let gender = "{{ of_user.profile.gender}}"

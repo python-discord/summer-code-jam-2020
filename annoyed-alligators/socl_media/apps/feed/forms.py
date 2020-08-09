@@ -3,7 +3,7 @@ from .models import Post
 
 
 class PostForm(forms.ModelForm):
-    post_image = forms.ImageField(required=True)
+    post_image = forms.ImageField(required=False)
 
     class Meta:
         model = Post

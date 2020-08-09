@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
-<p class="info">Enter command `n` to go to next page and `p` for previous page.</p>
-<hr class="socl">
-{% for post in post_list %}
-  <p class="content">{{post.post_content}}</p>
-  <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic">
-  <span class="author">
-    <a href="/profile/{{post.posted_by}}">
-      {{post.posted_by}}
-    </a>&nbsp;
-  </span>
-  <div class="hide">{{post.posted_by.bio}}</div>
-  <span class="post-time">{{post.post_date_posted}}</span>
-  <hr class="socl">
-{% endfor %}
+    <div class="w3-row">
+      <div class="w3-col w3-container m1 l2"></div>
+      <div class="w3-col w3-container m10 l8">
+        <div class="window">
+          <p class="info">Enter command `n` to go to next page and `p` for previous page.</p>
+          <hr class="socl">
+          {% for post in post_list %}
+            <p class="content">{{post.post_content}}</p>
+            <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic">
+            <span class="author">
+              <a href="/profile/{{post.posted_by}}">
+                {{post.posted_by}}
+              </a>&nbsp;
+            </span>
+            <div class="hide">{{post.posted_by.bio}}</div>
+            <span class="post-time">{{post.post_date_posted}}</span>
+            <hr class="socl">
+          {% endfor %}
+        </div>
+      </div>
+      <div class="w3-col w3-container m1 l2"></div>
+    </div>
 
 <style>
 .author {
