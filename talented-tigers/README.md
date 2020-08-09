@@ -1,14 +1,4 @@
 <p align="center">
-<a href="#" >
-    <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=75%>
-</a>
-</p>
-
-<p align="center">
-(Made by neon, a helper on the <a href="https://pythondiscord.com/">Python Discord Server</a> using <a href="https://logomakrcom">logomakr</a>)
-</p>
-
-<p align="center">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/thaniel-c/summer-code-jam-2020">
     <img alt="GitHub" src="https://img.shields.io/github/license/thaniel-c/summer-code-jam-2020?color=%23009dff%20">
     <a href="https://discord.gg/python">
@@ -22,6 +12,7 @@ Blast off to the past and surf the web 90s style! With Spydirweb, you can browse
   * [Installation](#installation)
   * [Overview](#overview)
   * [License](#license)
+  * [Authors](#Authors)
 
 ### Installation
 
@@ -48,3 +39,14 @@ And thats it. Have fun browsing!
 ![](readme/blogdone.png)
  
 ### License
+
+### Authors
+<p align="center">
+<a href="#" >
+    <img src="readme/banner.png" alt="LogoMakr_5RDTOc" width=75%>
+</a>
+</p>
+
+<p align="center">
+(Made by neon, a helper on the <a href="https://pythondiscord.com/">Python Discord Server</a> using <a href="https://logomakrcom">logomakr</a>)
+</p>
