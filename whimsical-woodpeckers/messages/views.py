@@ -1,7 +1,7 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 # Get Data Send To Database
-from anon.models import AnonUser
-from messages.models import Messages
+# from anon.models import AnonUser
+# from messages.models import Messages
 
 # class MyView(View):
 

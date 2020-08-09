@@ -29,16 +29,24 @@ class Migration(migrations.Migration):
                 ('content', models.CharField(max_length=280)),
                 ('type', models.IntegerField()),
                 ('time_date', models.DateField()),
-                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='whimsy_messaging_messages_receiver', to=settings.AUTH_USER_MODEL)),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='whimsy_messaging_messages_sender', to=settings.AUTH_USER_MODEL)),
+                ('receiver', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='whimsy_messaging_messages_receiver', to=settings.AUTH_USER_MODEL)),
+                ('sender', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='whimsy_messaging_messages_sender', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Conversation',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('user_one', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='whimsy_messaging_conversation_one', to=settings.AUTH_USER_MODEL)),
-                ('user_two', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='whimsy_messaging_conversation_two', to=settings.AUTH_USER_MODEL)),
+                ('user_one', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='whimsy_messaging_conversation_one', to=settings.AUTH_USER_MODEL)),
+                ('user_two', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='whimsy_messaging_conversation_two', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

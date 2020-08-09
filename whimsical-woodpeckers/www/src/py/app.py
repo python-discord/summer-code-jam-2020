@@ -11,7 +11,7 @@ navigator = window = 0
 class App(Vue):
     template = "#app-template"
     data = {
-        "mode": 0  # UI mode
+        "mode": 1  # UI mode
     }
     components = {
         "desktop": Desktop.get_component(),

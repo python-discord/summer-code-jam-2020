@@ -6,6 +6,10 @@ from messages.models import Conversation, UserChannels
 from django.utils import timezone
 import datetime
 
+# __pragma__ ('skip')
+convo = 0
+# __pragma__ ('noskip')
+
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
@@ -52,7 +56,7 @@ class ChatConsumer(WebsocketConsumer):
                 convo = Conversation.objects.get(user_one=user_one, user_two=user_two)
             except Conversation.DoesNotExist:
                 convo = Conversation.objects.create(user_one=user_one, user_two=user_two)
-
+            
             data['data']['from'] = self.user.id
             data['data']['to'] = other_user.id
 
