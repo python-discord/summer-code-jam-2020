@@ -29,6 +29,7 @@ class Image(models.Model):
     animation_position = models.PositiveIntegerField(null=False, default=0)
 
     class Meta:
+        """Order by animation position"""
         ordering = ["animation_position"]
 
     def __repr__(self) -> str:
@@ -42,8 +43,11 @@ class Comment(models.Model):
     content = models.TextField()
     post_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
-    parent_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Order by data created"""
+        ordering = ["-date_created"]
 
     def __repr__(self) -> str:
         """returns the user id of the author and the date created"""
