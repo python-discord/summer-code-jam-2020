@@ -30,7 +30,7 @@
   </head>
   {% endblock %}
 
-    <body id="bootstrap-overrides">
+    <body>
 
         <div class="home_h1">
             <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
@@ -66,8 +66,8 @@
 
 
 {% load random_image %}
+
     <div class="row">
-{#        Leave this image tage WITHOUT length-600 in them. Wrong and too ugly - Ergo#}
         <div class="columnleft">
            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img><br>
            <img src="{{MEDIA_URL}}{% random_image %}" width="200"  ></img>

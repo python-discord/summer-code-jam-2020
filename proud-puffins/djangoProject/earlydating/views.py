@@ -132,7 +132,6 @@ def getfilters(user):
         return None
 
 
-# Currently not using
 def get_unvoted(voter, num=1):
     try:
         votes = UserVote.objects.filter(voter=voter, vote=True)

@@ -5,13 +5,13 @@
 {% block content %}
 
 {% csrf_token %}
-<!--ITEM IS IN USER VOTES WE DONT HAVE ATTRIBUTES LIKE SEX AND STUFF-->
+
 <h1>Your Likes</h1>
  <table  valign=top>
 <tr style="valign=top"></tr>
 
     {% for item in obj_liked %}
-    <td  valign = top width=30%">
+        <td  valign = top width=30%">
         <p style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
         border-style: inset; border-width: 4px">
             <a href="{% url 'earlydating-profile' item.user.id %}">{{ item.user.username }}</a>

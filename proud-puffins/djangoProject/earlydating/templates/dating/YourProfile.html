@@ -20,11 +20,10 @@
         <h1>{{user.profile.bio}}</h1>
 
         <p><a href="{% url 'earlydating-editprofile' %}" style="font-size: large; font-weight: bold;">Edit Profile</a>
-        </p> <!-- Currently set to go home, must change to go to edit page when finished. -->
+        </p>
         <p><a href="{% url 'earlydating-mylikes' %}" style="font-size: large; font-weight: bold;">My Likes</a></p>
         <p><a href="{% url 'earlydating-bothlikes' %}" style="font-size: large; font-weight: bold;">My Matches</a></p>
         <p><a href="{% url 'earlydating-DateMatcher' %}" style="font-size: large; font-weight: bold;">Match Me</a></p>
-        <!-- Currently set to go home, must change to go to MyMatches page when finished. -->
         <p><a class="hello-msg" href="{% url 'earlydating-logout' %}"
                 style="font-size: large; font-weight: bold;">Logout</a></p>
     </span>
