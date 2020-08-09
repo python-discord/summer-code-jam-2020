@@ -127,39 +127,48 @@ def page(request, url):  # Url is the URL we want to visit
 
             return resp  # Return our reponse from the View function
         elif req.headers["content-type"].split("/")[0] == "image":
-            data = req.content
+            # If we're processing an Image, treat it as an image.
+            data = req.content  # We need to get the raw bytes as we're dealing with a file, not text
 
-            stream = io.BytesIO(data)
+            stream = io.BytesIO(data)  # Create a Byte Stream that PIL can read
 
+            # Create our HTTP response to write the image to
             response = HttpResponse(content_type=req.headers["content-type"])
 
             if "svg" in \
-               req.headers["content-type"].split(";")[0].split("/")[1]:
+               req.headers["content-type"].split(";")[0].split("/")[1]:  # If we've got an SVG, treat it as text.
+                # SVG files are actually XML, unlike normal images.
                 img = req.text
                 resp = render(request, "Web95/blank.html", {"content": img})
                 resp["content-type"] = req.headers["content-type"]
 
-            else:
+            else:  # If its a normal image, we need to process it with PIL.
                 try:
-                    img = Image.open(stream)
+                    img = Image.open(stream)  # Open the bytes stream with PIL
 
-                    f_ext = \
-                        req.headers["content-type"].split(";")[0].split("/")[1]
+                    # Get the file type from the HTTP headers
+                    f_ext = req.headers["content-type"].split(";")[0].split("/")[1]
                     if f_ext.upper() == "VND.MICROSOFT.ICON":
+                        # If its an ICO file, the HTTP type is not the same as the extension. So we need to change it.
+                        # PNG Seems to work fine for this.
                         f_ext = "png"
 
-                    resize_factor = 3
+                    resize_factor = 3  # Factor to pixellate the image
+                    # Reduce image resolution
                     img = img.resize(list(map(lambda x: floor(x/resize_factor), img.size)), resample=Image.NEAREST)
+                    # Scale image back up, but use NEAREST so it becomes blocky
                     img = img.resize(list(map(lambda x: floor(x*resize_factor), img.size)), resample=Image.NEAREST)
-                    img.save(response, f_ext)
-                except UnidentifiedImageError:
+                    img.save(response, f_ext)  # Save image into our HttpResponse
+                except UnidentifiedImageError:  # If PIL doesnt know what the image is,
+                    # Log that the image loading failed.
                     print("\u001b[34mImage processing failed!. Type was", req.headers["content-type"], "\u001b[0m")
-                    return HttpResponseNotFound()
+                    return HttpResponseNotFound()  # Return a 404 Not Found.
 
-            return response
+            return response  # Return our response to Django
         else:
-            print("\u001b[34mManual 404 oopsie. Type was",
-                  req.headers["content-type"],
-                  "\u001b[0m")
+            # We dont know the content type. Return a 404
+
+            # Log that there was an unknown content type.
+            print("\u001b[34mContent Type Unknown", req.headers["content-type"], "\u001b[0m")
 
             return HttpResponseNotFound()
