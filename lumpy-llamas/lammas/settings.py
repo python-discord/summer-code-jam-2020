@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import yaml
+import logging
+import logging.config
+
+
+# Add logging config
+with open('logging_config.yaml', 'r') as f:
+    config = yaml.safe_load(f.read())
+    logging.config.dictConfig(config)
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', "131233333333333333312312")
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'randomstring')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not os.environ.get('ENVIRONMENT') == 'production'
@@ -35,6 +45,8 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'forum.apps.ForumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -127,6 +139,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'lammas', 'static'),
 )
+
+
+ASGI_APPLICATION = 'lammas.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
+
 
 CSRF_COOKIE_NAME = "csrftoken"
 

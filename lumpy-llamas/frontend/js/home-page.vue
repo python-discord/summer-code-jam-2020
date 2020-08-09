@@ -50,6 +50,7 @@ const MENU_PAGES = [
   { title: 'Login/Register', page: 'login_page' },
   { title: 'Forum/Thread-list', page: 'forum' },
   { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
+  { title: 'Chat Lobby', page: 'chatlobby_page' },
 ];
 
 export default {
@@ -60,14 +61,18 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToLogin);
-    this.$cmd.on('2', this.goToForum);
+    this.$cmd.on('2', this.goToforum);
     this.$cmd.on('3', this.goToGame);
+    this.$cmd.on('4', this.goToChatLobby);
   },
   methods: {
     goToLogin() {
       this.$router.push({ name: 'login_page' });
     },
-    goToForum() {
+    goToChatLobby() {
+      this.$router.push({ name: 'chatlobby_page' });
+    },
+    goToforum() {
       this.$router.push({ name: 'forum' });
     },
     goToGame() {
