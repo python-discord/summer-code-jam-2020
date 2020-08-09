@@ -22,7 +22,14 @@ Blast off to the past and surf the web 90s style! With Spydirweb, you can browse
 
 ### Installation
 
-Please message the team for the .env file.
+For the judges, please check the `#talented-tigers` channel on the discord server.
+Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
+
+For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [their website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with only 
+```
+API_KEY=your_key_here
+```
+written inside of it.
 
 ### Overview
 
