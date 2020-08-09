@@ -49,7 +49,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                     await self.send_room(content["message"])
                 else:
                     await self.send_message(f"usage: {colorize('brightGreen', 'send(say)')} MESSAGE")
-
+            elif command == "global":
+                if content["message"]:
+                    await self.send_global(content["message"])
+                else:
+                    await self.send_message(f"usage: {colorize('brightGreen', 'global')} MESSAGE")
             elif command == "help":
                 await self.send_help()
             elif command == "status":
@@ -166,8 +170,8 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         await self.send_message(f"I don't understand `{command}`, try {colorize('brightYellow', 'help')}.")
 
     async def send_help(self):
-        options = ['help', 'status', 'send <message>', 'leave', 'look', 'go <room>', 'go <room number>']
-        await self.send_message("COMMANDS: \r\n    " + colorize("brightGreen", ", ".join(options)))
+        options = ['help', 'status', 'look', 'go <room/number>', 'say <message>', 'send <message>', 'global <message>', 'leave']
+        await self.send_message("COMMANDS: \r\n    " + colorize("brightGreen", "\n    ".join(options)))
 
     async def send_room_description(self):
         message = await self.get_current_room_description()
@@ -286,6 +290,32 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         text = colorize('brightBlue', self.scope["user"].username) + " says, \"" + " ".join(message) + '"'
         await self.channel_layer.group_send(
             await self.get_current_room_name(),
+            {
+                "type": "chat.message",
+                "username": self.scope["user"].username,
+                "message": text,
+            }
+        )
+
+    async def send_global(self, message):
+        if not self.isOnline:
+            raise Exception('Rejected')
+
+        now = datetime.datetime.now()
+        try:
+            time_since_last_global = now - self.last_global
+            time_left = 10 - time_since_last_global.seconds
+            if time_left > 0:
+                await self.send_message(f"Please wait {time_left} seconds to do that...")
+                return
+            else:
+                self.last_global = now
+        except AttributeError:
+            self.last_global = now
+
+        text = colorize('brightRed', self.scope["user"].username) + " -> ALL: \"" + " ".join(message) + '"'
+        await self.channel_layer.group_send(
+            'dungeon',
             {
                 "type": "chat.message",
                 "username": self.scope["user"].username,
