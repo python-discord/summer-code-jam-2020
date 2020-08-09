@@ -70,4 +70,4 @@ def user_password_update(request):
 
 def users(request):
     profiles = Profile.objects.all()
-    return render(request, 'users/users.html', {"users": profiles})
+    return render(request, 'users/users.html', {"profiles": profiles, "profile_count": len(profiles)})
