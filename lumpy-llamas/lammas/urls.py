@@ -14,18 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import path, re_path
 from django.conf.urls.static import static
 from lammas.settings import STATIC_URL, STATIC_ROOT
+from django.conf.urls import include
 from core import views as core_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login', core_views.login_endpoint),
+    path('api/logout', core_views.logout_endpoint),
     path('api/register', core_views.register_endpoint),
+    path('api/chat/', include('chat.urls')),
     path('api/games/', include('games.urls')),
     path('api/forum/', include('forum.urls')),
     path('api/mail/', include('mailmessages.urls')),
+    path('api/forum/', include('forum.urls')),
+    path('api/newsfeed/', include('newsfeed.urls'))
 ] + static(STATIC_URL, document_root=STATIC_ROOT) + [
 
     re_path(r'^.*$', core_views.index, name='unmatched'),

@@ -96,7 +96,7 @@ export default {
         username: this.username,
         password: this.password,
       }).then((res) => {
-        this.$store.commit('login', res.data.id, res.data.username);
+        this.$store.commit('login', res.data);
         this.$router.push('/');
       }).catch((err) => {
         this.stage = START_STAGE;
@@ -108,7 +108,7 @@ export default {
         username: this.username,
         password: this.password,
       }).then((res) => {
-        this.$store.commit('login', res.data.id, res.data.username);
+        this.$store.commit('login', res.data);
         this.$router.push('/');
       }).catch((err) => {
         this.stage = START_STAGE;

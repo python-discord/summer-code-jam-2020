@@ -40,6 +40,7 @@ SCHEMAS = {
 }
 
 
+@login_required
 def list_threads(request):
     """
     View that returns all threads as a json for being parsed by frontend
@@ -47,13 +48,13 @@ def list_threads(request):
     :param request:
     :return: Serialized json data
     """
-
     queryset = Thread.objects.values().order_by('pk')
     data = list(queryset)
 
     return JsonResponse(data, status=201, safe=False)
 
 
+@login_required
 def thread_details(request, thread_id):
     """
     View that returns all messages in a thread with a given id
@@ -65,9 +66,6 @@ def thread_details(request, thread_id):
     queryset = ThreadMessage.objects.filter(thread_id=thread_id).values('date', 'message', 'user',
                                                                         title=F('thread__title'))
     data = list(queryset)
-
-    if not data:
-        JsonResponse([{'title': 'Sorry, nothing here'}], status=201, safe=False)
 
     return JsonResponse(data, status=201, safe=False)
 
@@ -124,7 +122,6 @@ def post_message(request, data):
             else JSONReponse with error as string and status 400.
     """
     current_user = request.user
-
     message = ThreadMessage(
         message=data['message'],
         user=current_user,

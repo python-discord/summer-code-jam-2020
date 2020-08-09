@@ -3,20 +3,16 @@
     <router-link :to="{ name: 'forum'}"><h2>Back to forum list</h2></router-link>
     <h3 class="some-heading">{{myStuff[0].title}} </h3>
     <div class="terminal-timeline">
-    <div class="terminal-card" v-for="item in myStuff">
-      <header id="card-header">{{item.user}} on {{item.date | moment("DD/MM/YY/HH:MM")}}</header>
-      <div>
-        {{item.message}}
+      <div class="terminal-card" v-for="item in myStuff">
+        <header id="card-header">{{item.user}} on {{item.date | moment("DD/MM/YY/HH:MM")}}</header>
+        <div>
+          {{item.message}}
+        </div>
       </div>
     </div>
-    </div>
-       <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter your message" minlength="3"></textarea>
-        <button v-on:click="newMessage" class="btn btn-default">Post a new message</button>
-    </div>
-
-
-
-
+    <textarea v-model="message" id="taera" cols="30" rows="5" name="tarea" placeholder="Enter your message" minlength="3"></textarea>
+    <button v-on:click="newMessage" class="btn btn-default">Post a new message</button>
+  </div>
 </template>
 
 <style>
@@ -36,14 +32,13 @@ p {
 
 <script>
 import axios from 'axios';
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.xsrfCookieName = "csrftoken";
 
 export default {
   data() {
     return {
       myStuff: null,
       ready: false,
+      message: '',
     };
   },
   beforeMount() {
@@ -51,7 +46,7 @@ export default {
   },
   methods: {
     getData() {
-      axios.get(`/api/forum/${this.$route.params.id}/`).then((response) => {
+      axios.get(`/api/forum/${this.$route.params.id}`).then((response) => {
         this.myStuff = response.data;
         this.ready = true;
       });
@@ -59,15 +54,15 @@ export default {
     newMessage() {
       axios.post('/api/forum/post/message', {
         message: this.message,
-        thread_id: this.$route.params.id
+        thread_id: this.$route.params.id,
       }).then((res) => {
         this.getData();
-        this.textarea = "";
-        console.log(res.data.thread_id);
+        this.textarea = '';
+        console.log(res.data.thread_id); // eslint-disable-line no-console
       }).catch((err) => {
-        alert(err.response.data.message)
-        console.log(err) // eslint-disable-line no-console
+        console.log(err); // eslint-disable-line no-console
       });
+    },
   },
-  }}
+};
 </script>

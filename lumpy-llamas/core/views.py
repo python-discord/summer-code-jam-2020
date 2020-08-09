@@ -1,6 +1,6 @@
 from django.contrib.staticfiles.views import serve
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from core.helpers import jsonbody
@@ -54,3 +54,8 @@ def login_endpoint(request, data):
             'username': user.username,
         })
     return JsonResponse({'msg': 'Failed to login'}, status=401)
+
+
+def logout_endpoint(request):
+    logout(request)
+    return JsonResponse({'msg': 'Successfully logged out'})
