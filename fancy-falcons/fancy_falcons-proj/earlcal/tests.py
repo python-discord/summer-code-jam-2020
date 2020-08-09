@@ -1,11 +1,11 @@
 from django.test import TestCase
-from models import Event
+from .models import Event
 import datetime
 
 class CalendarModelTests(TestCase):
 
-    def all_events_have_valid_dates(self):
-        eventslist = Event.object.all()
+    def test_all_events_have_valid_dates(self):
+        eventslist = Event.objects.all()
         validDate = True
         for event in eventlist:
             try:

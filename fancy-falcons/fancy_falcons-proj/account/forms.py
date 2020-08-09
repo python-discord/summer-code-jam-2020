@@ -19,12 +19,19 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    birthday = forms.DateField(
+        input_formats=['%Y-%m-%d'],
+        widget=forms.DateTimeInput(
+            attrs={'type': 'date', 'class': 'form-control'},
+            format='%Y-%m-%d'))
+
     class Meta:
         model = Account
         fields = [
             'first_name',
             'last_name',
             'earldom',
+            'birthday',
             'email',
             'image',
         ]

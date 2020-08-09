@@ -3,25 +3,31 @@
 
 {% block content %}
 <div class="row homepage pt-5">
+    {% if messages %}
+    <div class="col-sm-12 mb-5">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
     <div class="col-md-4 offset-md-1 text-center">
         <h3>Earl of the day</h3>
-        <h2>Saer de Quincy</h2>
-        <img class="mt-2" src="{% static "img/quincy.svg" %}">
-        <p class="mt-2">Saer de Quincy, 1st Earl of Winchester (c. 1170 – 3 November 1219) was one of the leaders of the baronial rebellion against John, King of England, and a major figure in both the kingdoms of Scotland and England in the decades around the turn of the twelfth and thirteenth centuries. </p>
+        <h2>{{ earl_of_the_day.first_name }} {{ earl_of_the_day.last_name }}</h2>
+        <img class="mt-2"
+            width="250"
+            height="270"
+            src="{{ earl_of_the_day.image.url }}"
+            title="{{ earl_of_the_day }}"/>
+        <p class="mt-2">{{ earl_of_the_day.short_bio }}</p>
     </div>
     <div class="col-md-4 offset-md-1 text-center">
         <h3>Upcoming birthdays</h3>
-        <h2>Next week</h2>
         <ul>
-            <li><span class="bday">16.04</span> <a href="#">Saer de Quincy</a></li>
-            <li><span class="bday">16.04</span> <a href="#">John of Wick</a></li>
-            <li><span class="bday">16.04</span> <a href="#">Neo of Matrix</a></li>
-        </ul>
-        <h2 class="mt-5">This month</h2>
-        <ul>
-            <li><span class="bday">16.04</span> <a href="#">Saer de Quincy</a></li>
-            <li><span class="bday">16.04</span> <a href="#">John of Wick</a></li>
-            <li><span class="bday">16.04</span> <a href="#">Neo of Matrix</a></li>
+        {% for birthday in upcoming %}
+            <li><span class="bday">{{ birthday.birthday }}</span><br><a href={% url 'earls:earldetail' birthday.id %}>{{ birthday }}</a></li>
+        {% endfor %}
         </ul>
         <p><a href="/calendar/">See all events</a></p>
     </div>

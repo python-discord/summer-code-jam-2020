@@ -6,6 +6,7 @@ from .views import (
     DeleteMessage,
 )
 
+app_name = 'chat'
 urlpatterns = [
     path('', UsersChatView.as_view(), name='chat-list'),
     path('room/<int:pk>/', UserChatRoom.as_view(), name='chat-room'),

@@ -1,8 +1,8 @@
 from django.urls import path
-
 from . import views
 
+app_name = "earls"
 urlpatterns = [
     path('', views.earl_list_view, name='earl-list'),
-    path('grid-view', views.earl_grid_view, name='earl-grid'),
+    path('<int:pk>/', views.earl_public_page, name='earldetail'),
 ]

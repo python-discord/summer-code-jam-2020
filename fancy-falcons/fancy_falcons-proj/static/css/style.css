@@ -45,6 +45,10 @@ body {
     padding: 0;
 }
 
+.homepage ul li {
+    margin-bottom: 0.4em;
+}
+
 .bday {
     font-size: 0.8em;
     color: gray;
@@ -91,6 +95,115 @@ body {
 
 .badge a {
     color: white;
+}
+
+/* Forms */
+.asteriskField {
+    display: none;
+}
+
+.account-img {
+    position: relative;
+}
+
+.account-img:hover:before {
+    content: "select new";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+/* Chat */
+.chat-area {
+    max-height: 80vh;
+    overflow: hidden;
+    clear: both;
+}
+
+.chat-header img {
+    width: 100px;
+    max-height: 100px;
+}
+
+.chat-messages {
+    overflow-y: scroll;
+    max-height: 100%;
+}
+
+.chat-messages .msg {
+    margin-bottom: 1em;
+    width: 80%;
+    float: left;
+    clear: both;
+    padding: 1em;
+    background: #ddd;
+    border-radius: 0.5em;
+}
+.chat-messages .msg.msg-self {
+    background: #d6daf2;
+    text-align: right;
+    float: right;
+}
+
+.chat-messages .msg form {
+    width: 0.7em;
+    height: 0.7em;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+}
+.chat-messages .msg form button {
+    display: none;
+    font-size: 0.4em;
+    background: red;
+    border: 0;
+    width: 1.7em;
+    height: 1.7em;
+    line-height: 1.8em;
+    border-radius: 2em;
+    color: white;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.chat-messages .msg:hover form button {
+    display: block;
+}
+
+.chat-messages img {
+    width: 50px;
+    max-height: 50px;
+}
+
+.chat-composer {
+    clear: both;
+    padding: 1em;
+    background: #d6daf2;
+    border-radius: 0.5em;
+}
+
+/* 404 */
+.four-oh-four {
+    height: 100vh;
+}
+
+.four-oh-four h1 {
+    font-size: 6em;
+    text-align: center;
+}
+
+.four-oh-four h2 {
+    text-align: center;
+}
+
+/* Public profile */
+.earl-details {
+    min-height: 80vh;
 }
 
 /*
