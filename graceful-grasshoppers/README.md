@@ -1,4 +1,3 @@
-
 # Graceful Grasshoppers
 ### Intro:
 So... welcome! This is our project, Pyspace, and if you didn't already realise, Myspace. Even tho idk what that is. Probably an old facebook. 
@@ -17,6 +16,6 @@ So now that you ran that, ~~one more~~ a couple more commands are left: run `npm
 
 Good, now you have your virtual environment activated. (to be sure, make sure the prompt is now `(venv) the/path/of/the/current/folder`)
 
-So now run `python3 -m pip install -r requirements.txt` to install the necessary packages. Once that is finished, run `python3 manage.py makemigrations`, `python3 manage.py migrate` and `python3 manage.py runserver`. Sorry.
+So now run `python3 -m pip install -r requirements.txt` to install the necessary packages. Once that is finished, run `python3 manage.py runserver`
 
 Now go to your browser and head over to localhost:8080, and voila! Exploreeeee!
