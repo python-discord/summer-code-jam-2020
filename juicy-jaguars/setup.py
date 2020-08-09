@@ -26,7 +26,7 @@ def install(color=False):
     result = subprocess.call(["git", "clone", "https://github.com/Juicy-Jaguars/summer-code-jam-2020"])
     os.chdir("summer-code-jam-2020/juicy-jaguars")
 
-    if result != 0:
+    if result != 0:  # Checks the returned error code. 0=OK !0=Not OK
         print(red+"Error cloning Repository. Exiting...")
         sys.exit()
 
@@ -35,7 +35,7 @@ def install(color=False):
     print(yellow+"Installing dependencies..."+reset)
     result = subprocess.call(["pip3", "install", "-r", "requirements.txt"])
 
-    if result != 0:
+    if result != 0:  # Checks the returned error code. 0=OK !0=Not OK
         print(red+"Error installing Dependencies. Exiting...")
         sys.exit()
 
@@ -44,7 +44,7 @@ def install(color=False):
     print(yellow+"Making migrations..."+reset)
     result = subprocess.call(["python", os.path.join("Web95", "manage.py"), "migrate"])
 
-    if result != 0:
+    if result != 0:  # Checks the returned error code. 0=OK !0=Not OK
         print(red+"Error making migrations. Exiting...")
         sys.exit()
 

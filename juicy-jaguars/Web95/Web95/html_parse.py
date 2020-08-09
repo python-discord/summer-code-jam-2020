@@ -2,7 +2,7 @@
 
 from bs4 import BeautifulSoup  # Used for parsing HTML code
 import re
-import urllib.parse
+import urllib.parse  # Used to parse urls to determine if they are relative or absolute
 
 
 class HtmlParser:
