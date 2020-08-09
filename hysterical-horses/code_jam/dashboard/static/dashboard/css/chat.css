@@ -12,8 +12,3 @@
     width: 20%;
 }
 
-@media only screen and (min-width: 1200px) {
-    .chat-container{
-        padding-right: 50%;
-    }
-}
