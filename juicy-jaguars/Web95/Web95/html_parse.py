@@ -30,9 +30,11 @@ class HtmlParser:
     def parse_backgroundColor(self):
         """Change BG color to white."""
         try:
-            head = self.soup.head
-            head.append(self.soup.new_tag('style', type='text/css'))
+            head = self.soup.head  # Sets "head" to the <head> of the site you are trying to visit
+            head.append(self.soup.new_tag('style', type='text/css'))  # Adds a style tag to the <head>
             head.style.append('body {background-color:#C0C0C0 !important;}')
+            # ^ Sets the background color to a sad and dismal grey.
+            # ^ It also marks it as important to overide original background color
         except KeyError:  # excepts KeyError & AttributeError as in some cases website do not have a <head> tag
             pass
         except AttributeError:
