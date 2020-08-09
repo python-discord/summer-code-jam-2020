@@ -1,9 +1,9 @@
 body {
   font: 15px arial, sans-serif;
-  #background-color: #d9d9d9;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  background-color: #d9d9d9;
+  padding: 15px 0px;
 }
+
 
 #bodybox {
   margin: auto;
@@ -12,10 +12,7 @@ body {
   background-color: white;
   border-style: solid;
   border-width: 1px;
-  padding-top: 20px;
-  padding-bottom: 25px;
-  padding-right: 25px;
-  padding-left: 25px;
+  padding: 20px 25px 25px 25px;
   box-shadow: 5px 5px 5px grey;
   border-radius: 15px;
 }
@@ -24,43 +21,32 @@ body {
   border-style: solid;
   background-color: #f6f9f6;
   border-width: 3px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  padding-right: 20px;
-  padding-left: 15px;
+  margin: 20px;
+  padding: 10px 20px 15px 15px;
   border-radius: 15px;
+  position: relative;
+  height: 260px;
 }
 
-.chatlog {
+.chatmessage {
    font: 15px arial, sans-serif;
 }
 
 #chatbox {
-  font: 17px arial, sans-serif;
   height: 22px;
   width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 15px;
 }
 
-h1 {
-  margin: auto;
-}
-
-pre {
-  background-color: #f0f0f0;
-  margin-left: 20px;
-}
-
-#myProgress {
+#inputbox {
+  font: 17px arial, sans-serif;
   width: 100%;
-  background-color: grey;
+  position: absolute;
+  margin-bottom: 15px;
 }
 
-#myBar {
-  width: 1%;
-  height: 30px;
-  background-color: green;
+#namebox {
+  
 }

@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -15,14 +14,20 @@ class Message:
 
 # Create your views here.
 
+
 def home(request):
-    messages = [
-        'Hi',
-        'Hello',
-        'Are you waiting for the bus?',
-        'Yes Im waiting for the bus',
-        'I notice youre not wearing any gollashes',
-    ]
     return render(
-        request, 'home.html', {f'message_list': [Message(s) for s in messages]}
+        request, 'home.html'
+    )
+
+
+def chat_page(request, bot_name):
+    return render(
+        request, 'home.html', {'bot': bot_name}
+    )
+
+
+def experimental(request):
+    return render(
+        request, 'landing_page.html'
     )
