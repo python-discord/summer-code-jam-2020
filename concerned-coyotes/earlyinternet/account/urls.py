@@ -9,7 +9,7 @@ urlpatterns = [
         extra_context={'next': '/'},
         redirect_authenticated_user=True
     ),
-    name="login"),
+         name="login"),
     path('register/', views.register, name='register'),
     path('logout/', views.logout_user, name='logout'),
 ]
