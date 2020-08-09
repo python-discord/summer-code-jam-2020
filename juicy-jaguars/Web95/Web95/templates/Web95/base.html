@@ -114,7 +114,7 @@
             <ul class="start-lvl2-list start-settings-list">
                 <li class="start-lvl2-item" onclick="toggle_start_themes()">Theme <img src="{% static 'images/icons/more.png' %}" class="start-more-2"></li>
                 <li class="start-lvl2-item" onclick="toggle_start_wallpapers()">Wallpaper <img src="{% static 'images/icons/more.png' %}" class="start-more-2"></li>
-                <li class="start-lvl2-item">Font Size <img src="{% static 'images/icons/more.png' %}" class="start-more-2"></li>
+                <li class="start-lvl2-item" onclick="toggle_start_font()">Font Size <img src="{% static 'images/icons/more.png' %}" class="start-more-2"></li>
             </ul>
         </div>
 
@@ -127,6 +127,13 @@
         <div class="card start-lvl3 start-wallpapers">
             <ul class="start-lvl3-list start-wallpapers-list">
                 {{ wallpapers | safe }}
+            </ul>
+        </div>
+
+        <div class="card start-lvl3 start-font">
+            <ul class="start-lvl3-list start-font-list">
+                <li class="start-lvl3-item" onpress="fontsize_up"> Font Size Up </li>
+                <li class="start-lvl3-item" onpress="fontsize_down"> Font Size Down </li>
             </ul>
         </div>
 

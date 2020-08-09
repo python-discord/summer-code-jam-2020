@@ -13,6 +13,9 @@ function setup_start() {
     var start_walls = document.getElementsByClassName("start-wallpapers")[0];
     var start_walls_button = document.getElementsByClassName("start-lvl2-item")[1];
 
+    var start_font = document.getElementsByClassName("start-font")[0];
+    var start_font_button = document.getElementsByClassName("start-lvl2-item")[2];
+
     taskbar.style.zIndex = document.getElementsByClassName("draggable").length*2;
 
     start.style.top = ((window.innerHeight - document.getElementById("taskbar").offsetHeight) - start.offsetHeight).toString()+"px";
@@ -27,10 +30,14 @@ function setup_start() {
     start_walls.style.top = start_walls_button.getBoundingClientRect().top.toString()+"px";
     start_walls.style.left = (start_walls_button.getBoundingClientRect().right-5).toString()+"px";
 
+    start_font.style.top = start_font_button.getBoundingClientRect().top.toString()+"px";
+    start_font.style.left = (start_font_button.getBoundingClientRect().right-5).toString()+"px";
+
     start.style.display = "none";
     start_settings.style.display = "none";
     start_themes.style.display = "none";
     start_walls.style.display = "none";
+    start_font.style.display = "none";
 }
 
 function toggle_start() {
@@ -82,12 +89,14 @@ function toggle_start_settings() {
 function toggle_start_themes() {
     var start_themes = document.getElementsByClassName("start-themes")[0];
     var start_wallpapers = document.getElementsByClassName("start-wallpapers")[0];
+    var start_font = document.getElementsByClassName("start-font")[0];
 
     if (start_themes.style.display == "none") {
         start_themes.style.display = "block";
         start_themes.style.zIndex = (document.getElementsByClassName("draggable").length*2)+2;
 
         start_wallpapers.style.display = "none";
+        start_font.style.display = "none";
     } else {
         start_themes.style.display = "none";
     }
@@ -96,14 +105,32 @@ function toggle_start_themes() {
 function toggle_start_wallpapers() {
     var start_wallpapers = document.getElementsByClassName("start-wallpapers")[0];
     var start_themes = document.getElementsByClassName("start-themes")[0];
+    var start_font = document.getElementsByClassName("start-font")[0];
 
     if (start_wallpapers.style.display == "none") {
         start_wallpapers.style.display = "block";
         start_wallpapers.style.zIndex = (document.getElementsByClassName("draggable").length*2)+2;
 
         start_themes.style.display = "none";
+        start_font.style.display = "none";
     } else {
         start_wallpapers.style.display = "none";
+    }
+}
+
+function toggle_start_font() {
+    var start_wallpapers = document.getElementsByClassName("start-wallpapers")[0];
+    var start_themes = document.getElementsByClassName("start-themes")[0];
+    var start_font = document.getElementsByClassName("start-font")[0];
+
+    if (start_font.style.display == "none") {
+        start_font.style.display = "block";
+        start_font.style.zIndex = (document.getElementsByClassName("draggable").length*2)+2;
+
+        start_wallpapers.style.display = "none";
+        start_themes.style.display = "none";
+    } else {
+        start_font.style.display = "none";
     }
 }
 
