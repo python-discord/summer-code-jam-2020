@@ -9,7 +9,8 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name',
+                  'last_name', 'password1', 'password2']
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -17,10 +18,11 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'first_name', 'last_name']
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
     class Meta:
         model = Profile
         fields = ['image', 'bio', 'gender', 'date_of_birth']

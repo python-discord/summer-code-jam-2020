@@ -1,6 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 <div id="app">
   <div id="terminal">
     <div id="terminal-window" class="dummy">
@@ -10,20 +7,20 @@
     <div id="terminal-input"> 
       <span id="prompt">[[prompt]]</span>
       <input type="text" 
-        class="terminal-input-text" 
-        autofocus="autofocus" 
-        @keyup.enter="run_command" 
-        @keyup.arrow-up="populate_previous"
-        @keyup.arrow-down="populate_next"
-        @keyup.ctrl.c="reset_prompt"
-        @keyup.esc="reset_prompt"
-        v-model="command"
-      >
+             id="command-input"
+             class="terminal-input-text" 
+             autofocus="autofocus" 
+             @keyup.enter="run_command" 
+             @keyup.arrow-up="populate_previous"
+             @keyup.arrow-down="populate_next"
+             @keyup.ctrl.c="reset_prompt"
+             @keyup.esc="reset_prompt"
+             v-model="command"
+             >
     </div>
   </div>
 
 </div>
-
 
 <script>
   var app = new Vue({
@@ -33,12 +30,29 @@
       command: '',
       previous_commands: [],
       current_command_num: 0,
+      {% if messages %}                                                     
+      {% for message in messages %}                                         
+      response: '{{ message }}',                                                      
+      {% endfor %}
+      {% else %}
       response: '',
-      prompt: '$',
+      {% endif %}
+      prompt: '{{ request.path }}:$',
       followup_count: 0,
     },
 
+    mounted: function() {
+      this.$nextTick(function () {
+        document.getElementById("command-input").focus();
+      })
+    },
+
     methods: {
+
+      redirect: function(url) {
+        window.location = url;
+      },
+
       populate_previous: function() {
         if(this.current_command_num < this.previous_commands.length){
           this.command = this.previous_commands[this.current_command_num];
@@ -56,10 +70,11 @@
       run_command: function() {
         if(this.command == 'cls' || this.command == 'clear'){
           this.response = ''
-          this.prompt = "~$"
+          this.prompt = "{{ request.path }}:$"
           this.followup_count = 0
         } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
-          this.prompt = "$"
+          this.prompt = "{{ request.path }}:$"
+
         } else {
           var header = {dummy: 0}
           if (this.prompt == "..."){
@@ -73,19 +88,18 @@
           } else {
             var cur_command = this.command
           }
-          console.log(cur_command)
-          console.log(header)
           axios.get(`/terminal/command?c=${cur_command}`, {headers: header})
-          .then(res =>{
-            if(res.headers.followup == "True"){
-              this.prompt = "..."
-            } else {
-              this.prompt = "~$"
-              this.followup_count = 0
-            }
-            this.response = this.response + res.data + "<br>"
-          }, (error) =>{
-          }) 
+            .then(res =>{
+              if(res.headers.followup == "True"){
+                this.prompt = "..."
+              } else {
+                this.prompt = "{{ request.path }}:$"
+                this.followup_count = 0
+              }
+              if (res.headers.redirect) { this.redirect(res.headers.redirect) }
+              this.response = this.response + res.data + "<br>"
+            }, (error) =>{
+            }) 
         }
         if(this.prompt != '...') this.previous_commands.unshift(this.command)
         this.command = ''
@@ -93,7 +107,8 @@
       },
 
       reset_prompt: function(){
-        this.prompt = '$'
+        this.prompt = "{{ request.path }}:$"
+
         this.followup_count = 0
         this.command = ''
       }
@@ -101,6 +116,7 @@
     updated: function() { 
       var el = document.getElementById("terminal-output"); el.scrollTop = el.scrollHeight; 
     }
+
   });
 </script>
 
@@ -128,6 +144,7 @@
   #terminal-output{
     overflow-y: auto;
     max-height: 16vh;
+    padding: 10px 0;
     padding-right: 17px; 
     box-sizing: content-box;
     scrollbar-width: none;
@@ -147,10 +164,9 @@
     box-shadow: none !important;
   }
   input:focus, textarea:focus, select:focus{
-      outline: none;
+    outline: none;
   }
-	#prompt {
-		color: #7efaff;
-	}
+  #prompt {
+    color: #fde2e2;
+  }
 </style>
-

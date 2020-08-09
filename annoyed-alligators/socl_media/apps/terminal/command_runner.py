@@ -27,4 +27,4 @@ class TerminalCommandRunner():
 
         if not found:
             # Invalid command
-            return {'response': f"{self.specified_method}: Command not found. Please enter a valid command."}        
+            return {'response': f"{self.specified_method}: Command not found. Please enter a valid command."}
