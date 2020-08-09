@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "guestbook.apps.GuestbookConfig",
     "welcome_page.apps.WelcomePageConfig",
     "game.apps.GameConfig",
+    "admin_site.apps.AdminSiteConfig",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = "spacebook.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR, os.path.join(BASE_DIR, "admin_site/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
