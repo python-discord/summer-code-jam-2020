@@ -10,11 +10,13 @@ from pytz import timezone
 
 import geocoder
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sessions.backends.db import SessionStore
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.views import View
 from geopy.geocoders import Nominatim
-from users.mixins import level_check
+from users.mixins import LevelRestrictionMixin, level_check
 
 from .models import Search
 
@@ -143,48 +145,63 @@ def weather_query(lat: str, lon: str, api_key: str, part: str, format: bool = Tr
     else:
         return res # return as is
 
-@login_required()
-def weather_results(request, ip_address: str):
-    api_key = os.environ.get('weather_api_key')
-    pat = re.compile('^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')
-    error_msg = ''
-    if re.search(pat, ip_address):
-        user_data = geocoder.ip(ip_address).latlng # change to visitor_ip_address in developement
-        latitude, longitude  = user_data[0], user_data[1] # easily get lat. and lon. of location
-    else:
-        geolocator = Nominatim(user_agent="hyst_horses")
-        location = geolocator.geocode(ip_address)
-        try:
-            latitude, longitude = location.latitude, location.longitude
-        except:
-            wrapper = textwrap.TextWrapper(width=20)
-            shortened = wrapper.wrap(text=ip_address)[0]
-            if shortened != ip_address:
-                shortened += '...'
-            error_msg = f'No weather found for {shortened}.'
-            latitude, longitude = '', ''
-    if latitude and longitude:
-        forecast = weather_query(latitude, longitude, api_key, 'daily')
-        current_time = datetime.datetime.now(timezone(forecast['tz'])).strftime('%H:%M %p')
-    else:
-        forecast = {'daily': '',
-                    'current': ''}
-        current_time = ''
-    context = {
-        'day_forecast': forecast['daily'],
-        'current_details': forecast['current'],
-        'ending': '°F',
-        'current_time': current_time,
-        'error_msg': error_msg,
-    }
-    return render(request, 'dashboard/weather/weather.html', context=context)
 
+class WeatherView(LoginRequiredMixin, LevelRestrictionMixin, View):
+    def test_func(self):
+        return self.request.user.weather_unlocked
 
+    def get(self, request, **kwargs):
+        ip_address = kwargs['ip_address']
+        api_key = os.environ.get('weather_api_key')
+        pat = re.compile('^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')
+        error_msg = ''
+
+        if re.search(pat, ip_address):
+            # Change to visitor_ip_address in developement
+            user_data = geocoder.ip(ip_address).latlng
+
+            # Easily get lat. and lon. of location
+            latitude, longitude = user_data[0], user_data[1]
+        else:
+            geolocator = Nominatim(user_agent="hyst_horses")
+            location = geolocator.geocode(ip_address)
+            try:
+                latitude, longitude = location.latitude, location.longitude
+            except:
+                wrapper = textwrap.TextWrapper(width=20)
+                shortened = wrapper.wrap(text=ip_address)[0]
+                if shortened != ip_address:
+                    shortened += '...'
+                error_msg = f'No weather found for {shortened}.'
+                latitude, longitude = '', ''
+
+        if latitude and longitude:
+            forecast = weather_query(latitude, longitude, api_key, 'daily')
+            current_time = datetime.datetime.now(
+                timezone(forecast['tz'])
+            ).strftime('%H:%M %p')
+        else:
+            forecast = {'daily': '',
+                        'current': ''}
+            current_time = ''
+
+        context = {
+            'day_forecast': forecast['daily'],
+            'current_details': forecast['current'],
+            'ending': '°F',
+            'current_time': current_time,
+            'error_msg': error_msg,
+        }
+        return render(request, 'dashboard/weather/weather.html', context)
+
+    def post(self, request, *args, **kwargs):
+        # Most of it actually done via javascript in the html file
+        return HttpResponseRedirect(self.request.path_info)
 
 
 # needs to be global otherwise session gets
 # reinstantiated each time
-global hist_store;
+global hist_store
 hist_store = SessionStore()
 @login_required()
 def engine_results(request, search_text: str):
@@ -242,7 +259,7 @@ def engine_results(request, search_text: str):
 
 
 @login_required()
-@user_passes_test(lambda user: level_check(user, unlock=3), login_url="dashboard-index", redirect_field_name=None)
+@user_passes_test(lambda user: level_check(user, unlock=8), login_url="dashboard-index", redirect_field_name=None)
 def chat_room(request, room_name):
     context = {'room_name': room_name}
     return render(request, 'dashboard/chat_room.html', context)

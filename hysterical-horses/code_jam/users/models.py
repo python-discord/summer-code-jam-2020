@@ -164,6 +164,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return True if self.level >= 3 else False
 
     @property
+    def blogs_posting_unlocked(self):
+        return True if self.level >= 3 else False
+
+    @property
     def weather_unlocked(self):
         return True if self.level >= 4 else False
 
