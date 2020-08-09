@@ -22,7 +22,7 @@
             <p>location - {{community.location}}</p><br>
             {% if subscribed %}
             <a href="{% url 'chat' room_name=community.get_room_id %}"><button class="override">Enter Chat Room</button></a>
-            <button class="override">Create Post</button>
+            <a href="post"><button class="override">Create Post</button></a>
             {% endif %}
         </div>
         <div class="posts"><h4><b>Recent posts of {{community.name}} community</b></h4></div>
