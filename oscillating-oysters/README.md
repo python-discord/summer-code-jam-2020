@@ -34,5 +34,5 @@ docker-compose up -d
 ```
 
 ## Credits
-SpaceMono-Regular.ttf: Copyright 2016 Google Inc. All Rights Reserved.
-SpaceMono-Bold.ttf: Copyright 2016 Google Inc. All Rights Reserved.
+- SpaceMono-Regular.ttf: Copyright 2016 Google Inc. All Rights Reserved.
+- SpaceMono-Bold.ttf: Copyright 2016 Google Inc. All Rights Reserved.
