@@ -92,6 +92,19 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.searches.count()
 
     @property
+    def side_statistics(self):
+        side_stats = {
+            'posts': self.number_of_posts,
+            'comments': self.number_of_comments,
+            'likes': self.number_of_likes,
+            'messages': self.number_of_messages,
+            'searches': self.number_of_searches
+        }
+
+        for name, val in side_stats.items():
+            yield name.capitalize(), val
+
+    @property
     def score(self):
         posts_weight = 13
         comments_weight = 7
