@@ -10,16 +10,23 @@ h1, h2, h3, h4, h5, h6, p {
     font-family: Tangerine;
 }
 
+.navbar{
+    position: sticky;
+    top: 0;
+    opacity: 0.8;
+    background-color: #3d6647;
+}
+
 .body-content {
-    background-color: aqua;
+    background-color: #7acc8f;
     font-size: large;
     padding: 10px;
     width: 100%;
-    margin: auto;
+    border-radius: 10px;
 }
 .search{
     padding: 2px;
-    margin-top: 5px;
+    margin-top: 6px;
     width: 250px;
 }
 
@@ -28,6 +35,46 @@ h1, h2, h3, h4, h5, h6, p {
     font-weight: 600;
 }
 
-mr-5{
-    margin-right: 5px;
+.mr-5{
+    padding: 15px;
+}
+
+.row{
+    margin: 5px;
+}
+.item{
+    font-size: larger;
+    font-weight: 400;
+}
+
+.title{
+    font-size: x-large;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.navbar-item{
+    color: #FEFAE0;
+}
+
+.name{
+    font-size: large;
+    margin-right: 10px;
+    font-weight: 800;
+}
+
+a{
+    text-emphasis: none;
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover{
+    text-emphasis: none;
+    text-decoration: none;
+    outline: none;
+}
+
+.navbar-end:hover{
+    background-color: #3d6647;
 }
