@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+
+.menu-box {
+  background-color: white;
+  box-shadow: 0 0px 4px rgba(0,0,0,0.16), 1px 3px 7px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.menu-section {
+  display: flex ;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.menu-link {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.handle:hover {
+  cursor: grab;
+}
+
+.handle:active {
+  cursor: grabbing;
+}
+
+
+.main-slider {
+  width: 200px;
+}
+
+.year-label {
+  font-family: Montserrat, sans-serif;
+  font-size: 22px;
+}
+
+.verticalLine {
+  border-left: 2px solid #dbdbdb;
+  height: 100%;
+}

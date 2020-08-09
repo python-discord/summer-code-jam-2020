@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import logo from "../assets/timescape-logos/1998.svg"
 
 export class Home_page_1 extends Component {
   render() {
@@ -24,13 +25,14 @@ export class Home_page_1 extends Component {
             lineHeight: "5px",
             fontSize: "9pt",
             height: "19px",
+            verticalAlign: "top",
         };
 
         const myDropdown = {
             fontFamily: "sans-serif",
             verticalAlign: "top",
             fontSize: "10pt",
-            height: "22px",
+            height: "19px",
         };
 
         const searchField = {
@@ -41,7 +43,7 @@ export class Home_page_1 extends Component {
             verticalAlign: "bottom",
             resize: "none",
             height: "20px",
-            width: "300px",
+            width: "322px",
         };
         
         const myHref = {
@@ -64,7 +66,7 @@ export class Home_page_1 extends Component {
             verticalAlign: "top",
             fontSize: "8pt",
             resize: "none",
-            height: "22px",
+            height: "19px",
             width: "150px",
             margin: "0"
         };
@@ -72,10 +74,8 @@ export class Home_page_1 extends Component {
     return (
         <div className="container">
             {/* First container for the content of the page */}
-            <div className="row">
-                <div className="col text-center"> {/* Image */}
-                    <img src="" class="img-fluid" alt="Responsive image" style={{padding: "40px"}}/> 
-                </div>
+            <div className="row justify-content-center"> {/* Image */}
+                <img src={logo} class="img-fluid" alt="logo" style={{padding: "40px"}}/> 
             </div>
             <div className="row">
                 <div className="wrap" style={myWrap}> {/* Wrap for the background color */}
@@ -84,7 +84,7 @@ export class Home_page_1 extends Component {
                         <div className="row">
                             <div className="col text-center">
                                 <p style={myText}>
-                                    Search the web using Google!
+                                    Search the web using TimeScape!
                                 </p> 
                             </div>
                         </div>
@@ -102,7 +102,7 @@ export class Home_page_1 extends Component {
                                 </select>
                             </div>
                             <div className="col-0 px-1 text-center"> {/* Buttosn for the search field */}
-                                <input type="submit" value="Google Search" style={myButton}/>
+                                <input type="submit" value="TimeScape Search" style={myButton}/>
                             </div>
                             <div className="col-0s px-1 text-center">
                                 <input type="submit" value="I'm feeling lucky" style={myButton}/>
@@ -122,7 +122,7 @@ export class Home_page_1 extends Component {
             <div className="row"> {/* General info */}
                 <div className="col pb-3 center-block text-center">
                     <a href="" style={myHrefBold}>
-                        About Google!
+                        About TimeScape!
                     </a>
                 </div>
             </div>
@@ -144,7 +144,7 @@ export class Home_page_1 extends Component {
                     <div className="row">
                         <div className="col center-block text-center">
                             <p style={myText}>
-                                Get Google! updates monthly!
+                                Get TimeScape! updates monthly!
                             </p> 
                         </div>
                     </div>
