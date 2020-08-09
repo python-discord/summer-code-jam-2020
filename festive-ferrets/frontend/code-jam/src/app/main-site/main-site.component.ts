@@ -15,8 +15,7 @@ export class MainSiteComponent implements OnInit {
   boards: Board[] = [];
 
   ngOnInit(): void {
-    //this.boardsService.getBoards().subscribe(x => this.boards = x.results);
-    this.boardsService._getBoards().subscribe(x=>this.boards=x)
+    this.boardsService.getBoards().subscribe(x => this.boards = x.results);
   }
 
 
