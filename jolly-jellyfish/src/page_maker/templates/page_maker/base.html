@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   {% if webpage %}
-  <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{webpage.template_used.style_sheet}}">
+  <link rel="stylesheet" type="text/css" href="{% get_media_prefix %}{{webpage.template_used.style_sheet}}">
   <title>{{ webpage.name }}</title>
   {% elif template %}
-  <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{template.style_sheet}}">
+  <link rel="stylesheet" type="text/css" href="{% get_media_prefix %}{{template.style_sheet}}">
   <title>Example Theme Page</title>
   {% else %}
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
