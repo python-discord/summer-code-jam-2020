@@ -696,7 +696,7 @@ div.breadcrumbs a:focus, div.breadcrumbs a:hover {
 
 .deletelink {
     padding-left: 16px;
-    background: url(../img/icon-deletelink.svg) 0 1px no-repeat;
+    /* background: url(../img/icon-deletelink.svg) 0 1px no-repeat; */
 }
 
 a.deletelink:link, a.deletelink:visited {
