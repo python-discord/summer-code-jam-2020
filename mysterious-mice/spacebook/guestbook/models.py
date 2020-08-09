@@ -7,3 +7,6 @@ class Guestbook(models.Model):
     text = models.TextField()
     email = models.EmailField()
     published_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.author
