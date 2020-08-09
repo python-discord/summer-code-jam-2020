@@ -73,9 +73,9 @@ python3 manage.py runserver
 <!-- Make sure you are in `wiggly-weasels/Backend/flashback`. Then run the server by running: `python3 manage.py runserver`.  -->
 
 ### Site Setup
-While the Django server is running. We will start by assuming that you are still in the `Backend/flashback` folder. We can run the following commands to get into the React project folder so we can install our project packages! 
+While the Django server is running. Start a new terminal instance. We will start by assuming that you are in the `summer-code-jam-2020/wiggly-weasels` folder. We can run the following commands to get into the React project folder so we can install our project packages! 
 ```
-cd ../../Frontend/flashback
+cd Frontend/flashback
 npm install && npm start
 ```
 Installing the packages is simple! Just type `npm install`! Finally, to run our site, type `npm start`.
