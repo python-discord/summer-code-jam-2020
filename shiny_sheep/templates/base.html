@@ -15,14 +15,26 @@
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
+
     {% block css %}
     
-    <!-- Latest compiled and minified Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
     <!-- Your stuff: Third-party CSS libraries go here -->
-    
+    <link rel="stylesheet" href="https://unpkg.com/98.css" crossorigin="anonymous"/>
+    <style>
+
+    /* this might be too much... */
+    p {
+      font-family: "Pixelated MS Sans Serif", Arial;
+      -webkit-font-smoothing: none;
+      font-size: 11px;
+    }
+    body {
+      background-color: #c0c0c0;
+    }
+    </style>
+
     <!-- This file stores project-specific CSS -->
     
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
@@ -33,7 +45,6 @@
   </head>
 
   <body>
-
     <div class="container">
 
       {% if messages %}
@@ -47,7 +58,6 @@
       {% endblock content %}
 
     </div> <!-- /container -->
-
     {% block modal %}{% endblock modal %}
 
     <!-- Le javascript
