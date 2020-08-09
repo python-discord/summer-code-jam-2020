@@ -21,7 +21,7 @@
             <p>created by /u <a href="/user/{{community.owner}}/posts">{{community.owner}}</a>, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
             <p>location - {{community.location}}</p><br>
             {% if subscribed %}
-            <a href="chat/room/{{community.name}}/"><button class="override">Enter Chat Room</button></a>
+            <a href="{% url 'chat' room_name=community.get_room_id %}"><button class="override">Enter Chat Room</button></a>
             <button class="override">Create Post</button>
             {% endif %}
         </div>

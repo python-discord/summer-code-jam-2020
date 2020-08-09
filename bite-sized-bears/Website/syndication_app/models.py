@@ -33,6 +33,9 @@ class Community(models.Model):
     def __str__(self):
         return self.name
 
+    def get_room_id(self):
+        return ''.join(word for word in self.name if word.isalnum())
+
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
