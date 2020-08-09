@@ -36,7 +36,7 @@ const routes = [
     component: () => import("../views/CreatePost.vue")
   },
   {
-    path: "/friends/:user?",
+    path: "/friends/:userId?",
     name: "Friends",
     component: () => import("../views/Friends.vue")
   },
