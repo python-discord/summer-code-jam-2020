@@ -60,7 +60,8 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToLogin);
-    this.$cmd.on('2', this.goToGame);
+    this.$cmd.on('2', this.goToForum);
+    this.$cmd.on('3', this.goToGame);
   },
   methods: {
     goToLogin() {
@@ -68,6 +69,9 @@ export default {
     },
     goToGame() {
       this.$router.push({ name: 'tictactoe_page' });
+    },
+    goToForum() {
+      this.$router.push({ name: 'forum' });
     },
   },
 };
