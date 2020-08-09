@@ -15,7 +15,7 @@ class Post(models.Model):
     title = models.CharField(max_length=300, blank=False, null=False, unique=True)
     content = models.TextField(blank=False, null=False)
     date_published = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, related_name="blog_posts")
+    likes = models.ManyToManyField(User, related_name="blog_posts_likes")
 
     def __str__(self):
         return self.title + ' | ' + str(self.author)
@@ -54,24 +54,3 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('-created',)
-
-
-class Like(models.Model):
-    """
-    Likes for posts, owned by both the post and the user
-    """
-
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="all_likes")
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="all_likes")
-
-    def __str__(self):
-        return self.post.title
-
-    def can_like(self):
-        is_own_post = self.post.title in [x.title for x in self.author.posts.all()]
-        already_liked = self.post.title in [x.post.title for x in self.author.all_likes.all()]
-        return not is_own_post and not already_liked
-
-    def save(self, *args, **kwargs):
-        if self.can_like():
-            super().save(*args, **kwargs)

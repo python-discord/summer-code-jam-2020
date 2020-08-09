@@ -7,7 +7,8 @@ class Message(models.Model):
     Model for messages in instant messenger
     """
 
-    author = models.ForeignKey(Account, on_delete=models.CASCADE)
+    author = models.ForeignKey(Account, on_delete=models.CASCADE,
+                               related_name="messages")
     content = models.CharField(max_length=250, blank=False)
     date_created = models.DateTimeField(auto_now=True)
 
