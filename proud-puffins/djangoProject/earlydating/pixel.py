@@ -6,20 +6,20 @@ import os
 def pixelate(filename):
 
     # Open File
-    absolute = Path.cwd().resolve().parent.joinpath('djangoProject', 'static', 'users_large')
+    absolute = Path.cwd().resolve().parent.joinpath("static", "users_large")
     img = Image.open(absolute.joinpath(filename))
 
     # Resize smoothly down to 48x48 pixels
-    imgSmall = img.resize((48, 48), resample=Image.BILINEAR)
+    imgSmall = img.resize((img.size[0] // 8, img.size[1] // 8), resample=Image.BILINEAR)
 
     # Scale back up using NEAREST to original size
     result = imgSmall.resize(img.size, Image.NEAREST)
 
     # Save
-    result.save(Path.cwd().resolve().parent.joinpath('djangoProject', 'static', 'user_pixel', filename))
+    result.save(Path.cwd().resolve().parent.joinpath("media", "user_pixel", filename))
 
 
-directory = Path.cwd().resolve().parent.joinpath('djangoProject', 'static', 'users_large')
+directory = Path.cwd().resolve().parent.joinpath("static", "users_large")
 
 
 for filename in os.listdir(directory):
