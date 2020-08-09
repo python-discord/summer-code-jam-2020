@@ -1,5 +1,3 @@
-# SpydirWeb
-
 <p align="center">
   <img src="readme/coollogo.gif">
 </p>
@@ -16,15 +14,15 @@
 
 Blast off to the past and surf the web 90s style! With SpydirWeb, you can browse a realistic version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and more! 
 
-# Table of Contents
+### Table of Contents
   * [Overview](#overview)
   * [License](#license)
   * [Installation](#installation)
   * [Authors](#Authors)
 
-# Overview
+### Overview
 
-**SpydirWeb** has three different types of pages: information pages, blog pages, and business pages. The blog and business pages use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
+**SpydirWeb** has three different types of pages: information pages, blog pages, and business pages. The blog and business pages use [Openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the info pages use the [wikipedia](https://pypi.org/project/wikipedia/) package. Images are retrieved using the [Pixabay API](https://pixabay.com/api/docs/).
 
 Click one of the three links listed on the home page to get started browsing Spydirweb.
 
@@ -42,7 +40,42 @@ And thats it. Have fun browsing!
 
 ![](readme/blogdone.png)
  
-# License
+### Installation
+
+**Code Jam Judges Only**:
+Please check the `#talented-tigers` channel on the discord server. Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
+
+**Non-Code-Jam-Judges Only**:
+You will need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [Pixabay's website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with:
+```
+API_KEY=your_key_here
+```
+written inside of it (replace `your_key_here` with your API key)
+
+**Requirements (All)**:
+  * [Git](https://git-scm.com/)
+
+**Setup (Windows)**:
+  * Install [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+  * Install [Docker](https://docs.docker.com/engine/install/) in the WSL 2 terminal.
+  * Open WSL 2 and clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
+  * Next install `pipenv` by running `pip3 install pipenv` in the WSL 2 terminal.
+  * Then run these following commands:
+    * `cd summer-code-jam-2020/talented-tigers`
+    * `pipenv run python3 run-linux.py`
+  * The last command will run the website locally, you will be able to view the website at the adress `0.0.0.0:8000`.
+
+**Setup (Linux)**:
+  * Install [Docker](https://docs.docker.com/engine/install/) (Or for Arch - [Docker on Arch](https://www.google.com/search?client=firefox-b-1-d&q=docker+arch))
+  * Clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
+  * Next install `pipenv` by running `pip3 install pipenv`
+  * Then run these following commands:
+    * `cd summer-code-jam-2020/talented-tigers`
+    * `pipenv run python3 run-linux.py`
+  * The last command will run the website locally, you will be able to view the website at the adress `0.0.0.0:8000`.
+
+### License
+```
 MIT License
 
 Copyright (c) 2020 Python Discord
@@ -64,27 +97,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-# Installation
-
-For the judges, please check the `#talented-tigers` channel on the discord server.
-Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
-
-For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [their website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with only 
 ```
-API_KEY=your_key_here
-```
-written inside of it.
-<!--- 
-Add this with your information as a bullet:
 
-### FIRST LAST &nbsp; [<i class="fab fa-github"></i> (GH-NAME)](https://github.com/GH-NAME) &nbsp; [<i class="fab fa-discord"></i> (DISCORD-TAG)](https://discordapp.com/channels/@me/DISCORD-USER-ID/)
--->
-# Authors
-Talented Tigers Is..
-* ### Nathan Coulas  &nbsp; [<i class="fab fa-github"></i> (thaniel-c)](https://github.com/thaniel-c) &nbsp; [<i class="fab fa-discord"></i> (thaniel#3631)](https://discordapp.com/channels/@me/703922100112457778/)
-* ### Sloopoo  &nbsp; [<i class="fab fa-github"></i> (flextian)](https://github.com/flextian)
-* ### Garfellow  &nbsp; [<i class="fab fa-github"></i> (Garfellow)](https://github.com/GarfellowGMOD)
+### Authors
+The Talented Tigers Are..
+* **Nathan Coulas (Github: [thaniel-c](https://github.com/thaniel-c), Discord: [thaniel#3631](https://discordapp.com/channels/@me/703922100112457778/))**
+* **Sloopoo (Github: [flextian](https://github.com/flextian))**
+* **Garfellow (Github: [Garfellow](https://github.com/GarfellowGMOD))**
+* **SuperMaZingCoder (Github: [CodeForeverAndEver](https://github.com/CodeForeverAndEver))**
 
 <p align="center">
 <a href="#" >
