@@ -93,3 +93,19 @@ h1::after, h2::after, h3::after, h4::after, h5::after, h6::before {
   40% {opacity: 100%}
   100% {opacity: 0%}
 }
+
+textarea, input[type="text"], button {
+  border: 1px solid #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  background: black;
+  color: #0f0;
+}
+
+textarea:before {
+  content: ">";
+}
+
+textarea:after {
+  content: " █";
+  animation: blink 1s infinite steps(1);
+}
