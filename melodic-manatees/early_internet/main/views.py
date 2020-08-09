@@ -18,10 +18,11 @@ def main(request):
 
     for top_story in range(0, 4):
         nyt_usnews_list.append(
-            {'title': nyt_usnews['results'][top_story]['title'],
-             'abstract': nyt_usnews['results'][top_story]['abstract'],
-             'url': nyt_usnews['results'][top_story]['url'],
-             'img_small': nyt_usnews['results'][top_story]['multimedia'][0]['url']
+            {
+                'title': nyt_usnews['results'][top_story]['title'],
+                'abstract': nyt_usnews['results'][top_story]['abstract'],
+                'url': nyt_usnews['results'][top_story]['url'],
+                'img_small': nyt_usnews['results'][top_story]['multimedia'][0]['url']
              }
         )
 
@@ -51,11 +52,12 @@ def main(request):
             f'{pref.city_name},{pref.country_name}&appid={weather_key}&units=metric'
 
         city_weather = requests.get(weather_url).json()
-        weather_dict = {'city': city_weather['name'],
-                        'country': city_weather['sys']['country'],
-                        'temperature': city_weather['main']['temp'],
-                        'description': city_weather['weather'][0]['description']
-                        }
+        weather_dict = {
+            'city': city_weather['name'],
+            'country': city_weather['sys']['country'],
+            'temperature': city_weather['main']['temp'],
+            'description': city_weather['weather'][0]['description']
+        }
 
         context = {
             'pref': pref,
