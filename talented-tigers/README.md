@@ -16,8 +16,8 @@ Blast off to the past and surf the web 90s style! With SpydirWeb, you can browse
 
 ### Table of Contents
   * [Overview](#overview)
-  * [License](#license)
   * [Installation](#installation)
+  * [License](#license)
   * [Authors](#Authors)
 
 ### Overview
