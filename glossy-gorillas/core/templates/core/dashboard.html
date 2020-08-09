@@ -1,28 +1,126 @@
 {% extends 'core/base.html' %}
 {% block content %}
-{{ object.user }}
+<h2 class="title">{{ object.user }}</h2>
 <br>
-{{ object.description }}
+<h2 class="title">{{ object.description }}</h2>
 
-<h2>Inventory</h2>
-{% for record in inventory %}
-<li>
-{% if record.listing__id %}
-    {{ record }}
-{% else %}
-    {{ record }}
-    <a href="{% url 'listing-create' item_id=record.id %}" class="btn">List Item</a>
-{% endif %}
-</li>
-{% endfor %}
+<h2 class="title">Inventory</h2>
+<table>
+    <tr class="row">
+        <td class="head mr-5">
+            Product Name
+        </td>
+        <td class="head mr-5">
+            Quantity
+        </td>
+        <td class="head mr-5">
+            Type Of Quantity
+        </td>
+        <td>
+            List
+        </td>
+    </tr>
+    {% for product in inventory %}
+    <tr class="row">
+        <td class="item mr-5">
+            {{ product.product__name }}
+        </td>
+        <td class="item mr-5">
+            {{ product.quantity }}
+        </td>
+        <td class="item mr-5">
+            {{ product.quantity_type }}
+        </td>
+        <td class="item mr-5">
+            {% if record.listing__id %}
+                Listed
+            {% else %}
+                <a href="{% url 'listing-create' item_id=record.id %}" class="btn">List Item</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
-<h2>Listing</h2>
-{% for listing in listings %}
-<li>{{ listing }}</li>
-{% endfor %}
+<h2 class="title">Listing</h2>
+<table>
+    <tr class="row">
+        <td class="head mr-5">
+            Product Name
+        </td>
+        <td class="head mr-5">
+            Quantity
+        </td>
+        <td class="head mr-5">
+            Type Of Quantity
+        </td>
+        <td class="head mr-5">
+            Silver Per Unit
+        </td>
+        <td class="head mr-5">
+            Barter Product
+        </td>
+        <td class="head mr-5">
+            Barter Per Unit
+        </td>
+        <td class="head mr-5">
+            Offers Allowed
+        </td>
+    </tr>
+    {% for listing in listings %}
+    <tr class="row">
+        <td class="item mr-5">
+            {{ listing.item__product__name }}
+        </td>
+        <td class="item mr-5">
+            {{ listing.item__quantity }}
+        </td>
+        <td class="item mr-5">
+            {{ listing.item__quantity_type }}
+        </td>
+        <td class="item mr-5">
+            {{ listing.silver_per_unit }}
+        </td>
+        <td class="item mr-5">
+            {{ listing.barter_product }}
+        </td>
+        <td class="item mr-5">
+            {{ listing.barter_qty_per_unit }}
+        </td>
+        <td class="item mr-5">
+            {{ listing.allow_offers }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
-<h2>Reviews</h2>
-{% for review in reviews %}
-<li>{{ review }}</li>
-{% endfor %}
+
+<h2 class="title">Review</h2>
+<table>
+    <tr class="row">
+        <td class="head mr-5">
+            Trade
+        </td>
+        <td class="head mr-5">
+            Rating
+        </td>
+        <td class="head mr-5">
+            Description
+        </td>
+    </tr>
+    {% for review in reviews %}
+    <tr class="row">
+        <td class="item mr-5">
+            {{ review.trade }}
+        </td>
+        <td class="item mr-5">
+            {{ review.rating }}
+        </td>
+        <td class="item mr-5">
+            {{ review.description }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}
