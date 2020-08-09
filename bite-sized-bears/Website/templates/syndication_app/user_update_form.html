@@ -2,12 +2,12 @@
 {% block content %}
     <div class="col-lg-9">
         <div class="posts">
-        <h1>Username: {{user.get_username}}</h1>
-        <h1>Userid: {{user.id}}</h1>
+        <h3>Username: {{user.get_username}}</h3>
+        <h3>Userid: {{user.id}}</h3>
         {% if user.avatar.url is not null %}
             <img src = "{{user.avatar.url}}" width="70px" height="70px" alt="profile-pic">
          {% endif %}
-        <h2>Joining Date: {{user_data.join_date}}</h2>
+        <h4>Joining Date: {{user_data.join_date}}</h4>
 
             <form method="post" enctype=multipart/form-data class="override">
                 {% csrf_token %}

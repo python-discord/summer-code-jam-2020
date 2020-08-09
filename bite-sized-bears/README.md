@@ -8,8 +8,9 @@ We call it the RSSit app. It is a platform to post fun stuff, make virtual commu
 
 Some features include:
 
+- Create your own community 
 - Messaging functionality that allows you to connect and communicate with fellow community members.
-- Creation of new posts, communities.
+- Post and create your very own feed.
 - Update your User Profile
 - Add Comments to the Posts
 - View Top Posts (based on number of  views), Top Communities (based on number of subscribers)
@@ -23,8 +24,41 @@ ___
 
 ___
 ## Installation Setup
+Python 3.8 required
+
+(uses postgres database for the setup)
+
+
+Navigate to root folder
+```
+cd bite-sized-bears
+```
+
+Create and store credentials on .env file 
+
+```
+touch .env
+nano .env
+```
+
+Sample .env file 
+```
+SECRET_KEY = "put_your_django_secret_key_here"
+DB_HOST = "host_link_of_your_postgres"
+DB_NAME = "name_of_your_postgres_db"
+DB_USER = "userid_your_postgres_db"
+DB_PASSWORD = "password_of_your_postgres"
+```
+
 
 ### Pipenv Installation
+
+Install pipenv 
+
+```
+pip install pipenv
+```
+
 Activate environment
 ```
 pipenv shell
