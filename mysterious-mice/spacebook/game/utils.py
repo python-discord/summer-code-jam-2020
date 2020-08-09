@@ -29,6 +29,10 @@ def new_game(request):
     if temperature is None or temperature == "":
         temperature = -60
 
+    # Get wind direction
+    wind_direction = (random.randint(-1,1), random.randint(-1,1))
+
+
     game_data = {
         "initials": "",
         "input_len": 16,
@@ -42,7 +46,7 @@ def new_game(request):
         "has_plutonium": False,
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
-        "wind": (-1, 0),
+        "wind": wind_direction,
         "wind_speed": wind_speed,
         "temperature": temperature,
         "obstacles": {
@@ -64,7 +68,7 @@ def new_game(request):
             "dust_storm": [
                 "A dust storm billows in the distance.",
                 "A dust storm billows in front of you.",
-                "The winds are shaping sand dunes, that's good data!",
+                "The winds of the storm are shaping sand dunes, that's good data!",
             ],
             "small_crater": [
                 "There is a small crater in the distance.",
@@ -293,16 +297,21 @@ def command_move(game_data, direction):
     else:
         success = False
 
-    # If stuck depleat the battery
+    # If stuck deplete the battery
     if game_data["is_stuck"]:
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
 
-    # If successfully moved depleat battery, handel components, and update position
+    # If successfully moved deplete battery, handel components, and update position
     if success:
 
-        # depleat battery
+        # Move dust storm
+        cur_dust = game_data['obstacles']['dust_storm']
+        cur_dust[0] += game_data['wind'][0]
+        cur_dust[1] += game_data['wind'][1]
+        game_data['obstacles'].update({"dust_storm": cur_dust})
+        # deplete battery
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
