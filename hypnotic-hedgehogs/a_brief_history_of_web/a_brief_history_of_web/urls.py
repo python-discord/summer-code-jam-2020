@@ -21,7 +21,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('win95.urls', namespace='win95')),
     path('admin/', admin.site.urls),
-    path('web_portal', include('web_portal.urls', namespace='web_portal')),
     path('nineties_blog', include('nineties_blog.urls', namespace='nineties_blog')),
     path('first_google', include('first_google.urls', namespace='first_google')),
     path('first_twitter', include('first_twitter.urls', namespace='first_twitter')),

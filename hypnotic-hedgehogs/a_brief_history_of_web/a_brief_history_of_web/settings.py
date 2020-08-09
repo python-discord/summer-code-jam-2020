@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'first_twitter',
     'first_youtube',
     'nineties_blog',
-    'web_portal',
     'win95',
     'crispy_forms',
 ]
