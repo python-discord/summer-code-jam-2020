@@ -17,6 +17,14 @@ class BlogArticleListView(APIView):
 
     def get(self, request: Request):
         """Get all articles."""
+        if "title" in request.query_params:
+            return Response(
+                serializers.BlogArticleGetSerializer(
+                    BlogArticle.objects.filter(title__icontains=request.query_params["title"]),
+                    many=True
+                ).data
+            )
+
         return Response(
             serializers.BlogArticleGetSerializer(
                 BlogArticle.objects.all().order_by('-id'),
@@ -106,7 +114,7 @@ class LogOutView(APIView):
             token = RefreshToken(refresh_token)
             token.blacklist()
             return Response(status=status.HTTP_200_OK)
-        except Exception:
+        except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
