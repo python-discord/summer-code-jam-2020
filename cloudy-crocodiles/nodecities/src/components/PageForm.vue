@@ -30,7 +30,6 @@ export default {
       return;
     }
     const cm = this.cm = CodeMirror.fromTextArea(this.$refs.editor, {
-      theme: 'miakai',
       mode: "text/html",
       lineNumbers: true,
       styleActiveLine: true,
