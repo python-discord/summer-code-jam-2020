@@ -60,8 +60,8 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 ###
 > ## **[Multi](https://github.com/telugu-boy)** *(multi#3304)* - 
 > * Developed inbox.js
-> * 2
-> * 3
+> * Designed base of frontend, gave lots of design advice to FantasticHD
+> * Added search functionality backend
 
 ###
 > ## **[FantasticHD](https://github.com/Fantasticlegend1000)** *(FantasticHD#9968)* - 
