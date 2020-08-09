@@ -13,7 +13,7 @@ We be Puffins, and we be proud!
 ## Loading the App
 - Download or pull a clone of this directory.
 - Create a virtual environment using the tools you like best.
-- In the terminal cd in the the directory djangoProjects. This should be the location of the manage.py file.
+- In the terminal cd into the directory djangoProjects. This should be the location of the manage.py file.
 - Run ```python puffin_setup.py```
 - This should make all your migrations, pre load the database with data and start your server.
 - Open your favorite browser to 127.0.0.1 to launch app.
@@ -29,11 +29,13 @@ We be Puffins, and we be proud!
 - Run ```python3 manage.py loaddata profiles.json``` (First users.json then profiles.json)
 - Run server :)
 
-
-### Code organisation
-
-- Dev dependencies go in `requirements-dev.txt`
-- Normal dependencies go in `requirements.txt`
+## Requirements
+- Python3.8+
+- Django>=3
+- Pillow>=7
+- pathlib>=1
+- django-random-image-from-folder>=0.0.3
+- django-crispy-forms>=1.9.2
 
 
 ## [MIT license](../LICENSE)
