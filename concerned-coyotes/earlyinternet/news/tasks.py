@@ -14,6 +14,8 @@ def get_news():
 
     # save to db
     for article in articles:
+        if not article['description']:
+            continue
         Article.objects.create_article(article)
 
     print(f"Added {len(articles)} Articles")
