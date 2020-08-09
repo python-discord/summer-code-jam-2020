@@ -15,9 +15,9 @@ def generate_page(page_name, page_type=None):
 
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
-    # BLOG, INFO, BIZ, FOOD, SCAM
+    # BLOG, INFO, BIZ
     page_object.page_type = (
-        random.choices(possible_page_types, [10.3, 0.5, 0.1, 0.05, 0.05])[0] if page_type is None else page_type
+        random.choices(possible_page_types, [0.25, 0.5, 0.25])[0] if page_type is None else page_type
     )
 
     # Define the different fields needed for different page types here
@@ -65,13 +65,6 @@ def generate_page(page_name, page_type=None):
 
         info_thread = threading.Thread(target=generate_business_statements, args=(page_name, page_object,))
         info_thread.start()
-
-    elif page_object.page_type == "FOOD":
-        pass
-
-    elif page_object.page_type == "SCAM":
-        possible_scam_types = [scam_type[0] for scam_type in GeneratedPage.scam_type_choices]
-        page_object.scam_type = random.choice(possible_scam_types)
 
     page_object.is_generated = True
     page_object.save()

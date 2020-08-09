@@ -15,7 +15,6 @@
       <thead>
         <tr>
           <th>Blogs</th>
-          <th>Food</th>
           <th>Information</th>
           <th>Businesses</th>
         </tr>
@@ -26,9 +25,6 @@
             <tr>
               {% if forloop.counter <= BLOG_LENGTH %}
                 <td><a href="../page/{{ BLOG|index:forloop.counter0 }}">{{ BLOG|index:forloop.counter0 }}</a></td>{% else %}
-                <td></td>{% endif %}
-              {% if forloop.counter <= FOOD_LENGTH %}
-                <td><a href="../page/{{ FOOD|index:forloop.counter0 }}">{{ FOOD|index:forloop.counter0 }}</a></td>{% else %}
                 <td></td>{% endif %}
               {% if forloop.counter <= INFO_LENGTH %}
                 <td><a href="../page/{{ INFO|index:forloop.counter0 }}">{{ INFO|index:forloop.counter0 }}</a></td>{% else %}
