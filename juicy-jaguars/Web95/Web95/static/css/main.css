@@ -38,7 +38,7 @@ body {
 .start-banner {
     font-family: "Microsoft Sans Serif", sans-serif;
     font-size: 30px;
-    transform: rotate(180deg);
+    transform: rotate(180deg); /*POTBUG*/
     -moz-transform: rotate(180deg);
     writing-mode: vertical-lr;
     width: 45px;
@@ -249,7 +249,7 @@ body {
 .ie-address-bar-label {
     display: inline;
     margin: 0 5px 0 0;
-    width: 10%;
+    /*width: 10%;*/
 }
 
 .ie-address-bar-container {
