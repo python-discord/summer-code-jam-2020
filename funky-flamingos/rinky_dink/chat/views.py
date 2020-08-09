@@ -8,7 +8,8 @@ def index(request):
 
 
 def get_messages(request):
-    messages = Messages.objects.all()
+    messages = Messages.objects.all().order_by('-time')[:50]  # to get last 50 messages
+    messages = reversed(messages)
     if request.method == "POST":
         return_val = {
             "type": "messages",
@@ -17,7 +18,6 @@ def get_messages(request):
 
         for message in messages:
             print(message)
-            print(message.message)
             if message.sender == request.user:
                 class_name = "self"
             else:
@@ -40,7 +40,8 @@ def send_message(request):
             print(message)
             message.save()
 
-        messages = Messages.objects.all()
+        messages = Messages.objects.all().order_by('-time')[:50]  # to get last 50 messages
+        messages = reversed(messages)
         return_val = {
             "type": "messages",
             "messages": [],
@@ -48,7 +49,6 @@ def send_message(request):
 
         for message in messages:
             print(message)
-            print(message.message)
             if message.sender == request.user:
                 class_name = "self"
             else:

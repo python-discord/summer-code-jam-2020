@@ -1,0 +1,41 @@
+body{
+	background-color: #a7bcd7;
+	padding: 0.5rem;
+	font-family: sans-serif;
+	font-size: 14px!important;
+}
+
+.chat-input{
+	margin-top: 0.5rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+}
+
+.chat-input input{
+	width: 100%;
+}
+
+.chat-input input:focus{
+	outline: 0;
+	box-shadow: 0 0 1px rgba(0, 123, 255, 0.3);
+}
+
+.username{
+	margin-right: 0.3rem;
+	font-weight: bold;
+}
+
+.message{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	margin-top: 0.1rem;
+	margin-bottom: 0.1rem;
+}
+
+.message.self{
+	background-color: rgba(0,0,0,0.05);
+}

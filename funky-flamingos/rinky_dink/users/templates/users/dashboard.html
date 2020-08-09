@@ -23,14 +23,14 @@
           <div><a href="{% url 'teamjoin' %}"><button class="btn-my-1">Join team</button></a></div>
           <div><a href="{% url 'teamregister' %}"><button class="btn-my-1">Create team</button></a></div>
         </div>
-      <br />
-      <span>Recently uploaded files:</span>
-      <ul class="tree-view" style="font-size:12px">
-        {% if not files %}
-          <span>*crickets chirping*</span>
-        {% else %}
-          {% for record in files %}
-            
+        <br />
+        <span>Recently uploaded files:</span>
+        <ul class="tree-view" style="font-size:12px">
+          {% if not files %}
+            <span>*crickets chirping*</span>
+          {% else %}
+            {% for record in files %}
+              
               <details closed>
                 <summary>{{ record.title }}</summary>
                   {% for file in record.files.all %}
@@ -51,10 +51,12 @@
           {% endfor %}
         {% endif %}
       </ul>
+      <div><a href="{% url 'upload' %}"><button class="btn-my-1">Upload a file</button></a></div>
     </div>
     <div class="btn-row mx-2">
+      <div><a href="{% url 'chat_index' %}"><button class="btn-my-1">Chat with friends</button></a></div>
       <div><a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a></div>
-      <div><a href="{% url 'upload' %}"><button class="btn-my-1">Upload a file</button></a></div>
+      
     </div>
   </div>
 </div>

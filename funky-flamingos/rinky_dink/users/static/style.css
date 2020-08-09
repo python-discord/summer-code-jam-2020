@@ -57,8 +57,6 @@ summary{
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
 }
 
 .mx-2{
