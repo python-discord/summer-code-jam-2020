@@ -70,10 +70,11 @@ def about_us(request):
 
     return render(request, "home/about.html", context)
 
+
 def error_404_view(request,exception):
     """Views to render the 404 error page."""
 
-    render (request, '404.html')
+    render(request, '404.html')
 
 
 class Developer(object):
@@ -93,4 +94,3 @@ class Developer(object):
         self.description = description
         self.role = role
         self.picture = picture
-
