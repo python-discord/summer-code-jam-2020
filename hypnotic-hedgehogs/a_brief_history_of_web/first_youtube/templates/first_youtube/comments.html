@@ -1,0 +1,10 @@
+
+{% for i in first_page %}
+<div class="exampleComment" style="margin-bottom: 50px;">
+    <div style="height: 20px; background-color: #EEEEEE;">
+        <a href="#" style="text-decoration: underline;" class="ml-2">PewDiePie</a> ({{i.publish_date|timesince}} ago)
+    </div>
+    <div class="px-1 mt-1">{{i}}</div>
+    <div><a style="border-bottom: 1px dotted #0033CF;" href="#" class="float-right">(Reply)</a></div>
+</div>
+{% endfor %}
