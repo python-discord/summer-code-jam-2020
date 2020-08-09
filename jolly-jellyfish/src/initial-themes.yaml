@@ -2,34 +2,34 @@
   pk: 1
   fields:
     name: hotdog
-    date_created: 2020-08-02 16:22:00+00:00
+    date_created: 0001-01-01 00:00:00+00:00
     author: 1
     style_sheet: static/themes/hotdog.css
 - model: page_maker.template
   pk: 2
   fields:
     name: unicorn
-    date_created: 2020-08-02 19:51:03.603472+00:00
+    date_created: 0001-01-01 00:00:00+00:00
     author: 1
     style_sheet: static/themes/unicorn.css
 - model: page_maker.template
   pk: 3
   fields:
     name: console
-    date_created: 2020-08-02 19:51:03.603472+00:00
+    date_created: 0001-01-01 00:00:00+00:00
     author: 1
     style_sheet: static/themes/console.css
 - model: page_maker.template
   pk: 4
   fields:
     name: galaxy
-    date_created: 2020-08-02 19:51:03.603472+00:00
+    date_created: 0001-01-01 00:00:00+00:00
     author: 1
     style_sheet: static/themes/galaxy.css
 - model: page_maker.template
   pk: 5
   fields:
     name: win95
-    date_created: 2020-08-02 19:51:03.603472+00:00
+    date_created: 0001-01-01 00:00:00+00:00
     author: 1
     style_sheet: static/themes/win95.css
