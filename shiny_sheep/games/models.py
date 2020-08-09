@@ -9,4 +9,4 @@ class Room(models.Model):
                               null=True, blank=True)  # null if system created the room
     average_rating = models.IntegerField(null=True, blank=True)
     game_type = models.CharField(max_length=50)
-    game_id = models.IntegerField(null=True, blank=True)
+    game_id = models.IntegerField(null=True, blank=True, unique=True)
