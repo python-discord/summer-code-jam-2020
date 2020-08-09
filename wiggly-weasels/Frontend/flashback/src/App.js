@@ -88,7 +88,7 @@ const App = () => {
   return (
     <div
     style={{
-      height: '100vh',
+      height: '103vh',
       background: 'teal'
     }}>
 
@@ -139,7 +139,7 @@ const App = () => {
     <div style = {{display:"flex", justifyContent: "center"}}>
       <Terminal hideTopBar
       color = 'green'
-      msg = 'Welcome to the FlashBack IRC Client. Type "help", "credits" for more information.'
+      msg = 'Welcome to the FlashBack IRC Client.&#10;Type "help", "credits" for more information.'
         commands={{
           join: {
             method: (args, print, runCommand) => {
@@ -207,7 +207,12 @@ const App = () => {
         help:{
           method: (args, print, runCommand)=> {
             print('These are common Flashback IRC commands used in various situations:\n\njoin [group-name]\t\
-- Join an active Group\n\ncreate [group-name]\t- Create a group\n\nsend [message]\t- Send a message to the group\n\nread\t- Read all awaiting messages\n\nclear\t- Clear the screen\n\nexit\t- Exit current group\n')
+- Join an active Group\n\ncreate [group-name]\t- Create a group\n\nsend [message]\t- Send a message to the group\n\nread\t- Read all new messages\n\nclear\t- Clear the screen\n\nexit\t- Exit current group\n')
+          }
+        },
+        credits:{
+          method: (args, print, runCommand) => {
+            print('Wiggly w:\n')
           }
         }
         }}
