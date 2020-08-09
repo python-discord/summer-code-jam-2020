@@ -73,3 +73,50 @@ class ForumTestCase(TestCase):
     def test_user_post_list_url(self):
         response = Client().get(reverse("user-posts", args=["tester"]))
         self.assertEqual(response.status_code, 200)
+
+
+class ForumViewTest(TestCase):
+    """Class to perform some tests related to views."""
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(
+            username="tester",
+            email="test@example.com",
+            password="tester12345"
+        )
+
+        self.board = Board(
+            name="Test",
+            description="This is testing."
+        )
+        self.board.save()
+
+        self.post = Post(
+            subject="subject_test",
+            message="message_test",
+            board=self.board,
+            created_at=datetime.now(),
+            created_by=self.user,
+        )
+        self.post.save()
+
+    def test_post_create_view_context(self):
+        request = self.factory.get(reverse("post-create", args=["Test"]))
+        request.user = self.user
+        response = PostCreateView.as_view()(request)
+
+        self.assertIsNotNone(response.context_data["login"])
+        self.assertIsNotNone(response.context_data["page"])
+
+    def test_comment_create_view_context(self):
+        request = self.factory.get(reverse("comment-create", args=["Test", 1]))
+        request.user = self.user
+        response = CommentCreateView.as_view()(request)
+
+        self.assertIsNotNone(response.context_data["login"])
+        self.assertIsNotNone(response.context_data["page"])
+
+    def test_get_success_url_from_board_create_view(self):
+        response = BoardCreateView.get_success_url(object)
+        self.assertEqual(response, reverse("forums-home"))
