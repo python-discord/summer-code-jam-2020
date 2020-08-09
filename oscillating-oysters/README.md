@@ -1,4 +1,4 @@
-![Logo][banner.png]
+![Logo](banner.png)
 
 # Oscillating Oysters - TwentyTwentyMUD
 
