@@ -13,5 +13,5 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
             "number_of_likes",
             "number_of_comments",
             "number_of_messages",
-            "score"
+            "score",
         ]

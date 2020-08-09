@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0004_remove_account_searches_made'),
+        ("users", "0004_remove_account_searches_made"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='account',
-            name='is_active',
+            model_name="account",
+            name="is_active",
             field=models.BooleanField(default=True),
         ),
     ]

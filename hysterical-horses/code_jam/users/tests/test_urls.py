@@ -7,13 +7,12 @@ from django.contrib.auth.views import (
     PasswordChangeDoneView,
     PasswordResetView,
     PasswordResetDoneView,
-    PasswordResetCompleteView
+    PasswordResetCompleteView,
 )
 from ..views import signup_view, profile_view
 
 
 class TestUrls(SimpleTestCase):
-
     def test_profile_url_is_resolved(self):
         url = reverse("profile")
 

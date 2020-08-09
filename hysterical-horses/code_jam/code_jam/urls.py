@@ -24,7 +24,7 @@ urlpatterns = [
     path("blogs/", include("blogs.urls")),
     path("", include("dashboard.urls")),
     path("api/", include("api.urls")),
-    re_path(r"^api-auth/", include("rest_framework.urls"))
+    re_path(r"^api-auth/", include("rest_framework.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

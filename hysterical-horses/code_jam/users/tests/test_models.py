@@ -3,7 +3,6 @@ from ..models import Account
 
 
 class TestModels(TestCase):
-
     def setUp(self):
         self.account1_username = "Account 1"
         self.account1_email = "account1_email@email.com"
@@ -11,7 +10,7 @@ class TestModels(TestCase):
         self.account1 = Account.objects.create(
             email=self.account1_email,
             username=self.account1_username,
-            password=self.account1_password
+            password=self.account1_password,
         )
 
     def test_basic_user_info(self):

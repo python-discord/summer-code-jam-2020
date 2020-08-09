@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_filters"
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -104,9 +104,7 @@ ASGI_APPLICATION = "code_jam.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("redis", 6379)]
-        }
+        "CONFIG": {"hosts": [("redis", 6379)]},
     }
 }
 
@@ -143,15 +141,15 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = "/code/static/"
 
-LOGIN_URL = 'users/login'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = "users/login"
+LOGIN_REDIRECT_URL = "/"
 
 # Media-related
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # change default django model
-AUTH_USER_MODEL = 'users.Account'
+AUTH_USER_MODEL = "users.Account"

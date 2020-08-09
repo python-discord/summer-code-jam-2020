@@ -2,8 +2,11 @@ import math
 
 from PIL import Image
 
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 from django.urls import reverse
 
@@ -11,14 +14,11 @@ from django.urls import reverse
 class AccountManager(BaseUserManager):
     def create_user(self, email, username, password=None):
         if not email:
-            raise ValueError('You must have an email address')
+            raise ValueError("You must have an email address")
         if not username:
-            raise ValueError('You must have a username')
+            raise ValueError("You must have a username")
 
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-        )
+        user = self.model(email=self.normalize_email(email), username=username,)
 
         user.set_password(password)
         user.save(using=self._db)
@@ -26,9 +26,7 @@ class AccountManager(BaseUserManager):
 
     def create_superuser(self, email, username, password):
         user = self.create_user(
-            email=self.normalize_email(email),
-            password=password,
-            username=username,
+            email=self.normalize_email(email), password=password, username=username,
         )
         user.is_admin = True
         user.is_superuser = True
@@ -50,21 +48,21 @@ class Account(AbstractBaseUser, PermissionsMixin):
     -Likes,
 
     """
+
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(blank=False, max_length=30)
 
     points = models.IntegerField(default=0)
 
-    date_joined = models.DateTimeField(verbose_name='date joined',
-                                       auto_now_add=True)
-    last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
+    date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
+    last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
 
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'username'  # Cannot be included in required fields
-    REQUIRED_FIELDS = ['email', 'password']
+    USERNAME_FIELD = "username"  # Cannot be included in required fields
+    REQUIRED_FIELDS = ["email", "password"]
 
     objects = AccountManager()
 
@@ -94,11 +92,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
     @property
     def side_statistics(self):
         side_stats = {
-            'posts': self.number_of_posts,
-            'comments': self.number_of_comments,
-            'likes': self.number_of_likes,
-            'messages': self.number_of_messages,
-            'searches': self.number_of_searches
+            "posts": self.number_of_posts,
+            "comments": self.number_of_comments,
+            "likes": self.number_of_likes,
+            "messages": self.number_of_messages,
+            "searches": self.number_of_searches,
         }
 
         for name, val in side_stats.items():
@@ -119,9 +117,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
             self.number_of_likes: likes_weight,
             self.number_of_searches: searches_weight,
             self.number_of_messages: messages_weight,
-            self.points: points_weight
+            self.points: points_weight,
         }
-        rv = sum([k*v for k, v in rv_dict.items()]) // 1
+        rv = sum([k * v for k, v in rv_dict.items()]) // 1
 
         return int(rv)
 
@@ -132,17 +130,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def app_links_gen(self):
-        yield 'Default Search Engine', reverse('engine-results', args=['CERN'])
+        yield "Default Search Engine", reverse("engine-results", args=["CERN"])
 
         if self.blogs_unlocked:
-            yield 'Blog', reverse('blogs_list')
+            yield "Blog", reverse("blogs_list")
 
         if self.weather_unlocked:
-            yield 'Weather', reverse('weather_results', args=['australia'])
+            yield "Weather", reverse("weather_results", args=["australia"])
 
         if self.messenger_unlocked:
-            link = reverse('chat-room', kwargs={'room_name': 'lobby'})
-            yield 'Messenger', link
+            link = reverse("chat-room", kwargs={"room_name": "lobby"})
+            yield "Messenger", link
 
     @property
     def unlocked_list_gen(self):
@@ -206,11 +204,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(Account, on_delete=models.CASCADE,
-                                related_name="profile")
+    user = models.OneToOneField(
+        Account, on_delete=models.CASCADE, related_name="profile"
+    )
     biography = models.CharField(max_length=200, null=True, blank=True)
-    avatar = models.ImageField(default='default.png', upload_to='avatars/',
-                               max_length=300)
+    avatar = models.ImageField(
+        default="default.png", upload_to="avatars/", max_length=300
+    )
 
     def __str__(self):
         return f"{self.user.username} Profile"

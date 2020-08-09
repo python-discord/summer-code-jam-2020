@@ -6,10 +6,9 @@ from .models import Account, Profile
 
 
 class AccountCreationForm(UserCreationForm):
-
     class Meta(UserCreationForm.Meta):
         model = Account
-        fields = UserCreationForm.Meta.fields + ("email", )
+        fields = UserCreationForm.Meta.fields + ("email",)
 
 
 class UserUpdateForm(ModelForm):
@@ -17,10 +16,10 @@ class UserUpdateForm(ModelForm):
 
     class Meta:
         model = Account
-        fields = ['username', 'email']
+        fields = ["username", "email"]
 
 
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['biography', 'avatar']
+        fields = ["biography", "avatar"]

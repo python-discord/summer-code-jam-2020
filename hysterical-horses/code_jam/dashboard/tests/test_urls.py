@@ -4,7 +4,6 @@ from ..views import engine_results
 
 
 class TestUrls(SimpleTestCase):
-
     def test_engine_results_url_is_resolved(self):
         url = reverse("engine-results", args=["spaghetti"])
 
