@@ -1,7 +1,7 @@
 # __pragma__('alias', 'js_fetch', 'fetch')
 
 # __pragma__ ('skip')
-console = JSON = this = js_fetch = __new__ = 0    # Prevent complaints by optional static checker
+console = JSON = this = js_fetch = __new__ = URL = 0    # Prevent complaints by optional static checker
 # __pragma__ ('noskip')
 
 

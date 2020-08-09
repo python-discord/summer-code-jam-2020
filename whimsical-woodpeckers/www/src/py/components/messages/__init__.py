@@ -59,4 +59,3 @@ class MessageSocket(WebSocket):
 
     def send(self, data):
         super(MessageSocket, self).send(JSON.stringify(data))
-

@@ -34,13 +34,13 @@ class Vue:
     def __init__(self, el):
         self.el = el
         self.data = clone_data(self.data)
-        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
         data = self.get_component()
         data['el'] = el
         self._vue = __new__(JSVue(data))
 
     def get_component(self):
-        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
+        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func))
+                   and not func.startswith("__")}
         data = {
             "data": self.data,
             "template": self.template
@@ -73,7 +73,8 @@ class Component:
 
     @classmethod
     def get_component(cls):
-        methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func)) and not func.startswith("__")}
+        methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func))
+                   and not func.startswith("__")}
         data = {
             "data": cls.get_data,
             "template": cls.template

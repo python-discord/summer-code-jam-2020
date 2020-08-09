@@ -1,9 +1,9 @@
-from pyvue import Vue, Component, VueTest
+from pyvue import Vue, Component
 from app import App
-from fetch import Fetch
+# from fetch import Fetch
 
 # __pragma__ ('skip')
-this = 0    # Prevent complaints by optional static checker
+this = console = 0    # Prevent complaints by optional static checker
 # __pragma__ ('noskip')
 
 
@@ -23,7 +23,7 @@ Example()   # This registers it globally. You can see it referenced in the HTML
 
 
 class ColorThing(Component):    # components are always referenced in all lowercase
-    template = "#color-thing-template"  # This one has the template in the HTML, probably the way to do it for most things
+    template = "#color-thing-template"  # Template is in the HTML, probably the way to do it for most things
     props = ['testprop']
     data = {
         "index": 0,
