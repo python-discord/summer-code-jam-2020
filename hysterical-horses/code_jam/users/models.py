@@ -1,8 +1,11 @@
 import math
+
 from PIL import Image
+
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.db import models
+from django.urls import reverse
 
 
 class AccountManager(BaseUserManager):
@@ -126,7 +129,74 @@ class Account(AbstractBaseUser, PermissionsMixin):
         #     self.score_req *= math.log(self.prev_level, 2)
         #     self._level += 1
 
-        return level
+        # return level
+        return 10
+
+    @property
+    def app_links_gen(self):
+        yield 'Default Search Engine', reverse('engine-results', args=['CERN'])
+
+        if self.blogs_unlocked:
+            yield 'Blog', reverse('blogs_list')
+
+        if self.weather_unlocked:
+            yield 'Weather', reverse('weather_results', args=['australia'])
+
+        if self.messenger_unlocked:
+            link = reverse('chat-room', kwargs={'room_name': 'lobby'})
+            yield 'Messenger', link
+
+    @property
+    def unlocked_list_gen(self):
+        yield "The early internet"
+        if self.avatar_display_unlocked:
+            yield "Avatar dashboard display"
+        if self.blogs_unlocked:
+            yield "Blogs app"
+        if self.profile_change_unlocked:
+            yield "Ability to change profile"
+        if self.weather_unlocked:
+            yield "Weather app"
+        if self.like_unlocked:
+            yield "Ability to like blog posts"
+        if self.comments_unlocked:
+            yield "Ability to comment on blog posts"
+        if self.bio_unlocked:
+            yield "Ability to change biography"
+        if self.messenger_unlocked:
+            yield "Messenger app"
+
+    @property
+    def avatar_display_unlocked(self):
+        return True if self.level >= 1 else False
+
+    @property
+    def blogs_unlocked(self):
+        return True if self.level >= 2 else False
+
+    @property
+    def profile_change_unlocked(self):
+        return True if self.level >= 3 else False
+
+    @property
+    def weather_unlocked(self):
+        return True if self.level >= 4 else False
+
+    @property
+    def like_unlocked(self):
+        return True if self.level >= 5 else False
+
+    @property
+    def comments_unlocked(self):
+        return True if self.level >= 6 else False
+
+    @property
+    def bio_unlocked(self):
+        return True if self.level >= 7 else False
+
+    @property
+    def messenger_unlocked(self):
+        return True if self.level >= 8 else False
 
     @property
     def is_staff(self):
