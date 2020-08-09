@@ -9,7 +9,6 @@ from newsapi.newsapi_client import NewsApiClient
 
 from .interfaces import NewsInterface, Temperature, WeatherInterface, WindSpeed, RedditInterface
 
-NEWS_SOURCES = (("bbc-news", "BBC NEWS"),)
 OWM_API_KEY = os.getenv("OWM_API_KEY") or ""
 REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
@@ -17,6 +16,9 @@ REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
 
 class News:
+    '''
+    External API Service for news feed
+    '''
     api_key = "552022408c394577825bfd63f2d59a42"
 
     def __init__(self):
@@ -24,7 +26,7 @@ class News:
 
     def get_news(self, source: str) -> List[NewsInterface]:
         news = self._news.get_top_headlines(sources=source)
-        if not news["articles"]:
+        if not news['articles']:
             return []
         else:
             articles = list()
