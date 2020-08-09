@@ -73,9 +73,6 @@ export default {
     goToGame() {
       this.$router.push({ name: 'tictactoe_page' });
     },
-    goToForum() {
-      this.$router.push({ name: 'forum' });
-    },
   },
 };
 </script>
