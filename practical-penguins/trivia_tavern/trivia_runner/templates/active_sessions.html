@@ -14,7 +14,7 @@
         <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-quizzes' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
+            <a class="mr-2" href="{% url 'user' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
             <small class="text-muted">Quiz started on: {{ quiz.start_time|date:"F d, Y" }} </small>
           </div>
           <h2><a class="article-title" href="{% url 'activequiz' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>

@@ -28,7 +28,7 @@ def times_up(request, active_trivia_quiz):
                                                session_code=active_trivia_quiz.session_code)
 
         if not score_track.answered_this_round:
-            player.wrong_answers.append('')
+            player.wrong_answers.append((active_trivia_quiz.current_question_index, ''))
             player.save()
             score_track.answered_this_round = True
             score_track.save()
