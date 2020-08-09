@@ -14,6 +14,7 @@ class WikipediaFeaturedArticleParser(HTMLParser):
         self._content = ""
         self._article_url = ""
 
+        self._tag = ""
         self._current_tag_attributes = {}
 
     @property
@@ -29,7 +30,12 @@ class WikipediaFeaturedArticleParser(HTMLParser):
         # could be awarded at that time to a member of the Australian
         # armed forces.[...] and died in 1972. (Full article...) [...]
 
-        content_end_index = self._content.index("(Full article...)")
+        try:
+            content_end_index = self._content.index("(Full article...)")
+        except ValueError:
+            content_end_index = self._content.index(
+                "(This article is part of a featured topic")
+
         return self._content[:content_end_index].strip()
 
     @property
@@ -48,6 +54,7 @@ class WikipediaFeaturedArticleParser(HTMLParser):
         """Handles the start of a tag. Always stores the attributes in a
         variable to be used to get the full url and title for the full
         article page."""
+        self._tag = tag
         self._current_tag_attributes = {key: value for key, value in attrs}
 
     def handle_data(self, data: str) -> None:
@@ -60,7 +67,7 @@ class WikipediaFeaturedArticleParser(HTMLParser):
 
         # The string is surrounded by a html link to the full article
         # which data is stored in _current_tag_attributes
-        if normalized_string == "Full article...":
+        if normalized_string in ["Full article...", "This article"] and self._tag == "a":
             self._title = self._current_tag_attributes["title"]
             self._article_url = self._current_tag_attributes["href"]
 
