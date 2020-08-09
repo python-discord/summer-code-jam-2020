@@ -58,7 +58,7 @@ export default {
        console.log(this.selectedUserName)
        axios.post('/api/mail/post/message/', {
         to_user: this.selectedUserName,
-        subject: this.title,
+        subject: this.subject,
         message: this.message,
       }).then((res) => {
         console.log(res.data.message);
