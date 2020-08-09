@@ -1,56 +1,49 @@
+// Name of the chatbot
+const botName = JSON.parse($('#namejson').text());
+var messages = [];
 
-var messages = [], // Array that hold the record of each string in chat
-  botMessage = "", // Var keeps track of what the chatbot is going to say
-  const name_json = JSON.parse(document.getElementById("namejson").textContent);
-   
-  botName = name_json['name'], // Name of the chatbot
-  talking = true; // When false the speach function doesn't work
-
-function chatbotResponse(lastUserMessage) {
-    talking = true;
-    botMessage = "I'm confused"; // The default message
-
-    if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
-        const hi = ['hi','howdy','hello']
-        botMessage = hi[Math.floor(Math.random()*(hi.length))];;
+async function chatbotResponse(lastUserMessage) {
+    let botMessage = "I'm confused"; // The default message
+    if(lastUserMessage.startsWith('wiki')) {
+        let article_name = /[Ww]iki "?(.+)"?$/.exec(lastUserMessage)[1];
+        await $.get('/getwiki/', {'article_name': article_name}, function(article) {
+            botMessage = article.name + ': ' + article.summary;
+        });
+    } else if(lastUserMessage.toLowerCase() === 'hi' || lastUserMessage.toLowerCase() === 'hello') {
+        const hi_messages = ['hi', 'howdy', 'hello'];
+        botMessage = hi_messages[Math.floor(Math.random() * hi_messages.length)];
+    } else if(lastUserMessage.toLowerCase().includes('your name')) {
+        botMessage = 'My name is ' + botName + '.';
     }
 
-    if (lastUserMessage === 'name') {
-        botMessage = 'My name is ' + botName;
-    }
+    return botMessage;
 }
 
-function processMessage() {
+async function processMessage() {
     if ($('#inputbox').val() != "") {
         let lastUserMessage = $('#inputbox').val();
         $('#inputbox').val('');
 
         messages.push(lastUserMessage);
-        chatbotResponse(lastUserMessage);
-
-        messages.push("<b>" + botName + ":</b> " + botMessage);
-        Speech(botMessage);
-
-        /*for (var i = 1; i < 8; i++) {
-            if (messages[messages.length - i]) {
-                document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-            }
-        }*/
-
-        var userMessageLog = $('<p class="chatmessage">');
-        userMessageLog.html(lastUserMessage);
-        $('#chatlog').append(userMessageLog);
+        botMessage = await chatbotResponse(lastUserMessage);
 
         var botMessageLog = $('<p class="chatmessage">');
         botMessageLog.html('<b>' + botName + ':</b> ' + botMessage);
-        $('#chatlog').append(botMessageLog);
+        messages.push(botMessageLog);
+        botSpeak(botMessage);
+
+        for (var i = 1; i < 8; i++) {
+            if (messages[messages.length - i]) {
+                $('#chatlog' + i).html(messages[messages.length - i]);
+            }
+        }
     }
 }
 
 
-//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
-function Speech(say) {
-    if ('speechSynthesis' in window && talking) {
+// https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
+function botSpeak(say) {
+    if ('speechSynthesis' in window) {
         var utterance = new SpeechSynthesisUtterance(say);
         //msg.voice = voices[10]; // Note: some voices don't support altering params
         //msg.voiceURI = 'native';
@@ -61,22 +54,6 @@ function Speech(say) {
         //utterance.lang = 'en-US';
         speechSynthesis.speak(utterance);
     }
-}
-
-function progress_bar() {
-    let progress = 0;
-    let intervalID = setInterval(
-        function() {
-            if(progress <= 100) {
-                $('[role=progressbar]').width(progress + '%');
-                $('[role=progressbar]').prop('aria-valuenow', progress)
-                progress++;
-            } else {
-                clearInterval(intervalID);
-            }
-        },
-        5 // milliseconds per loop
-    );
 }
 
 $('#inputbox').on({
