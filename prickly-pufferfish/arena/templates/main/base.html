@@ -12,7 +12,7 @@
         <a href="{% url 'about' %}">About</a>
         {% if user.is_authenticated %}
             <a href="{# {% url 'dashboard' %} #}#">Dashboard</a>
-            <a href="{# {% url 'battle' %} #}#">Battle</a>
+            <a href="{% url 'pre_battle' %}">Battle</a>
             <a href="{% url 'logout' %}">Log out</a>
         {% else %}
             <a href="{% url 'signup' %}">Sign up</a>

@@ -1,0 +1,79 @@
+
+body {
+    background-color: black;
+    color: lime;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.main-heading {
+    background-color: dimgray;
+    font-size: 3rem;
+    padding: 1rem 10%;
+    margin-left: 10%;
+    margin-top: 2rem;
+    margin-right: 10%;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+button {
+    font-size: inherit;
+    font-family: serif;
+    border-radius: 0px;
+    color: lime;
+    background-color: black;
+    border-color: lime;
+    border-style: solid;
+    cursor: pointer;
+}
+
+#ready-btn {
+    font-size: 2rem;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: dodgerblue;
+}
+
+#chat {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    text-align: left;
+    z-index: 10;
+}
+
+#chat #chat-view {
+    height: 20vh;
+    background-color: dimgray;
+    overflow: auto;
+    padding: 0.5rem;
+    max-width: 19rem;
+    word-wrap: break-word;
+}
+
+#chat #chat-view p {
+    font-size: 1.25rem;
+    margin: 0px;
+}
+
+#chat #chat-form {
+    position: relative;
+    bottom: 0px;
+}
+
+#chat #chat-form * {
+    font-size: 1.25rem;
+}
+
+
+

@@ -11,7 +11,9 @@
         <a href="{% url 'index' %}" id="brand">The Arena</a>
     </nav>
     <h1 id="title">{% block form_title %}{% endblock %}</h1>
-
+    {% if next %}
+        <div id="next">{% block next %}{% endblock %}</div>
+    {% endif %}
     <form method="post" id="main-form">
     {% csrf_token %}
     {{ form.non_field_errors }}
