@@ -21,7 +21,7 @@ def create_floppy(request: HttpRequest) -> HttpResponse:
     if the user has any vm, redirect to the floppy creation form, otherwise render an error page
     """
     if VMachine.objects.filter(user=request.user).count() == 0:
-        return _disks_with_error(request, "You don't have any Virtual Machines that you could create floppy for!")
+        return redirect('disks')
     if request.method == "GET":
         form = FloppyCreateForm(user=request.user)
         return render(request, 'users/create_floppy.html', {'form': form})
