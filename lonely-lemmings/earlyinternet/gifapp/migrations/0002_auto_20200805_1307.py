@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='project_type',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.DO_NOTHING, to='gifapp.ProjectType'),
+            field=models.ForeignKey(default=0,
+                                    on_delete=django.db.models.deletion.DO_NOTHING, to='gifapp.ProjectType'),
         ),
         migrations.AlterField(
             model_name='projecttype',

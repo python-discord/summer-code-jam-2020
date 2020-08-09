@@ -19,13 +19,15 @@ class Migration(migrations.Migration):
             name='ProjectType',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('project_type', models.CharField(choices=[('GIF', 'gif project'), ('IMG', 'image project')], max_length=25)),
+                ('project_type', models.CharField(choices=[('GIF', 'gif project'), ('IMG', 'image project')],
+                                                  max_length=25)),
             ],
         ),
         migrations.CreateModel(
             name='User',
             fields=[
-                ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE,
+                                                  parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
                 ('profile_picture', models.ImageField(upload_to='profile/')),
             ],
             options={
@@ -66,7 +68,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField()),
                 ('date_created', models.DateTimeField(auto_now_add=True)),
-                ('parent_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='gifapp.Comment')),
+                ('parent_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE,
+                                                to='gifapp.Comment')),
                 ('post_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gifapp.Project')),
                 ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gifapp.User')),
             ],
