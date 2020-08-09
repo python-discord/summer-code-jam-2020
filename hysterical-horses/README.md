@@ -5,9 +5,20 @@
 ### Production Installation:
 1. Clone master branch
 
-2. copy prod.env into `/hysterical-horses'
+2. Add domains/IPs to `settings.ALLOWED_HOSTS` if applicable
 
-3. navigate to `hysterical-horses/` and run `docker-compose up --build`
+3. Copy/create prod.env into `/hysterical-horses'
+
+4. Create Postgres database and specify database settings in prod.env file (or set django_debug to True to use a local
+database for testing)
+
+5. Navigate to `hysterical-horses/` and start docker container, could use `docker-compose up --build`
+
+6. Navigate to project folder in Docker bash and run `python manage.py createsuperuser` and follow the prompts to create
+an admin (admin account is also to be used for testing all feature without the need to slowly level up first)
+
+7. Site will run at a default ip of `0.0.0.0:8000` and should be accessible though `http://127.0.0.1:8000/` on the 
+machine.
 
 ### Development Installation:
 1. Clone repository

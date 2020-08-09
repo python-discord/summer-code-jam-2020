@@ -22,12 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("summer_jam_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = os.environ.get("django_debug")
+
 DEBUG = os.environ.get("django_debug", True)
 
 if DEBUG:
-    from .dev_settings import *
+    from .dev_settings import DATABASES as db
+
 else:
-    from .production_settings import *
+    from .production_settings import DATABASES as db
+
+DATABASES = db
 
 ALLOWED_HOSTS = []
 

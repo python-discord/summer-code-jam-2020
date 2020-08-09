@@ -9,7 +9,7 @@ DATABASES = {
         "NAME": os.environ.get("db_name"),
         "USER": os.environ.get("db_user"),
         "PASSWORD": os.environ.get("db_password"),
-        "HOST": os.environ.get("db_host", "localhost"),
-        "PORT": os.environ.get("db_port", ""),
+        "HOST": os.environ.get("db_host"),
+        "PORT": os.environ.get("db_port"),
     }
 }
