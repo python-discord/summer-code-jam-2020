@@ -142,7 +142,6 @@ def page(request, url):
                                               img.size)),
                                      resample=Image.NEAREST)
 
-
                     img.save(response, f_ext)
                 except UnidentifiedImageError:
                     print("\u001b[34mImage processing failed!. Type was",
