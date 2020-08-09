@@ -22,10 +22,8 @@
             <input type="submit", value="signup" class="override">
             <input type="reset", value="reset" class="override">
                 {% if next %}
-                    <form method="post" action="login">
-                        <input type="hidden" name="next" value="{{ next }}">
-                        <span>Already have an account? <input type="submit", value="Login!" class="override"></span>
-                    </form>
+                        <input type="hidden" name="next" value="{{ next }}" form="login">
+                        <span>Already have an account? <input type="submit", value="Login!" form="login" class="override"></span>
                  {% else %}
                     <span>Already have an account? <a href="{% url 'login' %}">Login!</a></span>
                 {% endif %}

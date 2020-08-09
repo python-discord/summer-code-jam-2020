@@ -55,6 +55,8 @@ class SignupView(View):
             else:
                 user = User(name=username, password=password1)
                 user.save()
+                user = auth.authenticate(username = username, password = password1)
+                auth.login(request, user)
                 message = "Account created successfully"
                 created = True
         else:
