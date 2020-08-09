@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'earls.apps.EarlsConfig',
+    'chat.apps.ChatConfig',
     'account.apps.AccountConfig',
     'crispy_forms',
     'django.contrib.admin',
