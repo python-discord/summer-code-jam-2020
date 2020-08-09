@@ -30,7 +30,7 @@ def add_linebreaks(msg: str):
 """ ----- These are the various Terminal Commands ----- """
 
 
-def help(request, params: str, **kwargs):
+def help_func(request, params: str, **kwargs):
     """The help command that lists out all the commands for the user."""
 
     message = "(Type `[command name] --help` for details of a particular command)<br>Available commands:<br><br>"
@@ -41,12 +41,12 @@ def help(request, params: str, **kwargs):
     return {'response': add_linebreaks(message)}
 
 
-help = Command(name='help', help_text="""<br>Display a list of all available commands<br>
+help_command = Command(name='help', help_text="""<br>Display a list of all available commands<br>
 Usage: help<br>""",
-               action=help)
+               action=help_func)
 
 
-def home(request, params: str, **kwargs):
+def home_func(request, params: str, **kwargs):
     redirect = reverse('home')
     message = "Welcome home!"
     messages.success(request, message)
@@ -55,10 +55,10 @@ def home(request, params: str, **kwargs):
 
 home = Command(name='home', help_text="""<br>Takes you to the home page.<br>
 Usage: home<br>""",
-               action=home)
+               action=home_func)
 
 
-def view_post(request, params: str, **kwargs):
+def view_post_func(request, params: str, **kwargs):
     if len(params.split()) < 1:
         message = "Incorrect usage. See: view-post --help"
         return {'response': add_linebreaks(message)}
@@ -73,10 +73,10 @@ def view_post(request, params: str, **kwargs):
 
 view_post = Command(name='view-post', help_text="""<br>View a particular Post.<br>
 Usage: view-post [post number]<br>""",
-                    action=view_post)
+                    action=view_post_func)
 
 
-def logout(request, params: str, **kwargs):
+def logout_func(request, params: str, **kwargs):
     if request.user.is_authenticated:
         redirect = reverse('logout')
         message = f"Logged out {request.user.username}"
@@ -88,10 +88,10 @@ def logout(request, params: str, **kwargs):
 
 logout = Command(name='logout', help_text="""<br>Logs out current user.<br>
 Usage: logout<br>""",
-                 action=logout)
+                 action=logout_func)
 
 
-def signup(request, params: str, **kwargs):
+def signup_func(request, params: str, **kwargs):
     if request.user.is_authenticated:
         message = "Log out to create a new account"
         return {'response': add_linebreaks(message)}
@@ -105,10 +105,10 @@ def signup(request, params: str, **kwargs):
 signup = Command(name='signup', help_text="""<br>Register a new user.<br>
 Make sure you are logged out to register a new user.<br>
 Usage: signup<br>""",
-                 action=signup)
+                 action=signup_func)
 
 
-def change_password(request, params: str, **kwargs):
+def change_password_func(request, params: str, **kwargs):
     if request.user.is_authenticated:
         redirect = reverse('password_change')
         message = "Change your password."
@@ -120,10 +120,10 @@ def change_password(request, params: str, **kwargs):
 
 home = Command(name='change-password', help_text="""<br>Change your password.<br>
 Usage: change-password<br>""",
-               action=change_password)
+               action=change_password_func)
 
 
-def message(request, params: str, **kwargs):
+def message_func(request, params: str, **kwargs):
     if not params:
         message = "Incorrect usage. See: message --help"
     else:
@@ -151,10 +151,10 @@ def message(request, params: str, **kwargs):
 
 message = Command(name='message', help_text="""<br>Send a personal message to any user.<br>
 Usage: message [username] [message body]""",
-                  action=message)
+                  action=message_func)
 
 
-def message_box(request, params: str, **kwargs):
+def message_box_func(request, params: str, **kwargs):
     if not request.user.is_authenticated:
         message = "Log in to view your Message Box"
         return {'response': add_linebreaks(message)}
@@ -168,10 +168,10 @@ def message_box(request, params: str, **kwargs):
 message_box = Command(name='message-box', help_text="""<br>View your received messages.<br>
 Make sure you are logged in to see your messages.<br>
 Usage: message-box<br>""",
-                      action=message_box)
+                      action=message_box_func)
 
 
-def profile(request, params: str, **kwargs):
+def profile_func(request, params: str, **kwargs):
     if not params:
         # Show the logged in user's profile if no other username provided
         message = "Your Profile"
@@ -198,11 +198,12 @@ def profile(request, params: str, **kwargs):
 
 
 profile = Command(name='profile', help_text="""<br>View any user's profile.<br>
+You'll see your own profile if no username is specified.<br>
 Usage: profile [username]""",
-                  action=profile)
+                  action=profile_func)
 
 
-def news(request, topic: str, start_date: str = None, end_date: str = None, **kwargs):
+def news_func(request, topic: str, start_date: str = None, end_date: str = None, **kwargs):
     page_num = int(kwargs.get('Page', '0'))
     article_num = int(kwargs.get('Article', '0'))
 
@@ -231,7 +232,7 @@ def news(request, topic: str, start_date: str = None, end_date: str = None, **kw
             article = news_items[article_num - 1]
             article_link = '<a href="{}" target="_blank">Read full article</a>'.format(article['link'])
             article = "<br>" + "<br>".join([article['title'], article['desc'], article_link])
-            return {'response': article}
+            return {'response': add_linebreaks(article)}
 
     article_text = []
 
@@ -241,10 +242,10 @@ def news(request, topic: str, start_date: str = None, end_date: str = None, **kw
         article_text.append(article_summary)
     all_articles = "<br>".join([". ".join(i) for i in article_text])
 
-    return {'response': all_articles, 'followup': True}
+    return {'response': add_linebreaks(all_articles), 'followup': True}
 
 
 news = Command(name='news', help_text="""<br>Show the latest news.<br>
 Usage: news [search query]<br>
 Choose the news article you want to read in the follow up.<br>""",
-               action=news)
+               action=news_func)
