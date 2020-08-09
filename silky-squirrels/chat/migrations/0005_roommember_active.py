@@ -5,8 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [("chat", "0004_message_text")]
+    dependencies = [
+        ('chat', '0004_message_text'),
+    ]
 
     operations = [
-        migrations.AddField(model_name="roommember", name="active", field=models.BooleanField(default=False))
+        migrations.AddField(
+            model_name='roommember',
+            name='active',
+            field=models.BooleanField(default=False),
+        ),
     ]

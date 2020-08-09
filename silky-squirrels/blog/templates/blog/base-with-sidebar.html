@@ -14,31 +14,10 @@
             </div>
             <div class="card-body bg-white">
                 <p class="card-text">
-<<<<<<< HEAD
                     {% if user.is_authenticated %}
                     Welcome to the chat! Within this page we have a live chatroom allowing for users to freely interact
                     with each other in real time. Join us on discord for more info!
                     {% else %}
-=======
-                Status: {{ profile.status }}<br>
-                Recent Chatrooms [TODO] <!--LINK!--><br>
-                {% if user.is_authenticated %}
-                    {% if frequests %}
-                        You have friend requests!<ul>
-                        {% for frequest in frequests %}
-                        <li><a href="{% url 'accept' frequest.id %}">{{frequest.from_user}}</a></li>
-                        {% endfor %}
-                        </ul>
-                    {% else %}
-                        You have no new notifications!
-                        <br>
-                    {% endif %}
-                    {% for user in allusers %}
-                        <a href="{% url 'add-friend' user.id %}">{{user}} +</a>
-                        <br>
-                    {% endfor %}
-                {% else %}
->>>>>>> e53780117a2af9b08c50a49d2009f1838c0eae24
                     Please log in or sign up!
                     {% endif %}
                 </p>
@@ -54,12 +33,8 @@
                         onclick="window.location.href='{% url 'register' %}">
                         <span class="btn-text">Sign up</span></button>
 
-<<<<<<< HEAD
                     <button class="btn btn-sm btn-primary" type="button"
                         onclick="window.location.href='{% url 'register' %}">
-=======
-                        <button class="btn btn-sm btn-primary" type="button" onclick="window.location.href='{% url 'login' %}">
->>>>>>> e53780117a2af9b08c50a49d2009f1838c0eae24
                         <span class="btn-text">Log in</span></button>
                     {% endif %}
                 </div>
