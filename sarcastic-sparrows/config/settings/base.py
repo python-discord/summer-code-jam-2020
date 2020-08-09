@@ -35,14 +35,17 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # Application definition
 
 INSTALLED_APPS = [
-    "sparrow_django.public.apps.PublicConfig",
+    "public.apps.PublicConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.views import generic
 
-from .models import Stock
+from public.models import Stock
 
 
 def stock(request, stock_ticker):
@@ -25,4 +25,4 @@ class IndexView(generic.ListView):
     paginate_by = 10
     template_name = "stock_index.html"
     context_object_name = "stock_index"
-    queryset = Stock.objects.all()
+    queryset = Stock.objects.filter(ticker_symbol="ebay")
