@@ -21,8 +21,8 @@ class UserListView(generics.ListAPIView):
         """Optionally restricts the returned users to a given user
         by filtering against a `username` query parameter in the URL"""
         queryset = models.CustomUser.objects.all()
-        username = self.request.query_params.get('username', None)
-        random_param = self.request.query_params.get('random', None)
+        username = self.request.query_params.get("username", None)
+        random_param = self.request.query_params.get("random", None)
         if random_param is not None:
             print(queryset)
             random_user_id = choice([user.id for user in queryset])
@@ -34,6 +34,7 @@ class UserListView(generics.ListAPIView):
 
 class LoggedInUserView(APIView):
     """Returns information about currently logged in user"""
+
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
@@ -58,19 +59,13 @@ def comment_on_profile(request):
         )
         print(comment)
         serializer = serializers.ProfileCommentSerializer(comment)
-        return JsonResponse(
-            {"comment": serializer.data}, safe=False, status=status.HTTP_201_CREATED
-        )
+        return JsonResponse({"comment": serializer.data}, safe=False, status=status.HTTP_201_CREATED)
     except ObjectDoesNotExist as e:
         print(e)
-        return JsonResponse(
-            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
-        )
+        return JsonResponse({"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return JsonResponse(
-            {"error": "Something went terribly wrong!"},
-            safe=False,
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"error": "Something went terribly wrong!"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
 

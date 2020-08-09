@@ -6,7 +6,7 @@ from .models import CustomUser, ProfileComment
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ("username", "email", "password1", "password2")
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -16,6 +16,6 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class ProfileCommentCreationForm(forms.ModelForm):
-	class Meta:
-		model = ProfileComment
-		fields = ('user_commented_on', 'content')
+    class Meta:
+        model = ProfileComment
+        fields = ("user_commented_on", "content")

@@ -7,7 +7,7 @@ import api.serializers as api_serializers
 
 
 class ProfileCommentSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField('username')
+    user = serializers.SerializerMethodField("username")
 
     def username(self, obj):
         return obj.user_commented.username
@@ -15,8 +15,8 @@ class ProfileCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ProfileComment
         fields = (
-            'user',
-            'content',
+            "user",
+            "content",
         )
 
 
@@ -24,8 +24,8 @@ class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
         fields = (
-            'id',
-            'username',
+            "id",
+            "username",
         )
 
 
@@ -46,14 +46,11 @@ class UserSerializer(serializers.ModelSerializer):
         return FriendshipSerializer(queryset, many=True).data
 
     def user_posts(self, obj):
-        serializer = post_serializers.PostSerializer(
-            post_models.Post.objects.filter(author=obj.id),
-            many=True
-        )
+        serializer = post_serializers.PostSerializer(post_models.Post.objects.filter(author=obj.id), many=True)
         return serializer.data
 
     def most_recent_post(self, obj):
-        queryset = post_models.Post.objects.filter(author=obj.id).order_by('date_posted').first()
+        queryset = post_models.Post.objects.filter(author=obj.id).order_by("date_posted").first()
         serializer = post_serializers.PostSerializer(queryset,)
         return serializer.data
 

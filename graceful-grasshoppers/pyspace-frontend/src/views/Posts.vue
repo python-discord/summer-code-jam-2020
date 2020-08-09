@@ -7,7 +7,7 @@
 <script>
 import PostList from '@/components/post-list';
 import axios from '../http-common.js';
-const authToken = JSON.parse(localStorage.getItem('user')).key;
+// const authToken = JSON.parse(localStorage.getItem('user')).key;
 
 export default {
 	name: 'Posts',

@@ -50,22 +50,14 @@ def create_post(request):
     user = request.user
     try:
         author = CustomUser.objects.get(id=user.id)
-        post = Post.objects.create(
-            title=payload["title"], content=payload["content"], author=author,
-        )
+        post = Post.objects.create(title=payload["title"], content=payload["content"], author=author,)
         serializer = PostSerializer(post)
-        return JsonResponse(
-            {"books": serializer.data}, safe=False, status=status.HTTP_201_CREATED
-        )
+        return JsonResponse({"books": serializer.data}, safe=False, status=status.HTTP_201_CREATED)
     except ObjectDoesNotExist as e:
-        return JsonResponse(
-            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
-        )
+        return JsonResponse({"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return JsonResponse(
-            {"error": "Something went terribly wrong!"},
-            safe=False,
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"error": "Something went terribly wrong!"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
 
@@ -80,14 +72,10 @@ def delete_post(request, post_id):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     except ObjectDoesNotExist as e:
-        return JsonResponse(
-            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
-        )
+        return JsonResponse({"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return JsonResponse(
-            {"error": "Something went wrong!"},
-            safe=False,
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"error": "Something went wrong!"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
 
@@ -103,18 +91,12 @@ def update_post(request, post_id):
         post_item.update(**payload)  # returns 0 or 1
         post = Post.objects.get(id=post_id)
         serializer = PostSerializer(post)
-        return JsonResponse(
-            {"post": serializer.data}, safe=False, status=status.HTTP_200_OK
-        )
+        return JsonResponse({"post": serializer.data}, safe=False, status=status.HTTP_200_OK)
     except ObjectDoesNotExist as e:
-        return JsonResponse(
-            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
-        )
+        return JsonResponse({"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return JsonResponse(
-            {"error": "Something went wrong"},
-            safe=False,
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"error": "Something went wrong"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
 
@@ -142,18 +124,12 @@ def like_post(request, post_id):
         post.likes.add(like)
 
         serializer = LikeSerializer(like, many=True)
-        return JsonResponse(
-            {"posts": serializer.data}, safe=False, status=status.HTTP_200_OK
-        )
+        return JsonResponse({"posts": serializer.data}, safe=False, status=status.HTTP_200_OK)
     except ObjectDoesNotExist as e:
-        return JsonResponse(
-            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
-        )
+        return JsonResponse({"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return JsonResponse(
-            {"error": "Something went wrong"},
-            safe=False,
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"error": "Something went wrong"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
 
@@ -181,18 +157,12 @@ def dislike_post(request, post_id):
         post.dislikes.add(dislike)
 
         serializer = DislikeSerializer(dislike, many=True)
-        return JsonResponse(
-            {"posts": serializer.data}, safe=False, status=status.HTTP_200_OK
-        )
+        return JsonResponse({"posts": serializer.data}, safe=False, status=status.HTTP_200_OK)
     except ObjectDoesNotExist as e:
-        return JsonResponse(
-            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
-        )
+        return JsonResponse({"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
         return JsonResponse(
-            {"error": "Something went wrong"},
-            safe=False,
-            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"error": "Something went wrong"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
 
