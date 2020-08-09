@@ -58,6 +58,18 @@ Usage: home<br>""",
                action=home_func)
 
 
+def new_post_func(request, params: str, **kwargs):
+    redirect = reverse('post-create')
+    message = "Share something new"
+    messages.success(request, message)
+    return {'response': add_linebreaks(message), 'redirect': redirect}
+
+
+home = Command(name='new-post', help_text="""<br>Takes you to the page to create a new Post.<br>
+Usage: new-post<br>""",
+               action=new_post_func)
+
+
 def view_post_func(request, params: str, **kwargs):
     if len(params.split()) < 1:
         message = "Incorrect usage. See: view-post --help"

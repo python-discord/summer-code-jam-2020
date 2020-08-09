@@ -48,6 +48,7 @@ Create an account and log in through it to connect with your friends and access 
 (Type `[command name] --help` for details and usage of a particular command)
 - `help`: Display a list of all available commands
 - `home`: Jump to home screen (feed)
+- `new-post`: Create a new post
 - `view-post`: View a particular post by its number
 - `logout`: Log Out of your account
 - `signup`: Register a new user
