@@ -61,7 +61,7 @@ class HtmlParser:
         except AttributeError:
             pass
 
-        for element in self.soup.find_all(re.compile(".*")):
+        for element in self.soup.find_all(re.compile(".*")):  # Gets all the elements of the target website
             try:
                 element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;" + element["style"]
             except KeyError:
