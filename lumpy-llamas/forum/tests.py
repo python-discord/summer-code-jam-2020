@@ -72,7 +72,7 @@ class ForumViewTests(TestCase):
     @patch('core.views.serve')
     def test_thread_details_view(self, serve):
         serve.return_value = JsonResponse({'title': self.thread.title, 'message': self.message.message})
-        res = self.client.get(f'/api/forum/{self.thread.id}')
+        res = self.client.get(f'/api/forum/{self.thread.id}/')
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.content.decode(), json.dumps({'title': 'test title', 'message': 'testmessage'}))
 
