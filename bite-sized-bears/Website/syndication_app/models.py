@@ -9,6 +9,7 @@ class User(models.Model):
     password = models.CharField(max_length=15)
     avatar = models.ImageField(upload_to='img/users/avatar', blank=True, null=True)
     join_date = models.DateTimeField(auto_now=True)
+    parent = models.OneToOneField(AuthUser, on_delete=models.CASCADE, blank=True, null=True)
 
     def get_absolute_url(self):
         return '/user/' + str(self.id)
