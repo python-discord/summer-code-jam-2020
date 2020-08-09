@@ -5,22 +5,24 @@
 <p class="info">Enter command `n` to go to next page and `p` for previous page.</p>
 <hr class="socl">
 {% for post in post_list %}
-  <p class="content">{{post.post_content}}</p>
-  <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic">
+  <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic" class="post-profile-pic">
   <span class="author">
-    <a href="/profile/{{post.posted_by}}">
-      {{post.posted_by}}
-    </a>&nbsp;
+      {{post.posted_by.username}}
   </span>
   <div class="hide">{{post.posted_by.bio}}</div>
   <span class="post-time">{{post.post_date_posted}}</span>
+  <p class="content">{{post.post_content}}</p>
+  {% if post.post_image %}
+  <p><img src="{{ post.post_image.url }}"></p>
+  {% endif %}
+
+  <p>Post number: {{ post.pk }}</p>
   <hr class="socl">
 {% endfor %}
 
 <style>
 .author {
     font-size: 0.9rem;
-    text-transform: capitalize;
     font-weight: bold;
 }
 .author:hover + div {
@@ -38,7 +40,7 @@
 .hide {
   display: none;
 }
-img {
+.post-profile-pic {
   border-radius: 50%;
   width: 20px;
 }

@@ -4,7 +4,7 @@
 
 <div class="w3-row">
   <div class="w3-col w3-container m3 l2">
-  	<img src="{{ of_user.profile.image.url }}">
+  	<img src="{{ of_user.profile.image.url }}" class="img">
   </div>
   <div class="w3-col w3-container m9 l10">
   	<h4>{{ of_user.username }}</h4>
@@ -15,7 +15,8 @@
 <div>
 
 <div style="float: left;">
-<p>{{ of_user.profile.bio }}</p>
+  <p><strong>{{ of_user.profile.bio }}</strong></p>
+<hr>
 
 {% if of_user.username == user.username %}
 <a href="{% url 'profile_edit' %}"><button>Update Info</button></a>
@@ -26,22 +27,22 @@
 <h3>Posts ({{ num_posts }})</h3>
 
 {% for post in posts %}
-  <div class="w3-row" style="margin: 6px 0 6px 0;">
-    <div class="w3-col w3-container m2 l1">
-	    <img src="{{ post.posted_by.profile.image.url }}" class="post-profile-pic">
-    </div>
-    <div class="w3-col w3-container m10 l11">
-			<span>
-        <span>{{ post.posted_by}},</span>
-				<small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
-			</span>
-				
-      <p>{{ post.post_content }}</p>
-    </div>
-  </div>
-  <hr>
+  <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic" class="post-profile-pic">
+  <span class="author">
+      {{post.posted_by.username}}
+  </span>
+  <div class="hide">{{post.posted_by.bio}}</div>
+  <span class="post-time">{{post.post_date_posted}}</span>
+  <p class="content">{{post.post_content}}</p>
+  {% if post.post_image %}
+  <p><img src="{{ post.post_image.url }}"></p>
+  {% endif %}
+  <p>Post number: {{ post.pk }}</p>
+  <hr class="socl">
 {% endfor %}
+
 </div>
+
 <script>
   let gender = "{{ of_user.profile.gender}}"
   if(gender == 'M'){
@@ -49,17 +50,46 @@
   } else if(gender == 'F'){
     gender = 'Female'
   } else if(gender == 'O'){
-    gender = 'Others'
+    gender = 'Other'
   } else {
     gender = "Not specified"
   }
   document.getElementById("gender").innerHTML = "Gender: " + gender;
 </script>
+
 <style>
+  .author {
+      font-size: 0.9rem;
+      font-weight: bold;
+  }
+  .author:hover + div {
+    display: block;
+    color: blue;
+  }
+  .content {
+      font-size: 1rem
+  }
+  .post-time {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: #555;
+  }
+  .hide {
+    display: none;
+  }
   .post-profile-pic {
-    width: 30px;
-    height: auto;
-    float: left;
+    border-radius: 50%;
+    width: 20px;
+  }
+  .socl {
+    border-top: 1px solid #555;
+    margin-right: 20px;
+  }
+  .info {
+    background-color: blue;
+    color: white;
+    position: static;
+    text-align: center;
   }
   hr {
     border-top: 1px solid #555;
