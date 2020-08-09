@@ -30,12 +30,6 @@ class SMSBot:
         )
 
     @staticmethod
-    def delayed_send(msg: str, recipient, delay):
-        # TODO This function does not work yet
-        # time.sleep(delay)
-        SMSBot.send(msg, recipient)
-
-    @staticmethod
     def register(phone_number, active_quiz):
         """registers a default player account with the ActiveTriviaQuiz 'quiz'
         and a 'phone_number'

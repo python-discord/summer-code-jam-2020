@@ -1,55 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+<script src="{% static 'countdowntimer.js' %}"></script>
 <script>
 
-  function startTimer(duration, display) {
-      var timer = duration, minutes, seconds;
-      setInterval(function () {
-          minutes = parseInt(timer / 60, 10);
-          seconds = parseInt(timer % 60, 10);
+  window.onload = function() {
+    //hard coded to thirty seconds. Change this to the variable the host sets
+    var display = document.querySelector('#time'),
+        timer = new CountDownTimer(30);
 
-          minutes = minutes < 10 ? "0" + minutes : minutes;
-          seconds = seconds < 10 ? "0" + seconds : seconds;
+    timer.onTick(format).onTick(restart).start();
 
-          display.textContent = minutes + ":" + seconds;
+    function restart() {
+      if (this.expired()) {
+        setTimeout(function() {
+          display.textContent='Times up!'
+          // make post request
+          var url = "{% url 'activequiz' active_trivia_quiz.pk %}";
+          var params = "times-up";
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", url, true);
 
-          if (--timer < 0) {
-              timer = duration;
-          }
-
-          if (seconds == 0) {
-              // make post request
-              var url = {% url 'activequiz' active_trivia_quiz.pk %};
-              var params = "times-up";
-              var xhr = new XMLHttpRequest();
-              xhr.open("POST", url, true);
-
-              //Send the proper header information along with the request
-              xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-              xhr.send(params);
-          }
+          //Send the proper header information along with the request
+          xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhr.send(params);
       }, 1000);
-  }
+      }
+    }
 
-  window.onload = function () {
-      //hard coded to 30 seconds. Replace this with whatever the name of variable that holds the timeout is
-      var timeout = 30,
-          display = document.querySelector('#time');
-      startTimer(timeout, display);
-  }
+    function format(minutes, seconds) {
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      display.textContent = minutes + ':' + seconds;
+    }
+  };
 </script>
 <div class="parchment-border ">
     <div class="row">
-        <div class="col-md-12"><h1>Question {{ active_trivia_quiz.current_question_index}}:</h1></div>
+        <div class="col-md-12"><h1>Question {{ active_trivia_quiz.current_question_index }}:</h1></div>
     </div>
     <div class="row">
         <p> {{ cur_question.question_text }} </p>
     </div>
     <div>
-      Next question in <span id="time">00:30</span>
+      Next question in <span id="time"></span>
     </div>
     <div class="row justify-content-end">
-        <button type="submit" class="stamp is-draft" value="Pause time">Pause Timer</button>
+        <button type="submit" class="stamp is-draft" value="pause-timer">Pause Timer</button>
         {% include "trivia_next_step_btn.html" %}
     </div>
 </div>
