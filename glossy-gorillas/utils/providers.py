@@ -78,6 +78,16 @@ def _object() -> Generator[str, None, None]:
             yield f"{adj} {obj}".capitalize()
 
 
+def _news_title() -> Generator[str, None, None]:
+    ACTIONS = ["destroys", "cultivates", "increases demand for", "decreases demand for"]
+    serv_gen = _service()
+    spice_gen = _spice()
+    while True:
+        for act in cycle(ACTIONS):
+            yield f"{next(serv_gen)} {act} {next(spice_gen)}".title()
+
+
 SpiceGenerator = _spice()
 ServiceGenerator = _service()
 ObjectGenerator = _object()
+NewsTitleGenerator = _news_title()
