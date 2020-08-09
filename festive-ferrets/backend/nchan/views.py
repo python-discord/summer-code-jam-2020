@@ -35,7 +35,7 @@ class PostViewSet(viewsets.ModelViewSet):
         """
         Returns the 10 latest comments commented on post with pk
         """
-        comment_objects = Comment.objects.all().filter(post__exact=id).order_by('-publication_date')
+        comment_objects = Comment.objects.all().filter(post__exact=pk).order_by('-publication_date')
         paginator = PageNumberPagination()
         paginator.page_size = 10
         result_page = paginator.paginate_queryset(comment_objects, request)
