@@ -106,9 +106,9 @@ def generate_blogger_location():
 def authorize_page(page_name):
     """Authorizes page to be generated and served on request, adding the page to the index"""
     try:
-        page = GeneratedPage.objects.get(page_title=page_name)
+        GeneratedPage.objects.get(page_title=page_name)
     except GeneratedPage.DoesNotExist:
-        page = GeneratedPage.objects.create(page_title=page_name, css_seed=random.randint(1000, 9999))
+        GeneratedPage.objects.create(page_title=page_name, css_seed=random.randint(1000, 9999))
 
 
 def generate_information(page_name):
@@ -196,7 +196,7 @@ def generate_business_statements(page_name, page_object):
     page_object.save()
 
     mission = gpt2.generate(
-        sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=f"Our Mission", length=100
+        sess, model_name=model_name, model_dir="models", return_as_list=True, prefix="Our Mission", length=100
     )[0]
     page_object.business_mission = parse_result(splice_sentence(mission))
     page_object.save()

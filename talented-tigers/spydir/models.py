@@ -1,5 +1,4 @@
 from django.db import models
-import random
 
 
 class BlogPost(models.Model):
