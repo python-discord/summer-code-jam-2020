@@ -16,7 +16,7 @@ class BoardViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=True, url_path='posts')
     def get_posts(self, request, id=None):
         """
-        Returns the 10 latest posts posted to board with board_id
+        Returns the 10 latest posts posted to board with id
         """
         post_objects = Post.objects.all().filter(board__exact=id).order_by('-publication_date')
         paginator = PageNumberPagination()
@@ -31,9 +31,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     @action(detail=True, url_path='comments')
-    def get_comments(self, request, id=None):
+    def get_comments(self, request, pk=None):
         """
-        Returns the 10 latest comments commented on post with post_id
+        Returns the 10 latest comments commented on post with pk
         """
         comment_objects = Comment.objects.all().filter(post__exact=id).order_by('-publication_date')
         paginator = PageNumberPagination()
