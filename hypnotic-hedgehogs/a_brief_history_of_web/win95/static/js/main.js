@@ -33,6 +33,7 @@ agentSpeak(agent, "According to my book of Eternal Wisdom, the Internet is one o
                   agent.play("Reading")
 
 agentSpeak(agent, "Once a wise man named Arthur Clarke said: Any sufficiently advanced technology is indistinguishable from magic.")
+                      agent.play("GestureUp")
 
     agentSpeak(agent, "This magical technology has made knowledge accessible and equal to all. Thus, it provided us with the opportunity to obtain and share information and to create a brand new reality in a digital and abstract layer, in a layer where everything is possible, by getting rid of the constraints of physical conditions.")
                   agent.play("Reading")
@@ -41,7 +42,7 @@ agentSpeak(agent, "Once a wise man named Arthur Clarke said: Any sufficiently ad
     agent.play("");
     setTimeout(() => {
         agent.hide();
-    },50000)
+    },56000)
     });
         }, 5000);
       }
