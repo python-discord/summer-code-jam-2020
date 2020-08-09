@@ -2,23 +2,16 @@
 {% block content %}
 <div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif; height: 70vh;">
     <section class="tweet-view">
-        <h2>Tweet_title{{Tweet_Title}}</h1>
+        <h1>All tweets</h1>
         <hr>
         <div class="tweet-view-content">
-            <b>Tweet Description</b>
-            Lorem, ipsum dolor sit amet consectetur 
-            adipisicing elit. Laboriosam iste nostrum, 
-            beatae ex veritatis reprehenderit atque 
-            natus laudantium consectetur inventore 
-            a ratione! Vel provident consequuntur 
-            ex ut illum quod? Ullam molestias incidunt 
-            nobis iste tenetur. Esse neque nihil 
-            dolores natus minus omnis quae optio 
-            nisi odio, harum, quasi et. Natus!
+  {% for tweet in data %}
+<p>{{ tweet.content }}</p>
+{% endfor %}
         </div>
         <div class="actions">
             <button style="background-color: red; color: white;">Delete Tweet</button>
-            <button style="background-color: blue; color: white; grid-column: 4/5;">Update Tweet</button>
+            <a href="post"><button style="background-color: blue; color: white; grid-column: 4/5;">Create Tweet </button></a>
         </div>
     </section>
 </div>

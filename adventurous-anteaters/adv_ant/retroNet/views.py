@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
 def createpost(request):
-    return render(request, 'tweet.html')
+    return render(request, 'create_tweet.html')
 
 
 @login_required(login_url='/login/')
@@ -58,7 +58,7 @@ def update_profile_display(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    return render('home.html')
+    return render(request,'home.html')
 
 @login_required(login_url='/login/')
 def my_profile(request):
@@ -69,11 +69,11 @@ def my_profile(request):
 def user_profile(request):
     return HttpResponse("Wait for templates")
 
-def login_page(request):
-    return render(request, 'login.html')
+# def login_page(request):
+#     return render(request, 'login.html')
 
-def register_page(request):
-    return render(request, 'register_.html')
+# def register_page(request):
+#     return render(request, 'register_.html')
 
 def logout_page(request):
     return render(request, 'logout.html')
@@ -85,7 +85,14 @@ def create_tweet(request):
     return render(request, 'create_tweet.html')
 
 def view_tweet(request):
-    return render(request, 'view_tweet.html')
+    form = TweetForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        queryset = Tweet.objects.all()
+        return render(request, 'view_tweet.html', {"data": queryset})
+    else:
+        queryset = Tweet.objects.all()
+        return render(request, 'view_tweet.html', {"data": queryset})
 
 
 

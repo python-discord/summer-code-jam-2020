@@ -1,20 +1,34 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends 'base.html' %}
 
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/98.css">
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form method="POST" class="form-group">
-	{% csrf_token %}
+{% block content %}
+<div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;">
+    <div class="text-area">
+<form method="POST">
+    	{% csrf_token %}
+
+  <div class="container-window" >
+      <br><br>
+    <p style="font-size: 30px;padding-left: 30px;"><b>Register</b>
+      <br>
+      <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
     <br>
-	{{ form.as_p }}
-    	<button type="submit" class="btn btn-success">Register</button><br>
-    <a href="/login">Have a account? login here</a>
+      <span>
+          <br><br>
+      <p><b>Please fill in this form to create an account.</b></p>
+    <br><br>
+
+              	{{ form.as_p }}
+    <br>
+    <br>
+
+          <br><br>
+    <center><button type="submit" class="registerbtn">Register</button></center>
+    <p>Already have an account? <a href="/login">Sign in</a>.</p>
+      <br>
+          <br>
+    </span>
+  </div>
     </form>
-</body>
-</html>
-{%endblock%}
+    </div>
+    </div>
+{% endblock %}

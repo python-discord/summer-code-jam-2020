@@ -3,7 +3,6 @@
 <div class="window-body"
     style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;">
     <div class="text-area">
-        <form action="/action_page.php">
             <div class="container-window">
                 <br><br>
                 <p style="font-size: 30px;padding-left: 30px;"><b>Create Tweet</b>
@@ -15,12 +14,17 @@
                         <br><br>
                         <p><b>What are you doing?</b></p>
                         <br>
-                        <textarea name="paragraph_text" cols="100" rows="15" placeholder="Write Something"
+                                <form action="view_tweet" method = "POST">
+            {% csrf_token %}
+                        <textarea name="content" cols="100" rows="15" placeholder="Write Something"
                             required></textarea><br><br>
                         <br>
-                        <button type="submit" class="submitbtn">Post</button>
+                        <input type="submit" value="Post"/>
+
+<!--                        <button type="submit" class="submitbtn">Post</button>-->
                         <br><br>
                     </span>
+            </div>
         </form>
     </div>
 </div>
