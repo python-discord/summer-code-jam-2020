@@ -2,6 +2,7 @@ from django.urls import path, re_path
 from .views import example_view
 from .views import frontend_view
 from .views.mud_user_account import MudUserView
+from .views.character_view import CharacterView
 
 
 ##
@@ -16,4 +17,5 @@ urlpatterns = [
     re_path(r'api/example/[0-9a-zA-Z]', example_view.rest),
     path('', frontend_view.index, name='index'),
     path('api/muduser/', MudUserView.as_view()),
+    path('api/character/', CharacterView.as_view()),
 ]

@@ -49,6 +49,10 @@ class MudUserView(View):
                 return HttpResponse("invalid")
         # logout
         elif request.POST["view_name"] == 'logout_user':
+            if request.user.is_authenticated:
+                user = MudUser.objects.get(pk=request.user.pk)
+                user.now_connected_character_name = ''
+                user.save()
             logout(request)
             return HttpResponse("Logout success")
         else:
