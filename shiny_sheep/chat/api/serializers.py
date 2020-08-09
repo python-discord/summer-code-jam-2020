@@ -23,4 +23,5 @@ class RoomSerializer(serializers.ModelSerializer):
         ret = super().to_representation(instance)
         ret['owner'] = instance.owner.username
         ret['pk'] = instance.pk
+        ret['date_created'] = instance.date_created.timestamp()
         return ret
