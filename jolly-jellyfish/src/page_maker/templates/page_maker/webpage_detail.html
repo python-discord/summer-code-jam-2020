@@ -1,34 +1,34 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<h1><span><span>{{ webpage.user_title }}</span></span></h1>
-<div>
-  {{ num_likes }} like{{ num_likes|pluralize }}
-  <form method="POST" action="">
-    {% csrf_token %}
-    <button type="submit">👍 Like</button><i>  {{ like_response }}</i>
-  </form>
-
-  {% for comment in comments %}
+  <h1><span><span>{{ webpage.user_title }}</span></span></h1>
   <div>
-    <p>{{ comment.author.username }}: {{ comment.title }}</p>
-    <p>
-      {% if comment.author == user or user.is_superuser %}
-      <form method="POST" action="{% url 'comment-delete' pk=comment.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete comment</button>
-      </form>
-      {% endif %}
-    </p>
-    <p>{{ comment.content }}</p>
-  </div>
-  {% endfor %}
-</div>
-<div>
-  <form method="POST" enctype="multipart/form-data" action="{% url 'comment-create' pagename=webpage.name %}">
+    {{ num_likes }} like{{ num_likes|pluralize }}
+    <form method="POST" action="">
     {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit">Add comment</button>
-  </form>
-</div>
+    <button type="submit">👍 Like</button><i> {{ like_response }}</i>
+    </form>
+
+    {% for comment in comments %}
+      <div>
+        <p>{{ comment.author.username }}: {{ comment.title }}</p>
+        <p>
+          {% if comment.author == user or user.is_superuser %}
+            <form method="POST" action="{% url 'comment-delete' pk=comment.id %}">
+              {% csrf_token %}
+              <button type="submit">Delete comment</button>
+            </form>
+          {% endif %}
+        </p>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  <div>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'comment-create' pagename=webpage.name %}">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit">Add comment</button>
+    </form>
+  </div>
 {% endblock %}

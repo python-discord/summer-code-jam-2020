@@ -1,39 +1,39 @@
 {% extends "page_maker/base.html" %}
 
 {% block header %}
-<link rel="stylesheet" type="text/css" href="{{ webpage.template_used.style_sheet.url }}">
+  <link rel="stylesheet" type="text/css" href="{{ webpage.template_used.style_sheet.url }}">
 {% endblock %}
 
 {% block content %}
-<h1><span><span>{{ webpage.user_title }}</span></span></h1>
-<p>
-  {% if webpage.user_image_1 %}
-  <div class="img-wrapper"><img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image"></div>
-  {% endif %}
-</p>
-<p>{{ webpage.user_text_1 }}</p>
-<p>
-  {% if webpage.user_image_2 %}
-  <div class="img-wrapper"><img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image"></div>
-  {% endif %}
-</p>
-<p>{{ webpage.user_text_2 }}</p>
-<p>
-  {% if webpage.user_image_3 %}
-  <div class="img-wrapper"><img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image"></div>
-  {% endif %}
-</p>
-<p>{{ webpage.user_text_3 }}</p>
+  <h1><span><span>{{ webpage.user_title }}</span></span></h1>
+  <p>
+    {% if webpage.user_image_1 %}
+      <div class="img-wrapper"><img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image"></div>
+    {% endif %}
+  </p>
+  <p>{{ webpage.user_text_1 }}</p>
+  <p>
+    {% if webpage.user_image_2 %}
+      <div class="img-wrapper"><img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image"></div>
+    {% endif %}
+  </p>
+  <p>{{ webpage.user_text_2 }}</p>
+  <p>
+    {% if webpage.user_image_3 %}
+      <div class="img-wrapper"><img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image"></div>
+    {% endif %}
+  </p>
+  <p>{{ webpage.user_text_3 }}</p>
 
-<p>
-  {{ num_likes }} like{{ num_likes|pluralize }}<br>
-  <a href="{% url 'webpage-detail' pagename=webpage.name %}">Like and comment on my page!</a>
-</p>
-<p>
-  <a href="{% url 'user-detail' username=webpage.author.username %}">{{ webpage.author.username }}</a>
-</p>
-{% if request.user == webpage.author %}
-<a href="{% url 'webpage-update' pagename=webpage.name %}">Edit page</a>
-<a href="{% url 'webpage-delete' pagename=webpage.name %}">Delete page</a>
-{% endif %}
+  <p>
+    {{ num_likes }} like{{ num_likes|pluralize }}<br>
+    <a href="{% url 'webpage-detail' pagename=webpage.name %}">Like and comment on my page!</a>
+  </p>
+  <p>
+    <a href="{% url 'user-detail' username=webpage.author.username %}">{{ webpage.author.username }}</a>
+  </p>
+  {% if request.user == webpage.author %}
+    <a href="{% url 'webpage-update' pagename=webpage.name %}">Edit page</a>
+    <a href="{% url 'webpage-delete' pagename=webpage.name %}">Delete page</a>
+  {% endif %}
 {% endblock %}

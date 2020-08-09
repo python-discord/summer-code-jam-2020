@@ -1,11 +1,11 @@
 {% extends "page_maker/base.html" %}
 
 {% block content %}
-<h2>Delete a template</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <p>Delete template <b>{{template.name}}</b></p>
-  <button type="submit">Confirm</button>
-</form>
+  <h2>Delete a template</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Delete template <b>{{template.name}}</b></p>
+    <button type="submit">Confirm</button>
+  </form>
 {% endblock %}

@@ -1,37 +1,34 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  {% if webpage %}
-  <link rel="stylesheet" type="text/css" href="{% get_media_prefix %}{{webpage.template_used.style_sheet}}">
-  <title>{{ webpage.name }}</title>
-  {% elif template %}
-  <link rel="stylesheet" type="text/css" href="{% get_media_prefix %}{{template.style_sheet}}">
-  <title>Example Theme Page</title>
-  {% else %}
-  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-  <title>Early Internet Page Maker</title>
-  {% endif %}
-
-  {# This code generates a thumbnail for *user-created* pages/templates if it does not already exist or is out of date #}
-  {# NOTE(a5): This following bit does not follow our conventions because otherwise it would lose its meaning. #}
-  {% if webpage or template %}
-    {% load render_thumbnail %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% if webpage %}
-      {% url 'webpage-view' pagename=webpage.name as user_pg %}
-      {# 'as none' used below to stop None being printed onto page #}
-      {% render_thumbnail request user_pg webpage as none %}
-      <title>{{ webpage.user_title }}</title>
+      <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{webpage.template_used.style_sheet}}">
+      <title>{{ webpage.name }}</title>
+    {% elif template %}
+      <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}themes/{{template.style_sheet}}">
+      <title>Example Theme Page</title>
     {% else %}
-      {% url 'template-view' templatename=template.name as user_pg %}
-
-      {% render_thumbnail request user_pg template as none %}
+      <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
       <title>Early Internet Page Maker</title>
     {% endif %}
-  {% endif %}
+    {# This code generates a thumbnail for *user-created* pages/templates if it does not already exist or is out of date #}
+    {# NOTE(a5): This following bit does not follow our conventions because otherwise it would lose its meaning. #}
+    {% if webpage or template %}
+      {% load render_thumbnail %}
+      {% if webpage %}
+        {% url 'webpage-view' pagename=webpage.name as user_pg %}
+        {# 'as none' used below to stop None being printed onto page #}
+        {% render_thumbnail request user_pg webpage as none %}
+        <title>{{ webpage.user_title }}</title>
+      {% else %}
+        {% url 'template-view' templatename=template.name as user_pg %}
+        {% render_thumbnail request user_pg template as none %}
+        <title>Early Internet Page Maker</title>
+      {% endif %}
+    {% endif %}
     {% block header %}
     {% endblock %}
   </head>
@@ -39,16 +36,14 @@
     <header>
       <p>Hello!</p>
       {% if user.is_authenticated %}
-  <a href="{% url 'user-detail' username=user.username %}"> {{ user.username }}</a>
-  <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+        <a href="{% url 'user-detail' username=user.username %}"> {{ user.username }}</a>
+        <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
       {% else %}
-  <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
-  <a href="{% url 'register' %}?next={{ request.path }}">Register</a>
+        <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+        <a href="{% url 'register' %}?next={{ request.path }}">Register</a>
       {% endif %}
-
       <a href="{% url 'home' %}">Home</a>
     </header>
-
     <main>
       <div>
         {% block content %}
