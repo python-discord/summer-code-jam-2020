@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <script>
+
   function startTimer(duration, display) {
       var timer = duration, minutes, seconds;
       setInterval(function () {
@@ -15,8 +16,8 @@
           if (--timer < 0) {
               timer = duration;
           }
-          /*
-          if (timer == 0) {
+
+          if (seconds == 0) {
               // make post request
               var url = {% url 'activequiz' active_trivia_quiz.pk %};
               var params = "times-up";
@@ -26,7 +27,7 @@
               //Send the proper header information along with the request
               xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
               xhr.send(params);
-          }*/
+          }
       }, 1000);
   }
 
@@ -35,7 +36,7 @@
       var timeout = 30,
           display = document.querySelector('#time');
       startTimer(timeout, display);
-  };
+  }
 </script>
 <div class="parchment-border ">
     <div class="row">
