@@ -1,3 +1,4 @@
+import imghdr
 from functools import update_wrapper
 
 from django.views import View as ParentView
@@ -15,7 +16,7 @@ from .models import Post, Comments, User, Community
 
 class View(ParentView):
     """
-    Extending the Django User model with extra fields
+    Custom View Class for extending the django User Model
     """
     @classonlymethod
     def as_view(cls, **initkwargs):
@@ -229,6 +230,16 @@ class UserProfileUpdate(UpdateView, View):
     model = User
     fields = ['avatar']
     template_name_suffix = '_update_form'
+
+    def form_valid(self, form):
+        try:
+            if imghdr.what(form.instance.avatar) and imghdr.what(form.instance.avatar) != 'gif':
+                return super().form_valid(form)
+        except Exception:
+            pass
+        ctx = self.get_context_data(form=form)
+        ctx['message'] = 'Invalid picture'
+        return self.render_to_response(ctx)
 
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
