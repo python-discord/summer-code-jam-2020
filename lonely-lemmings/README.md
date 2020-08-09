@@ -25,14 +25,18 @@ The following items are required to install this application:
 
 2. Run `pipenv sync` to install the project's dependencies into a new environment
 
+3. Start a new Pipenv shell by running `pipenv shell`
+
+4. Run `python manage.py makemigrations` and then `python manage.py migrate` to set up a local SQLite database for the
+application
+
 3. Run `python manage.py runserver` to run the application development server and open it in your browser
 
 ## Gif App Usage
 
-1. Log in with the following user credentials, or create your own user:
-   - Username:   Password: 
-2. On the top right-hand side, click "New Project" and enter a name for the new project. Click "OK"
+1. Create your user by clicking "Register"
+2. Once logged in, on the top right-hand side, click "New Project" and enter a name for the new project. Click "OK"
 3. On the next page, you're presented with a canvas and a set of tools. You can draw each frame of your GIF here. You
-can advance to the next frame by hitting next.
+can advance to the next frame by hitting next. A minimum of 2 frames is required.
 4. When you are done drawing, click the "View" button to preview your creation, and then click "Save to Server".
 
