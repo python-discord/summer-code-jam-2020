@@ -171,4 +171,4 @@ def page(request, url):  # Url is the URL we want to visit
             # Log that there was an unknown content type.
             print("\u001b[34mContent Type Unknown", req.headers["content-type"], "\u001b[0m")
 
-            return HttpResponseNotFound()
+            return HttpResponseNotFound()  # Return a 404 not found.
