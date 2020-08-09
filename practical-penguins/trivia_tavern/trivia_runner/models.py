@@ -28,7 +28,7 @@ class Player(models.Model):
         return answers
 
     def __str__(self):
-        return f'{self.name} playing {self.active_quiz.trivia_quiz.name}'
+        return f'{self.phone_number} playing {self.active_quiz.trivia_quiz.name}'
 
 
 def gen_session_code():

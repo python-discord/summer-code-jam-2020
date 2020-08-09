@@ -30,12 +30,6 @@ class SMSBot:
         )
 
     @staticmethod
-    def delayed_send(msg: str, recipient, delay):
-        # TODO This function does not work yet
-        # time.sleep(delay)
-        SMSBot.send(msg, recipient)
-
-    @staticmethod
     def register(phone_number, active_quiz):
         """registers a default player account with the ActiveTriviaQuiz 'quiz'
         and a 'phone_number'
@@ -53,6 +47,82 @@ class SMSBot:
         msg = f'Question#{question.question_index}: {question.question_text}'
         SMSBot.send(msg, player.phone_number)
 
+    @staticmethod
+    def register_with_code(number, active_quiz):
+        welcome = (f'You registered to play "{active_quiz.trivia_quiz.name}." '
+                   f'Please choose a team name to join'
+                   )
+        SMSBot.send(welcome, number)
+        new_player = SMSBot.register(number, active_quiz)
+        new_player.save()
+        active_quiz.players.add(new_player)
+        active_quiz.save()
+
+    @staticmethod
+    def pick_team(team, player):
+        player_quiz = player.active_quiz
+        player.team_name = team
+        player.save()
+        msg = (f'Thanks for playing! '
+               f'"{player_quiz.trivia_quiz.name}" will begin soon!'
+               )
+        ScoreTracker.objects.create(player_phone=player.phone_number,
+                                    team_name=player.team_name,
+                                    session_code=player_quiz.session_code)
+        SMSBot.send(msg, player.phone_number)
+
+    @staticmethod
+    def player_quit(player):
+        player_quiz = player.active_quiz
+        from_ = player.phone_number
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                               session_code=player_quiz.session_code)
+        player.delete()
+        score_track.delete()
+        SMSBot.send('You have left the quiz. Thanks for playing!', from_)
+
+    @staticmethod
+    def pre_quiz(body, player):
+        player_quiz = player.active_quiz
+        if body.split('/')[0].upper() == '!EDIT':
+            player.team_name = body.split('/')[1]
+            player.save()
+            score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                                   session_code=player_quiz.session_code)
+            score_track.team_name = player.team_name
+            score_track.save()
+            SMSBot.send(f'Your team has been updated! You are now on team "{player.team_name}"', player.phone_number)
+        else:
+            please_wait = ('The host hasn\'t started the quiz yet, patience is a virtue! '
+                           'If you want to change teams, text EDIT/newteamname before the quiz starts. '
+                           'Please make sure you let your teammates know though!'
+                           )
+            SMSBot.send(please_wait, player.phone_number)
+
+    @staticmethod
+    def evaluate_answer(body, player):
+        player_quiz = player.active_quiz
+        current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
+                                                      question_index=player_quiz.current_question_index)
+        correct_answer = current_question.question_answer
+
+        score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                               session_code=player_quiz.session_code)
+        if score_track.answered_this_round:
+
+            msg = 'You already answered! Don\'t cheat!'
+        elif body.upper() == correct_answer.upper():
+            score_track.points += 1
+            player.correct_answers.append((current_question.question_index, body))
+            msg = 'Thanks for your answer! Please wait for the next question...'
+        else:  # Player is wrong
+            player.wrong_answers.append((current_question.question_index, body))
+            msg = 'Thanks for your answer! Please wait for the next question...'
+
+        score_track.answered_this_round = True
+        player.save()
+        score_track.save()
+        SMSBot.send(msg, player.phone_number)
 
 @csrf_exempt
 def sms_reply(request):
@@ -82,68 +152,24 @@ def sms_reply(request):
         player_quiz = player.active_quiz
         if player.team_name == '':
             # Player picks a team name
-            player.team_name = body
-            player.save()
-            msg = (f'Thanks for playing! '
-                   f'"{player_quiz.trivia_quiz.name}" will begin soon!'
-                   )
-            ScoreTracker.objects.create(player_phone=player.phone_number,
-                                        team_name=player.team_name,
-                                        session_code=player_quiz.session_code)
-            SMSBot.send(msg, from_)
+            SMSBot.pick_team(body, player)
+
+        elif body.upper() == '!QUIT':
+            SMSBot.player_quit(player)
+            return redirect('/')
 
         elif player_quiz.current_question_index == 0:
-            if body.split('/')[0].upper() == 'EDIT':
-                player.team_name = body.split('/')[1]
-                player.save()
-                score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
-                                                       session_code=player_quiz.session_code)
-                score_track.team_name = player.team_name
-                score_track.save()
-                SMSBot.send(f'Your team has been updated! You are now on team "{player.team_name}"', from_)
-            else:
-                please_wait = ('The host hasn\'t started the quiz yet, patience is a virtue! '
-                               'If you want to change teams, text EDIT/newteamname before the quiz starts. '
-                               'Please make sure you let your teammates know though!'
-                               )
-                SMSBot.send(please_wait, from_)
+            SMSBot.pre_quiz(body, player)
 
         else:
             # Player is answering the question
-            current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
-                                                          question_index=player_quiz.current_question_index)
-            correct_answer = current_question.question_answer
-
-            score_track = ScoreTracker.objects.get(player_name=player.phone_number,
-                                                   session_code=player_quiz.session_code)
-            if score_track.answered_this_round:
-
-                msg = 'You already answered! Don\'t cheat!'
-            elif body.upper() == correct_answer.upper():
-                score_track.points += 1
-                player.correct_answers.append((current_question.question_index, body))
-                msg = 'Thanks for your answer! Please wait for the next question...'
-            else:  # Player is wrong
-                player.wrong_answers.append((current_question.question_index, body))
-                msg = 'Thanks for your answer! Please wait for the next question...'
-
-            score_track.answered_this_round = True
-            player.save()
-            score_track.save()
-            SMSBot.send(msg, from_)
+            SMSBot.evaluate_answer(body, player)
             # Optional, send players their score after every question
             # SMSBot.send(f'Your current score is: {player.points}/{len(question_set)}', from_)
 
     elif body in session_codes:
         fetch_quiz = available_quizzes.get(session_code=body)
-        welcome = (f'You registered to play "{fetch_quiz.trivia_quiz.name}." '
-                   f'Please choose a team name to join'
-                   )
-        SMSBot.send(welcome, from_)
-        new_player = SMSBot.register(from_, fetch_quiz)
-        new_player.save()
-        fetch_quiz.players.add(new_player)
-        fetch_quiz.save()
+        SMSBot.register_with_code(from_, fetch_quiz)
 
     else:
         msg = ('This number has not started any quizzes. '
