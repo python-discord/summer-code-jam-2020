@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 const chatSocket = new WebSocket(
-  "ws://" + window.location.host + "/ws/chat/test/"
+  "ws://" + window.location.host + "/ws/intro/"
 );
 
 class Chat extends Component {
@@ -19,9 +19,10 @@ class Chat extends Component {
   componentDidMount(){
     chatSocket.onmessage = (event) => { 
       const data = JSON.parse(event.data);
-      this.setState({ chatLogs: this.state.chatLogs + '\n' + data.message})
+      this.appendChatLogs(data.message);
     };
     chatSocket.onclose = (event) => {
+      this.appendChatLogs("Disconnected!");
       console.error("Chat socket closed unexpectedly");
     };
   }
@@ -35,6 +36,9 @@ class Chat extends Component {
     chatSocket.send(data);
     this.setState({ input: "" });
     event.preventDefault();
+  }
+  appendChatLogs(message){
+    this.setState({ chatLogs: this.state.chatLogs + message + '\n'})
   }
 
   render() {
