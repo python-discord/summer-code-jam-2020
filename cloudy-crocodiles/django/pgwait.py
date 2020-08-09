@@ -26,7 +26,7 @@ def main():
                 user=POSTGRES_USER,
             )
             success = True
-        except:
+        except:  # noqa: E722
             print(".", end="")
             time.sleep(RETRY_DELAY)
         finally:
