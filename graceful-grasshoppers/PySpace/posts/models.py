@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from users.models import CustomUser
+from api.models import File
 
 
 class Like(models.Model):
@@ -34,6 +35,8 @@ class Post(models.Model):
     likes = models.ManyToManyField(Like, blank=True)
     dislikes = models.ManyToManyField(Dislike, blank=True)
 
+    post_image = models.ForeignKey(File, null=True, on_delete=models.CASCADE)
+
     def __lt__(self, val):
         return self.date_posted < val.date_posted
 
@@ -42,6 +45,6 @@ class Post(models.Model):
 
 
 class PostComment(models.Model):
-    content = models.TextField
+    content = models.TextField(default="")
     user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="commenting_user")
     post = models.ForeignKey(Post, models.CASCADE, related_name="post_commented_on")

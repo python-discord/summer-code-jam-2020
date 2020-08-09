@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from random import choice
+from api.models import File
 
 # Create your views here.
 
@@ -65,4 +66,68 @@ def comment_on_profile(request):
     except Exception:
         return JsonResponse(
             {"error": "Something went terribly wrong!"}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+
+@api_view(["PATCH"])
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+def update_user(request):
+    """Updates the authenticated user with given data"""
+    payload = request.data
+    user = request.user
+    try:
+        if 'profile_picture' in payload.keys():
+            payload['profile_picture'] = File.create(file=payload['profile_picture'])
+
+        print(payload)
+
+        user_item = models.CustomUser.objects.filter(id=request.user.id)
+        payload = dict([(i, payload[i]) for i in payload])
+        user_item.update(**payload)  # returns 0 or 1
+        u = models.CustomUser.objects.get(id=user.id)
+
+        serializer = serializers.UserSerializer(u)
+        return JsonResponse(
+            {"user": serializer.data}, safe=False, status=status.HTTP_200_OK
+        )
+    except ObjectDoesNotExist as e:
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went wrong"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+
+@api_view(["POST"])
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+def befriend_user(request):
+    """Creates a post with the authenticated user as the author"""
+    payload = request.data
+    user = request.user
+    try:
+        username = request.query_params.get('username', None)
+        friendship = models.Friendship.objects.create(
+            requester=models.CustomUser.objects.get(id=user.id),
+            friend=models.CustomUser.objects.get(username=username),
+        )
+        serializer = serializers.FriendshipSerializer(friendship)
+        return JsonResponse(
+            {"friendship": serializer.data}, safe=False, status=status.HTTP_201_CREATED
+        )
+    except ObjectDoesNotExist as e:
+        print(e)
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went terribly wrong!"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )

@@ -2,6 +2,8 @@ from rest_framework import serializers
 from . import models
 import posts.models as post_models
 import posts.serializers as post_serializers
+import api.models as api_models
+import api.serializers as api_serializers
 
 
 class ProfileCommentSerializer(serializers.ModelSerializer):
@@ -28,10 +30,14 @@ class FriendshipSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    posts = serializers.SerializerMethodField("user_posts")
-    latest_post = serializers.SerializerMethodField("most_recent_post")
-    friends = serializers.SerializerMethodField("friend_list")
-    profile_comments = serializers.SerializerMethodField("comments")
+    posts = serializers.SerializerMethodField('user_posts')
+    latest_post = serializers.SerializerMethodField('most_recent_post')
+    friends = serializers.SerializerMethodField('friend_list')
+    profile_comments = serializers.SerializerMethodField('comments')
+    profile_picture = serializers.SerializerMethodField('picture')
+
+    def picture(self, obj):
+        return api_models.File.objects.get(id=obj.profile_picture.id).file.name
 
     def friend_list(self, obj):
         queryset = [i.friend_id for i in models.Friendship.objects.filter(requester_id=obj.id)]
@@ -55,14 +61,15 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
         fields = (
-            "id",
-            "email",
-            "username",
-            "about",
-            "name",
-            "age",
-            "posts",
-            "latest_post",
-            "friends",
-            "profile_comments",
+            'id',
+            'email',
+            'username',
+            'about',
+            'name',
+            'age',
+            'posts',
+            'latest_post',
+            'friends',
+            'profile_comments',
+            'profile_picture',
         )

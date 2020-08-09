@@ -51,6 +51,11 @@ const routes = [
     component: () => import("../views/Post.vue")
   },
   {
+    path: "/editprofile",
+    name: "EditProfile",
+    component: () => import("../views/EditProfile.vue")
+  },
+  {
     path: "/random",
     name: "Random",
     component: () => import("../views/Random.vue")

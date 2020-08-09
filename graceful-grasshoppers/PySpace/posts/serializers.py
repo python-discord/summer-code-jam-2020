@@ -6,9 +6,10 @@ class PostCommentSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField("username")
 
     def username(self, obj):
-        return obj.username
+        return obj.user_commented.username
 
     class Meta:
+        model = PostComment
         fields = ("user", "content")
 
 
@@ -28,7 +29,7 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.dislikes.count()
 
     def post_comments(self, obj):
-        queryset = PostComment.objects.all()
+        queryset = PostComment.objects.filter(post_id=obj.id)
         return PostCommentSerializer(queryset, many=True).data
 
     class Meta:
