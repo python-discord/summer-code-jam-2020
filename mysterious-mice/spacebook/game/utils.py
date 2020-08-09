@@ -2,46 +2,36 @@ import math
 import random
 import requests
 from .models import HighScore
+from mars_weather.services import get_week_weather
 
 # All coordinates are stored as tuples of (x, y)
 # x is east-west with east being positive
 # y is north-south with north being positive
-
-
-MARS_URL = (
-    "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"
-)
-
-
-def get_current_weather(request):
-    """
-    If user reloads the page, used cached data instead of making call to API again.
-    """
-    is_cached = "weather_data" in request.session
-
-    if not is_cached:
-        response = requests.get(MARS_URL)
-        request.session["weather_data"] = response.json()
-
-    weather_data = request.session["weather_data"]
-
-    current_sol = weather_data["sol_keys"][-1]
-
-    context = dict.fromkeys(["AT", "PRE", "HWS"])
-
-    for measurement in context.keys():
-        if weather_data["validity_checks"][current_sol][measurement]["valid"]:
-            context[measurement] = weather_data[current_sol][measurement]
-
-    context["season"] = weather_data[current_sol]["Season"]
-
-    return context
-
-
 def new_game(request):
     """
     Generates a new game, resetting the location of all components and the rover.
     """
+
+    # Attempt to pull the weather for the current sol
+    # If weather data is missing for current sol, get data for previous sol
+    # If data is still missing, use default values
+    week_weather = get_week_weather(request)
+    for sol in range(-1, -3, -1):
+        sol_weather = week_weather["weekly_weather"][sol]
+        sol_weather_key = list(sol_weather.keys())[0]
+        sol_weather_data = sol_weather[sol_weather_key]
+        if "HWS" in sol_weather_data and "AT" in sol_weather_data:
+            wind_speed = sol_weather_data["HWS"]["av"]
+            temperature = sol_weather_data["AT"]["av"]
+            break
+    if (
+        wind_speed is None
+        or wind_speed == ""
+        or temperature is None
+        or temperature == ""
+    ):
+        wind_speed = 6
+        temperature = -60
 
     game_data = {
         "initials": "",
@@ -57,8 +47,8 @@ def new_game(request):
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
         "wind": (-1, 0),
-        "wind_speed": get_current_weather(request)["HWS"]["av"],
-        "temperature": get_current_weather(request)["AT"]["av"],
+        "wind_speed": wind_speed,
+        "temperature": temperature,
         "obstacles": {
             "dust_storm": (0, 2),
             "small_crater": (-4, -3),
@@ -477,6 +467,22 @@ def command_look(game_data, direction):
     return game_data
 
 
+def command_weather(game_data):
+    game_data["messages"].append(
+        {
+            "from_rover": False,
+            "message": f"Current temperature: {game_data['temperature']} deg C",
+        }
+    )
+    game_data["messages"].append(
+        {
+            "from_rover": False,
+            "message": f"Current wind speed: {game_data['wind_speed']} meters per second",
+        }
+    )
+    return game_data
+
+
 def calculate_score(game_data):
     """
     Score is equal to remaining battery times (mars temperature divided by 10) plus accumulated score.
@@ -502,6 +508,8 @@ def parse_command(request, game_data, command):
             game_data["messages"].append(
                 {"from_rover": False, "message": calculate_score(game_data)}
             )
+        elif command == "weather":
+            game_data = command_weather(game_data)
         elif command == "help":
             game_data = command_help(game_data)
         else:
