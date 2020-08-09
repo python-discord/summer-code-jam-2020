@@ -1,6 +1,6 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,6 +11,7 @@
           crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/main.css' %}">
+    <title>Gif Preview</title>
 
 </head>
 <body>
@@ -28,6 +29,8 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
+                            <a class="nav-item nav-link" href="../{{ title }}">Back</a>
+                            <a class="nav-item nav-link" href="/project/{{ title }}/publish">Post</a>
                             <a class="nav-item nav-link" href="{% url 'projects' %}">New Project</a>
                             <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                         {% else %}
@@ -39,27 +42,17 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <!-- display any flashed messages (messages that only show up once) -->
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                {% block content %}{% endblock %}
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <h2>{{ title }}</h2>
             </div>
         </div>
-    </main>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+        <div class="row align-items-center">
+            <div class="col">
+                <img src="{{ path }}">
+            </div>
+        </div>
+    </div>
 </body>
 </html>

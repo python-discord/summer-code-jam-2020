@@ -1,17 +1,15 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
-
     <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/main.css' %}">
-
+    <title>Project View</title>
 </head>
 <body>
     <header class="site-header">
@@ -39,27 +37,26 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <!-- display any flashed messages (messages that only show up once) -->
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                {% block content %}{% endblock %}
-            </div>
-        </div>
-    </main>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+<form action="/project/create" method="post" class="w3-container">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK">
+</form>
+{% if projects %}
+    <div class="card pmd-card">
+        <ul class="list-group pmd-list">
+            {% for project in projects %}
+                <li class="list-group-item d-flex flex-row">
+                    <img src="{% static 'gifapp/icons/project.png' %}" class="pmd-avatar-list-img"
+                    style="width:85px">
+                    <div class="media-body">
+                        <a href="project/{{ project.name }}">{{ project.name }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+{% endif %}
 </body>
 </html>

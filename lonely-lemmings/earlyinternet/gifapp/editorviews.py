@@ -16,17 +16,13 @@ from .models import Project, Image
 
 MEDIA_DIR = settings.MEDIA_ROOT
 
-CANVAS_DIR = os.path.join("editor", "base_draw.html")
-PREVIEW_DIR = os.path.join("editor", "preview.html")
-PROJECT_VIEW_DIR = os.path.join("editor", "view_projects.html")
-
 
 @login_required
 def paint(request, project_name=None) -> HttpResponse:
     context = {
         "name": project_name
     }
-    return render(request, CANVAS_DIR, context)
+    return render(request, "base_draw.html", context)
 
 
 @login_required
@@ -131,14 +127,14 @@ def parse_view_request(request, project_name=None):
         "title": project.name,
         "path": project.preview_version.url
     }
-    return render(request, PREVIEW_DIR, context)
+    return render(request, "preview.html", context)
 
 
 @login_required
 def render_all_projects(request) -> HttpResponse:
     """displays all projects by the user"""
     projects = Project.objects.filter(user_id=request.user)
-    return render(request, PROJECT_VIEW_DIR, {"projects": projects, "form": ProjectForm()})
+    return render(request, "view_projects.html", {"projects": projects, "form": ProjectForm()})
 
 
 @login_required
