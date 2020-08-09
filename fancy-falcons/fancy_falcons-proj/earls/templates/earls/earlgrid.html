@@ -18,7 +18,8 @@
         {% for earl in earl_list %}
             <img width="120"
                 height="120"
-                src="{{ earl.image.url }}"/>
+                src="{{ earl.image.url }}"
+                title="{{ earl.title}} {{ earl.first_name}} {{ earl.last_name}}"/>
         {% endfor %}
     </div>
   </div>
