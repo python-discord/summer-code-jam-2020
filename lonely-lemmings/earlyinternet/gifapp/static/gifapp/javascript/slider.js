@@ -1,8 +1,8 @@
 //slider scripts
 //button color values
-var buttonRed = "00";
-var buttonGreen = "00";
-var buttonBlue = "00";
+let buttonRed = "00";
+let buttonGreen = "00";
+let buttonBlue = "00";
 
 document.getElementById("color-button").style.backgroundColor = "#000000";
 
@@ -20,7 +20,7 @@ function setButtonColor(value, color){
     } else if (color === "blue") {
         buttonBlue = parseInt(value, 10).toString(16);
     }
-    hex = "#" + pad(buttonRed) + pad(buttonGreen) + pad(buttonBlue);
+    let hex = "#" + pad(buttonRed) + pad(buttonGreen) + pad(buttonBlue);
 
     document.getElementById("color-button").style.backgroundColor = hex;
     strokeColor = hex;
@@ -28,8 +28,8 @@ function setButtonColor(value, color){
 }
 
 //red slider
-var redSlider = document.getElementById("redSlider");
-var redOutput = document.getElementById("red_value");
+let redSlider = document.getElementById("redSlider");
+let redOutput = document.getElementById("red_value");
 redOutput.innerHTML = redSlider.value;
 
 redSlider.oninput = function() {
@@ -38,8 +38,8 @@ redSlider.oninput = function() {
 }
 
 //green slider
-var greenSlider = document.getElementById("greenSlider");
-var greenOutput = document.getElementById("green_value");
+let greenSlider = document.getElementById("greenSlider");
+let greenOutput = document.getElementById("green_value");
 greenOutput.innerHTML = greenSlider.value;
 
 greenSlider.oninput = function() {
@@ -48,8 +48,8 @@ greenSlider.oninput = function() {
 }
 
 //blue slider
-var blueSlider = document.getElementById("blueSlider");
-var blueOutput = document.getElementById("blue_value");
+let blueSlider = document.getElementById("blueSlider");
+let blueOutput = document.getElementById("blue_value");
 blueOutput.innerHTML = blueSlider.value;
 
 blueSlider.oninput = function() {
@@ -58,8 +58,8 @@ blueSlider.oninput = function() {
 }
 
 //width slider
-var widthSlider = document.getElementById("lineWidthSlider");
-var widthOutput = document.getElementById("width_value");
+let widthSlider = document.getElementById("lineWidthSlider");
+let widthOutput = document.getElementById("width_value");
 widthOutput.innerHTML = widthSlider.value;
 
 widthSlider.oninput = function() {
@@ -68,8 +68,8 @@ widthSlider.oninput = function() {
 }
 
 //polygon slider
-var polygonSlider = document.getElementById("polygonSideSlider");
-var polygonOutput = document.getElementById("polygon_value");
+let polygonSlider = document.getElementById("polygonSideSlider");
+let polygonOutput = document.getElementById("polygon_value");
 polygonOutput.innerHTML = polygonSlider.value;
 
 polygonSlider.oninput = function() {

@@ -10,12 +10,15 @@
         <script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
     </head>
     <body>
+        <div class="wrapper" id="project-name">
+            <h6>MyProject</h6>
+        </div>
         <div class="wrapper">
             <div class="toolbar">
                 <a href="#" id="clear" onclick="Clear()">
                     <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
                 </a>
-                <a href="#" id="save" onclick="SaveImage('save')">
+                <a href="#" id="save" onclick="SaveImage()">
                     <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
                 </a>
                 <a href="#" id="undo" onclick="Undo()">
@@ -41,6 +44,9 @@
                 </a>
             </div>
             <div class="customizer">
+                <div class="color">
+                    <button id="frame-button">0</button>
+                </div>
                 <div class="color">
                     <button id="color-button"></button>
                 </div>
@@ -69,9 +75,23 @@
             <br>
             <canvas id="my-canvas" width="600" height="600"></canvas>
             <div class="w3-container">
-                <a href="#" class="w3-button w3-black">Exit</a>
-                <a onclick="SaveImage('next')" class="w3-button w3-black">Next</a>
-                <a onclick="SaveImage('render')" class="w3-button w3-black">Render</a>
+                <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
+                    {% csrf_token %}
+                    <a onclick="SendData('save')" class="w3-button w3-black">Save All</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Previous()" class="w3-button w3-black">Previous</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Next()" class="w3-button w3-black">Next</a>
+                </form>
+                <form class="w3-button w3-black">
+                    <a onclick="Delete()" class="w3-button w3-black">Delete Frame</a>
+                </form>
+                <form method = "post" enctype="multipart/form-data" class="w3-button w3-black">
+                    {% csrf_token %}
+                    <a onclick="RequestRender()" class="w3-button w3-black">Render</a>
+                </form>
             </div>
         </div>
     </body>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Project(models.Model):
@@ -15,20 +16,24 @@ class Project(models.Model):
         cls = self.__class__.__name__
         return f"{cls} name={self.name!r} owner_id={self.user_id!r}"
 
+    def get_absolute_url(self):
+        return reverse('project-detail', kwargs={ 'pk': self.pk })
+
 
 class Image(models.Model):
     """data entry model for an image that can be inside a project"""
     project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
-    image_name = models.CharField(max_length=50)
     image_data = models.ImageField(upload_to="images/")
     date_created = models.DateTimeField(auto_now_add=True)
-    date_last_modified = models.DateTimeField(auto_now=True)
     animation_position = models.PositiveIntegerField(null=False, default=0)
+
+    class Meta:
+        ordering = ["animation_position"]
 
     def __repr__(self) -> str:
         """returns the image name and the project id that it belongs to"""
         cls = self.__class__.__name__
-        return f"{cls} image_name={self.image_name!r} project_id={self.project_id!r}"
+        return f"{cls} image_dir={self.image_data!r} project_id={self.project_id!r}"
 
 
 class Comment(models.Model):
