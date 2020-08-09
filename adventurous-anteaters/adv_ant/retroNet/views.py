@@ -1,10 +1,11 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import *
-from .forms import *
+from .models import Tweet, UpdateProfile
+from .forms import TweetForm, Updateprofile
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 # index view when user logs in
@@ -23,7 +24,7 @@ def index(request):
         return render(request, 'index.html', {"data": queryset})
     else:
         queryset = Tweet.objects.all()
-        return render(request, 'index.html',{"data":queryset})
+        return render(request, 'index.html', {"data": queryset})
 
 
 # for registration of a new user
@@ -43,6 +44,7 @@ def register(request):
 def update_profile(request):
     return render(request, 'temp_test.html')
 
+
 @login_required(login_url='/login/')
 def update_profile_display(request):
     form = Updateprofile(request.POST or None)
@@ -58,12 +60,14 @@ def update_profile_display(request):
 
 @login_required(login_url='/login/')
 def home(request):
-    return render(request,'home.html')
+    return render(request, 'home.html')
+
 
 @login_required(login_url='/login/')
 def my_profile(request):
-    return render(request, 'profile.html')
-
+    queryset = Tweet.objects.all()
+    user_name = request.user.username
+    return render(request, 'profile.html', {"data": queryset, "user":user_name})
 
 @login_required(login_url='/login/')
 def user_profile(request):
@@ -72,12 +76,18 @@ def user_profile(request):
 def logout_page(request):
     return render(request, 'logout.html')
 
+def logout_request(request):
+    logout(request)
+    return redirect("my_profile")
+
 def account_deletion(request):
     return render(request, 'account_deletion_confirmation.html')
 
+@login_required
 def create_tweet(request):
     return render(request, 'create_tweet.html')
 
+@login_required
 def view_tweet(request):
     form = TweetForm(request.POST or None)
     if form.is_valid():

@@ -82,8 +82,8 @@
 
     <div class="menu">
 
-      <button class="dropbtn" class="btn BtnIconwText">
-        <div class="BtnIcon-icon">
+      <button class="dropbtn" class="btn BtnIconwText" onclick="window.hisory.back();">
+        <div class="BtnIcon-icon" onclick="window.history.back();">
             <img src="{% static 'retroNet/images/back-min.png' %}" alt="">
         </div>
         <div class="BtnIcon-text">Back</div>
@@ -96,7 +96,7 @@
         <div class="BtnIcon-text">Forward</div>
       </button>
 
-      <button class="dropbtn" class="btn BtnIconwText">
+      <button class="dropbtn" class="btn BtnIconwText" onclick="window.location.href = '/logout'">
         <div class="BtnIcon-icon">
             <img src="{% static 'retroNet/images/ie-stop-min.png' %}" alt="">
         </div>
@@ -110,7 +110,7 @@
         <div class="BtnIcon-text">Refresh</div>
       </button>
 
-      <button class="dropbtn" class="btn BtnIconwText">
+      <button class="dropbtn" class="btn BtnIconwText" onclick="window.location.href='/profile'">
         <div class="BtnIcon-icon">
             <img src="{% static 'retroNet/images/ie-home-min.png' %}" alt="">
         </div>
@@ -119,11 +119,11 @@
 
       <div class="divider1"></div>
 
-      <button class="dropbtn" class="btn BtnIconwText">
+      <button class="dropbtn" class="btn BtnIconwText"  onclick="window.location.href='/view_tweet'">
         <div class="BtnIcon-icon">
             <img src=  "{% static 'retroNet/images/ie-search-min.png' %}" alt="">
         </div>
-        <div class="BtnIcon-text">Search</div>
+        <div class="BtnIcon-text">View Tweets</div>
       </button>
 
       <button class="dropbtn" class="btn BtnIconwText">

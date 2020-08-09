@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <div class="window-body" style="background-color: #e5e9e7;margin:auto 10px">
     
   <fieldset class="profile">
-              <legend>{{User}}'s Profile</legend>
+              <legend>{{user}}'s Profile</legend>
               <section class="above">
                 <div class="profile-img">
-                  <img src="images/example_img.jpg" alt="">
+                    <img src="{% static 'retroNet/images/example_img.jpg' %}" alt="">
                 </div>
                 <div class="tweets">
-                  <span class="profile-box-title">{{User}}'s Tweets</span>
+                  <span class="profile-box-title">{{user}}'s Tweets</span>
                   
                   <div class="search-container">
 
@@ -19,27 +20,10 @@
                     </form>
                   </div>
                   <div class="user-tweets">
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
-                    <div class="tweet">{{tweet_title}}{{date_posted}}</div>
+
+                      {% for tweet in data %}
+                        <div class="tweet">{{tweet.title}}{{tweet.content}}</div>
+                      {% endfor %}
                   </div>
                 </div>
                 <div class="about">
@@ -60,7 +44,7 @@
                     <fieldset><legend>Following: </legend> <span class="gen-info-content">{{following}</span></fieldset>
                     <fieldset style="grid-column: 1/3;"><legend>All Time Likes: </legend> <span class="gen-info-content">{{all_time_likes}}</span></fieldset>
                     
-                    <button>Follow  {{user_name}}</button>
+                    <button onclick="window.location.href= '/post'">Post a Tweet</button>
                   </div>
                 </div>
               </section>
