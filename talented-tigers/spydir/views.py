@@ -4,12 +4,6 @@ from .generate_page import generate_page, authorize_page
 
 
 def homepage(request):
-    authorize_page("internet")
-    generate_page("internet", "INFO")
-    authorize_page("code")
-    generate_page("code", "INFO")
-    authorize_page("meme")
-    generate_page("meme", "INFO")
 
     lengths = [
         len(GeneratedPage.objects.filter(page_type="BLOG")),
