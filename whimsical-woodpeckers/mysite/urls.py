@@ -31,9 +31,9 @@ urlpatterns = [
     re_path(r'^(?P<path>.*)$', serve, {
         'document_root': 'www/dist',
     }),
-
-
+    path('recent/', anon_views.get_recent, name='get-recent'),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

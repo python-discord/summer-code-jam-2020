@@ -87,7 +87,7 @@
 </script>
 <script type="text/x-template" id="desktop-template">
     <div class="row" v-bind:mode="mode">
-      <login v-if="mode==0||mode==1" v-bind:mode="mode" class="col-lg-3 app"></login>
+      <div v-if="mode==0||mode==1" v-bind:mode="mode" class="col-lg-3 app"></div>
       <messages class="col-lg-6 app" v-bind:mode="mode"></messages>
       <directory v-if="mode==1||mode==0" class="col-lg-3 app"></directory>
     </div>

@@ -26,7 +26,6 @@ def get_user(user_id):
 
 def test(request):
     print(request.user)
-    #return HttpResponse(AnonUser.objects)
     return HttpResponse(str(vars(request.user)))
 
 
@@ -40,3 +39,10 @@ def get_auth_token(request):
 
 def get_user_data(request):
     return JsonResponse({"id": request.user.id, "nickname": request.user.nickname})
+
+
+def get_recent(request):
+    recent = AnonUser.objects.filter(last_seen__gte=timezone.now()-datetime.timedelta(minutes=5))
+    request.user.last_seen = timezone.now()
+    request.user.save()
+    return JsonResponse({'context': list(recent.values('id', 'nickname'))})
