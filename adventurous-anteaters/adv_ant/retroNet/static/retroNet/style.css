@@ -473,3 +473,21 @@ font-size: 0;
   margin-left:3px;
   margin-right: 3px;
 }
+
+
+
+/*--------------------home_page-----------------------------*/
+
+.home{
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.home .all_tweets .tweet{
+  background: none;
+}
+
+
+.search-container button{
+  width: 19.75%;
+}
