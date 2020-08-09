@@ -6,53 +6,58 @@ from typing import Union
 
 from PIL import Image as PILImage
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from .forms import ProjectForm
 from .models import Project, Image
 
-APP_DIR = os.path.join(settings.BASE_DIR, "gifapp")
-MEDIA_DIR = os.path.join(APP_DIR, "media")
+MEDIA_DIR = settings.MEDIA_ROOT
 
 CANVAS_DIR = os.path.join("editor", "base_draw.html")
 PREVIEW_DIR = os.path.join("editor", "preview.html")
+PROJECT_VIEW_DIR = os.path.join("editor", "view_projects.html")
 
 
-def paint(request) -> HttpResponse:
-    return render(request, CANVAS_DIR)
+def paint(request, project_name=None) -> HttpResponse:
+    context = {
+        "name": project_name
+    }
+    return render(request, CANVAS_DIR, context)
 
 
 @csrf_exempt
-def parse_save_request(request) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
+def parse_save_request(request, project_name=None) -> HttpResponse:
     """receives POST request of images as bytes, decodes and saves image paths to database"""
 
-    if request.method == "POST":
-        data = json.loads(request.body)
-        images_blob = data['image_BLOB']
-        project_name = data['name']
+    data = json.loads(request.body)
+    images_blob = data['image_BLOB']
 
-        # get project id
-        project = Project.objects.filter(name=project_name, user_id=request.user)[0]
+    # get project id
+    project = Project.objects.filter(name=project_name, user_id=request.user)[0]
 
-        # delete all images associated with project
-        images = Image.objects.filter(project_id=project)
-        image_path_list = [get_img_path(img) for img in images]
-        images.delete()
+    # delete all images associated with project
+    images = Image.objects.filter(project_id=project)
+    image_path_list = [get_img_path(img) for img in images]
+    images.delete()
 
-        # delete all local images associated with the project
-        if image_path_list:
-            for img_path in image_path_list:
-                os.remove(img_path)
+    # delete all local images associated with the project
+    if image_path_list:
+        for img_path in image_path_list:
+            os.remove(img_path)
 
-        # write request images to file and associate them with project
-        for i, blob in enumerate(images_blob):
-            im = PILImage.open(BytesIO(b64decode(blob.split(',')[1])))
-            image_name = f"{request.user}_{project_name}_{i}.png"
-            image_dir = os.path.join(MEDIA_DIR, image_name)
-            im.save(image_dir)
-            Image.objects.create(project_id=project, image_data=image_name, animation_position=i)
-    return redirect("/")
+    # write request images to file and associate them with project
+    for i, blob in enumerate(images_blob):
+        im = PILImage.open(BytesIO(b64decode(blob.split(',')[1])))
+        # fill transparent background with solid white
+        white_bg = PILImage.new("RGBA", im.size, "WHITE")
+        white_bg.paste(im, (0, 0), im)
+        image_name = f"{request.user}_{project_name}_{i}.png"
+        image_dir = os.path.join(MEDIA_DIR, image_name)
+        white_bg.save(image_dir)
+        Image.objects.create(project_id=project, image_data=image_name, animation_position=i)
+    return HttpResponse("Saved")
 
 
 def get_img_path(image: Image) -> str:
@@ -61,26 +66,28 @@ def get_img_path(image: Image) -> str:
     return os.path.join(MEDIA_DIR, img_name)
 
 
-def parse_render_request(request, project_name=None):
+@csrf_exempt
+def parse_render_request(request, project_name=None) -> Union[HttpResponse, HttpResponseNotFound]:
     """receives GET request with project_name.
     Grab all files from the project with name project_name and compile it into a gif in the media folder
     with name <user_name>_<project_name>.gif render preview.html with the gif img loaded"""
-    images = Image.objects.filter(project_id__name=project_name, project_id__user_id=request.user)
+    project = Project.objects.filter(name=project_name, user_id=request.user)[0]
+    images = Image.objects.filter(project_id=project)
+
     if len(images) > 1:
         image_list = [get_img_path(img) for img in images]
-        gif_path = os.path.join(MEDIA_DIR, f"{request.user}_{project_name}.gif")
-
+        gif_name = f"{request.user}_{project_name}.gif"
+        gif_path = os.path.join(MEDIA_DIR, gif_name)
         images_for_gif_compile = [PILImage.open(img) for img in image_list]
-
         # save the frames
         images_for_gif_compile[0].save(gif_path, save_all=True, append_images=images_for_gif_compile[1:],
                                        duration=100, loop=0)
-        context = {
-            "name": project_name
-        }
-        return render(request, PREVIEW_DIR, context)
+        # add a preview version to project
+        project.preview_version = gif_name
+        project.save()
+        return HttpResponse("Build Successful")
     else:
-        return HttpResponseNotFound()
+        return HttpResponseNotFound("Cannot Find Enough Frames")
 
 
 def parse_image_request(request, project_name=None) -> HttpResponse:
@@ -93,13 +100,49 @@ def parse_image_request(request, project_name=None) -> HttpResponse:
         with open(img_path, "rb") as image:
             return b64encode(image.read()).decode("utf-8")
 
-    if request.method == "GET":
+    images = Image.objects.filter(project_id__name=project_name, project_id__user_id=request.user)
 
-        images = Image.objects.filter(project_id__name=project_name, project_id__user_id=request.user)
+    if images:
+        image_data_list = [encode_serializable_img(img) for img in images]
+    else:
+        image_data_list = []
+    data_dict = {"data": image_data_list}
+    return HttpResponse(json.dumps(data_dict), content_type="application/json")
 
-        if images:
-            image_data_list = [encode_serializable_img(img) for img in images]
+
+def parse_post_request(request, project_name=None):
+    project = Project.objects.filter(name=project_name, user_id=request.user)[0]
+    project.upload_version = project.preview_version
+    project.save()
+    return HttpResponse()
+
+
+def parse_view_request(request, project_name=None):
+    """displays a page that shows the built gif"""
+    project = Project.objects.filter(name=project_name, user_id=request.user)[0]
+    context = {
+        "title": project.name,
+        "path": project.preview_version.url
+    }
+    return render(request, PREVIEW_DIR, context)
+
+
+def render_all_projects(request):
+    """displays all projects by the user"""
+    projects = Project.objects.filter(user_id=request.user)
+
+    return render(request, PROJECT_VIEW_DIR, {"projects": projects, "form": ProjectForm()})
+
+
+def parse_new_project_request(request):
+    if request.method == "POST":
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project_name = form.cleaned_data["project_name"]
+            Project.objects.create(name=project_name, user_id=request.user)
+            return HttpResponseRedirect(f"/project/{project_name}")
         else:
-            image_data_list = []
-        data_dict = {"data": image_data_list}
-        return HttpResponse(json.dumps(data_dict), content_type="application/json")
+            return HttpResponseRedirect("../project")
+
+    else:
+        return HttpResponseRedirect("../project")

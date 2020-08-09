@@ -118,5 +118,6 @@ STATIC_URL = '/static/'
 
 # media
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+GIFAPP_DIR = os.path.join(BASE_DIR, "gifapp")
+MEDIA_ROOT = os.path.join(GIFAPP_DIR, 'media')
 MEDIA_URL = '/media/'

@@ -69,7 +69,7 @@ let loc = new Location(0,0);
 function getImages(){
     let xhr = new XMLHttpRequest();
     let name = document.getElementById("project-name").innerText;
-    let url = "project/" + name;
+    let url = name +"/load";
 
 
     xhr.open("GET", url, true);
@@ -362,8 +362,8 @@ function Delete(){
 
 function SendData(type){
     let xhr = new XMLHttpRequest();
-    let url = type
     let name = document.getElementById("project-name").innerText;
+    let url = name + "/" + type;
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -375,24 +375,25 @@ function SendData(type){
         }
     }
 
-    let data = JSON.stringify(
-        {"image_BLOB": savedFrames, "name": name}
-        );
+    let data = JSON.stringify({"image_BLOB": savedFrames});
     xhr.send(data);
 }
 
 function RequestRender(){
     let xhr = new XMLHttpRequest();
     let name = document.getElementById("project-name").innerText;
-    let url = "project/" + name + "/render"
+    let url = name + "/render"
 
     xhr.open("GET", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
 
     //callback
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 404){
-            alert("Cannot find any saved image frames. Create new frames or save existing frames");
+        if (xhr.readyState === 4) {
+            if (xhr.status === 404){
+                alert(xhr.responseText);
+            } else if(xhr.status === 200){
+                alert(xhr.responseText);
+            }
         }
     }
     xhr.send();

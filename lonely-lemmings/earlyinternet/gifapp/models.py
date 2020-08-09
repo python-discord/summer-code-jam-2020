@@ -8,7 +8,8 @@ class Project(models.Model):
     user_id = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     is_gif = models.BooleanField(null=False, default=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    upload_version = models.ImageField(upload_to="images/")
+    preview_version = models.ImageField(null=True)
+    upload_version = models.ImageField(null=True)
 
     def __repr__(self) -> str:
         """returns the project name and the owner id that it belongs to"""
@@ -19,7 +20,7 @@ class Project(models.Model):
 class Image(models.Model):
     """data entry model for an image that can be inside a project"""
     project_id = models.ForeignKey(Project, null=False, on_delete=models.CASCADE)
-    image_data = models.ImageField(upload_to="images/")
+    image_data = models.ImageField(null=False)
     date_created = models.DateTimeField(auto_now_add=True)
     animation_position = models.PositiveIntegerField(null=False, default=0)
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project View</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<form action="/project/create" method="post" class="w3-container">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK">
+</form>
+{% if projects %}
+    <div class="w3-container">
+        <ul class="w3-ul w3-card-4">
+            {% for project in projects %}
+                <li class="w3-bar">
+                    <img src="{% static 'gifapp/icons/project.png' %}" class="w3-bar-item w3-circle w3-hide-small"
+                    style="width:85px">
+                    <div class="w3-bar-item">
+                        <a href="project/{{ project.name }}">{{ project.name }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+{% endif %}
+</body>
+</html>

@@ -23,5 +23,6 @@ urlpatterns = [
     path("", include('gifapp.urls')),  # add gifapp to main website
 ]
 
+#  todo have to somehow keep this to use the images in the media folder, not sure how this changes with production
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
