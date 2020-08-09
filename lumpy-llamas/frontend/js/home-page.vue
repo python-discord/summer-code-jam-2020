@@ -1,5 +1,8 @@
 <template>
-  <div class="home-grid">
+  <div class="home-container">
+    <h4 class="home-heading">COTLaQ BBS</h4>
+    <span class="subtitle">Cofessions Of a Teenage Llama Queen</span>
+    <div class="home-grid">
     <div class="home-newsfeed item">
       <newsfeed :current-mode="newsMode"></newsfeed>
     </div>
@@ -11,10 +14,18 @@
         </li>
       </ol>
     </div>
+    </div>
   </div>
 </template>
 
 <style>
+.home-heading {
+  margin-bottom: 0;
+}
+.subtitle {
+  font-style: italic;
+  font-weight: lighter;
+}
 .home-grid .item {
   border-style: solid;
   border-width: 1px;
