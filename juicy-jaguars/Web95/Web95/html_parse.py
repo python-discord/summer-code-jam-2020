@@ -55,7 +55,7 @@ class HtmlParser:
                 url('{}/static/fonts/w-95-sans-serif.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
-                }}""".format("http://"+self.request.META["HTTP_HOST"], "http://"+self.request.META["HTTP_HOST"]))
+                }}""".format("http://" + self.request.META["HTTP_HOST"], "http://" + self.request.META["HTTP_HOST"]))
         except KeyError:  # excepts KeyError & AttributeError as in some cases website do not have a <head> tag
             pass
         except AttributeError:
@@ -113,7 +113,7 @@ class HtmlParser:
         """Remove blank strings from x."""
         y = []
         for item in x:
-            if item != " "*len(item):
+            if item != " " * len(item):
                 y.append(item)
         return y
 
