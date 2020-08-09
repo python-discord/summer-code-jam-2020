@@ -1,9 +1,10 @@
 import datetime
 
-from django.contrib.auth import get_user
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
+
+from weather.tasks import update_weather_for_user  # noqa: F401
 
 
 @login_required
@@ -11,8 +12,6 @@ def index(request: HttpRequest) -> HttpResponse:
 
     # TODO Replace this big hardcoded dictionay by the functions
     # that return the needed data from the database
-
-    # TODO: Convert the sunrise / sunset time to local time, not UTC.
 
     context = {
         "weather": {
@@ -60,6 +59,7 @@ def index(request: HttpRequest) -> HttpResponse:
                   context=context)
 
 
+@login_required
 def update_location(request: HttpRequest) -> HttpResponse:
     """Updates the user models geolocation with location
     from url parameters and redirects to dashboard page."""
@@ -69,10 +69,25 @@ def update_location(request: HttpRequest) -> HttpResponse:
         latitude = float(request.GET.get("latitude"))
 
         # Update user model
-        user = get_user()
-        user.location.longitude = longitude
-        user.location.latitude = latitude
-        user.save()
+        user = request.user
+
+        # Update previous location
+        if user.location_set.exists():
+            location = user.location_set.last()
+            location.longitude = longitude
+            location.latitude = latitude
+
+            location.save()
+
+        else:  # Create new location
+            user.location_set.create(
+                longitude=longitude,
+                latitude=latitude,
+            )
+
+        # Update weather for new user location
+        update_weather_for_user(user)
+
     except TypeError:
         # There is no need to log any error or display
         # it for the user, so we can skip that.

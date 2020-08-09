@@ -36,7 +36,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'weather',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,11 +46,12 @@ INSTALLED_APPS = [
     # Modules
     'widget_tweaks',
     # Apps
-    'news.apps.NewsConfig',
-    'wikipedia.apps.WikipediaConfig',
+    'news',
+    'wikipedia',
     'account',
     'dashboard',
     'todo',
+    'weather',
     'commands'
 ]
 
