@@ -14,7 +14,7 @@
         <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-quizzes' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
+            <a class="mr-2" href="{% url 'user' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
             <small class="text-muted">Quiz started on: {{ quiz.start_time|date:"F d, Y" }} </small>
           </div>
           <h2><a class="article-title" href="{% url 'activequiz' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>
@@ -28,7 +28,13 @@
 {% else %}
   <div class="row justify-content-md-center">
     <div class="col-md-auto parchment-border justify-content-center">
-        <h1 class="justify-content-center bulletin-title">No active quizzes currently hosted.&nbsp;<br> Login to create your own</h1>
+        <h1 class="justify-content-center bulletin-title">No active quizzes currently hosted.&nbsp;<br>
+            {% if user.is_authenticated %}
+                start your own <a href="{% url 'quiz-create' %}">here.</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> to create your own
+            {% endif%}
+        </h1>
     </div>
   </div>
 {% endif %}

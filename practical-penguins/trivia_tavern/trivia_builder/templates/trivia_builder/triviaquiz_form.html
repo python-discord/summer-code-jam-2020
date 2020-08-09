@@ -2,10 +2,12 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
+
 {{ formset.media }}
 
     <div class="parchment-border">
-       <form method="post" data-formset-prefix="{{ formset.prefix }}">
+        <h1>Create your trivia pack</h1>
+        <form method="post" data-formset-prefix="{{ formset.prefix }}">
 
             {% csrf_token %}
 
