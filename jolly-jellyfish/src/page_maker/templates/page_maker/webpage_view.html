@@ -5,22 +5,22 @@
 {% endblock %}
 
 {% block content %}
-<h1><span>{{ webpage.user_title }}</span></h1>
+<h1><span><span>{{ webpage.user_title }}</span></span></h1>
 <p>
   {% if webpage.user_image_1 %}
-  <img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image">
+  <div class="img-wrapper"><img src="{{ webpage.user_image_1.url }}" alt="User-uploaded header image"></div>
   {% endif %}
 </p>
 <p>{{ webpage.user_text_1 }}</p>
 <p>
   {% if webpage.user_image_2 %}
-  <img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image">
+  <div class="img-wrapper"><img src="{{ webpage.user_image_2.url }}" alt="User-uploaded main image"></div>
   {% endif %}
 </p>
 <p>{{ webpage.user_text_2 }}</p>
 <p>
   {% if webpage.user_image_3 %}
-  <img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image">
+  <div class="img-wrapper"><img src="{{ webpage.user_image_3.url }}" alt="User-uploaded footer image"></div>
   {% endif %}
 </p>
 <p>{{ webpage.user_text_3 }}</p>
