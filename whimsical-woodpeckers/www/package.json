@@ -13,13 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "css-loader": "^4.2.0",
-    "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
     "py-loader": "github:pmdevita/python-webpack-loader",
     "source-map-loader": "^1.0.1",
-    "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
