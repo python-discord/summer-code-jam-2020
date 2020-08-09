@@ -1,5 +1,6 @@
 import logging
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from core.helpers import jsonbody
 from chat.models import _model_field_limits
 
@@ -7,14 +8,17 @@ from chat.models import _model_field_limits
 logger = logging.getLogger(__name__)
 
 
+@login_required
 def chat_lobby(request):
     return JsonResponse(dict())
 
 
+@login_required
 def chat_room(request, room_name):
     return JsonResponse({'room_name': room_name})
 
 
+@login_required
 @jsonbody
 def check_chat_room_name(request, data):
     room_name = data.get('roomName')
