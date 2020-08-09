@@ -6,6 +6,7 @@ from asyncio import subprocess
 from asgiref.sync import sync_to_async
 from asyncio.streams import StreamReader
 from vmachine.models import VMachine, Floppy
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -14,7 +15,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 # TODO: add auth (check self.scope for user)
 class TerminalConsumer(AsyncWebsocketConsumer):
     @sync_to_async
-    def _check_user(self, user, storage_id: int, vm_id: int) -> Union[Literal[False], str]:
+    def _check_user(self, user: User, storage_id: int, vm_id: int) -> Union[Literal[False], str]:
         """
         return False if the user can use the given storage and vm, otherwise a non-empty error message
         """
@@ -44,8 +45,8 @@ class TerminalConsumer(AsyncWebsocketConsumer):
         self.connected = False
         if user is None or not user.is_authenticated or (error := await self._check_user(user, storage_id, vm_id)):
             print('errored', error)
-            # sending text would require special handling on the clie side
-            await self.send(bytes_data=(error+'\n').encode())
+            # sending text would require special handling on the client side
+            await self.send(bytes_data=(error + '\n').encode())
             await self.close()
             return
         self.connected = True

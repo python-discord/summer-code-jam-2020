@@ -1,6 +1,7 @@
 body {
-	background-color: #208c71;
+  background-color: #208c71;
 }
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -33,7 +34,10 @@ li a {
 li a:hover {
   background-color: aquamarine;
 }
-input[type=text], select {
+
+input[type=text],
+select,
+input[type=email] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -42,7 +46,8 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-input[type=password]{
+
+input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -50,7 +55,6 @@ input[type=password]{
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
 }
 
 input[id=submit] {
@@ -67,63 +71,70 @@ input[id=submit] {
 input[type=submit]:hover {
   background-color: #45a049;
 }
+
 .disk-container {
   display: grid;
   grid-template-columns: 1fr 0.5fr 0.5fr;
-  place-items:center;
+  place-items: center;
 }
+
 .disk-container img {
-	display: block;
-	position: relative;
-	left: 50px;
+  display: block;
+  position: relative;
+  left: 50px;
 }
 
 
 .login-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	place-items:center;
-	grid-column-gap: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  grid-column-gap: 50px;
   max-height: 100vh;
   height: 55vh;
 }
 
 
 #main {
-	position: absolute;
-	display: inline-block;
-	color: black;
-	left: 0.5vw;
+  position: absolute;
+  display: inline-block;
+  color: black;
+  left: 0.5vw;
   right: 0.5vw;
-	height: inherit;
-	top: 10vh;
-	max-width: 100%;
-	overflow: auto;
+  height: inherit;
+  top: 10vh;
+  max-width: 100%;
+  overflow: auto;
   border-width: 3px;
   border-style: outset inset inset outset;
   border-color: #FFFFFF #808080 #808080 #FFFFFF;
   background: #CCC;
+  padding: 1em;
 
 }
+
 #cwindow {
-	position: static;
-	color: white;
-	background: black;
-	width: 85vw;
-	height: 62vh;
+  position: static;
+  color: white;
+  background: black;
+  width: 85vw;
+  height: 62vh;
 }
+
 #ctext {
-	margin-top: auto;
+  margin-top: auto;
 
 }
+
 .maintext {
-	font-size: 30px;
-	font-family: sans-serif;
+  font-size: 30px;
+  font-family: sans-serif;
 }
 
 .active {
   background-color: aquamarine;
 }
+
 .button {
   font-size: 16px;
   text-align: center;
@@ -131,23 +142,44 @@ input[type=submit]:hover {
   font-weight: bold;
 
 }
+
 .button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
 .alert {
-	padding: 20px;
-	background-color: white;
-	color: black;
+  padding: 20px;
+  background-color: white;
+  color: black;
 }
+
 .xbutton {
-	color: black;
-	font-weight: bold;
-	float: right;
-	font-size: 20px;
-	line-height: 20px;
-	cursor: pointer;
-	transition: 0.3s;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
 .xbutton:hover {
-	color: gray;
+  color: gray;
+}
+
+.disk-container button {
+  border: 2px outset #bbb;
+  background: inherit;
+}
+
+.disk-container button:hover {
+  border: 2px inset #bbb;
+}
+
+.disk-container div {
+  display: inline-block;
+}
+
+.disk-container label {
+  display: block;
 }
