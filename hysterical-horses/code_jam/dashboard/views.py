@@ -16,8 +16,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 from geopy.geocoders import Nominatim
+from pytz import timezone
 from users.mixins import LevelRestrictionMixin, level_check
-
 from .models import Search
 
 
@@ -38,6 +38,9 @@ def index(request):
 @login_required()
 def about_view(request):
     return render(request, 'dashboard/about.html', {})
+
+def about(request):
+    return render(request, 'dashboard/about.html')
 
 
 def search_query(search: str, format_text: bool =True):
@@ -148,6 +151,46 @@ def weather_query(lat: str, lon: str, api_key: str, part: str, format: bool = Tr
     else:
         return res # return as is
 
+      
+@login_required()
+def weather_results(request, ip_address: str):
+    api_key = os.environ.get('weather_api_key')
+    pat = re.compile('^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')
+    error_msg = ''
+    if re.search(pat, ip_address):
+        user_data = geocoder.ip(ip_address).latlng # change to visitor_ip_address in developement
+        latitude, longitude  = user_data[0], user_data[1] # easily get lat. and lon. of location
+    else:
+        geolocator = Nominatim(user_agent="hyst_horses")
+        location = geolocator.geocode(ip_address)
+        try:
+            latitude, longitude = location.latitude, location.longitude
+        except:
+            wrapper = textwrap.TextWrapper(width=20)
+            shortened = wrapper.wrap(text=ip_address)[0]
+            if shortened != ip_address:
+                shortened += '...'
+            error_msg = f'No weather found for {shortened}.'
+            latitude, longitude = '', ''
+    if latitude and longitude:
+        forecast = weather_query(latitude, longitude, api_key, 'daily')
+        current_time = datetime.datetime.now(timezone(forecast['tz'])).strftime('%H:%M %p')
+    else:
+        forecast = {'daily': '',
+                    'current': ''}
+        current_time = ''
+    context = {
+        'day_forecast': forecast['daily'],
+        'current_details': forecast['current'],
+        'ending': '°F',
+        'current_time': current_time,
+        'error_msg': error_msg,
+    }
+    try:
+        context['address'] = location.address
+    except:
+        context['address'] = ''
+    return render(request, 'dashboard/weather/weather.html', context=context)
 
 class WeatherView(LoginRequiredMixin, LevelRestrictionMixin, View):
     def test_func(self):

@@ -9,6 +9,11 @@
 {% include 'dashboard/weather/searchbar.html'  %} <br>
 
 <div id="main-weather" class="nes-container" style="margin-left:3%; margin-right: 3%;">
+    {% if address == ''  %}
+    
+    {% else  %}
+    <p style="font-size: 13px;">Address: {{ address  }}</p>
+    {% endif  %}
     <div id="current-weather" class="nes-container with-title is-left" >
         {% if error_msg == ''  %}
         <p class="title">Current Weather</p>
