@@ -69,5 +69,5 @@ class Database_Generator:
                             country=article.get("country", "US"),
                             content=cont,
                         )
-                    except:
+                    except KeyError:
                         print("Skipping Corrupted Article")
