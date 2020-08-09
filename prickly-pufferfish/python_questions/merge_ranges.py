@@ -4,7 +4,7 @@ These integers represent the number of 30-minute blocks past 9:00am. /
 For example: /
 (2, 3) # meeting from 10:00 - 10:30 am /
 (6, 9) # meeting from 12:00 - 1:30 pm /
-Write a function merge_ranges() that / 
+Write a function merge_ranges() that /
 takes a list of meeting time ranges as a parameter /
 and returns a list of condensed ranges. /
 
