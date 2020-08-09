@@ -305,7 +305,8 @@ def news_func(request, topic: str, start_date: str = None, end_date: str = None,
         googlenews.getpage(1)
         articles = googlenews.result()
         articles = [article for article in articles if len(article['title']) > 10]
-        db_entry = NewsHistory(user_id=request.user.id, search_topic=topic, last_fetched_count=0, news_articles=str(articles))
+        db_entry = NewsHistory(user_id=request.user.id, search_topic=topic,
+                               last_fetched_count=0, news_articles=str(articles))
         articles = articles[0:3]
         db_entry.save()
 
