@@ -29,7 +29,8 @@ def about_us(request):
                 their progress and how you manage the project. New stuff?
                 I'm in.
                 """,
-                "Team Leader"
+                "Team Leader",
+                "dev-1.png"
             ),
             Developer(
                 "iqrar99",
@@ -39,25 +40,29 @@ def about_us(request):
                 Engineer. Really love Python as a main programming
                 language.
                 """,
-                "Developer"
+                "Developer",
+                "dev-2.png"
             ),
             Developer(
                 "Music",
                 "",
                 "Contrary to name, zero involvement in music.",
-                "Developer"
+                "Developer",
+                "dev-3.png"
             ),
             Developer(
                 "Nabob",
                 "",
                 "A cool guy who loves programming",
-                "Developer"
+                "Developer",
+                "dev-4.png"
             ),
             Developer(
                 "Soyybeans",
                 "",
                 "A passionate guy who interested with Python",
-                "Developer"
+                "Developer",
+                "dev-5.png"
             )
         ]
     }
@@ -79,10 +84,12 @@ class Developer(object):
     email: str
     description: str
     role: str
+    picture: str
 
-    def __init__(self, name, email, description, role):
+    def __init__(self, name, email, description, role, picture):
         self.name = name
         self.email = email
         self.description = description
         self.role = role
+        self.picture = picture
 
