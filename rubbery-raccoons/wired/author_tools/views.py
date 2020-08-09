@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 from django.views.generic.list import ListView
 
-from .forms import ArticleForm, CommentForm
+from .forms import ArticleForm
 from wired_app.models import Article
 
 
@@ -24,6 +24,7 @@ def compose(request):
             )
             art.save()
             messages.success(request, "Article submitted!")
+            form = ArticleForm()
         else:
             messages.error(request, "Form input was invalid.")
 

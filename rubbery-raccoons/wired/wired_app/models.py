@@ -22,8 +22,7 @@ class Article(models.Model):
 
 class Comment(models.Model):
     text = models.TextField()
-    publication_date = models.DateTimeField()
-    author = models.ForeignKey(get_user_model(), on_delete=models.SET(None))
+    author = models.ForeignKey(get_user_model(), null=True, on_delete=models.SET(None))
     parent_post = models.ForeignKey(Article, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
