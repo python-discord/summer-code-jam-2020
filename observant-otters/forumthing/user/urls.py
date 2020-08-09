@@ -2,10 +2,20 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('profile/', views.profile, name='profile'),
+    path('profile/',
+         views.profile,
+         name='profile'),
     path(
-        "forum/messages/<int:id>",
-        views.message,
-        name="message-action"
+        "login/",
+        views.Login.as_view(),
+        name="login"
     ),
+    path(
+        "logout/",
+        views.Logout.as_view(),
+        name="logout"
+    ),
+    path("register/",
+         views.register,
+         name="register")
 ]

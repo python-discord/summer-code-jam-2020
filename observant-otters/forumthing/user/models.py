@@ -3,14 +3,9 @@ from django.contrib.auth.models import AbstractUser
 
 
 class ForumUser(AbstractUser):
-    username = models.TextField(unique=True)
-    nickname = models.TextField(default='')
+    username = models.CharField(unique=True, max_length=50)
+    nickname = models.CharField(default='', max_length=50)
     email = models.EmailField(default='none@smth.com')
-    avatar = models.URLField()  # link to the image of the user's discord avatar
-    acc_token = models.TextField()  # discord access token
-    refresh_token = models.TextField()  # discord refresh token
-    token_exp_date = models.DateTimeField(null=True)  # token expiration date
-    discord_id = models.TextField()
 
     def __str__(self):  # maybe a better string repr?
         if self.nickname:

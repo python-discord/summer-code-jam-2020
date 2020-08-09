@@ -1,15 +1,26 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from .forms import ForumUserChangeForm
+from django.contrib.auth import views as auth_views
+from .forms import ForumUserChangeForm, ForumUserCreationForm
 
 
-@login_required
-def message(request, id):
-    if request.method == "DELETE":
-        pass  # @TODO: Handle message deletion
+def register(request):
+    if request.method == 'POST':
+        form = ForumUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = ForumUserCreationForm()
+    return render(request, 'user/register.html', {'form': form})
 
-    elif request.method == "PATCH":
-        pass  # @TODO: Handle message edit
+
+class Login(auth_views.LoginView):
+    template_name = 'user/login.html'
+
+
+class Logout(auth_views.LogoutView):
+    template_name = 'user/logout.html'
 
 
 @login_required

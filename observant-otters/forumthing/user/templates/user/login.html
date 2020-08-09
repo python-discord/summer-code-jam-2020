@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form><br>
+    Don't have an account yet? <a href="{% url 'register' %}">Register</a>
+{% endblock %}
+</html>

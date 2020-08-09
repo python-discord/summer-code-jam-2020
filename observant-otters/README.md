@@ -1,18 +1,18 @@
 # FORUMTHING
 
-Our site is basically just a forum with an auth system using Discord. People can create threads, post messages on said threads, and also edit/delete their messages. Threads are divided into three topics currently: General, Coding (well, this _is_ a code jam), and Jokes.
+Our site is basically just a forum with a simple auth system. People (when logged in) can create threads, post messages on said threads, and also edit/delete their messages. Threads are divided into three topics currently: General, Coding (well, this _is_ a code jam), and Jokes.
 
-## Running Directions
+## Running Directions (Without Docker)
 
-1. Set your current working directory to .../summer-code-jam-2020/observant-otters/forumthing.
-2. Run `python manage.py runserver`.
-3. That's all!
+1. Set your current working directory to .../summer-code-jam-2020/observant-otters.
+2. Install dependencies with `pip install -r requirements.txt`.
+3. Switch your cwd to .../summer-code-jam-2020/observant-otters/forumthing.
+3. Run `python manage.py runserver`.
+4. That's all!
 
 
 ## Environement Variables
 
-- `DISCORD_CLIENT_ID`: The Discord Client ID of the app to use for OAuth2.
-- `DISCORD_CLIENT_SECRET`: The Discord Client Secret of the app to use for OAuth2.
 - `SECRET_KEY`: The secret key for our Django site.
 
 ## Build
