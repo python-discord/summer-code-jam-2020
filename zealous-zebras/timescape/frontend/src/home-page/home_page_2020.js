@@ -42,7 +42,7 @@ export class Home_page_2 extends Component {
         <div className="container">
           {/* First container for the content of the page */}
           <div className="row justify-content-center"> {/* Logo */}
-            <img src={logo} class="img-fluid" alt="logo" style={{padding: "40px", marginTop:"165px"}}/> 
+            <img src={logo} className="img-fluid" alt="logo" style={{padding: "40px", marginTop:"165px"}}/> 
           </div>
           <div className="row justify-content-center"> {/* Searchbar */}
             <input type="text" style={searchBar}/>

@@ -3,6 +3,8 @@ import Draggable from 'react-draggable';
 import { Slider, Grid } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+// import { useSelector, useDispatch } from 'react-redux';
+import { setYear } from '../actions/year'
 import './menubar.css';
 
 const theme = createMuiTheme({
@@ -18,9 +20,9 @@ const theme = createMuiTheme({
 class MenuBar extends Component {
   constructor(props) {
     super(props);
-
     const initVal = this.props.initialValue
     this.state = { selectedYear: initVal }
+    this.props.dispatch(setYear(initVal));
   }
 
   InputSlider() {
@@ -29,6 +31,7 @@ class MenuBar extends Component {
     // Gets called whenever the slider value is updated.
     const handleSliderChange = (_, newValue) => {
       this.setState({ selectedYear: newValue });
+      this.props.dispatch(setYear(newValue));
     };
 
     return (
