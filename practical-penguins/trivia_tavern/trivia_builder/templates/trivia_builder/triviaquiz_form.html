@@ -15,7 +15,6 @@
 
             {{ question_formset.management_form }}
             {% for question_form in question_formset %}
-                <hr>
                 <div class="panel panel-default question-formset">
                     {{ question_form|crispy }}
                 </div>
@@ -30,7 +29,7 @@
             $('.question-formset').formset({
                 addCssClass: "stamp is-approved",
                 addText: 'add new question',
-                deleteCssClass: "stamp is-nope",
+<!--                deleteCssClass: "hidden stamp is-nope",-->
                 deleteText: 'remove previous question'
             });
 
