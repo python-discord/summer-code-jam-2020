@@ -72,7 +72,7 @@ curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master
 
 #### Manual Inspection
 
-Feel free to check the `setup.py` script before running it, as this is always good practice.
+You can the inspect `setup.py` script before running it.
 
 ```shell
 curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py
