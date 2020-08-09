@@ -15,7 +15,7 @@ function change_page() {
         clippy.load('Merlin', (agent) => {
                       // do anything with the loaded agent
                       agent.show();
-                      agent.speak("Remember what we said before? Great events start with small steps? That's exactly what happened on YouTube. YouTube, which entered the internet environment by calling out from a zoo sincerely, is currently the most popular video and live streaming platform on the planet. We do not know what we would have done without YouTube; which functions as a movie theater, school, concert and game zone. Thank you YouTube for being so beneficial!To continue the tour, you can take another url from the notebook on the left, paste it in the address part of the browser, and press the Go button."
+                      agent.speak("Remember what we said before? Great events start with small steps? That's exactly what happened on YouTube. YouTube, which entered the internet environment by calling out from a zoo sincerely, is currently the most popular video and live streaming platform on the planet. We do not know what we would have done without YouTube; which functions as a movie theater, school, concert and game zone. Thank you YouTube for being so beneficial! To continue the tour, you can take another url from the notebook on the left, paste it in the address part of the browser, and press the Go button."
 );
                       setTimeout(() =>{
                           agent.hide();
@@ -27,7 +27,7 @@ function change_page() {
         clippy.load('Merlin', (agent) => {
                       // do anything with the loaded agent
                       agent.show();
-                      agent.speak( "Google, derived from the mathematical term Googol and created by two college students in the garage, this site literally changed the world, history, and people's lives. Changing the way we reach information, answers, questions, requests and people, this search engine has revolutionized every aspect of life. Thanks to Google, the world is now more integrated, people are more curious and wiser, and life is more interesting. Thank you Google!"
+                      agent.speak( "Google, derived from the mathematical term Googol and created by two college students in the garage, literally changed the world, history, and people's lives. Changing the way we reach information, answers, questions, requests and people, this search engine has revolutionized every aspect of life. Thanks to Google, the world is now more integrated, people are more curious and wiser, and life is more interesting. Thank you Google!"
 );
 
                       setTimeout(() =>{
