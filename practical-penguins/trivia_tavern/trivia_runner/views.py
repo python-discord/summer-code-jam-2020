@@ -28,11 +28,7 @@ def setup(request, active_trivia_quiz):
             form.save()
             number = form.cleaned_data.get('phone_number').__str__()
             messages.success(request, f'Invite sent to {number}!')
-            intro = ( f'Hello! You\'ve been invited to play {active_trivia_quiz.trivia_quiz.name}'
-                        f'If you\'re not game, just text back !quit we won\'t bother you!'
-                        f'Otherwise, please text back a team name to join')
-            SMSBot.send(intro, number)
-            SMSBot.register(number, active_trivia_quiz)
+            SMSBot.send_quiz_invite(number, active_trivia_quiz)
     else:
         form = PhoneNumberForm()
 
