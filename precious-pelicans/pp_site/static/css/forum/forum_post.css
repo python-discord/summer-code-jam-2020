@@ -37,10 +37,14 @@ img {
 
 #rating {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     width: 5em;
     flex-grow: 0;
+}
+
+#rating span {
+    margin: 0px 4px 0px 4px;
 }
 
 .reply-post {

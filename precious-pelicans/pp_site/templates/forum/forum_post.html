@@ -23,7 +23,17 @@
                     {{ original_post.title }}
                 </div>
                 <div id="rating">
-                    {{ original_post.rating }}
+                    <form method="POST" action="{% url 'vote-forum-post' post_id=original_post.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="vote" value="up">
+                        <input type="submit" value="&#8593">
+                    </form>
+                    <form method="POST" action="{% url 'vote-forum-post' post_id=original_post.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="vote" value="down">
+                        <input type="submit" value="&#8595">
+                    </form>
+                    <span>{{ original_post.rating }}</span>
                 </div>
             </div>
 

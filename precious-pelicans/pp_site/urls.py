@@ -22,7 +22,7 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('pp_site.apps.home.urls')),
+    path('', include('pp_site.apps.home.urls'), name='home'),
     path('forum/', include('pp_site.apps.forum.urls'), name='forum'),
     path('register/', include('pp_site.apps.users.urls'), name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),

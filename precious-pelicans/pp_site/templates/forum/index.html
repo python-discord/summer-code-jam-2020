@@ -14,7 +14,7 @@
 {% block title %}Post Index{% endblock %}
 
 {% block header %}
-    <a>
+    <a href="{% url 'home'">
         << Home
     </a>
 {% endblock %}
@@ -35,7 +35,7 @@
                 </div>
                 <div class="post-information">
                     <div class="post-title">
-                        {{ post.title }}
+                        <span>{{ post.title }}</span>
                     </div>
                     <div class="post-description">
                         {% if post.description|wordcount > 30 %}

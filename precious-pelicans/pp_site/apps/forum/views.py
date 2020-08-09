@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import ForumPost, ForumPostReplyForm, ForumPostForm, ForumMedia
@@ -122,23 +122,13 @@ def search_posts(request):
     return render(request, 'forum/search.html', context)
 
 
-def vote_post(request, post_id, vote_up):
-    # TODO: needs to be implemented into the template
-    post = get_object_or_404(ForumPost, id=post_id)
-    if vote_up:
+def vote_post(request, post_id):
+    post = get_object_or_404(ForumPost.objects, id=post_id)
+    if request.POST['vote'] == 'up':
         post.rating += 1
     else:
         post.rating -= 1
 
-    pages = Paginator(post.objects.forumpostreply_set, 6)
+    post.save()
 
-    page_number = request.GET.get('page', 1)
-    page_obj = pages.get_page(page_number)
-
-    context = {
-        'original_post': post,
-        'reply_form': ForumPostReplyForm,
-        'page_obj': page_obj
-    }
-
-    return render(request, 'forum/forum_post_after_vote.html', context)
+    return redirect(f'/forum/{post_id}')
