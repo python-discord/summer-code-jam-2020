@@ -67,25 +67,32 @@ def home(request):
 def my_profile(request):
     queryset = Tweet.objects.all()
     user_name = request.user.username
-    return render(request, 'profile.html', {"data": queryset, "user":user_name})
+    return render(request, 'profile.html',
+                  {"data": queryset, "user": user_name})
+
 
 @login_required(login_url='/login/')
 def user_profile(request):
     return HttpResponse("Wait for templates")
 
+
 def logout_page(request):
     return render(request, 'logout.html')
+
 
 def logout_request(request):
     logout(request)
     return redirect("my_profile")
 
+
 def account_deletion(request):
     return render(request, 'account_deletion_confirmation.html')
+
 
 @login_required
 def create_tweet(request):
     return render(request, 'create_tweet.html')
+
 
 @login_required
 def view_tweet(request):
