@@ -22,11 +22,11 @@ class Message:
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'name_json': 'Grieves'})
 
 
 def chat_page(request, bot_name):
-    return render(request, 'home.html', {'bot': bot_name})
+    return render(request, 'home.html', {'name_json': bot_name})
 
 
 def experimental(request):
@@ -34,14 +34,14 @@ def experimental(request):
 
 
 def get_wikipedia(request):
-    article_name = request.POST.get('article_name')
+    article_name = request.GET.get('article_name')
     wiki_page = WIKI_WIKI.page(article_name)
     if not wiki_page.exists():
         raise Http404('Wiki page does not exist')
     else:
         def get_wiki_details():
             return {
-                'summary': WIKI_WIKI.extracts(wiki_page, excsentences=3),
+                'summary': WIKI_WIKI.extracts(wiki_page, exsentences=3),
                 'full_page': wiki_page.text
             }
         # Lazy evaluation of wiki page, inspired by https://code.djangoproject.com/ticket/29413
