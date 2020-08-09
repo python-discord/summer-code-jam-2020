@@ -1,5 +1,14 @@
 #reply-container {
-    margin-left: 20px;
+    margin-left: 10em;
+}
+
+#content-wrapper {
+    width: 900px;
+}
+
+img {
+    width: 400px;
+    margin: 10px;
 }
 
 .post {
@@ -11,7 +20,27 @@
 }
 
 .post:hover {
-    background-color: rgb(200, 200, 220);
+    background-color: rgb(220, 247, 255);
+}
+
+#post-title {
+    display: flex;
+    flex-direction: row;
+}
+
+#post-title-text {
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 4px;
+}
+
+#rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 5em;
+    flex-grow: 0;
 }
 
 .reply-post {

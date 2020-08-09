@@ -1,0 +1,43 @@
+{% extends 'base/forumbase.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "css/forum/index.css" %}">
+    <script>
+        function uploadRedirect() {
+            href.location = "/forum/upload";
+        }
+    </script>
+    <style>
+        p {
+            font-size: 28px;
+        }
+        #empty-box {
+            border-style: dashed;
+            border-width: 1px;
+            margin: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            width: 10em;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Post Index{% endblock %}
+
+{% block header %}
+    <a>
+        << Home
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="empty-box">
+        <p> Be the first to post something! </p>
+    <a href="{% url 'upload-forum-post' %}"> Upload here </a>
+    </div>
+{% endblock %}

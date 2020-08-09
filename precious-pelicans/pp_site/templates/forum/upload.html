@@ -1,25 +1,45 @@
-{% extends 'base/base.html' %}
+{% extends 'base/forumbase.html' %}
 {% load static %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static "css/forum/upload.css" %}">
+    <script defer src="{% static "js/forum/uploadpage.js" %}"></script>
 {% endblock %}
 
 {% block title %}
-    Upload
+    Upload Post
+{% endblock %}
+
+{% block header %}
+    <a href="/forum/">
+        &lt;&lt;Index
+    </a>
 {% endblock %}
 
 {% block content %}
     <h2> Upload </h2>
-    <div id="error-info">
-        {% block error %}
-            {{ block.super }}
-        {% endblock %}
+    {% block error %}
+        {{ block.super }}
+    {% endblock %}
+    <div id="main-block">
+        <form id="upload-form" method="post" action="{% url 'upload-forum-post' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in upload_form %}
+                <div class="field-container">
+                    <div class="label-container">{{ field.label_tag }}</div>
+                    <div class="input-container">{{ field }}</div>
+                </div>
+            {% endfor %}
+            <input type="submit" value="Submit">
+        </form>
+        <div id="preview-area">
+            <h4>Preview</h4>
+            <div id="content-box">
+                <div>
+                    Preview your file here
+                </div>
+            </div>
+        </div>
     </div>
-    <form id="upload-form" method="post" action="{% url 'upload-forum-post' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ upload_form }}
-        <input type="submit" value="Submit">
-    </form>
     
 {% endblock %}

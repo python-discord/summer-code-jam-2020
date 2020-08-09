@@ -125,4 +125,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'pp_site/static/')]
 
 LOGIN_REDIRECT_URL = 'home'  # redirect to users' content
 LOGOUT_REDIRECT_URL = ''
-MEDIA_ROOT = "./media/upload"
+MEDIA_ROOT = "./media/"
+MEDIA_URL = "/media/"

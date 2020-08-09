@@ -37,6 +37,7 @@ class ForumPost(TimeStampMixin):
     description = models.TextField(blank=False)
     media_file = ForumMedia()
     rating = models.IntegerField(default=0)
+    is_video = models.BooleanField(default=False)
 
 
 class ForumPostForm(forms.ModelForm):
