@@ -1,24 +1,28 @@
-# Trivia Tavern by Practical Penguins
 
-## about
+# ![Trivia Tavern](trivia_tavern/static/header_logo.png) by Practical :penguin:
+ 
+# Table of Contents
+
+1. [About](#about)
+2. [App features](#tour-of-the-app)
+3. [Installation](#Installation)
+5. [how to run your own server locally](#how-to-run-your-own-server-locally) 
+6. [Future Ideas](#Ideas-and-Feature-for-the-future)
+
+## About
 This django web application allows people to create and organize trivia events. Participants can then answer trivia
  question using their phones.
-
-## installation requirement
-* python 3.8
-* git
-
-## how to use
-
-We are hosting our app publicly for a limited time at this development URL:
-https://a95e3eb77ce9.ngrok.io
+ 
+## App features
+We are hosting our app publicly for a limited time at this development [URL](https://a95e3eb77ce9.ngrok.io)
 
 But you can easily host this run this server at home without having to pay for your own server
-hosting costs.
+hosting costs ([see below](#how-to-run-your-own-server-locally)).
 
-Scroll down for instructions on this
 
-## installation
+## Installation
+This package is tested on python 3.8
+
 git clone and cd to this project with:
 
 ```bash
@@ -30,10 +34,8 @@ cd practical-penguins
 run setup.py
 
     python setup.py install
-
-NOTE: We have encountered installation issues when trying to install Pillow on windows
-(see [here](https://stackoverflow.com/questions/41188838/cant-install-pillow-in-windows)).
-Try to install Pillow before the above command if there are issues relating to `Pillow`.
+  
+**Note: you might run into some difficulty with Pillow on windows machine if so please see [here](#pillow-issues)**
 
 initialize database
 
@@ -41,6 +43,8 @@ initialize database
 cd trivia_tavern
 python manage.py makemigrations
 python manage.py migrate
+python manage.py loaddata fixtures/fixture_auth.json
+python manage.py loaddata fixtures/fixture_users.json
 python manage.py loaddata fixtures/fixture_trivia_packs.json
 ```
 
@@ -55,6 +59,11 @@ into your ~/.bashrc, without the '<>':
 ```
 
 Environment variables in Windows can be set similarly by adding them to System>Advanced>Environment Variables
+
+####Pillow issues
+NOTE: We have encountered installation issues when trying to install Pillow on windows
+(see [here](https://stackoverflow.com/questions/41188838/cant-install-pillow-in-windows)).
+Try to install Pillow before the above command if there are issues relating to `Pillow`.
 
 ## how to run your own server locally
 
@@ -114,7 +123,7 @@ The app will need the following 3 environment variables set at run time:
 
 see [Twilio documentation](https://www.twilio.com/docs) for more details.
 
-## Ideas and Feature for the future
+## Future Ideas
 - implement different question types rather than free form Q&A
     - questions with multiple choice answers
     - question with embedded pictures
