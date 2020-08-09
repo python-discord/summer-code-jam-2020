@@ -7,34 +7,35 @@
 {% csrf_token %}
 
 <h1>Your Likes</h1>
- <table  valign=top>
-<tr style="valign=top"></tr>
+<div style="  ">
+<table style="border: 1px solid black; ">
+    <tr>
 
     {% for item in obj_liked %}
-        <td  valign = top width=30%">
-        <p style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
-        border-style: inset; border-width: 4px">
+        <td  style="vertical-align:top; width=30%">
+            <p style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
+                border-style: inset; border-width: 4px">
             <a href="{% url 'earlydating-profile' item.user.id %}">{{ item.user.username }}</a>
-        </p>
-        <p style="text-align: center;"><br>
-        <img src="/media/{{ item.user.profile.img }}" height="75px"; ><br>
-        <h1 >{{item.user.profile.bio}}</h1>
-        <h1 style="margin-top: 20px"> Chat With Me! {{item.user.email}}</h1>
+            </p>
 
- </td>
+            <p style="text-align: center;"><br>
+            <img src="/media/{{ item.user.profile.img }}" height="75px" ><br>
+            <h2 >{{item.user.profile.bio}}</h2>
+            <h3 style="margin-top: 20px"> Chat With Me! {{item.user.email}}</h3>
+        </td>
 
-        <!-- if last column in row -->
-        {% if forloop.counter is 3 or forloop.counter is 6 %}
-            {% if not forloop.last %}
-                </tr><tr style="align:top">
+            <!-- if last column in row -->
+            {% if forloop.counter is 3 or forloop.counter is 6 %}
+{% if not forloop.last %}
+    </tr><tr >
+{% endif %}
             {% endif %}
-
-        {% endif %}
 
 
     {% endfor %}
- </tr>
+    </tr>
 </table>
+</div>
 <div class='pagination'>
     <span class="step-links">
         {% if obj_liked.has_previous %}

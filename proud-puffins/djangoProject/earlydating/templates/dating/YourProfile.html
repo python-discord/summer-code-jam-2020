@@ -4,19 +4,19 @@
 {% block content %}
 
 {% if user.profile.img %}
-<p style="text-align: center; margin-left: 200px">
+<p style="text-align: center; ">
     <img src="{{ user.profile.img.url }}" width="400">
 </p>
 {% else %}
-<p style="text-align: center; margin-left: 200px">
+<p style="text-align: center; ">
     <img src="{% url 'media\images\Proud_Puffin_default_user.jpg' %}" width="400">
     {% endif %}
-<div style="margin-left: 220px; margin-right: 220px; text-align: center">
+<div style=" text-align: center">
     <h1>{{user.first_name}} {{user.last_name}}</h1>
     <h1>Age: {{user.profile.age}}</h1>
     <h1>Sex: {{user.profile.sex}}</h1>
     <hr>
-    <span style="text-align: center; margin-left: 200px">
+    <span style="text-align: center; ">
         <h1>{{user.profile.bio}}</h1>
 
         <p><a href="{% url 'earlydating-editprofile' %}" style="font-size: large; font-weight: bold;">Edit Profile</a>

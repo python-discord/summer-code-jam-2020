@@ -8,10 +8,10 @@
 </div>
 
  <!-- Slideshow container -->
-<div id='current-profile'>
+<div id='current-profile'  >
     {% if like %}
         <h2>You already liked</h2>
-     {% endif %}
+    {% endif %}
 
         <img src="/media/{{current.profile.img}}" width="250">
         <h1>{{current.first_name}} {{current.last_name}}</h1>
@@ -19,7 +19,8 @@
         <h1>Sex: {{current.profile.sex}}</h1>
         <h1>Sex: {{current.profile.preference}}</h1>
         <hr>
-        <p style="font-size: 1.75em; font-weight: bold; margin-left: 200px; margin-right: 200px; ">{{current.profile.bio}}</p>
+        <p style="font-size: 1.6em; font-weight: bold;
+            margin-left: 220px; margin-right: 220px; ">{{current.profile.bio}}</p>
 </div>
 <br>
 

@@ -89,9 +89,11 @@ html {
 }
 
 .columncenter {
-  position: top;
-  width: auto;
-  height: 95vh;
+    position: top;
+    width: auto;
+    margin-left: 220px;
+    margin-right: 220px;
+    height: 95vh;
 }
 
 /* Clear floats after the columns */
@@ -132,7 +134,7 @@ row {
     background: plum;
   }
 
-  * {box-sizing:border-box}
+  nmn {box-sizing:border-box}
 
 /* Slideshow container */
 .slideshow-container {
