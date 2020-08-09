@@ -5,13 +5,14 @@ from django.conf.urls.static import static
 
 from .rss_feed import LatestEntriesFeed
 from .views import IndexListView, PostView, LoginView, logout_request, SignupView, CommunityView, CommunityListView, UserView\
-    , UserProfileUpdate, subscription_request, MyCommunityListView, MostViewedPost, add_comment, HomeListView, PostCreate # TODO: order
+    , UserProfileUpdate, subscription_request, MyCommunityListView, MostViewedPost, add_comment, HomeListView, PostCreate, CommunityCreate # TODO: order
 
 
 urlpatterns = [
     path('', IndexListView.as_view()),
     url(r'^home', HomeListView.as_view(), name="home"),
     path('rss/feed/community/<str:username>', LatestEntriesFeed()),
+    path('top-communities/create_community', CommunityCreate.as_view(), name="create-community"),
     path('community/<str:community_name>/<int:post_id>/comment', add_comment),
     path('community/<str:community_name>/post', PostCreate.as_view(), name="create-post"),
     re_path(r'^community/(?P<community_name>[-\w_]+)/(?P<post_id>[0-9]+)/', PostView.as_view()),

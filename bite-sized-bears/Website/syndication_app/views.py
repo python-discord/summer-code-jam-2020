@@ -259,6 +259,8 @@ class PostCreate(CreateView, View):
     valves = store_args()
 
     def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(request.META['HTTP_REFERER'])
         for val in args:
             setattr(self.valves,val,val)
         for key,val in kwargs.items():
@@ -268,6 +270,20 @@ class PostCreate(CreateView, View):
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.publisher = Community.objects.get(name=self.valves.community_name)
+        return super().form_valid(form)
+
+class CommunityCreate(CreateView, View):
+    model = Community
+    fields = ['name','description', 'location']
+    template_name_suffix = '_create_form'
+
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect(request.META['HTTP_REFERER'])
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
         return super().form_valid(form)
 
 @login_required

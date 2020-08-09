@@ -28,7 +28,7 @@ class Community(models.Model):
     location = models.CharField(max_length=20)
 
     def get_absolute_url(self):
-        return '/rss/feed/community/' + str(self.id)
+        return f'/community/{self.name}/'
 
     def __str__(self):
         return self.name
