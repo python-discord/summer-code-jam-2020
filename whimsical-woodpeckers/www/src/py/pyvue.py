@@ -40,8 +40,8 @@ class Vue:
         self._vue = __new__(JSVue(data))
 
     def get_component(self):
-        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func))
-                   and not func.startswith("__")}
+        methods = {func: getattr(self, func) for func in dir(self) if
+                   callable(getattr(self, func)) and not func.startswith("__")}
         data = {
             "data": self.data,
             "template": self.template

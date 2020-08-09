@@ -51,4 +51,3 @@ class Messages(Component):
     #             this.messages.append(data['data'])
     #
     #     this.socket = MessageSocket(new_message)
-
