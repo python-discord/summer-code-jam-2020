@@ -11,9 +11,9 @@ class GameView(View):
         return render(request, "game/game.html", context)
 
     def post(self, request):
-        
+
         game_data = get_game(request)
-        
+
         command = self.request.POST.get("command")
         if command is not None and command != "":
             game_data = parse_command(request, game_data, command)
@@ -26,7 +26,7 @@ class GameView(View):
         """
         Gets the scores from the database.
         """
-        scores = HighScore.objects.order_by("score")
+        scores = HighScore.objects.order_by("-score")
         score_list = []
         for s in scores:
             score_list.append([s.initials, s.score])

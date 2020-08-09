@@ -164,6 +164,19 @@ def command_help(game_data):
         {"from_rover": False, "message": ""},
         {
             "from_rover": False,
+            "message": "Be careful of your surroundings, Mars is a hazardous planet.",
+        },
+        {
+            "from_rover": False,
+            "message": "Your score is based on your battery life multiplied by the temperature on Mars.",
+        },
+        {
+            "from_rover": False,
+            "message": "If you want a higher score play on a colder day.",
+        },
+        {"from_rover": False, "message": ""},
+        {
+            "from_rover": False,
             "message": 'Type "new game" at any point to start a new game.',
         },
     ]
@@ -425,6 +438,7 @@ def parse_command(request, game_data, command):
     if game_data["game_over"]:
         if game_data["victorious"]:
             if game_data["getting_score"]:
+                game_data["initials"] = command
                 HighScore.objects.create(score=game_data["score"], initials=command)
                 game_data["input_len"] = 16
                 game_data["getting_score"] = False
@@ -437,7 +451,7 @@ def parse_command(request, game_data, command):
                         "message": 'Type "new game" to start a new game.',
                     }
                 )
-            elif command.startswith("save"):
+            elif command.startswith("save") and game_data["initials"] == "":
                 game_data["input_len"] = 3
                 game_data["messages"].append(
                     {"from_rover": False, f"message": "Enter initials."}
@@ -448,9 +462,13 @@ def parse_command(request, game_data, command):
                 game_data["messages"].append(
                     {"from_rover": False, "message": f"Your score is {score}."}
                 )
-                game_data["messages"].append(
-                    {"from_rover": False, "message": 'Type "save" to save your score.'}
-                )
+                if game_data["messages"] == "":
+                    game_data["messages"].append(
+                        {
+                            "from_rover": False,
+                            "message": 'Type "save" to save your score.',
+                        }
+                    )
                 game_data["messages"].append(
                     {
                         "from_rover": False,
