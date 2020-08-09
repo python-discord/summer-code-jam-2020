@@ -60,6 +60,8 @@ Check lint errors
 pipenv run lint
 ```
 
+#### Please install a rss feed reader extension for your browser
+
 ___
 ### References
 - [Official Django Documentation](https://docs.djangoproject.com/en/3.1/) 
