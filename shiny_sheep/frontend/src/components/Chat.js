@@ -7,7 +7,6 @@ const chatSocket = new WebSocket(
 class Chat extends Component {
   constructor(props) {
     super(props);
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     
@@ -30,12 +29,13 @@ class Chat extends Component {
     this.setState({input: event.target.value});
   }
   handleSubmit(event){
+    event.preventDefault();
+    console.log("Submit!");
     const data = JSON.stringify({
       'message': this.state.input
     });
     chatSocket.send(data);
     this.setState({ input: "" });
-    event.preventDefault();
   }
   appendChatLogs(message){
     this.setState({ chatLogs: this.state.chatLogs + message + '\n'})
@@ -47,7 +47,7 @@ class Chat extends Component {
         <textarea value={this.state.chatLogs} id="chat-log" cols="100" rows="20"></textarea>
         <br />
         <form onSubmit={this.handleSubmit}>
-          <input value={this.state.input} onChange={this.handleChange} id="chat-message-input" type="text" size="100" />
+          <input value={this.state.input} onChange={this.handleChange} id="chat-message-input" type="text" size="100" autocomplete="off" />
           <br />
           <input id="chat-message-submit" type="submit" value="Send" />
         </form>
