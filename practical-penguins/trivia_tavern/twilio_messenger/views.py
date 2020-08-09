@@ -123,7 +123,7 @@ class SMSBot:
                                                    session_code=active_trivia_quiz.session_code)
 
             if not score_track.answered_this_round:
-                current_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz,
+                current_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
                                                               question_index=active_trivia_quiz.current_question_index)
                 ans = Answer.objects.create(value="", player=player, question=current_question)
                 score_track.answered_this_round = True
@@ -196,8 +196,11 @@ def sms_reply(request):
         player = player.first()
         player_quiz = player.active_quiz
         if player.team_name == '':
-            # Player picks a team name
-            SMSBot.pick_team(body, player)
+            team_names = [t.team_name for t in Player.objects.all()]
+            if body in team_names:
+                SMSBot.send('Sorry that name is taken!', from_)
+            else:
+                SMSBot.pick_team(body, player)
 
         elif body.upper() == '!QUIT':
             SMSBot.player_quit(player)
