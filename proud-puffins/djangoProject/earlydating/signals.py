@@ -4,13 +4,15 @@ from django.contrib.auth.models import Group
 from .models import Profile
 
 
-#  Listen to Users table and crete a new profile whenever new user is created
 def create_profile(sender, instance, created, **kwargs):
+    """Listen to Users table and create a new profile whenever a user is created"""
+    # If the user is created and not by loading a fixture
     if created and not kwargs.get('raw', False):
         try:
             group = Group.objects.get(name='profile')
         except Group.DoesNotExist:
             group = Group.objects.create(name='profile')
+        # Add user to profile group and create profile object
         instance.groups.add(group)
         Profile.objects.create(user=instance)
 

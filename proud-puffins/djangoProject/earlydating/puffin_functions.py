@@ -6,6 +6,7 @@ import os
 
 
 def imageTrans(image):
+    """Reduces image quality by resizing back and forth"""
     try:
         _, file_extension = os.path.splitext(image.name)
         file_extension = file_extension.split(".")[-1]
@@ -31,6 +32,7 @@ def imageTrans(image):
 
 
 def validate_file_size(value):
+    """Raise error if file size exceed 10MB"""
     filesize = value.size
 
     if filesize > 10485760:
