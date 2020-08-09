@@ -187,10 +187,13 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def get_current_room_connection_name_by_index(self, index):
+
+        # Make sure you can go backwards through a secret connection
+        backward_connects = list(Room.objects.filter(secret_room_connects=self.player.room).all())
         if self.player.room.secret_connection_active:
-            return (list(self.player.room.connections.all()) + list(self.player.room.secret_room_connects.all()))[index].name
+            return (list(self.player.room.connections.all()) + backward_connects + list(self.player.room.secret_room_connects.all()))[index].name
         else:
-            return self.player.room.connections.all()[index].name
+            return (list(self.player.room.connections.all()) + backward_connects)[index].name
 
     @database_sync_to_async
     def get_current_server_name(self):
@@ -218,6 +221,12 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         exits = list(self.player.room.connections.all())
         if self.player.room.secret_connection_active:
             exits = exits + list(self.player.room.secret_room_connects.all())
+
+        exits = exits + list(
+            Room.objects.filter(secret_room_connects=self.player.room)
+            .all()
+            )
+
         for i in range(len(exits)):
             exits[i] = f"[{i}] {exits[i].name}"
 
@@ -242,14 +251,20 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
             self.player.room = self.player.room.connections.get(name__iexact=room_name.lower())
             self.player.save()
         except Room.DoesNotExist:
-            if self.player.room.secret_connection_active:  # TODO There should be a better way to do this
+            if self.player.room.secret_connection_active:
                 try:
                     self.player.room = self.player.room.secret_room_connects.get(name__iexact=room_name.lower())
                     self.player.save()
                 except Room.DoesNotExist:
                     return False
             else:
-                return False
+                try:
+                    # Make sure you can go backwards through a secret connection
+                    backwards_connect = Room.objects.get(name__iexact=room_name.lower())
+                    if backwards_connect in Room.objects.filter(secret_room_connects=self.player.room).all():
+                        self.player.room = backwards_connect
+                except Room.DoesNotExist:
+                    return False
         return self.player.room.name
 
     async def join_room(self, room_name):
