@@ -1,7 +1,7 @@
 Shiny Sheep
 ===========
 
-A retro experience
+"Welcome to the beta test of HomeChat, your home for Chat on the World Wide Web!" - HomeChat Installer, 1995
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
