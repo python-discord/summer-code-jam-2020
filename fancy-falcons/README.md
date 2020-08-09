@@ -18,12 +18,16 @@ This website uses Python 3.8 and Django 3.0.9
 # Site setup
 
 ## Homepage
+![alt text](readme-images/home.png "Logo Title Text 1")
 
 ## Registration from
+![alt text](readme-images/registration.png "Logo Title Text 1")
 
 ## Event calendar
+![alt text](readme-images/calendar.png "Logo Title Text 1")
 
 ## Chat function
+![alt text](readme-images/chat.png "Logo Title Text 1")
 
 # Licence
 All code is licenced under the MIT licence.
