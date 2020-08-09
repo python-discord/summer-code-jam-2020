@@ -3,12 +3,6 @@ html {
     height: 100%;
 }
 
-body{
-    height: 100%;
-    color: #ffffff;
-    background-image: url('starbackground.jpg');
-}
-
 marquee{
     font-size: large;
     color: red;
