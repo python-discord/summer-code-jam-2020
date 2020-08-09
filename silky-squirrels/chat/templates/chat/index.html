@@ -14,12 +14,12 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane show active" id="pchat" role="tabpanel" aria-labelledby="pchat-tab">
         {% if form.name.errors %}
-            <span class='text-danger mb-0'>No '@'s allowed in room names.</span>
+            <span class='text-danger mb-0'>Room name must be alphanumeric!</span>
         {% endif %}
         <form method="POST">
             {% csrf_token %}
             <label for="{{ form.name.id_for_label }}">
-                What chat room would you like to enter?<br>
+                What chat room would you like to enter? (name must be alphanumeric)<br>
                 <input required autofocus style="margin: 10px 0 0 0" id="room-name-input"
                         type="{{ form.name.type }}" name="{{ form.name.name }}" size="50">
             </label>

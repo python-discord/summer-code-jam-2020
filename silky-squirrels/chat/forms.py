@@ -13,6 +13,6 @@ class RoomCreationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = self.cleaned_data
         if room_name := cleaned_data.get('name'):
-            if '@' in room_name:
+            if not room_name.isalnum():
                 del cleaned_data['name']
         return cleaned_data
