@@ -29,7 +29,7 @@ class Template(models.Model):
                                   validators=[validate_image_file_extension])
 
     def __str__(self):
-        return self.name
+        return f'{self.name} by {self.author}'
 
 
 def get_user_dir_path(instance, filename):
@@ -48,7 +48,6 @@ class Webpage(models.Model):
     # Implausible date is just to signify it does not yet have a thumbnail - needs to be a datetime for comparisons
     thumbnail_edit_date = models.DateTimeField(default=datetime(1, 1, 1), editable=False)
     template_used = models.ForeignKey(Template, on_delete=models.DO_NOTHING)
-    votes = models.IntegerField(default=0)
 
     user_title = models.CharField(max_length=100, verbose_name='page title')
     user_text_1 = models.TextField(verbose_name='subtitle paragraph', blank=True)
@@ -85,3 +84,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Like(models.Model):
+    parent_page = models.ForeignKey(Webpage, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    like_datetime = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.author} likes {self.parent_page}'

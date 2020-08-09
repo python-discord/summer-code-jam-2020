@@ -6,9 +6,12 @@
 <a href="{% url 'user-update' pk=viewed_user.id %}">update</a>
 <a href="{% url 'user-delete' pk=viewed_user.id %}">delete</a>
 {% endif %}
+
+{% if user_pages %}
 <table>
   <tr>
     <th>Preview</th>
+    <th>Popularity</th>
     <th>Webpage Title</th>
   </tr>
   {% for webpage in user_pages %}
@@ -21,10 +24,18 @@
       {% endif %}
     </td>
     <td>
+      {% with webpage.like_set.all.count as num_likes %}
+      {{ num_likes }} like{{ num_likes|pluralize }}
+      {% endwith %}
+    </td>
+    <td>
       <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
     </td>
   </tr>
   {% endfor %}
 </table>
+{% else %}
+<p>This user hasn't created any pages yet!</p>
+{% endif %}
 
 {% endblock %}

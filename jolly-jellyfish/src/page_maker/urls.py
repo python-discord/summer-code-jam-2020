@@ -33,7 +33,8 @@ urlpatterns = [
     path('pages/<str:pagename>/detail', WebpageDetailView.as_view(), name='webpage-detail'),
     path('pages/<str:pagename>/update', WebpageUpdateView.as_view(), name='webpage-update'),
     path('pages/<str:pagename>/delete', WebpageDeleteView.as_view(), name='webpage-delete'),
-    path('pages', WebpageListView.as_view(), name='webpage-list'),
+    path('pages-recent', WebpageListView.as_view(ordering='-date_created'), name='webpage-list-recent'),
+    path('pages-top', WebpageListView.as_view(ordering='-like_count'), name='webpage-list-top'),
 
     path('pages/<str:pagename>/comment', CommentCreateView.as_view(), name='comment-create'),
     path('comments/<int:pk>/delete', CommentDeleteView.as_view(), name='comment-delete'),
