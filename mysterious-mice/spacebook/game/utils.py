@@ -24,13 +24,9 @@ def new_game(request):
             wind_speed = sol_weather_data["HWS"]["av"]
             temperature = sol_weather_data["AT"]["av"]
             break
-    if (
-        wind_speed is None or
-        wind_speed == "" or
-        temperature is None or
-        temperature == ""
-    ):
+    if wind_speed is None or wind_speed == "":
         wind_speed = 6
+    if temperature is None or temperature == "":
         temperature = -60
 
     game_data = {
@@ -234,10 +230,8 @@ def command_move(game_data, direction):
 
     # check if current position contains an obstacle
     for obstacle in game_data["obstacles"]:
-        if (
-            game_data["obstacles"][obstacle][0] == old_position[0] and
-            game_data["obstacles"][obstacle][1] == old_position[1]
-        ):
+        obstacle_position = game_data["obstacles"][obstacle]
+        if obstacle_position[0] == old_position[0] and obstacle_position[1] == old_position[1]:
             # if the obstacle is a dust stom there is a 50% chace power comsumption will increase
             if obstacle == "dust_storm":
                 if random.randint(1, 10) > 5:
@@ -287,10 +281,8 @@ def command_move(game_data, direction):
         else:
             new_position = old_position
             success = False
-        if (
-            game_data["obstacles"]["large_rock"][0] == new_position[0] and
-            game_data["obstacles"]["large_rock"][1] == new_position[1]
-        ):
+        rock_position = game_data["obstacles"]["large_rock"]
+        if rock_position[0] == new_position[0] and rock_position[1] == new_position[1]:
             new_position = old_position
             success = False
             game_data["messages"].append(
@@ -330,11 +322,9 @@ def command_move(game_data, direction):
             game_data["plutonium"] = new_position
 
         # Pick up components
-        if (
-            new_position[0] == game_data["solar_panels"][0] and
-            new_position[1] == game_data["solar_panels"][1] and not
-            game_data["has_solar_panels"]
-        ):
+        panels_position = game_data["solar_panels"]
+        on_solar_panels = new_position[0] == panels_position[0] and new_position[1] == panels_position[1]
+        if on_solar_panels and not game_data["has_solar_panels"]:
             game_data["has_solar_panels"] = True
             game_data["messages"].append(
                 {
@@ -348,11 +338,9 @@ def command_move(game_data, direction):
                     "message": "It will take less energy to traverse the terrain of Mars now!",
                 }
             )
-        if (
-            new_position[0] == game_data["plutonium"][0] and
-            new_position[1] == game_data["plutonium"][1] and not
-            game_data["has_plutonium"]
-        ):
+        pu_position = game_data["plutonium"]
+        on_plutonium = new_position[0] == pu_position[0] and new_position[1] == panels_position[1]
+        if on_plutonium and not game_data["has_plutonium"]:
             game_data["has_plutonium"] = True
             game_data["messages"].append(
                 {"from_rover": False, "message": "You have retrieved the plutonium!"}
