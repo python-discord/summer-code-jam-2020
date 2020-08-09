@@ -28,6 +28,7 @@ class BackgroundFile(models.Model):
     def __str__(self):
         return self.background_title
 
+
 # post_save signal to delete the background image
 # and its thumbnail on pressing the delete button
 @receiver(post_delete, sender=BackgroundFile)
