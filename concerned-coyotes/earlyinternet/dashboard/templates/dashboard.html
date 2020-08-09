@@ -41,6 +41,7 @@
       </section>
 
       <!--Wikipedia Article-->
+      {% if wikipedia_article is not None %}
       <section class="grid-item wikipedia-article">
         <span class="section-header">Wikipedia Article of the Day</span>
         <article>
@@ -49,7 +50,8 @@
           <a target="_blank" href="{{wikipedia_article.url}}" class="read-more-btn" role="button">Read more</a>
         </article>
       </section>
-
+      {% endif %}
+    
       <!--Todo-->
       <section class="grid-item todo">
         <span class="section-header">To-Do</span>
