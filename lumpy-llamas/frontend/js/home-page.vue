@@ -42,6 +42,7 @@ import NewsFeed from './news-feed.vue';
 
 const MENU_PAGES = [
   { title: 'Forum/Thread-list', page: 'forum' },
+  { title: 'Chat Lobby', page: 'chatlobby_page' },
   { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
 ];
 
@@ -57,7 +58,8 @@ export default {
   },
   beforeMount() {
     this.$cmd.on('1', this.goToForum);
-    this.$cmd.on('2', this.goToGame);
+    this.$cmd.on('2', this.goToChatLobby);
+    this.$cmd.on('3', this.goToGame);
     this.$cmd.on('/news new', this.setNewNews, 'Get newest articles');
     this.$cmd.on('/news top', this.setTopNews, 'Get top articles');
   },
@@ -67,6 +69,9 @@ export default {
     },
     setTopNews() {
       this.newsMode = 'best_news';
+    },
+    goToChatLobby() {
+      this.$router.push({ name: 'chatlobby_page' });
     },
     goToForum() {
       this.$router.push({ name: 'forum' });
