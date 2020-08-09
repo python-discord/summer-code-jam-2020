@@ -12,6 +12,7 @@ we do not want to introduce bugs by accidentally removing something important.
 | Framework  | Used in | License | Source URL | 
 |--------|---------|------------|---------|
 | 98.css | Authentication pages | [MIT](https://opensource.org/licenses/MIT) | https://jdan.github.io/98.css/ |
+| Bootstrap | Chat interface | [MIT](https://opensource.org/licenses/MIT) | https://github.com/twbs/bootstrap |
 | ReactJS | Chat interface | [MIT](https://opensource.org/licenses/MIT) | https://github.com/facebook/react |
 | React95/React95 | Chat interface | [MIT](https://opensource.org/licenses/MIT) | https://github.com/React95/React95 |
 

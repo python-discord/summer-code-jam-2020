@@ -1,2 +1,5 @@
-Yaro Kifor
-Pushfoo
+Graupel - Easter egg
+Pushfoo - Account connections, skinning
+Renry - React & Interface
+SharpBit - Models
+Yaro Kifor - Chat backend & Leadership
