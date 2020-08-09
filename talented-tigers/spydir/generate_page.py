@@ -198,4 +198,3 @@ def generate_business_statements(page_name, page_object):
 def splice_sentence(word):
     cutoff = max([word.rfind("."), word.rfind("?"), word.rfind("!")])
     return word[: cutoff + 1]
-

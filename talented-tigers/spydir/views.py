@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import GeneratedPage
-from .generate_page import generate_page, authorize_page
+from .generate_page import generate_page
 
 
 def homepage(request):
