@@ -41,7 +41,7 @@
 <div>
   {% for comment in comments %}
     <div style="padding-left:  {% widthratio comment.thread_level 1 50 %}px;">
-      <div style="padding: 5px; background-color: lightblue; width: 500px; height: 150px">
+      <div style="padding: 5px; background-color: lightblue; width: 500px; height: 200px">
 
 <!-- 
         <a name="{{comment.id}}" class='upvote_comment'><img src="{% static 'icons/upvote.png' %}"></a>
@@ -54,11 +54,10 @@
           <span id="downvotes_comment_{{comment.id}}">{{comment.downvotes}}</span>
           | {{comment.created}}
         </p>
-        <p>
-          {{comment.body}}
-        </p>
-      </div>
+        <textarea style='resize: none; width: 100%; height: 100px;' disabled>{{comment.body}}</textarea>
+
       <button onclick="fun({{comment.id}});">REPLY</button>
+      </div>
     </div>
     <form id="{{comment.id}}" style="display: None;" method="POST">
       {% csrf_token %}
