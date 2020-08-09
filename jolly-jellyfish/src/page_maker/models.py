@@ -7,20 +7,11 @@ from django.db import models
 from django.utils import timezone
 
 
-def get_theme_path():
-    return os.path.join(settings.BASE_DIR, 'static')
-
-
 class Template(models.Model):
     name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # todo: option to upload own stylesheet rather than select from existing
-    # style_sheet = models.FileField(null=False, blank=False,
-    #                      upload_to='themes/', validators=[FileExtensionValidator(['css'])])
-
-    # match uses regex applied to base filename only(.*=any characters, \.=., $=end of string)
-    style_sheet = models.FilePathField(path=get_theme_path, recursive=True, match='.*\.css$')
+    style_sheet = models.FileField(null=False, blank=False, upload_to='styles/')
 
     def __str__(self):
         return self.name

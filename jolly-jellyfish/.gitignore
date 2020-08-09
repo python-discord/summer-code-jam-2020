@@ -1,3 +1,4 @@
 venv/*
 src/config.json
-user_media/*
+src/user_media/*
+!src/user_media/static
