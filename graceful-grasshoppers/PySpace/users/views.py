@@ -71,3 +71,31 @@ def comment_on_profile(request):
             safe=False,
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
+@api_view(["PATCH"])
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+def update_user(request):
+    """Updates the authenticated user with given data"""
+    payload = request.data
+    user = request.user
+    try:
+        user_item = models.CustomUser.objects.filter(id=request.user.id)
+        user_item.update(**payload)  # returns 0 or 1
+        u = models.CustomUser.objects.get(id=user.id)
+        serializer = serializers.UserSerializer(u)
+        print(serializer)
+        return JsonResponse(
+            {"user": serializer.data}, safe=False, status=status.HTTP_200_OK
+        )
+    except ObjectDoesNotExist as e:
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went wrong"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
