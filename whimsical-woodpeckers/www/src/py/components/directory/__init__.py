@@ -31,27 +31,29 @@ class Directory(Component):
     def create_socket():
         # Get info about our authentication
         callbacks = 2
-        id = None
-        token = None
+        this.id = 1234
+        this.token = 1234
         parent_this = this
+        callbacks = 2
 
         def callback():
             callbacks -= 1
             if callbacks == 0:
-                parent_this.socket = MessageSocket(lambda parent_this: parent_this.handle_message(this), token, id)
+                parent_this.socket = MessageSocket(lambda parent_this: parent_this.handle_message(this),
+                                                   parent_this.token, parent_this.id)
 
         def data_callback(data):
-            id = data['id']
+            parent_this.id = data['id']
             callback()
 
         def auth_callback(data):
-            token = data['token']
+            parent_this.token = data['token']
             callback()
 
-        Fetch.get("./data") \
+        Fetch.get("data/") \
             .then(lambda response: response.json()) \
             .then(lambda data: data_callback(data))
-        Fetch.get("./auth") \
+        Fetch.get("auth/") \
             .then(lambda response: response.json()) \
             .then(lambda data: auth_callback(data))
 
@@ -60,17 +62,17 @@ class Directory(Component):
         pass
 
 
-
 class MessageSocket(WebSocket):
     def __init__(self, component, token, id):
         room_name = "test"
+        console.log(token, id)
         super().__init__('ws://'
-                         + "127.0.0.1"
+                         + window.location.host
                          + '/ws/chat/'
                          + room_name
                          + '/')
         self.component = component
-        self.send({"type": "auth",  "auth_token": token, "id": id})
+        self.send({"type": "auth", "auth_token": token, "id": id})
 
     def send_message(self, id, type, data):
         message = {"type": "message", "id": id, "data": {"text": data, "type": type}}
