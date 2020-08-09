@@ -61,3 +61,7 @@ def add_profile_comment(request, profile: Profile):
     else:
         messages.error(request, 'Comment is invalid-')
         return redirect(request.build_absolute_uri())
+
+
+def blog(request, username_or_id: Union[int, str]):
+    return render(request, 'myplace/blog.html')
