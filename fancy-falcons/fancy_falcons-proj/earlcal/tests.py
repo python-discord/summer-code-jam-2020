@@ -2,7 +2,7 @@ from django.test import TestCase
 from models import Event
 import datetime
 
-class QuestionModelTests(TestCase):
+class CalendarModelTests(TestCase):
 
     def all_events_have_valid_dates(self):
         eventslist = Event.object.all()
