@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # secret stuff
-DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
-DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

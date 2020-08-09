@@ -13,8 +13,6 @@ Our site is basically just a forum with a simple auth system. People (when logge
 
 ## Environement Variables
 
-- `DISCORD_CLIENT_ID`: The Discord Client ID of the app to use for OAuth2.
-- `DISCORD_CLIENT_SECRET`: The Discord Client Secret of the app to use for OAuth2.
 - `SECRET_KEY`: The secret key for our Django site.
 
 ## Build
