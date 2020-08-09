@@ -6,7 +6,6 @@
     author: 1
     thumbnail: thumbnails/test1.jpg
     template_used: 1
-    votes: 0
     user_title: thats my page
     user_text_1: asdafgssag
     user_text_2: sdgagdasd
@@ -14,4 +13,3 @@
     user_image_1: images/admin/img1.jpg
     user_image_2: images/admin/img2.jpg
     user_image_3: images/admin/img3.jpg
-    user_image_4: images/admin/img4.jpg

@@ -1,13 +1,12 @@
-from django.urls import reverse
-from django.test import TestCase
+from pathlib import Path
+
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from pathlib import Path
-import io
-import base64
+from django.test import TestCase
+from django.urls import reverse
 
-from .models import User, Webpage, Template, Comment
 from .forms import CommentForm
+from .models import User, Webpage, Template, Comment
 
 USERNAME = 'haha69420'
 PASSWORD = 'foobar < xyzzy'
@@ -101,7 +100,6 @@ class WebpageViewsTest(TestCase):
         image1 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         image2 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         image3 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
-        image4 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         form_input = {
             'name': 'asdf',
             'template_used': '1',
@@ -112,7 +110,6 @@ class WebpageViewsTest(TestCase):
             'user_image_1': image1,
             'user_image_2': image2,
             'user_image_3': image3,
-            'user_image_4': image4,
         }
         res = self.client.post(reverse('webpage-create'), form_input)
         self.assertRedirects(res, reverse('webpage-view', kwargs={'pagename': 'asdf'}))
@@ -180,7 +177,7 @@ class TemplateViewsTest(TestCase):
 
         # example stylesheet
         template_name = 'blahblahblah'
-        style = str(Path(settings.BASE_DIR) / 'static' / 'themes' / 'console.css')
+        style = str(Path(settings.MEDIA_ROOT) / 'static' / 'themes' / 'console.css')
 
         res = self.client.get(reverse('webpage-create'))
         template_entries = [entry[1] for entry in res.context['form'].fields['template_used'].choices]
@@ -193,7 +190,7 @@ class TemplateViewsTest(TestCase):
         self.assertIn(template_name, template_entries)
 
     def test_template_detail(self):
-        res = self.client.get(reverse('template-detail', kwargs={'pk': 1}))
+        res = self.client.get(reverse('template-detail', kwargs={'templatename': self.template_name}))
         self.assertEqual(res.status_code, 200)
         self.assertIsInstance(res.context['template'], Template)
 
@@ -204,10 +201,10 @@ class TemplateViewsTest(TestCase):
 
     def test_template_delete(self):
         self.client.login(username=USERNAME, password=PASSWORD)
-        res = self.client.post(reverse('template-delete', kwargs={'pk': 1}))
+        res = self.client.post(reverse('template-delete', kwargs={'templatename': self.template_name}))
         self.assertEqual(res.status_code, 403)
         self.client.login(username=ADMIN_USERNAME, password=ADMIN_PASSWORD)
-        res = self.client.post(reverse('template-delete', kwargs={'pk': 1}))
+        res = self.client.post(reverse('template-delete', kwargs={'templatename': self.template_name}))
         self.assertRedirects(res, '/')
         self.assertEqual(Template.objects.count(), 1)
 

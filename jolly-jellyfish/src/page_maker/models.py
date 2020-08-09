@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.core.validators import validate_image_file_extension
 from django.db import models
 from django.utils import timezone
-from relativefilepathfield.fields import RelativeFilePathField
 
 
 def get_theme_path():

@@ -48,3 +48,60 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   padding: 5px;
 }
+
+a:hover {
+  padding: 5px;
+  padding-right: 10px;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+td, th {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 5px;
+  text-align: center;
+}
+
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
+  background: white;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 3px;
+  font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+  font-size: 10px;
+  resize: none;
+}
+
+input[type="file"], input[type="submit"], button, select {
+  background: #c0c0c0;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 3px;
+  font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+  font-size: 10px;
+}
+
+input[type="file"]:hover, input[type="submit"]:hover, button:hover, select:hover {
+  background: #c0c0c0;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  padding: 3px;
+  font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+  font-size: 10px;
+}
+
+textarea {
+  display: block;
+}

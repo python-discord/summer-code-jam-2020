@@ -42,5 +42,6 @@ urlpatterns = [
     path('templates', TemplateListView.as_view(), name='template-list'),
     path('templates/new', TemplateCreateView.as_view(), name='template-create'),
     path('templates/<str:templatename>', TemplateView.as_view(), name='template-view'),
+    path('templates/<str:templatename>/detail', TemplateDetailView.as_view(), name='template-detail'),
     path('templates/<str:templatename>/delete', TemplateDeleteView.as_view(), name='template-delete'),
 ]

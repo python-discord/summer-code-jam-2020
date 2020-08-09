@@ -8,7 +8,7 @@ However, our angel investors did not quite believe us and left us for the next G
 Now that we're bankrupt, we have a cultural obligation to opensource this.
 
 ## Idea
-
+**Please note that some of the pre-made templates use flashing colours/effects**
 An old-internet style site-creation tool that comes with the kitchen sink.
 
 Simply put, users can choose from a variety of templates and customize it any-which-way.
