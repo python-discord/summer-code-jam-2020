@@ -21,6 +21,7 @@ def user(request, username_or_id: Union[int, str]):
         context = {
             'profile': {
                 'username': profile.user.username,
+                'is_online': profile.is_online,
                 'last_login': profile.user.last_login,
                 'image': profile.image.url,
                 'gender': profile.get_gender_display(),
