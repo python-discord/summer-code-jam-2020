@@ -67,16 +67,11 @@ def sms_reply(request):
     body = request.POST.get('Body', None)
 
     # check if the text is from a registered Player, can be null
-    player = Player.objects.filter(phone_number=from_)
+    player = Player.objects.get(phone_number=from_)
     available_quizzes = ActiveTriviaQuiz.objects.all()
     session_codes = [q.session_code for q in available_quizzes]
-    if body.upper() == '!QUIT':
-        player.delete()
-        SMSBot.send('You have left the quiz. Thanks for playing!', from_)
-        return redirect('/')
 
-    if player.exists():
-        player = player.first()
+    if player is not None:
         player_quiz = player.active_quiz
         if player.team_name == '':
             # Player picks a team name
@@ -89,7 +84,14 @@ def sms_reply(request):
                                         team_name=player.team_name,
                                         session_code=player_quiz.session_code)
             SMSBot.send(msg, from_)
-
+        elif body.upper() == '!QUIT':
+            score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
+                                                   session_code=player_quiz.session_code)
+            player.delete()
+            score_track.delete()
+            SMSBot.send('You have left the quiz. Thanks for playing!', from_)
+            return redirect('/')
+            
         elif player_quiz.current_question_index == 0:
             if body.split('/')[0].upper() == '!EDIT':
                 player.team_name = body.split('/')[1]
@@ -105,7 +107,6 @@ def sms_reply(request):
                                'Please make sure you let your teammates know though!'
                                )
                 SMSBot.send(please_wait, from_)
-
         else:
             # Player is answering the question
             current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
