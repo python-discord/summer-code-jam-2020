@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<marquee>
-    You are now editing project: {{name}}
-</marquee>
+<script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
+<div class="wrapper" id="project-name">
+    <h6>{{name}}</h6>
+</div>
     {% if user.is_authenticated %}
     <div class="span8">
     {% else %}
@@ -116,7 +117,6 @@
                 </li>
             </div>
         </div>
-    {% else %}
     {% endif %}
     </div>
 {% endblock content %}
