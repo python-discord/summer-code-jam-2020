@@ -43,9 +43,9 @@ def register_page(request):
             )
             new_user.save()
 
-            return redirect("login_page")
+            return redirect("authentication:login")
 
-    return render(request, "register.html", context)
+    return render(request, "authentication/register.html", context)
 
 
 def login_page(request):
@@ -84,7 +84,7 @@ def login_page(request):
 
             return redirect("/")
 
-    return render(request, "login.html", context)
+    return render(request, "authentication/login.html", context)
 
 
 def logout_page(request):
@@ -102,4 +102,4 @@ def logout_page(request):
 
         return redirect("/")
 
-    return render(request, "logout.html")
+    return render(request, "authentication/logout.html")

@@ -1,4 +1,4 @@
-{% extends "forums_base.html" %}
+{% extends "forums/base.html" %}
 
 {% block forumheader %}
     <li class="breadcrumb-item">
@@ -13,11 +13,11 @@
     <article class="media content-section">
       <div class="media-body">
         <div class="article-metadata">
-          <a class="mr-2" href="{% url 'user-posts' object.created_by.username %}">@{{ object.created_by }}</a>
+          <a class="mr-2" href="{% url 'forums:user-posts' object.created_by.username %}">@{{ object.created_by }}</a>
           <small class="text-muted">Created on: {{ object.created_at }}</small>
           {% if object.post.created_by == user %}
-            <a class="btn btn-secondary btn-sm py-0" href="{% url 'comment-update' object.post.board.name object.post.id object.id %}">Update</a>
-            <a class="btn btn-danger btn-sm py-0" href="{% url 'comment-delete' object.post.board.name object.post.id object.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm py-0" href="{% url 'forums:comment-update' object.post.board.name object.post.id object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm py-0" href="{% url 'forums:comment-delete' object.post.board.name object.post.id object.id %}">Delete</a>
           {% endif %}
         </div>
         <p class="article-content">{{ object.message }}</p>

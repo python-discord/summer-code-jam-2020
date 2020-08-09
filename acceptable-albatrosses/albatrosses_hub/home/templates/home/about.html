@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'albatrosses_hub/base.html' %}
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'home/css/base.css' %}" />
 {% endblock styles %}
 
 
@@ -14,15 +14,15 @@
 
         <tr>
         
-        <td><img src="\home\static\img\albatrosses-icon.png" alt=" "></td>
+        <td><img src="{% static 'albatrosses_hub/img/logo-with-text.png' %}" alt=" "></td>
         
-        <td><font size=5>W<font size=3>elcome, one and all, to my humble Web 
+        <td>Welcome, one and all, to my humble Web 
         
         abode! Albatrosses Hub is a fun website where you can spend your time playing Mafia Game
         or discussing about something in the forum. You also can access some hot news by using
         the newsletter feature</td>
         
-        <td><img src="/img/albatrosses-icon.png" alt=" "></td>
+        <td><img src="{% static 'albatrosses_hub/img/logo-without-text.png' %}" alt=" "></td>
         
         </tr>
         

@@ -1,9 +1,9 @@
-{% extends "forums_base.html" %}
+{% extends "forums/base.html" %}
 {% block forumcontent %}
 <div class="container">
   
   <div class="mb-4">
-    <a href="{% url 'board-create' %}" class="btn btn-primary">New Board</a>
+    <a href="{% url 'forums:board-create' %}" class="btn btn-primary">New Board</a>
   </div>
 
   <table class="table">
@@ -33,10 +33,10 @@
             {% with comment=board.get_last_comment %}
                 {% if comment %}
                   <small>
-                      <a href="{% url 'board-detail' board.pk comment.post.pk %}">
+                      <a href="{% url 'forums:board-detail' board.pk comment.post.pk %}">
                           {{ comment.message }}
                       </a>
-                      By <a class="mr-2" href="{% url 'user-posts' comment.created_by.username %}"> {{ comment.created_by.username }}
+                      By <a class="mr-2" href="{% url 'forums:user-posts' comment.created_by.username %}"> {{ comment.created_by.username }}
                       </a>
                       at {{ comment.created_at }}
                   </small>

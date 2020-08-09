@@ -61,7 +61,7 @@ class Post(models.Model):
         """
         returns url to post
         """
-        return reverse('board-detail',
+        return reverse('forums:board-detail',
                        kwargs={'board': self.board.name, 'pk': self.pk})
 
 
@@ -80,6 +80,6 @@ class Comment(Post):
         """
         returns url to post
         """
-        return reverse('comment-detail',
+        return reverse('forums:comment-detail',
                        kwargs={'board': self.post.board.name,
                                'post_pk': self.post.pk, 'pk': self.pk})

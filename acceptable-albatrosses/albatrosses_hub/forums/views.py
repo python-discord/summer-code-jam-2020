@@ -118,7 +118,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         Generate correct url (the message board) after deleting posts.
         """
-        return reverse('board-view', kwargs={'board': self.kwargs['board']})
+        return reverse('forums:board-view', kwargs={'board': self.kwargs['board']})
 
     def test_func(self):
         """
@@ -177,7 +177,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         """
         Generate correct url (the post) after deleting posts.
         """
-        return reverse('board-detail', kwargs={'board':
+        return reverse('forums:board-detail', kwargs={'board':
                        self.kwargs['board'], 'pk': self.kwargs['pk']})
 
 
@@ -216,7 +216,7 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         """
         Generate correct url (the post) after deleting posts.
         """
-        return reverse('board-detail', kwargs={'board':
+        return reverse('forums:board-detail', kwargs={'board':
                        self.kwargs['board'], 'pk': self.kwargs['post_pk']})
 
     def test_func(self):
@@ -228,6 +228,7 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
 class BoardCreateView(LoginRequiredMixin, CreateView):
     """
     View of page when creating posts.
@@ -236,4 +237,4 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
     fields = ['name', 'description']
 
     def get_success_url(self):
-            return reverse("forums-home")
+        return reverse("forums:home")
