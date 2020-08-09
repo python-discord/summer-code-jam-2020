@@ -35,8 +35,8 @@ jobs:
             - name: Lint with mypy (typing)
               if: ${{ always() }}
               run: |
-                  cd acceptable-albatrosses
-                  pipenv run mypy albatrosses_hub
+                  cd acceptable-albatrosses/albatrosses_hub
+                  pipenv run mypy . --config-file ../mypy.ini
             - name: Lint with pylint
               if: ${{ always() }}
               run: |

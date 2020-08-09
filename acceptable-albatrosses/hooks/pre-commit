@@ -11,7 +11,9 @@ pipenv run flake8 albatrosses_hub --count --statistics
 echo ""
 
 echo "Checking static typing with mypy..."
-pipenv run mypy albatrosses_hub
+cd albatrosses_hub
+pipenv run mypy . --config-file ../mypy.ini
+cd ..
 echo ""
 
 echo "Checking Python and style errors with pylint..."
