@@ -58,12 +58,45 @@ def new_game(request):
         "has_solar_panels": False,
         "wind": (-1, 0),
         "temperature": get_current_weather(request)["AT"]["av"],
-        "obstacles": {"dust_storm": (0, 2), "small_crater": (-4, -3),},
+        "obstacles": {
+            "dust_storm": (0, 2),
+            "small_crater": (-4, -3),
+            "large_rock": (0, 1),
+        },
         "item_messages": {
-            "plutonium": "There is a plume of smoke in the distance.",
-            "solar_panels": "There is an object reflecting light in the distance.",
-            "dust_storm": "A dust storm billows in the distance.",
-            "small_crater": "There is a small crater in the distance.",
+            "plutonium": [
+                "There is a plume of smoke in the distance.",
+                "The plutonium module is smoking!",
+                "The plutonium module is in front of you and it's not even damaged.",
+            ],
+            "solar_panels": [
+                "There is an object reflecting light in the distance.",
+                "The solar panel is in front of you.",
+                "The solar panel is in front of you and it's not even damaged.",
+            ],
+            "dust_storm": [
+                "A dust storm billows in the distance.",
+                "A dust storm billows in front of you.",
+                "The winds are shaping sand dunes, that's good data!",
+            ],
+            "small_crater": [
+                "There is a small crater in the distance.",
+                "There is a small crater in front of you.",
+                "A frozen rock is in the crater, that's good data!",
+            ],
+            "large_rock": [
+                "There is a large rock in the distance.",
+                "There is a large rock in front of you.",
+                "The rock seems to be eroded by water, that's good data!",
+            ],
+        },
+        "item_msg_selector": 0,
+        "found": {
+            "plutonium": False,
+            "solar_panels": False,
+            "dust_storm": False,
+            "small_crater": False,
+            "large_rock": False,
         },
         "messages": [
             {"from_rover": False, "message": "Crash Landing!"},
@@ -95,6 +128,12 @@ def new_game(request):
             {"from_rover": False, "message": "Good luck!",},
             {"from_rover": False, "message": ""},
         ],
+        "ground_descriptions": [
+            "Red sand coveres the ground",
+            "There are little rocks every where.",
+            "A more efficient path has been found.",
+        ],
+        "ground_desc_selector": 0,
         "game_over": False,
         "victorious": False,
     }
@@ -118,6 +157,7 @@ def randomize_positions(game_data):
         {
             "dust_storm": (random.randint(-5, 5), random.randint(-5, 5)),
             "small_crater": (random.randint(-3, 3), random.randint(-3, 3)),
+            "large_rock": (random.randint(-3, 3), random.randint(-3, 3)),
         }
     )
 
@@ -162,6 +202,7 @@ def command_help(game_data):
         },
         {"from_rover": False, "message": ">> look n",},
         {"from_rover": False, "message": ">> look north",},
+        {"from_rover": False, "message": ">> look down",},
         {"from_rover": False, "message": ""},
         {
             "from_rover": False,
@@ -174,6 +215,10 @@ def command_help(game_data):
         {
             "from_rover": False,
             "message": "If you want a higher score play on a colder day.",
+        },
+        {
+            "from_rover": False,
+            "message": "Additional points can be found by looking around alot.",
         },
         {"from_rover": False, "message": ""},
         {
@@ -247,6 +292,15 @@ def command_move(game_data, direction):
         else:
             new_position = old_position
             success = False
+        if (
+            game_data["obstacles"]["large_rock"][0] == new_position[0]
+            and game_data["obstacles"]["large_rock"][1] == new_position[1]
+        ):
+            new_position = old_position
+            success = False
+            game_data["messages"].append(
+                {"from_rover": False, "message": f"You cannot move there.",}
+            )
     else:
         success = False
 
@@ -263,6 +317,16 @@ def command_move(game_data, direction):
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
+
+        # Change ground description text
+        game_data["ground_desc_selector"] = random.randint(
+            0, len(game_data["ground_descriptions"]) - 1
+        )
+
+        # Change close up text
+        game_data["item_msg_selector"] = random.randint(
+            1, len(game_data["item_messages"]["plutonium"]) - 1
+        )
 
         # Move components with rover
         if game_data["has_solar_panels"]:
@@ -318,10 +382,12 @@ def command_look(game_data, direction):
         "plutonium",
         "solar_panels",
         "small_crater",
+        "large_rock",
     ]
     obstacles_list = [
         "dust_storm",
         "small_crater",
+        "large_rock",
     ]
 
     # rover position
@@ -344,7 +410,7 @@ def command_look(game_data, direction):
             angle = math.tan(y_dis / x_dis)
 
         # if the angle is 0 check if the camera is facing the right direction
-        d = ""  # the direction that the item is in
+        d = None  # the direction that the item is in
         if angle == 0:
             if rover[0] > item_pos[0]:
                 d = "w"
@@ -357,14 +423,45 @@ def command_look(game_data, direction):
 
         # if the item is in the right direction update the messages
         if direction == d:
+
+            # if the object is right in front the message may be different
             if x_dis == 1 or y_dis == 1:
                 new_message.append(
-                    {"from_rover": False, "message": game_data["item_messages"][item]}
+                    {
+                        "from_rover": False,
+                        "message": game_data["item_messages"][item][
+                            game_data["item_msg_selector"]
+                        ],
+                    }
                 )
+                if (
+                    game_data["item_msg_selector"]
+                    == len(game_data["item_messages"]["plutonium"]) - 1
+                ):
+                    if not game_data["found"][item]:
+                        game_data["score"] += 50
+                        game_data["found"][item] = True
             else:
                 new_message.append(
-                    {"from_rover": False, "message": game_data["item_messages"][item]}
+                    {
+                        "from_rover": False,
+                        "message": game_data["item_messages"][item][0],
+                    }
                 )
+
+    # Special commands
+
+    # give more detailed description for ground
+    if direction in ["d", "down"] or "ground" in direction:
+        message = game_data["ground_descriptions"][game_data["ground_desc_selector"]]
+        new_message.append({"from_rover": False, "message": message})
+
+        # if the last option is chosen the battery is increased
+        if (
+            game_data["ground_desc_selector"]
+            == len(game_data["ground_descriptions"]) - 1
+        ):
+            game_data["battery"] += 3
 
     # If no new_message is added use this default message.
     if new_message == []:
@@ -379,8 +476,12 @@ def command_look(game_data, direction):
     return game_data
 
 
-def save_score(s, i):
-    HighScore.objects.create(score=s, initials=i)
+def calculate_score(game_data):
+    """
+    Score is equal to remaining battery times (mars temperature divided by 10) plus accumulated score.
+    """
+    bat_score = int(game_data["battery"] * (abs(game_data["temperature"]) // 10))
+    return game_data["score"] + bat_score
 
 
 def parse_command(request, game_data, command):
@@ -396,6 +497,10 @@ def parse_command(request, game_data, command):
             game_data = command_move(game_data, command[4:])
         elif command.startswith("look"):
             game_data = command_look(game_data, command[4:])
+        elif command.startswith("score"):
+            game_data["messages"].append(
+                {"from_rover": False, "message": calculate_score(game_data)}
+            )
         elif command == "help":
             game_data = command_help(game_data)
         else:
@@ -410,9 +515,7 @@ def parse_command(request, game_data, command):
     if game_data["has_plutonium"] and not game_data["victorious"]:
         game_data["victorious"] = True
         game_data["game_over"] = True
-        game_data["score"] = int(
-            game_data["battery"] * abs(game_data["temperature"]) // 10
-        )
+        game_data["score"] = calculate_score(game_data)
         game_data["messages"].append({"from_rover": False, "message": ""})
         game_data["messages"].append(
             {"from_rover": False, "message": "CONGRATULATIONS!"}

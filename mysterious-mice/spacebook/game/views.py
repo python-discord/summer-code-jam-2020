@@ -25,13 +25,13 @@ class GameView(View):
         """
         Gets the scores from the database.
         """
-        scores = HighScore.objects.order_by("score")
+        scores = HighScore.objects.order_by("-score")
         score_list = []
         i = len(scores)
         if i > 10:
             i = 10
         while i > 0:
             s = scores[i - 1]
-            score_list.append([s.initials, s.score])
+            score_list.insert(0, [s.initials, s.score])
             i -= 1
         return score_list
