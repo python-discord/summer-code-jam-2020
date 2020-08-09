@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 AUTHENTICATION_BACKENDS = [
-       'anon.backends.AnonBackend',
+    'anon.backends.AnonBackend',
 ]
 
 CHANNEL_LAYERS = {

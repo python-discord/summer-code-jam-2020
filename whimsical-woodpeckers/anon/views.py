@@ -12,7 +12,7 @@ def random_string(length):
     i = 0
     pw = ""
     while i < length:
-        pw = pw+random.choice(string.printable)
+        pw = pw + random.choice(string.printable)
         i += 1
     return pw
 
@@ -42,7 +42,7 @@ def get_user_data(request):
 
 
 def get_recent(request):
-    recent = AnonUser.objects.filter(last_seen__gte=timezone.now()-datetime.timedelta(minutes=5))
+    recent = AnonUser.objects.filter(last_seen__gte=timezone.now() - datetime.timedelta(minutes=5))
     request.user.last_seen = timezone.now()
     request.user.save()
     return JsonResponse({'context': list(recent.values('id', 'nickname'))})

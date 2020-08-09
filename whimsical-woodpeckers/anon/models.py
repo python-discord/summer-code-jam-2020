@@ -7,9 +7,9 @@ import namegenerator
 class AnonUserManager(BaseUserManager):
     def create_user(self, id, nickname, last_seen, password):
         user = self.model(
-             id=id,
-             nickname=nickname,
-             last_seen=last_seen)
+            id=id,
+            nickname=nickname,
+            last_seen=last_seen)
         user.set_password(password)
         user.save()
         return user
