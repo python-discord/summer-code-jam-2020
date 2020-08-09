@@ -1,5 +1,6 @@
 import os
 import secrets
+from shutil import rmtree
 from subprocess import run
 
 from the_htvms.runner.constants import DISK_PATH, DISK_ROM_SIZE, DISK_BLANK_SIZE, DISK_STAGING_PATH, DISK_ROM_PATH
@@ -57,3 +58,16 @@ def create_disk(type_: str) -> str:
             check=True
         )
     return uid
+
+
+def delete_disk(id_: str) -> bool:
+    """
+    Delete the disk with the provided ID.
+
+    True is returned on success.
+    """
+    try:
+        rmtree(f'{DISK_PATH}/{id_}')
+    except:  # rmtree doesn't define which exception it can raise ¯\_(ツ)_/¯
+        return False
+    return True
