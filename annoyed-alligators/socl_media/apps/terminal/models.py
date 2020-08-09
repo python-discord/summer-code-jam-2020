@@ -3,7 +3,7 @@ from django.db import models
 
 class NewsHistory(models.Model):
     """
-    This model will temporarily store the news fetched to allow 
+    This model will temporarily store the news fetched to allow
     followup response.
     """
     user_id = models.IntegerField()
