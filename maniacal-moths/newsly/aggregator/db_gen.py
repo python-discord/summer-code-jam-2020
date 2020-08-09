@@ -1,4 +1,6 @@
-import requests, json, datetime
+import requests
+import json
+import datetime
 from .models import Article
 from newspaper import Article as content_getter
 
