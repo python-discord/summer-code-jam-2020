@@ -44,18 +44,18 @@ def about_us(request):
                 "dev-2.png"
             ),
             Developer(
+                "Nabob",
+                "https://git.io/JJMff",
+                "A cool guy who loves programming and Container technologies",
+                "Developer",
+                "dev-4.png"
+            ),
+            Developer(
                 "Music",
                 "",
                 "Contrary to name, zero involvement in music.",
                 "Developer",
                 "dev-3.png"
-            ),
-            Developer(
-                "Nabob",
-                "",
-                "A cool guy who loves programming",
-                "Developer",
-                "dev-4.png"
             ),
             Developer(
                 "Soyybeans",
