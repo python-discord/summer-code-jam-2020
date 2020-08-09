@@ -67,4 +67,7 @@ When installing on Windows make sure that your default python version on PATH is
 #### Manual Inspection
 Feel free to check the `setup.py` script before running it, as this is always good practice.
 
-`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`  
+> Check setup.py. If your happy with it run:
+
+Windows: `python setup.py install` Mac/Linux: `python3 setup.py install`
