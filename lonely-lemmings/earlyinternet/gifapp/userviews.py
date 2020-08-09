@@ -43,16 +43,10 @@ def register(request: HttpRequest) -> HttpResponse:
 
 def detail(request, project_name=None) -> HttpResponse:
     """displays view for project and its comments"""
+
     # there can only be one
+    # Comments removed for now
     project = Project.objects.filter(name=project_name, user_id=request.user)[0]
     comments = Comment.objects.filter(post_id=project)
-    comment_dict = {}
 
-    list_of_branches = filter(lambda x: x.parent_id is None, comments)
-
-    # def get_branches(branch_list):  represent tree structure of comments as a dictionary
-    #     for item in branch_list:
-    #         subcomments = filter(lambda x: x.parent_id is item)
-    #         comment_dict[item] = {}
-    #         get_branches(subcomments)
     return render(request, "project_detail.html", {"project": project, "comments": comments})
