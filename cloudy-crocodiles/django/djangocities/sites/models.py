@@ -20,10 +20,13 @@ class Site(models.Model):
 
     def save(self, *args, **kwargs):
         if self.pk is None:
-            current_address = Site.objects.all().aggregate(Max("address"))[
-                "address__max"
-            ]
-            self.address = current_address + 1
+            current_address = Site.objects.filter(city=self.city).aggregate(
+                Max("address")
+            )["address__max"]
+            if current_address:
+                self.address = current_address + 1
+            else:
+                self.address = 1
 
         super(Site, self).save(*args, **kwargs)
 
