@@ -96,6 +96,14 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 category = "main"
+description = "Best way to have Django DRY forms"
+name = "django-crispy-forms"
+optional = false
+python-versions = ">=3.5"
+version = "1.9.2"
+
+[[package]]
+category = "main"
 description = "Django application to add the Bulma CSS framework and its extensions"
 name = "django-simple-bulma"
 optional = false
@@ -370,7 +378,7 @@ python-versions = "*"
 version = "0.2.5"
 
 [metadata]
-content-hash = "847a1aed72cd28149eb4dec1e3d93a22afc51bbe8b2342eb4efda14bb5bdbfe6"
+content-hash = "003af7cff131492f2297021ec30d23d481a448b4bef32b0aa6f2bc3349386377"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -406,6 +414,10 @@ colorama = [
 django = [
     {file = "Django-3.0.8-py3-none-any.whl", hash = "sha256:5457fc953ec560c5521b41fad9e6734a4668b7ba205832191bbdff40ec61073c"},
     {file = "Django-3.0.8.tar.gz", hash = "sha256:31a5fbbea5fc71c99e288ec0b2f00302a0a92c44b13ede80b73a6a4d6d205582"},
+]
+django-crispy-forms = [
+    {file = "django-crispy-forms-1.9.2.tar.gz", hash = "sha256:f2f1e0fbb458851636447cfb6be1a611b40c8ac9e41a74ba923011378670b43b"},
+    {file = "django_crispy_forms-1.9.2-py3-none-any.whl", hash = "sha256:888bb316db89b60050a42ec35080facb361d823eec38010ccb0702f45642d3b8"},
 ]
 django-simple-bulma = [
     {file = "django-simple-bulma-1.3.2.tar.gz", hash = "sha256:e5cff3fc5f0d45558362ab8d0e11f92887c4fc85616f77daa6174940f94b12c7"},
