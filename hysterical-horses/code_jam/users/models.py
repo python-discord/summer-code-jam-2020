@@ -56,7 +56,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     points = models.IntegerField(default=0)
 
-    date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
+    date_joined = models.DateTimeField(verbose_name='date joined',
+                                       auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
 
     is_admin = models.BooleanField(default=False)
@@ -72,7 +73,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_posts(self):
-        return len(self.posts.all())
+        return self.posts.count()
 
     @property
     def number_of_likes(self):
@@ -80,7 +81,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_comments(self):
-        return len(self.comments.all())
+        return self.comments.count()
 
     @property
     def number_of_messages(self):
@@ -89,16 +90,16 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def number_of_searches(self):
-        return len(self.searches.all()) * 5
+        return self.searches.count()
 
     @property
     def score(self):
-        posts_weight = 100
-        comments_weight = 20
-        likes_weight = 1
-        searches_weight = 0.5
-        messages_weight = 0.1
-        points_weight = 100
+        posts_weight = 13
+        comments_weight = 7
+        likes_weight = 3
+        searches_weight = 5
+        messages_weight = 1
+        points_weight = 13
 
         rv_dict = {
             self.number_of_posts: posts_weight,
@@ -114,26 +115,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def level(self):
-        """
-        `score_req` is the value of the score needed for the player's level
-        to increase.
-        """
-        # if self.score < 10:
-        #     self._level = 1
-        # elif self.score < 50:
-        #     self._level = 2
-
         level = int(math.log(self.score + 1, 1.4) // 3)
-
-        # How to set initial score_req???
-
-        # The rest uses log base 2 to increase
-        # if self.score > self.score_req:
-        #     self.score_req *= math.log(self.prev_level, 2)
-        #     self._level += 1
-
-        # return level
-        return 10
+        return level
 
     @property
     def app_links_gen(self):
