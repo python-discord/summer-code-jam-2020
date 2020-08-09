@@ -3,6 +3,11 @@
 {% block title %}News{% endblock %}
 {% block extra_heads %}
     {% load static %}
+    <div>
+    {% if user.is_authenticated %}
+        <p><em>Welcome, {{ user.username }}!</em></p>
+    {% endif %}
+    </div>
     <link rel="stylesheet" href="{% static "/wired_app/homepage.css" %}">
 {% endblock %}
 
