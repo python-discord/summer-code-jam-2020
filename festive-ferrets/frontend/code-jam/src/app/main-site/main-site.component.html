@@ -1,23 +1,10 @@
-<h1 style="text-align: center">Nchan</h1>
-<div class="center">
-<mat-card style="width: 80%;display: inline-block;" >
-  <mat-card-title>
-    <p style="text-align: center">Nchan is a 4chan clone but dont snitch</p>
-  </mat-card-title>
-  <mat-card-content>
 
     <mat-grid-list cols="9" rowHeight="3:1">
 
-      <mat-grid-tile  *ngFor="let board of boards" >
+      <mat-grid-tile  *ngFor="let board of boards" routerLink="{{board.id}}" >
         <p style="font: 13px/1.231 arial,helvetica,clean,sans-serif;*font-size: small;">
-          {{board.name}}
+          {{board.title}}
         </p>
       </mat-grid-tile>
 
     </mat-grid-list>
-  </mat-card-content>
-</mat-card>
-</div>
-
-
-

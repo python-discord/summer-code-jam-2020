@@ -1,0 +1,27 @@
+<mat-card style="margin-bottom:5px ">
+  <mat-card-title>
+    <mat-label>{{post.title}}</mat-label>
+  </mat-card-title>
+  <mat-card-subtitle>by {{post.poster}}</mat-card-subtitle>
+  <mat-label>{{post.text}}</mat-label>
+  <mat-card-subtitle style="text-align: end">Posted: {{post.publication_date}}</mat-card-subtitle>
+</mat-card>
+<mat-card style="margin-top: 10px" *ngIf="addComent">
+  <app-create-comment (createComment)="get_cred($event)" (created)="check_coment($event)"></app-create-comment>
+</mat-card>
+<button style="margin-top: 10px" *ngIf="!addComent" (click)="addComent=true">Add Comment</button>
+<button style="margin-top: 10px;margin-bottom: 15px" *ngIf="addComent"  (click)="addComent=false">Cancel</button>
+<mat-card *ngFor="let comment of comments">
+  <mat-card-title style="font-size: small">
+    User: {{comment.commenter}}
+  </mat-card-title>
+  <mat-card-content style="font-size: small">
+    {{comment.text}}
+  </mat-card-content>
+  <mat-card-subtitle style="text-align: end">
+    Posted: {{comment.publication_date}}
+  </mat-card-subtitle>
+</mat-card>
+
+
+
