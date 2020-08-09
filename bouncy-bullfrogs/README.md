@@ -12,7 +12,7 @@ In 1999, it was the world's largest software maker by revenue. The word "Bouncy 
     
 
 # Our services
-## Email client
+### Email client
 
 ![EmailClientImage](https://cdn.discordapp.com/attachments/738752019392757881/741774392626774037/unknown.png)
 
@@ -22,7 +22,7 @@ Has all your basic Emaill needs such as
 - [x] Archive the low priority mails
 
 #
-## Search engine
+### Search engine
 ![SearchEngineImage](https://cdn.discordapp.com/attachments/738752019392757881/741777945864962098/unknown.png)
 
 Search abilities comparison                |          **Google**     | **Bullfrog Search**
@@ -33,7 +33,7 @@ Has intuitive UI                           | <center>❌</center>    | <center>�
 Can give you a warm hug                    | <center>❌</center>    | <center>Yes absolutely</center>
 
 > *"It was our priority to create a better user experience"*
-
+> 
 > \- Zuck (*founder of BouncyBullfrogs co.*)
 
 
