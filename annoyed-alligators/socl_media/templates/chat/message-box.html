@@ -1,24 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for message in object_list %}
-    <p><strong>{{message.body}}</strong></p>
-        <p class="post-time">
-          <br>
-          Sent by: {{message.sender}} <br>
-          {{message.sent_at}}
-        </p>
-        <p></p>
-        <hr style="border-top: 1px solid black;">
-    {% endfor %}
+<div class="w3-row">
+  <div class="w3-col w3-container m1 l2"></div>
+  <div class="w3-col w3-container m10 l8">
+    <div class="window">
+      {% for message in object_list %}
+      <p><strong>{{message.body}}</strong></p>
+          
+          <span style="color: #555;">Sent by:</span>
+            <a href="/profile/{{message.sender}}" title="username: {{message.sender}}">
+              {% if message.sender.first_name %}
+                {{message.sender.first_name|capfirst}} 
+              {% else %}
+                {{message.sender}}
+              {% endif %}
+              {% if message.sender.last_name %}
+                {{message.sender.last_name}}
+              {% endif %}
+            </a>
+          <span class="post-time">
+            on {{message.sent_at}}
+          </span>
+          <p></p>
+          <hr style="border-top: 1px solid black;">
+      {% endfor %}
+    </div>
+  </div>
+  <div class="w3-col w3-container m1 l2"></div>
+</div>
 
-    <style>
-      .post-time {
-        font-size: 0.8rem;
-        font-style: italic;
-        color: #555;
-      }
-    
-    
-    </style>
+<style>
+  .post-time {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #555;
+  }
+</style>
 {% endblock content %}
