@@ -18,6 +18,14 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('article_detail', kwargs={'slug': self.slug})
+    
+    def brief_body(self):
+        if len(self.body) > 20:
+            short = ' '.join(self.body.split()[:20])
+            short += ' ...'
+        else:
+            short = self.body
+        return short 
 
 
 class Comment(models.Model):

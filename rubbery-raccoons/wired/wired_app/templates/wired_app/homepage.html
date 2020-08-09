@@ -11,7 +11,8 @@
     <ul>
     {% for article in articles %}
         <li><a href="{% url 'article-detail' article.slug %}">{{ article.publication_date|date }} - {{ article.title }} - {{ article.headline }}</a></li>
-    {% empty %}
+        <p>{{ article.brief_body }}</p>
+        {% empty %}
         <li>No articles yet.</li>
     {% endfor %}
     </ul>
