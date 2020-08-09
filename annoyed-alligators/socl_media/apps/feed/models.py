@@ -25,7 +25,8 @@ class Post(models.Model):
 
     def save(self, **kwargs):
         """
-        This function will resize and add a pixelating effect to the images.
+        This function will resize and add a pixelating effect to the images
+        to give them a more retro and early internet feel.
         """
         super().save()
 

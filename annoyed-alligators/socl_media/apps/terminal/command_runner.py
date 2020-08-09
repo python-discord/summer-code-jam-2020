@@ -16,8 +16,10 @@ class TerminalCommandRunner():
         self.request = request
 
     def run(self, **kwargs):
+        """Finds the correct command from list of commands and runs its action method"""
+
         if self.specified_method == '':
-            return {'response': "No command specified"}
+            return {'response': "<br>No command specified"}
         else:
             found = False
 
@@ -32,5 +34,5 @@ class TerminalCommandRunner():
                         return command.action(self.request, self.params, **kwargs)
 
             if not found:
-                # Invalid command
+                # If invalid command
                 return {'response': f"<br>{self.specified_method}: Command not found. Please enter a valid command."}

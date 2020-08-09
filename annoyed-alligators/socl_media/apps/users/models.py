@@ -5,13 +5,15 @@ from PIL import Image
 
 class Profile(models.Model):
     """
-    To contain user profile fields:
+    Model to contain user profiles.
+    Fields-
     user: holds the actual user logged in
     image: for profile picture (optional)
     bio: to update user Bio (optional)
     date_of_birth: contains user date of birth
     gender: the user's gender
     """
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="default.png",
                               upload_to="profile_pics",
@@ -35,8 +37,10 @@ class Profile(models.Model):
 
     def save(self, **kwargs):
         """
-        This function will resize and add a pixelating effect to the images.
+        This function will resize and add a pixelating effect to the images
+        for a more retro and early internet feel.
         """
+
         super().save()
 
         img = Image.open(self.image.path)

@@ -13,7 +13,8 @@ import ast
 class Command():
     """
     This class is the blueprint for all
-    terminal commands."""
+    terminal commands.
+    """
 
     commands_list = []
 

@@ -6,6 +6,7 @@ class NewsHistory(models.Model):
     This model will temporarily store the news fetched to allow
     followup response.
     """
+
     user_id = models.IntegerField()
     search_topic = models.CharField(max_length=50)
     search_time = models.DateTimeField(auto_now=True, auto_now_add=False)
