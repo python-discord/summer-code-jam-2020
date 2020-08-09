@@ -58,7 +58,8 @@ Now, sit back and use this :)), you have effectively started the next technologi
 > * Mainframe development
 > * Search engine back-end
 > * Managed main repository
-
+> 
+> *"talk is dirty, let's code."*
 
 ###
 > ## **[Arhaan](https://github.com/Arhaan)** *(Arhaan#0249)*
