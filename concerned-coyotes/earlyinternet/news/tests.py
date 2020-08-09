@@ -16,7 +16,7 @@ class ArticleTestCase(TestCase):
             title="Why Python is such a nice language",
             description="...",
             content="...",
-            url="http://example.org/",
+            url="http://python.org/",
             published_at=datetime.datetime(2020, 1, 1, 12, 0)
         )
 
@@ -34,7 +34,7 @@ class ArticleTestCase(TestCase):
         """
         article = {
             'source': {'id': 'news-com-au', 'name': 'News.com.au'},
-            'author': None,
+            'author': 'unknown'
             'title': 'F1 British Grand Prix live: updates, results, starting grid, Vettel reacts to Ferrari sabotage '
                      'questions',
             'description': 'The British Grand Prix has ended in incredible drama as the last lap went down to the '
@@ -43,7 +43,7 @@ class ArticleTestCase(TestCase):
                    '-prix/live-coverage/ba297f46d4e91321c092db9d3d5d2e1f',
             'urlToImage': 'https://content.api.news/v3/images/bin/2554ff2213b5c8a54e9809d310e697db',
             'publishedAt': '2020-08-02T22:04:07Z',
-            'content': None
+            'content': '...'
         }
         created = Article.objects.create_article(article)
         self.assertEqual(article['source']['name'], created.source)
