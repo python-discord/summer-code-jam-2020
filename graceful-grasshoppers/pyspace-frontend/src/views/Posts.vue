@@ -13,7 +13,8 @@ export default {
 	name: 'Posts',
 	data: function() {
 		return {
-			posts: []
+			userId: this.$route.params.userId,
+			posts: [],
 		}
 	},
 	components: {
@@ -21,8 +22,9 @@ export default {
 	},
 	methods: {
 		init() {
+			const query_url = this.userId == null ? '/posts/' : '/posts/?username='+this.userId;
 			axios
-			.get('/posts/')
+			.get(query_url)
 			.then((response) => {
 				this.posts = response.data.posts;
 			})
