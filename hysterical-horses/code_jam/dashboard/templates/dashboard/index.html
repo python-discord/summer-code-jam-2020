@@ -16,9 +16,37 @@
     <div class="col">
         <h3>Level: {{ user.level }}</h3>
     </div>
+
+    {% if user.avatar_display_unlocked %}
+        <img src="{{ user.profile.avatar.url }}">
+    {% endif %}
+
+    {% if user.bio_unlocked %}
+        {% if user.profile.biography == None %}
+            <p>You have no biography.</p>
+        {% else %}
+            <p>{{ user.profile.biography }}</p>
+        {% endif %}
+
+    {% endif %}
+
+    {% if user.profile_change_unlocked %}
+        <a href="{% url 'profile' %}">Edit profile</a>
+    {% endif %}
+    
 </div>
 <hr>
-<div class="row ml-3">
+{% for app_link in app_links %}
+    <a class="text-primary" href={{app_link.link}}>{{app_link.name}}</a>
+{% endfor %}
+
+{% for unlocked_item in unlocked_list %}
+    <ul>
+        <li>{{ unlocked_item }} unlocked!</li>
+    </ul>
+{% endfor %}
+
+<!-- <div class="row ml-3">
     <div class="col">
         <h3>Level: 0</h3>
         <a class="text-primary" href="{% url 'engine-results' search_text='CERN' %}">Default Search Engine</a>
@@ -37,6 +65,6 @@
         <a class="text-primary" href="{% url 'blogs_list' %}">Blog</a>
     </div>
     {% endif %}
-</div>
+</div> -->
 
 {% endblock content %}

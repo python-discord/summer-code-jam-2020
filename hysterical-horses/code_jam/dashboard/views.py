@@ -1,25 +1,33 @@
-import requests
+import datetime
+import os
 import re
+import string
+import textwrap
 from typing import List
-from django.shortcuts import render
+
+import requests
+from pytz import timezone
+
+import geocoder
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sessions.backends.db import SessionStore
 from django.http import HttpResponse
-import geocoder
-import textwrap
-import datetime
-import string
-import os
+from django.shortcuts import render
 from geopy.geocoders import Nominatim
-from pytz import timezone
-# import clipboard # for some debugging
 from users.mixins import level_check
+
 from .models import Search
 
 
 @login_required()
 def index(request):
-    return render(request, 'dashboard/index.html')
+    context = {
+        'app_links': [{'name': name, 'link': link}
+                      for name, link in request.user.app_links_gen],
+        'unlocked_list': [item for item in request.user.unlocked_list_gen]
+    }
+
+    return render(request, 'dashboard/index.html', context)
 
 
 @login_required()
@@ -246,4 +254,3 @@ def chat_room(request, room_name):
 # things to do:
 # if not enough info is given for a single entry call the entry as a query and send results (for example: )
 # llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
-
