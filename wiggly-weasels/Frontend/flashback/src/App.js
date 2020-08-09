@@ -212,7 +212,7 @@ const App = () => {
         },
         credits:{
           method: (args, print, runCommand) => {
-            print('Wiggly w:\n')
+            print('Wiggly Weasels:\nMVP:JetDeveloping#4308\nUnloadingGnat#8067\nt11s#6825\nAashay03#8907')
           }
         }
         }}
