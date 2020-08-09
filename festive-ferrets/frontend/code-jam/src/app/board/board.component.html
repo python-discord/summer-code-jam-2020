@@ -1,18 +1,19 @@
+<h2 style="text-align: center">Tic Tac Toe</h2>
 <div class="container">
   <div class="divRow">
-    <app-square></app-square>
-    <app-square></app-square>
-    <app-square></app-square>
+    <app-square [value]="fields[0]" (click)="onClickSquare('00',0)"></app-square>
+    <app-square [value]="fields[1]" (click)="onClickSquare('01',1)"></app-square>
+    <app-square [value]="fields[2]" (click)="onClickSquare('02',2)"></app-square>
   </div>
   <div class="divRow">
-    <app-square></app-square>
-    <app-square></app-square>
-    <app-square></app-square>
+    <app-square [value]="fields[3]" (click)="onClickSquare('10',3)"></app-square>
+    <app-square [value]="fields[4]" (click)="onClickSquare('11',4)"></app-square>
+    <app-square [value]="fields[5]" (click)="onClickSquare('12',5)"></app-square>
   </div>
   <div class="divRow">
-    <app-square></app-square>
-    <app-square></app-square>
-    <app-square></app-square>
+    <app-square [value]="fields[6]" (click)="onClickSquare('20',6)"></app-square>
+    <app-square [value]="fields[7]" (click)="onClickSquare('21',7)"></app-square>
+    <app-square [value]="fields[8]" (click)="onClickSquare('22',8)"></app-square>
   </div>
-  <button>Reset The Game</button>
+  <button (click)="resetGame()">Reset The Game</button>
 </div>
