@@ -11,9 +11,10 @@ This website uses Python 3.8 and Django 3.0.9
 4. Sync the pipenv environment (within 'fancy-falcons' folder): _pipenv sync_
 5. Start the pipenv shell: _pipenv shell_
 6. Go into the django project folder: _cd fancy-falcons-proj_
-7. Migrate: _python3 manage.py migrate --run-syncdb_
-8. Start the server: _python3 manage.py runserver_
-9. Your good to go, open your browser an go to _localhost:8000_
+7. Load data: _python3 manage.py loaddata base_users.json_
+8. Migrate: _python3 manage.py migrate --run-syncdb_
+9. Start the server: _python3 manage.py runserver_
+10. You're good to go, open your browser an go to _localhost:8000_
 
 # Site setup
 
