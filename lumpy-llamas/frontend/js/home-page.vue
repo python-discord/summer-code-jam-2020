@@ -44,7 +44,7 @@ const MENU_PAGES = [
   { title: 'Forum/Thread-list', page: 'forum' },
   { title: 'Chat Lobby', page: 'chatlobby_page' },
   { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
-  { title: 'Messages/Message list', page: 'list-messages' },
+  { title: 'Electronic Mail', page: 'list-messages' },
 ];
 
 export default {
