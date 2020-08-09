@@ -1,21 +1,29 @@
 from django.contrib.auth.models import User
-# from django.db import models
+from django.db import models
 
 
 # Create your models here.
 class MudUser(User):
+    now_connected_character_name = models.TextField(max_length=100, default='')
+
     def create_character(self, name: str):
         pass
 
 
-# class Character(models.Model):
-#     name = models.TextField(max_length=100)
-#     min_health = 0
-#     max_health = models.IntegerField()
-#     health = models.IntegerField()
-#     speed = models.IntegerField()
-#     user = models.ForeignKey('MudUser', on_delete=models.CASCADE)
-#     # TODO: add location
+# hp/attack/defense depends on : equiped item / Special Permanent enhancement(or Decline) item.
+# Damage Formula : attack*(100/(100+defense))
+# ADD attack_cool_time
+class Character(models.Model):
+    name = models.TextField(max_length=100, unique=True)
+    user = models.ForeignKey('MudUser', on_delete=models.CASCADE)
+    hp = models.IntegerField(default=100)
+    max_hp = models.IntegerField(default=100)
+    total_attack = models.IntegerField(default=11)
+    total_defense = models.IntegerField(default=11)
+    attack_cool_time = models.FloatField(default=3.0)
+    location_x = models.IntegerField(default=1)
+    location_y = models.IntegerField(default=1)
+    location_z = models.IntegerField(default=1)
 
 #     def increase_health(self, health):
 #         """Increase health
