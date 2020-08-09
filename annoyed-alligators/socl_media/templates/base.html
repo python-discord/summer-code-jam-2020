@@ -36,17 +36,12 @@
   </header>
   
   <div id="main-content">
-    {% if messages %}                                                     
-    {% for message in messages %}                                         
-      <div class="alert alert-{{ message.tags }}">                          
-        {{ message }}                                                       
-      </div>   
-    {% endfor %}
-    {% endif %}
 
     {% block content %}
     {% endblock content %}
+
   </div>
+
   <div class="terminal footer">
     
     {% include "terminal.html" %}

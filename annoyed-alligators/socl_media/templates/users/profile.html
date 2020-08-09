@@ -7,8 +7,9 @@
   	<img src="{{ of_user.profile.image.url }}">
   </div>
   <div class="w3-col w3-container m9 l10">
-  	<h4>{{ of_user.username|capfirst }}</h4>
-	  <p>Born: {{ of_user.profile.date_of_birth|date:"jS F, Y" }}</p>
+  	<h4>{{ of_user.username }}</h4>
+    <h5>{{ of_user.first_name }} {{ of_user.last_name }}</h5>
+	  <p>Birthday: {{ of_user.profile.date_of_birth|date:"jS F" }}</p>
 	  <p id="gender"></p>
   </div>
 <div>
@@ -17,8 +18,10 @@
 <p>{{ of_user.profile.bio }}</p>
 
 {% if of_user.username == user.username %}
-<button><a href="{% url 'profile_edit' %}">Update Info</a></button>
+<a href="{% url 'profile_edit' %}"><button>Update Info</button></a>
 {% endif %}
+
+<hr style="border-color: black;">
 
 <h3>Posts ({{ num_posts }})</h3>
 
@@ -29,7 +32,7 @@
     </div>
     <div class="w3-col w3-container m10 l11">
 			<span>
-        <a href="{% url 'profile' post.posted_by.username %}">By: {{ post.posted_by}}</a>
+        <span>{{ post.posted_by}},</span>
 				<small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
 			</span>
 				
@@ -53,8 +56,9 @@
 </script>
 <style>
   .post-profile-pic {
-    width: 64px;
+    width: 30px;
     height: auto;
+    float: left;
   }
 </style>
 {% endblock content %}
