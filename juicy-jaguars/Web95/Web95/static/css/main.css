@@ -48,11 +48,12 @@ body {
     vertical-align: top;
 }
 
-.start-banner p {
+.start-banner span {
     writing-mode: vertical-rl;
+    font-size: inherit;
 }
 
-.start-banner p b {
+.start-banner span b {
     color: #bbb;
     font-weight: 900;
 }
