@@ -102,12 +102,20 @@
                                 &gt;&gt;
                                 <form action="/game/" method="post">
                                     {% csrf_token %}
-                                    <input type="text" name="command" id="command-input" maxlength="16">
+                                    <input type="text" name="command" id="command-input" maxlength={{input_len}}>
                                     <input type="submit" class="button" id="command-submit" value="[Submit]">
                                 </form>
                             </div>
                         </td></tr>
                     </tbody></table>
+                </td>
+                <td>
+                    <td style="vertical-align: top;"><table class="nav-table"><tbody>
+                        High Scores
+                        {% for score in scores %}
+                        <p>{{score.0}}: {{score.1}}</p>
+                        {% endfor %}
+                    </tbody></table></td>
                 </td>
             </tr>
         </tbody></table>
