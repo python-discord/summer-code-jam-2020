@@ -117,31 +117,6 @@ class BlogDetailView(DetailView):
         return context
 
 
-# @login_required()
-# def create_post(request):
-#     form = CreatePostForm(request.POST or None)
-#
-#     if form.is_valid():
-#         form.title = request.POST.get('title')
-#         form.content = request.POST.get('content')
-#         new_post = form.save(commit=False)
-#
-#         new_post.author = request.user
-#         new_post.save()
-#
-#         return HttpResponseRedirect(request.path_info)
-#
-#     quote = random.choice((  # Remove this if necessary
-#         "Unleash your creativity!",
-#         "What's on your mind?",
-#         "Say 'Hello, world!'"
-#     ))
-#
-#     context = {
-#         'form': form,
-#         'quote': quote
-#     }
-#     return render(request, 'posts/create_post.html', context)
 
 class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
