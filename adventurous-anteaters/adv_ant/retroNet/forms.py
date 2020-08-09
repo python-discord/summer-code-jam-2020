@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import *
+from .models import Tweet, UpdateProfile
 
 
 class RegisterForm(UserCreationForm):
@@ -22,4 +22,4 @@ class TweetForm(forms.ModelForm):
 class Updateprofile(forms.ModelForm):
     class Meta:
         model = UpdateProfile
-        fields = ["name","dob","about"]
+        fields = ["name", "dob", "about"]

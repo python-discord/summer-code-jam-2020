@@ -104,8 +104,3 @@ def view_tweet(request):
     else:
         queryset = Tweet.objects.all()
         return render(request, 'view_tweet.html', {"data": queryset})
-
-
-
-
-
