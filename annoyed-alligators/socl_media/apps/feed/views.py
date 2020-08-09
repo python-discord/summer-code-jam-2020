@@ -17,6 +17,7 @@ class PostListView(LoginRequiredMixin, ListView):
     """
     model = Post
     ordering = ['-post_date_posted']
+    paginate_by = 3
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
