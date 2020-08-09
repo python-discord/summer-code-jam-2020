@@ -6,7 +6,7 @@
         <div class="box is-semitransparent">
             <section>
                 <a class="button is-link" href="{% url 'add-background' %}">add background</a>
-                <a class="button is-light" href="{% url 'profile' %}">go back</a>
+                <a class="button is-light is-link" href="{% url 'main-home' %}">go back</a>
                 <h1 class="title">current backgrounds</h1>
                 {% if background_list|length > 1 %}
                     <div class="container">
