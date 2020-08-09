@@ -1,6 +1,6 @@
 FROM python:3.8.3-slim
 RUN apt update
-RUN apt install curl gettext sqlite3 -y
+RUN apt install curl gettext sqlite3 build-essential -y
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt install nodejs -y
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
