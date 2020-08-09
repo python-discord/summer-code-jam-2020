@@ -1,39 +1,39 @@
 <template>
   <q-page padding>
-    <page-form edit v-if="page" :page="page" @submit="submit" />
+    <site-form edit v-if="site" :site="site" @submit="submit" />
   </q-page>
 </template>
 
 <script>
-import PageForm from "components/PageForm";
+import SiteForm from "components/SiteForm";
 
 import gql from "graphql-tag";
 
-const pageQuery = gql`
-  query page($id: ID!) {
-    page(id: $id) {
+const siteQuery = gql`
+  query site($id: ID!) {
+    site(id: $id) {
       id
-      site {
+      city {
         id
       }
-      file_name
-      content
+      address
+      description
     }
   }
 `;
 
 export default {
-  name: "PagePage",
+  name: "EditSitePage",
   props: ["id"],
   components: {
-    PageForm,
+    SiteForm,
   },
   data() {
     return {};
   },
   apollo: {
-    page: {
-      query: pageQuery,
+    site: {
+      query: siteQuery,
       variables() {
         return {
           id: this.id,
@@ -46,8 +46,8 @@ export default {
       this.$apollo.mutate({
         // Mutation
         mutation: gql`
-          mutation($id: ID!, $data: PageInput!) {
-            updatePage(page_id: $id, data: $data) {
+          mutation($id: ID!, $data: SiteInput!) {
+            updateSite(site_id: $id, data: $data) {
                 id
             }
           }
@@ -58,7 +58,7 @@ export default {
           data: input,
         },
       });
-      this.$q.notify(`Page Saved`);
+      this.$q.notify(`Site Saved`);
     },
   },
 };
