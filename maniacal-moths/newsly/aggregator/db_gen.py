@@ -48,8 +48,8 @@ class Database_Generator:
                             .lstrip("https://")
                             .lstrip("www.")
                             .rstrip(".com")
-                            .capitalize()
-                            + " Editor"
+                            .capitalize() +
+                            " Editor"
                         )
                     try:
                         cont = content_getter(article["link"])
@@ -69,5 +69,5 @@ class Database_Generator:
                             country=article.get("country", "US"),
                             content=cont,
                         )
-                    except KeyError:
+                    except:
                         print("Skipping Corrupted Article")
