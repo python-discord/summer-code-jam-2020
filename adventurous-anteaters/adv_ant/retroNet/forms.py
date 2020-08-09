@@ -16,7 +16,7 @@ class RegisterForm(UserCreationForm):
 class TweetForm(forms.ModelForm):
     class Meta:
         model = Tweet
-        fields = ["content"]
+        fields = ["title", "content"]
 
 
 class Updateprofile(forms.ModelForm):

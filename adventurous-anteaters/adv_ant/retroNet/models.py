@@ -5,11 +5,12 @@ from django.dispatch import receiver
 
 
 class Tweet(models.Model):
+    title = models.CharField(max_length=50)
     content = models.CharField(max_length=200)
     picture = models.ImageField(upload_to=None, height_field=None, width_field=None, null=True, max_length=100)
 
     def __str__(self):
-        return self.content
+        return f"{self.title}"
 
 
 class UpdateProfile(models.Model):

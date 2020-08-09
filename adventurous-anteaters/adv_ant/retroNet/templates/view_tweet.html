@@ -4,11 +4,15 @@
     <section class="tweet-view">
         <h1>All tweets</h1>
         <hr>
+
+        {% for tweet in data %}
         <div class="tweet-view-content">
-  {% for tweet in data %}
-<p>{{ tweet.content }}</p>
-{% endfor %}
+            <p>{{ tweet.title }}</p>
+            <hr>
+            <p>{{ tweet.content }}</p>
         </div>
+        {% endfor %}
+
         <div class="actions">
             <button style="background-color: red; color: white;">Delete Tweet</button>
             <a href="post"><button style="background-color: blue; color: white; grid-column: 4/5;">Create Tweet </button></a>
