@@ -69,7 +69,7 @@
           {% for article in news_articles %}
             <article>
               <span class="article-header">{{article.title}}</span>
-              <p class="article-content">{{article.content}}</p>
+              <p class="article-content">{{article.description}}</p>
               <a target="_blank" href="{{article.url}}" class="read-more-btn" role="button">Read more</a>
             </article>
           {% endfor %}
