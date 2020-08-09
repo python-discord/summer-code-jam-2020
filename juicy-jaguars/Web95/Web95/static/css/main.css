@@ -41,7 +41,6 @@ body {
     transform: rotate(180deg); /*POTBUG*/
     -moz-transform: rotate(180deg);
     writing-mode: vertical-rl;
-    -webkit-writing-mode: vertical-rl;
     width: 45px;
     height: 100%;
     background-color: #7f817e;
@@ -49,7 +48,11 @@ body {
     vertical-align: top;
 }
 
-.start-banner b {
+.start-banner p {
+    writing-mode: vertical-rl;
+}
+
+.start-banner p b {
     color: #bbb;
     font-weight: 900;
 }
