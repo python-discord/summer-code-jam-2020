@@ -29,8 +29,7 @@ class TicTacToeBoard:
             return True
         for moveset in self.WINNING_MOVES:
             set_of_vals = set(self._get_board_subset(*moveset))
-            if (set_of_vals == {PLAYER_X}
-                    or set_of_vals == {PLAYER_O}):
+            if (set_of_vals == {PLAYER_X} or set_of_vals == {PLAYER_O}):
                 return True
         return False
 
@@ -91,7 +90,7 @@ def maxibon(parent_board: TicTacToeBoard, depth=0):
     for move in moves:
         child_board = parent_board.child()
         child_board.make_move(move, PLAYER_X)
-        _, score = minibon(child_board, depth=depth+1)
+        _, score = minibon(child_board, depth=depth + 1)
         if score > king_score:
             king_score = score
             king = move
@@ -107,7 +106,7 @@ def minibon(parent_board: TicTacToeBoard, depth=0):
     for move in moves:
         child_board = parent_board.child()
         child_board.make_move(move, PLAYER_O)
-        _, score = maxibon(child_board, depth=depth+1)
+        _, score = maxibon(child_board, depth=depth + 1)
         if score <= king_score:
             king_score = score
             king = move

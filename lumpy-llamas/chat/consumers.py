@@ -62,13 +62,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to room group
         message_to_send = {
-                'type': 'chat_message',
-                'message': {
-                    'message': text_data_json['message'],
-                    'datetime': text_data_json['datetime'],
-                    'user': self.user.username
-                }
+            'type': 'chat_message',
+            'message': {
+                'message': text_data_json['message'],
+                'datetime': text_data_json['datetime'],
+                'user': self.user.username
             }
+        }
 
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -87,7 +87,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @sync_to_async
     def save_message(self, message_data):
         chunks, chunk_size = len(message_data['message']), _model_field_limits['Message__message__max_length']
-        message_chunks = [message_data['message'][i:i+chunk_size] for i in range(0, chunks, chunk_size)]
+        message_chunks = [message_data['message'][i:i + chunk_size] for i in range(0, chunks, chunk_size)]
 
         first_message_chunk = message_chunks.pop(0)
 

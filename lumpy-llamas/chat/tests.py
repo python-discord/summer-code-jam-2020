@@ -16,7 +16,7 @@ class ChatLobbyTest(TestCase):
         tests = [
             ('', 400, None),
             ('hello!', 200, {"valid": False, "message": "Invalid chat room name. Names must be alphanumeric."}),
-            ('fartoolonganame'*10, 400, None)
+            ('fartoolonganame' * 10, 400, None)
         ]
 
         for (invalid_name, expected_status_code, content) in tests:
