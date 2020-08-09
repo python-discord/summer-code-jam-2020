@@ -55,7 +55,7 @@ written inside of it (replace `your_key_here` with your API key)
 **Requirements (All)**:
   * [Git](https://git-scm.com/)
 
-**Setup (Windows)**:
+**Setup (Windows) (Not Fully Tested)**:
   * Install [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * Install [Docker](https://docs.docker.com/engine/install/) in the WSL 2 terminal.
   * Open WSL 2 and clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
