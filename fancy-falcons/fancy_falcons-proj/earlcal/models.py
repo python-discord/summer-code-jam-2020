@@ -10,5 +10,5 @@ class Event(models.Model):
 
     @property
     def get_html_url(self):
-        url = reverse('earlcal:event_edit', args=(self.id,))
+        url = reverse('earlcal:event_view', args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
