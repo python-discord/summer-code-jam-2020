@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.apps import apps
 from django.http import HttpRequest, HttpResponse
