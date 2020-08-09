@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('chat/', views.chat_page, name='chat'),
-    # path('exp'), views.exper
+    path('getwiki/', views.get_wikipedia)
 ]
