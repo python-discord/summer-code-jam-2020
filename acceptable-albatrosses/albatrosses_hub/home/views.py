@@ -19,7 +19,47 @@ def about_us(request):
 
     context = {
         "login": request.user.is_authenticated,
-        "page": "about_us"
+        "page": "about_us",
+        "devs": [
+            Developer(
+                "SleepeerSocks♡",
+                "duaanmol2@gmail.com",
+                """
+                Anything new, Tell me about it. Like to see new projects,
+                their progress and how you manage the project. New stuff?
+                I'm in.
+                """,
+                "Team Leader"
+            ),
+            Developer(
+                "iqrar99",
+                "moonkiller1999@gmail.com",
+                """
+                A student who wants to be a Data Scientist and Software
+                Engineer. Really love Python as a main programming
+                language.
+                """,
+                "Developer"
+            ),
+            Developer(
+                "Music",
+                "",
+                "Contrary to name, zero involvement in music.",
+                "Developer"
+            ),
+            Developer(
+                "Nabob",
+                "",
+                "A cool guy who loves programming",
+                "Developer"
+            ),
+            Developer(
+                "Soyybeans",
+                "",
+                "A passionate guy who interested with Python",
+                "Developer"
+            )
+        ]
     }
 
     return render(request, "about.html", context)
@@ -28,3 +68,21 @@ def error_404_view(request,exception):
     """Views to render the 404 error page."""
 
     render (request, '404.html')
+
+
+class Developer(object):
+    """Class that contains all developer information
+    for about-us page.
+    """
+
+    name: str
+    email: str
+    description: str
+    role: str
+
+    def __init__(self, name, email, description, role):
+        self.name = name
+        self.email = email
+        self.description = description
+        self.role = role
+
