@@ -88,52 +88,13 @@
                                 </p>
                             </div>
                         </fieldset>
-                        <div class="field">
+                        <div class="field is-grouped">
                             <div class="control">
                                 <button class="button is-link" type="submit">Update Preferences</button>
                             </div>
+                            <a class="button is-info" href={% url 'background-home' %}>Change Background</a>
                         </div>
                     </form>
-                </div>
-                <!-- User Background -->
-                <div>
-
-                    upload background image here?
-                    <a class="button is-link" href={% url 'background-home' %}>Change Background</a>
-                    <div class="modal">
-                        <div class="modal-background"></div>
-                        <div class="modal-content">
-                            <p class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="">
-                            </p>
-                        </div>
-                        <button class="modal-close is-large" aria-label="close"></button>
-                    </div>
-                </div>
-                <!-- Next feature -->
-                <button class="button is-link" id="journal-btn">Add a Journal Entry</button>
-
-                
-                
-                
-                
-                
-                <div class="modal" id="journal-modal">
-                    <div class="modal-background"></div>
-                    <div class="modal-card">
-                        <header class="modal-card-head">
-                            <p class="modal-card-title">My Journal</p>
-                            <button class="delete" aria-label="close" id="close-x"></button>
-                        </header>
-                        <section class="modal-card-body">
-                            <!-- Content ... -->
-                            INSERT DIARY FIELD HERE
-                        </section>
-                        <footer class="modal-card-foot">
-                            <button class="button is-success">Save Entry</button>
-                            <button class="button" id="cancel-btn">Cancel</button>
-                        </footer>
-                    </div>
                 </div>
             </div>
         </div>

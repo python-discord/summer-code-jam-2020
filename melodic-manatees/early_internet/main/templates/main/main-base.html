@@ -7,6 +7,8 @@
     {% load django_simple_bulma %}
     {% bulma %}
     {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
 
     <title>Main Base Template</title>
     <style>
@@ -120,18 +122,12 @@ fieldset {
             
         {% endblock herocontent %}
     </div>
-    <section class="section">
-        
-        <!-- this is the main base template -->
-    
     {% block content %}
-
-    {% endblock content%}
-    </section>
+    {% endblock content %}
 
     <!-- JavaScript -->
     <script type="text/javascript" src="{% static 'main/js/bulma-modal.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>	
     <script type="text/javascript" src="{% static 'main/js/carousel.js' %}"></script>
-	</script>
 </body>
 </html>

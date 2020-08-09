@@ -5,104 +5,78 @@
     <div class="container grid">
         <div class="box is-semitransparent">
             <section>
-                <a class="button" href="{% url 'add-background' %}">add background</a>
-                <a class="button" href="{% url 'profile' %}">go back</a>
+                <a class="button is-link" href="{% url 'add-background' %}">add background</a>
+                <a class="button is-light" href="{% url 'profile' %}">go back</a>
                 <h1 class="title">current backgrounds</h1>
-                {% if background_list %}
-                {% include "background_app/gallery.html" %}
+                {% if background_list|length > 1 %}
                     <div class="container">
 				<!-- Start Carousel -->
+                        <div id="bg-carousel" class="carousel">
                         {% for background in background_list %}
                             
-                        
-                            <div id="carousel" class="bulma-carousel">
-                                <div class="item-{{ background.pk }}">
-                                    <figure class="image is-16by9">
-                                        <img src="{{ background.background_thumbnail.url }}" alt="No file">
-                                        <figcaption>{{ background.background_title}}</figcaption>
-                                    </figure>
-                                    <form action="{% url 'background-delete' background.pk %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="submit" value="delete">
-                                    </form>
-                                    <form action="{% url 'background-use' background.pk %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="submit" value="use">
-                                    </form>
+                                <div class="card carousel-item">
+                                    <div clas="card-image">
+                                        <figure class="image is-16by9 is-covered">
+                                            <img src="{{ background.background_thumbnail.url }}" alt="No file">
+                                            <figcaption>{{ background.background_title}}</figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="field is-grouped">
+                                            <form action="{% url 'background-use' background.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <p class="control">
+                                                    <input class="button is-link is-outlined" type="submit" value="Use Background">
+                                                </p>
+                                            </form>
+                                            <form action="{% url 'background-delete' background.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <p class="control">
+                                                    <input class="button is-danger is-outlined" type="submit" value="Delete">
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            
                         {% endfor %}
+                        </div>
                         <!-- End Carousel -->
                     </div>
-                  <!--    
+                {% elif background_list|length == 1 %}
                     {% for background in background_list %}
-                        <h2>background</h2>
-                        <figure class="image is-16by9">
-                            <img src="{{ background.background_thumbnail.url }}" alt="No file">
-                            <figcaption>{{ background.background_title}}</figcaption>
-                        </figure>
-                        <form action="{% url 'background-delete' background.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="delete">
-                        </form>
-                        <form action="{% url 'background-use' background.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" value="use">
-                        </form>
+                    <div class="card">
+                        <div clas="card-image">
+                            <figure class="image is-16by9 is-covered">
+                                <img src="{{ background.background_thumbnail.url }}" alt="No file">
+                                <figcaption>{{ background.background_title}}</figcaption>
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="field is-grouped">
+                                <form action="{% url 'background-use' background.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <p class="control">
+                                        <input class="button is-link is-outlined" type="submit" value="Use Background">
+                                    </p>
+                                </form>
+                                <form action="{% url 'background-delete' background.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <p class="control">
+                                        <input class="button is-danger is-outlined" type="submit" value="Delete">
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
-                    -->  
                 {% else %}
                     <p>no user uploaded backgrounds</p>
                 {% endif %}
             </section>
         </div>
-        <div class="carousel-grid">
-            <h1 class="title">current backgrounds</h1>
-            {% if background_list %}
-                
-                <section class="section">
-                    <div id="bg-carousel2" class="carousel">
-                        <div class="carousel-container">
-                        <!-- Start Carousel -->
-                            {% for background in background_list %}
-                                
-                                <div class="card">
-                                    <div class="card-image">
-                                        <figure class="image is-16by9  is-covered">
-                                            <img src="{{ background.background_thumbnail.url }}"
-                                            alt="">
-                                        </figure>
-                                    </div>
-                                    <div class="card-content">
-                                        <div>
-                                            {{ background.background_title}}
-                                        </div>
-                                        <form action="{% url 'background-delete' background.pk %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="submit" value="delete">
-                                        </form>
-                                        <form action="{% url 'background-use' background.pk %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="submit" value="use">
-                                        </form>
-                                    </div>
-                                </div>
-                                
-                                
-                            {% endfor %}
-                        <!-- End Carousel -->
-                        </div>
-                    </div>
-                </section>
-            {% else %}
-                <p>no user uploaded backgrounds</p>
-            {% endif %}
-        </div>
     </div>
 </div>
+
 {% endblock herocontent %}
-
-{% block content %}
-
-{% endblock content %}
 

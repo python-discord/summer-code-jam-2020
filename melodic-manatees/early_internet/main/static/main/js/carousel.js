@@ -1,5 +1,3 @@
-const bulmaCarousel = require("../../../../static/js/bulma-carousel");
-
 bulmaCarousel.attach('#bg-carousel', {
     slidesToScroll: 1,
     slidesToShow: 1,
