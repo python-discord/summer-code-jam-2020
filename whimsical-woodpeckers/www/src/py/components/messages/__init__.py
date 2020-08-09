@@ -1,6 +1,6 @@
 from datetime import datetime
 from pyvue import Component
-from websocket import WebSocket
+#from websocket import WebSocket
 from common import MessageTypes
 
 # __pragma__ ('skip')
@@ -51,5 +51,3 @@ class Messages(Component):
     #             this.messages.append(data['data'])
     #
     #     this.socket = MessageSocket(new_message)
-
-
