@@ -9,16 +9,7 @@
         <p><strong>{{message.body}}</strong></p>
           
         <span style="color: #555;">Sent by:</span>
-          <a href="/profile/{{message.sender}}" title="username: {{message.sender}}">
-            {% if message.sender.first_name %}
-              {{message.sender.first_name|capfirst}} 
-            {% else %}
-              {{message.sender}}
-            {% endif %}
-            {% if message.sender.last_name %}
-              {{message.sender.last_name}}
-            {% endif %}
-          </a>
+           {{message.sender}}
         <span class="post-time">
           on {{message.sent_at}}
         </span>

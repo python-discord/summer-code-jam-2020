@@ -30,20 +30,19 @@
         <h4>Posts ({{ num_posts }})</h4>
 
         {% for post in posts %}
-          <div class="w3-row" style="margin: 6px 0 6px 0;">
-            <div class="w3-col w3-container m2 l1">
-              <img src="{{ post.posted_by.profile.image.url }}" class="post-profile-pic">
-            </div>
-            <div class="w3-col w3-container m10 l11">
-              <span>
-                <span>{{ post.posted_by}},</span>
-                <small>On: {{ post.post_date_posted|date:"j F Y, h:i A" }}</small>
-              </span>
-                
-              <p>{{ post.post_content }}</p>
-            </div>
-          </div>
-          <hr>
+            <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic" class="post-profile-pic">
+            <span class="author">
+                  {{post.posted_by}}
+              </a>&nbsp;
+            </span>
+            <span class="hide">{{post.posted_by.profile.bio}}&nbsp;&nbsp;</span>
+            <span class="post-time">{{post.post_date_posted}}</span>
+            <p class="content">{{post.post_content}}</p>
+            {% if post.post_image %}
+              <p><img src="{{ post.post_image.url }}"></p>
+            {% endif %}
+            <p>Post number: {{ post.pk }}</p>
+            <hr class="socl">
         {% endfor %}
         </div>
       </div>
@@ -71,7 +70,7 @@
       font-size: 0.9rem;
       font-weight: bold;
   }
-  .author:hover + div {
+  .author:hover + span {
     display: block;
     color: blue;
   }

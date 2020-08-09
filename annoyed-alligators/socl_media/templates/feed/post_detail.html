@@ -15,8 +15,8 @@
 
 
 			{% if post.posted_by == user %}
-					<button href="{% url 'post-update' post.pk %}">Edit</button>
-					<button href="{% url 'post-delete' post.pk %}">Delete</button>
+      <button><a href="{% url 'post-update' post.pk %}">Edit</a></button>
+      <button><a href="{% url 'post-delete' post.pk %}">Delete<a/></button>
 			{% endif %}
 
 
