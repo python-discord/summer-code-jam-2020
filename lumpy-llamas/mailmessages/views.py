@@ -27,9 +27,11 @@ MESSAGE_SCHEMA = {
 
 
 def list_messages(request):
+    current_user = request.user.username
     queryset = PrivateMessage.objects.filter(Q(to_user=request.user.username)| Q(from_user=request.user.username)).\
         values('message', 'subject', 'created_date', 'from_user', 'to_user', 'id')
     data = list(queryset)
+    data.append(current_user)
 
     return JsonResponse(data, status=201, safe=False)
 

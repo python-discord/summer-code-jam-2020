@@ -10,8 +10,9 @@
 
     <ul>
       <li v-for="item in myStuff">
-          Message from: {{ item.from_user }} on: {{ item.created_date | moment("DD.MM.YY, hh:mm") }}
+          <div v-if="item.from_user === ">Message from: {{ item.from_user }} on: {{ item.created_date | moment("DD.MM.YY, hh:mm") }}
           {{ item.created_by_id }}
+          </div>
           <h2>Subject: {{item.subject}}</h2>
           <p>{{item.message}}</p>
       </li>
