@@ -7,6 +7,7 @@ class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {searched: false, searching: false, posts: [], searchString: "", failed: false};
+        document.title = "Retro News - Search";
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }

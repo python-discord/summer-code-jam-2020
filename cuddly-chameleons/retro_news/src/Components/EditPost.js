@@ -49,6 +49,7 @@ function EditPost(props) {
                         const post = await axios.get(`/posts/${id}/`);
                         setTitle(post.data.title);
                         setContent(post.data.content);
+                        document.title = `Retro News - Edit ${post.data.title}`;
                     } catch (e) {
                         console.error(e);
                         setNotFound(true);

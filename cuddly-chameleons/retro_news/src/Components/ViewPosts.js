@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 function ViewPosts() {
     const [posts, setPosts] = useState([]);
     const [errored, setErrored] = useState(false);
+    document.title = "Retro News - Posts";
 
     useEffect(() => {
         async function fetchData() {

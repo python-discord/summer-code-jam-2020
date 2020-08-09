@@ -6,6 +6,7 @@ class CreatePost extends React.Component {
     constructor(props) {
         super(props);
         this.state = {title: "", content: "", creating: false, created: false, failed: false, loading: true, superuser: false};
+        document.title = "Retro News - Create Post";
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }

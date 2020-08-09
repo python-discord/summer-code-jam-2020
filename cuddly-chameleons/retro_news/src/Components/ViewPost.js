@@ -27,8 +27,10 @@ function ViewPost(props) {
                     const result = await axios.get(`/posts/${id}`);
                     result.data.created = new Date(result.data.created).toString();
                     setData(result.data);
+                    document.title = "Retro News - " + result.data.title;
                } catch (e) {
                     console.error(e);
+                    document.title = "Retro News - Post not found";
                     setNotFound(true);
                }
           }

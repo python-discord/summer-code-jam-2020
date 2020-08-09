@@ -8,6 +8,7 @@ class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {username: "", password: "", email: "", creating: false, errors: {}};
+        document.title = "Retro News - Sign Up";
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
