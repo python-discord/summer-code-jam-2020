@@ -3,7 +3,7 @@ let url_mapping = {
     "https://youtube.com": "/first_youtube",
     "https://google.com": "/first_google",
     "https://twitter.com": "/first_twitter",
-    "https://blog-area.com": "/nineties_blog"
+    "https://verycoolblog.com": "/nineties_blog"
 }
 
 // change the page according to the address
