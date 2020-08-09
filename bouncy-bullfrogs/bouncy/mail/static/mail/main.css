@@ -74,6 +74,7 @@ img {
 
 #read-view {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px;
+    background-color: rgb(219, 234, 245);
     margin: 15px;
     padding: 15px;
     border-radius: 15px;
