@@ -63,7 +63,7 @@
         </q-expansion-item>
         <EssentialLink
           v-else
-          title="Login"
+          title="Login / Register"
           caption="Login"
           icon="login"
           link="/login"
