@@ -15,7 +15,7 @@
 <h2>A web browser that runs in your browser, that processes webpages to make them reminiscent of the Web of the 80s and 90s.</h2>
 </div>
 
-### Table Of Contents
+## Table Of Contents
 
 - [Features](#features)
 - [Install](#installing)
@@ -23,7 +23,7 @@
   * [MacOS/Linux](#on-macoslinux)
   * [Manual Inspection](#manual-inspection)
 
-## Features
+### Features
 
 #### A completely functional Window Manager
 With Minimise, Maximise, full Z-Ordering and draggable windows!
@@ -52,22 +52,32 @@ Even watch YouTube Videos!
 #### Easter Eggs...
 If you look close enough, maybe you'll find one of Web95's hidden Easter Eggs!
 
-## Installing
+### Installing
 
 To install and run Web95, you must have Python 3.8 installed and have Pip installed and on your PATH.
 
 #### On Windows:
-`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py && python setup.py install`
+
+```shell
+curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py && python setup.py install
+```
 
 When installing on Windows make sure that your default python version on PATH is Python 3.8.
 
 #### On MacOS/Linux:
-`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py; python3 setup.py install`
+
+```shell
+curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py; python3 setup.py install
+```
 
 #### Manual Inspection
+
 Feel free to check the `setup.py` script before running it, as this is always good practice.
 
-`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`  
-> Check setup.py. If your happy with it run:
+```shell
+curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py
+python setup.py install & rem For Windows
+python3 setup.py install # For Mac/Linux
+```
 
-Windows: `python setup.py install` Mac/Linux: `python3 setup.py install`
+**Windows:** `python setup.py install` **Mac/Linux:** `python3 setup.py install`
