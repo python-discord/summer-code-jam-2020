@@ -38,7 +38,7 @@ class UserChatRoom(LoginRequiredMixin, DetailView):
         context['messages'] = Message.objects.filter(
             (Q(sender=self.request.user) & Q(reciever=self.object)) |
             (Q(sender=self.object) & Q(reciever=self.request.user))
-        ).order_by('-date')
+        ).order_by('date')
         context['active_page'] = "chat"
         return context
 
@@ -55,7 +55,7 @@ class CreateMessage(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('chat-room', kwargs={'pk': self.kwargs['pk']})
+        return reverse('chat:chat-room', kwargs={'pk': self.kwargs['pk']})
 
 
 class DeleteMessage(DeleteView):
@@ -63,4 +63,4 @@ class DeleteMessage(DeleteView):
     template_name = 'chat/message_delete.html'
 
     def get_success_url(self):
-        return reverse_lazy('chat-room', kwargs={'pk': self.kwargs['user_pk']})
+        return reverse_lazy('chat:chat-room', kwargs={'pk': self.kwargs['user_pk']})

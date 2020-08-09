@@ -3,6 +3,15 @@
 
 {% block content %}
 <div class="row homepage pt-5">
+    {% if messages %}
+    <div class="col-sm-12 mb-5">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
     <div class="col-md-4 offset-md-1 text-center">
         <h3>Earl of the day</h3>
         <h2>{{ earl_of_the_day.first_name }} {{ earl_of_the_day.last_name }}</h2>
