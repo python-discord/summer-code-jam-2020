@@ -13,6 +13,7 @@ Simplest thing ever (when you have Docker and Docker Compose installed):
 ```
 docker-compose up
 ```
+Django admin is at `localhost:8000/admin` and default admin username is `admin` and password too `admin`
 
 ### React
 Open new console window. Go to `retro_news` directory, and there run following commands:
