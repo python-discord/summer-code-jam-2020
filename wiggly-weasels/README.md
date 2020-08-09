@@ -35,7 +35,7 @@ cd summer-code-jam-2020/wiggly-weasels
 ```
 First, create a virtual environment and activate it. Then, we need to install the required packages:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Finally, we need to install postgressql and create a Database called fbdb.
 ```
@@ -62,7 +62,7 @@ Now, all we need to do is migrate and run the server code!
 python3 manage.py makemigrations
 python3 manage.py migrate
 
-#Change to the directory Backend/flashback directory
+#Change to the Backend/flashback directory
 cd Backend/flashback
 
 #Start the server (Warning: Make sure this server is running before site setup)
