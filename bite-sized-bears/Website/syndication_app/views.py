@@ -92,7 +92,7 @@ class UserView(View):
     def get(self, request, username):
         self.context['user'] = self.model.objects.get(name=username)
         self.context['posts'] = self.context['user'].post_author.all() \
-            .annotate(v_count = Count('views')).order_by('-v_count')
+            .annotate(v_count=Count('views')).order_by('-v_count')
         return render(request, self.template_name, self.context)
 
 
@@ -129,5 +129,9 @@ def subscription_request(request, community_name):
     username = request.user.get_username()
     community = Community.objects.get(name=community_name)
     user = User.objects.get(name=username)
-    community.subscribers.add(user)
+    if user in community.subscribers.all():
+        community.subscribers.remove(user)
+    else:
+        community.subscribers.add(user)
+
     return redirect(request.META['HTTP_REFERER'])
