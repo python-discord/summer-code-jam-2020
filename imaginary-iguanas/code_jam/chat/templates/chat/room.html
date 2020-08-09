@@ -85,6 +85,7 @@
     <input id="chat-message-submit" type="button" value="Send">
     <input id="leave" type="button" value="Leave">
     {{ room_name|json_script:"room-name" }}
+    {{ request.user.username|json_script:"user_id" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
@@ -117,7 +118,7 @@
 
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
-            usernamechat = localStorage["usern"];
+            const usernamechat = JSON.parse(document.getElementById('user_id').textContent);
             const message = usernamechat + ': ' + messageInputDom.value;
            if (/\S/.test(messageInputDom.value)) {
                 chatSocket.send(JSON.stringify({
