@@ -307,8 +307,10 @@ def command_move(game_data, direction):
     if success:
 
         # Move dust storm
-        game_data['obstacles']['dust_storm'][0] += game_data['wind'][0]
-        game_data['obstacles']['dust_storm'][1] += game_data['wind'][1]
+        cur_dust = game_data['obstacles']['dust_storm']
+        cur_dust[0] += game_data['wind'][0]
+        cur_dust[1] += game_data['wind'][1]
+        game_data['obstacles'].update({"dust_storm": cur_dust})
         print('=====================')
         print(game_data['obstacles']['dust_storm'])
         # depleat battery
