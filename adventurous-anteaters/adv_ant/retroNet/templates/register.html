@@ -17,13 +17,43 @@
       <p><b>Please fill in this form to create an account.</b></p>
     <br><br>
 
-              	{{ form.as_p }}
+  <style>
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+  </style>
+  
+      <p>
+        <label for="id_username"><b  style="font-family:Pixelated MS Sans Serif;" >Username:</b></label>
+        {{ form.username  }}
+      </p>
+      <p>
+        <label for="id_password"><b>Password:</b></label>
+        {{ form.password1  }}
+      </p>
+      <p>
+        <label for="id_password"><b>Confirm Password:</b></label>
+        {{ form.password2 }}
+      </p>
+
+    <br><br>
+
+    <ul>
+      <li>Your password can’t be too similar to your other personal information.</li>
+      <li>Your password must contain at least 8 characters.</li>
+      <li>Your password can’t be a commonly used password.</li>
+      <li>Your password can’t be entirely numeric.</li>
+    </ul>
+
+
     <br>
     <br>
 
           <br><br>
     <center><button type="submit" class="registerbtn">Register</button></center>
-    <p>Already have an account? <a href="/login">Sign in</a>.</p>
+    <br><br>
+    <center><p>Already have an account? <a href="/login">Sign in</a>.</p></center>
       <br>
           <br>
     </span>
