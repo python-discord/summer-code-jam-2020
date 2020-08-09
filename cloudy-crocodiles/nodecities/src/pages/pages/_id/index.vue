@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div v-if="page">
-      <h1>{{ page.filename }}</h1>
+      <h1>{{ page.file_name }}</h1>
       <pre><code>{{ page.content }}</code></pre>
     </div>
   </q-page>
@@ -14,21 +14,8 @@ const pageQuery = gql`
   query page($id: ID!) {
     page(id: $id) {
       id
-      filename
+      file_name
       content
-      folder {
-        id
-        site {
-          id
-          city {
-            name
-            slug
-          }
-          address
-          description
-        }
-        path
-      }
     }
   }
 `;
