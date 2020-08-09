@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="content-section">
+	<div class="media">
+		<img class="rounded-circle account-img" src="{{ profile.image.url }}">
+		<div class="media-body">
+			<div class="container">
+  				<div class="row">
+    				<div class="col">
+      				<h2 class="account-heading">{{ profile.user.username }}</h2>
+    				</div>
+					<div class="col">
+						<a class="btn btn-primary btn-lg" href="{% url 'add-friend' profile.user.id%}" role="button">Add Friend</a>
+    				</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p class="text-dark">{{ profile.user.email }}</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p class="text-dark">Status: {{ profile.status }}</p>
+    				</div>
+				</div>						
+				<div class="row">
+					<div class="col">						
+						{% if empty == True %}
+						<p class="text-dark">This user hasn't visited any chat rooms recently</p>
+						{% else %}
+						<p class="text-secondary">Last chat rooms visited: </p>
+						{% for chat_room_visit in chat_room_visits %}
+						<a class="btn btn-primary" href="{% url 'room' chat_room_visit.chat_room.name %}" role="button">{{ chat_room_visit.chat_room.name }}</a>
+						<p class="text-secondary"></p>
+						{% endfor %} 
+						{% endif %}
+					</div>
+				</div>
+  			</div>
+	</div>
+</div>
+
+{% endblock content %} 

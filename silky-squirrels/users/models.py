@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from chat.models import Room
 from PIL import Image
+from django.utils import timezone
 
 
 class Profile(models.Model):
@@ -21,6 +23,15 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+class ChatRoomVisit(models.Model):
+    chat_room = models.ForeignKey(Room, blank=True, null=True, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    time_visited = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.chat_room}, {self.profile}, {self.time_visited}"
 
 
 class FriendRequest(models.Model):
