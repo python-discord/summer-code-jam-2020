@@ -57,6 +57,7 @@ def new_game(request):
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
         "wind": (-1, 0),
+        "wind_speed": get_current_weather(request)["HWS"]["av"],
         "temperature": get_current_weather(request)["AT"]["av"],
         "obstacles": {
             "dust_storm": (0, 2),
@@ -246,7 +247,7 @@ def command_move(game_data, direction):
             # if the obstacle is a dust stom there is a 50% chace power comsumption will increase
             if obstacle == "dust_storm":
                 if random.randint(1, 10) > 5:
-                    game_data["power_usage"] += 5
+                    game_data["power_usage"] += int(game_data["wind_speed"])
                     game_data["messages"].append(
                         {
                             "from_rover": False,
