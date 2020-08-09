@@ -1,6 +1,6 @@
 # Trivia Tavern by Practical Penguins
 
-![alt text](screenshots/home-page.png?raw=True)
+![alt text](screenshots/home-page.PNG?raw=True)
 
 ## about
 This django web application allows people to create and organize trivia events. Participants can then answer trivia
@@ -27,7 +27,7 @@ complete setting up your first quiz session. When you run it, you'll see the cur
 
 Not sure where to start? We have a few trivia packs pre-made by yours truly!
 
-![alt text](screenshots/trivia_pack_page.png?raw=True)
+![alt text](screenshots/trivia_pack_page.PNG?raw=True)
 
 ## installation
 git clone and cd to this project with:
