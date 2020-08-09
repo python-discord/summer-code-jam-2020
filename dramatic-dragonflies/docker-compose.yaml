@@ -16,6 +16,8 @@ services:
     depends_on:
       - postgres
     tty: true
+    cap_add:
+      - SYS_ADMIN
     environment:
       DEBUG: "${DEBUG-}"
       DATABASE_URL: "postgres:5432"
