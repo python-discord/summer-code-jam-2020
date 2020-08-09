@@ -15,6 +15,10 @@
     {% else %}
         <title>MyPlace</title>
     {% endif %}
+
+    {% if custom_css %}
+        <style>{{ custom_css|safe }}</style>
+    {% endif %}
 </head>
 
 <body>
@@ -27,17 +31,18 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/users/">Users</a>
-                <a class="nav-item nav-link" href="/Lorem-Ipsum/">Lorem Ipsum</a>
-                  <a class="nav-item nav-link" href="/chat/">Chat</a>
+                <a class="nav-item nav-link" href="{% url 'users' %}">All users</a>
+                <a class="nav-item nav-link" href="{% url 'chat-index' %}">Chat</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'user-profile' username_or_id=user.id %}">Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'user-blog' username_or_id=user.id %}">Blog</a>
                     <a class="nav-item nav-link" href="{% url 'user-settings' %}">Settings</a>
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Log in</a>
                     <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
                 {% endif %}
             </div>
