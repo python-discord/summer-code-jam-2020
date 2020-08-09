@@ -1,11 +1,10 @@
 from django import forms
 
-from userwall.models import Wall
+from users.models import User
 
 
-class WallCreationForm(forms.ModelForm):
+class WallCreationForm(forms.Form):
     # your_name = forms.CharField(label="Your name", max_length=100)
     #
-    class Meta:
-        model = Wall
-        fields = ["name"]
+    username = forms.CharField()
+

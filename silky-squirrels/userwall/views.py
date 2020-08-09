@@ -1,37 +1,34 @@
 from django.shortcuts import render, redirect
-from userwall.models import Wall
 from userwall.forms import WallCreationForm
+from django.contrib import messages
+from users.models import Profile, User
 
 # Create your views here.
 
+# test website (blank)
 def test(request, wall_name):
     print("default", request)
-    return render(request, 'userwall/potato.html', {'title': 'test'})
+    return render(request, "userwall/potato.html", {"title": "test"})
 
-def wall(request, wall_name):
 
-    #print(request)
-    #print(wall_name)    
-
+def wall(request, profile_name):
     try:
-        wall = Wall.objects.get(name=wall_name)
-    except (Wall.DoesNotExist):
-        messages.warning(request, f"Profile not found: {wall_name}")
-        return redirect("chat")
-    return render(request, 'userwall/potato.html')
+        user = User.objects.get(username=profile_name)
+        profile = Profile.objects.get(user=user)
+    except (User.DoesNotExist, Profile.DoesNotExist):
+        messages.warning(request, f"Profile not found: {profile_name}")
+        return redirect("userwall")
+    return render(request, "userwall/pwall.html", {"profile": profile})
 
 
 def default(request):
-    
-    #print(request)
     if request.method == "POST":
         form = WallCreationForm(request.POST)
         if form.is_valid():
-            wall_name = form.cleaned_data["name"]
-            print(wall_name)
-            wall, _ = Wall.objects.get_or_create(name=wall_name)
-            return redirect("wall1", wall_name)
-            
+            profile_name = form.cleaned_data["username"]
+            return redirect("wall1", profile_name)
+        messages.warning(request, f"Invalid input")
+
     else:
         form = WallCreationForm()
     return render(request, "userwall/index.html", {"form": form})
