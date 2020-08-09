@@ -37,8 +37,8 @@ class Directory(Component):
         # Get info about our authentication
         this.id = 1234
         this.token = 1234
-        parent_this.callbacks = 2
         parent_this = this
+        parent_this.callbacks = 2
 
         def callback():
             parent_this.callbacks -= 1
