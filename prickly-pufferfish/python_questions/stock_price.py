@@ -1,6 +1,6 @@
 """
 Write a function that takes stock prices as a parameter and finds /
-the maximum profit for buying and selling stock within a day. / 
+the maximum profit for buying and selling stock within a day. /
 
 >>> stock_prices_yesterday = [10, 7, 5, 8, 11, 9] /
 >>> get_max_profit(stock_prices_yesterday) /

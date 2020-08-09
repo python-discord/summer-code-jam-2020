@@ -22,7 +22,8 @@
     {% endfor %}
 </div>
 <div class="m-5">
-    <form action="{% url 'exec:index' %}" method="post">
+    <!--<form action="{% url 'exec:index' %}" method="post"> -->
+    <form method = "POST" action = "/submit.php">
         <h4>Programming language:</h4>
         <select name="lang">
             <option value="python">Python</option>
