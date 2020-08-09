@@ -13,7 +13,7 @@ In 1999, it was the world's largest software maker by revenue. The word "Bouncy 
 
 # Our services
 ## Email client
-#
+
 ![EmailClientImage](https://cdn.discordapp.com/attachments/738752019392757881/741774392626774037/unknown.png)
 
 Has all your basic Emaill needs such as
@@ -21,9 +21,8 @@ Has all your basic Emaill needs such as
 - [x] Inbox where you can recieve your incoming mails
 - [x] Archive the low priority mails
 
-
-## Search engine
 #
+## Search engine
 ![SearchEngineImage](https://cdn.discordapp.com/attachments/738752019392757881/741777945864962098/unknown.png)
 
 Search abilities comparison                |          **Google**     | **Bullfrog Search**
