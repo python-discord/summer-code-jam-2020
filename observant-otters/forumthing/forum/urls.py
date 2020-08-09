@@ -13,9 +13,9 @@ urlpatterns = [
         name="single-topic"
     ),
     path(
-      'forum/<str:tpc>/threads/<int:pk>',  # tpc=topic
-      views.threads,
-      name='threads-single'
+        'forum/<str:tpc>/threads/<int:pk>',  # tpc=topic
+        views.threads,
+        name='threads-single'
     ),
     path(
         'forum/<str:tpc>/threads/new',
