@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -13,6 +14,7 @@ from .forms import CommentForm, CreatePostForm
 from .models import Comment, Post
 
 
+@login_required
 def like_view(request, pk):
     """
     If user already liked the post, remove their like.
@@ -28,7 +30,7 @@ def like_view(request, pk):
     return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
 
 
-class HomeView(ListView):
+class HomeView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'blogs_list.html'
 
@@ -47,7 +49,7 @@ class HomeView(ListView):
         return context
 
 
-class BlogDetailView(DetailView):
+class BlogDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "blog_detail.html"
 
@@ -115,7 +117,6 @@ class BlogDetailView(DetailView):
         context['liked'] = liked
 
         return context
-
 
 
 class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
