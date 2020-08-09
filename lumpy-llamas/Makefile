@@ -10,7 +10,7 @@ migrate:
 	python manage.py migrate
 
 serve:
-	python manage.py runserver
+	yarn build && python manage.py runserver
 
 deploy:
 	gcloud builds submit . --config cloudbuild.yml --project optimum-surface-285007 

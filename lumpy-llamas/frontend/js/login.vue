@@ -2,6 +2,9 @@
   <div>
     <h2>Login</h2>
     <div v-if="mode === null">
+      <div v-if="invalidLogin">
+        Invalid username or password
+      </div>
       <span class="login-message">
         Would you like to login or register?
         <ol class="home-menu-options">
@@ -15,6 +18,7 @@
     </div>
     <div v-else-if="stage===2">
       <span class="username">Username: {{username}}</span>
+      <br>
       Enter Password
     </div>
     <div v-else-if="stage===3">
@@ -41,6 +45,7 @@ export default {
       password: '',
       mode: null,
       stage: START_STAGE,
+      invalidLogin: false,
     };
   },
   computed: {
@@ -48,10 +53,24 @@ export default {
       return this.$route.name === 'login_page';
     },
   },
+  watch: {
+    stage() {
+      if (this.stage === START_STAGE) {
+        this.addStartingKeybindings();
+      }
+    },
+  },
   beforeMount() {
     this.addStartingKeybindings();
+    if (this.$route.name === 'logout_page') {
+      this.logout();
+    }
   },
   methods: {
+    logout() {
+      axios.post('/api/logout');
+      this.$store.commit('logout');
+    },
     addStartingKeybindings() {
       this.$cmd.on('1', this.goToLogin);
       this.$cmd.on('2', this.goToRegister);
@@ -100,6 +119,8 @@ export default {
         this.$router.push('/');
       }).catch((err) => {
         this.stage = START_STAGE;
+        this.invalidLogin = true;
+        this.mode = null;
         console.log(err); // eslint-disable-line no-console
       });
     },
@@ -112,6 +133,7 @@ export default {
         this.$router.push('/');
       }).catch((err) => {
         this.stage = START_STAGE;
+        this.mode = null;
         console.log(err); // eslint-disable-line no-console
       });
     },

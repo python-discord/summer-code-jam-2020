@@ -1,5 +1,5 @@
 <template>
-  <div class="instructions-panel">
+  <div class="instructions-panel" v-if="notLogin">
     <h2>Help</h2>
     <div class="instruction-set" v-for="command in fullCommands">
       <span class="command">{{command.cmd}}</span>
@@ -40,8 +40,17 @@ export default {
     };
   },
   computed: {
+    routeName() {
+      return this.$route.name;
+    },
+    notLogin() {
+      return !(this.routeName === 'login_page' || this.routeName === 'logout_page');
+    },
+    storedInstructions() {
+      return this.$store.state.instructions;
+    },
     fullCommands() {
-      return this.commands.concat(this.$cmd.instructions);
+      return this.commands.concat(this.storedInstructions);
     },
   },
 };

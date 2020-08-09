@@ -30,6 +30,11 @@ const routes = [
     component: Login,
   },
   {
+    path: '/logout',
+    name: 'logout_page',
+    component: Login,
+  },
+  {
     path: '/games/tictactoe',
     name: 'tictactoe_page',
     component: TicTacToe,
