@@ -24,7 +24,7 @@ import 'codemirror/mode/htmlmixed/htmlmixed.js'
 
 export default {
   name: "PageForm",
-  props: ["page", "edit", "submit"],
+  props: ["page", "edit"],
   components: {
   },
   data() {
@@ -45,7 +45,7 @@ export default {
   methods: {
     save(){
       const input = {
-        site: this.page.id,
+        site: this.page.site.id,
         version: this.page.version,
         content: this.cm.getValue(),
         file_name: this.page.file_name
