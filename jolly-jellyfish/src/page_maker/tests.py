@@ -100,7 +100,6 @@ class WebpageViewsTest(TestCase):
         image1 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         image2 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         image3 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
-        image4 = SimpleUploadedFile(name='test.png', content=open(image_path, 'rb').read(), content_type='image/jpeg')
         form_input = {
             'name': 'asdf',
             'template_used': '1',

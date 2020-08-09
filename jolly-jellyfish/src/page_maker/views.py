@@ -173,11 +173,10 @@ class WebpageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'page_maker/webpage_update.html'
     slug_field = 'name'
     slug_url_kwarg = 'pagename'
-    fields = [
-            'name', 'template_used', 'user_title',
-            'user_text_1', 'user_text_2', 'user_text_3',
-            'user_image_1', 'user_image_2', 'user_image_3',
-    ]
+    fields = ['name', 'template_used', 'user_title',
+              'user_text_1', 'user_text_2', 'user_text_3',
+              'user_image_1', 'user_image_2', 'user_image_3',
+              ]
 
     def test_func(self):
         webpage = self.get_object()
