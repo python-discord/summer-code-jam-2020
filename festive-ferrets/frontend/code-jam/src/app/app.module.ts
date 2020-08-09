@@ -10,12 +10,19 @@ import {MatInputModule} from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { HttpClientModule} from '@angular/common/http';
 import { BoardViewComponent } from './board-view/board-view.component';
+import {MatListModule} from '@angular/material/list';
+import { PostViewComponent } from './post-view/post-view.component';
+import { CreateCommentComponent } from './create-comment/create-comment.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainSiteComponent,
-    BoardViewComponent
+    BoardViewComponent,
+    PostViewComponent,
+    CreateCommentComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +31,8 @@ import { BoardViewComponent } from './board-view/board-view.component';
     MatCardModule,
     MatInputModule,
     MatGridListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
