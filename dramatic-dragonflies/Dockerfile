@@ -50,6 +50,6 @@ RUN apt-get -y update \
     && rm -rf /var/lib/apt/lists/* \
     && npm install --prefix ../build/ \
     && apt-get --purge -y autoremove npm
-COPY terminal/term_handler.c ./
-RUN  gcc -o ../build/process_watch term_handler.c -O3 -Wall -Wextra -lutil
+COPY tools/process_watch.c ./
+RUN  gcc -o ../build/process_watch process_watch.c -O3 -Wall -Wextra -lutil
 COPY . .
