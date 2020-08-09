@@ -66,7 +66,7 @@ Can give you a warm hug                    | <center>❌</center>    | <center>Y
 ###
 > ## **[FantasticHD](https://github.com/Fantasticlegend1000)** *(FantasticHD#9968)* - 
 > * front end
-> * designed Company logo
+> * designed assets and icon i.e Company logo
 > * 3
 
 ###
