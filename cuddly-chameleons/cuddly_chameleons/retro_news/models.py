@@ -29,4 +29,4 @@ class ArticleComment(models.Model):
     post = models.ForeignKey(BlogArticle, on_delete=models.CASCADE, default=None, null=True)
 
     def __str__(self):
-        return f"Comment by {self.author.username} at {self.created} for post {self.post.title}"
+        return f"Comment by {self.author.username} at {self.created} for post {self.post}"

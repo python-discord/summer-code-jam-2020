@@ -161,7 +161,7 @@ class ArticleCommentListView(APIView):
         """Create a new article comment."""
         serializer = serializers.ArticleCommentSerializer(data=request.data)
         if serializer.is_valid():
-            comment = serializer.save(author=request.user)
+            comment = serializer.save(author=request.user, post=BlogArticle.objects.get(pk=int(request.data['post'])))
             if comment:
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
