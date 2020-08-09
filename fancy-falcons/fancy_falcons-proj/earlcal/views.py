@@ -55,8 +55,10 @@ def next_month(d):
 
 def event(request, event_id=None):
     instance = Event()
+    is_editing = False
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
+        is_editing = True
     else:
         instance = Event()
 
@@ -64,4 +66,4 @@ def event(request, event_id=None):
     if request.POST and form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('earlcal:calendar'))
-    return render(request, 'earlcal/event.html', {'form': form, "active_page": "calendar"})
+    return render(request, 'earlcal/event.html', {'form': form, "active_page": "calendar", "editing": is_editing})

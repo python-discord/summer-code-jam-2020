@@ -10,7 +10,11 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'earlcal:calendar' %}">Calendar</a></li>
+    {% if editing %}
+    <li class="breadcrumb-item active" aria-current="page">Edit event</li>
+    {% else %}
     <li class="breadcrumb-item active" aria-current="page">New event</li>
+    {% endif %}
   </ol>
 </nav>
 
@@ -34,7 +38,11 @@
   <table class="form form-table mt-5 mb-3">
     {{ form }}
   </table>
+  {% if editing %}
+  <button type="submit" class="btn btn-primary">Update event</button>
+  {% else %}
   <button type="submit" class="btn btn-primary">Create event</button>
+  {% endif %}
 </form>
 
 <link rel="stylesheet" href="datetime-local-polyfill.css" />
