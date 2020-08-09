@@ -26,7 +26,10 @@ def index(request):
     context = {
         'app_links': [{'name': name, 'link': link}
                       for name, link in request.user.app_links_gen],
-        'unlocked_list': [item for item in request.user.unlocked_list_gen]
+        'unlocked_list': [item for item in request.user.unlocked_list_gen],
+        'side_stats': [{'name': name, 'value': val}
+                       for name, val in request.user.side_statistics
+                       if val != 0]
     }
 
     return render(request, 'dashboard/index.html', context)
