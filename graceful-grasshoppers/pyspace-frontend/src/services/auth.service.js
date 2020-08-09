@@ -23,13 +23,13 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(user, confirmPassword) {
+  register(user) {
     return axios
       .post("/rest-auth/registration/", {
         username: user.username,
         email: user.email,
         password1: user.password,
-        password2: confirmPassword,
+        password2: user.confirm_password,
       })
       .then((response) => {
         if (response.data.error) {
@@ -37,8 +37,14 @@ class AuthService {
         }
 
         return response;
+      }).catch(err => {
+        if (err.response) {
+          return Promise.reject(err.response.data);
+        }
+        return Promise.reject(err);
       });
   }
 }
 
 export default new AuthService();
+

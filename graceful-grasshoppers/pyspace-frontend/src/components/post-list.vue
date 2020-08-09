@@ -1,7 +1,7 @@
 <template>
 	<div class="bordered w-75 mt-5" style="margin: auto;">
 		<h4 class="font-weight-bold">Posts</h4>
-		<div v-for="post in posts" class="bordered flex-row w-100">
+		<div v-bind:key="post.id" v-for="post in posts" class="bordered flex-row w-100">
 			<div class="flex-col" style="width: 110px;">
 				<img src="http://placehold.it/100x100">
 				<a v-bind:href="'/profile/'+post.author">{{ post.author }}</a>
