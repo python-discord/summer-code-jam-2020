@@ -41,4 +41,3 @@ class Group(models.Model):
 
     )
     name = models.CharField(max_length=20, primary_key=True)
-
