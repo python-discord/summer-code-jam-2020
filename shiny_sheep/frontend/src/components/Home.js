@@ -16,7 +16,7 @@ const Home = () =>{
                 <Tab title ="#lobby">
                     <div className = "main-Content">
                         <div class="row mt-5">
-                            <div class="col offset-md-3">
+                            <div class="col">
                                 <Chat/>
                             </div>
                             <div class="col">

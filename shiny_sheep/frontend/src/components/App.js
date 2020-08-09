@@ -20,8 +20,6 @@ class App extends Component {
           {/* <CustomContext items={this.state.menu}/> */}
            
             <ThemeProvider>
-              <Testing2 text="Test1"/>
-              <Testing2 text="Test2"/>
               {/* <Testing2 test="Test2"/> */}
               {/* <GlobalStyle/> */}
               <Home/>
