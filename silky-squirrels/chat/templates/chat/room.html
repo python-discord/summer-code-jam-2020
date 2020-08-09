@@ -1,8 +1,22 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+    <div class="col-lg-15">
+        <div class="card card-tertiary">
+            <div class="card-header">
+                <span class="icon icon-xs w95-folder"></span>
+                <span class="ml-2">Chatroom "{{ room_name }}"</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20"></textarea><br>
+                <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
+                <div class="d-flex mt-3">
+                    <input class="btn btn-sm mr-2 btn-primary border-dark" id="chat-message-submit" type="button" value="Send">
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
     {{ room_name|json_script:"room-name" }}
     {{ room_member_id|json_script:"room_member_id" }}
     {{ older_messages_text|json_script:"older_messages_text" }}
