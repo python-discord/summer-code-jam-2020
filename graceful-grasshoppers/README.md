@@ -5,23 +5,72 @@
 Our project is a social media platform, based off of the popular MySpace website, hence the name of our project; PySpace. On our platform users can create posts, like each others posts, make comments on each others posts, and follow each other, just as they could on our inspiration site, myspace. 
 
 ## Setup:
-Uh, so, anyways, to run this project, you would need to have node installed, too bad if you don't. Head over to nodejs.org and grab yours. got it? Good.<br>
+In order to setup this project you'd need to have nodejs installed (and python of course).
+Node.js Installation Link: https://nodejs.org/en/download/.
 
-Now go to a terminal and `cd` into this project. Now, `cd` into `pyspace-frontend` and run `npm install`. It should have worked. Probably. If it doesn't, and gives a `404`, the `npm` server is probably down in your region, so you have two options now:
-1. Use a VPN and try to run it
-2. Move onto another project and come back to this later.
+first we'll start with running the backend (or in other words, the API):
+1. Open your preffered console/terminal.
+2. cd into the PySpace directory - Example if you've installed the summer code jam fork on your Desktop:
+```
+cd path/to/desktop/summer-code-jam-2020/graceful-grasshoppers/PySpace
+```
+3. Create a virtual environment.
+- MacOS or Linux (bash): 
+```
+python3 -m venv pyspace
+source venv/bin/activate
+```
+- Windows (cmd): 
+```
+py -m venv pyspace
+.\venv\Scripts\activate
+```
+Now you have your virtual environment activated. (to be sure, make sure the prompt is now `(pyspace) the/path/of/the/current/folder`)
+4. Install the requirements.
+```
+pip install -r requirements.txt
+```
+5. Make Migrations.
+- MacOS or Linux (bash): 
+```
+python3 makemigrations
+python3 makemigrations posts
+python3 migrate
+```
+- Windows (cmd): 
+```
+py makemigrations
+py makemigrations posts
+py migrate
+```
 
-So now that you ran that, ~~one more~~ a couple more commands are left: run `npm run serve` in this terminal. Let it be, and open up another terminal. Again, navigate to this project, and then `cd` into `Pyspace`. Now, this step is optional, but necessary. Wiat what. Nvm, just create a virtual environment by running `python3 -m venv venv`. After that has completed:
-* If you are on bash, run `source venv/bin/activate`
-* If you are on windows `cmd`, simply do `.\venv\Scripts\activate`
-* Or if you are on windows `powershell`, do `.\venv\Scripts\Activate.ps1`
+6. Run server:
+- MacOS or Linux (bash): 
+```
+python3 ./manage.py runserver
+```
+- Windows (cmd): 
+```
+py .\manage.py runserver
+```
 
-Good, now you have your virtual environment activated. (to be sure, make sure the prompt is now `(venv) the/path/of/the/current/folder`)
+### Now we're done from running the backend! keep the console open and let's headover to running the frontend now.
+1. Again, open your preffered console/terminal.
+2. cd into the pyspace-frontend directory - Example if you've installed the summer code jam fork on your Desktop:
+```
+cd path/to/desktop/summer-code-jam-2020/graceful-grasshoppers/pyspace-frontend
+```
+3. Install the dependencies:
+```
+npm install
+```
+4. Build and run:
+```
+npm run build
+npm run serve
+```
 
-So now run `python3 -m pip install -r requirements.txt` to install the necessary packages. Once that is finished, run `python3 manage.py runserver`
-
-
-Now go to your browser and head over to localhost:8080, and voila! Exploreeeee!
+You should be done now!! headover to http://localhost:8080/ and enjoy!
 
 ## What does it look like?
 #### Welcome page
