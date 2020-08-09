@@ -23,3 +23,7 @@ services:
       DATABASE_URL: "postgres:5432"
     volumes:
     - .:/app
+    - htvms-disk-volume:/var/htvms/disks
+
+volumes:
+  htvms-disk-volume:
