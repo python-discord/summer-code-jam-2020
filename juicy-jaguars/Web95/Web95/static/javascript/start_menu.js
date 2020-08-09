@@ -134,6 +134,40 @@ function toggle_start_font() {
     }
 }
 
+function fontsize_up() {
+    var elems = document.getElementsByTagName("*");
+    var numVal = 0;
+    var unit = "";
+
+    for (var i = 0; i < elems.length; i++) {
+        numVal = parseFloat(window.getComputedStyle(elems[i]).fontSize);
+        console.log(window.getComputedStyle(elems[i]).fontSize);
+        if (numVal != NaN) {
+            unit = window.getComputedStyle(elems[i]).fontSize.replace(numVal.toString(), "");
+            elems[i].style.fontSize = (numVal*1.25).toString() + unit;
+            console.log((numVal*0.8).toString() + unit);
+            console.log(" ");
+        }
+    }
+}
+
+function fontsize_down() {
+    var elems = document.getElementsByTagName("*");
+    var numVal = 0;
+    var unit = "";
+
+    for (var i = 0; i < elems.length; i++) {
+        numVal = parseFloat(window.getComputedStyle(elems[i]).fontSize);
+        console.log(window.getComputedStyle(elems[i]).fontSize);
+        if (numVal != NaN) {
+            unit = window.getComputedStyle(elems[i]).fontSize.replace(numVal.toString(), "");
+            elems[i].style.fontSize = (numVal*0.8).toString() + unit;
+            console.log((numVal*0.8).toString() + unit);
+            console.log(" ");
+        }
+    }
+}
+
 function hide_start() {
     var start = document.getElementById("start-menu");
     var start_settings = document.getElementsByClassName("start-settings")[0];
