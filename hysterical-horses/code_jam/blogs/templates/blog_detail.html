@@ -15,6 +15,13 @@
 
     {{ post.content }}
 
+    <form action="{% url 'like_post' post.pk %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <input class="nes-btn is-success" type="submit" value="Like">
+        <p>{{ total_likes }} likes</p>
+    </form>
+
     <!-- Add your own comment -->
     <form action="" method="post">
         {% csrf_token %}

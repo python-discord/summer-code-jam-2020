@@ -1,15 +1,22 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
-from django.views.generic import DetailView, CreateView
-from django.views.generic.list import ListView
+import random
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.views.generic import CreateView, DetailView
+from django.views.generic.list import ListView
+from users.mixins import level_check
 
 from .filters import PostFilter
 from .forms import CommentForm, CreatePostForm
 from .models import Comment, Post
-from users.mixins import level_check
 
-import random
+
+def like_view(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('blog_detail', args=[str(pk)]))
 
 
 class HomeView(ListView):
@@ -76,10 +83,11 @@ class BlogDetailView(DetailView):
         """Runs when GET is called."""
         print("CONTEXT DATA RUNNING")
 
-        # Comments
         context = super().get_context_data(**kwargs)
-        comment_post = context['post']
-        comments = comment_post.comments.filter(
+        blog_post = context['post']
+
+        # Comments
+        comments = blog_post.comments.filter(
             active=True, parent__isnull=True
         )  # Non-reply comments only
         context['comments'] = comments
@@ -87,6 +95,9 @@ class BlogDetailView(DetailView):
         # Comment form
         comment_form = CommentForm()
         context['comment_form'] = comment_form
+
+        # Total likes
+        context['total_likes'] = blog_post.total_likes
         return context
 
 
