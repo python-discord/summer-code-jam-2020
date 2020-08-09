@@ -16,11 +16,12 @@ def generate_page(page_name, page_type=None):
     possible_page_types = [page_type[0] for page_type in GeneratedPage.page_type_choices]
     # Chooses a random page type from a list of all page types. weights are in this order:
     # BLOG, INFO, BIZ, FOOD, SCAM
-    page_object.page_type = random.choices(possible_page_types, [10.3, 0.5, 0.1, 0.05, 0.05])[0] \
-        if page_type is None else page_type
+    page_object.page_type = (
+        random.choices(possible_page_types, [10.3, 0.5, 0.1, 0.05, 0.05])[0] if page_type is None else page_type
+    )
 
     # Define the different fields needed for different page types here
-    if page_object.page_type == 'BLOG':
+    if page_object.page_type == "BLOG":
         page_object.page_author = generate_page_author()
         page_object.blogger_age = random.randrange(8, 95)
         page_object.blogger_location = generate_blogger_location()
@@ -31,15 +32,14 @@ def generate_page(page_name, page_type=None):
         for x in range(no_posts):
             title = generate_blog_post_title(page_name)
             titles.append(title)
-            blog_post = BlogPost.objects.create(title=title,
-                                                content='Loading...')
+            blog_post = BlogPost.objects.create(title=title, content="Loading...")
             blog_post.save()
             page_object.blog_posts.add(blog_post)
 
         post_thread = threading.Thread(target=generate_gpt2, args=(page_object.blog_posts,))
         post_thread.start()
 
-    elif page_object.page_type == 'INFO':
+    elif page_object.page_type == "INFO":
         wikipedia_page = generate_information(page_name)
         page_object.page_content = wikipedia_page[0]
         page_object.page_source_url = wikipedia_page[1]
@@ -50,7 +50,7 @@ def generate_page(page_name, page_type=None):
             page_image.save()
             page_object.page_images.add(page_image)
 
-    elif page_object.page_type == 'BIZ':
+    elif page_object.page_type == "BIZ":
         faker = Faker()
         page_object.business_phone_num = faker.phone_number()
         page_object.business_email = faker.email()
@@ -63,14 +63,13 @@ def generate_page(page_name, page_type=None):
         page_object.business_about = "Loading. . ."
         page_object.business_mission = "Loading. . ."
 
-        info_thread = threading.Thread(target=generate_business_statements,
-                                       args=(page_name, page_object,))
+        info_thread = threading.Thread(target=generate_business_statements, args=(page_name, page_object,))
         info_thread.start()
 
-    elif page_object.page_type == 'FOOD':
+    elif page_object.page_type == "FOOD":
         pass
 
-    elif page_object.page_type == 'SCAM':
+    elif page_object.page_type == "SCAM":
         possible_scam_types = [scam_type[0] for scam_type in GeneratedPage.scam_type_choices]
         page_object.scam_type = random.choice(possible_scam_types)
 
@@ -116,32 +115,32 @@ def generate_information(page_name):
     try:
         # First tries to go to the page url
         page = wikipedia.page(page_name, auto_suggest=False)
-        print('THE PAGE EXISTS')
+        print("THE PAGE EXISTS")
 
     except wikipedia.exceptions.DisambiguationError as e:
         # If the page it enters is a wikipedia "disambiguation" page
         page = wikipedia.page(e.options[0], auto_suggest=False)
-        print('THE PAGE EXISTS BUT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK')
+        print("THE PAGE EXISTS BUT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK")
 
     except wikipedia.exceptions.PageError:
         # If the page doesnt exist, performs a search
-        print('THE PAGE DOESNT EXIST, USING THE WIKIPEDIA SEARCHBAR')
+        print("THE PAGE DOESNT EXIST, USING THE WIKIPEDIA SEARCHBAR")
         search = wikipedia.search(page_name, results=1)
 
         try:
             page = wikipedia.page(search[0], auto_suggest=False)
-            print('GETTING THE FIRST SEARCH RESULT')
+            print("GETTING THE FIRST SEARCH RESULT")
 
         except IndexError:
             # If the search yielded no results
-            print('NO RESULTS AFTER SEARCH')
+            print("NO RESULTS AFTER SEARCH")
             result = "Under Construction"
             return [result, ""]
 
         except wikipedia.exceptions.DisambiguationError as e:
             # If the page exists it enters is a wikipedia "disambiguation" page
             page = wikipedia.page(e.options[0], auto_suggest=False)
-            print('THE FIRST RESULT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK')
+            print("THE FIRST RESULT IS A DISAMBIGUATION PAGE, USING THE FIRST LINK")
 
     page_summary = page.summary
     page_url = page.url
@@ -154,12 +153,12 @@ def parse_result(result):
     for word in wordlist:
         word_token = nltk.word_tokenize(str(word))
         if nltk.pos_tag(word_token)[0][1] == "NN" or nltk.pos_tag(word_token)[0][1] == "NNP":
-            without_punctuation = re.sub(r'[^\w\s]', '', word)
+            without_punctuation = re.sub(r"[^\w\s]", "", word)
             information += "<a href=../../page/{0}>{1}</a>".format(without_punctuation, word)
             authorize_page(without_punctuation)
         else:
             information += word
-        information += ' '
+        information += " "
 
     return information
 
@@ -173,10 +172,11 @@ def generate_gpt2(posts):
     gpt2.load_gpt2(sess, model_name=model_name)
 
     for post in posts.all():
-        post.content = 'Generating...'
+        post.content = "Generating..."
         post.save()
-        output = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title,
-                               length=100)[0]
+        output = gpt2.generate(
+            sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=post.title, length=100
+        )[0]
 
         post.content = parse_result(splice_sentence(output))
         post.save()
@@ -189,25 +189,27 @@ def generate_business_statements(page_name, page_object):
     sess = gpt2.start_tf_sess()
     gpt2.load_gpt2(sess, model_name=model_name)
 
-    about = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True,
-                          prefix=f"{page_name} Co. is", length=100)[0]
+    about = gpt2.generate(
+        sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=f"{page_name} Co. is", length=100
+    )[0]
     page_object.business_about = parse_result(splice_sentence(about))
     page_object.save()
 
-    mission = gpt2.generate(sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=f"Our Mission",
-                            length=100)[0]
+    mission = gpt2.generate(
+        sess, model_name=model_name, model_dir="models", return_as_list=True, prefix=f"Our Mission", length=100
+    )[0]
     page_object.business_mission = parse_result(splice_sentence(mission))
     page_object.save()
 
 
 def splice_sentence(word):
     cutoff = max([word.rfind("."), word.rfind("?"), word.rfind("!")])
-    return word[:cutoff + 1]
+    return word[: cutoff + 1]
 
 
-authorize_page('internet')
-generate_page('internet', 'INFO')
-authorize_page('code')
-generate_page('code', 'INFO')
-authorize_page('meme')
-generate_page('meme', 'INFO')
+authorize_page("internet")
+generate_page("internet", "INFO")
+authorize_page("code")
+generate_page("code", "INFO")
+authorize_page("meme")
+generate_page("meme", "INFO")
