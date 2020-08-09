@@ -20,26 +20,29 @@ def home(request):
             context['query'] = get_mail_queryset(request, query)
             return render(request, "mail/inbox.html", context)
         else:
-            return render(request,"mail/inbox.html")
+            return render(request, "mail/inbox.html")
     else:
         return HttpResponseRedirect(reverse("login"))
+
 
 def info(request):
     # for now, it will only have one url link
     return render(request, "aboutus.html")
 
+
 def get_mail_queryset(request, query=None):
-    if query != None:
+    if query is not None:
         queryset = []
         queries = query.split(" ")
         user_id = User.objects.get(email=request.user.email).id
         for q in queries:
             queryset += list(Email.objects.filter(
-                sender_id__exact = user_id
-            ).filter(Q(subject__icontains = q) | Q(body__icontains = q))
-            .distinct())
+                sender_id__exact=user_id
+            ).filter(Q(subject__icontains=q) | Q(body__icontains=q))
+                .distinct())
 
         return queryset
+
 
 @csrf_exempt
 @login_required
@@ -136,6 +139,7 @@ def email(request, email_id):
             "error": "GET or PUT request required."
         }, status=400)
 
+
 def login_view(request):
     if request.method == "POST":
 
@@ -152,6 +156,7 @@ def login_view(request):
             })
     else:
         return render(request, "mail/login.html")
+
 
 @login_required
 def logout_view(request):
