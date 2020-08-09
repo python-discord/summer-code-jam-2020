@@ -91,9 +91,18 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         except Exception:
             pass
 
-    async def send_message(self, message):
-        message = ansiwrap.fill(message, 79, replace_whitespace=True, drop_whitespace=True)
+    async def send_message(self, message, wrap=False):
+        ''' Format and send to client
+
+        wrap=True text is formatted as a paragraph with a blank line.
+        '''
+
+        if wrap:
+            message = fill(message)
+            message = message + "\n"
+
         message = message.replace("\n", "\n\r")
+
         await self.send_json({
             'message': message
         })
@@ -110,9 +119,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                    f"Location: {colorize('brightGreen', room_name)} on {colorize('brightGreen', server_name)}\n"
                    f"Current Date: {colorize('green', server_date)}\n"
                    )
-        await self.send_json({
-            'message': message
-        })
+        await self.send_message(message)
 
     async def send_tutorial(self):
         '''
@@ -124,55 +131,44 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
 
         tutorial = [
             # Get rid of this once TODO in send_welcome is done
-            (f"Current Date: {colorize('blue', 'January 1, 1970')}\n"),
+            (f"Current Date: {colorize('blue', 'January 1, 1970')}"),
             ("Unfortunately there has been a glitch in the matrix and it appears "
              "you have been pulled through a quantum computer to the past. "
              f"You are currently in {colorize('brightGreen', self.player.room.name)}. "
              "Somewhere on this server there is a connection that should allow you "
              "to travel to a different server. "
              "Each server is connected to a different point in time."),
-            (""),
             ("Your mission is to return to 2020 by traveling through different servers, "
-             "networks, and possibly solving a few riddles on the way.\n\n"),
-            (""),
+             "networks, and possibly solving a few riddles on the way."),
             ("View what is in a node and the available connections by typing: "
              f"{colorize('brightYellow', 'look')}"),
             ("You can move between different nodes and networks by typing: "
              f"{colorize('brightYellow','go <node/number>')}"),
             ("You can always view the available commands by typing: "
-             f"{colorize('brightYellow','help')}\n"),
-            (""),
-            ("Good luck!\n\n"),
+             f"{colorize('brightYellow','help')}"),
+            ("Good luck!"),
             ("Oh, there have been recent reports of possible viruses found in some networks."),
             ("We haven't found any t̴͕͂ͅh̸͈̘̊ó̵͙͋ū̶̘̊g̵̫͌h̶̼̮̓,̵̭̉ ̷͓͓̈̇s̶̩̍o̸̻̓ ̶͎̽̋I̵͛̏͜'̶̨͠m̷̛̹͝ ̷͚̀ṡ̴͈͉ṳ̷͛r̷̝͕͐e̸̛̬͛ ̷̧͐͛î̷̛͙̜t̸̖͒̓'̴̦̙̉s̸͇͊̕ ̸͚̻̆̋f̵̭͈̐ī̸̡̪n̸͖̯̄̇é̷̡."),
         ]
 
         for i in range(len(tutorial)):
-            await self.send_message(tutorial[i])
+            await self.send_message(tutorial[i], wrap=True)
             if i < (len(tutorial) - 1):
                 await asyncio.sleep(len(tutorial[i])/30 + 1)
 
     async def send_unknown(self, command):
-        await self.send_json({
-            'message': f"I don't understand `{command}`, try " + colorize('brightYellow', "help") + "."
-        })
+        await self.send_message(f"I don't understand `{command}`, try {colorize('brightYellow', 'help')}.")
 
     async def send_help(self):
         options = ['help', 'status', 'send <message>', 'leave', 'look', 'go <room>', 'go <room number>']
-        await self.send_json({
-            'message': "COMMANDS: \r\n    " + colorize("brightGreen", ", ".join(options))
-        })
+        await self.send_message("COMMANDS: \r\n    " + colorize("brightGreen", ", ".join(options)))
 
     async def send_room_description(self):
         message = await self.get_current_room_description()
-        await self.send_json({
-            'message': message
-        })
+        await self.send_message(message)
 
     async def send_command_response(self):
-        await self.send_json({
-            'message': self.player.room.command_response
-        })
+        await self.send_message(self.player.room.command_response, wrap=True)
 
     @database_sync_to_async
     def update_player_online_status(self, status):
@@ -222,11 +218,11 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
         server_date = self.player.room.server.server_date.strftime("%B %m, %Y")
 
         message = (
-                 f'''You are in {colorize('brightGreen', self.player.room.name)}\r\n\n'''
-                 f'''The current date is: {colorize('green', server_date)}\r\n\n'''
-                 f'''{self.player.room.description}\r\n\n'''
-                 f'''{self.player.room.command_description}\r\n\n'''
-                 f'''{players_string}'''
+                 f'''You are in {colorize('brightGreen', self.player.room.name)}\r\n\n''' +
+                 f'''The current date is: {colorize('green', server_date)}\r\n\n''' +
+                 fill(f'''{self.player.room.description}''') + '''\r\n\n''' +
+                 fill(f'''{self.player.room.command_description}''') + '''\r\n\n''' +
+                 f'''{players_string}\r\n''' +
                  f'''Exits: {", ".join([colorize('brightGreen', exit) for exit in exits])}'''
                  )
 
@@ -326,3 +322,7 @@ class MudConsumer(AsyncJsonWebsocketConsumer):
                 "message": event["message"],
             },
         )
+
+
+def fill(text):
+    return ansiwrap.fill(text, width=79, replace_whitespace=True, drop_whitespace=True)
