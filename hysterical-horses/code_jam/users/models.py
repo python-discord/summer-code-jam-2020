@@ -29,6 +29,7 @@ class AccountManager(BaseUserManager):
         )
         user.is_admin = True
         user.is_superuser = True
+        user.points = 1000
         user.save(using=self._db)
         return user
 
@@ -94,13 +95,15 @@ class Account(AbstractBaseUser, PermissionsMixin):
         likes_weight = 1
         searches_weight = 0.5
         messages_weight = 0.1
+        points_weight = 100
 
         rv_dict = {
             self.number_of_posts: posts_weight,
             self.number_of_comments: comments_weight,
             self.number_of_likes: likes_weight,
             self.number_of_searches: searches_weight,
-            self.number_of_messages: messages_weight
+            self.number_of_messages: messages_weight,
+            self.points: points_weight
         }
         rv = sum([k*v for k, v in rv_dict.items()]) // 1
 
