@@ -18,7 +18,6 @@ def home(request):
         if request.GET:
             query = request.GET['q']
             context['query'] = get_mail_queryset(request, query)
-            print(context['query'])
         return render(request, "mail/inbox.html", context)
     else:
         return HttpResponseRedirect(reverse("login"))
@@ -28,12 +27,11 @@ def get_mail_queryset(request, query=None):
         queryset = []
         queries = query.split(" ")
         user_id = User.objects.get(email=request.user.email).id
-        print(user_id)
         for q in queries:
             queryset += list(Email.objects.filter(
-                        (Q(title__icontains = q) | Q(body__icontains = q)) and
-                        (Q(sender_id__exact = user_id))
-            ).distinct())
+                sender_id__exact = user_id
+            ).filter(Q(subject__icontains = q) | Q(body__icontains = q))
+            .distinct())
 
         return queryset
 
