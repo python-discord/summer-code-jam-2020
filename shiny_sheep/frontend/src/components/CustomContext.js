@@ -9,16 +9,21 @@ class CustomContext extends Component{
             visible: false,
             x: 0,
             y: 0,
-            
+            components:[]
             };
 
         this.contextRef = React.createRef();
     }
 
     click(index){
+
         if(this.props.items[index].callback){
             this.props.items[index].callback();
             var self = this;
+            const newComponents = [...this.state.components];
+            this.setState({
+                components:newComponents
+            });
         }
         else{
             console.log("Callback isn't registered");
@@ -73,6 +78,7 @@ class CustomContext extends Component{
             <div id="cmenu">
                 
                 {this.state.visible? this.returnMenu(this.props.items): null}
+                
             </div>
         )
     }
