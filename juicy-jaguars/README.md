@@ -57,23 +57,17 @@ If you look close enough, maybe you'll find one of Web95's hidden Easter Eggs!
 To install and run Web95, you must have Python 3.8 installed and have Pip installed and on your PATH.
 
 #### On Windows:
-    ```bash
-    curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py && python setup.py install
-    ```
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py && python setup.py install`
 
-(When installing on Windows make sure that your default python version on PATH is Python 3.8.)
+When installing on Windows make sure that your default python version on PATH is Python 3.8.
 
 #### On MacOS/Linux:
-    ```bash
-    curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py; python3 setup.py install
-    ```
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py; python3 setup.py install`
 
 #### Manual Inspection
-    Feel free to check the `setup.py` script before running it, as this is always good practice.
+Feel free to check the `setup.py` script before running it, as this is always good practice.
 
-    ```bash
-    curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py
-    ```
-    Check setup.py. If your happy with it run:  
-    
-    Windows: `python setup.py install` Mac/Linux: `python3 setup.py install`
+`curl https://raw.githubusercontent.com/Juicy-Jaguars/summer-code-jam-2020/master/juicy-jaguars/setup.py > setup.py`  
+> Check setup.py. If your happy with it run:
+
+Windows: `python setup.py install` Mac/Linux: `python3 setup.py install`
