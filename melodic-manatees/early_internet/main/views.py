@@ -81,7 +81,3 @@ def main(request):
         'weather': weather_dict,
     }
     return render(request, 'main/dashboard.html', context)
-
-
-def about(request):
-    return render(request, 'main/main-about.html')

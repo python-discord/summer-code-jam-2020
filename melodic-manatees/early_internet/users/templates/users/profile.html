@@ -40,9 +40,7 @@
                             <span class="tag is-success">{{ pref.weather_preference }}</span>
                         </p>
                     {% endif %}
-                    
-                    <p class="is-size-6 has-text-weight-bold">Display Weather?</p>
-                    <p class="subtitle is-6">{{ pref.display_weather }}</p>
+
                 </div>
                 <div>
                     <form method="POST">
@@ -77,31 +75,6 @@
                                         {{ form.country_name|add_class:"input" }}
                                     </p>
                                 </div>
-                            </div>
-                            <div class="control">
-                                <p>
-                                    <label class="label">Dashboard Options:</label>
-                                    <div class="checkbox">
-                                        {{ form.display_weather.label_tag }}
-                                        {{ form.display_weather }}
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="control">
-                                <p>
-                                    <div class="checkbox">
-                                        {{ form.display_news.label_tag }}
-                                        {{ form.display_news }}
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="control">
-                                <p>
-                                    <div class="checkbox">
-                                        {{ form.display_music.label_tag }}
-                                        {{ form.display_music }}
-                                    </div>
-                                </p>
                             </div>
                         </fieldset>
                         <div class="field is-grouped">
