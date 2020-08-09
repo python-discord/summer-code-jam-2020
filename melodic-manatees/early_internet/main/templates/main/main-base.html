@@ -40,6 +40,11 @@
     grid-column: long;
 }
 
+.box.scroll-box{
+    height: 450px;
+    overflow-y: auto;
+}
+
 .box.is-transparent {
     background-color: hsla(0, 0%, 100%, 0.2);
 }
@@ -101,7 +106,7 @@ fieldset {
             </div>
         </nav>
     </header>
-    <div class="hero is-fullheight is-light has-background">
+    <div class="hero is-fullheight-with-navbar is-light has-background">
         {% if user.is_authenticated %}
             <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background failed to load" />
         {% else %}
