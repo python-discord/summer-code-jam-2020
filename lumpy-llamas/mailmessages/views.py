@@ -30,7 +30,6 @@ def list_messages(request):
     current_user = request.user.username
     queryset = PrivateMessage.objects.filter(Q(to_user=request.user.username)| Q(from_user=request.user.username)).\
         values('message', 'subject', 'created_date', 'from_user', 'to_user', 'id').order_by('-created_date')
-    print(queryset)
     data = list(queryset)
     json_data = {'query': data, 'current_user': current_user}
 
@@ -46,7 +45,6 @@ def get_users(request):
 
 @jsonbody(MESSAGE_SCHEMA)
 def post_message(request, data):
-    print(data)
     current_user = request.user
     to_user = User.objects.get(username=data['to_user'])
     if to_user is not None:

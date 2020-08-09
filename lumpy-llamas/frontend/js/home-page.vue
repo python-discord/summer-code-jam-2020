@@ -44,6 +44,7 @@ const MENU_PAGES = [
   { title: 'Forum/Thread-list', page: 'forum' },
   { title: 'Chat Lobby', page: 'chatlobby_page' },
   { title: 'Play Tic Tac Toe', page: 'tictactoe_page' },
+  { title: 'Messages/Message list', page: 'list-messages' },
 ];
 
 export default {
@@ -60,6 +61,7 @@ export default {
     this.$cmd.on('1', this.goToForum);
     this.$cmd.on('2', this.goToChatLobby);
     this.$cmd.on('3', this.goToGame);
+    this.$cmd.on('4', this.goToMessages);
     this.$cmd.on('/news new', this.setNewNews, 'Get newest articles');
     this.$cmd.on('/news top', this.setTopNews, 'Get top articles');
   },
@@ -78,6 +80,9 @@ export default {
     },
     goToGame() {
       this.$router.push({ name: 'tictactoe_page' });
+    },
+    goToMessages() {
+      this.$router.push({ name: 'list-messages' });
     },
   },
 };
