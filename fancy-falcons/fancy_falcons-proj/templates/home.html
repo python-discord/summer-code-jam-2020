@@ -15,7 +15,7 @@
     <div class="col-md-4 offset-md-1 text-center">
         <h3>Earl of the day</h3>
         <h2>{{ earl_of_the_day.first_name }} {{ earl_of_the_day.last_name }}</h2>
-        <img class="mt-2" 
+        <img class="mt-2"
             width="250"
             height="270"
             src="{{ earl_of_the_day.image.url }}"
@@ -26,14 +26,8 @@
         <h3>Upcoming birthdays</h3>
         <ul>
         {% for birthday in upcoming %}
-            <li><span class="bday">{{ birthday.birthday }}</span> <a href={% url 'earldetail' birthday.id %}>{{ birthday }}</a></li>
+            <li><span class="bday">{{ birthday.birthday }}</span><br><a href={% url 'earls:earldetail' birthday.id %}>{{ birthday }}</a></li>
         {% endfor %}
-        </ul>
-        <h2 class="mt-5">This month</h2>
-        <ul>
-            <li><span class="bday">16.04</span> <a href="#">Saer de Quincy</a></li>
-            <li><span class="bday">16.04</span> <a href="#">John of Wick</a></li>
-            <li><span class="bday">16.04</span> <a href="#">Neo of Matrix</a></li>
         </ul>
         <p><a href="/calendar/">See all events</a></p>
     </div>
