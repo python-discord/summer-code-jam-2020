@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Room(models.Model):
-    name = models.CharField(max_length=50, primary_key=True)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
@@ -23,7 +23,6 @@ class Message(models.Model):
     text = models.CharField(max_length=500)
     created_at = models.DateTimeField(default=timezone.now)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    sender = models.ForeignKey(SimpleUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self._format_short_text(self.text)
