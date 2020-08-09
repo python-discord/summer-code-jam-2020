@@ -6,13 +6,42 @@ import random
 # y is north-south with north being positive
 
 
-def new_game():
+MARS_URL = (
+    "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"
+)
+
+def get_current_weather(request):
+    """
+    If user reloads the page, used cached data instead of making call to API again.
+    """
+    is_cached = "weather_data" in request.session
+
+    if not is_cached:
+        response = requests.get(MARS_URL)
+        request.session["weather_data"] = response.json()
+
+    weather_data = request.session["weather_data"]
+
+    current_sol = weather_data["sol_keys"][-1]
+
+    context = dict.fromkeys(["AT", "PRE", "HWS"])
+
+    for measurement in context.keys():
+        if weather_data["validity_checks"][current_sol][measurement]["valid"]:
+            context[measurement] = weather_data[current_sol][measurement]
+
+    context["season"] = weather_data[current_sol]["Season"]
+
+    return context
+
+def new_game(request):
     """
     Generates a new game, resetting the location of all components and the rover.
     """
 
     game_data = {
         "initials": "",
+        "score": 0,
         "rover": (0, 0),
         "battery": 100,
         "power_usage": 5,
@@ -22,6 +51,7 @@ def new_game():
         "solar_panels": (-3, 2),
         "has_solar_panels": False,
         "wind": (-1, 0),
+        "temperature": get_current_weather(request)['AT']['av'],
         "obstacles": {"dust_storm": (0, 2), "small_crater": (-4, -3),},
         "item_messages": {
             "plutonium": "There is a plume of smoke in the distance.",
@@ -69,12 +99,12 @@ def new_game():
 
 def randomize_positions(game_data):
     """
-    randomizes the loacation of parts and obstacles
+    Randomizes the loacation of parts and obstacles
     """
 
     game_data.update(
         {
-            "plutonium": (random.randint(-6, 6), random.randint(-6, 6)),
+            "plutonium": (1,1),
             "solar_panels": (random.randint(-3, 3), random.randint(-3, 3)),
         }
     )
@@ -94,7 +124,7 @@ def get_game(request):
 
     is_cached = "game_data" in request.session
     if not is_cached:
-        game_data = new_game()
+        game_data = new_game(request)
     else:
         game_data = request.session["game_data"]
 
@@ -351,13 +381,14 @@ def parse_command(request, game_data, command):
                 {"from_rover": False, "message": f"Command not understood: {command}"}
             )
     if command == "newgame":
-        game_data = new_game()
-        request.session["game_data"] = new_game()
+        game_data = new_game(request)
+        request.session["game_data"] = new_game(request)
 
     # Win if plutonium was retrieved
     if game_data["has_plutonium"] and not game_data["victorious"]:
         game_data["victorious"] = True
         game_data["game_over"] = True
+        score = game_data["battery"] * abs(game_data["temperature"])
         game_data["messages"].append({"from_rover": False, "message": ""})
         game_data["messages"].append(
             {"from_rover": False, "message": "CONGRATULATIONS!"}
@@ -365,7 +396,7 @@ def parse_command(request, game_data, command):
         game_data["messages"].append(
             {
                 "from_rover": False,
-                "message": "Your rover was able to reconnect its power supply!",
+                "message": f"Your rover was able to reconnect its power supply! Your score is {score}.",
             }
         )
 
