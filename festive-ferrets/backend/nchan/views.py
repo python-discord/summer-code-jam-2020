@@ -17,6 +17,10 @@ class BoardViewSet(viewsets.ReadOnlyModelViewSet):
     def get_posts(self, request, id=None):
         """
         Returns the 10 latest posts posted to board with id
+        :param request: Request object
+        :param id: The id of the board
+        :type id: int
+        :return: Paginator of the most recent posts
         """
         post_objects = Post.objects.all().filter(board__exact=id).order_by('-publication_date')
         paginator = PageNumberPagination()
@@ -34,6 +38,9 @@ class PostViewSet(viewsets.ModelViewSet):
     def get_comments(self, request, pk=None):
         """
         Returns the 10 latest comments commented on post with pk
+        :param request: Request object
+        :param pk: Primary key of the post
+        :return: Paginator of the most recent comments
         """
         comment_objects = Comment.objects.all().filter(post__exact=pk).order_by('-publication_date')
         paginator = PageNumberPagination()
