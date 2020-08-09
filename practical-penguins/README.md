@@ -19,6 +19,14 @@ We are hosting our app publicly for a limited time at this development [URL](htt
 But you can easily host this run this server at home without having to pay for your own server
 hosting costs ([see below](#how-to-run-your-own-server-locally)).
 
+For basic operation, you need only create an account, and when you're ready just hit "Run Quiz" to
+complete setting up your first quiz session. When you run it, you'll see the current question display
+
+![alt text](screenshots/quiz-run.png?raw=True)
+
+Not sure where to start? We have a few trivia packs pre-made by yours truly!
+
+![alt text](screenshots/trivia_pack_page.PNG?raw=True)
 
 ## Installation
 This package is tested on python 3.8
