@@ -46,11 +46,13 @@ wallpapers",
 
     for n in themes:
         themelist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" + n
-                         + "'>" + n + "</n></li>")
+                         + "'>" + n + "</a></li>")
+    print(themelist)
 
     for n in wallpapers:
         walllist.append("<li class=\"start-lvl3-item\"> <a href='?theme=" +
-                        theme + "&wallpaper=" + n + "'>" + n + "</n></li>")
+                        theme + "&wallpaper=" + n + "'>" + n + "</a></li>")
+    print(walllist)
 
     return render(request,
                   "Web95/landing_page.html",
