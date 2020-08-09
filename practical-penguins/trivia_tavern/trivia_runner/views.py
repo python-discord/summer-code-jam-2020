@@ -24,18 +24,25 @@ def setup(request, active_trivia_quiz):
 
 def times_up(request, active_trivia_quiz):
     SMSBot.player_timeout(active_trivia_quiz)
-    return render(request, 'activequiz_question.html', {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
+    cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
+                                              question_index=active_trivia_quiz.current_question_index)
+    return render(request, 'activequiz_question.html',
+                  {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
+
 
 def question(request, active_trivia_quiz):
     SMSBot.send_all_questions(active_trivia_quiz)
+    cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
+                                              question_index=active_trivia_quiz.current_question_index)
     return render(request, 'activequiz_question.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'cur_question': cur_question})
 
 
 def end_screen(request, active_trivia_quiz):
-    SMSBot.calculate_results(active_trivia_quiz)
+    tally_results = SMSBot.calculate_results(active_trivia_quiz)
     return render(request, 'activequiz_end.html',
                   {'active_trivia_quiz': active_trivia_quiz, 'tally_results': tally_results})
+
 
 @csrf_exempt
 def active_trivia(request, pk):
@@ -48,7 +55,6 @@ def active_trivia(request, pk):
             active_trivia_quiz.current_question_index = -1
         elif 'times-up' in request.POST:
             return times_up(request, active_trivia_quiz)
-
 
     if active_trivia_quiz.current_question_index == 0:
         response = setup(request, active_trivia_quiz)

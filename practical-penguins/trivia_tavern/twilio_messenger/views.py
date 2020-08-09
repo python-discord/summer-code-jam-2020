@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from trivia_builder.models import TriviaQuestion
-from trivia_runner.models import ActiveTriviaQuiz, Player
+from trivia_runner.models import ActiveTriviaQuiz, Player, Answer
 from .models import ScoreTracker
 
 
@@ -28,20 +28,15 @@ class SMSBot:
             from_=twilio_number,
             to=recipient
         )
+        return message
 
     @staticmethod
     def register(phone_number, active_quiz):
         """registers a default player account with the ActiveTriviaQuiz 'quiz'
         and a 'phone_number'
         """
-        #print(phone_number)
-        #return Player(team_name='', active_quiz=active_quiz,  phone_number=phone_number,)
-        player = Player.objects.create(
-            team_name='',
-            active_quiz=active_quiz,
-            phone_number=phone_number,
-        )
-        print(player)
+
+        player = Player.objects.create( team_name='', active_quiz=active_quiz, phone_number=phone_number,)
         return player
 
     @staticmethod
@@ -54,8 +49,7 @@ class SMSBot:
     @staticmethod
     def register_with_code(number, active_quiz):
         welcome = (f'You registered to play "{active_quiz.trivia_quiz.name}." '
-                   f'Please choose a team name to join'
-                   )
+                   f'Please choose a team name to join')
         SMSBot.send(welcome, number)
         new_player = SMSBot.register(number, active_quiz)
         new_player.save()
@@ -68,8 +62,7 @@ class SMSBot:
         player.team_name = team
         player.save()
         msg = (f'Thanks for playing! '
-               f'"{player_quiz.trivia_quiz.name}" will begin soon!'
-               )
+               f'"{player_quiz.trivia_quiz.name}" will begin soon!')
         ScoreTracker.objects.create(player_phone=player.phone_number,
                                     team_name=player.team_name,
                                     session_code=player_quiz.session_code)
@@ -108,25 +101,19 @@ class SMSBot:
         player_quiz = player.active_quiz
         current_question = TriviaQuestion.objects.get(quiz=player_quiz.trivia_quiz,
                                                       question_index=player_quiz.current_question_index)
-        correct_answer = current_question.question_answer
 
         score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
                                                session_code=player_quiz.session_code)
         if score_track.answered_this_round:
+            return SMSBot.send('You already answered! Don\'t cheat!', player.phone_number)
 
-            msg = 'You already answered! Don\'t cheat!'
-        elif body.upper() == correct_answer.upper():
+        ans = Answer.objects.create(value=body, player=player, question=current_question)
+        if ans.is_correct():
             score_track.points += 1
-            player.correct_answers.append((current_question.question_index, body))
-            msg = 'Thanks for your answer! Please wait for the next question...'
-        else:  # Player is wrong
-            player.wrong_answers.append((current_question.question_index, body))
-            msg = 'Thanks for your answer! Please wait for the next question...'
-
         score_track.answered_this_round = True
-        player.save()
         score_track.save()
-        SMSBot.send(msg, player.phone_number)
+        msg = 'Thanks for your answer! Please wait for the next question...'
+        return SMSBot.send(msg, player.phone_number)
 
 
     @staticmethod
@@ -136,27 +123,23 @@ class SMSBot:
                                                    session_code=active_trivia_quiz.session_code)
 
             if not score_track.answered_this_round:
-                player.wrong_answers.append((active_trivia_quiz.current_question_index, ''))
-                player.save()
+                current_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz,
+                                                              question_index=active_trivia_quiz.current_question_index)
+                ans = Answer.objects.create(value="", player=player, question=current_question)
                 score_track.answered_this_round = True
                 score_track.save()
             SMSBot.send('TIME IS UP. NO MORE ANSWERS!', player.phone_number)
 
-        cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
-                                                    question_index=active_trivia_quiz.current_question_index)
-
-
     @staticmethod
     def send_all_questions(active_trivia_quiz):
         cur_question = TriviaQuestion.objects.get(quiz=active_trivia_quiz.trivia_quiz,
-                                              question_index=active_trivia_quiz.current_question_index)
+                                                  question_index=active_trivia_quiz.current_question_index)
         for player in Player.objects.all():
             score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
                                                    session_code=active_trivia_quiz.session_code)
             score_track.answered_this_round = False
             score_track.save()
             SMSBot.send_question(cur_question, player)
-
 
     @staticmethod
     def calculate_results(active_trivia_quiz):
@@ -175,14 +158,16 @@ class SMSBot:
             score_track = ScoreTracker.objects.get(player_phone=player.phone_number,
                                                    session_code=active_trivia_quiz.session_code)
 
-            goodbye = ( f'The session has ended, thanks for playing!\n'
-                        f'Team {winner} was the winner!\n'
-                        f'Your score was: {score_track.points}/{len(question_set)}'
-            )
+            goodbye = (f'The session has ended, thanks for playing!\n'
+                       f'Team {winner} was the winner!\n'
+                       f'Your score was: {score_track.points}/{len(question_set)}'
+                       )
 
             SMSBot.send(goodbye, player.phone_number)
             SMSBot.send(player.get_answers(), player.phone_number)
             player.delete()
+        return tally_results
+
 
 @csrf_exempt
 def sms_reply(request):
