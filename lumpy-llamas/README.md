@@ -32,7 +32,7 @@ Tic Tac Toe utilises the minmax algorithm used by many gaming AI. You can play a
 ### News
 Get your news and headlins straight from HackerNews! Right on your home page
 
-# Email
+### Email
 Brand new Electronic Mail! (Known amongst industry experts as 'E-Mail'). Send private messages to other users on the board.
 
 
