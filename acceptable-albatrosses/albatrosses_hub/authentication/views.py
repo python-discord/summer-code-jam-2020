@@ -14,8 +14,8 @@ def register_page(request):
 
     form = RegisterForm(request.POST or None)
     context = {
-        "form" : form,
-        "error_message" : "",
+        "form": form,
+        "error_message": "",
     }
 
     if request.method == "POST" and form.is_valid():
@@ -37,9 +37,7 @@ def register_page(request):
 
         if all_valid:
             new_user = User.objects.create_user(
-                email=submitted_email,
-                username=submitted_username,
-                password=request.POST["password"]
+                email=submitted_email, username=submitted_username, password=request.POST["password"]
             )
             new_user.save()
 
@@ -58,7 +56,7 @@ def login_page(request):
     form = LoginForm(request.POST or None)
     context = {
         "form": form,
-        "error_message" : "",
+        "error_message": "",
     }
 
     if request.method == "POST" and form.is_valid():

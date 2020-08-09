@@ -18,9 +18,6 @@ def index(request):
 def about_us(request):
     """Views to render the About Us page."""
 
-    context = {
-        "login": request.user.is_authenticated,
-        "page": "about_us"
-    }
+    context = {"login": request.user.is_authenticated, "page": "about_us"}
 
     return render(request, "home/about.html", context)

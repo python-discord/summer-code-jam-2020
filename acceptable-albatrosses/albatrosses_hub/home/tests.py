@@ -38,11 +38,7 @@ class HomeViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username="tester",
-            email="test@example.com",
-            password="tester12345"
-        )
+        self.user = User.objects.create_user(username="tester", email="test@example.com", password="tester12345")
 
     def test_logged_in_user_access_home(self):
         request = self.factory.get("/")

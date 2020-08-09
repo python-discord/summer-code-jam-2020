@@ -49,11 +49,7 @@ class AuthViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username="tester",
-            email="test@example.com",
-            password="tester12345"
-        )
+        self.user = User.objects.create_user(username="tester", email="test@example.com", password="tester12345")
 
     def test_logged_in_user_get_redirect_on_register_page(self):
         request = self.factory.get(reverse("authentication:register"))
@@ -103,11 +99,7 @@ class AuthViewTest(TestCase):
         request.POST["re_password"] = "tester2_12345"
 
         response = register_page(request)
-        self.assertRedirects(
-            response,
-            reverse("authentication:login"),
-            fetch_redirect_response=False
-        )
+        self.assertRedirects(response, reverse("authentication:login"), fetch_redirect_response=False)
 
     def test_logged_in_user_get_redirect_on_login_page(self):
         request = self.factory.get(reverse("authentication:login"))
