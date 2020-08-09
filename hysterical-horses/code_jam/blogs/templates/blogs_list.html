@@ -20,7 +20,7 @@
     <ul>
     {% for post in object_list %}
         <li>
-            <a href="{% url 'blog_detail' post.pk %}">{{ post.title }} | {{ post.author.username }}</a></br>
+            <a href="{% url 'blog_detail' post.pk %}">{{ post.title }} | {{ post.author.username }}</a><br/>
             {{ post.content }}
         </li>
     {% endfor %}
