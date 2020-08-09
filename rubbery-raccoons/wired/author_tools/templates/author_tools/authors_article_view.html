@@ -3,6 +3,7 @@
 {% block title %}Your Articles{% endblock %}
 
 {% block content %}
+    <h4>User: {{ user.username }}</h3>
     <p><font size=5>
         <a href="{% url 'compose' %}">Compose a new article</a>
     </font></p>
