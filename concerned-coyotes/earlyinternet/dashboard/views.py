@@ -1,58 +1,72 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.apps import apps
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
 from weather.tasks import update_weather_for_user  # noqa: F401
 
+Weather = apps.get_model("weather", "Weather")
+WikipediaArticle = apps.get_model("wikipedia", "WikipediaArticle")
+Article = apps.get_model("news", "Article")
+TodoEntry = apps.get_model("todo", "TodoEntry")
+
 
 @login_required
 def index(request: HttpRequest) -> HttpResponse:
+    user = request.user
 
-    # TODO Replace this big hardcoded dictionay by the functions
-    # that return the needed data from the database
+    context = {}
 
-    context = {
-        "weather": {
-            "degree_celsius": 39,
-            "degree_fahrenheit": 102.2,
-            "astral_information": {
-                "sunrise": datetime.datetime.utcnow(),
-                "sunset": datetime.datetime.utcnow(),
-                "moon_phase": 11.5
+    # If weather does not exist for the user, it is returned as None
+    # and an error / request to set location is shown on the frontend
+    if user.location_set.exists():
+        user_location = user.location_set.last()
+        user_weather = Weather.objects.get_weather_at(user_location.latitude,
+                                                      user_location.longitude)
+
+        context.update({
+            "weather": {
+                "degree_celsius": user_weather.celsius,
+                "degree_fahrenheit": user_weather.fahrenheit,
+                "astral_information": {
+                    "sunrise": str(user_weather.sunrise),
+                    "sunset": str(user_weather.sunset)
+                },
+                "city": user_weather.city,
             }
-        },
+        })
+
+    else:
+        context["weather"] = None
+
+    # Wikipedia article
+    wikipedia_article = WikipediaArticle.objects.order_by("-date")[0]
+    context.update({
         "wikipedia_article": {
-            "title": "Python (programming language)",
-            "content": ("Python is an interpreted, high-level, general-purpose programming language. "
-                        "Created by Guido van Rossum and first released in 1991, Python's design "
-                        "philosophy emphasizes code readability with its notable use of significant "
-                        "whitespace. Its language constructs and object-oriented approach aim to help "
-                        "programmers write clear, logical code for small and large-scale projects..."),
-            "url": "https://en.wikipedia.org/wiki/Python_(programming_language)"
-        },
-        "news_articles": [
-            {
-                "title": "Summer-Code-Jam 2020 just started",
-                "content": ("The 7th code jam for the python discord server just started "
-                            "a few days ago. Team Concerned Coyotes will win it. No "
-                            "questions asked."),
-                "url": "#"
-            },
-            {
-                "title": "Coronavirus killed all Flat Earth Believers",
-                "content": ("The Coronavirus had a mutation which seems to target flat "
-                            "earth believers especially hard. Nearly all of them died."),
-                "url": "#"
-            }
-        ],
-        "todos": [
-            "Visit Doctor xyz",
-            "Buy a nice gift for my dog",
-            "Check out Django for the Code Jam"
-        ],
-    }
+            "title": wikipedia_article.title,
+            "content": wikipedia_article.content,
+            "url": wikipedia_article.url
+        }
+    })
+
+    # News articles
+    news_articles = Article.objects.order_by("-published_at")[:3]
+    context["news_articles"] = []
+    for article in news_articles:
+        context["news_articles"].append({
+            "title": article.title,
+            "source": article.source,
+            "author": article.author,
+            "description": article.description,
+            "content": article.content,
+            "url": article.url
+        })
+
+    # Todos
+    todos = TodoEntry.objects.filter(user=user).all()
+    context["todos"] = [todo.name for todo in todos]
 
     return render(request=request,
                   template_name='dashboard.html',
