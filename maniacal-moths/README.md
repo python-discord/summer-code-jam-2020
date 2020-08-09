@@ -31,7 +31,7 @@ After cloning the repository, open your anaconda terminal and navigate to the ro
 Then open a browser and head to [http://127.0.0.1:8000/about](http://127.0.0.1:8000/about)
 
 ##### Sidenote
-For the judges/reviewers/people who are going to use the app, please read Sidenotes.md before using the app.
+For the judges/reviewers/people who are going to use the app, please read Sidenotes.md before proceeding.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
