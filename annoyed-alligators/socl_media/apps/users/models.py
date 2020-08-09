@@ -17,6 +17,8 @@ class Profile(models.Model):
     bio = models.TextField(default="I'm using SoCL Media!", max_length=280,
                            blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
+    first_name = models.CharField(max_length=20, null=True, blank=True)
+    last_name = models.CharField(max_length=20, null=True, blank=True)
 
     GENDER_CHOICES = (
         ('F', 'Female',),
