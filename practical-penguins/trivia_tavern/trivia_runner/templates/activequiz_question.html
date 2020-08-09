@@ -57,7 +57,9 @@
       Next question in <span id="time"></span>
     </div>
     <div class="row justify-content-end">
-        <button type="submit" class="stamp is-draft" value="pause-timer" id="pause-timer">Pause Timer</button>
+        {% if request.user == active_trivia_quiz.session_master %}
+            <button type="submit" class="stamp is-draft" value="pause-timer" id="pause-timer">Pause Timer</button>
+        {% endif %}
         {% include "trivia_next_step_btn.html" %}
     </div>
 </div>
