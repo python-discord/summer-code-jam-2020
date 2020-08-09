@@ -18,9 +18,9 @@ Blast off to the past and surf the web 90s style! With SpydirWeb, you can browse
 
 # Table of Contents
   * [Overview](#overview)
+  * [License](#license)
   * [Installation](#installation)
   * [Authors](#Authors)
-  * [License](#license)
 
 # Overview
 
@@ -41,27 +41,7 @@ The text in the blog and business pages may take a while to load, as they are ge
 And thats it. Have fun browsing!
 
 ![](readme/blogdone.png)
-
-# Installation
-
-For the judges, please check the `#talented-tigers` channel on the discord server.
-Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
-
-For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [their website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with only 
-```
-API_KEY=your_key_here
-```
-written inside of it.
-<!--- 
-Add this with your information as a bullet:
-
-### FIRST LAST &nbsp; [<i class="fab fa-github"></i> (GH-NAME)](https://github.com/GH-NAME) &nbsp; [<i class="fab fa-discord"></i> (DISCORD-TAG)](https://discordapp.com/channels/@me/DISCORD-USER-ID/)
--->
-# Authors
-Talented Tigers Is..
-* ### Nathan Coulas  &nbsp; [<i class="fab fa-github"></i> (thaniel-c)](https://github.com/thaniel-c) &nbsp; [<i class="fab fa-discord"></i> (thaniel#3631)](https://discordapp.com/channels/@me/703922100112457778/)
-* 
-
+ 
 # License
 MIT License
 
@@ -85,7 +65,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
----
+# Installation
+
+For the judges, please check the `#talented-tigers` channel on the discord server.
+Copy and paste the text block we sent into a file called `.env` in the `talented-tigers` directory.
+
+For non-judges you'll need your own API key for Pixabay, which SpydirWeb use for collecting images. Go to [their website](https://pixabay.com/api/docs/) to get a key and then make a new file called `.env` with only 
+```
+API_KEY=your_key_here
+```
+written inside of it.
+<!--- 
+Add this with your information as a bullet:
+
+### FIRST LAST &nbsp; [<i class="fab fa-github"></i> (GH-NAME)](https://github.com/GH-NAME) &nbsp; [<i class="fab fa-discord"></i> (DISCORD-TAG)](https://discordapp.com/channels/@me/DISCORD-USER-ID/)
+-->
+# Authors
+Talented Tigers Is..
+* ### Nathan Coulas  &nbsp; [<i class="fab fa-github"></i> (thaniel-c)](https://github.com/thaniel-c) &nbsp; [<i class="fab fa-discord"></i> (thaniel#3631)](https://discordapp.com/channels/@me/703922100112457778/)
+* ### Sloopoo  &nbsp; [<i class="fab fa-github"></i> (flextian)](https://github.com/flextian)
 
 <p align="center">
 <a href="#" >
