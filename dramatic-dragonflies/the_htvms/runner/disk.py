@@ -1,6 +1,5 @@
 import os
 import secrets
-from shutil import rmtree
 from subprocess import run
 
 from the_htvms.runner.constants import DISK_PATH, DISK_ROM_SIZE, DISK_BLANK_SIZE, DISK_STAGING_PATH, DISK_ROM_PATH
@@ -67,7 +66,7 @@ def delete_disk(id_: str) -> bool:
     True is returned on success.
     """
     try:
-        rmtree(f'{DISK_PATH}/{id_}')
+        os.remove(f'{DISK_PATH}/{id_}')
     except:  # rmtree doesn't define which exception it can raise ¯\_(ツ)_/¯
         return False
     return True
