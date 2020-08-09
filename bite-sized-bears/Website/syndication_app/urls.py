@@ -10,7 +10,7 @@ from .views import IndexListView, PostView, LoginView, logout_request, SignupVie
 
 urlpatterns = [
     path('', IndexListView.as_view()),
-    path('home', HomeListView.as_view()),
+    url(r'^home', HomeListView.as_view(), name="home"),
     path('rss/feed/community/<str:username>', LatestEntriesFeed()),
     path('community/<str:community_name>/<int:post_id>/comment', add_comment),
     re_path(r'^community/(?P<community_name>[-\w_]+)/(?P<post_id>[0-9]+)/', PostView.as_view()),
@@ -20,11 +20,10 @@ urlpatterns = [
     url(r'^logout', logout_request, name="logout"),
     url(r'^signup', SignupView.as_view(), name="signup"),
     url(r'^top-communities', CommunityListView.as_view(), name="top-communities"),
-    url('my-communities/', MyCommunityListView.as_view(),
-        name="my-communities"),
+    url(r'^my-communities', MyCommunityListView.as_view(), name="my-communities"),
     path('user/<int:pk>', UserProfileUpdate.as_view(), name="user-profile"),
     path('user/<str:username>/posts', UserView.as_view()),
-    path('most-viewed-posts/', MostViewedPost.as_view()),
+    url(r'^most-viewed-posts', MostViewedPost.as_view(), name="most-viewed"),
 
 ]
 

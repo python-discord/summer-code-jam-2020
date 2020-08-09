@@ -2,16 +2,16 @@
 
 {% block content %}
   <div class="col-lg-9">
-      <div class="posts"><h3><b>Most Viewed Posts</b></h3></div>
-      {% for post in posts %}
-        <div class="posts">
+      <div class="community-bar"><h3>Most Viewed posts</h3></div>
+        {% for post in object_list %}
+          <div class="posts">
             <a href="/community/{{post.publisher}}"><b>c/{{post.publisher}}</b></a>
             <p>submitted on {{post.creation_date}} has {{post.views.count}} views</p>
             <a href="/community/{{post.publisher}}/{{post.id}}"><h3>{{post.title}}</h3></a>
-            <p>{{post.description}}</p>
-        </div>
-      {% endfor %}
-      <div class="pagination">
+            <p>{{post.get_short_intro}}</p>
+          </div>
+        {% endfor %}
+    <div class="pagination">
         <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -27,6 +27,6 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
         </span>
-     </div>
-  </div>
+`   </div>
+    </div>
 {% endblock %}

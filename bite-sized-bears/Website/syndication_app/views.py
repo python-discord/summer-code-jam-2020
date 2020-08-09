@@ -144,12 +144,9 @@ class UserView(View):
 
 class MostViewedPost(ListView):
     template_name = 'most-viewed.html'
-    model = Post
-    context = {}
     paginate_by = 25
-    def get(self, request):
-        self.context['posts'] = self.model.objects.annotate(v_count = Count('views')).order_by('-v_count')
-        return render(request, self.template_name, self.context)
+    queryset = Post.objects.annotate(v_count = Count('views')).order_by('-v_count')
+
 
 
 class CommunityListView(ListView):
@@ -163,6 +160,7 @@ class CommunityListView(ListView):
 class MyCommunityListView(ListView):
     template_name = 'my-communities.html'
     paginate_by = 25
+
     def get_queryset(self):
         queryset = Community.objects.filter(subscribers__name=self.request.user.get_username())
         return queryset
