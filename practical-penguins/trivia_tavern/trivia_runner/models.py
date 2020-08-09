@@ -6,7 +6,7 @@ from django.db import models
 from django.utils import timezone
 
 from trivia_builder.models import TriviaQuiz, TriviaQuestion
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Player(models.Model):
     team_name = models.CharField(max_length=24, default='')
@@ -24,8 +24,6 @@ class Player(models.Model):
             else:
                 answers += f'Question {i}: your answer: {answer.value} ' \
                            f'does not match {answer.question.question_answer}\n'
-        if len(answers) == 0:
-            answers = "hmmm something went wrong you didn\'t have any answers"
         return answers
 
     def __str__(self):
@@ -61,3 +59,6 @@ class ActiveTriviaQuiz(models.Model):
                 f'q#:{self.current_question_index} '
                 f' players:{self.players.count()}'
                 )
+
+class PhoneNumber(models.Model):
+    phone_number = PhoneNumberField()

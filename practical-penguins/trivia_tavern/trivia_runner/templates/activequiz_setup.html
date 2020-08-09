@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 {% load settings_tag %}
 
 <div class="parchment-border">
@@ -16,8 +17,8 @@
     <div class="row">
         <form method="post" >
             {% csrf_token %}
-            <input type="text" alt="not yet implemented"/>
-            <input type="submit" class="stamp is-approved2" value="invite player"/>
+            {{ form|crispy }}
+            <input type="submit" class="stamp is-approved2" value="invite-player"/>
         </form>
         {% include "trivia_next_step_btn.html" %}
     </div>

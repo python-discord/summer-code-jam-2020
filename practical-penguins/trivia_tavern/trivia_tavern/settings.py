@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'twilio_messenger.apps.TwilioMessengerConfig',
     'crispy_forms',
     'jquery',
+    'phonenumber_field',
     'djangoformsetjs',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -10,8 +10,11 @@ This django web application allows people to create and organize trivia events. 
 
 ## how to use
 
-We are hosting our own app publicly for a limited time at <URL>, but you can easily host this run
-this server at home without having to pay for your own server hosting costs.
+We are hosting our app publicly for a limited time at this development URL:
+https://a95e3eb77ce9.ngrok.io
+
+But you can easily host this run this server at home without having to pay for your own server
+hosting costs.
 
 Scroll down for instructions on this
 
@@ -123,7 +126,7 @@ see [Twilio documentation](https://www.twilio.com/docs) for more details.
 - Add Timer functionality - During a quiz the quiz master can add additional time to a question or pause the timer
 - Dynamically see who has answered the question/signed up for the quiz - requires javascript knowledge that requires
 time to learn
-- Allow sessino master to automatically invite their friends by adding their number manually during session setup
+- Allow session master to automatically invite their friends by adding their number manually during session setup
 - save stats of players to their profile (e.g. how many wins, what they recently participated in, etc.)
 - expand this app to not only do quizzes but other text based games, some ideas:
     - choose your own adventure through text message
