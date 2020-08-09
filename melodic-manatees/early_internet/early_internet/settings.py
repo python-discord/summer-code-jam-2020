@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'background_app.apps.BackgroundConfig',
     'users.apps.UsersConfig',
-    'multitab.apps.MultitabConfig'
+    'multitab.apps.MultitabConfig',
     'news.apps.NewsConfig',
     'diary.apps.DiaryConfig',
 ]
