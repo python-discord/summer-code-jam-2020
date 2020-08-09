@@ -28,6 +28,8 @@ class GameView(View):
         scores = HighScore.objects.order_by("score")
         score_list = []
         i = len(scores)
+        if i > 10:
+            i = 10
         while i > 0:
             s = scores[i - 1]
             score_list.append([s.initials, s.score])
