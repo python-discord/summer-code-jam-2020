@@ -61,6 +61,11 @@ summary{
     margin-right: 0.5rem;
 }
 
+.mx-2{
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+}
+
 .popup{
     z-index: 3;
     display: none;

@@ -26,6 +26,7 @@ class FileGroup(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    password = models.CharField(max_length=64)
     description = models.CharField(max_length=1024, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     members = models.ManyToManyField(User, through='Member')

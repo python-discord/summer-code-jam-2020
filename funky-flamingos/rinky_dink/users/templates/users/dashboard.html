@@ -12,13 +12,17 @@
       
         <ul class="tree-view">
           {% if not teams %}
-            <span>You haven't joined any team yet. <a href="{% url 'teamregister' %}"><b>Create One?</b></a></span>
+            <span>You haven't joined any team yet.</span>
           {% else %}
             {% for team in teams %}
               <li>{{ team.team.name }}</li>
             {% endfor %}
           {% endif %}
         </ul>
+        <div class="btn-row">
+          <div><a href="{% url 'teamjoin' %}"><button class="btn-my-1">Join team</button></a></div>
+          <div><a href="{% url 'teamregister' %}"><button class="btn-my-1">Create team</button></a></div>
+        </div>
       <br />
       <span>Recently uploaded files:</span>
       <ul class="tree-view" style="font-size:12px">
@@ -48,7 +52,7 @@
         {% endif %}
       </ul>
     </div>
-    <div class="btn-row">
+    <div class="btn-row mx-2">
       <div><a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a></div>
       <div><a href="{% url 'upload' %}"><button class="btn-my-1">Upload a file</button></a></div>
     </div>
