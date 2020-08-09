@@ -53,9 +53,9 @@ class ChatConsumer(WebsocketConsumer):
                 user_two = other_user
 
             try:
-                convo = Conversation.objects.get(user_one=user_one, user_two=user_two)
+                Conversation.objects.get(user_one=user_one, user_two=user_two)
             except Conversation.DoesNotExist:
-                convo = Conversation.objects.create(user_one=user_one, user_two=user_two)
+                Conversation.objects.create(user_one=user_one, user_two=user_two)
             
             data['data']['from'] = self.user.id
             data['data']['to'] = other_user.id
