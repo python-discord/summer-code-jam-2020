@@ -14,12 +14,12 @@ By a bunch of Annoyed Alligators
 </div>
 
 ## :ledger: Index
-- [About](#about)
-- [Setup](#setup)
-- [Usage](#usage)
+- [About](#beginner-about)
+- [Setup](#electric_plug-development-setup)
+- [Usage](#zap-usage)
   - [Commands](#commands)
-- [File Structure](#file-structure)
-- [License](#license)
+- [File Structure](#file_folder-file-structure)
+- [License](#lock-license)
 
 
 ## :beginner: About
