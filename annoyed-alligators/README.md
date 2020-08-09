@@ -27,8 +27,7 @@ Command Line Interfaces are one of the oldest Human-Computer interaction methods
 So, what if some crazy ~~lonely~~ dude had this idea of making what we now call "Social Media" back then?
 Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the web pages! So here's a **SoCL Media**.
 
-
--------------------- SCREENSHOT HERE
+![Screenshot from 2020-08-09 22-00-43](https://user-images.githubusercontent.com/20405311/89737039-a44c6200-da8b-11ea-8f8d-7cce798e6cbf.png)
 
 ## :electric_plug: Development Setup
 1. Clone this repository by running `git clone https://github.com/akshgpt7/summer-code-jam-2020`.
