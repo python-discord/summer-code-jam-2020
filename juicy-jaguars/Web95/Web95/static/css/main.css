@@ -41,6 +41,7 @@ body {
     transform: rotate(180deg); /*POTBUG*/
     -moz-transform: rotate(180deg);
     writing-mode: vertical-rl;
+    -webkit-writing-mode: vertical-rl;
     width: 45px;
     height: 100%;
     background-color: #7f817e;
