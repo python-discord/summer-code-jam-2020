@@ -22,7 +22,11 @@ def get_messages(request):
                 class_name = "self"
             else:
                 class_name = "other"
-            return_val["messages"].append({ "class_name": class_name, "content": message.message })
+            return_val["messages"].append({
+                "class_name": class_name,
+                "content": message.message,
+                "username": message.sender.username
+            })
 
         return JsonResponse(return_val)
     raise Http404("Page not found")
@@ -49,7 +53,11 @@ def send_message(request):
                 class_name = "self"
             else:
                 class_name = "other"
-            return_val["messages"].append({ "class_name": class_name, "content": message.message })
+            return_val["messages"].append({
+                "class_name": class_name,
+                "content": message.message,
+                "username": message.sender.username
+            })
 
         return JsonResponse(return_val)
     raise Http404("Page not found")

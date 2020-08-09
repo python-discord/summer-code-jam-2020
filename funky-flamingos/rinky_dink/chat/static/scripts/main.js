@@ -88,6 +88,7 @@ $(".chat-input input").keypress(e => {
                     let message = result.messages[i]
                     $("#messages").append("<div class=\"message " + message.class_name + "\"></div>");
                     $(".message:last-child").text(message.content);
+                    console.log(message.username);
                 }
             }
         });
