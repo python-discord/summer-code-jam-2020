@@ -16,9 +16,7 @@ import os
 DISCORD_CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
 DISCORD_CLIENT_SECRET = os.getenv("DISCORD_CLIENT_SECRET")
 SECRET_KEY = os.getenv("SECRET_KEY")
-SECRET_KEY = "l(#6-5+d*w0zis_adroah2u_+^56e&_go$el!&a+&18!bcilm+"
-DISCORD_CLIENT_ID = 739270907306180659
-DISCORD_CLIENT_SECRET = "sS4161QABYmDEj0X_d4E8bXlXiyi8cMb"
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
