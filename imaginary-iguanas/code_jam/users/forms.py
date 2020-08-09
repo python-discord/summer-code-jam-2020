@@ -47,12 +47,16 @@ class UserPasswordUpdateForm(_PasswordChangeForm):
 
 
 class ProfileCreateForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+
     class Meta:
         model = _Profile
         fields = ['image', 'gender', 'country', 'city', 'date_of_birth']
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    date_of_birth = forms.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+
     class Meta:
         model = _Profile
         fields = ['image', 'gender', 'country', 'city', 'date_of_birth', 'audio_track', 'profile_css']
