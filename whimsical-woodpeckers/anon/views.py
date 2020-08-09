@@ -1,11 +1,12 @@
 import datetime
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from anon.models import AnonUser
 import random
 import string
 from django.utils import timezone
 # Create your views here.
+
 
 def random_string(length):
     i = 0
@@ -21,6 +22,7 @@ def get_user(user_id):
         return AnonUser.objects.get(id=user_id)
     except AnonUser.DoesNotExist:
         return None
+
 
 def test(request):
     print(request.user)

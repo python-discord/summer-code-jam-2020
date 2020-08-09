@@ -1,12 +1,12 @@
-from django.conf import settings
+# from django.conf import settings
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from anon.models import AnonUser
 from anon.views import random_string
 import datetime
 
 
-class AnonBackend(ModelBackend):    
+class AnonBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None):
         id = request.session.get("ID")
         if not id:
