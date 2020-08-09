@@ -1,6 +1,7 @@
 import pycountry
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxLengthValidator
 
 from .validators import valid_age_validator
 
@@ -22,7 +23,7 @@ class Profile(models.Model):
     city = models.CharField(blank=True, max_length=50)
     date_of_birth = models.DateField(validators=[valid_age_validator])
     audio_track = models.FileField(null=True, blank=True, upload_to='profile_audio')
-    profile_css = models.CharField(null=True, blank=True, max_length=10_000)
+    profile_css = models.TextField(blank=True, max_length=10_000, validators=[MaxLengthValidator(10_000)])
 
     def __str__(self):
         return f'{self.user.username}\'s profile'
