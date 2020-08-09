@@ -12,7 +12,7 @@ export class BoardsService {
 
   constructor(private http: HttpClient) {
   }
-  private appUrl='http://127.0.0.1:8000/nchan/boards/';
+  private appUrl='http://127.0.0.1:80/nchan/boards/';
 
   getBoards(): Observable<BoardsContext> {
     return this.http.get<BoardsContext>(`${this.appUrl}?format=json`);
