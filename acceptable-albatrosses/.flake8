@@ -3,3 +3,4 @@ max-line-length = 119
 max-complexity = 10
 ignore = E203, E231, W503
 select = C, E, F, W, DJ, DJ10
+exclude = migrations
