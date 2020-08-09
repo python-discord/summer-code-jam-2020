@@ -23,6 +23,9 @@
 
             chatSocket.onmessage = function (e) {
                 const { username, text, connected } = JSON.parse(e.data);
+                if (document.querySelector(`#active-${currUsername}`) === null) {
+                    document.querySelector("#active-users-list").innerHTML += `<div id="active-${currUsername}">${currUsername}</div>`;
+                }
                 if (connected === true && username !== currUsername) {
                     document.querySelector("#active-users-list").innerHTML += `<div id="active-${username}">${username}</div>`;
                 } else if (connected === false && username !== currUsername) {
