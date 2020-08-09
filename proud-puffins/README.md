@@ -44,9 +44,11 @@ We be Puffins, and we be proud!
 - If you have just registered and logged in, you will be asked to fill in the profile details.
 - Now you can start matching by clicking on 'Match Me' in your profile page.
 - Once in, you can like or unlike profiles. To move on to the next one, press 'Next profile' button.
-- If the other person likes you too, they will appear on your 'mymatches' page (link present in your profiles page) and their email will shared to you.
+- If the other person likes you too, they will appear on your 'mymatches' page (link present in your profiles page) and their email will be shared with you.
 - You can see the profiles you've liked in the 'My Likes' page (link present in your profiles page).
 
+### Note:
+You may receive lint errors saying ```earlydating.signals was imported but not used in app.py```. Despite those errors we needed it be like that for the working of post_save signals.
 
 ## [MIT license](../LICENSE)
 
