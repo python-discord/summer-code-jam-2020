@@ -94,25 +94,18 @@ def page(request, url):
             url += "?"+("&".join(params))
 
         if request.method == "GET":
-            req = requests.get(url,
-                               params={'User-Agent':
-                                       request.META["HTTP_USER_AGENT"]})
+            req = requests.get(url, params={'User-Agent': request.META["HTTP_USER_AGENT"]})
         elif request.method == "POST":
-            req = requests.post(url,
-                                data=request.POST,
-                                params={'User-Agent':
-                                        request.META["HTTP_USER_AGENT"]})
+            req = requests.post(url, data=request.POST, params={'User-Agent': request.META["HTTP_USER_AGENT"]})
 
-        if req.headers["content-type"].split("/")[0] in \
-           ["text", "application"]:
+        if req.headers["content-type"].split("/")[0] in ["text", "application"]:
             content = req.text
 
             if req.headers["content-type"].split(";")[0] == "text/html":
                 parser = HtmlParser(content, url, request)
                 parser.parse()
 
-                content = "<!-- Yep, this got parsed! -->\n" + \
-                    parser.soup.prettify()
+                content = "<!-- Yep, this got parsed! -->\n" + parser.soup.prettify()
 
             resp = render(request, "Web95/blank.html", {"content": content})
             resp["content-type"] = req.headers["content-type"]
@@ -128,8 +121,7 @@ def page(request, url):
             if "svg" in \
                req.headers["content-type"].split(";")[0].split("/")[1]:
                 img = req.text
-                resp = \
-                    render(request, "Web95/blank.html", {"content": img})
+                resp = render(request, "Web95/blank.html", {"content": img})
                 resp["content-type"] = req.headers["content-type"]
 
             else:
@@ -142,19 +134,11 @@ def page(request, url):
                         f_ext = "png"
 
                     resize_factor = 3
-                    img = img.resize(list(map(lambda x: floor(x/resize_factor),
-                                              img.size)),
-                                     resample=Image.NEAREST)
-                    img = img.resize(list(map(lambda x: floor(x*resize_factor),
-                                              img.size)),
-                                     resample=Image.NEAREST)
-
+                    img = img.resize(list(map(lambda x: floor(x/resize_factor), img.size)), resample=Image.NEAREST)
+                    img = img.resize(list(map(lambda x: floor(x*resize_factor), img.size)), resample=Image.NEAREST)
                     img.save(response, f_ext)
                 except UnidentifiedImageError:
-                    print("\u001b[34mImage processing failed!. Type was",
-                          req.headers["content-type"],
-                          "\u001b[0m")
-
+                    print("\u001b[34mImage processing failed!. Type was", req.headers["content-type"], "\u001b[0m")
                     return HttpResponseNotFound()
 
             return response

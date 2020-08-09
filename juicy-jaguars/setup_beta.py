@@ -17,8 +17,7 @@ def install(Verbose=False):
 
     print("Cloning Repository...", color="Orange1")
     result = subprocess.call(["git", "clone",
-                              "https://github.com/Juicy-Jaguars/\
-summer-code-jam-2020"], stdout=stdout, stderr=stderr)
+                              "https://github.com/Juicy-Jaguars/summer-code-jam-2020"], stdout=stdout, stderr=stderr)
     os.chdir("summer-code-jam-2020/juicy-jaguars")
 
     if result != 0:
@@ -28,8 +27,7 @@ summer-code-jam-2020"], stdout=stdout, stderr=stderr)
     print("Repository successfully cloned.", color="Green")
     print()
     print("Installing dependencies...", color="Orange1")
-    result = subprocess.call(["pip3", "install", "-r", "requirements.txt"],
-                             stdout=stdout)
+    result = subprocess.call(["pip3", "install", "-r", "requirements.txt"], stdout=stdout)
 
     if result != 0:
         print("Error installing Dependencies. Exiting...", color="Red")
@@ -38,9 +36,7 @@ summer-code-jam-2020"], stdout=stdout, stderr=stderr)
     print("Dependencies successfully installed.", color="Green")
     print()
     print("Making migrations...", color="Orange1")
-    result = subprocess.call(["python",
-                              os.path.join("Web95", "manage.py"),
-                              "migrate"], stdout=stdout)
+    result = subprocess.call(["python", os.path.join("Web95", "manage.py"), "migrate"], stdout=stdout)
 
     if result != 0:
         print("Error making migrations. Exiting...", color="Red")
@@ -48,8 +44,8 @@ summer-code-jam-2020"], stdout=stdout, stderr=stderr)
 
     print("Made migrations successfully.", color="Green")
     print()
-    print("Successfully installed. Run with 'python Web95/manage.py\
- runserver' from summer-code-jam-2020/juicy-jaguars/", color="LightGreen")
+    print("Successfully installed. Run with 'python Web95/manage.py runserver' from summer-code-jam-2020/\
+        juicy-jaguars/", color="LightGreen")
 
 
 if __name__ == "__main__":
@@ -64,8 +60,6 @@ if __name__ == "__main__":
             except IndexError:
                 install()
         else:
-            print("Incorrect usage of ", os.path.basename(__file__), "! (2)",
-                  file=sys.stderr, sep="", color="Red")
+            print("Incorrect usage of ", os.path.basename(__file__), "! (2)", file=sys.stderr, sep="", color="Red")
     except IndexError:
-        print("Incorrect usage of ", os.path.basename(__file__), "! (1)",
-              file=sys.stderr, sep="", color="Red")
+        print("Incorrect usage of ", os.path.basename(__file__), "! (1)", file=sys.stderr, sep="", color="Red")

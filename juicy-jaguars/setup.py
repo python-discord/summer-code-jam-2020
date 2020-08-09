@@ -7,8 +7,7 @@ import subprocess
 def supports_color():
     """Check if system supports ANSI colour."""
     plat = sys.platform
-    supported_platform = plat != 'Pocket PC' and (plat != 'win32' or
-                                                  'ANSICON' in os.environ)
+    supported_platform = plat != 'Pocket PC' and (plat != 'win32' or 'ANSICON' in os.environ)
     is_a_tty = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
     return supported_platform and is_a_tty
 
@@ -24,9 +23,7 @@ def install(color=False):
         green, yellow, red, reset = "", "", "", ""
 
     print(yellow+"Cloning Repository..."+reset)
-    result = subprocess.call(["git", "clone",
-                              "https://github.com/Juicy-Jaguars/\
-summer-code-jam-2020"])
+    result = subprocess.call(["git", "clone", "https://github.com/Juicy-Jaguars/summer-code-jam-2020"])
     os.chdir("summer-code-jam-2020/juicy-jaguars")
 
     if result != 0:
@@ -45,9 +42,7 @@ summer-code-jam-2020"])
     print(green+"Dependencies successfully installed."+reset)
     print()
     print(yellow+"Making migrations..."+reset)
-    result = subprocess.call(["python",
-                              os.path.join("Web95", "manage.py"),
-                              "migrate"])
+    result = subprocess.call(["python", os.path.join("Web95", "manage.py"), "migrate"])
 
     if result != 0:
         print(red+"Error making migrations. Exiting...")
@@ -55,8 +50,8 @@ summer-code-jam-2020"])
 
     print(green+"Made migrations successfully."+reset)
     print()
-    print(green+"Successfully installed. Run with 'python Web95/manage.py\
- runserver' from summer-code-jam-2020/juicy-jaguars/"+reset)
+    print(green+"Successfully installed. Run with 'python Web95/manage.py runserver' from summer-code-jam-2020/\
+        juicy-jaguars/"+reset)
 
 
 if __name__ == "__main__":

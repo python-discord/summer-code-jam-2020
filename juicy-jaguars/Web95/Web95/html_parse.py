@@ -1,6 +1,6 @@
 """Module used to parse HTML pages."""
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # Used for parsing HTML code
 import re
 import urllib.parse
 
@@ -39,19 +39,21 @@ class HtmlParser:
             pass
 
     def parse_font(self):
-        """Change fonts on site to Arial."""
+        """Change fonts on site to Arial.
+
+        Fonts are changed to Arial accross any visited sites to make websites
+        seem bland and uncreative
+        """
         try:
             head = self.soup.head
             head.append(self.soup.new_tag('style', type='text/css'))
-
             head.style.append("""@font-face {{
-    font-family: "Windows 95";
-    src: url('{}/static/fonts/w-95-sans-serif.woff2') format('woff2'),
-         url('{}/static/fonts/w-95-sans-serif.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}}""".format("http://"+self.request.META["HTTP_HOST"],
-             "http://"+self.request.META["HTTP_HOST"]))
+                font-family: "Windows 95";
+                src: url('{}/static/fonts/w-95-sans-serif.woff2') format('woff2'),
+                url('{}/static/fonts/w-95-sans-serif.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+                }}""".format("http://"+self.request.META["HTTP_HOST"], "http://"+self.request.META["HTTP_HOST"]))
         except KeyError:
             pass
         except AttributeError:
@@ -59,33 +61,27 @@ class HtmlParser:
 
         for element in self.soup.find_all(re.compile(".*")):
             try:
-                element["style"] = "font-family: 'Windows 95', Arial, \
-    sans-serif !important;" + element["style"]
+                element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;" + element["style"]
             except KeyError:
-                element["style"] = "font-family: 'Windows 95', Arial, \
-    sans-serif !important;"
+                element["style"] = "font-family: 'Windows 95', Arial, sans-serif !important;"
 
     def parse_derounder(self):
         """Make rounded borders square."""
         for element in self.soup.find_all(re.compile(".*")):
             try:
-                element["style"] = "border-radius: 0px !important; " + \
-                                   element["style"]
+                element["style"] = "border-radius: 0px !important; " + element["style"]
             except KeyError:
                 element["style"] = "border-radius: 0px !important; "
 
     def parse_links(self):
         """Parse all links in document."""
-        link_attrs = ["src", "href", "action", "data", "background",
-                      "formaction", "icon"]
+        link_attrs = ["src", "href", "action", "data", "background", "formaction", "icon"]
 
         for element in self.soup.find_all(re.compile(".*")):
             for name, val in element.attrs.items():
                 if name in link_attrs:
                     if ":" not in val:
-                        element[name] = "/page/" + \
-                          urllib.parse.quote(self.link_parent(self.basedir)
-                                             + val)
+                        element[name] = "/page/" + urllib.parse.quote(self.link_parent(self.basedir) + val)
 
                 elif name == "srcset":
                     values = list(map(lambda x: x.split(" "), val.split(",")))
@@ -94,20 +90,15 @@ class HtmlParser:
                     print(values)
                     for x in values:
                         if ":" not in x[0]:
-                            x[0] = urllib.parse.quote(
-                             self.link_parent(self.basedir) + x[0])
+                            x[0] = urllib.parse.quote(self.link_parent(self.basedir) + x[0])
                         try:
                             new_values.append([x[0], " ".join(x[1:])])
                         except IndexError:
                             new_values.append([x[0], ""])
 
-                    print((",".join(list(map(lambda x: "/" +
-                                                       (" ".join(x)),
-                                                       new_values)))))
+                    print((",".join(list(map(lambda x: "/" + (" ".join(x)), new_values)))))
 
-                    element[name] = (",".join(list(map(lambda x: "/" +
-                                                       (" ".join(x)),
-                                                       new_values))))
+                    element[name] = (",".join(list(map(lambda x: "/" + (" ".join(x)), new_values))))
 
     def remove_blanks(self, x):
         """Remove blank strings from x."""
