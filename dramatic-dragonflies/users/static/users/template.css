@@ -1,14 +1,17 @@
 body {
-	background-image: url('matrix-size_restricted.gif');
-  background-repeat: no-repeat;
-  background-size: 100vw 100vh;
+	background-color: #208c71;
 }
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: #CCC;
+  border-width: 3px;
+  border-style: none none inset inset;
+  border-color: #111;
+
+
 }
 
 li {
@@ -21,11 +24,14 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  border-width: 3px;
+  border-style: outset;
+  background: #CCC;
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #111;
+  background-color: aquamarine;
 }
 input[type=text], select {
   width: 100%;
@@ -64,7 +70,6 @@ input[type=submit]:hover {
 .disk-container {
   display: grid;
   grid-template-columns: 1fr 0.5fr 0.5fr;
-  grid-template-rows: repeat(3, 1fr);
   place-items:center;
 }
 .disk-container img {
@@ -73,12 +78,7 @@ input[type=submit]:hover {
 	left: 50px;
 }
 
-.disk-item1 {
-  grid-column-start: 1;
-  grid-column-end: 1;
-  grid-row-start: 1;
-  grid-row-end: 1;
-}
+
 .login-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -93,14 +93,16 @@ input[type=submit]:hover {
 	position: absolute;
 	display: inline-block;
 	color: black;
-	background: aquamarine;
-	width: 85vw ;
-	left: 5vw;
-	height: inherit; ;
+	left: 0.5vw;
+  right: 0.5vw;
+	height: inherit;
 	top: 10vh;
 	max-width: 100%;
 	overflow: auto;
-
+  border-width: 3px;
+  border-style: outset inset inset outset;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  background: #CCC;
 
 }
 #cwindow {
@@ -117,7 +119,6 @@ input[type=submit]:hover {
 .maintext {
 	font-size: 30px;
 	font-family: sans-serif;
-	font-variant: "Helvetica";
 }
 
 .active {

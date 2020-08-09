@@ -10,7 +10,7 @@ def assign_floppy_to_vm(sender: Floppy, instance: Floppy, **kwargs: dict) -> Non
     The VM model has two ArrayFields that stores floppy ids, and names, this
     signal will actually assign the Floppies to the VMs
     """
-    if 'created' in kwargs:
+    if kwargs.get('created', False) is not False:
         instance.vm.floppy_disks_id.append(instance.storage_id)
         instance.vm.floppy_disks_name.append(instance.name)
         instance.vm.save()
@@ -24,10 +24,10 @@ def create_floppy_on_vm_creation(sender: VMachine, instance: VMachine, **kwargs:
     That function creates a root floppy on VM creation
     Then django will automatically call the assign_floppy_to_vm signal
     """
-    if 'created' in kwargs:
+    if kwargs.get('created', False) is not False:
         # Creates a floppy, and assign an ID.
         floppy = Floppy(name=f"Root Floppy for {instance.name}", user=instance.user,
-                        vm=instance, storage_id=create_disk(type_="rom"))
+                        vm=instance, storage_id=create_disk(type_='rom'))
         floppy.save()
 
 

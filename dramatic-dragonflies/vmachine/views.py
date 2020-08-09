@@ -35,7 +35,7 @@ def create_floppy(request: HttpRequest) -> HttpResponse:
             if vm.user == request.user:
                 form.instance.user = request.user
                 form.instance.vm = form.cleaned_data['VirtualMachine']
-                form.instance.storage_id = create_disk(type_="blank")
+                form.instance.storage_id = create_disk(type_='blank')
                 form.save()
             else:
                 return _disks_with_error(request, "This is not your VM!")
