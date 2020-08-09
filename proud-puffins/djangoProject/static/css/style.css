@@ -38,7 +38,7 @@ body, h1, h2, h3, h4, h5, h6 {
 .home_h1 {
     background-color: #003388;
     color: #f5dd5d;
-    height: 60px;
+    height: 70px;
     text-align: left;
     vertical-align: bottom;
     padding-top: 0.0em;
@@ -67,7 +67,7 @@ a:active {
 }
 
 html { 
-    background: url(/static/images/homebg.jpg) no-repeat center center fixed;
+    background: url(/static/images/homebg25.jpg) no-repeat center center fixed;
     background-repeat: repeat;
   }
 /* Create three unequal columns that floats next to each other */
