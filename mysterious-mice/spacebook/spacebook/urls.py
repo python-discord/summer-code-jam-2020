@@ -17,6 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+
+# from backoffice.admin import site
+
+# admin.site = site
+# admin.autodiscover()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,6 +32,7 @@ urlpatterns = [
     path("", include("guestbook.urls")),
     path("", include("welcome_page.urls")),
     path("", include("game.urls")),
+    # url(r"^admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:
