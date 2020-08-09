@@ -14,29 +14,21 @@ def index(request):
 def get_messages(request):
     messages = Messages.objects.all()
     if request.method == "POST":
+        return_val = {
+            "type": "messages",
+            "messages": [],
+        }
+
         for message in messages:
             print(message)
             print(message.message)
             if message.sender == request.user:
-                return JsonResponse(
-                    {
-                        "type": "messages",
-                        "messages": [
-                            {"class_name": "self", "content": message.message},
-                        ],
-                        "message": "test",
-                    }
-                )
+                class_name = "self"
             else:
-                return JsonResponse(
-                    {
-                        "type": "messages",
-                        "messages": [
-                            {"class_name": "other", "content": message.message},
-                        ],
-                        "message": "test",
-                    }
-                )
+                class_name = "other"
+            return_val["messages"].append({ "class_name": class_name, "content": message.message })
+
+        return JsonResponse(return_val)
     raise Http404("Page not found")
 
 
@@ -48,11 +40,20 @@ def send_message(request):
             print(message)
             message.save()
 
-        return JsonResponse(
-            {
-                "type": "messages",
-                "messages": [{"class_name": "self", "content": sent_message}],
-                "message": "test",
-            }
-        )
+        messages = Messages.objects.all()
+        return_val = {
+            "type": "messages",
+            "messages": [],
+        }
+
+        for message in messages:
+            print(message)
+            print(message.message)
+            if message.sender == request.user:
+                class_name = "self"
+            else:
+                class_name = "other"
+            return_val["messages"].append({ "class_name": class_name, "content": message.message })
+
+        return JsonResponse(return_val)
     raise Http404("Page not found")
