@@ -4,7 +4,7 @@
       <q-card v-for="site in citySites" :key="site.id">
         <q-card-section>
           <a :href="`http://localhost:1234/${city.slug}/${site.address}/index.html`">
-            {{ city.name + site.address }}
+            {{ `${city.name}/${site.address}` }}
           </a>
           <br/>
           <a :href="`/sites/${site.id}`">
