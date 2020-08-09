@@ -1,3 +1,5 @@
+from datetime import date
+
 import pycountry
 from django.db import models
 from django.contrib.auth.models import User
@@ -34,3 +36,6 @@ class Profile(models.Model):
             f'<Profile> {repr(self.user.username)} {repr(self.user.email)} {repr(self.image)} {repr(self.gender)} '
             f'{repr(self.country)} {repr(self.city)} {repr(self.date_of_birth)}, {repr(self.audio_track)}'
         )
+
+    def age(self):
+        return (date.today() - self.date_of_birth).days // 365
