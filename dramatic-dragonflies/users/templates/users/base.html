@@ -20,10 +20,10 @@
               <li style="float:right"><a href="{% url 'login' %}"  {% if request.resolver_match.url_name == "login" %}class="active"{% endif %}>Login</a></li>
               <li style="float:right"><a href="{% url 'register' %}"  {% if request.resolver_match.url_name == "register" %}class="active"{% endif %}>Register</a></li>
         {% endif %}
-    </ul> 
+    </ul>
   {% if messages %}
             {% for message in messages %}
-              <div class = "alert">  {{ message }} <div>
+              <div class = "alert">  {{ message }} </div>
             {% endfor %}
           {% endif %}
    {% block content%}{% endblock %}

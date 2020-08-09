@@ -11,7 +11,7 @@ ul {
   border-width: 3px;
   border-style: none none inset inset;
   border-color: #111;
-
+  display: block;
 
 }
 
@@ -96,13 +96,9 @@ input[type=submit]:hover {
 
 
 #main {
-  position: absolute;
-  display: inline-block;
+  display: block;
   color: black;
-  left: 0.5vw;
-  right: 0.5vw;
   height: inherit;
-  top: 10vh;
   max-width: 100%;
   overflow: auto;
   border-width: 3px;
@@ -110,6 +106,7 @@ input[type=submit]:hover {
   border-color: #FFFFFF #808080 #808080 #FFFFFF;
   background: #CCC;
   padding: 1em;
+  margin: 1em;
 
 }
 
@@ -151,6 +148,7 @@ input[type=submit]:hover {
   padding: 20px;
   background-color: white;
   color: black;
+  margin: 1em;
 }
 
 .xbutton {
