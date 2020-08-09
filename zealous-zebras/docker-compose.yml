@@ -1,0 +1,23 @@
+version: "3"
+services: 
+  frontend:
+    container_name: timescape-front
+    build:
+      context: .
+      dockerfile: front.Dockerfile
+    volumes:
+      - '/app/timescape/frontend/node_modules'
+    ports:
+      - 3000:3000
+    stdin_open: true
+    image: timescape-front:1.0
+    
+  backend:
+    container_name: timescape-back
+    build:
+      context: .
+      dockerfile: back.Dockerfile
+    ports:
+      - 8000:8000
+    image: timescape-back:1.0
+      
