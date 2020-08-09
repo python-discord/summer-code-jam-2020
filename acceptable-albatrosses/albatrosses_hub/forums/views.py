@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import (ListView, DetailView,
-                                  CreateView, UpdateView, DeleteView)
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin, UserPassesTestMixin)
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
@@ -15,11 +13,7 @@ def forumspage(request):
     Forums home page, displays all message boards, with information
     such as the total number of posts in each board.
     """
-    context = {
-        "boards": Board.objects.all(),
-        "login": request.user.is_authenticated,
-        "page": "forum"
-    }
+    context = {"boards": Board.objects.all(), "login": request.user.is_authenticated, "page": "forum"}
     return render(request, "forums/forum.html", context)
 
 
@@ -28,17 +22,18 @@ class PostListView(ListView):
     Main page for the message board, displays all posts in the message
     board.
     """
+
     model = Post
     paginate_by = 5
-    template_name = 'forums/board.html'
-    context_object_name = 'posts'
+    template_name = "forums/board.html"
+    context_object_name = "posts"
 
     def get_queryset(self):
         """
         Queries and return all posts from the same message board.
         """
-        self.board = get_object_or_404(Board, name=self.kwargs['board'])
-        return Post.objects.filter(board=self.board, comment__isnull=True).order_by('-created_at')
+        self.board = get_object_or_404(Board, name=self.kwargs["board"])
+        return Post.objects.filter(board=self.board, comment__isnull=True).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         """
@@ -56,6 +51,7 @@ class PostDetailView(DetailView):
     """
     View of a single post and all the comments on the posts.
     """
+
     model = Post
     paginate_by = 5
 
@@ -76,16 +72,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     """
     View of page when creating posts.
     """
+
     model = Post
-    fields = ['subject', 'message']
+    fields = ["subject", "message"]
 
     def form_valid(self, form):
         """
         Fills in fields not queried from user.
         """
         form.instance.created_by = self.request.user
-        form.instance.board_id = get_object_or_404(
-            Board, name=self.kwargs['board']).id
+        form.instance.board_id = get_object_or_404(Board, name=self.kwargs["board"]).id
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -103,8 +99,9 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
     View of page when editing posts.
     """
+
     model = Post
-    fields = ['subject', 'message']
+    fields = ["subject", "message"]
 
     def test_func(self):
         """
@@ -138,13 +135,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     View of page when deleting posts.
     """
+
     model = Post
 
     def get_success_url(self):
         """
         Generate correct url (the message board) after deleting posts.
         """
-        return reverse('board-view', kwargs={'board': self.kwargs['board']})
+        return reverse("forums:board-view", kwargs={"board": self.kwargs["board"]})
 
     def test_func(self):
         """
@@ -171,17 +169,18 @@ class UserPostListView(ListView):
     View of all posts and comments from a particular user.
     TBC: make comments have reference to post it comes from.
     """
+
     model = Post
     paginate_by = 5
-    template_name = 'forums/user_posts.html'
-    context_object_name = 'posts'
+    template_name = "forums/user_posts.html"
+    context_object_name = "posts"
 
     def get_queryset(self):
         """
         Queries and returns all posts from users.
         """
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(created_by=user).order_by('-created_at')
+        user = get_object_or_404(User, username=self.kwargs.get("username"))
+        return Post.objects.filter(created_by=user).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
         """
@@ -198,6 +197,7 @@ class CommentDetailView(DetailView):
     """
     View of particular comment (not useful in most cases).
     """
+
     model = Comment
 
     def get_context_data(self, **kwargs):
@@ -216,25 +216,24 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     View of page when creating comments.
     TBC: make this in-line.
     """
+
     model = Comment
-    fields = ['message']
+    fields = ["message"]
 
     def form_valid(self, form):
         """
         Fills in fields not queried from user.
         """
         form.instance.created_by = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs['pk'])
-        form.instance.board_id = get_object_or_404(
-            Board, name=self.kwargs['board']).id
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        form.instance.board_id = get_object_or_404(Board, name=self.kwargs["board"]).id
         return super().form_valid(form)
 
     def get_success_url(self):
         """
         Generate correct url (the post) after deleting posts.
         """
-        return reverse('board-detail', kwargs={'board':
-                       self.kwargs['board'], 'pk': self.kwargs['pk']})
+        return reverse("forums:board-detail", kwargs={"board": self.kwargs["board"], "pk": self.kwargs["pk"]})
 
     def get_context_data(self, **kwargs):
         """
@@ -251,8 +250,9 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
     View when updating comments.
     """
+
     model = Comment
-    fields = ['message']
+    fields = ["message"]
 
     def test_func(self):
         """
@@ -287,14 +287,14 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     View when deleting comments.
     """
+
     model = Comment
 
     def get_success_url(self):
         """
         Generate correct url (the post) after deleting posts.
         """
-        return reverse('board-detail', kwargs={'board':
-                       self.kwargs['board'], 'pk': self.kwargs['post_pk']})
+        return reverse("forums:board-detail", kwargs={"board": self.kwargs["board"], "pk": self.kwargs["post_pk"]})
 
     def test_func(self):
         """
@@ -320,11 +320,12 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
     """
     View of page when creating posts.
     """
+
     model = Board
-    fields = ['name', 'description']
+    fields = ["name", "description"]
 
     def get_success_url(self):
-            return reverse("forums-home")
+        return reverse("forums-home")
 
     def get_context_data(self, **kwargs):
         """

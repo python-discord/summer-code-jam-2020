@@ -1,7 +1,9 @@
 from datetime import datetime
+from django.urls import reverse
 from django.test import TestCase, Client, RequestFactory
-from .models import Board, Post, Comment
-from .views import *
+from .models import Board, Post
+from ..authentication.models import User
+from .views import PostCreateView, CommentCreateView, BoardCreateView
 
 
 class ForumTestCase(TestCase):
@@ -14,7 +16,7 @@ class ForumTestCase(TestCase):
             email="test@example.com",
             password="tester12345"
         )
-        
+
         self.board = Board(
             name="Test",
             description="This is testing."

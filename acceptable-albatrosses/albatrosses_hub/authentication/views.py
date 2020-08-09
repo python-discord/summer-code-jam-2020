@@ -14,8 +14,8 @@ def register_page(request):
 
     form = RegisterForm(request.POST or None)
     context = {
-        "form" : form,
-        "error_message" : "",
+        "form": form,
+        "error_message": "",
     }
 
     if request.method == "POST" and form.is_valid():
@@ -37,15 +37,13 @@ def register_page(request):
 
         if all_valid:
             new_user = User.objects.create_user(
-                email=submitted_email,
-                username=submitted_username,
-                password=request.POST["password"]
+                email=submitted_email, username=submitted_username, password=request.POST["password"]
             )
             new_user.save()
 
-            return redirect("login_page")
+            return redirect("authentication:login")
 
-    return render(request, "register.html", context)
+    return render(request, "authentication/register.html", context)
 
 
 def login_page(request):
@@ -58,7 +56,7 @@ def login_page(request):
     form = LoginForm(request.POST or None)
     context = {
         "form": form,
-        "error_message" : "",
+        "error_message": "",
     }
 
     if request.method == "POST" and form.is_valid():
@@ -84,7 +82,7 @@ def login_page(request):
 
             return redirect("/")
 
-    return render(request, "login.html", context)
+    return render(request, "authentication/login.html", context)
 
 
 def logout_page(request):
@@ -102,4 +100,4 @@ def logout_page(request):
 
         return redirect("/")
 
-    return render(request, "logout.html")
+    return render(request, "authentication/logout.html")

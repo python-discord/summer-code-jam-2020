@@ -1,4 +1,4 @@
-{% extends "forums_base.html" %}
+{% extends "forums/base.html" %}
 
 {% block forumheader %}
     <li class="breadcrumb-item">
@@ -20,7 +20,7 @@
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-danger" type="submit">Yes.</button>
-                <a class="btn btn-outline-secondary" href="{% url 'board-detail' object.post.board.name object.post.id %}">Cancel.</a>
+                <a class="btn btn-outline-secondary" href="{% url 'forums:board-detail' object.post.board.name object.post.id %}">Cancel.</a>
             </div>
         </form>
     </div>

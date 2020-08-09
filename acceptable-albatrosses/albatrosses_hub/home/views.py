@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 
 # Create your views here.
-def homepage(request):
-    """Views to render the homepage."""
+def index(request):
+    """Views to render the homepage index."""
 
     context = {
         "login": request.user.is_authenticated,
@@ -12,7 +12,8 @@ def homepage(request):
     if request.user.is_authenticated:
         context["username"] = request.user.username
 
-    return render(request, "home.html", context)
+    return render(request, "home/index.html", context)
+
 
 def about_us(request):
     """Views to render the About Us page."""
@@ -67,12 +68,13 @@ def about_us(request):
         ]
     }
 
-    return render(request, "about.html", context)
+    return render(request, "home/about.html", context)
 
-def error_404_view(request,exception):
+
+def error_404_view(request, exception):
     """Views to render the 404 error page."""
 
-    render (request, '404.html')
+    render(request, '404.html')
 
 
 class Developer(object):
@@ -92,4 +94,3 @@ class Developer(object):
         self.description = description
         self.role = role
         self.picture = picture
-
