@@ -1,26 +1,25 @@
 import hashlib
 import os
-# import random
 
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
-# from django.http import HttpResponseRedirect, HttpResponse
-# from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 
 from users.forms import RegistrationForm, TeamRegistrationForm
-from users.models import File, FileGroup, Member
+from users.models import File, FileGroup, Member, Team
 
 
 def fhandler(request, name):
     path = "/".join(os.path.dirname(os.path.realpath(__file__)).split("/")[:-1])
-    new_path = path + '/media/' + name
-    with open(new_path, 'rb') as f:
+    new_path = path + "/media/" + name
+    with open(new_path, "rb") as f:
         text = f.read()
         print(text)
 
-    return render(request, 'users/file.html', {'text': text.decode('utf-8')})
+    return render(
+        request, "users/file.html", {"text": text.decode("utf-8"), "name": name}
+    )
 
 
 def index(request):
@@ -54,7 +53,29 @@ def teamregister(request):
     else:
         form = TeamRegistrationForm()
 
-    return render(request, "users/team.html", {"form": form})
+    return render(request, "users/team_create.html", {"form": form})
+
+
+@login_required(login_url="/login/")
+def teamjoin(request):
+    if request.method == "POST":
+        teamname = request.POST["teamname"]
+        password = request.POST["password"]
+        team_qs = Team.objects.filter(name=teamname, password=password)
+        if team_qs:  # if query set exists, add logged in user to the team
+            team = team_qs[0]
+            team.members.add(request.user)
+            messages.success(
+                request, f"You have been successfully added to {team.name}!"
+            )
+            return redirect("dashboard")
+        else:
+            messages.error(
+                request,
+                "Unable to add you to team! Please recheck team name and password",
+            )
+
+    return render(request, "users/team_join.html")
 
 
 def login(request):
@@ -101,7 +122,9 @@ def upload(request):
                 title = path.split("/")[-1]
                 form = File(title=title, hash_val=hash_val, user=request.user)
                 form.save()
-                file_group.files.add(form)  # adds newly created file version to file group
+                file_group.files.add(
+                    form
+                )  # adds newly created file version to file group
                 messages.warning(
                     request,
                     "file with same name is already present adding it with new version ",
@@ -115,9 +138,7 @@ def dashboard(request):
     teams = Member.objects.filter(user__id__in=[request.user.id])
     context = {}
     files = FileGroup.objects.filter(user__id__in=[request.user.id])
-    # files = filegroup.files.all()
     context = {"files": files, "teams": teams}
-    # print(context["files"])
     print(context["teams"])
     return render(request, "users/dashboard.html", context)
 
