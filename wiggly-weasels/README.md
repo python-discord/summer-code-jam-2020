@@ -31,9 +31,9 @@ Installation is simple. I will assume that you have `npm` and Python already ins
 First, clone the repository and cd to the directory. We'll cd into the `Backend` folder to setup the server, first. 
 ```
 git clone https://github.com/JetDeveloping/summer-code-jam-2020.git
-cd summer-code-jam-2020/wiggly-weasels/Backend
+cd summer-code-jam-2020/wiggly-weasels
 ```
-Then, we need to install the required packages:
+First, create a virtual environment and activate it. Then, we need to install the required packages:
 ```
 pip install -r requirements.txt
 ```
@@ -47,21 +47,36 @@ brew link --force libpq ail
 
 #Linux
 sudo apt-get update
-sudo apt-get install postgresql-client
+sudo apt install postgresql postgresql-contrib
 
 #Windows
 Download it from here: https://www.postgresql.org/download/windows/
 
 ```
 
-You can start Postgres by running `psql`. Then you can run `CREATE DATABASE fbdb;`. Make sure the DB server is set to localhost and the port is set to `5443`
+You can start Postgres by running `psql`(Linux:`sudo -u postgres psql`). Then you can run `CREATE DATABASE fbdb;`. Make sure the DB server is set to localhost and the port is set to `5443`
 You want to make sure that you have a user named `postgres` with the password as `postgres` as well. 
-Now, all we need to do is run the server code! We can do this by running: `python3 manage.py runserver`. 
+Now, all we need to do is migrate and run the server code! 
+```
+#First make migrations
+python3 manage.py makemigrations
+python3 manage.py migrate
+
+#Change to the Backend/flashback directory
+cd Backend/flashback
+
+#Start the server (Warning: Make sure this server is running before site setup)
+python3 manage.py runserver
+
+
+```
+<!-- Make sure you are in `wiggly-weasels/Backend/flashback`. Then run the server by running: `python3 manage.py runserver`.  -->
 
 ### Site Setup
-We will start by assuming that you are still in the `Backend` folder. We can run the following commands to get into the React project folder so we can install our project packages! 
+While the Django server is running. We will start by assuming that you are still in the `Backend/flashback` folder. We can run the following commands to get into the React project folder so we can install our project packages! 
 ```
-cd ..
-cd Frontend/flashback
+cd ../../Frontend/flashback
+npm install && npm start
 ```
 Installing the packages is simple! Just type `npm install`! Finally, to run our site, type `npm start`.
+
