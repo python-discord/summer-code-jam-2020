@@ -33,5 +33,5 @@ See [CONTRIBUTING.md][CONTRIBUTE-url]
 See [NOTICE.md][NOTICE-url]
 
 [logo-url]: ./albatrosses_hub/static/img/albatrosses-logo-small.png
-[NOTICE-url]: ./albatrosses_hub/NOTICE.md
-[CONTRIBUTE-url]: ./albatrosses_hub/CONTRIBUTING.md
+[NOTICE-url]: ./NOTICE.md
+[CONTRIBUTE-url]: ./CONTRIBUTING.md
