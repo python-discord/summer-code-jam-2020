@@ -1,7 +1,10 @@
 import requests
 from decouple import config
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
 from users.models import UserPreferences
+from diary.models import DiaryEntry
+from diary.forms import DiaryEntryForm
 
 
 def main(request):
@@ -26,6 +29,22 @@ def main(request):
         'london' + ',' + 'uk' + '&appid=' + weather_key + '&units=metric'
 
     if request.user.is_authenticated:
+
+        try:
+            entries = DiaryEntry.objects.filter(creator=request.user)
+        except ObjectDoesNotExist:
+            entries = None
+
+        if request.method == 'POST':
+            form = DiaryEntryForm(request.POST)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.creator = request.user
+                instance.save()
+                return redirect('/')
+        else:
+            form = DiaryEntryForm()
+
         pref = UserPreferences.objects.get(user=request.user)
 
         weather_url = 'https://api.openweathermap.org/data/2.5/weather?q='\
@@ -42,6 +61,8 @@ def main(request):
             'pref': pref,
             'news': nyt_usnews_list,
             'weather': weather_dict,
+            'entries': entries,
+            'form': form
         }
         return render(request, 'main/dashboard.html', context)
 
