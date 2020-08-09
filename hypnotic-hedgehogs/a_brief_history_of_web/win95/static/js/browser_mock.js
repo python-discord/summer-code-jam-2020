@@ -39,7 +39,6 @@ function change_page() {
         clippy.load('Merlin', (agent) => {
                       // do anything with the loaded agent
                       agent.show();
-                      agent.speak( "Jack was unaware that by setting up his 'twittr', he was building a site where he would make an unimaginable contribution to freedom of expression, thought sharing, polyphony and diversity. Thanks to Twitter, freedom of expression, polyphony, respect for differences and living in harmony have become possible and spread like never before. Thanks Twitter and Jack for supporting and spreading the freedoms!
 );
                       setTimeout(() =>{
                           agent.hide();
