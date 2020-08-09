@@ -27,6 +27,23 @@ ul {
     height: 60px;
 }
 
+label {
+    font-size: large;
+    font-family: 'Pirata One', cursive;
+}
+
+input[type=text] {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
+input[type=text]:focus{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
 p {
     margin: 0;
     font-family: 'Pirata One', cursive;
@@ -195,6 +212,19 @@ created by Pete Blatchford https://codepen.io/555/pen/pdwvBP
 .is-approved:hover {
     color: #0A9928;
     border: 0.5rem solid #0A9928;
+}
+
+.is-approved2 {
+    color: #008080;
+    border: 0.5rem solid #008080;
+    -webkit-mask-position: 13rem 6rem;
+    transform: rotate(4deg);
+    border-radius: 0;
+}
+
+.is-approved2:hover {
+    color: #00FFFF;
+    border: 0.5rem solid #00FFFF;
 }
 
 
