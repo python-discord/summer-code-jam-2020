@@ -49,7 +49,8 @@ class SMSBot:
     @staticmethod
     def register_with_code(number, active_quiz):
         welcome = (f'You registered to play "{active_quiz.trivia_quiz.name}." '
-                   f'Please choose a team name to join')
+                   f'Please choose a team name to join'
+                   f'If you didn\'t mean to do this, text !quit at any time')
         SMSBot.send(welcome, number)
         new_player = SMSBot.register(number, active_quiz)
         new_player.save()
@@ -61,7 +62,7 @@ class SMSBot:
         player_quiz = player.active_quiz
         player.team_name = team
         player.save()
-        msg = (f'Thanks for playing! '
+        msg = (f'Thanks for playing! Your team is "{player.team_name}"'
                f'"{player_quiz.trivia_quiz.name}" will begin soon!')
         ScoreTracker.objects.create(player_phone=player.phone_number,
                                     team_name=player.team_name,
@@ -91,7 +92,7 @@ class SMSBot:
             SMSBot.send(f'Your team has been updated! You are now on team "{player.team_name}"', player.phone_number)
         else:
             please_wait = ('The host hasn\'t started the quiz yet, patience is a virtue! '
-                           'If you want to change teams, text EDIT/newteamname before the quiz starts. '
+                           'If you want to change teams, text !EDIT/newteamname before the quiz starts. '
                            'Please make sure you let your teammates know though!'
                            )
             SMSBot.send(please_wait, player.phone_number)
@@ -190,7 +191,7 @@ def sms_reply(request):
     player = Player.objects.filter(phone_number=from_)
     available_quizzes = ActiveTriviaQuiz.objects.all()
     session_codes = [q.session_code for q in available_quizzes]
-    
+
     if body.upper() == '!QUIT':
         SMSBot.player_quit(player)
         return redirect('/')
