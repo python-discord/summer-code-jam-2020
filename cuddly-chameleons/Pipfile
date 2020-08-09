@@ -12,7 +12,6 @@ dj-database-url = "~=0.5"
 gunicorn = "*"
 whitenoise = "*"
 djangorestframework-simplejwt = "*"
-django-cors-headers = "*"
 djangorestframework = "*"
 
 [requires]
