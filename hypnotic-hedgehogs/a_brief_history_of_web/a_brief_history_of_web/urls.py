@@ -17,17 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from win95.views import index
-urlpatterns = [
-                  path('', index, name='main-page'),
-                  path('admin/', admin.site.urls),
-                  path('web_portal', include('web_portal.urls', namespace='web_portal')),
-                  path('nineties_blog', include('nineties_blog.urls', namespace='nineties_blog')),
-                  path('first_google', include('first_google.urls', namespace='first_google')),
-                  path('first_twitter', include('first_twitter.urls', namespace='first_twitter')),
-                  path('first_youtube', include('first_youtube.urls', namespace='first_youtube')),
-                  path('win95', include('win95.urls', namespace='win95')),
 
+urlpatterns = [
+    path('', include('win95.urls', namespace='win95')),
+    path('admin/', admin.site.urls),
+    path('web_portal', include('web_portal.urls', namespace='web_portal')),
+    path('nineties_blog', include('nineties_blog.urls', namespace='nineties_blog')),
+    path('first_google', include('first_google.urls', namespace='first_google')),
+    path('first_twitter', include('first_twitter.urls', namespace='first_twitter')),
+    path('first_youtube', include('first_youtube.urls', namespace='first_youtube')),
+    path('win95', include('win95.urls', namespace='win95')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
