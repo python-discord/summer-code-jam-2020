@@ -1,0 +1,80 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+{% block content %}
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+<br><h1 class="nes-text" align="center">Weather Search</h1><br>
+
+{% include 'dashboard/weather/searchbar.html'  %} <br>
+
+<div id="main-weather" class="nes-container" style="margin-left:3%; margin-right: 3%;">
+    {% if address == ''  %}
+    
+    {% else  %}
+    <p style="font-size: 13px;">Address: {{ address  }}</p>
+    {% endif  %}
+    <div id="current-weather" class="nes-container with-title is-left" >
+        {% if error_msg == ''  %}
+        <p class="title">Current Weather</p>
+        <div style="display: flex;">
+            <div>
+                <br>
+            <h1 align="center">{{ current_details.current_temp }}{{ ending }}</h1> <hr>
+            <p align="center">{{ current_details.date  }}</p>
+        </div> 
+        <div style="margin-left: 5%">
+            <p style="text-align: center">{{ current_details.main  }}</p>
+            <img src="{{ current_details.icon  }}" style="display: block;margin-left: auto;margin-right: auto;" />
+            <p style="text-align: center">{{ current_details.desc  }}</p>
+        </div>
+        <div style="margin-left: 5%">
+            <p style="text-align: center">Sunrise Time: {{ current_details.sunrise  }}</p>
+            <p style="text-align: center">Sunset Time: {{ current_details.sunset  }}</p>
+            <p style="text-align: center">Humidity: {{ current_details.humidity  }}%</p>
+            <p style="text-align: center">Wind Speed: {{ current_details.wind_speed }} mph</p>
+        </div>
+        <div style="margin-left: 5%">
+            <br> <br>
+            <h1 align="center">Time: {{ current_time  }}</h1>
+        </div>
+        <div>
+            <p></p>
+        </div>
+        </div>
+        {% else  %}
+        <p style="text-align:center">{{ error_msg  }}</p>
+        {% endif  %}
+    </div> <br>
+    <div id="forecast" class="nes-container with-title is-left">
+        {% if error_msg == '' %}
+        <p class="title">Forecast</p>
+        <div style="display: flex;">
+        {% for day in day_forecast %}
+            <div class="nes-container" style="margin-left: 2%;">
+                <p style="text-align: center">{{ day.time  }}</p>
+                <hr>
+                <p style="text-align: center">{{ day.desc  }}</p>
+                <hr>
+                <img src="{{ day.icon  }}"/>
+                <hr>
+                <h4 style="text-align: center">{{ day.avg_temp  }}{{ ending  }}</h4>
+                <hr>
+                <h6 style="text-align: center">Min: {{ day.min_temp  }}{{ ending  }}</h6>
+                <hr>
+                <h6 style="text-align: center">Max: {{ day.max_temp  }}{{ ending  }}</h6>
+                <hr>
+                <h6 style="text-align:center"><i class='fas fa-cloud-showers-heavy'></i>: {{ day.precip  }}%</h6>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p style="text-align:center">{{ error_msg  }}</p>
+        {% endif  %}
+    </div>
+    
+</div>
+<br>
+<p  style="font-size: 10px">Thank you <a href="https://openweathermap.org/" target="_blank">Open Weather Map</a> for this awesome <a href="https://openweathermap.org/api/one-call-api" target="_blank">API</a>.</p>
+
+{% endblock content  %}

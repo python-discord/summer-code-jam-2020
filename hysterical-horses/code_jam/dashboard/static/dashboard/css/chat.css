@@ -1,17 +1,14 @@
 .chat-container{
-    width: 100%
+    width: 100%;
     padding: 0;
+    text-align: center;
 }
 
 .chat-container textarea{
-    width: 100%;
+    width: 95%;
+    color: black;
 }
 .chat-container input{
     width: 20%;
 }
 
-@media only screen and (min-width: 1200px) {
-    .chat-container{
-        padding-right: 50%;
-    }
-}

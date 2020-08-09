@@ -1,0 +1,27 @@
+<!-- Form Component -->
+{% load static  %}
+<div style="margin-left:3%; margin-right:3%;">
+    <form action="" method="POST" id="weather">
+        {% csrf_token %}
+        <div style='display:flex'>
+            <img src="{% static 'dashboard/img/mag_glass.png'  %}">
+            <input type="text" name="weather-query" style="margin-left: 1%; margin-right: 1%;" id ="weather-query-field" placeholder="Search weather by IP address or place name ..." class="nes-input">
+            <input type="submit" value="Search" style="border-radius: 15px;">
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+ // change form action based on input value
+
+ $('#weather').submit(function(){
+     var q = $('#weather-query-field').val();
+     $(this).attr("action", q);
+     console.log("Grabbing Weather: " + q);
+
+ })
+
+
+</script>

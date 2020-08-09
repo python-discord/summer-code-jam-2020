@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -23,12 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get("summer_jam_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = os.environ.get("django_debug")
+
+DEBUG = os.environ.get("django_debug", True)
 
 if DEBUG:
-    from .dev_settings import *
+    from .dev_settings import DATABASES as db
+
 else:
-    from .production_settings import *
+    from .production_settings import DATABASES as db
+
+DATABASES = db
 
 ALLOWED_HOSTS = []
 
@@ -39,13 +43,14 @@ INSTALLED_APPS = [
     "blogs.apps.BlogsConfig",
     "users.apps.UsersConfig",
     "channels",
+    "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_filters"
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -99,10 +104,15 @@ ASGI_APPLICATION = "code_jam.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("redis", 6379)]
-        }
+        "CONFIG": {"hosts": [("redis", 6379)]},
     }
+}
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }
 
 
@@ -123,12 +133,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
-LOGIN_URL = 'users/login'
-LOGIN_REDIRECT_URL = '/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+#     "/code/static/"
+# ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+STATIC_URL = "/static/"
+STATIC_ROOT = "/code/static/"
+
+LOGIN_URL = "users/login"
+LOGIN_REDIRECT_URL = "/"
+
+# Media-related
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # change default django model
-AUTH_USER_MODEL = 'users.Account'
-
+AUTH_USER_MODEL = "users.Account"

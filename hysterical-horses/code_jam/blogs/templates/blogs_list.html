@@ -11,39 +11,24 @@
 
 <div class="nes-container with-title signup-form">
     <span class="title signup-form-title">Blogs</span>
+    <a class="nes-btn" href="{% url 'blog-create' %}">Create</a>
 
     <form action="" method="get">
         {{ filterset.form.as_p }}
         <input type="submit" value="Search"/>
     </form>
 
+    <div style="height: 30vh; overflow-y: scroll;">
     <ul>
-    {% for post in object_list %}
-        <li>
-            <a href="{% url 'blog_detail' post.pk %}">{{ post.title }} | {{ post.author.username }}</a></br>
-            {{ post.content }}
-        </li>
-    {% endfor %}
-    </ul>
-
-
-<!-- 
-    <form action="" method="post">
-        {% csrf_token %}
-
-        {% for field in form %}
-        <div class="nes-field is-inline signup-input" align="center">
-            <label>{{ field.label }}</label>
-            {{ field|addclass:"nes-input" }}
-        </div>
-
-        {% for error in field.errors %}
-            <p>{{ error }}</p>
+        {% for post in object_list %}
+            <li>
+                <a href="{% url 'blog_detail' post.pk %}">{{ post.title }} | {{ post.author.username }}</a><br/>
+                {{ post.content }}
+            </li>
         {% endfor %}
-        {% endfor %}
+        </ul>
+    </div>
 
-        <input class="nes-btn is-success" type="submit" value="Signup">
-    </form> -->
 </div>
 
 {% endblock content %}
