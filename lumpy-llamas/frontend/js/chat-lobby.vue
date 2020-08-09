@@ -1,20 +1,25 @@
 <template>
 <div v-if="ready">
   <div class="home-grid">
-    <h2> Chat Lobby</h2>
-    <div class="chat-input">
-        <input v-model="roomName" placeholder="Enter alphanumeric chat room name here">
-        <button v-on:click="goToChatRoom">Enter Chatroom</button>
+    <fieldset>
+    <legend>Go chat with some random people!</legend>
+        <div class="form-group">
+          <label for="text">Chatroom Name</label>
+          <input v-model="roomName" id="text" name="itext" type="text" 
+            placeholder="(Alphanumeric and 1 and 20 characters long)" 
+            minlength="1" maxlength="20">
+        </div>
+        <button v-on:click="goToChatRoom" class="btn btn-default">Enter Chatroom</button>
         <p>{{ message }}</p>
-    </div>
+    </fieldset>
   </div>
 </div>
 </template>
 
 <style>
-.some-heading {
-  font-size: xx-large;
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: pink;
+  opacity: 1; /* Firefox */
 }
 </style>
 

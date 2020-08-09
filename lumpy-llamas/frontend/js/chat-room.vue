@@ -8,8 +8,7 @@
           </div>
         </div>
         <div class="instructions">
-          <p>To send a message, type it out and hit "Enter"</p><br>
-          <p>To exit a chat, send "/exit"</p>
+          <p>To send a message, type it out and hit "Enter". To exit a chat, send "/exit"</p>
         </div>
       </div>
     </div>
@@ -19,7 +18,7 @@
 <style>
 .chat-log {
   height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .instructions {
   bottom: 0;
