@@ -7,3 +7,4 @@ fastjsonschema==2.14.4
 channels==2.4.0
 channels-redis==3.0.1
 requests==2.24.0
+pyaml==20.4.0
