@@ -7,9 +7,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="clearfix">
-  <a class="btn btn-info left" href="{% url 'earlcal:calendar' %}"> Calendar </a>
-</div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'earlcal:calendar' %}">Calendar</a></li>
+    <li class="breadcrumb-item active" aria-current="page">New event</li>
+  </ol>
+</nav>
 
 {% if form.errors %}
     {% for field in form %}
@@ -28,10 +31,10 @@
 
 <form method="post">
   {% csrf_token %}
-  <table class="form form-table">
+  <table class="form form-table mt-5 mb-3">
     {{ form }}
-    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
   </table>
+  <button type="submit" class="btn btn-primary">Create event</button>
 </form>
 
 <link rel="stylesheet" href="datetime-local-polyfill.css" />
