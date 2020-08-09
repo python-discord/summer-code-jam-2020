@@ -1,3 +1,5 @@
+import imghdr
+
 from django.views import View as ParentView
 from django.db.models import Count
 from django.views.generic import ListView
@@ -224,6 +226,16 @@ class UserProfileUpdate(UpdateView, View):
     model = User
     fields = ['avatar']
     template_name_suffix = '_update_form'
+
+
+    def form_valid(self, form):
+        try:
+            if imghdr.what(form.instance.avatar) and imghdr.what(form.instance.avatar) != 'gif':
+                return super().form_valid(form)
+        except:pass
+        ctx = self.get_context_data(form = form)
+        ctx['message']='Invalid picture'
+        return self.render_to_response(ctx)
 
     def render_to_response(self, context, **response_kwargs):
         response_kwargs.setdefault('content_type', self.content_type)
