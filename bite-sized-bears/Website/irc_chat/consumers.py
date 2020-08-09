@@ -96,7 +96,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         data = json.loads(text_data)
-        data['from'] = 'runit'
+        data['from'] = 'runit'  # TODO: check if static. Remove on confirmation.
         self.commands[data['command']](self, data)
 
     def send_chat_message(self, message):
