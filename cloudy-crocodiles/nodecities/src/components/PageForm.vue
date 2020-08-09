@@ -1,11 +1,16 @@
 <template>
   <q-page padding>
     <div v-if="page">
-      <h1>{{ page.file_name }}</h1>
+      <q-toolbar>
+        <q-toolbar-title>
+          {{ page.file_name }}
+        </q-toolbar-title>
+        <q-btn icon="save" @click="save"/>
+      </q-toolbar>
       <textarea ref="editor"></textarea>
     </div>
     <div v-else>
-      <h1>{{ page.file_name }}</h1>
+      <h1></h1>
       <pre><code>{{ page.content }}</code></pre>
     </div>
   </q-page>
@@ -18,7 +23,7 @@ import 'codemirror/mode/htmlmixed/htmlmixed.js'
 
 export default {
   name: "PageForm",
-  props: ["page"],
+  props: ["page", "submit"],
   components: {
   },
   data() {
@@ -39,6 +44,16 @@ export default {
     const content = this.page.content
     cm.setValue(content)
   },
-  methods: {},
+  methods: {
+    save(){
+      const input = {
+        site: this.page.id,
+        version: this.page.version,
+        content: this.cm.getValue(),
+        file_name: this.page.file_name
+      }
+      this.$emit('submit', input);
+    }
+  },
 };
 </script>

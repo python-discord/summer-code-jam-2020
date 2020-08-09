@@ -1,11 +1,11 @@
 <template>
   <q-page padding>
-    <page-form v-if="page" :page="page" />
+    <page-form v-if="page" :page="page" @submit="submit" />
   </q-page>
 </template>
 
 <script>
-import PageForm from 'components/PageForm'
+import PageForm from "components/PageForm";
 
 import gql from "graphql-tag";
 
@@ -23,11 +23,10 @@ export default {
   name: "PagePage",
   props: ["id"],
   components: {
-    PageForm
+    PageForm,
   },
   data() {
-    return {
-    };
+    return {};
   },
   apollo: {
     page: {
@@ -39,6 +38,25 @@ export default {
       },
     },
   },
-  methods: {},
+  methods: {
+    submit(input) {
+      this.$apollo.mutate({
+        // Mutation
+        mutation: gql`
+          mutation($id: ID!, $data: PageInput!) {
+            updatePage(page_id: $id, data: $data) {
+                id
+            }
+          }
+        `,
+        // Parameters
+        variables: {
+          id: this.id,
+          data: input,
+        },
+      });
+      this.$q.notify(`Page Saved`);
+    },
+  },
 };
 </script>
