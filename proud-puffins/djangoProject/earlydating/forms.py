@@ -5,12 +5,14 @@ from .models import Profile
 
 
 class CreateUserForm(UserCreationForm):
+    """Registration/Sign-up Form"""
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 
 class UserUpdateForm(forms.ModelForm):
+    """Form for editing information in User table fields"""
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()
@@ -21,6 +23,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """Form for editing information in Profile table fields"""
     class Meta:
         model = Profile
         fields = ['age', 'bio', 'img', 'sex', 'preference']

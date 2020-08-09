@@ -4,6 +4,8 @@ from . import puffin_functions as pf
 
 
 # Create your models here.
+
+# Make email field necessary while signing up
 User._meta.get_field('email')._unique = True
 User._meta.get_field('email').blank = False
 User._meta.get_field('email').null = False
@@ -20,13 +22,12 @@ class Profile(models.Model):
     sex = models.CharField(max_length=10, null=True, blank=True, choices=Gender_Choices)
     preference = models.CharField(max_length=10, null=True, blank=True, choices=Pref_Choices)
     bio = models.TextField(default="")
-    upper_age = models.PositiveSmallIntegerField(null=True)
-    lower_age = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return str(self.user)
 
     def save(self, *args, **kwargs):
+        """Saves imgloc whenever user updates their profile pic."""
         if 'user_pixel' in self.img.path:
             pass
         else:
@@ -36,6 +37,12 @@ class Profile(models.Model):
 
 
 class UserVote(models.Model):
+    """Table that stores the votes/likes
+
+    user -> profile that is being voted
+    voter -> profile that votes
+    vote -> boolean field with default as False
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     voter = models.ForeignKey(User, related_name='given_vote', on_delete=models.CASCADE)
     vote = models.BooleanField(default=False)

@@ -3,19 +3,21 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 
 
-#  To avoid double login/register if you are logged in
 def unauthenticated_user(view_func):
+    """To avoid logging in/registering again if the user logged in"""
     @wraps(view_func)
     def wrapper_func(request, *args, **kwargs):
+        # Redirect to their profile if authenticated
         if request.user.is_authenticated:
             return redirect('earlydating-yourprofile')
+        # Else authenticate user
         else:
             return view_func(request, *args, **kwargs)
     return wrapper_func
 
 
-#  Restricting page access to specified user groups
 def allowed_users(allowed_roles=[]):
+    """Restricting page access to specified user groups"""
     def decorator(view_func):
         @wraps(view_func)
         def wrapper_func(request, *args, **kwargs):
@@ -30,8 +32,8 @@ def allowed_users(allowed_roles=[]):
     return decorator
 
 
-#  Restrict page access to other groups
 def admin_only(view_func):
+    """Restrict page access to only admins"""
     @wraps(view_func)
     def wrapper_function(request, *args, **kwargs):
         group = None
