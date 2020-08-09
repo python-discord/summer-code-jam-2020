@@ -8,6 +8,12 @@ def index(request):
 
 
 def run_terminal_command(request):
+    """
+    This view handles the request and response of the commands.
+    It takes in the request, sends it to command_runner for running,
+    and then sends back the command's response to the template.
+    """
+
     command = request.GET.get('c', None)
     if command is None:
         response = "No command was specified"

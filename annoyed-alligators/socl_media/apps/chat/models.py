@@ -5,12 +5,13 @@ from django.conf import settings
 
 class Message(models.Model):
     """A message from user to user with fields:
-    
+
     body: contains the actual message
     sender: user sending the message
     recipient: user receiving the message
     sent_at: time at which the message was sent
     """
+
     body = models.TextField(("Body"))
     sender = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name='sender_messages',

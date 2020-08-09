@@ -18,14 +18,15 @@ class Post(models.Model):
     posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
     post_date_posted = models.DateTimeField(auto_now_add=True,
                                             verbose_name="Published on")
-    post_image = models.ImageField(upload_to="post_images", blank=True, null=True)
+    post_image = models.ImageField(upload_to="post_images", blank=False)
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
     def save(self, **kwargs):
         """
-        This function will resize and add a pixelating effect to the images.
+        This function will resize and add a pixelating effect to the images
+        to give them a more retro and early internet feel.
         """
         super().save()
         try:
