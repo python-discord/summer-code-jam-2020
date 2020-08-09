@@ -1,6 +1,11 @@
-__pragma__ ('js', "{}", "import * as VuePkg from 'vue';")
-__pragma__ ('noalias', 'default')
-__pragma__ ('noalias', 'name')
+# __pragma__ ('js', "{}", "import * as VuePkg from 'vue';")
+# __pragma__ ('noalias', 'default')
+# __pragma__ ('noalias', 'name')
+
+# __pragma__ ('skip')
+VuePkg = __new__ = this = __new__ = console = 0    # Prevent complaints by optional static checker
+# __pragma__ ('noskip')
+
 
 JSVue = VuePkg.default
 
@@ -8,10 +13,10 @@ JSVue = VuePkg.default
 def clone_data(data):
     if isinstance(data, dict):
         new_data = dict(data)
-        __pragma__ ('iconv')
+        # __pragma__ ('iconv')
         for key in new_data:
             new_data[key] = clone_data(new_data[key])
-        __pragma__ ('noiconv')
+        # __pragma__ ('noiconv')
     elif isinstance(data, list):
         new_data = list(data)
         for i, data in enumerate(new_data):
@@ -29,23 +34,23 @@ class Vue:
     def __init__(self, el):
         self.el = el
         self.data = clone_data(self.data)
-        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
         data = self.get_component()
         data['el'] = el
         self._vue = __new__(JSVue(data))
 
     def get_component(self):
-        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
+        methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func))
+                   and not func.startswith("__")}
         data = {
             "data": self.data,
             "template": self.template
         }
-        __pragma__("tconv")
+        # __pragma__("tconv")
         if methods:
             data['methods'] = methods
         if self.components:
             data['components'] = self.components
-        __pragma__("notconv")
+        # __pragma__("notconv")
         return data
 
 
@@ -66,22 +71,22 @@ class Component:
         self._vue = self.get_component()
         JSVue.component(self.__class__.__name__.lower(), self._vue)
 
-
     @classmethod
     def get_component(cls):
-        methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func)) and not func.startswith("__")}
+        methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func))
+                   and not func.startswith("__")}
         data = {
             "data": cls.get_data,
             "template": cls.template
         }
-        __pragma__("tconv")
+        # __pragma__("tconv")
         if methods:
             data['methods'] = methods
         if cls.components:
             data['components'] = cls.components
         if cls.props:
             data['props'] = cls.props
-        __pragma__("notconv")
+        # __pragma__("notconv")
         return JSVue.extend(data)
 
     @classmethod
@@ -104,7 +109,8 @@ class Component:
 #     def __init__(self):
 #         self.name = self.name
 #         self.data = clone_data(self.data)
-#         self.methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and not func.startswith("__")}
+#         self.methods = {func: getattr(self, func) for func in dir(self) if callable(getattr(self, func)) and
+#                         not func.startswith("__")}
 #         # self._vue = __new__(JSVue.component(self.name, self.__class__))
 #
 #     @classmethod
@@ -113,7 +119,8 @@ class Component:
 #
 #     @classmethod
 #     def create_data(cls):
-#         # methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func)) and not func.startswith("__")}
+#         # methods = {func: getattr(cls, func) for func in dir(cls) if callable(getattr(cls, func)) and
+#                      not func.startswith("__")}
 #         data = clone_data(cls.data)
 #         methods = dict(cls.methods)
 #         methods['created'] = createComponent

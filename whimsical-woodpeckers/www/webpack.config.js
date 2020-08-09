@@ -1,8 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: ['./src/py/main.py'],
+    entry: ['./src/py/main.py', './src/scss/main.scss'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
@@ -25,7 +26,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 enforce: 'pre',
-                use: ['source-map-loader'],
+                use: ['babel-loader', 'source-map-loader'],
             },
             {
                 test: /\.html$/,
@@ -34,7 +35,22 @@ module.exports = {
                     options: {
                     }
                 }]
-            }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader?sourceMap",
+                    "postcss-loader?sourceMap",
+                    "resolve-url-loader?sourceMap",
+                    "sass-loader?sourceMap"
+                ]
+
+            },
+            {
+              test: /\.(png|jpe?g|gif|bmp|woff2?)$/i,
+              use: ['file-loader'],
+            },
         ]
     },
     devtool: 'source-map',
@@ -42,7 +58,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src/index.html'),
             filename: 'index.html'
-        })
+        }),
+        new MiniCssExtractPlugin()
     ],
     resolve: {
         alias: {

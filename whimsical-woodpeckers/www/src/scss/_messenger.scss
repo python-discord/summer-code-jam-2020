@@ -1,0 +1,95 @@
+$white:       #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:       #000;
+
+$blue:     #0084ff;
+$indigo:   #6610f2;
+$purple:   #6f42c1;
+$pink:     #d696bb;
+$red:      #fa3c4c;
+$orange:   #fd7e14;
+$yellow:   #ffc300;
+$green:    #28a745;
+$teal:     #20c997;
+$cyan:     #44bec7;
+
+$primary:         $blue;
+$secondary:       $cyan;
+$success:         $pink;
+$info:            $cyan;
+$warning:       $yellow;
+$danger:           $red;
+$light:       $gray-100;
+$dark:        $gray-800;
+
+// Uncomment the following lines for IRC, AOL stylesheets
+// This will remove rounded buttons, etc for a less modern bootstrap look
+// $enable-caret: false;
+// $enable-rounded: false;
+// $enable-transitions: false;
+
+@import "bootstrap_defaults";
+
+#message-container{
+  padding-top: 10px;
+  padding-left:200px;
+  width: 100%;
+}
+
+#message-input{
+  width: 100%;
+}
+
+#prepend-input{
+  display: none;
+}
+
+#chat-name{
+/*  background: #ffffff;*/
+  width: 100%;
+}
+
+.app{
+  height: 100vh;
+}
+
+#logo{
+  height: 300px;
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center;
+  /*  Placeholder image*/
+  background-image: url('../img/messenger.png');
+}
+
+#login{
+  text-align: center;
+}
+
+#login *{
+  width: 100%;
+
+}
+
+#messages{
+/*  position: absolute;*/
+  height: 90vh;
+/*  background: #f0f0f0;*/
+  overflow-y: scroll;
+}
+
+*{
+  font-family: sans-serif;
+}
