@@ -11,11 +11,11 @@ RUN apt install yarn -y
 RUN mkdir jam
 WORKDIR jam
 COPY . /jam/
-RUN pip install -r requirements.txt gunicorn
+RUN pip install -r requirements.txt gunicorn uvicorn
 RUN yarn install
 RUN yarn build
 RUN sqlite3 db.sqlite3
 ENV DJANGO_SECRET_KEY=$(dbus-uuidgen)
 RUN python manage.py migrate
 RUN python manage.py collectstatic --noinput
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 lammas.wsgi
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 lammas.asgi -k uvicorn.workers.UvicornWorker

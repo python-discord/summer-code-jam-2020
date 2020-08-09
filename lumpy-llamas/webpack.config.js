@@ -4,7 +4,6 @@ const { VueLoaderPlugin } = require('vue-loader');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInjector = require('html-webpack-injector');
-const FaviconWebpackPlugin = require('favicons-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const proxyEntries = {
@@ -36,7 +35,7 @@ module.exports = (env) => {
     output: {
       path: path.resolve('./lammas/static/'),
       publicPath: isDev ? '' : '/static/',
-      filename: '[name].[contentHash].js',
+      filename: '[name].js',
     },
     plugins: [
       new CleanWebpackPlugin({
@@ -56,11 +55,6 @@ module.exports = (env) => {
         chunks: ['main', 'styles_head'],
       }),
       new HtmlWebpackInjector(),
-      // new FaviconWebpackPlugin({
-      //   logo: path.resolve(__dirname, 'frontend/img/favicon.svg'),
-      //   prefix: 'img/favicons-[hash]/',
-      //   title: 'Llama',
-      // }),
     ],
     module: {
       rules: [
