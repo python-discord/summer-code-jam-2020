@@ -19,6 +19,9 @@
       <router-link to="/random">Random</router-link>|
     </div>
     <div style="display: inline-block;" v-if="loggedIn">
+      <router-link to="/editprofile">Edit Profile</router-link>|
+    </div>
+    <div style="display: inline-block;" v-if="loggedIn">
       <router-link to="/posts">Posts</router-link>|
     </div>
     <div style="display: inline-block;" v-if="loggedIn">

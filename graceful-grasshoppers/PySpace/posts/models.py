@@ -41,6 +41,6 @@ class Post(models.Model):
 
 
 class PostComment(models.Model):
-    content = models.TextField
+    content = models.TextField(default="")
     user_commented = models.ForeignKey(CustomUser, models.CASCADE, related_name="commenting_user")
     post = models.ForeignKey(Post, models.CASCADE, related_name="post_commented_on")

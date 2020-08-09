@@ -4,8 +4,8 @@ from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Post, Like, Dislike
-from .serializers import PostSerializer, DislikeSerializer, LikeSerializer
+from .models import Post, Like, Dislike, PostComment
+from .serializers import PostSerializer, DislikeSerializer, LikeSerializer, PostCommentSerializer
 from users.models import CustomUser
 
 # Create your views here.
@@ -194,3 +194,35 @@ def dislike_post(request, post_id):
             safe=False,
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
+@api_view(["POST"])
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+def comment_on_post(request, post_id):
+    """Creates a post with the authenticated user as the author"""
+    payload = request.data
+    user = request.user
+    try:
+        comment = PostComment.objects.create(
+            post=Post.objects.get(id=post_id),
+            user_commented=CustomUser.objects.get(id=user.id),
+            content=payload["content"],
+        )
+        print(comment)
+        serializer = PostCommentSerializer(comment)
+        return JsonResponse(
+            {"comment": serializer.data}, safe=False, status=status.HTTP_201_CREATED
+        )
+    except ObjectDoesNotExist as e:
+        print(e)
+        return JsonResponse(
+            {"error": str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND
+        )
+    except Exception:
+        return JsonResponse(
+            {"error": "Something went terribly wrong!"},
+            safe=False,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+

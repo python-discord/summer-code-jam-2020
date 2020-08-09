@@ -23,7 +23,7 @@ class Friendship(models.Model):
     requester = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="following", default=None)
     friend = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="followers", default=None)
     friends = []
-    pending = models.BooleanField(default=True)
+    pending = models.BooleanField(default=False)
 
 
 class ProfileComment(models.Model):

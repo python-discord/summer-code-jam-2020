@@ -13,12 +13,8 @@
    </div>
    <div v-if="logged_in" class="contact-user bordered">
     <span class="flex-row p-0">
-      <ul class="p-0 w-50"> 
-        <li class="p-0 m-0"><button href="#">Block User</button></li>
-        <li class="p-0 m-0"><button href="#">Report User</button></li>
-      </ul>
       <ul class="p-0 w-50">
-        <li class="p-0 m-0"><button href="#">Send Friend Request</button></li>
+        <li v-on:click="follow" class="p-0 m-0"><button href="#">Add as friend</button></li>
       </ul>
     </span>
    </div>
@@ -31,13 +27,23 @@
 
 <script>
 // @ is an alias to /src
-import axios from '../http-common.js'
+import axios from '../http-common.js';
+import authHeader from '@/services/auth-header.js';
 export default {
   name: 'UserProfile',
   props: ['user', 'logged_in'],
   data: function() {
     return {
       baseURL: axios.defaults.baseURL,
+    }
+  },
+  methods: {
+    follow() {
+      axios
+      .post('/befriend/?username='+user.username)
+      .then((response) => {
+        this.$router.push('/friends');
+      })
     }
   }
 };
