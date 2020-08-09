@@ -12,7 +12,10 @@ const Home = () =>{
             <Tabs active Tab="Home" >
                 <Tab title = "Home">
                     <div className ="main-Content">
-                       Placeholder
+                       <div className="row my-auto" >
+                           <div className="col offset-md-6">Welcome!
+                               </div>
+                       </div>
                     </div>
                 </Tab>
                 <Tab title ="#lobby">
