@@ -1,2 +1,31 @@
-# Concerned Coyotes
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+#  Concerned Coyotes
+
+###  Setup
+
+In order to setup you need to run
+```
+pip install -r requirements.txt
+```
+
+switch to the project directory
+```
+cd earlyinternet
+```
+
+Setup the project itself
+
+```
+python manage.py migrate
+python manage.py setup_tasks
+python manage.py run_tasks
+```
+
+### Run the application
+
+To run the application use
+
+```
+python manage.py runserver
+```
+
+and check it out with your favorite browser.

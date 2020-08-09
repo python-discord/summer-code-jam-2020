@@ -2,7 +2,6 @@ from datetime import datetime, date
 
 import requests
 
-
 WEATHER_KEY = '0a2c03e9dee2533389d7b459d0f8595e'
 
 
@@ -20,12 +19,8 @@ def get_weather(lat: float, lon: float) -> dict:
         "celsius": int(data['main']['temp']) - 272,
         "fahrenheit": int(((data['main']['temp']) - 272) * 1.8 + 32)},
         "city": str(data['name']),
-        "sunset": datetime.fromtimestamp(
-            data['sys']['sunset']),
-        "sunrise": datetime.fromtimestamp(
-            data['sys']['sunrise']),
-        "date": date.fromtimestamp(
-            data['dt']
-        )
+        "sunset": datetime.fromtimestamp(data['sys']['sunset']),
+        "sunrise": datetime.fromtimestamp(data['sys']['sunrise']),
+        "date": date.fromtimestamp(data['dt'])
     }
     return result
