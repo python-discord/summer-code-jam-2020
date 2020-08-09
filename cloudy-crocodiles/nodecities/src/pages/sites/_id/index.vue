@@ -3,13 +3,13 @@
     <div v-if="site">
       <h1>{{ site.city.name }}{{ site.address }}</h1>
       {{ site.description }}
-      <folder :site="site" :path="path" />
+      <site-pages :site="site" />
     </div>
   </q-page>
 </template>
 
 <script>
-import Folder from "components/Folder";
+import SitePages from "components/SitePages";
 
 import gql from "graphql-tag";
 
@@ -17,6 +17,10 @@ const siteQuery = gql`
   query site($id: ID!) {
     site(id: $id) {
       id
+      pages {
+        id
+        file_name
+      }
       city {
         name
         slug
@@ -31,7 +35,7 @@ export default {
   name: "Site",
   props: ["id"],
   components: {
-    Folder,
+    SitePages,
   },
   data() {
     return {
