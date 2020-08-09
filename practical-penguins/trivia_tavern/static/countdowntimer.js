@@ -3,6 +3,7 @@ function CountDownTimer(duration, granularity) {
   this.duration = duration;
   this.granularity = granularity || 1000;
   this.tickFtns = [];
+  this.starting = 0;
   this.running = false;
 }
 
@@ -14,7 +15,7 @@ CountDownTimer.prototype.start = function() {
   var start = Date.now(),
       that = this,
       diff, obj;
-
+  this.starting = start;
   (function timer() {
     diff = that.duration - (((Date.now() - start) / 1000) | 0);
 
@@ -59,3 +60,8 @@ CountDownTimer.parse = function(seconds) {
     'seconds': (seconds % 60) | 0
   };
 };
+/*
+(jQuery);
+
+jQuery('#pause').on('click',CountDownTimer.pause);
+jQuery('#resume').on('click',CountDownTimer.resume);*/
