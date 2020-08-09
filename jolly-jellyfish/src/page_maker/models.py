@@ -12,7 +12,7 @@ def get_theme_path():
 
 
 class Template(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     # todo: option to upload own stylesheet rather than select from existing
@@ -31,7 +31,7 @@ def get_user_dir_path(instance, filename):
 
 
 class Webpage(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True, blank=False, null=False)
     date_created = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     # todo: default to imgkit generated thumbnail
@@ -61,9 +61,6 @@ class Webpage(models.Model):
         upload_to=get_user_dir_path, validators=[validate_image_file_extension])
 
     # todo: for tameTNT's reference: https://docs.djangoproject.com/en/3.0/topics/forms/modelforms/
-
-    def was_created_recently(self):
-        pass
 
     def __str__(self):
         return self.name

@@ -1,0 +1,38 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if webpage %}
+    <title>{{ webpage.user_title }}</title>
+    {% else %}
+    <title>Early Internet Page Maker</title>
+    {% endif %}
+
+    {% block header %}
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+      Hello!
+      {% if user.is_authenticated %}
+      <a href="{% url 'user-detail' pk=user.id %}"> {{ user.username }}</a>,
+      <a href="{% url 'logout' %}">logout</a>
+      {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+
+      <a href="{% url 'home' %}">home</a>
+    </header>
+
+    <main>
+      <div>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </main>
+  </body>
+</html>

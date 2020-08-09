@@ -1,0 +1,17 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+<h2>Top Webpages</h2>
+{% for webpage in webpages %}
+<div>
+  <a href="{% url 'webpage-view' pagename=webpage.name %}">
+    <p>{{ webpage.user_title }}</p>
+  </a>
+  {% if webpage.thumbnail %}
+  <img src="{{ webpage.thumbnail.url }}">
+  {% else %}
+  no thumbnail
+  {% endif %}
+</div>
+{% endfor %}
+{% endblock %}
