@@ -69,7 +69,28 @@ $(".chat-input input").keypress(e => {
         e.preventDefault();
         $("#messages").append("<div class=\"message self\"></div>");
         $(".message:last-child").text($(".chat-input input").val());
-        // TODO make POST request here
+        $.ajax({
+            url: "/chat/send_message",
+            type: "POST",
+            headers: {
+                "X-CSRFToken": csrftoken
+            },
+            data: {
+                message: $(".chat-input input").val(),
+            }
+        }).done(result => {
+            if (result.type !== "messages") {
+                // Error
+                alert(result.message);
+            } else {
+                $("#messages").empty();
+                for (let i = 0; i < result.messages.length; i++) {
+                    let message = result.messages[i]
+                    $("#messages").append("<div class=\"message " + message.class_name + "\"></div>");
+                    $(".message:last-child").text(message.content);
+                }
+            }
+        });
         $(".chat-input input").val("");
     }
 });
