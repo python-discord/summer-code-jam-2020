@@ -31,13 +31,12 @@ Surely it would have been a weird amalgamtion of a CLI controlled GUI, even the 
 
 ## :electric_plug: Development Setup
 1. Clone this repository by running `git clone https://github.com/akshgpt7/summer-code-jam-2020`.
-2. Make sure you have `pipenv` installed in your system. If not, do it by `pip install pipenv`.
+2. Make sure you have `pipenv` installed on your system. If not, do it by `pip install pipenv`.
 3. cd to the team's folder by `cd summer-code-jam-2020/annoyed-alligators`.
 4. To activate a virtual environment for the project, run `pipenv shell`. After this, you'll be inside the virtual environment.
 5. Install the dependencies by running `pipenv install`.
-(migrations)
-(populate db)
-6. Run the Dev Server by `python3 manage.py runserver`.
+6. Run migrations by `python3 manage.py makemigrations` and then `python3 manage.py migrate`.
+7. Run the Dev Server by `python3 manage.py runserver`.
 
 ## :zap: Usage
 Just like you use any other social media platform, but there's a catch. You have a command for almost everything!<br>
