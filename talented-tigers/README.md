@@ -59,7 +59,7 @@ written inside of it (replace `your_key_here` with your API key)
   * Install [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * Install [Docker](https://docs.docker.com/engine/install/) in the WSL 2 terminal.
   * Open WSL 2 and clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
-  * Next install `pipenv` by running `pip3 install pipenv` in the WSL 2 terminal.
+  * Next install `pipenv` by running `pip3 install pipenv` in the WSL 2 terminal. (Make re `pip` is installed: https://pip.pypa.io/en/stable/installing/)
   * Then run these following commands:
     * `cd summer-code-jam-2020/talented-tigers`
     * `pipenv run python3 run-linux.py`
