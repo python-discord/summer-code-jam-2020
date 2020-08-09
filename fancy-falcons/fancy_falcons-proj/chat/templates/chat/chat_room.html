@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="ml-auto">Speaking to {{ object.username }}</h2>
+  <a href="{% url 'message-create' object.pk %}">Send message</a>
+  {% for message in messages %}
+    <div class="card mb-3" style="width: 70rem;">
+      {% if message.sender.username == user.username %}
+        <p class="card-text">{{ message.sender.username }}</p>
+        <h6 class="card-subtitle mb-2 text-muted">{{ message.date }}</h6>
+        <p class="card-text">{{ message.content }}</p>
+        <form method="POST" action="{% url 'message-delete' object.pk message.pk %}">
+          {% csrf_token %}
+          <input type="submit" value="DELETE">
+        </form>
+      {% else %}
+        <p class="card-text ml-auto">{{ message.sender.username }}</p>
+        <h6 class="card-subtitle mb-2 text-muted ml-auto">{{ message.date }}</h6>
+        <p class="card-text ml-auto">{{ message.content }}</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock content %}
