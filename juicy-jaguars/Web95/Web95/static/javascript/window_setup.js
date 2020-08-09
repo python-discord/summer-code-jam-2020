@@ -1,4 +1,5 @@
 function window_setup () {
+
     createWindowIds("draggable");
 
     loadDraggableElements("draggable");
