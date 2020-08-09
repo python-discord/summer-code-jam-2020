@@ -33,6 +33,7 @@ const store = new Vuex.Store({
   state: {
     userId: null,
     username: null,
+    instructions: [],
   },
   mutations: {
     login(state, payload) {
@@ -43,6 +44,12 @@ const store = new Vuex.Store({
       state.userId = null;
       state.username = null;
     },
+    setInstructions(state, payload) {
+      state.instructions = payload;
+    },
+    addInstructions(state, payload) {
+      state.instructions.push(payload);
+    },
   },
   getters: {
     isLoggedIn(state) {
@@ -51,7 +58,7 @@ const store = new Vuex.Store({
   },
 });
 
-Vue.use(KeyboardHandler, { router });
+Vue.use(KeyboardHandler, { router, store });
 
 new Vue({
   router,

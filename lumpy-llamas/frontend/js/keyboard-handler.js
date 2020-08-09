@@ -1,5 +1,5 @@
 class KeyboardNavigator {
-  constructor(router) {
+  constructor(router, store) {
     this.router = router;
     this.watchers = this.getDefaultWatchers();
     this.unkownCommand = undefined;
@@ -7,7 +7,7 @@ class KeyboardNavigator {
     this.inputCallback = undefined;
     this.clearText = undefined;
     this.textRelayInProgress = false;
-    this.instructions = [];
+    this.store = store;
   }
 
   init(onUnknown, askForInput, clearText) {
@@ -20,6 +20,7 @@ class KeyboardNavigator {
   getDefaultWatchers() {
     const defaultCommands = {
       '/home': [() => this.router.push('/')],
+      '/logout': [() => this.router.push('/logout')],
     };
     return defaultCommands;
   }
@@ -35,7 +36,7 @@ class KeyboardNavigator {
     }
     this.watchers[commandName].push(callback);
     if (instructions) {
-      this.instructions.push({
+      this.store.commit('addInstructions', {
         cmd: commandName,
         help: instructions,
       });
@@ -65,14 +66,14 @@ class KeyboardNavigator {
     this.watchers = this.getDefaultWatchers();
     this.unkownCommand = this.defaultUnknown;
     this.textRelayInProgress = false;
-    this.instructions = [];
+    this.store.commit('setInstructions', []);
     this.clearText();
   }
 }
 
 export default {
-  install(vue, { router }) {
-    const prompter = new KeyboardNavigator(router);
+  install(vue, { router, store }) {
+    const prompter = new KeyboardNavigator(router, store);
     vue.prototype.$cmd = prompter; // eslint-disable-line no-param-reassign
   },
 };
