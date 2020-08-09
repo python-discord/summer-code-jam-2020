@@ -16,25 +16,22 @@
     </a>
 </p>
 
-**The Talented Tigers** is the team name for us (**thaniel**, **alden**, **garfellow**, **Ice Wolfy**, and **SuperMaZingCoder**) in the [2020 Python Discord Summer Code Jam](https://pythondiscord.com/pages/code-jams/code-jam-7/). Together we created **SpydiwWeb**, a reaitime AI generated website themed like the **Early Internet** (the theme of the jam). Here are a few screenshots:
-
-(Add screenshots)
+Blast off to the past and surf the web 90s style! With Spydirweb, you can browse a realistic version of the early internet! Get lost in hundreds of webpages, all generated with AI text generation, webscraping, and more! 
 
 ## Table of Contents
-  * [Introduction](#introduction)
   * [Installation](#installation)
-  * [Getting started](#getting-started)
-  * [How it works](#how-it-works)
-    * [Info pages](#info-pages)
-    * [Blog and Business pages](#blog-and-business-pages)
-  * [About us](#about-us)
+  * [Overview](#overview)
   * [License](#license)
 
- ## Introduction
+ ## Installation
+
+ ## Overview
+ 
+ 
  **SpydirWeb** has three different types of pages; [info pages](#info-pages), [blog pages](#blog-and-business-pages), and [business pages](#blog-and-business-pages).
  
  The [blog and business pages](#blog-and-business-pages) use [openai's gpt-2](https://github.com/openai/gpt-2) AI to generate the content, while the [info pages](#info-pages) use the [wikipedia package on PyPi](https://pypi.org/project/wikipedia/). Images are gotten using the [Pixabay API](https://pixabay.com/api/docs/).
 
  Note: You will need your own API key, see [Installation](#installation).
 
- ## Installation
+ ## License
