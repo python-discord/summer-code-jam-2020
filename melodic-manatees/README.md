@@ -35,6 +35,7 @@ WEATHER_KEY=ce877c14eae19f1f99bc0787c955233c
 4. **IMPORTANT**: To ensure that MultiTabs works, you will have to disable whichever flavor of pop-up blocker you are using. Allow popups from the website and unlock true early morning power. 
 
 5. **IMPORTANT**: Links added to MultiTab fields have to be the complete URL. 
+
 Example: correct - `https://www.google.com/` incorrect - `google` 
 
 ## Sample files
