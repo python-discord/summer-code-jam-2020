@@ -1,6 +1,9 @@
 from datetime import datetime
 from pyvue import Component
 from websocket import WebSocket
+from common import MessageTypes
+
+console.log(MessageTypes)
 
 # __pragma__ ('skip')
 window = JSON = this = 0    # Prevent complaints by optional static checker
@@ -46,7 +49,7 @@ class Messages(Component):
 class MessageSocket(WebSocket):
     def __init__(self, callback):
         room_name = "test"
-        super(MessageSocket, self).__init__('ws://'
+        super().__init__('ws://'
                                             + window.location.host
                                             + '/ws/chat/'
                                             + room_name
@@ -58,4 +61,4 @@ class MessageSocket(WebSocket):
         self.callback(data)
 
     def send(self, data):
-        super(MessageSocket, self).send(JSON.stringify(data))
+        super().send(JSON.stringify(data))
