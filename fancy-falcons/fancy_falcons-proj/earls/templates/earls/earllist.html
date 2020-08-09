@@ -1,13 +1,16 @@
 {% extends 'earls/base.html' %}
 
 {% block content %}
+
 <div class="container">
-  <h2>Earls</h2>
+  <h2>Early list</h2>
   <p>
-    This is a list of currently indexed earls. 
     {% if earl_list %}
-    There are currently {{earl_list.count}} earls in the database.
-    {% endif %}
+    This is a list of currently indexed Earls. 
+    There{% if earl_list.count() != 1%} are {{earl_list.count}} Earls{% else %}is 1 Earl{% endif %} in the database.
+    {% else %}
+    There are no Earls in the database yet.
+    {% if earl_list %}
   </p>
   <ul>
     {% for earl in earl_list %}

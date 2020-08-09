@@ -3,10 +3,14 @@
 {% block content %}
 
 <div class="container">
-  <h2>Earls</h2>
+  <h2>Early list</h2>
   <p>
-    This is a list of currently indexed earls. 
-    There are currently {{earl_list.count}} earls in the database.
+    {% if earl_list %}
+    This is a list of currently indexed Earls. 
+    There{% if earl_list.count() != 1%} are {{earl_list.count}} Earls{% else %}is 1 Earl{% endif %} in the database.
+    {% else %}
+    There are no Earls in the database yet.
+    {% if earl_list %}
   </p>
   <div class="grid">
     {% for earl in earl_list %}
