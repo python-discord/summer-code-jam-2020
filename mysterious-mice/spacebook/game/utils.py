@@ -30,8 +30,7 @@ def new_game(request):
         temperature = -60
 
     # Get wind direction
-    wind_direction = (random.randint(-1,1), random.randint(-1,1))
-
+    wind_direction = (random.randint(-1, 1), random.randint(-1, 1))
 
     game_data = {
         "initials": "",
@@ -303,7 +302,7 @@ def command_move(game_data, direction):
         if game_data["has_solar_panels"]:
             game_data["battery"] = game_data["battery"] + 2
 
-    # If successfully moved deplete battery, handel components, and update position
+    # If successfully moved deplete battery, handle components, and update position
     if success:
 
         # Move dust storm
