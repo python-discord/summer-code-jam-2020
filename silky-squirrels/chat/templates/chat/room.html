@@ -4,7 +4,13 @@
         <div class="card card-tertiary">
             <div class="card-header">
                 <span class="icon icon-xs w95-folder"></span>
-                <span class="ml-2">Chatroom '{{ room_name }}'</span>
+                <span class="ml-2">Chatroom 
+                {% if pvt_members %}
+                    between {{ pvt_members.0 }} and {{ pvt_members.1 }}
+                {% else %}
+                    : '{{ room_name }}'
+                {% endif %}
+                </span>
             </div>
             <div class="card-body">
                 <p class="card-text">

@@ -19,7 +19,7 @@
         <form method="POST">
             {% csrf_token %}
             <label for="{{ form.name.id_for_label }}">
-                What chat room would you like to enter? <br>
+                What chat room would you like to enter?<br>
                 <input required autofocus style="margin: 10px 0 0 0" id="room-name-input"
                         type="{{ form.name.type }}" name="{{ form.name.name }}" size="50">
             </label>
@@ -34,7 +34,9 @@
                 <p>Your Friends:</p>
                 <ul>
                     {% for friend in friends %}
-                        <li>{{friend.user}}<span class="text-right"> Profile Chat</li>
+                        <li>{{friend.user}}<span class="text-right"> 
+                        Profile [TODO]
+                        <a href="{% url 'froom' user.id friend.user.id %}">Chat</a>
                     {% endfor %}
                 </ul>
             {% else %}

@@ -14,7 +14,5 @@ class RoomCreationForm(forms.ModelForm):
         cleaned_data = self.cleaned_data
         if room_name := cleaned_data.get('name'):
             if '@' in room_name:
-                msg = '@ not allowed in room names.'
-                self._errors['name'] = self.error_class([msg])
                 del cleaned_data['name']
         return cleaned_data
