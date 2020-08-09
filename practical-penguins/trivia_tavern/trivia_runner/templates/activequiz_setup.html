@@ -4,13 +4,23 @@
 
 <div class="parchment-border">
     <div class="row">
-        <div class="col-md-12"><h1> Waiting for players </h1></div>
+        <div class="col-md-12"><h1> Running {{ active_trivia_quiz.trivia_quiz.name }} (waiting for players to join) </h1></div>
     </div>
-    <p><strong>Session_master:</strong> <a href="">{{ active_trivia_quiz.session_master.username }}</a></p>
-    <p><strong>created on:</strong> {{ active_trivia_quiz.start_time }}</p>
-    <p>To start this quiz, text {{ active_trivia_quiz.session_code }} to {% settings_value "HOST_TWILIO_NUMBER" %} or add a player's number manually </p>
-    <div class="d-flex justify-content-end">
+
+    <div class="row">
+        <p><strong>Session_master:</strong> <a href="">{{ active_trivia_quiz.session_master.username }}</a></p>
+        <p><strong>created on:</strong> {{ active_trivia_quiz.start_time }}</p>
+        <p>To start this quiz, text <span class="clear-text">{{ active_trivia_quiz.session_code }}</span> to
+            <span class="clear-text"> {% settings_value "HOST_TWILIO_NUMBER" %} </span> or add a player's number manually </p>
+    </div>
+    <div class="row">
+        <form method="post" >
+            {% csrf_token %}
+            <input type="text" alt="not yet implemented"/>
+            <input type="submit" class="stamp is-approved2" value="invite player"/>
+        </form>
         {% include "trivia_next_step_btn.html" %}
     </div>
+
 </div>
 {% endblock %}

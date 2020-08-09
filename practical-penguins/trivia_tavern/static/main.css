@@ -46,7 +46,9 @@ input[type=text]:focus{
 
 p {
     margin: 0;
+    font-size: large;
     font-family: 'Pirata One', cursive;
+
 }
 
 .navbar-custom {
@@ -125,6 +127,11 @@ a.article-title:hover {
 
 table {
     margin: 5px 10px 10px 5px;
+}
+
+.clear-text {
+    font-family: 'Arial', cursive;
+    font-weight: 900;
 }
 
 .parchment-border {
