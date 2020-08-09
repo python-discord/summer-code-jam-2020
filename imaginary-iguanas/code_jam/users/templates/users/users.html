@@ -7,7 +7,7 @@
                 <div class="all_users_item">
                   <a href="{% url 'user-profile' username_or_id=profile.user.username %}">
                      <b>{{ profile.user.username }}</b>
-                     <div><img src="{{ profile.image.url }}" style="width:calc( 100% - 20px ); max-height: 300px;"></div>
+                     <div><img src="{{ profile.image.url }}" style="width: 100px; height: 100px;"></div>
                   </a>
                </div>
             {% endfor %}
