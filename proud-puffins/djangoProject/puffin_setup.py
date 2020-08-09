@@ -6,6 +6,7 @@ import platform
 
 # If an error happens during loading data, empties the table and returns.
 def tablewipe():
+    """Clears all tables in earlydating app."""
     conn = sqlite3.connect("mysqlite.db")
     c = conn.cursor()
 
@@ -27,6 +28,7 @@ if platform.system() == "Windows":
     os.chdir("../")
     subprocess.run(["pip", "install", "-r", "requirements.txt"], shell=True)
     os.chdir("./djangoProject")
+    # Migrate and load initial data
     subprocess.run(["python", "manage.py", "makemigrations"], shell=True)
     subprocess.run(["python", "manage.py", "migrate"], shell=True)
     subprocess.run(["python", "manage.py", "loaddata", "users.json"], shell=True)
@@ -37,7 +39,7 @@ if platform.system() == "Windows":
     except Exception:
         tablewipe()
         subprocess.run(["python", "manage.py", "loaddata", "profiles.json"], shell=True)
-
+    # runserver
     subprocess.run(["python", "manage.py", "runserver"], shell=True)
 
 # Runs for linux and mac
@@ -45,6 +47,7 @@ else:
     os.chdir("../")
     subprocess.run(["pip", "install", "-r", "requirements.txt"])
     os.chdir("./djangoProject")
+    # Migrate and load initial data
     subprocess.run(["python", "manage.py", "makemigrations"])
     subprocess.run(["python", "manage.py", "migrate"])
     subprocess.run(["python", "manage.py", "loaddata", "users.json"])
@@ -55,5 +58,5 @@ else:
     except Exception:
         tablewipe()
         subprocess.run(["python", "manage.py", "loaddata", "profiles.json"])
-
+    # runserver
     subprocess.run(["python", "manage.py", "runserver"])
