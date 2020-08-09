@@ -57,7 +57,7 @@ function hideIt(params) {
     /*The End*/
     agentSpeak(agent, "And here we are, the end of the trip. But before we split our roads, let me say a few more words.")
     agentSpeak(agent, "This young technology, which is just 30 years old, has already changed our lives in ways we never imagined, and it continues to change. We hope that this short trip to the history of the Internet has been inspiring and informative for you. And we hope again that the Internet continues to be a democratic, revolutionary, magical and useful technology.")
-    agentSpeak(agent, "Don't just use these beautiful sites and the Internet, but also contribute. Create something and change the world, leave a mark. Do it so that when people will go on a nostalgic trip with such a project in the future, your site will be included.")
+    agentSpeak(agent, "Don't just use these beautiful sites and the Internet, but also contribute. Create something and change the world, leave a mark. Do it so that when people will go on a nostalgic trip with a project like this in the future, they will be able to see your creation and contribution.")
     agentSpeak(agent, "Hokus pokus, abra kadabra! Let time flow forward and the magic of the Internet continues to spread! Keep staying online and magical! :)")
     });
         }, 5000);
