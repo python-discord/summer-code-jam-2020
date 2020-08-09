@@ -1,7 +1,6 @@
 {% extends 'main/main-base.html' %}
 
-{% block content%}
-<div class="box is-transparent">
+<!-- <div class="box is-transparent">
     <h2 class="title">MultiTab</h2>
     <article class="media notification">
         <div class="media-content">
@@ -11,4 +10,16 @@
         </div>
     </article>
 
+</div> -->
+{% block content%}
+<div>
+    <h2>Morning spirit</h2>
+    <section>
+        <p>multitab</p>
+    </section>
+    <section>
+        <a href="{% url 'edit-multitab' %}">edit multitabs</a>
+        
+    </section>
 </div>
+{% endblock content %}
