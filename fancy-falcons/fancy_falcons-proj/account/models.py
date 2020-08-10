@@ -42,19 +42,19 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    email =         models.EmailField(verbose_name='email', max_length=60, unique=True)
-    title =         models.CharField(max_length=20, default='Earl', editable=False)
-    first_name =    models.CharField(max_length=30)
-    last_name =     models.CharField(max_length=100)
-    earldom =       models.CharField(max_length=50)
-    short_bio =     models.CharField(max_length=300, blank=True)
-    image =         models.ImageField(default='default.jpg', upload_to='profile_pics')
-    birthday =      models.DateField(blank=True, null=True)
-    is_user =       models.BooleanField(default=True)
-    is_admin =      models.BooleanField(default=False)
-    is_active =     models.BooleanField(default=True)
-    is_staff =      models.BooleanField(default=False)
-    is_superuser =  models.BooleanField(default=False)
+    email         = models.EmailField(verbose_name='email', max_length=60, unique=True)
+    title         = models.CharField(max_length=20, default='Earl', editable=False)
+    first_name    = models.CharField(max_length=30)
+    last_name     = models.CharField(max_length=100)
+    earldom       = models.CharField(max_length=50)
+    short_bio     = models.CharField(max_length=300, blank=True)
+    image         = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    birthday      = models.DateField(blank=True, null=True)
+    is_user       = models.BooleanField(default=True)
+    is_admin      = models.BooleanField(default=False)
+    is_active     = models.BooleanField(default=True)
+    is_staff      = models.BooleanField(default=False)
+    is_superuser  = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [

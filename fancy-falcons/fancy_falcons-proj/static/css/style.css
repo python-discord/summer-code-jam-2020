@@ -45,6 +45,10 @@ body {
     padding: 0;
 }
 
+.homepage ul li {
+    margin-bottom: 0.4em;
+}
+
 .bday {
     font-size: 0.8em;
     color: gray;
