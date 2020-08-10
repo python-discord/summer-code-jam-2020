@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="calendar-toolbar mb-5">
+	<a class="btn btn-secondary" href="{% url 'earlcal:calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-secondary" href="{% url 'earlcal:calendar' %}?{{ next_month }}"> Next Month </a>
+	<a class="btn btn-primary float-right" href="{% url 'earlcal:event_new' %}"> New Event </a>
+</div>
+
+{{ calendar }}
+{% endblock %}

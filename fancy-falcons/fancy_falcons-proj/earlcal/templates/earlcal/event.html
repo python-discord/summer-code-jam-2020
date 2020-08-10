@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery.ui.all.css" />
+<link rel="stylesheet" href="{% static "css/datetime-local-polyfill.css" %}">
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'earlcal:calendar' %}">Calendar</a></li>
+    {% if editing %}
+    <li class="breadcrumb-item"><a href="{% url 'earlcal:event_view' event.pk %}">{{ event.title }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit event</li>
+    {% else %}
+    <li class="breadcrumb-item active" aria-current="page">New event</li>
+    {% endif %}
+  </ol>
+</nav>
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                {{ field.label }} <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ field.label }} <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table mt-5 mb-3">
+    {{ form }}
+  </table>
+  {% if editing %}
+  <button type="submit" class="btn btn-primary">Update event</button>
+  {% else %}
+  <button type="submit" class="btn btn-primary">Create event</button>
+  {% endif %}
+</form>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="{% static "js/datetime-local-polyfill.js" %}"></script>
+{% endblock %}

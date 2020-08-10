@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container earl-details">
+    <div class="row">
+        <div class="col-sm-12 mb-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'earls:earl-list' %}">Earls</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ earl }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="col-sm-4 text-center">
+            <h3 class="">{{ earl }}</h3>
+            <img class="mt-2"
+                width="250"
+                height="270"
+                src="{{ earl.image.url }}"
+                title="{{ earl }}"/>
+        </div>
+        <div class="col-sm-8">
+            <h3 class="text-muted">About {{ earl }}</h3>
+            {% if earl.short_bio %}
+            <p class="mt-2">{{ earl.short_bio }}</p>
+            {% else %}
+            <p class="mt-2 text-muted">This Earl has not provided a bio.</p>
+            {% endif %}
+            {% if earl.birthday %}
+            <p>Born on {{ earl.birthday }} </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
