@@ -1,0 +1,47 @@
+.container{
+    margin: 0 5% 0 5%;
+    display: flex;
+    flex-direction: column
+}
+
+.nav-bar {
+    display: flex;
+    flex-direction: row
+}
+
+.nav-bar > div {
+    margin-right:0.5rem
+}
+
+.nav-bar > a {
+    margin-right: 0.5rem
+}
+
+.head-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 0.15rem solid #0000ff17
+}
+
+.head-area > div {
+    margin-right: 1rem
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column
+}
+
+.search-results > div {
+    margin-top: 0.5rem
+
+}
+
+.result-title {
+    font-size: 1.5rem
+}
+
+.result-link {
+    color: green
+}

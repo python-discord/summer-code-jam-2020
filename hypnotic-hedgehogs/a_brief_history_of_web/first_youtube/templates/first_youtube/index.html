@@ -1,0 +1,375 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Youtube - Me at zoo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 12px;
+    }
+
+    .container {
+        max-width: 900px;
+
+    }
+
+    .right {
+        float: right;
+    }
+
+    .left {
+        float: left;
+    }
+
+    .rating .stars {
+        margin-right: 15px;
+    }
+
+    .rating .stars .star {
+        float: left;
+        padding: 5px 2px;
+        cursor: pointer;
+    }
+
+    .rating .stars .star:before {
+        font-family: 'FontAwesome';
+        content: '\f005';
+        color: #d0e8f0;
+        font-size: 1.2em;
+    }
+
+    .rating .stars .star:hover:before,
+    .rating .stars .star.to_rate:before,
+    .rating .stars .star.rated:before {
+        color: #80c1d5;
+    }
+
+    .rating .stars .star.no_to_rate:before {
+        color: #d0e8f0;
+    }
+</style>
+
+
+<div style="margin-top: 70px">
+    <div class="container">
+        <div class="d-flex justify-content-start">
+            <img src="{% static 'youtubelogo.gif' %}" style="height: 63px;">
+            <div style="width: 100%;" class="d-flex flex-column">
+                <div class="ml-auto">
+                    <a style="border-right: 1px solid black;padding-right: 7px;text-decoration: underline;"
+                       href="#"><strong>PewDiePie</strong></a>
+                    <a style="border-right: 1px solid black;padding-right: 7px;text-decoration: underline;" href="#">My
+                        Account</a>
+                    <a style="border-right: 1px solid black;padding-right: 7px;text-decoration: underline;" href="#">History</a>
+                    <a style="border-right: 1px solid black;padding-right: 7px;text-decoration: underline;" href="#">Quicklist
+                        (0)</a>
+                    <a style="border-right: 1px solid black;padding-right: 7px;text-decoration: underline;" href="#">Help</a>
+                    <a style="border-right: 1px solid black;padding-right: 7px;text-decoration: underline;" href="#">Logout</a>
+
+                </div>
+                <div class="ml-auto mt-1">
+                    <form action="">
+                        <input type="text" style="height: 20px;width: 258px;">
+                        <input type="button" value="Search"
+                               style="height: 20px;font-size: 12px;" class="align-middle">
+                    </form>
+                </div>
+
+                <div>
+                    <div class="ml-5 mt-2">
+                        <img src="{% static 'tab_videos_select_118x28.gif' %}">
+                        <img src="{% static 'tab_categories_118x28.gif' %}">
+                        <img src="{% static 'tab_channels_118x28.gif' %}">
+                        <img src="{% static 'tab_community_118x28.gif' %}">
+                        <img class="float-right" src="{% static 'pic_upload_130x28.gif' %}">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-12">
+            <img src="{% static 'gNavBottom.png' %}" style="width: 875px;">
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <h5><strong>Me at the zoo</strong></h5>
+                <object width="425" height="350">
+
+                    <embed src="http://www.youtube.com/v/jNQXAC9IVRw?autoplay=0" type="application/x-shockwave-flash"
+                           wmode="transparent"
+                           width="425" height="350"></embed>
+                </object>
+            </div>
+            <div class="col-5">
+                <div class="border p-1" style="width: 300px;height: 292px;">
+                    <p style="margin: 0px !important;"><strong>Added April 23, 2005</strong></p>
+                    <p style="margin: 0px !important;"><strong>From</strong> <a href="#">jawed</a></p>
+                    <img src="{% static 'Me at the zoo.jpg' %}">
+                    <span style="width: 30px !important;"><strong>Provided By:</strong> <a href="#">jawed</a></span>
+
+                    <div></div>
+                    <img class="ml-4 mt-1" src="{% static 'pic_badge_director_90x18.gif' %}">
+
+                    <div>The first video on YouTube.</div>
+                    <div><strong>Category </strong><a href="#">Comedy</a></div>
+                    <div><strong>Tags
+                        <a href="#" style="text-decoration: underline;" class="mx-1">zoo</a>
+                        <a href="#" style="text-decoration: underline;" class="mx-1">jawed</a>
+                        <a href="#" style="text-decoration: underline;" class="mx-1">elephant</a>
+                        <a href="#" style="text-decoration: underline;" class="mx-1">zoo</a>
+                    </strong></div>
+                    <div style="font-weight: bold">URL<input type="text" style="height: 20px;width: 276px;"
+                                                             value="http://www.youtube.com/watch?v=jNQXAC9IVRw"
+                                                             readonly>
+                    </div>
+                    <div style="font-weight: bold">Embed<input class="float-left" type="text"
+                                                               style="height: 20px;width: 276px;"
+                                                               value='<object width="425" height="350"><param name="movie" value="http://www.youtube.com/v/jNQXAC9IVRw"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/jNQXAC9IVRw" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed></object>'
+                                                               readonly>
+                    </div>
+                    <p class="mt-3">Explore more Tabs</p>
+                    <div style="height:20px;background-color: #EEEEEE;">Showing 1-20 of 32163 <span class="float-right"><a
+                            style="text-decoration: underline;" href="#">See all videos</a></span></div>
+
+                    <div style="height: 405px;overflow-y: scroll;" class="border">
+                        {% for video in videos %}
+                        {% if video.now_playing == True %}
+                        <div style="height:80px;background-color: #FFFFCC;" class="d-flex justify-content-start">
+                            <div>
+                                <img style="height: 72px;width: 92px;" src="../../static/{{video.name}}.jpg"
+                                     class="p-1">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#" style="text-decoration: underline;font-weight: bold;">{{video.name}}</a>
+                                <div style="font-weight: bold;font-size: 11px;">{{video.duration}}</div>
+                                <div style="font-size: 11px;"><span style="color: #666;">From:</span><a href="#"
+                                                                                                        style="text-decoration: underline;"
+                                                                                                        class="ml-1">{{video.publisher}}</a>
+                                </div>
+                                <div style="font-size: 11px;"><span style="color: #666;">Views:</span><span
+                                        class="ml-1">{{video.view_count}}</span></div>
+                                <div style="font-size: 11px;font-weight: bold;">&lt;&lt; Now playing</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% for video in videos %}
+                        {% if video.now_playing == False %}
+                        <div style="height:80px;background-color: #EEEEEE;" class="d-flex justify-content-start">
+                            <div>
+                                <img style="height: 72px;width: 92px;" src="../../static/{{video.name}}.jpg"
+                                     class="p-1">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#" style="text-decoration: underline;font-weight: bold;">{{video.name}}</a>
+                                <div style="font-weight: bold;font-size: 11px;">{{video.duration}}</div>
+                                <div style="font-size: 11px;"><span style="color: #666;">From:</span><a href="#"
+                                                                                                        style="text-decoration: underline;"
+                                                                                                        class="ml-1">{{video.publisher}}</a>
+                                </div>
+                                <div style="font-size: 11px;"><span style="color: #666;">Views:</span><span
+                                        class="ml-1">{{video.view_count}}</span></div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-7 mt-2">
+                <div style="width: 425px;height: 80px;background-color: #F6F6F6;" class="border d-flex flex-column">
+                    <div style="height:57px" class="d-flex justify-content-start">
+                        <div style="width: 117px;" class="mt-1 d-flex flex-column">
+                            <p class="text-center" style="margin: 0px;">Rate this video</p>
+                            <div class="d-flex justify-content-around mx-auto" style="width: 110px;margin-top: -10px">
+                                <div class="rating left">
+                                    <div class="stars right">
+                                        <a class="star rated" ></a>
+                                        <a class="star rated" ></a>
+                                        <a class="star rated"></a>
+                                        <a class="star"></a>
+                                        <a class="star"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-center" style="margin: 0px;margin-top: -8px">434 ratings</p>
+                        </div>
+                        <div style="" class="mt-1 d-flex flex-column">
+                            <div><img src="{% static 'icn_fav_reg_19x17.gif' %}"><a href="#" class="m-1">Save to
+                                Favorites</a>
+                            </div>
+                            <div class=""><img src="{% static 'icn_groups_reg_19x17.gif' %}"><a href="#" class="m-1">Add
+                                to
+                                Groups</a></div>
+                        </div>
+                        <div style="" class="mt-1 d-flex flex-column">
+                            <div><img src="{% static 'icn_fav_reg_19x17.gif' %}"><a href="#" class="m-1">Share Video</a>
+                            </div>
+                            <div class=""><img src="{% static 'icn_groups_reg_19x17.gif' %}"><a href="#" class="m-1">Post
+                                Video</a></div>
+                        </div>
+                        <div style="width:70px;" class="mt-1 d-flex flex-column">
+                            <div><img src="{% static 'icn_flag_reg_19x17.gif' %}"><a href="#" class="m-1">Flag as
+                                Inappropriate</a></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start" style="border-top:1px #ccc solid;">
+                        <div class="mr-2 border-right px-2">
+                            Views: <strong>55,021</strong>
+                        </div>
+                        <div class="mr-2 border-right px-2">
+                            Comments: <strong value="{{total_comment}}">{{total_comment}} </strong>
+                        </div>
+                        <div class="mr-2 border-right px-2">
+                            Favorited: <strong>126</strong> times
+                        </div>
+                        <div class="mr-2 ">
+                            <a href="#">more stats...</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <h2 style="font-size: 16px;font-weight: bold;" class="mt-2">Comments & Responses</h2>
+                <div class="form-group mb-4">
+                    <form method="POST" id="form" style="visibility: visible;position: relative;border: none;padding: 0px;background-color: white">
+                        {% csrf_token %}
+                        <div>{{comment_form}}</div>
+                        <input type="submit" class="float-right mt-2" value="Comment">
+                    </form>
+
+                </div>
+                <div class="mt-4">
+                    <b style="font-size: 14px;">Text Comments (</b>
+                    <b style="font-size: 14px;" class="comment-count" value="{{total_comment}}">{{total_comment}}</b>
+                    <b style="font-size: 14px;">)</b>
+                    <div style="height:20px" class="border d-flex justify-content-center mt-2">
+                        {% for i in page_range %}
+                        <a class="paginator-exe" style="margin-left: 5px; font-size: 12px;text-decoration: underline"
+                           href="{{i}}">{{i}}</a>
+                        {% endfor %}
+
+                    </div>
+                    <div class="mt-2">
+                        <div id="posts">
+                            {% include 'first_youtube/comments.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script
+        src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $("form").keypress(function(e) {
+  //Enter key
+  if (e.which == 13) {
+    return false;
+  }
+});
+
+    $('.paginator-exe').click(function (event) {
+        event.preventDefault();
+        var page_n = $(this).attr('href');
+        $.ajax({
+            type: "POST",
+            url: "{% url 'first_youtube:index' %}", // name of url
+            data: {
+                page_n: page_n, //page_number
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (resp) {
+                $('#posts').html('')
+                $.each(resp.results, function (i, val) {
+                    $('#posts').append('<div class="exampleComment" style="margin-bottom: 50px;">\n' +
+                        '    <div style="height: 20px; background-color: #EEEEEE;">\n' +
+                        '        <a href="#" style="text-decoration: underline;" class="ml-2">PewDiePie</a>' +
+                        '    </div>\n' +
+                        '    <div class="px-1 mt-1">' + val.content + "</div>\n" +
+                        "    <div><a style=\"border-bottom: 1px dotted #0033CF;\" href=\"#\" class=\"float-right\">(Reply)</a></div>\n" +
+                        "</div>")
+                });
+            },
+            error: function () {
+            }
+        }); //
+
+    });
+</script>
+
+<script type="text/javascript">
+    var a = parseInt("{{total_comment}}");
+    const form = document.getElementById('form');
+    form.addEventListener("submit", submitHandler);
+
+    function submitHandler(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "first_youtube:index" %}',
+            data: $('#form').serialize(),
+            dataType: 'json',
+            success: function (response) {
+                $('#posts').html(response['form']);
+                form.reset();
+                a += 1;
+                $('.comment-count').text(a);
+            },
+            error: function (rs, e) {
+                console.log(rs.responseText)
+            }
+        });
+    }
+
+</script>
+
+<script>
+    jQuery(document).ready(function($) {
+  $('.rating .star').hover(function() {
+    $(this).addClass('to_rate');
+    $(this).parent().find('.star:lt(' + $(this).index() + ')').addClass('to_rate');
+    $(this).parent().find('.star:gt(' + $(this).index() + ')').addClass('no_to_rate');
+  }).mouseout(function() {
+    $(this).parent().find('.star').removeClass('to_rate');
+    $(this).parent().find('.star:gt(' + $(this).index() + ')').removeClass('no_to_rate');
+  }).click(function() {
+    $(this).removeClass('to_rate').addClass('rated');
+    $(this).parent().find('.star:lt(' + $(this).index() + ')').removeClass('to_rate').addClass('rated');
+    $(this).parent().find('.star:gt(' + $(this).index() + ')').removeClass('no_to_rate').removeClass('rated');
+    /*Save your rate*/
+    /*TODO*/
+  });
+});
+</script>
+</body>
+</html>
