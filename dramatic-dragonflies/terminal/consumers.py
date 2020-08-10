@@ -9,6 +9,8 @@ from vmachine.models import VMachine, Floppy
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
+from the_htvms.runner.vm import start_vm
+from the_htvms.runner.config import VMConfig
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
@@ -50,10 +52,9 @@ class TerminalConsumer(AsyncWebsocketConsumer):
             await self.close()
             return
         self.connected = True
-        self.process = await subprocess.create_subprocess_shell(
-            '../build/process_watch bash', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        self.pid = int(await self.process.stdout.read(20), 16)
-        print('==== started with pid', self.pid, '====')
+        vm = VMachine.objects.get(id=vm_id)
+        self.process = await subprocess.create_subprocess_exec(
+            *start_vm(VMConfig('bash', vm.floppy_disks_id)), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.task_err = asyncio.tasks.create_task(
             self.handle_sending(self.process.stderr))
         self.task_out = asyncio.tasks.create_task(

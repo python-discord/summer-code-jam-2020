@@ -43,7 +43,6 @@ int main(int argc, char **argv)
         tcsetattr(0, TCSANOW, &settings);
         char u[21];
         sprintf(u, "%020x", pid);
-        write(1, u, 20);
 
         for (;;)
         {
