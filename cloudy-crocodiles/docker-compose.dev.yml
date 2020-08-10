@@ -1,0 +1,49 @@
+# Local dev environment
+
+version: "3.8"
+services:
+  # python / Django
+  djangocities:
+    build:
+      context: django
+      target: djangodev
+    depends_on:
+      - pgcities
+    environment:
+      - DEBUG=TRUE
+      - DJANGO_SECRET_KEY=UNSAFELYpushDEVsecretsToGitbutITSnotFORprodSOwtv
+      # Set LOAD_FIXTURES=True to load fixtures on server startup
+      # DANGER ZONE! This may cause data loss in your DB
+      - LOAD_FIXTURES=${LOAD_FIXTURES-False}
+      - POSTGRES_DB=${POSTGRES_DB-djangocities}
+      - POSTGRES_HOST=${POSTGRES_HOST-pgcities}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD-djangocities}
+      - POSTGRES_USER=${POSTGRES_USER-djangocities}
+    ports:
+      - 1234:8000
+    restart: "no"
+    volumes:
+      - "./django/:/django"
+      - "./cdn/:/cdn"
+  # Database
+  pgcities:
+    image: postgres:12.3
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB-djangocities}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD-djangocities}
+      - POSTGRES_USER=${POSTGRES_USER-djangocities}
+    restart: "no"
+    volumes:
+      - "./postgres:/var/lib/postgresql/data"
+  # Front-end
+  nodecities:
+    build:
+      context: nodecities
+      target: quasar-dev
+    ports:
+      - 8080:8080
+    restart: "no"
+    volumes:
+      - "./nodecities:/nodecities"
+    environment:
+      - GRAPHQL_URI=http://localhost:1234/graphql/

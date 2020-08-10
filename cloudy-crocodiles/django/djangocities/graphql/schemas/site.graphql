@@ -1,0 +1,14 @@
+type Site {
+  id: ID!
+  city: City!
+  user: User!
+  address: Int!
+  description: String!
+  pages: [Page!]
+  default_page: String
+}
+
+input SiteInput {
+  city: ID
+  description: String
+}

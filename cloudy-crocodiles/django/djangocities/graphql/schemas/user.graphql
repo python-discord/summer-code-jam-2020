@@ -1,0 +1,22 @@
+type User {
+  username: String!
+}
+
+type LogIn {
+  token: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+type Register {
+  success: Boolean!
+}
+
+input RegisterInput {
+  username: String!
+  password: String!
+  email: String!
+}

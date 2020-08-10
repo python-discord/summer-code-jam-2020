@@ -1,0 +1,15 @@
+type Query {
+  allUsers: [User!]!
+
+  allCities: [City!]!
+  city(slug: String!): City!
+  citySites(id: ID!): [Site!]!
+  citySite(slug: String!, address: Int!): Site!
+
+  allSites: [Site!]!
+  site(id: ID!): Site!
+  userOwnSites: [Site]!
+
+  allPages: [Page!]!
+  page(id: ID!): Page!
+}
