@@ -1,0 +1,74 @@
+#command-history-div {
+    font-family: monospace;
+    background-color: #000;
+    color: #0F0;
+    width: 700px;
+    height: 400px;
+    overflow-y: auto;
+}
+
+#command-input-div {
+    font-family: monospace;
+    background-color: #000;
+    color: #0F0;
+    width: 700px;
+}
+
+#command-input, #command-input:focus {
+    background-color: #000;
+    font-family: monospace;
+    color: #0F0;
+    width: auto;
+    border: none;
+    outline: none;
+    width: 575px;
+}
+
+#command-submit, #command-submit:focus {
+    border: none;
+    background-color: #000;
+    color: #0F0;
+    font-family: monospace;
+    outline: none;
+}
+
+.old-button {
+    background-color: #ccc;
+    border-left: 3px solid #ddd;
+    border-top: 3px solid #ddd;
+    border-right: 3px solid #666;
+    border-bottom: 3px solid #666;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    width: 45px;
+    height: 30px;
+    outline: none;
+}
+
+.old-button:active {
+    border-left: 3px solid #444;
+    border-top: 3px solid #444;
+    border-right: 3px solid #222;
+    border-bottom: 3px solid #222;
+    outline: none;
+}
+
+.command-submit {
+    align: right;
+}
+
+input, form {
+    display: inline;
+}
+
+.command-table {
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0;
+}

@@ -1,0 +1,135 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ rover.username }}'s Profile{% endblock %}
+
+{% block extrahead %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
+
+{% block body %}
+    <div class="profile-div"><table><tbody><tr>
+        <td class="profile-column">
+            <div class="body-div"><table><tbody>
+                <tr><td><h2>
+                    {{ rover.username }}
+                </h2></td></tr>
+                <tr><td><table><tbody><tr>
+                    <td>
+                        <!-- profile picture -->
+                        <img src="{{ rover.image.url }}" class="profile-picture">
+                    </td>
+                    <td>
+                        <!-- status -->
+                        {% if rover.status %}
+                            "{{ rover.status }}"
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                        <br> <br>
+                        <!-- location -->
+                        Location: Mars
+                    </td>
+                </tr></tbody></table></td></tr>
+            </tbody></table></div>
+            <br>
+            <div class="body-div"><table><tbody>
+                <tr>
+                    <td colspan="2">
+                        {{ rover.username }}'s Details
+                    </td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                {% if rover.launch_date %}
+                    <tr>
+                        <td>
+                            Launch Date:
+                        </td>
+                        <td>
+                            {{ rover.launch_date|date:"Y-m-d" }}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if rover.land_date %}
+                <tr>
+                    <td>
+                        Land Date:
+                    </td>
+                    <td>
+                        {{ rover.land_date|date:"Y-m-d" }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if rover.end_date %}
+                <tr>
+                    <td>
+                        Declared Date:
+                    </td>
+                    <td>
+                        {{ rover.end_date|date:"Y-m-d" }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if rover.max_speed %}
+                <tr>
+                    <td>
+                        Max Speed:
+                    </td>
+                    <td>
+                        {{ rover.max_speed|floatformat:"-2" }} feet per hour
+                    </td>
+                </tr>
+                {% endif %}
+                {% if rover.average_speed %}
+                <tr>
+                    <td>
+                        Average Speed:
+                    </td>
+                    <td>
+                        {{ rover.average_speed|floatformat:"-2" }} feet per hour
+                    </td>
+                </tr>
+                {% endif %}
+                {% if rover.cost %}
+                <tr>
+                    <td>
+                        Cost:
+                    </td>
+                    <td>
+                        ${{ rover.cost|floatformat:2|intcomma }}
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody></table></div>
+        </td>
+        <td class="spacer-column"></td>
+        <td class="content-column">
+            {% if rover.about_me %}
+                <div class="body-div">
+                    About {{ rover.username }}
+                    <br><br>
+                    {{ rover.about_me }}
+                </div>
+                <br>
+            {% endif %}
+            {% if images|length > 0 %}
+                <div class="body-div"><table><tbody>
+                    <tr><td>
+                            {{ rover.username }}'s Top {{ images|length }} Photos
+                            (<a href="{% url 'posts-home' %}?username={{ rover.username }}">see all</a>)
+                    </td></tr>
+                    <tr><td><table><tbody><tr>
+                            {% for image in images %}
+                                {% if forloop.counter == 5 %}
+                                    </tr><tr>
+                                {% endif %}
+                                <td><a href="{% url 'posts-detail' image.pk %}?username={{ rover.username }}">
+                                    <img src="{{ image.image.url }}" class="top8-thumbnail">
+                                </a></td>
+                            {% endfor %}
+                    </tr></tbody></table></td></tr>
+                </tbody></table></div>
+            {% endif %}
+        </td>
+    </tr></tbody></table></div>
+{% endblock %}

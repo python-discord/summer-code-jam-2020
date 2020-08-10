@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="{% static 'images/mars-icon.png' %}" sizes="16x16 32x32" type="image/png">
+        <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+        {% block extrahead %}{% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <!-- Start Navigation -->
+        {% block body %}{% endblock %}
+        <!--
+        {% block footer %}{% endblock %}
+        -->
+        <script src="{% static 'javascript/welcome.js' %}"></script>
+    </body>
+</html>

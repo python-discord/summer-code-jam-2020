@@ -1,0 +1,46 @@
+{% extends "posts/base.html" %}
+
+{% block title %}Spacebook Guestbook{% endblock %}
+
+{% block body %}
+
+<div class="header-div full-width">
+
+<h2> Guestbook</h2>
+
+<form action = "/guestbook/" method = "post" >
+    {% csrf_token %}
+    {{ form }}
+<input type=submit value="Submit">
+</form>
+<hr noshade>
+{% if comments.has_other_pages %}
+    {% if comments.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ comments.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in comments.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="page={{ num }}">{{ num }}</a>
+        {% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if comments.has_next %}
+        <a href="?page={{ comments.next_page_number }}">Next</a>
+        <a href="?page={{ comments.paginator.num_pages }}">Last</a>
+    {% endif %}
+{% endif %}
+
+{% for comment in comments %}
+        <h2><a href="">{{ comment.author }}</a></h2>
+        <p>published: {{ comment.published_date }}</p>
+        <p>{{ comment.text|linebreaksbr }}</p>
+        <hr noshade>
+
+{% endfor %}
+</div>
+
+{% endblock %}

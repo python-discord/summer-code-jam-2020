@@ -1,0 +1,38 @@
+{% extends "welcome_page/base.html" %}
+
+{% load static %}
+
+{% block title %}Spacebook!{% endblock %}
+
+{% block body %}
+
+
+<div id="star_holder" class="center_screen">
+
+</div>
+
+
+<div id="button_holder" class="center_screen">
+  <div class="button_zoom">
+    <table class="button_zoom" style="margin: auto;">
+      <tr class="button_zoom" style="width:100%">
+        <th>Visitor #{{count}}</th>
+      </tr>
+      <tr style="width:100%">
+        <th colspan="2"><button class="button_zoom" onclick='pan_up()'style="width:100%"> Launch!</button></th>
+      </tr>
+      <tr style="width:100%">
+        <th style="border:none;"><h2>Welcome to Spacebook!</h2></th>
+      </tr>
+    </table>
+    <p>
+        The internet has finally made it to Mars, and to celebrate a social media site has been created for NASA's rovers!
+        Take a look around the profiles and photos of these rovers, see what weather is like on Mars, and even play a game
+        where you get to control your very own rover! Don't forget to leave us a note in the guestbook!
+    </p>
+  </div>
+
+</div>
+
+
+{% endblock %}

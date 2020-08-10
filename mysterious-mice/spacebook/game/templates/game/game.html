@@ -1,0 +1,128 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
+{% endblock %}
+
+{% block title %}Crash Landing!{% endblock %}
+
+{% block body %}
+    <div class="body-div full-width">
+        Crash Landing!
+        <br>
+        <table><tbody>
+            <tr>
+                <td style="vertical-align: bottom;"><table class="nav-table"><tbody>
+                    <tr>
+                        <td colspan=3>Components:</td>
+                    </tr>
+                    <tr>
+                        <td>{% if has_solar_panels %} X {% endif %}</td>
+                        <td colspan=2>Solar Panels</td>
+                    </tr>
+                    <tr>
+                        <td>{% if has_plutonium %} X {% endif %}</td>
+                        <td colspan=2>Plutonium</td>
+                    </tr>
+                    <tr><td colspan=3>&nbsp;</td></tr>
+                    <tr>
+                        <td colspan=3>Coordinates:</td>
+                    </tr>
+                    <tr>
+                        <td colspan=3>({{ rover.0 }}, {{ rover.1 }})</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move n">
+                                <input type="submit" class="old-button" value="N">
+                            </form>
+                        </td>
+                        <td></td>
+                    </tr><tr>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move w">
+                                <input type="submit" class="old-button" value="W">
+                            </form>
+                        </td>
+                        <td></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move e">
+                                <input type="submit" class="old-button" value="E">
+                            </form>
+                        </td>
+                    </tr><tr>
+                        <td></td>
+                        <td>
+                            <form action="/game/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="command" value="move s">
+                                <input type="submit" class="old-button" value="S">
+                            </form>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr><td colspan=3>&nbsp;</td></tr>
+                    <tr>
+                        <td colspan=3>Battery:</td>
+                    </tr><tr>
+                        <td colspan=3>{{ battery }}</td>
+                    </tr>
+                </tbody></table></td>
+                <td>
+                    <table class="command-table"><tbody>
+                        <tr><td>
+                            <div id="command-history-div">
+                                <table><tbody>
+                                {% for message in messages %}
+                                    <tr>
+                                        <td>
+                                            {% if message.from_rover %}
+                                                &gt;&gt;&nbsp;
+                                            {% else %}
+                                                &lt;&lt;&nbsp;
+                                            {% endif %}
+                                        </td><td>
+                                            {{ message.message }}
+                                        </td>
+                                {% endfor %}
+                                </tbody></table>
+                            </div>
+                        </td></tr>
+                        <tr><td>
+                            <div id="command-input-div">
+                                &gt;&gt;
+                                <form action="/game/" method="post">
+                                    {% csrf_token %}
+                                    <input type="text" name="command" id="command-input" maxlength={{input_len}}>
+                                    <input type="submit" class="button" id="command-submit" value="[Submit]">
+                                </form>
+                            </div>
+                        </td></tr>
+                    </tbody></table>
+                </td>
+                <td>
+                    <td style="vertical-align: top;"><table class="nav-table"><tbody>
+                        High Scores
+                        {% for score in scores %}
+                        <p>{{score.0}}: {{score.1}}</p>
+                        {% endfor %}
+                    </tbody></table></td>
+                </td>
+            </tr>
+        </tbody></table>
+    </div>
+    <script>
+        document.getElementById('command-input').focus();
+        historydiv = document.getElementById('command-history-div');
+        historydiv.scrollTop = historydiv.scrollHeight;
+    </script>
+{% endblock %}

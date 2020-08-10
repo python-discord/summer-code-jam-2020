@@ -1,0 +1,32 @@
+{% extends "posts/base.html" %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/mars_weather.css' %}">
+{% endblock %}
+
+
+{% block title %}Current Weather on Mars{% endblock %}
+
+{% block body %}
+<div class="header-div full-width">
+    <h2>Local Weather Conditions</h2>
+    <h3>Go to: <a href="{% url 'mars_weather:week_weather' %}">Weekly Weather</a></h3>
+    <h1>Mars</h1>
+    {% if not AT %}
+    <h3>Average Temperature: Temperature data currently unavailable </h3>
+    {% else %}
+    <h3>Average Temperature: {{ AT.av }} &#176;C</h3>
+    {% endif %}
+    {% if not PRE %}
+    <h3>Average Pressure: Pressure data currently unavailable </h3>
+    {% else %}
+    <h3>Average Pressure: {{ PRE.av }} Pa</h3>
+    {% endif %}
+    {% if not HWS %}
+    <h3>Average Horizontal Wind Speed: Horizontal Wind Speed data currently unavailable </h3>
+    {% else %}
+    <h3>Average Horizontal Wind Speed: {{ HWS.av }} m/s</h3>
+    {% endif %}
+    <h3>Season on Mars Today: {{ season|title }}</h3>
+</div>
+{% endblock %}
