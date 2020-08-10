@@ -1,0 +1,10 @@
+<footer>
+    <div>
+    <h6>Archives</h6>
+    <ul>
+        {% for year in years %}
+        <li><a href="{% url 'article-archive-year' year %}">{{ year }}</a></li>
+        {% endfor %}
+    </ul>
+    </div>
+</footer>

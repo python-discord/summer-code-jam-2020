@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Log in</legend>
+      {{ form.as_p }}
+    </fieldset>
+    <div class="form-group">
+      <button cls="btn btn-outline-info" type="submit" name="submit">
+        Log in
+      </button>
+    </div>
+  </form>
+  <div class="border-top pt-3">
+    Not a member yet? <a href="{% url "register" %}">Sign up</a>.
+  </div>
+</div>
+{% endblock %}

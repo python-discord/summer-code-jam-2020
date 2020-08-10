@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Articles{% endblock %}
+
+{% block content %}
+    <h4>User: {{ user.username }}</h3>
+    <p><font size=5>
+        <a href="{% url 'compose' %}">Compose a new article</a>
+    </font></p>
+    <h1>Your Recent Articles</h1>
+    <ul>
+      {% for article in articles %}
+      <li><a href="{% url 'article-detail' article.slug %}">
+          {{article.publication_date|date }} - {{ article.title }} -
+          {{article.headline }}</a> --
+        <a href="{% url 'update' article.slug %}">(edit)</a>
+      </li>
+      {% empty %}
+      <li>No articles yet.</li>
+      {% endfor %}
+    </ul>
+{% endblock %}

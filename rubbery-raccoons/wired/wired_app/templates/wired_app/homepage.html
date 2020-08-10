@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}News{% endblock %}
+{% block extra_heads %}
+    {% load static %}
+    <div>
+    {% if user.is_authenticated %}
+        <p><em>Welcome, {{ user.username }}!</em></p>
+    {% endif %}
+    </div>
+    <link rel="stylesheet" href="{% static "/wired_app/homepage.css" %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Articles</h1>
+    <ul>
+    {% for article in articles %}
+        <li><a href="{% url 'article-detail' article.slug %}">{{ article.publication_date|date }} - {{ article.title }} - {{ article.headline }}</a></li>
+        <p>{{ article.brief_body }}</p>
+        {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+{% block footer %}
+    {% include "components/archive_footer.html" %}
+{% endblock %}
