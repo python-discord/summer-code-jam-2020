@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="w3-row">
+  <div class="w3-col w3-container m1 l2"></div>
+  <div class="w3-col w3-container m10 l8">
+    <div class="window" style="padding-top: 1vh;">
+      <div class="w3-row">
+        <div class="w3-col w3-container m4 l3">
+          <img src="{{ of_user.profile.image.url }}">
+        </div>
+        <div class="w3-col w3-container m8 l9">
+          <h4 style="margin-top:0;">{{ of_user.username }}</h4>
+          <h5>{{ of_user.first_name }} {{ of_user.last_name }}</h5>
+          <p>Birthday: {{ of_user.profile.date_of_birth|date:"jS F" }}</p>
+          <p id="gender"></p>
+        </div>
+      {% comment %} </div> {% endcomment %}
+
+      <div style="float: left;">
+        <p>{{ of_user.profile.bio }}</p>
+
+        {% if of_user.username == user.username %}
+          <a href="{% url 'profile_edit' %}"><button>Update Info</button></a>
+        {% endif %}
+
+        <hr style="border-color: black;">
+
+        <h4>Posts ({{ num_posts }})</h4>
+
+        {% for post in posts %}
+            <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic" class="post-profile-pic">
+            <span class="author">
+                  {{post.posted_by}}
+              </a>&nbsp;
+            </span>
+            <span class="hide">{{post.posted_by.profile.bio}}&nbsp;&nbsp;</span>
+            <span class="post-time">{{post.post_date_posted}}</span>
+            <p class="content">{{post.post_content}}</p>
+            {% if post.post_image %}
+              <p><img src="{{ post.post_image.url }}"></p>
+            {% endif %}
+            <p>Post number: {{ post.pk }}</p>
+            <hr class="socl">
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w3-col w3-container m1 l2"></div>
+</div>
+
+<script>
+  let gender = "{{ of_user.profile.gender}}"
+  if(gender == 'M'){
+    gender = 'Male'
+  } else if(gender == 'F'){
+    gender = 'Female'
+  } else if(gender == 'O'){
+    gender = 'Other'
+  } else {
+    gender = "Not specified"
+  }
+  document.getElementById("gender").innerHTML = "Gender: " + gender;
+</script>
+
+<style>
+  .author {
+      font-size: 0.9rem;
+      font-weight: bold;
+  }
+  .author:hover + span {
+    display: block;
+    color: blue;
+  }
+  .content {
+      font-size: 1rem
+  }
+  .post-time {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: #555;
+  }
+  .hide {
+    display: none;
+  }
+  .post-profile-pic {
+    border-radius: 50%;
+    width: 20px;
+  }
+  .socl {
+    border-top: 1px solid #555;
+    margin-right: 20px;
+  }
+  .info {
+    background-color: blue;
+    color: white;
+    position: static;
+    text-align: center;
+  }
+  hr {
+    border-top: 1px solid #555;
+    margin-right: 20px;
+  }
+</style>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+  <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic" class="post-profile-pic">
+  <span class="author">
+      {{post.posted_by.username}}
+  </span>
+  <div class="hide">{{post.posted_by.bio}}</div>
+  <span class="post-time">{{post.post_date_posted}}</span>
+  <p class="content">{{post.post_content}}</p>
+  {% if post.post_image %}
+  <p><img src="{{ post.post_image.url }}"></p>
+  {% endif %}
+
+  <p>Post number: {{ post.pk }}</p>
+
+
+			{% if post.posted_by == user %}
+      <button><a href="{% url 'post-update' post.pk %}">Edit</a></button>
+      <button><a href="{% url 'post-delete' post.pk %}">Delete<a/></button>
+			{% endif %}
+
+
+
+
+
+<style>
+.author {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.author:hover + div {
+  display: block;
+  color: blue;
+}
+.content {
+    font-size: 1rem
+}
+.post-time {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #555;
+}
+.hide {
+  display: none;
+}
+.post-profile-pic {
+  border-radius: 50%;
+  width: 20px;
+}
+.socl {
+  border-top: 1px solid #555;
+  margin-right: 20px;
+}
+.info {
+  background-color: blue;
+  color: white;
+  position: static;
+  text-align: center;
+}
+</style>
+{% endblock content %}

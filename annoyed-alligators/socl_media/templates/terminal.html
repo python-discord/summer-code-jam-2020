@@ -1,0 +1,197 @@
+<div id="app">
+  <div id="terminal" :style="{height: terminal_hidden? '7vh': '25vh'}">
+    <span class="title-bar">
+      <div class="title-bar-text">Interactive terminal</div>
+      <div class="title-bar-controls">
+        <button :aria-label="title_icon" @click="toggle_terminal"></button>
+        <button aria-label="Help" @click="call_help"></button>
+      </div>
+    </span>
+
+    <div id="terminal-window" class="dummy" :style="{height: terminal_hidden? '0vh': '18vh'}">
+      <span id="terminal-output" v-html="response">
+      </span>
+    </div>
+    <div id="terminal-input"> 
+      <span id="prompt">[[prompt]]</span>
+      <input type="text" 
+             id="command-input"
+             class="terminal-input-text" 
+             autofocus="autofocus" 
+             @keyup.enter="run_command" 
+             @keyup.arrow-up="populate_previous"
+             @keyup.arrow-down="populate_next"
+             @keyup.ctrl.c="reset_prompt"
+             @keyup.esc="reset_prompt"
+             v-model="command"
+             >
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var app = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#app',
+    data: {
+      command: '',
+      previous_commands: [],
+      current_command_num: 0,
+      {% if messages %}                                                     
+        {% for message in messages %}                                         
+          response: '{{ message }}',                                                      
+        {% endfor %}
+        {% else %}
+          response: '',
+      {% endif %}
+      prompt: '{{ request.path }}:$',
+      followup_count: 0,
+      terminal_hidden: false,
+      title_icon: 'Minimize',
+      help_window: 'none',
+    },
+
+    mounted: function() {
+      this.$nextTick(function () {
+        document.getElementById("command-input").focus();
+      })
+    },
+
+    methods: {
+      call_help: function(){
+        this.command = 'help',
+        this.run_command()
+      },
+
+      redirect: function(url) {
+        window.location = url;
+      },
+
+      populate_previous: function() {
+        if(this.current_command_num < this.previous_commands.length){
+          this.command = this.previous_commands[this.current_command_num];
+          this.current_command_num += 1 
+        }
+      },
+
+      populate_next: function() {
+        if(this.current_command_num > 0){
+          this.current_command_num -= 1
+          this.command = this.previous_commands[this.current_command_num-1];
+        }
+      },
+
+      run_command: function() {
+        if(this.command == 'cls' || this.command == 'clear'){
+          this.response = ''
+          this.prompt = "{{ request.path }}:$"
+          this.followup_count = 0
+        } else if((this.command == 'cancel' || this.command == 'c') && this.prompt == "..."){
+          this.prompt = "{{ request.path }}:$"
+
+        } else {
+          var header = {dummy: 0}
+          if (this.prompt == "..."){
+            this.followup_count += 1
+            if (this.command == 'n'){
+              header = {page: this.followup_count}
+            } else if(!isNaN(this.command)){
+              header = {article: this.command}
+            }
+            var cur_command = this.previous_commands[0] 
+          } else {
+            var cur_command = this.command
+          }
+          axios.get(`/terminal/command?c=${cur_command}`, {headers: header})
+            .then(res =>{
+              if(res.headers.followup == "True"){
+                this.prompt = "..."
+              } else {
+                this.prompt = "{{ request.path }}:$"
+                this.followup_count = 0
+              }
+              if (res.headers.redirect) { this.redirect(res.headers.redirect) }
+              this.response = this.response + res.data + "<br>"
+            }, (error) =>{
+            }) 
+        }
+        if(this.prompt != '...') this.previous_commands.unshift(this.command)
+        this.command = ''
+        this.current_command_num = 0
+        if(this.terminal_hidden) this.toggle_terminal()
+      },
+
+      reset_prompt: function(){
+        this.prompt = "{{ request.path }}:$"
+
+        this.followup_count = 0
+        this.command = ''
+      },
+      
+      toggle_terminal: function(){
+        this.terminal_hidden = !this.terminal_hidden
+        this.title_icon = this.terminal_hidden? 'Restore':'Minimize'
+      },
+    },
+    updated: function() { 
+      var el = document.getElementById("terminal-output"); 
+      el.scrollTop = el.scrollHeight; 
+    }
+
+  });
+</script>
+
+
+<style scoped>
+  #terminal {
+    background-color: #000;
+    width: 100vw;
+    color: #4ef037;
+    font: 1rem Inconsolate, monospace;
+    padding-left: 0px;
+		padding-bottom: 0px;
+    position: fixed;
+		bottom: 0;
+		left: 0;
+  }
+  #terminal-window {
+    width: 100%;
+    overflow: hidden;
+    display: flex; 
+    align-items: flex-end;
+    padding-left: 6px;
+  }
+  #terminal-output{
+    max-height: 18vh;
+    overflow-y: auto;
+    padding: 10px 17px 0px 6px;
+    box-sizing: content-box;
+    scrollbar-width: none;
+  }
+  #terminal-output::-webkit-scrollbar {
+    display: none;
+  }
+  .terminal-input-text{
+    background-color: #000000 !important;
+    color: #1fffff;    
+    font-family: "Lucida Console", Courier, monospace !important;
+    font-size: 1rem;
+    border: 0px !important;
+    width: 80vw;
+    height: 30px;
+    line-height: 3;
+    box-shadow: none !important;
+  }
+  input:focus, textarea:focus, select:focus{
+    outline: none;
+  }
+  #prompt {
+    color: #fde2e2;
+    padding-left: 8px;
+  }
+  .title-bar {
+    width: 100vw;
+    padding-right: 16px
+  }
+</style>

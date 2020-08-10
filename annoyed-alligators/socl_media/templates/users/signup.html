@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w3-row">
+  <div class="w3-col w3-container m3 l4"></div>
+  <div class="w3-col w3-container m6 l4">
+    <div id="signup-content" class="window">
+      <h4>Sign up</h4>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+              <br>
+          <small style="color: #444">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p class="error">{{ error }}</p>
+            {% endfor %}
+          </p>
+        {% endfor %}
+        <button type="submit" id="signup-button">Sign up</button>
+        <a href="/login">Already have an account?</a>
+      </form>
+    </div>
+  </div>
+  <div class="w3-col w3-container m3 l4"></div>
+</div>
+<style>
+	#signup-button{
+    width: 160px;
+    height: 30px;
+  }
+  .window {
+    padding: 2vh 2vw 3vh 3vw;
+  }
+  .error {
+    color: #db1616;
+    text-shadow: 2px 2px 6px #aaa;
+  }
+</style>
+{% endblock content %}
