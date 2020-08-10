@@ -1,0 +1,81 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/chat.css' %}">
+{% endblock extra_css %}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-8">
+            <div class="chat-container">
+                <h3>{{ room_name }}</h3>
+                <textarea class="nes-textarea" id="chat-log" cols="100" rows="20" readonly disabled></textarea><br>
+                <input id="chat-message-input" type="text" size="100"><br>
+                <input id="chat-message-submit" class="nes-btn is-primary" type="button" value="Send">
+                {{ room_name|json_script:"room-name" }}
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <h4 class="is-primary">Other Chat Rooms</h4>
+            <ul>
+                <li>
+                    <span class="is-primary"><a href="{% url 'chat-room' room_name='lobby' %}">Lobby</a></span>
+                </li>
+                <li>
+                    <span class="is-primary"><a href="{% url 'chat-room' room_name='python' %}">Python</a></span>
+                </li>
+
+                <li>
+                    <span class="is-primary"><a href="{% url 'chat-room' room_name='fortran' %}">Fortran</a></span>
+                </li>
+                <li>
+                    <span class="is-primary"><a href="{% url 'chat-room' room_name='pokemon' %}">Pokemon</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            tempMessage = data.message.split(": ")
+            tempMessage[0] == "{{user.username}}" ? tempMessage[0] = tempMessage[0] : tempMessage[0] = "----" + tempMessage[0];
+            finalMessage = tempMessage.join(": ")
+            document.querySelector('#chat-log').value += (finalMessage + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': "{{user.username}}" + ": " + message
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+
+{% endblock content %}

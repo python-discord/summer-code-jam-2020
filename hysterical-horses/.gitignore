@@ -1,0 +1,7 @@
+__pycache__/
+.idea/
+*.pyc
+*.sqlite3
+*.bat
+*.env
+*.DS_Store

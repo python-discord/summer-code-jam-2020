@@ -1,0 +1,34 @@
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+{% load custom_filters %}
+
+<div class="nes-container with-title signup-form">
+    <span class="title signup-form-title">Blogs</span>
+    <a class="nes-btn" href="{% url 'blog-create' %}">Create</a>
+
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="Search"/>
+    </form>
+
+    <div style="height: 30vh; overflow-y: scroll;">
+    <ul>
+        {% for post in object_list %}
+            <li>
+                <a href="{% url 'blog_detail' post.pk %}">{{ post.title }} | {{ post.author.username }}</a><br/>
+                {{ post.content }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,141 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- {% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/index.css' %}">
+{% endblock extra_css %} -->
+
+<style>
+.profile  { grid-area: profile; }
+.stats    { grid-area: stats; }
+.apps     { grid-area: apps; }
+.unlocked { grid-area: unlocked; }
+
+.grid-container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        'profile apps unlocked'
+        'stats apps unlocked';
+    grid-gap: 10px;
+    padding: 10px;
+    min-height: 95vh;
+}
+
+.grid-container > div {
+    background-color: white;
+    border: 4px solid black;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+}
+
+.profile h3 {
+    flex-grow: 1;
+}
+
+#avatar {
+    max-width: 50%;
+}
+
+.profile > p {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 3;
+}
+
+.profile > a {
+    font-size: 9px;
+}
+
+.stats > p {
+    font-size: 18px;
+}
+
+.apps ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.apps a {
+    font-size: 18px;
+}
+
+.unlocked li {
+    font-size: 18px;
+}
+
+.header {
+    display: table;
+    padding: 0 .5rem;
+    margin: -1.5rem 2rem 1rem;
+    font-size: 1.5rem;
+    background-color: #fff;
+}
+</style>
+
+<div class="grid-container nes-container">
+    <div class="profile">
+        <h3>{{ user.username }}</h3>
+
+        <!-- User avatar -->
+        <img src="{{ user.profile.avatar.url }}" id="avatar">
+
+        <!-- User bio -->
+        {% if user.bio_unlocked %}
+
+        {% if user.profile.biography == None %}
+            <p>You have no biography.</p>
+        {% else %}
+            <p>{{ user.profile.biography }}</p>
+        {% endif %}
+
+        {% endif %}
+
+        <!-- Profile edit -->
+        {% if user.profile_change_unlocked %}
+        <a class="mb-5" href="{% url 'profile' %}">Edit profile</a>
+        {% endif %}
+    </div>
+    <div class="stats">
+        <h3 class="header">Stats</h3>
+        
+        <p>Score: {{ user.score }}</p>
+        <p>Level: {{ user.level }}</p>
+        {% for side_stat in side_stats %}
+        <p>{{ side_stat.name }}: {{ side_stat.value }}</p>
+        {% endfor %}
+    </div>
+    <div class="apps">
+        <h3 class="header">Apps</h3>
+        <ul>
+            {% for app_link in app_links %}
+            <li>
+                <a class="text-primary" href={{app_link.link}}>
+                    {{ app_link.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="unlocked">
+        <h3 class="header">Unlocked</h3>
+        {% for unlocked_item in unlocked_list %}
+        <ul>
+            <li>{{ unlocked_item }} unlocked!</li>
+        </ul>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

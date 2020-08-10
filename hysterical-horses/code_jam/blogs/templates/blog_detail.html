@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+{% endblock extra_css %}
+
+
+{% block content %}
+{% load custom_filters %}
+<a class="nes-btn" href="{% url 'blogs_list' %}">Back To Blogs</a>
+<div class="nes-container with-title signup-form">
+    <span class="title signup-form-title">{{ post.title }}</span>
+    <small>By: {{ post.author.username }}</small>
+
+    {{ post.content }}
+
+    {% if user.like_unlocked %}
+    <form action="{% url 'like_post' post.pk %}" method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        {% if liked %}
+            <input class="nes-btn is-success" type="submit" value="Unlike">
+        {% else %}
+            <input class="nes-btn is-success" type="submit" value="Like">
+        {% endif %}
+    </form>
+    {% endif %}
+    <p>{{ total_likes }} likes</p>
+
+    {% if user.comments_unlocked %}
+    <!-- Add your own comment -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input class="nes-btn is-success" type="submit" value="Comment">
+    </form>
+    {% endif %}
+
+    <!-- View other comments/reply -->
+    {% for comment in comments %}
+        <p>{{ comment.author.username }} | {{ comment.created }}</p>
+        {{ comment.content | linebreaks }}
+
+        {% for reply in comment.replies.all|dictsort:"created" %}
+            <p>{{ reply.author.username }} | {{ reply.created }}</p>
+            {{ reply.content | linebreaks}}
+        {% endfor %}
+
+        {% if user.comments_unlocked %}
+        <p>Reply</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+            <input class="nes-btn is-success" type="submit" value="Reply">
+        </form>
+        {% endif %}
+    {% empty %}
+    
+    <p>There are no comments.</p>
+
+    {% endfor %}
+</div>
+
+{% endblock content %}
