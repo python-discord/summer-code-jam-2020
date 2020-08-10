@@ -1,0 +1,27 @@
+<!-- chat/templates/chat/rooms.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+</head>
+<body>
+    {% block rooms %}
+
+    <ul class="rooms">
+        {% for room in rooms %}
+            <p>{{ room }} <a href="{% url 'room' room.id %}">Join</a></p>
+        {% endfor %}
+        {% endblock %}
+    </ul>
+
+    {% block form %}
+    <form action="/rooms/create/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add a room">
+    </form>
+
+    {% endblock %}
+</body>
+</html>

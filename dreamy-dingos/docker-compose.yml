@@ -1,0 +1,24 @@
+version: '3'
+  
+services:
+  web:
+    container_name: early_chat
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    links:
+      - redis
+    networks:
+      - backend
+  redis:
+    image: redis:5
+    container_name: chat_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+networks:
+  backend:
+    driver: "bridge"
