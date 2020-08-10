@@ -1,0 +1,21 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Friendly Frogs</title>
+    <meta name="description" content="Friendly Frogs wish you a Good Morning!">
+    <meta name="author" content="FriendlyFrogs">
+
+    {% load django_simple_bulma %}
+    {% bulma %}
+    {% font_awesome %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

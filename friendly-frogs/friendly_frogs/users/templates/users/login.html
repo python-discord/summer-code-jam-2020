@@ -1,0 +1,17 @@
+{% extends 'morning/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.errors }}
+            <button class="button is-info is-light" type="submit">Login</button>
+        </form>
+    </div>
+
+{% endblock content %}

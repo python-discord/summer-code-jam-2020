@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+django-simple-bulma = "*"
+psycopg2-binary = "*"
+newsapi-python = "*"
+flake8 = "*"
+requests = "*"
+praw = "*"
+
+[requires]
+python_version = "3.8"
