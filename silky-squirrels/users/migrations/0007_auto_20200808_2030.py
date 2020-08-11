@@ -5,14 +5,8 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('users', '0006_auto_20200807_1748'),
-    ]
+    dependencies = [("users", "0006_auto_20200807_1748")]
 
     operations = [
-        migrations.AlterField(
-            model_name='profile',
-            name='background',
-            field=models.ImageField(upload_to='background'),
-        ),
+        migrations.AlterField(model_name="profile", name="background", field=models.ImageField(upload_to="background"))
     ]

@@ -1,52 +1,50 @@
 {% extends "blog/base.html" %}
 {% block content %}
 
+<!--Navigation Tabs-->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
-	<li class="nav-item">
-		<a class="nav-link active" id="pchat-tab" data-toggle="tab" href="#pchat" role="tab" aria-controls="pchat" aria-selected="true">Public Chat</a>
-	</li>
-	<li class="nav-item">
-	    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#fchat" role="tab" aria-controls="fchat" aria-selected="false">Friend Chat</a>
+    <li class="nav-item">
+        <a class="nav-link active" id="pchat-tab" data-toggle="tab" href="#pchat" role="tab" aria-controls="pchat"
+            aria-selected="true">Public Chat</a>
     </li>
-
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#fchat" role="tab" aria-controls="fchat"
+            aria-selected="false">Friend Chat</a>
+    </li>
 </ul>
 
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane show active" id="pchat" role="tabpanel" aria-labelledby="pchat-tab">
-      <form method="POST">
-          {% csrf_token %}
-          <label for="{{ form.name.id_for_label }}">
-              <h4 style="color: white">What chat room would you like to enter?</h4>
-              <input required autofocus style="margin: 10px 0 0 0; font-size: 2em;" id="room-name-input"
-                     type="{{ form.name.type }}" name="{{ form.name.name }}" size="50">
-          </label>
-          <br />
-          <input style="margin: 10px 0 0 0" type="submit" value="Enter">
-      </form>
+        {% if form.name.errors %}
+            <span class='text-danger mb-0'>Room name must be alphanumeric!</span>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <label for="{{ form.name.id_for_label }}">
+                What chat room would you like to enter? (name must be alphanumeric)<br>
+                <input required autofocus style="margin: 10px 0 0 0" id="room-name-input"
+                        type="{{ form.name.type }}" name="{{ form.name.name }}" size="50">
+            </label>
+            <br>
+            <input class="btn btn-sm mr-2 btn-primary border-dark" style="margin: 10px 0 0 0" type="submit" value="Enter">
+        </form>
     </div>
 
     <div class="tab-pane" id="fchat" role="tabpanel" aria-labelledby="fchat-tab">
         <p>
-        <!-- if there are friends, we show a list of friends to chat with, otherwise, notify no friends -->
-
-        {% if friends %}
-            <p>Your Friends:</p>
-            <ul>
-                {% for friend in friends %}
-                <li>{{friend.username}}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p> You don't have any friends yet! Join a Public Chat room to find one.
-        {% endif %}
-
+            {% if friends %}
+                <p>Your Friends:</p>
+                <ul>
+                    {% for friend in friends %}
+                        <li>{{friend.user}}<span class="text-right"> | 
+                        Profile <!-- PLEASE LINK FRIEND.PROFILE URL -->[TODO] | 
+                        <a href="{% url 'froom' user.id friend.user.id %}">Chat</a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p> You don't have any friends yet! Join a Public Chat room to find one.</p>
+            {% endif %}
         </p>
-        <button class="btn btn-sm mr-2 btn-secondary border-dark" type="button">
-        <span class="btn-text"><a href=".#fchat">Join a Public Room</a></span>
-        </button>
     </div>
-
-
-
 </div>
 {% endblock content %}

@@ -7,6 +7,7 @@
             About
         </div>
         <div class="card-body">
+<<<<<<< HEAD
             <p class="card-text">Welcome to the Internet, a world where all is connected. You must be logged in
                 to access the majority of the site's features. Create an account today to enjoy
                 the wonders of Instant Messaging and meet new people online!</p>
@@ -14,6 +15,27 @@
                 <button class="btn btn-sm mr-2 btn-primary border-dark" type="button"
                     onclick="window.location.href='{% url 'register' %}';"><span class="btn-text">Sign
                         Up</span></button>
+=======
+            <p class="card-text">Welcome to the Internet, a world where all is connected. 
+
+            {% if user.is_authenticated %}
+                Enter a chatroom! 
+            {% else %}
+                You must be logged in to access the majority of the site's features. Create an account today to enjoy
+                the wonders of Instant Messaging and meet new people online!
+            {% endif %}
+            </p>
+            <div class="d-flex justify-content-end mt-3">
+                {% if user.is_authenticated %}
+                    <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" 
+                    onclick="window.location.href='{% url 'chat' %}';"><span class="btn-text">Chat</span></button>
+                {% else %}
+                    <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" 
+                    onclick="window.location.href='{% url 'register' %}';"><span class="btn-text">Sign Up</span></button>
+                    <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" 
+                    onclick="window.location.href='{% url 'login' %}';"><span class="btn-text">Log in</span></button>
+                {% endif %}
+>>>>>>> e53780117a2af9b08c50a49d2009f1838c0eae24
             </div>
         </div>
     </div>
