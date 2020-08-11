@@ -1,0 +1,97 @@
+/* Project CSS files */
+
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.header {
+    background-color: #010081;
+}
+
+.header p {
+    margin-block-end: 0.1em;
+    color: white;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center * {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+button {
+    border-radius: 0;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    background-color: #C0C0C0;
+    border-width: 2px;
+}
+
+iframe {
+    padding: 0;
+    margin: 0;
+}
+
+input:not([type="file"]), textarea {
+    border-radius: 0;
+    border-color: #DFDFDF #808080 #808080 #DFDFDF;
+    border-style: outset;
+    border-width: 2px;
+    background-color: white;
+}
+
+body {
+    background-color: #C0C0C0;
+}
+
+input[type="checkbox"] {
+    content: url("../images/checkbox-unchecked.png");
+}
+
+input[type="checkbox"]:checked {
+    content: url("../images/checkbox-checked.png");
+}
+
+input[type="radio"] {
+    content: url("../images/radio-off.png");
+}
+
+input[type="radio"]:checked {
+    content: url("../images/radio-on.png");
+}
+
+div.col.ignore, div.ignore[class*="col-"] {
+    outline: initial;
+    margin: initial;
+}
+
+div.col, div[class*="col-"] {
+    outline: 1px solid black;
+    margin: .3em;
+}
+
+#select-color {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-image: url("../images/half.png");
+    background-repeat: repeat;
+}
+
+#select-color .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}

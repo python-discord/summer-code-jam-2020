@@ -1,0 +1,104 @@
+{% extends '2columns.html' %}
+{% load static %}
+
+{% block title %}Home - Sparrow Capital{% endblock title %}
+
+{% block column1 %}
+    <div class="row">
+        <div class="col">
+            <div class="header">
+                <p>Sparrow Capital</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="header">
+                <p>Buy</p>
+            </div>
+            <p>Lorem Ipsum can go here!</p>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-2 ignore">
+            <button>Buy</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="header">
+                <p>Sell</p>
+            </div>
+            <p>It can also go here!</p>
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-2 ignore">
+            <button>Sell</button>
+        </div>
+    </div>
+{% endblock column1 %}
+{% block column2 %}
+    <div class="row justify-content-end">
+        <div class="col ignore center">
+            <a href="/market"><button>To Marketplace</button></a>
+        </div>
+        <div class="col-6">
+            <div class="header">
+                <p>HUD</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="header">
+                <p>Info</p>
+            </div>
+            <image src="https://media.discordapp.net/attachments/737282478443593738/739574568481718362/IMG_20200802_1558442.jpg?width=400&amp;height=300" />
+        </div>
+    </div>
+{% endblock column2 %}
+
+{# Taking advantage of the JS block to add div (for customization) that is hidden by default #}
+{% block js %}
+    <div class="container">
+        <div class="row">
+            <div class="col center ignore">
+                <button onclick="showColorSelector()">Change Color Scheme</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="select-color">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="background-color:#C0C0C0;">
+                    <div class="header">
+                        <p>Change Colors</p>
+                    </div>
+                    <div class="row">
+                        <div class="col ignore">
+                            <label for="bg-color-picker">Header Background</label>
+                        </div>
+                        <div class="col ignore">
+                            <label for="fg-color-picker">Header Text Color</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col ignore">
+                            <input type="color" id="bg-color-picker" value="#{{ user.background }}"></input>
+                        </div>
+                        <div class="col ignore">
+                            <input type="color" id="fg-color-picker" value="#{{ user.color }}"></input>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <button onclick="updateColors()">Set Colors</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/project.js' %}"></script>
+{% endblock js %}

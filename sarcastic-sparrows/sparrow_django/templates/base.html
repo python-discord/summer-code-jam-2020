@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sparrow Capital{% endblock %}</title>
+    {% block css %}
+    <link href="{% static 'css/project.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/bootstrap-grid.css' %}" rel="stylesheet"/>
+    <style>
+        div.col div.header {
+            background-color: #{{ user.background }};
+            color: #{{ user.color }};
+            margin-left: -16px;
+            margin-right: -16px;
+            margin-top: -18px;
+            padding-left: 16px;
+            padding-right: 16px;
+            text-overflow: ellipsis;
+            font-weight: bold;
+            font-size: large;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            {% if user.is_authenticated %}
+                <div class="col ignore">
+                    <p>Hello, {{ user.get_username }}!</p>
+                </div>
+                <div class="col-2 ignore center"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></div>
+            {% else %}
+                <div class="col ignore center"><a href="{% url 'login'%}?next={{request.path}}">Login</a></div>
+            {% endif %}
+        </div>
+    </div>
+{% block content %}
+{% endblock %}
+{# Put JS at end of file to load page faster #}
+{% block js %}
+{% endblock %}
+</body>
+</html>

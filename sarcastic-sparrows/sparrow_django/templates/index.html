@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sparrow Capital{% endblock title %}
+
+{% block content %}
+    <iframe src="/start" width="100%" height="500" style="border:none;" id="main-iframe">
+        Your browser needs to support iframes and have them enabled to see this site.
+    </iframe>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/project.js' %}"></script>
+{% endblock js %}

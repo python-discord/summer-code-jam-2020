@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Marketplace - Sparrow Capital{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="header">
+                <p>Marketplace</p>
+            </div>
+            {% if market_entries %}
+            {% for entry in market_entries %}
+            <div>
+                <span>
+                    {{ entry.name }}&#9;{{ entry.price }}
+                    <input type="number" />
+                </span>
+                {{ entry.description }}
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>
+                There are no entries at the current time.<br /> :(
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-1 ignore">
+            <a href="/main"><button>Back</button></a>
+        </div>
+        <div class="col-1 ignore">
+            <button>Purchase</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="header">
+                <p>Information</p>
+            </div>
+            <p>Week of {{ info.weekstr }}</p>
+            <span>
+                <p>Week {{ info.weeknum }}</p>
+                <p>{{ info.money }}</p>
+            </span>
+            <span>
+                <p>Week: {{ money.week }}</p>
+                <p>Total: {{ money.total }}</p>
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock content %}
