@@ -1,0 +1,39 @@
+{% extends 'dating/base.html' %}
+{% block title %} Love Detector {% endblock %}
+{%  block content %}
+<div style="background-image: url(/static/images/homebg.gif);" >
+    <div>
+        <p class="Descriptor"> Ready To Find The Love Of Your Life? Ditch The Playboys And Get Loving! </p>
+    </div>
+</div>
+
+ <!-- Slideshow container -->
+<div id='current-profile'  >
+    {% if like %}
+        <h2>You already liked</h2>
+    {% endif %}
+
+        <img src="/media/{{current.profile.img}}" width="250">
+        <h1>{{current.first_name}} {{current.last_name}}</h1>
+        <h1>Age: {{current.profile.age}}</h1>
+        <h1>Sex: {{current.profile.sex}}</h1>
+        <h1>Sex: {{current.profile.preference}}</h1>
+        <hr>
+        <p style="font-size: 1.6em; font-weight: bold;
+            margin-left: 220px; margin-right: 220px; ">{{current.profile.bio}}</p>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+    <a href="{% url 'earlydating-bothlikes' %}"><button class="button-sm">View matches</button></a>
+ <form action="{% url 'earlydating-DateMatcher' %}" method='POST'>
+    {% csrf_token %}
+    <button class="buttonmatch" type="submit" name="Like" value="{{current.pk}}">Like</button>
+    <button class="buttonmatch" type="submit" name="Unlike" value="{{current.pk}}">Unlike</button>
+    </form>
+    <a href="{% url 'earlydating-DateMatcher' %}"><button class="btn-sm">Next Profile</button></a>
+</div>
+
+
+{% endblock %}

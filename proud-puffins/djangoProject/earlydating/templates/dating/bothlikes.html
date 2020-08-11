@@ -1,0 +1,25 @@
+{% extends 'dating/base.html' %}
+
+{% block title %}Your Match{% endblock %}
+{% block content %}
+<div class="w3-container" style="text-align: left;">
+<h1 style="font-size:x-large">You Both Liked Eachother</h1>
+</div>
+{% csrf_token %}
+
+
+    {% for item in both_liked %}
+        <div class="grid-container">
+            <h3 style="font-weight: bold; font-size: large;">
+                <a href="{% url 'earlydating-profile' item.user.id %}">{{ item.user.username }}</a></h3>
+            <br>
+            <img src="/media/{{ item.user.profile.img }}" height="250"><br>
+            <h2>{{item.user.profile.bio }}</h2>
+        </div>
+    {% endfor %}
+
+    <img src="../static/images/puffin_none.gif"><br>
+    <h1>Keep fishing, plenty of fish in the sea.</h1>
+
+
+{% endblock %}

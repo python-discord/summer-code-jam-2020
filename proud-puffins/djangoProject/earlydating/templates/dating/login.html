@@ -1,0 +1,25 @@
+{% extends 'dating/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+<h1>Login</h1>
+<form method="POST" action="">
+    {% csrf_token %}
+
+    {% for item in form %}
+    <p>
+        <label style="font-size: large; font-weight: bold; text-align: right">{{item.label}}</label>
+         {{item}}
+        </p>
+    {% endfor %}
+	<input style="margin-left: 256px" class="buttonmatch" type="submit" name="login" value="login">
+</form>
+					
+{% for message in messages %}
+    <p id="messages">{{message}}</p>
+{% endfor %}
+<br>							
+    <p style="font-size:large; font-weight: bold;">
+    Don't have an account? <a href="{% url 'earlydating-register' %}">Sign Up</a>
+</p>
+{% endblock %}

@@ -1,0 +1,5 @@
+Django>=3
+Pillow>=7
+pathlib>=1
+django-random-image-from-folder>=0.0.3
+django-crispy-forms>=1.9.2

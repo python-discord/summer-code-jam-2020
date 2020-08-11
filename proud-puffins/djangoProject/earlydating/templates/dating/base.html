@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<!-- This is a basic example of a Django parent template. -->
+<!-- It adds a favicon to the page. -->
+<!-- The title is set by overriding the "title" block. -->
+<!-- Body content is added by overriding the "content" block. -->
+<!-- Tweak this parent template to meet your project's needs. -->
+
+{% load static %}
+
+<html lang="en">
+  {% block head %}
+  <head>
+    <meta charset="UTF-8">
+        
+    <!-- need to passes title as variables in the functions -->
+    {% if title %}
+        <title>Early Dating | {{ title }}</title>
+    {% else %}
+        <title> Early Dating </title>
+    {% endif %}
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+
+  </head>
+  {% endblock %}
+
+    <body>
+
+        <div class="home_h1">
+            <span style="font-size: 1.5em"><MARQUEE BEHAVIOR=ALTERNATE><B>WELCOME TO EARLY DATING!</B></MARQUEE></span>
+            <img src="/static/images/Proud_Puffin_motion.gif";  height="40"; align="Left">
+                <span style="text-align: start; font-size: 2.5em">
+                    {% if title %}
+                        {{ title }}
+                    {% else %}
+                        Early Dating
+                    {% endif %}
+
+                </span>
+
+                <span style="text-align: end; font-size: 1.0em" >
+                    <!-- (Page menus go here) -->
+                     |
+                    <a class="headerlink"; href="../" style="font-size: large;">Home</a> |
+                    <a class="headerlink"; href="../about" style="font-size: large;">About</a> |
+                    {% if user.is_authenticated %}
+                        <a class="headerlink"; href="../YourProfile" style="font-size: large;">My Profile</a> |
+                        <a class="headerlink"; href="../DateMatcher" style="font-size: large;">Match Me</a> |
+                        <a class="headerlink"; href="../logout" style="font-size: large;">Logout</a> |
+                    {% else %}
+                        <a class="headerlink"; href="../login" style="font-size: large;">Login</a> |
+                    {% endif %}
+                    {% if user.is_staff %}
+                        <a class="headerlink"; href="../admin" style="font-size: large;"style="font-size: large;">Admin</a>
+                    {% endif %}
+                </span>
+
+        </div>
+
+
+
+{% load random_image %}
+
+    <div class="row">
+        <div class="columnleft">
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img><br>
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200"  ></img>
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img>
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img>
+
+        </div>
+
+        <div class="columnright">
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img><br>
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img>
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img>
+            <img src="{{MEDIA_URL}}{% random_image %}" width="200" ></img>
+
+
+
+
+        </div>
+
+        <div class="columncenter" >
+            {% block content %}
+            {% endblock %}
+            <p>
+                <audio preload="auto" controls autoplay loop muted src=/static/sounds/romantic-song.mp3></audio>
+
+                <OBJECT CLASSID=clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95 HEIGHT=0px>
+                <PARAM NAME=FileName VALUE=sound.mp3></PARAM>
+                </OBJECT>
+            </p>
+        </div>
+
+    </div>
+
+        <div class="cursor">
+        </div>
+            <script> const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove',e => {
+            cursor.setAttribute("style","top: " + e.pageY + "px; left: " + e.pageX + "px;")
+    })</script>
+
+  </body>
+
+</html>

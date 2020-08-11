@@ -1,0 +1,32 @@
+{% extends 'dating/base.html' %}
+{% block title %}{{user.username}}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% if user.profile.img %}
+<p style="text-align: center; ">
+    <img src="{{ user.profile.img.url }}" width="400">
+</p>
+{% else %}
+<p style="text-align: center; ">
+    <img src="{% url 'media\images\Proud_Puffin_default_user.jpg' %}" width="400">
+    {% endif %}
+<div style=" text-align: center">
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <h1>Age: {{user.profile.age}}</h1>
+    <h1>Sex: {{user.profile.sex}}</h1>
+    <hr>
+    <span style="text-align: center; ">
+        <h1>{{user.profile.bio}}</h1>
+
+        <p><a href="{% url 'earlydating-editprofile' %}" style="font-size: large; font-weight: bold;">Edit Profile</a>
+        </p>
+        <p><a href="{% url 'earlydating-mylikes' %}" style="font-size: large; font-weight: bold;">My Likes</a></p>
+        <p><a href="{% url 'earlydating-bothlikes' %}" style="font-size: large; font-weight: bold;">My Matches</a></p>
+        <p><a href="{% url 'earlydating-DateMatcher' %}" style="font-size: large; font-weight: bold;">Match Me</a></p>
+        <p><a class="hello-msg" href="{% url 'earlydating-logout' %}"
+                style="font-size: large; font-weight: bold;">Logout</a></p>
+    </span>
+</div>
+
+{% endblock %}
