@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'gifapp/javascript/canvas.js' %}"></script>
+<div class="wrapper" id="project-name">
+    <h6>{{name}}</h6>
+</div>
+{% if user.is_authenticated %}
+<div class="span8">
+{% else %}
+<div>
+{% endif %}
+    <div class="wrapper">
+        <div class="subnav" style="height:100px">
+            <ul class="nav nav-pills toolbar">
+                <li>
+                    <a href="#" id="clear" onclick="Clear()">
+                        <img src="{% static 'gifapp/icons/clear.png' %}" alt="clear">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="save" onclick="SaveImage()">
+                        <img src="{% static 'gifapp/icons/save.png' %}" alt="save">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="undo" onclick="Undo()">
+                        <img src="{% static 'gifapp/icons/undo.png' %}" alt="undo">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="eraser" onclick="ChangeTool('eraser')">
+                        <img src="{% static 'gifapp/icons/eraser.png' %}" alt="erase">
+                    </a>
+                </li>
+                <li>
+                    <a class="selected" href="#" id="brush" onclick="ChangeTool('brush')">
+                        <img src="{% static 'gifapp/icons/pencil.png' %}" alt="pencil">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="line" onclick="ChangeTool('line')">
+                        <img src="{% static 'gifapp/icons/line.png' %}" alt="line">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="rectangle" onclick="ChangeTool('rectangle')">
+                        <img src="{% static 'gifapp/icons/rectangle.png' %}" alt="rectangle">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="ellipse" onclick="ChangeTool('ellipse')">
+                        <img src="{% static 'gifapp/icons/ellipse.png' %}" alt="ellipse">
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="polygon" onclick="ChangeTool('polygon')">
+                        <img src="{% static 'gifapp/icons/polygon.png' %}" alt="polygon">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="customizer">
+            <div class="color">
+                <button id="frame-button">0</button>
+            </div>
+            <div class="color">
+                <button id="color-button"></button>
+            </div>
+            <div class="color">
+                <p>RED <span id="red_value"></span></p>
+                <input type="range" min="0" max="255" value="0" class="slider" id="redSlider">
+            </div>
+            <div class="color">
+                <p>GREEN <span id="green_value"></span></p>
+                <input type="range" min="0" max="255" value="0" class="slider" id="greenSlider">
+            </div>
+            <div class="color">
+                <p>BLUE <span id="blue_value"></span></p>
+                <input type="range" min="0" max="255" value="0" class="slider" id="blueSlider">
+            </div>
+            <div class="color">
+                <p>WIDTH <span id="width_value"></span></p>
+                <input type="range" min="2" max="20" value="2" class="slider" id="lineWidthSlider">
+            </div>
+            <div class="color">
+                <p>POLYGON<span id="polygon_value"></span></p>
+                <input type="range" min="3" max="10" value="3" class="slider" id="polygonSideSlider">
+            </div>
+            <script src="{%  static 'gifapp/javascript/slider.js' %}"></script>
+        </div>
+        <br>
+        <canvas id="my-canvas" width="600" height="600"></canvas>
+    </div>
+</div>
+{% if user.is_authenticated %}
+    <div class="span4">
+        Sidebar
+        <div class="navbar-nav">
+            <li>
+                <a onclick="SendData('save')" class="nav-item nav-link">Save To Server</a> {% csrf_token %}
+            </li>
+            <li>
+                <a onclick="Previous()" class="nav-item nav-link">Previous</a>
+            </li>
+            <li>
+                <a onclick="Next()" class="nav-item nav-link">Next</a>
+            </li>
+            <li>
+                <a onclick="Delete()" class="nav-item nav-link">Delete Frame</a>
+            </li>
+            <li>
+                <a onclick="RequestRender()" class="nav-item nav-link">Render</a> {% csrf_token %}
+            </li>
+            <li>
+                <a href="{{ name }}/view" class="nav-item nav-link">View</a>
+            </li>
+        </div>
+    </div>
+{% endif %}
+</div>
+{% endblock content %}
