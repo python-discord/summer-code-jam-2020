@@ -16,9 +16,9 @@ def multitab_home(request):
             site_1_2 = multitabs[0].tab_two
             site_1_3 = multitabs[0].tab_three
             title_2 = 'Multitab'
-            site_2_1 = multitabs[1].tab_one
-            site_2_2 = multitabs[1].tab_two
-            site_2_3 = multitabs[1].tab_three
+            site_2_1 = ''
+            site_2_2 = ''
+            site_2_3 = ''
         elif len(multitabs) == 2:
             title_1 = multitabs[0].title
             site_1_1 = multitabs[0].tab_one
