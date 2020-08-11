@@ -1,0 +1,8 @@
+<form>
+  <input #username placeholder="Enter username here...">
+
+</form>
+<form style="margin-top: 2px">
+ <textarea #text cols="90" rows="20" placeholder="Enter comment here..." ></textarea>
+</form>
+<button style="align-self: end" (click)="publish(username.value,text.value)">Publish</button>
