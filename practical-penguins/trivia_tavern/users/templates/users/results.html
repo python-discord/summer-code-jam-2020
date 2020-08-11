@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="parchment-border">
+    <h2>Your results will show here:</h2>
+    {% if phonenumbers %}
+    Participants:
+    <!--eventually this will be a for loop -->
+    <ul>
+        {% for phonenumber in phonenumbers %}
+        <li> {{ phonenumber }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock content %}

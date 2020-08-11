@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load settings_tag %}
+
+<div class="parchment-border">
+    <div class="row">
+        <div class="col-md-12"><h1> starting {{ active_trivia_quiz.trivia_quiz.name }}  </h1></div>
+    </div>
+    <p><strong>Session_master:</strong> <a href="">{{ active_trivia_quiz.session_master.username }}</a></p>
+    <p><strong>created on:</strong> {{ active_trivia_quiz.start_time }}</p>
+    <hr>
+
+    <div class="row">
+    <div class="col-md-12"><h2> waiting for players to join...  </h2></div>
+    </div>
+
+
+    <br>
+    <p>To start this quiz, text <span class="clear-text">{{ active_trivia_quiz.session_code }}</span> to
+        <span class="clear-text"> {% settings_value "HOST_TWILIO_NUMBER" %} </span></p>
+    <p>or invite a player manually with a phone number below</p>
+    <br>
+
+    <form method="post" >
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="stamp is-approved2" value="^ invite-player"/>
+
+    </form>
+    {% include "trivia_next_step_btn.html" %}
+
+</div>
+{% endblock %}

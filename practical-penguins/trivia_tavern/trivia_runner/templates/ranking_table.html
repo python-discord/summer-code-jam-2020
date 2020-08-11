@@ -1,0 +1,18 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="tg-0lax">Ranking</th>
+            <th class="tg-0lax">Team</th>
+            <th class="tg-0lax">Score</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for row in tally_results.score_list %}
+        <tr>
+            <td class="tg-0lax">{{row.0}}</td>
+            <td class="tg-0lax">{{row.1}}</td>
+            <td class="tg-0lax">{{row.2}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+{% if active_quizzes %}
+  <div class="row justify-content-md-center">
+    <div class="parchment-border col-md-auto bulletin-title">
+        <h1 class="justify-content-center bulletin-title">Quizzes currently active</h1>
+    </div>
+  </div>
+
+
+  {% for quiz in active_quizzes %}
+    <div class="row ">
+      <article class="media parchment-border">
+        <img class="rounded-circle article-img" src="{{ quiz.session_master.profile.image.url }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user' quiz.session_master.username %}">{{ quiz.session_master.username }}</a>
+            <small class="text-muted">Quiz started on: {{ quiz.start_time|date:"F d, Y" }} </small>
+          </div>
+          <h2><a class="article-title" href="{% url 'activequiz' quiz.pk %}">{{ quiz.trivia_quiz.name }}</a></h2>
+          <p class="article-content">Number of questions: {{ quiz.trivia_quiz.triviaquestion_set.count }}</p>
+          <p class="article-content">Session code: {{ quiz.session_code }}</p>
+        </div>
+      </article>
+    </div>
+  {% endfor %}
+
+{% else %}
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto parchment-border justify-content-center">
+        <h1 class="justify-content-center bulletin-title">No active quizzes currently hosted.&nbsp;<br>
+            {% if user.is_authenticated %}
+                start your own <a href="{% url 'quiz-create' %}">here.</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a> to create your own
+            {% endif%}
+        </h1>
+    </div>
+  </div>
+{% endif %}
+
+{% if is_paginated %}
+
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,263 @@
+body {
+    /* background: #fafafa; */
+    /* background-image: url("../media/test_tavern.jpg"); */
+    /*background-image: url("../media/logs.jpg");*/
+    background-image: url("brick-bg.jpg");
+
+    background-repeat: repeat;
+    color: #333333;
+    margin-top: 5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #000000;
+    font-family: 'Pirata One', cursive;
+}
+
+ul {
+    margin: 0;
+}
+
+.logo-size {
+    height: 60px;
+}
+
+label {
+    font-size: large;
+    font-family: 'Pirata One', cursive;
+}
+
+input[type=text] {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
+input[type=text]:focus{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
+input[type=tel] {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
+input[type=tel]:focus{
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #000000;
+}
+
+p {
+    margin: 0;
+    font-size: large;
+    font-family: 'Pirata One', cursive;
+
+}
+
+.navbar-custom {
+    background-color: #663300;
+    background-image: url("../media/logs.jpg");
+    font-family: 'Pirata One', cursive;
+    margin-bottom: 20px;
+}
+
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.article-title {
+    color: #444444;
+}
+
+a.article-title:hover {
+    color: #428bca;
+    text-decoration: none;
+}
+
+.article-content {
+    white-space: pre-line;
+}
+
+.article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+}
+
+.article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 2.5rem;
+}
+
+table {
+    margin: 5px 10px 10px 5px;
+}
+
+.clear-text {
+    font-family: 'Arial', cursive;
+    font-weight: 900;
+}
+
+.parchment-border {
+    justify-content:center;
+    border-style: solid;
+    margin: 5px 0px 0px 5px;
+    padding: 15px 30px 30px 30px;
+    border-image-slice:68 83 70 70 fill;
+    border-image-width:20px 20px 20px 20px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source:url("parchment_small.png");
+}
+
+.bulletin-title {
+    color: #000000;
+    font-family: 'Pirata One', cursive;
+    text-align:center;
+}
+
+
+.bulletin-border {
+    min-height: 800px;
+    height: auto;
+    border-style: solid;
+    margin-top:100px;
+    padding: 20px 30px 25px 20px;
+    border-image-slice:60 42 53 50 fill;
+    border-image-width:20px 20px 20px 20px;
+    border-image-outset:0px 0px 0px 0px;
+    border-image-repeat:stretch stretch;
+    border-image-source:url("bulletin_board_smaller.png");
+}
+
+
+/*
+Below css were found on codepen
+created by Pete Blatchford https://codepen.io/555/pen/pdwvBP
+*/
+
+.stamp {
+    margin: 10px 10px 10px 10px;
+    transform: rotate(5deg);
+    opacity: .7
+    color: #888;
+    font-size: 1rem;
+    font-weight: 900;
+    border: 0.25rem solid #888;
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    font-family: 'Courier';
+    -webkit-mask-image: url('stamp_static.png');
+    -webkit-mask-size: 944px 604px;
+    mix-blend-mode: multiply;
+}
+
+.stamp:hover {
+    color: #333;
+    border: 0.25rem solid #333;
+}
+
+.is-nope {
+    color: #F02;
+    border: 0.5rem double #F02;
+    transform: rotate(3deg);
+    -webkit-mask-position: 2rem 3rem;
+    font-size: 1rem;
+}
+
+.is-nope:hover {
+    color: #D23;
+    border: 0.5rem double #D23;
+}
+
+.is-approved2 {
+    color: #5291ff;
+    border: 0.5rem solid #5291ff;
+    -webkit-mask-position: 13rem 6rem;
+    transform: rotate(-4deg);
+    border-radius: 0;
+}
+
+.is-approved2:hover {
+    color: #00078a;
+    border: 0.5rem solid #00078a;
+}
+
+.is-approved {
+    color: #0ad100;
+    border: 0.5rem solid #0ad100;
+    -webkit-mask-position: 13rem 6rem;
+    transform: rotate(4deg);
+    border-radius: 0;
+}
+
+.is-approved:hover {
+    color: #008080;
+    border: 0.5rem solid #008080;
+}
+
+
+.is-draft {
+    color: #C4C4C4;
+    border: 1rem double #C4C4C4;
+    transform: rotate(0deg);
+    font-size: 1rem;
+    font-family: "Open sans", Helvetica, Arial, sans-serif;
+    border-radius: 0;
+    padding: 0.5rem;
+}
+
+.is-draft:hover {
+color: #AAA;
+border: 1rem double #AAA;
+}
