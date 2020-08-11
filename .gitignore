@@ -60,7 +60,6 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-migrations/
 
 # Flask stuff:
 instance/
@@ -131,5 +130,3 @@ dmypy.json
 
 # PyCharm Project folder
 .idea/
-
-.fuse_hidden**
