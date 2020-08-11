@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+  {{block.super}}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block js %}
+  {{block.super}}
+  <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+  <div class="content-wrapper">
+    <div class="datetime-wrapper">
+      <span id="time" class="time"></span>
+      <span id="date" class="date"></span>
+    </div>
+    <div class="grid">
+
+      <!--Weather-->
+      <section class="grid-item weather">
+        {% if weather is None %}
+          <span>Unable to display weather. Please click
+            <a class="read-more-btn update-location-btn" role="button" href="{% url 'update_location' %}" onclick="return updateLocationBtnClicked()">here</a>)</span>
+            to update your location.
+          </span>
+        {% else %}
+          <span class="section-header">Weather</span>
+          <span class="degree-label">{{weather.degree_celsius}}°C / {{weather.degree_fahrenheit}}°F</span>
+          <span class="location-label">in {{weather.city}} (<a class="read-more-btn update-location-btn" role="button" href="{% url 'update_location' %}" onclick="return updateLocationBtnClicked()">Update location</a>)</span>
+          <dl class="astral-information">
+            <dt>Sunrise</dt>
+            <dd>{{weather.astral_information.sunrise}}</dd>
+            <dt>Sunset</dt>
+            <dd>{{weather.astral_information.sunset}}</dd>
+          </dl>
+        {% endif %}
+      </section>
+
+      <!--Wikipedia Article-->
+      {% if wikipedia_article is not None %}
+      <section class="grid-item wikipedia-article">
+        <span class="section-header">Wikipedia Article of the Day</span>
+        <article>
+          <span class="article-header">{{wikipedia_article.title}}</span>
+          <p class="article-content">{{wikipedia_article.content}}</p>
+          <a target="_blank" href="{{wikipedia_article.url}}" class="read-more-btn" role="button">Read more</a>
+        </article>
+      </section>
+      {% endif %}
+    
+      <!--Todo-->
+      <section class="grid-item todo">
+        <div class="section-header">
+          <span>To-Do</span>
+          <a href="{% url 'todo-create' %}" class="icon-link">
+            <img src="static/assets/icons/plus.svg" alt="add" width="30">
+          </a>
+        </div>
+        <ul class="todo-list">
+          {% if todos is None %}
+            <li>Nothing todo today! :)</li>
+          {% endif %}
+          {% for id, todo in todos %}
+            <li class="todo-list-element">
+              {{todo}}
+              <a href="{% url 'todo-update' id%}" class="icon-link">
+                <img src="static/assets/icons/pencil.svg" alt="edit" width="20">
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!--News-->
+      <section class="grid-item news">
+        <span class="section-header">News</span>
+        <div class="article-list">
+          {% for article in news_articles %}
+            <article>
+              <span class="article-header">{{article.title}}</span>
+              <p class="article-content">{{article.content}}</p>
+              <a target="_blank" href="{{article.url}}" class="read-more-btn" role="button">Read more</a>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+
+    </div>
+  </div>
+{% endblock %}
