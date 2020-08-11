@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<head>
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'dungeon/css/xterm.css' %}" />
+    <script src="{% static 'dungeon/js/lib/xterm.js'%}"></script>
+    <script src="{% static 'dungeon/js/xterm.js'%}"></script>
+    <script src="{% static 'dungeon/js/app.js' %}"></script>   
+  <title>Site</title>
+</head>
+<body>
+
+<a href="https://github.com/lively-lions" target="_blank">
+    <img src="{% static 'dungeon/image/lively_lions.png' %}" alt="on image" 
+    style="width: 30vw; max-width: 120px;">
+</a>
+
+<!--
+    Command List
+
+ account 
+    Create account = createuser {username} {password}
+    Login = login {username} {password}
+    Logout = logout
+    
+
+-->
+<div id="terminal"></div>
+<script>
+    var term = new Terminal({
+    cursorBlink: "block"
+    });
+    
+    var curr_line = "";
+    var command_stack = [];
+    var command_stack_cur = 0
+    term.open(document.getElementById("terminal"));
+    
+    {% if request.user.is_authenticated %}
+    term.write(" {{ user.get_username }} $ ");
+    {% else %}
+    term.write("Please login.. ");
+    {% endif %}
+
+    term.prompt = () => {
+    if (curr_line) {
+        command_stack.push(curr_line);
+        command_stack_cur = command_stack.length - 1;
+        const words = curr_line.split(' ');
+        if (words[0] == 'logout'){
+            logout_User();
+        }else if (words[0] == 'login'){
+            login_User(words[1],words[2]);
+        }else if (words[0] == 'createuser'){
+            create_User(words[1],words[2]);
+        }else if (words[0] == 'createcha'){
+            create_Character(words[1]);
+        }else if (words[0] == 'my-chracters'){
+            get_Character_list()
+        }else if (words[0] == 'selectcha'){
+            start_this_character(words[1])
+        }else if (words[0] == 'chalist_in_my_room'){
+            get_user_list_in_same_room()
+        }else if (words[0] == 'attack'){
+            attack_user(words[1])
+        }else if (words[0] == 'info_cha_mine'){
+            my_character_stats(words[1])
+        }
+        curr_line = "";
+    }
+    };
+    term.prompt();
+
+    term.on("key", function(key, ev) {
+    //Enter 
+    if (ev.keyCode === 13) {
+        term.write("\r\n");
+        if (curr_line == "clear") {
+            curr_line = ""
+            term.reset()
+        }
+        term.prompt();
+        {% if request.user.is_authenticated %}
+            term.write(" {{ user.get_username }} $ ");
+        {% else %}
+            term.write("Please login.. ");
+        {% endif %}
+    } else if (ev.keyCode === 8) {
+        // Backspace
+        if (curr_line) {
+            curr_line = curr_line.slice(0, curr_line.length - 1);
+            term.write("\b \b");
+        }
+    } else if (ev.keyCode === 38) {
+        // 38 up 
+        for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+        }
+        term.write(command_stack[command_stack_cur]);
+        curr_line = command_stack[command_stack_cur]
+        if (command_stack_cur != 0){
+            command_stack_cur -= 1;
+        }
+    } else if (ev.keyCode === 40) {
+        // 40 down
+        for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+        }
+        term.write(command_stack[command_stack_cur]);
+        curr_line = command_stack[command_stack_cur]
+        if (command_stack_cur != command_stack.length -1){
+            command_stack_cur += 1;
+        }
+    } else if (ev.keyCode === 9) {
+        // NEED Character Name
+        if ("attack".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "attack";
+            term.write("attack");
+        }else if ("log".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "log";
+            term.write("log");
+        } else if ("login".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "login";
+            term.write("login");
+        } else if ("logout".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "logout";
+            term.write("logout");
+        } else if ("exit".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "exit";
+            term.write("exit");
+        } else if ("move".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "move";
+            term.write("move");
+        } else if ("clear".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "clear";
+            term.write("clear");
+        } else if ("create".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "create";
+            term.write("create");
+        }  else if ("createuser".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "createuser";
+            term.write("createuser");
+        } else if ("createcha".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "createcha";
+            term.write("createcha");
+        }else if ("my-chracters".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "my-chracters";
+            term.write("my-chracters");
+        } else if ("selectcha".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "selectcha";
+            term.write("selectcha");
+        }else if ("chalist_in_my_room".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "chalist_in_my_room";
+            term.write("chalist_in_my_room");
+        } else if ("info_cha_mine".startsWith(curr_line.toLowerCase())){
+            for (i = 0; i < curr_line.length; i++) {
+                term.write("\b \b");
+            }
+            curr_line = "info_cha_mine";
+            term.write("info_cha_mine");
+        }  
+        else {
+            term.write(" ");
+            curr_line += " ";
+        }
+    } 
+    else {
+        curr_line += key;
+        term.write(key);
+    }
+    });
+
+// logout
+function logout_User() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+       term.write(this.responseText);
+       term.write("\r\n");
+       location.reload();
+      }
+    };
+    xhttp.open("POST", "api/muduser/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=logout_user');
+  }
+// login
+function login_User(username,password) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        if (this.responseText == 'Login success'){
+            location.reload();
+        }
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/muduser/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=login_user&username='+username+'&password='+password);
+  }
+
+// create user
+function create_User(username,password) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/muduser/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=create_user&username='+username+'&password='+password);
+  }
+
+// create character
+function create_Character(name) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/character/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=create_character&name='+name);
+  }
+
+// get my character
+function get_Character_list() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/character/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=get_character_list');
+  }
+
+// start with character 
+function start_this_character(name) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/character/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=select_character&name='+name);
+  }
+
+// get user list in same room 
+function get_user_list_in_same_room() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/character/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=get_userlist_in_room');
+  }
+
+// Atttack other user
+function attack_user(target) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/character/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=attack_character&target_user='+target);
+  }
+
+// get my chracter status
+function my_character_stats(name) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        term.write(this.responseText);
+        term.write("\r\n");
+      }
+    };
+    xhttp.open("POST", "api/character/", true);
+    xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('view_name=get_character_stats&character_name='+name);
+  }
+</script>
+
+<!-- Temp command-->
+<p>------------------------------------------------------------------------------------------------------------</p>
+
+Command AutoComplete Support (only static Command :D) and ↑↓ Support
+<p>------------------------------------------------------------------------------------------------------------</p>
+
+<p>* start room 1,1,1 -> Dead -> room 10,10,10 </p>
+<p>room 10,10,10 -> Dead -> room 10,10,10 </p>
+<p>------------------------------------------------------------------------------------------------------------</p>
+
+<table>
+  <tr>
+    <th>Command Name </th>
+    <th>Command</th>
+  </tr>
+  <tr>
+    <td>account</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>Create account</td>
+    <td> = createuser {username} {password}</td>
+  </tr>
+  <tr>
+    <td>Login</td>
+    <td>= login {username} {password}</td>
+  </tr>
+  <tr>
+    <td>Logout </td>
+    <td>= logout</td>
+  </tr>
+  <tr>
+    <td>------------------------------------------------------</td>
+    <td>------------------------------------------------------</td>
+  </tr>
+  <tr>
+    <td>character(must be logined)</td>
+    <td> </td>
+  </tr>
+  <tr>
+    <td>create character</td>
+    <td> = createcha {name} </td>
+  </tr>
+  <tr>
+    <td>get my character list</td>
+    <td> = my-chracters </td>
+  </tr>
+  <tr>
+    <td>start with character(select character)</td>
+    <td> = selectcha {name} </td>
+  </tr>
+  <tr>
+    <td> ♥ Userlist in same room(*before select character) ♥</td>
+    <td> = chalist_in_my_room </td>
+  </tr>
+  <tr>
+    <td> ★☆ Attack (*Only same room) ☆★</td>
+    <td> = attack {name} </td>
+  </tr>
+  <tr>
+    <td> character info (*Only mine)</td>
+    <td> = info_cha_mine {name} </td>
+  </tr>
+<table>
+
+
+<p>
+------------------------------------------------------------------------------------------------------------
+    <p> ★☆ tutorial ☆★</p>
+Create account -> Login -> create character -> start with character -> (DEAD)
+-> check (with Userlist in same room) -> Attack {user}
+<p>------------------------------------------------------------------------------------------------------------</p>
+</p>
+Unfortunately, there is no chatting function. :-)
+</body>
+</html>
+
+
+ 

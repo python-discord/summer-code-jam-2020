@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+pre-commit = "*"
+pytest-django = "*"
+mixer = "*"
+
+[packages]
+django = "~=3.0"
+channels = "~=2.4"
+python-dotenv = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+precommit = "pre-commit install"
+pytest = "bash -c 'cd MUD && pytest'"
+makemigrations = "bash -c 'cd MUD && python manage.py makemigrations'"
+migrate = "bash -c 'cd MUD && python manage.py migrate'"
+runserver = "bash -c 'cd MUD && python manage.py runserver'"
