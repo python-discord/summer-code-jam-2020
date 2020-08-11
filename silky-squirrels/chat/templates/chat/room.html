@@ -1,8 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
-
 <div class="chatroom">
-<<<<<<< HEAD
     <div>
         <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20" disabled></textarea><br>
         <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
@@ -18,49 +16,13 @@
             const olderMessagesText = JSON.parse(document.getElementById("older_messages_text").textContent);
             const currUsername = JSON.parse(document.getElementById("curr_username").textContent);
             document.querySelector("#chat-log").value = olderMessagesText.trim().length > 0 ? olderMessagesText + "\n" : '';
-=======
-    <div class="col-lg-15">
-        <div class="card card-tertiary">
-            <div class="card-header">
-                <span class="icon icon-xs w95-folder"></span>
-                <span class="ml-2">Chatroom 
-                {% if pvt_members %}
-                    between {{ pvt_members.0 }} and {{ pvt_members.1 }}
-                {% else %}
-                    : '{{ room_name }}'
-                {% endif %}
-                </span>
-            </div>
-            <div class="card-body">
-                <p class="card-text">
-                <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20" disabled></textarea><br>
-                <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
-                <div class="d-flex mt-3">
-                    <input class="btn btn-sm mr-2 btn-primary border-dark" id="chat-message-submit" type="button" value="Send">
-                    <input class="btn btn-sm mr-2 btn-primary border-dark" id="chat-message-submit" type="button" value="Settings">
-                </div>
-                </p>
-            </div>
-        </div>
-    </div>
-    {{ room_name|json_script:"room-name" }}
-    {{ room_member_id|json_script:"room_member_id" }}
-    {{ older_messages_text|json_script:"older_messages_text" }}
-    {{ curr_username|json_script:"curr_username" }}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const roomMemberId = JSON.parse(document.getElementById("room_member_id").textContent);
-        const olderMessagesText = JSON.parse(document.getElementById("older_messages_text").textContent);
-        const currUsername = JSON.parse(document.getElementById("curr_username").textContent);
-        document.querySelector("#chat-log").value = olderMessagesText.trim().length > 0 ? olderMessagesText + "\n" : '';
->>>>>>> e53780117a2af9b08c50a49d2009f1838c0eae24
 
             const chatSocket = new WebSocket(
                 `ws://${window.location.host}/ws/chat/${roomName}/`
             );
 
             chatSocket.onmessage = function (e) {
-                const { username, text, connected, timestamp } = JSON.parse(e.data);
+                const { username, text, connected } = JSON.parse(e.data);
                 if (document.querySelector(`#active-${currUsername}`) === null) {
                     document.querySelector("#active-users-list").innerHTML += `<div id="active-${currUsername}">${currUsername}</div>`;
                 }
@@ -71,7 +33,7 @@
                     const child = document.querySelector(`#active-${username}`);
                     parent.removeChild(child);
                 } else if (text !== undefined) {
-                    document.querySelector("#chat-log").value += `[${timestamp}] ${username}: ${text}` + "\n";
+                    document.querySelector("#chat-log").value += `${username}: ${text}` + "\n";
                 }
             };
 

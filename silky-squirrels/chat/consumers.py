@@ -2,9 +2,8 @@ import json
 
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from users.models import Profile, ChatRoomVisit
+
 from chat.models import RoomMember, Message, Room
-from django.utils import timezone
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -13,11 +12,6 @@ class ChatConsumer(WebsocketConsumer):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         # noinspection PyAttributeOutsideInit
         self.room_group_name = "chat_%s" % self.room_name
-        self.user = self.scope["user"]
-        room = Room.objects.get(name=self.room_name)
-        profile = Profile.objects.get(user=self.user)
-        ChatRoomVisit.objects.get_or_create(profile=profile, chat_room=room)
-        ChatRoomVisit.objects.filter(profile=profile, chat_room=room).update(time_visited=timezone.now())
 
         self.user = self.scope["user"]
         room = Room.objects.get(name=self.room_name)
@@ -58,17 +52,11 @@ class ChatConsumer(WebsocketConsumer):
         room_member_id = text_data_json["room_member_id"]
         text = text_data_json["text"]
         room_member = RoomMember.objects.get(id=room_member_id)
-        message = Message.objects.create(room_member=room_member, room=room_member.room, text=text)
+        Message.objects.create(room_member=room_member, room=room_member.room, text=text)
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                "type": "chat_message",
-                "username": room_member.user.username,
-                "text": text,
-                "timestamp": str(message.timestamp),
-            },
+            self.room_group_name, {"type": "chat_message", "username": room_member.user.username, "text": text}
         )
 
     # Receive message from room group
