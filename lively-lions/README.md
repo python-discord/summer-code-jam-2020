@@ -14,7 +14,7 @@ This is the default README of your team's project. Please replace this by a READ
 Requires python 3.8+ (with pip)
 
 ---
-## To the team members 
+## To the team members
 
 - [How to contribute to the code](https://github.com/lively-lions/summer-code-jam-2020/wiki)
 
