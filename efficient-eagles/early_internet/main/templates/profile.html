@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<table style='width: 100%;'>
+  <tr>
+    <td>
+       <h1><a>Comments</a> | <a>Posts</a></h1>
+          {% for post in posts %}
+            <div class='w3-card' style='width:100%; overflow-x: auto; overflow-y: hidden; margin-left:90px;'>
+              <header class='w3-container'>
+                <h5><a href="/topic/{{post.topic.name}}/{{post.slug}}" style='color: blue;'>{{post.title}}</a></h5>
+              </header>
+              <div class='oneline'>
+                <h6>submitted by <a style='color:blue;'>{{post.author}}</a> on {{post.created}} in <a style='color: blue;' href='/topic/{{post.topic}}'>{{post.topic}}</a></h6>
+              </div>
+            </div>
+          {% endfor %}
+      
+    </td>
+    <td style='float: right;'>
+      {% if user.profile_img %}
+        <img src='{{user.profile_img.url}}' alt='Profile Picture' class='pfp'/>
+      {% else %}
+        <i class='fas fa-portrait' style='font-size:200px;color:black'></i>
+      {% endif %}
+      <h3>{{ user.username }}</h3>
+      <b>Bio</b><br>
+      {{user.bio}} <br>
+          Joined {{ user.date_joined }}<br>
+          <br> 
+          {% if user.is_authenticated and user == request.user %}
+            <a style="font-size: 30px;" href='/account'>Edit Account</a>
+          {% endif %}
+    </td>
+  </tr>
+</table>
+{% endblock %}

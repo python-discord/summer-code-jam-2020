@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div style="width: 30%; margin: 0 auto;">
+  <form method='POST'>
+    {% csrf_token %}
+    {{form.as_p}}
+    
+    <button class="w3-button w3-block w3-green w3-section w3-padding" type='submit'>Create Post</button>
+  </form>
+</div>
+{% endblock %}

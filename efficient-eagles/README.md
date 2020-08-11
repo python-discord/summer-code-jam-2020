@@ -1,2 +1,18 @@
 # Efficient Eagles
-This is the default README of your team's project. Please replace this by a README with more information on your project. At the very least, your README should contain information on how to set-up and run your project.
+Social media app that will bring back those good old days.
+
+## How to set-up
+Build containers:
+
+> docker-compose build
+
+Apply migrations:
+
+> docker-compose run web python manage.py migrate 
+
+Load fixtures:
+
+> docker-compose run web python manage.py loaddata data.json
+
+## How to run 
+> docker-compose up
