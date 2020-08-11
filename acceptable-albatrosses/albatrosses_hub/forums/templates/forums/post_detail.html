@@ -1,0 +1,65 @@
+{% extends "forums/base.html" %}
+
+{% block forumheader %}
+    <li class="breadcrumb-item">
+        <a href="/forums/{{ object.board.name }}">{{ object.board.name }}</a>
+    </li>
+        <li class="breadcrumb-item active">
+        <a href="">{{ object.subject }}</a>
+    </li>
+{% endblock forumheader %}
+
+
+{% block forumcontent %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <small class="text-muted">Created on: {{ object.created_at }} by
+         <a class="mr-2" href="{% url 'forums:user-posts' object.created_by.username %}">@{{ object.created_by }}</a>
+          <div>
+            {% if object.updated_at is not None %}
+                Updated on: {{ object.updated_at }}
+            {% endif %}
+          </div>
+        </small>
+
+     </div>
+      <h2>
+        {{ object.subject }}
+        {% if object.created_by == user %}
+          <a class="btn btn-secondary btn-sm mt-1 mb-1 py-0" href="{% url 'forums:post-update' object.board.name object.id %}">Update</a>
+          <a class="btn btn-danger btn-sm mt-1 mb-1 py-0" href="{% url 'forums:post-delete' object.board.name object.id %}">Delete</a>
+        {% endif %}
+      </h2>
+
+      <p class="article-content">{{ object.message }}</p>
+    </div>
+  </article>
+
+  <div class="mb-4">
+    <a href="{% url 'forums:comment-create' object.board.name object.id %}" class="btn btn-primary btn-sm py-0">New comment</a>
+  </div>
+
+  {% for comment in comments %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <small class="text-muted">
+            Created on: {{ comment.created_at }} by
+              <a class="mr-2" href="{% url 'forums:user-posts' object.created_by.username %}">@{{ comment.created_by }}</a>
+              {% if comment.updated_at is not None %}
+                  Updated on: {{ comment.updated_at }}
+              {% endif %}
+          </small>
+
+          {% if object.created_by == user %}
+            <a class="btn btn-secondary btn-sm py-0" href="{% url 'forums:comment-update' object.board.name object.id comment.id %}">Update</a>
+            <a class="btn btn-danger btn-sm py-0" href="{% url 'forums:comment-delete' object.board.name object.id comment.id %}">Delete</a>
+          {% endif %}
+        </div>
+        <p class="article-content">{{ comment.message }}</p>
+      </div>
+    </article>
+    {% endfor %}
+
+{% endblock forumcontent %}

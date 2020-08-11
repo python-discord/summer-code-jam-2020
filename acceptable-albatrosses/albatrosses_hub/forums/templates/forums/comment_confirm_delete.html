@@ -1,0 +1,27 @@
+{% extends "forums/base.html" %}
+
+{% block forumheader %}
+    <li class="breadcrumb-item">
+        <a href="/forums/{{ object.post.board.name }}">{{ object.post.board.name }}</a>
+    </li>
+        <li class="breadcrumb-item active">
+        <a href="/forums/{{ object.post.board.name }}/{{ object.post.pk }}">{{ object.post.subject }}</a>
+    </li>
+{% endblock forumheader %}
+
+
+{% block forumcontent %}
+    <div class ="content-section">
+        <form method='POST'>
+            {% csrf_token %}
+            <fieldset class='form-group'>
+                <legend class="border-bottom mb-4">Delete Comment</legend>
+                <h2>Confirm to delete "{{ object.message }}"</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes.</button>
+                <a class="btn btn-outline-secondary" href="{% url 'forums:board-detail' object.post.board.name object.post.id %}">Cancel.</a>
+            </div>
+        </form>
+    </div>
+{% endblock forumcontent %}

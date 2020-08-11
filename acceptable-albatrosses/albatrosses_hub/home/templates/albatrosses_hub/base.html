@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Use base css file -->
+    <link rel="stylesheet" href="{% static 'albatrosses_hub/css/base.css' %}" />
+    {% block styles %}
+
+    {% endblock styles %}
+
+
+    <title>Albatrosses Hub</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #abadb3;">
+            <div class="navbar order-1 w-100 order-md-0">
+                <ul class="navbar-nav">
+                    <a class="navbar-brand" href="{% url 'home:index' %}">
+                        <img src="{% static 'albatrosses_hub/img/logo-with-text.png' %}" alt="LOGO" width="64" height="64">
+                    </a>
+                    <a class="navbar-brand align-self-center {% if page == "forum" %}active-navbar{% endif %}" href="{% url 'forums:home' %}">FORUM</a>
+                    <a class="navbar-brand align-self-center {% if page == "about_us" %}active-navbar{% endif %}" href="{% url 'home:about-us' %}">ABOUT</a>
+                </ul>
+            </div>
+            <div class="navbar order-2 order-md-1">
+                <ul class="navbar-nav">
+                    {% if login %}
+                        <a class="navbar-brand" href="{% url 'authentication:logout' %}"><b>LOGOUT</b></a>
+                    {% else %}
+                        <a class="navbar-brand" href="{% url 'authentication:login' %}"><b>LOGIN</b></a>
+                        <a class="navbar-brand" href="{% url 'authentication:register' %}"><b>REGISTER</b></a>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+
+    <footer>
+        <p>Acceptable Albatrosses © 2020</p>
+    </footer>
+</body>
+</html>

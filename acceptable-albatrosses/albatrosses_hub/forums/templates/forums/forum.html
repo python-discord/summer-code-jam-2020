@@ -1,0 +1,55 @@
+{% extends "forums/base.html" %}
+{% block forumcontent %}
+<div class="container">
+  
+  <div class="mb-4">
+    <a href="{% url 'forums:board-create' %}" class="btn btn-primary">New Board</a>
+  </div>
+
+  <table class="table">
+
+    <thead class="thead-inverse">
+      <tr>
+        <th>Message Boards</th>
+        <th>Posts</th>
+        <th>Comments</th>
+        <th>Last Activity</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for board in boards %}
+        <tr>
+          <td>
+            <a href="{{ board.name }}">{{ board.name }}</a>
+            <small class="text-muted d-block">{{ board.description }}</small>
+          </td>
+
+          <td class="align-middle">{{ board.posts.count }}</td>
+
+          <td class="align-middle">{{ board.get_comments_count }}</td>
+
+          <td class="align-middle">
+            {% with comment=board.get_last_comment %}
+                {% if comment %}
+                  <small>
+                      <a href="{% url 'forums:board-detail' board.pk comment.post.pk %}">
+                          {{ comment.message }}
+                      </a>
+                      By <a class="mr-2" href="{% url 'forums:user-posts' comment.created_by.username %}"> {{ comment.created_by.username }}
+                      </a>
+                      at {{ comment.created_at }}
+                  </small>
+                {% else %}
+                   <small class="text-muted">
+                      <em>No activity yet.</em>
+                  </small>
+                {% endif %}
+            {% endwith %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock forumcontent %}

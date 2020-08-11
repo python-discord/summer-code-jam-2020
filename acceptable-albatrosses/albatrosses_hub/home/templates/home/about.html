@@ -1,0 +1,27 @@
+{% extends 'albatrosses_hub/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}" />
+{% endblock styles %}
+
+
+{% block content %}
+    <h3>We are the Albatrosses</h3>
+    {% for dev in devs %}
+            <div class="card-column">
+                <div class="card">
+                    <img src="../static/albatrosses_hub/img/{{ dev.picture }}" alt="Jane" style="width:30%">
+                    <div class="card-container">
+                        <h4>{{ dev.name }}</h4>
+                        <p class="title">{{ dev.role }}</p>
+                        <p>{{ dev.description }}</p>
+                        <p>{{ dev.email }}</p>
+                        {% if dev.email %}
+                            <p><button onclick="location.href='mailto:{{ dev.email }}'" class="button">Contact</button></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+{% endblock content %}

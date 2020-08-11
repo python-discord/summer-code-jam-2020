@@ -1,0 +1,19 @@
+{% extends 'albatrosses_hub/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'home/css/base.css' %}" />
+{% endblock styles %}
+
+
+{% block content %}
+    {% if login %}
+    <h2 style="color: blue;">Hello, {{ username }}!</h2>
+    {% endif %}
+    <table>
+        <tr>
+        <td><font size=5>A<font size=3>lbatrosses Hub is a fun website where people can hold discussions in the  form of posted  messages. They differ from chat rooms in that messages are often longer than one line of text, and are at least temporarily archived.</td>
+        <td><img class="one" src="../static/albatrosses_hub/img/logo-with-text.png" alt=" " width="300" height="300"></td>
+        </tr>
+    </table>
+{% endblock content %}

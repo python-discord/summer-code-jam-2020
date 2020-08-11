@@ -1,0 +1,17 @@
+{% extends "forums/base.html" %}
+
+{% block forumheader %}
+    <li class="breadcrumb-item active">
+        <a href="/forums/{{ object.pk }}/">{{ object.name }}</a>
+    </li>
+{% endblock forumheader %}
+
+{% block forumcontent %}
+    <div class ="content-section">
+        <form method='POST'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+        </form>
+    </div>
+{% endblock forumcontent %}

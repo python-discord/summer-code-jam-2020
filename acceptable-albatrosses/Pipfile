@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+django-stubs = "*"
+flake8 = "*"
+flake8-django = "*"
+mypy = "*"
+pylint = "*"
+pylint-django = "*"
+python-dotenv = "*"
+
+[packages]
+psycopg2 = "~=2.8"
+Django = "~=3.0"
+
+[pipenv]
+allow_prereleases = true
