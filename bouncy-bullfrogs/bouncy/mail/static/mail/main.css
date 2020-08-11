@@ -1,0 +1,201 @@
+textarea {
+    min-height: 400px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    background: transparent;
+}
+
+.input-bar {
+    position: relative;
+    top: 5px;
+    right:5px;
+    max-width: 500px;
+    display: table;
+}
+
+.input-bar-item {
+    display: table-cell;
+}
+
+.input-bar-item > input {
+    margin-left: 5px;
+}
+
+.width100 {
+  width: 100%;
+}
+
+form {
+    width:100%;
+}
+.media:hover {
+    cursor: pointer;
+}
+
+.media {
+    margin: 15px;
+    padding: 10px;
+}
+
+img {
+    width: 48px;
+    height: 48px;
+    align-self: center;
+}
+.topnav {
+    height: 100px;
+    width: 100%;
+    background-color: rgb(71, 145, 197);
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+}
+
+.unread-email {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.logo {
+    width: 185px;
+    height: 100px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 4;
+}
+.read-email {
+    background-color: rgb(255, 255, 255);
+}
+
+#read-view {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px;
+    background-color: rgb(219, 234, 245);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+#read-from h5, #read-to h5, #read-subject h5 {
+    font-weight: normal;
+}
+
+#read-body {
+    min-height: 400px;
+}
+
+pre {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1em;
+}
+
+#archive-btn {
+    background: white;
+    border: none;
+}
+
+#archive-btn:focus {
+    border: none;
+    outline: none;
+}
+
+#archive-btn::before {
+    content: '\1F5C3';
+    font-size: 2.5em;
+}
+
+#product-title {
+    font-size: 5em;
+    text-align: center;
+    text-shadow: 1px 3px 0 #969696, 1px 7px 5px #aba8a8, 2px 2px 2px rgba(115, 127, 148, 0);
+    color: #fffd95;
+}
+
+#product-title img {
+    width: 64px;
+    height: 64px;
+}
+
+button.unarchive {
+    background: #ededed !important;
+    box-shadow: inset 1px 3px 3px 1px rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+}
+
+button.archive {
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.7), 2px 3px 3px 2px rgba(0, 0, 0, 0.2);
+    ;
+    border-radius: 15px;
+}
+
+@keyframes archive-animation {
+    0% {
+        transform: scale(1);
+        transform-origin: 50% 0%;
+    }
+    100% {
+        transform: scale(0.1);
+        transform-origin: 50% 0%;
+    }
+}
+
+.archive-animation {
+    animation-name: archive-animation;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+.sidenav {
+    height: 100%;
+    width: 185px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(219, 234, 245);
+}
+
+.sidenav a {
+    font-size: 25px;
+    color: rgb(40, 43, 170);
+    display: block;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+}
+
+.sidenav a:hover {
+    text-decoration: underline;
+}
+
+body {
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+    margin-top: 3rem;
+    overflow-y: scroll;
+    font-family: VT323;
+    font-weight: bold;
+    padding-top: 50px;
+    background: rgb(51, 102, 153);
+}
+
+.btn-red {
+    color: rgb(138, 63, 63);
+}
+a:link {
+    color: #041153
+}
+
+a:hover {
+    color: #162779
+}
+
+a:visited {
+    color: #0e163f
+}
+
+a:active {
+    color: #38437c
+}

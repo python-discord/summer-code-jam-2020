@@ -1,0 +1,141 @@
+{% extends "mail/base.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="input-bar width100">
+    <div class="input-bar-item width100">
+        <form action='/inbox' method="GET" >
+            <div class="input-group">
+                <input type="text" class='form-control width100' name='q' placeholder="Search...">
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-primary mt-3" value="Search" style="position:relative; top:-16px;">
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+{%if query%}
+    <h3>Searched results</h3>
+        {%for emails in query%}
+
+        <div id="emails-view" style="display: block;">
+            <ul id="emails-list" class="list-unstyled">
+            <li id="email-4" class="media read-email"><img class="mr-2" src="../static/mail/read.png" alt="email icon">
+            <div class="media-body" onclick="read_email('{{email_id}}')">
+              <h5 class="mt-0 mb-2">{{emails.sender}}  <small style="float:right">{{emails.timestamp}}</small></h5>
+              <b>Subject:</b>{{emails.subject}}
+            </div></li>
+        </ul>
+        </div>
+        <div id="read-view" class="container archive-animation" style='visibility: hidden;'>
+            <div class="row">
+                <div class="col-2">
+                    <h5>From:</h5>
+                </div>
+                <div id="read-from" class="col">
+                </div>
+                <div id="read-timestamp" class="col-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5>To:</h5>
+                </div>
+                <div id="read-to" class="col">
+                </div>
+                <div class="col-2">
+                    <button id="archive-btn" class="archive"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h5>Subject:</h5>
+                </div>
+                <div id="read-subject" class="col">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div id="read-body" class="col">
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col">
+                    <button id="reply-btn" class="btn btn-primary">Reply</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        {%endfor%}
+{% else %}
+<hr>
+<div id="message-box">
+</div>
+<div id="emails-view">
+    <h3></h3>
+    <ul id="emails-list" class="list-unstyled"></ul>
+</div>
+<div id="read-view" class="container archive-animation">
+    <div class="row">
+        <div class="col-2">
+            <h5>From:</h5>
+        </div>
+        <div id="read-from" class="col">
+        </div>
+        <div id="read-timestamp" class="col-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <h5>To:</h5>
+        </div>
+        <div id="read-to" class="col">
+        </div>
+        <div class="col-2">
+            <button id="archive-btn" class="archive"></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <h5>Subject:</h5>
+        </div>
+        <div id="read-subject" class="col">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div id="read-body" class="col">
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col">
+            <button id="reply-btn" class="btn btn-primary">Reply</button>
+        </div>
+    </div>
+</div>
+<div id="compose-view">
+    <h3>New Email</h3>
+    <form id="compose-form">
+        <div class="form-group">
+            From: <input disabled class="form-control" value="{{ request.user.email }}">
+        </div>
+        <div class="form-group">
+            To: <input id="compose-recipients" class="form-control">
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="compose-subject" placeholder="Subject">
+        </div>
+        <textarea class="form-control" id="compose-body" placeholder="Your Email goes here"></textarea>
+        <input type="submit" class="btn btn-primary mt-3" value="Send email"/>
+    </form>
+</div>
+{%endif%}
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}

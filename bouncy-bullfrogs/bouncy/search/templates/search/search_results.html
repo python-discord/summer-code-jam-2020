@@ -1,0 +1,50 @@
+{% extends "search/base.html" %}
+{% block body %}
+<form action="{% url 'search:search-process' %}" method="post" >
+    {% csrf_token %}
+    <div class="form-group">
+        <input class="form-control" type="text" name="q" value="{{view.kwargs.query}}">
+    </div>
+    <input class="btn btn-primary float-right" type="submit" value="Search">
+</form>
+
+{% if results_list|length > 0 %}
+    <ul>
+    {% for result in results_list %}
+    <div>
+        <div style="padding-top: 8px;">
+            <div>
+                <a href="http://{{result.display_link}}"><h3>{{result.title}}</h3></a>
+                <small class="text-muted">>  <a href="http://{{result.display_link}}" class="profile-link">{{ result.display_link }}</a></small>
+          </div>
+        </div>
+        <div>
+            <p>{{result.snippet }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    </ul>
+    {%ifnotequal page_obj.paginator.num_pages 1%}
+    <div class="float-right" style="margin-bottom: 30px;">
+        {%if page_obj.has_previous%}
+            <a class="" href="?page=1"> First </a>
+            <a class="" href="?page={{page_obj.previous_page_number}}"> Prev</a>
+        {%endif%}
+        {%for num in page_obj.paginator.page_range%}
+            {%if num == page_obj.number%}
+                <a href="#" style="color:crimson;"> {{ num }} </a>
+            {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                <a href="?page={{num}}"> {{ num }} </a>
+            {%endif%}
+        {%endfor%}
+        {%if page_obj.has_next%}
+            <a href='?page={{page_obj.next_page_number}}'> Next </a>
+            <a href="?page={{page_obj.paginator.num_pages}}"> Last </a>
+        {%endif%}
+      </div>
+    {%endifnotequal%}
+{% else %}
+    <h3 class='text-center'>Sorry. No results found for {{view.kwargs.query}}</h3>
+    <h5 class = 'text-center'>Try searching for rice instead</h5>
+{% endif %}
+{% endblock body%}

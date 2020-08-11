@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}BullFrog Mail{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'mail/main.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'bullfrog_favicon.ico' %}">
+    {% block script %}
+    {% endblock %}
+</head>
+
+<body>
+
+
+    <p style="font-family:VT323;font-size: 30px;position: absolute;right: 5px;color:black;"><img src="../../static/mail/DefaultAvatar.png" alt="AvatarIcon">{{ request.user.email }}</p>
+    <h1 style="margin: 0px;">
+        <a href="/home">
+            <img class="logo" src="/static/mail/MailLogo.png" alt="logo" style="font-family:VT323;font-size: 30px;">
+        </a>
+    </h1>
+    <div class="topnav">
+        <p>test</p>
+    </div>
+    <div class="bottom-section" style="margin: 0px; overflow: hidden; height: 100vh;">
+        <div class="sidenav" style="float: left; position: relative; height: 100%;">
+            <br>
+            <a href="javascript:void(0)" id="inbox" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/InboxIcon.png" alt="InboxIcon">Inbox</a>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+            <a href="javascript:void(0)" id="compose" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/ComposeIcon.png" alt="ComposeIcon">Compose</a>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+            <a href="javascript:void(0)" id="sent" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/SentIcon.png" alt="SentIcon">Sent</a>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+            <a href="javascript:void(0)" id="archived" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/ArchiveIcon.png" alt="ArchiveIcon">Archived</a>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+            <a href="/search/" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/SurfTheWebIcon.png" alt="SurfTheWebIcon">Surf the web</a>
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray;margin-top: 0rem;margin-bottom: 0rem;">
+            <br><br><br>
+            <a href="{% url 'logout' %}" style="font-family:VT323;font-size: 30px;"><img src="../../static/mail/LogoutIcon.png" alt="LogoutIcon">Log Out</a>
+
+        </div>
+
+
+        <div class="container" style="float: left;">
+
+            {% block body %}
+            {% endblock %}
+        </div>
+        <div class="footer mt-3">
+            &copy; Bouncy Bullfrogs 1999 <a href="/aboutus">Check us out</a>
+        </div>
+    </div>
+</body>
+
+</html>
