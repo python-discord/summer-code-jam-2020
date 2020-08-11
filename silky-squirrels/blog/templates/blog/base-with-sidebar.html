@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+
+{% block sidebar %}
+<!--SIDEBAR-->
+<div class="col-md-4">
+    <div class="col-12 col-lg-12 mb-4 mb-lg-0">
+        <div class="card card-tertiary">
+            <div class="card-header">
+                {% if user.is_authenticated %}
+                Welcome, {{ user.username }}!
+                {% else %}
+                You are not signed in!
+                {% endif %}
+            </div>
+            <div class="card-body bg-white">
+                <p class="card-text">
+                    {% if user.is_authenticated %}
+                    Welcome to the chat! Within this page we have a live chatroom allowing for users to freely interact
+                    with each other in real time. Join us on discord for more info!
+                    {% else %}
+                    Please log in or sign up!
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex">
+                    {% if user.is_authenticated %}
+                    <button class="btn btn-sm btn-primary" type="button"
+                        onclick="window.location.href='https://discord.gg/python'"><span
+                            class="btn-text">Discord</span></button>
+                    {% else %}
+                    <button class="btn btn-sm btn-primary mr-2" type="button"
+                        onclick="window.location.href='{% url 'register' %}">
+                        <span class="btn-text">Sign up</span></button>
+
+                    <button class="btn btn-sm btn-primary" type="button"
+                        onclick="window.location.href='{% url 'register' %}">
+                        <span class="btn-text">Log in</span></button>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

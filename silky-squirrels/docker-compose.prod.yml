@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+  redis:
+    image: "redis:5"
+    ports:
+      - "6379:6379"
+  web:
+    image: "kmui2/silky-squirrels:latest"
+    volumes:
+      - .:/code
+    ports:
+      - "80:8000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis

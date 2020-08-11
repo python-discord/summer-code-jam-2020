@@ -1,0 +1,154 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+
+.early-tube .vjs-control-bar {
+  opacity: 1;
+  color: #000;
+
+  background: linear-gradient(white, grey);
+}
+
+.early-tube .vjs-control-bar > .vjs-control {
+  margin: 0;
+  background: none;
+  border: 1px solid #b1b1b1;
+  border-left-color: #eee;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+
+/* Play/Pause
+-------------------------------------------------------------------------------- */
+
+.early-tube .vjs-play-control span {
+  border-left-color: #333;
+  border-top-width: 7px;
+  border-left-width: 13px;
+  border-bottom-width: 7px;
+  margin: 5px 0 0 7px;
+}
+
+
+.early-tube .vjs-play-control:hover {
+  color: red;
+}
+
+.early-tube .vjs-fullscreen-control:hover {
+  color: red;
+}
+
+.early-tube .vjs-mute-control:hover {
+  color: red;
+}
+
+.early-tube .vjs-play-control:hover {
+  color: red;
+}
+
+/* Progress
+-------------------------------------------------------------------------------- */
+.early-tube .vjs-play-progress {
+  background: #f33;
+}
+
+.early-tube .vjs-load-progress {
+  background: red !important;
+}
+
+.early-tube .vjs-load-progress > div {
+  background: red !important;
+}
+
+.video-js .vjs-big-play-button {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}

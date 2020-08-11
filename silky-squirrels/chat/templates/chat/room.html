@@ -1,0 +1,84 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="chatroom">
+    <div>
+        <label for="chat-log"></label><textarea id="chat-log" cols="100" rows="20" disabled></textarea><br>
+        <label for="chat-message-input"></label><input id="chat-message-input" type="text" size="100"><br>
+        <input id="chat-message-submit" type="button" value="Send">
+        <input id="chat-message-submit" type="button" value="Add Friends">
+        {{ room_name|json_script:"room-name" }}
+        {{ room_member_id|json_script:"room_member_id" }}
+        {{ older_messages_text|json_script:"older_messages_text" }}
+        {{ curr_username|json_script:"curr_username" }}
+        <script>
+            const roomName = JSON.parse(document.getElementById('room-name').textContent);
+            const roomMemberId = JSON.parse(document.getElementById("room_member_id").textContent);
+            const olderMessagesText = JSON.parse(document.getElementById("older_messages_text").textContent);
+            const currUsername = JSON.parse(document.getElementById("curr_username").textContent);
+            document.querySelector("#chat-log").value = olderMessagesText.trim().length > 0 ? olderMessagesText + "\n" : '';
+
+            const chatSocket = new WebSocket(
+                `ws://${window.location.host}/ws/chat/${roomName}/`
+            );
+
+            chatSocket.onmessage = function (e) {
+                const { username, text, connected } = JSON.parse(e.data);
+                if (document.querySelector(`#active-${currUsername}`) === null) {
+                    document.querySelector("#active-users-list").innerHTML += `<div id="active-${currUsername}">${currUsername}</div>`;
+                }
+                if (connected === true && username !== currUsername) {
+                    document.querySelector("#active-users-list").innerHTML += `<div id="active-${username}">${username}</div>`;
+                } else if (connected === false && username !== currUsername) {
+                    const parent = document.querySelector("#active-users-list");
+                    const child = document.querySelector(`#active-${username}`);
+                    parent.removeChild(child);
+                } else if (text !== undefined) {
+                    document.querySelector("#chat-log").value += `${username}: ${text}` + "\n";
+                }
+            };
+
+            chatSocket.onclose = function (e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+
+            document.querySelector('#chat-message-input').focus();
+            document.querySelector('#chat-message-input').onkeyup = function (e) {
+                if (e.keyCode === 13) {  // enter, return
+                    document.querySelector('#chat-message-submit').click();
+                }
+            };
+
+            document.querySelector('#chat-message-submit').onclick = function (e) {
+                const messageInputDom = document.querySelector('#chat-message-input');
+                // TODO: Limit the size of the message text to respect that of Message model
+                const text = messageInputDom.value;
+                chatSocket.send(JSON.stringify({
+                    'text': text,
+                    'room_member_id': roomMemberId,
+                }));
+                messageInputDom.value = '';
+            };
+        </script>
+    </div>
+
+    <div class="side-bar">
+        <div class="card card-secondary">
+            <div class="card-header text-center">
+                <span class="icon icon-xs w95-window-empty"></span>
+                Online
+            </div>
+            <div class="card-body bg-white">
+                <div>
+                    <div id="active-users-list">
+                        {% for active_room_member in active_room_members %}
+                        <div id="active-{{ active_room_member.user.username }}">
+                            {{ active_room_member.user.username }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
