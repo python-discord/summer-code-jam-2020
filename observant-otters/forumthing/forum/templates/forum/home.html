@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>does this like actually do stuff</title> <!-- so this is the title it shows on the tab apparently ~kevin -->
+</head>
+{% block content %}
+    <a href={% url "new-thread" tpc="General"%}>Create New Thread</a><br>
+    <body>
+    {% for t in topics %}
+        <a href="{% url 'single-topic' tpc=t %}"><h3>{{ t }}</h3></a>
+    {% endfor %}
+{% endblock %}
+</html>

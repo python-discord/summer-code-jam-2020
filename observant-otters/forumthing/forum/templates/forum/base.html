@@ -1,0 +1,14 @@
+<!DOCTYPE html>  <!-- so ig more of our website will follow the format provided in this part -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>forumthing</title>
+</head>
+<body>
+<a href="{% url 'forum-homepage' %}"><h1>FORUMTHING</h1></a>
+<li><a href="/accounts/profile/">View Profile</a></li>
+<li><a href="/accounts/logout/">Sign Out</a></li>
+<br><br>
+{% block content %}{% endblock %}
+</body>
+</html>

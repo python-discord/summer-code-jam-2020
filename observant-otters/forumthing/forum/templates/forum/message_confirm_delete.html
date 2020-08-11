@@ -1,0 +1,9 @@
+{% extends "forum/base.html" %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete this message?</h2>
+    <button type="submit">Yes</button>
+    <a href="{% url "threads-single" object.thread.topic object.thread.id %}">No</a>
+</form>
+{% endblock %}
