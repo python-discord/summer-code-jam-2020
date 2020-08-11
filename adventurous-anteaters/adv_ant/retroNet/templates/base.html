@@ -1,0 +1,203 @@
+{% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'retroNet/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'retroNet/style_new.css' %}">
+  <script src="{% static 'retroNet/script.js' %}" type="text/javascript"></script>
+  <script src="https://kit.fontawesome.com/f9cc65cae5.js" crossorigin="anonymous"></script>
+  <title>RetroNet</title>
+</head>
+
+
+<body onload="startTime()">
+
+<div class="window">
+  <div class="title-bar" style=" height: 20px;">
+    <div class="title-bar-text" style="font-size: 15px;">Welcome to RetroNet!</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+
+    <!-- Main menu -->
+
+    <!-- Main menu - File Menu -->
+    <div class="window-body">
+      <div class="dropdown">
+        <button class="dropbtn" onclick="open_dropdown('dd_file')">File</button>
+        <div class="dropdown-content Frame" id="dd_file">
+          <a href="#" class="hbutton">Open</a>
+          <hr> <a href="#" class="hbutton">Close</a>
+          <hr> <a href="#" class="hbutton">Settings</a>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn" onclick="open_dropdown('dd_edit')">Edit</button>
+          <div class="dropdown-content Frame" id="dd_edit">
+            <a href="#" class="hbutton">Cut</a>
+            <hr> <a href="#" class="hbutton">Copy</a>
+            <hr> <a href="#" class="hbutton">Paste</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn" onclick="open_dropdown('dd_view')">View</button>
+          <div class="dropdown-content Frame" id="dd_view">
+            <a href="#" class="hbutton">Toggle CSS</a>
+            <hr> <a href="#" class="hbutton">Toggle Javascript</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn" onclick="open_dropdown('dd_tools')">Tools</button>
+          <div class="dropdown-content Frame" id="dd_tools">
+            <a href="#" class="hbutton">Not Decided</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn btn-sin-border" onclick="open_dropdown('dd_favorite')">Favourties</button>
+          <div class="dropdown-content Frame" id="dd_favorite">
+            <a href="#" class="hbutton">Add New Favorite</a>
+            <hr> <a href="#" class="hbutton">Add this Page to Favorites</a>
+            <hr> <a href="#" class="hbutton">Show Favorites</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn" onclick="open_dropdown('dd_help')">Help</button>
+          <div class="dropdown-content Frame" id="dd_help">
+            <a href="https://github.com/ayushxx7/summer-code-jam-2020/blob/master/adventurous-anteaters/README.md"
+              class="hbutton">README</a>
+          </div>
+        </div>
+      </div>
+    </div>
+   <!-- Main Menu - File Menu End -->  
+    <hr style="margin:2px;">
+
+    <!-- Main Menu - Icon Bar -->
+
+    <div class="menu">
+
+      <button class="dropbtn" class="btn BtnIconwText" onclick="window.hisory.back();">
+        <div class="BtnIcon-icon" onclick="window.history.back();">
+            <img src="{% static 'retroNet/images/back-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Back</div>
+      </button>
+
+      <button class="dropbtn" class="btn BtnIconwText">
+        <div class="BtnIcon-icon">
+            <img src=  "{% static 'retroNet/images/forward-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Forward</div>
+      </button>
+
+      <button class="dropbtn" class="btn BtnIconwText" onclick="window.location.href = '/logout'">
+        <div class="BtnIcon-icon">
+            <img src="{% static 'retroNet/images/ie-stop-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Logout</div>
+      </button>
+
+       <button class="dropbtn" class="btn BtnIconwText">
+        <div class="BtnIcon-icon">
+            <img src= "{% static 'retroNet/images/ie-refresh-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Refresh</div>
+      </button>
+
+      <button class="dropbtn" class="btn BtnIconwText" onclick="window.location.href='/profile'">
+        <div class="BtnIcon-icon">
+            <img src="{% static 'retroNet/images/ie-home-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Home</div>
+      </button>
+
+      <div class="divider1"></div>
+
+      <button class="dropbtn" class="btn BtnIconwText"  onclick="window.location.href='/view_tweet'">
+        <div class="BtnIcon-icon">
+            <img src=  "{% static 'retroNet/images/ie-search-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">View Tweets</div>
+      </button>
+
+      <button class="dropbtn" class="btn BtnIconwText">
+        <div class="BtnIcon-icon">
+            <img src= "{% static 'retroNet/images/folderFavorites24-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Favorites</div>
+      </button>
+
+      <button class="dropbtn" class="btn BtnIconwText">
+        <div class="BtnIcon-icon">
+            <img src= "{% static 'retroNet/images/ie-history-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">History</div>
+      </button>
+
+      <div class="divider2"></div>
+
+      <button class="dropbtn" class="btn BtnIconwText">
+        <div class="BtnIcon-icon">
+            <img src="{% static 'retroNet/images/ie-mail-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Mail</div>
+      </button>
+
+      <button class="dropbtn" class="btn BtnIconwText">
+        <div class="BtnIcon-icon">
+            <img src= "{% static 'retroNet/images/ie-print-min.png' %}" alt="">
+        </div>
+        <div class="BtnIcon-text">Print</div>
+      </button>
+
+    </div>
+    <!-- Main Menu - Icon Bar End -->
+    <hr style="margin:2px">
+
+    <!-- Main Menu - Address Bar -->
+
+    <div>
+        Address
+        <select>
+            <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
+            https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
+            <option><img src= "{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
+            https://github.com/padraigfl/packard-belle-desktop/tree/master/src/retroNet/images</option>
+            <option><img src= "{% static 'retroNet/images/htmlFile16-min.png' %}"
+              alt="no">https://thenextweb.com/dd/2020/04/22/windows-98-css-library-html/</option>
+            <option><img src=  "{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no">
+            https://github.com/ayushxx7/summer-code-jam-2020/tree/master/adventurous-anteaters</option>
+            <option><img src="{% static 'retroNet/images/htmlFile16-min.png' %}" alt="no"> https://en.wikipedia.org/wiki/Windows_98</option>
+        </select>
+        <button id="go" class="dropbtn"><img src="{% static 'retroNet/images/ie-go-min.png' %}" alt=""></i>
+          Go
+        </button>
+        <button id="links" class="dropbtn">Links<i class="fas fa-angle-double-right"></i></button>
+    </div>
+    <!-- Main Menu - Address Bar  End -->
+
+  </div>
+    <!-- Main Menu End -->
+    
+    {% block content %}
+    {% endblock %}
+
+
+<footer class="window" id="footer" style="width: 100%;padding: 2px 2px 0px 2px;">
+    <div class="container">
+        <div class="footer_boxes" id="left" style="width:68%;"><img src="{% static 'retroNet/images/e.png' %}" id="e_style" style="height: 12px;">Done</div>
+      <div class="footer_boxes" id="middle1" style="padding-top:2;padding-left:2;padding-bottom:2;"></div>
+      <div class="footer_boxes" id="middle2"></div>
+      <div class="footer_boxes" id="middle3"></div>
+      <div class="footer_boxes" id="right"><img src="{% static 'retroNet/images/earth.png' %}" id="earth" style="height: 12px">Internet</div>
+      <div class="footer_boxes" id="time" style="width: 10%"></div>
+    </div>
+</footer>
+
+</body>

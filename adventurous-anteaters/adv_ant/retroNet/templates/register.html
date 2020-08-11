@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;">
+    <div class="text-area">
+<form method="POST">
+    	{% csrf_token %}
+
+  <div class="container-window" >
+      <br><br>
+    <p style="font-size: 30px;padding-left: 30px;"><b>Register</b>
+      <br>
+      <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
+    <br>
+      <span>
+          <br><br>
+      <p><b>Please fill in this form to create an account.</b></p>
+    <br><br>
+
+  <style>
+    form  { display: table;      }
+    p     { display: table-row;  }
+    label { display: table-cell; }
+    input { display: table-cell; }
+  </style>
+  
+      <p>
+        <label for="id_username"><b  style="font-family:Pixelated MS Sans Serif;" >Username:</b></label>
+        {{ form.username  }}
+      </p>
+      <p>
+        <label for="id_password"><b>Password:</b></label>
+        {{ form.password1  }}
+      </p>
+      <p>
+        <label for="id_password"><b>Confirm Password:</b></label>
+        {{ form.password2 }}
+      </p>
+
+    <br><br>
+
+    <ul>
+      <li>Your password can’t be too similar to your other personal information.</li>
+      <li>Your password must contain at least 8 characters.</li>
+      <li>Your password can’t be a commonly used password.</li>
+      <li>Your password can’t be entirely numeric.</li>
+    </ul>
+
+
+    <br>
+    <br>
+
+          <br><br>
+    <center><button type="submit" class="registerbtn">Register</button></center>
+    <br><br>
+    <center><p>Already have an account? <a href="/login">Sign in</a>.</p></center>
+      <br>
+          <br>
+    </span>
+  </div>
+    </form>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif;">
+    <div class="text-area">
+      <form action="/action_page.php">
+        <div class="container-window" >
+          <br><br>
+          <p style="font-size: 30px;padding-left: 30px;"><b>Login    </b>
+          <br>
+          <hr style="display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;">
+          <br>
+          <span>
+            <br><br>
+            <p><b>Enter the following details.</b></p>
+            <br><br>
+            <label for="username"><b>Username</b></label>
+            <input type="text" size="30" placeholder="Enter Username" name="Username" id="username" required><br>
+            <br>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" size="30" placeholder="Enter Password" name="psw" id="psw" required>
+            <br>
+            <br>
+            <button type="submit" class="registerbtn">Register</button>
+                <br><br>
+            <p>Don't have an account?  Create one <a href="#">here</a>.</p>
+            <br>
+                <br>
+        </span>
+      </form>
+    </div>
+</div>
+{% endblock %}

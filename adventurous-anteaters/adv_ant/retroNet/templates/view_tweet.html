@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="window-body" style="background-color: #dfdfdf;margin-left: 10px;margin-right: 10px;font-family:Pixelated MS Sans Serif; height: 70vh;">
+    <section class="tweet-view">
+        <h1>All tweets</h1>
+        <hr>
+
+        {% for tweet in data %}
+        <div class="tweet-view-content">
+            <p>{{tweet.title}}</p>
+          <hr>
+          <p>{{tweet.content}}
+        </div>
+        {% endfor %}
+
+        <div class="actions">
+            <button style="background-color: red; color: white;">Delete Tweet</button>
+            <button style="background-color: blue; color: white; grid-column: 4/5;"><a href="post"></a>Update Tweet </a></button>
+        </div>
+    </section>
+</div>
+{% endblock %}
