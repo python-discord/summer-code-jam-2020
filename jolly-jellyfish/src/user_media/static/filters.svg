@@ -1,0 +1,33 @@
+<!--
+    CSS Image filters for themes.
+
+    Columns in the colour matrices represent input bands (R, G, B, A, 1),
+    and rows represent output output bands (R, G, B, A).
+    Consider the following row in a matrix:
+        l m n o p
+    If this were the first row, the value red band in the output colour would
+    be determined by the following formula:
+        rl + mg + nb + oa + 255p
+    Where r, g, b and a were the input values for red, green, blue and yellow.
+    This process is applied to every band in every pixel to produce the output
+    image.
+-->
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0">
+    <filter id="red">
+        <feColorMatrix type="matrix" values="
+            1   0.6 0.6 0 1
+            0   0.3 0   0 0
+            0   0   0.3 0 0
+            0   0   0   1 0
+        "/>
+    </filter>
+    <filter id="yellow">
+        <feColorMatrix type="matrix" values="
+            0.6  0.4 0.2 0 0.5
+            0.4  0.6 0.2 0 0.5
+            0    0   0.3 0 0
+            0    0   0   1 0
+        "/>
+    </filter>
+</svg>

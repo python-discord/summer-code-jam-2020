@@ -1,0 +1,41 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+  <h2>User {{ viewed_user.username }}</h2>
+  {% if request.user == viewed_user %}
+    <a href="{% url 'user-update' username=user.username %}">Edit User Details</a>
+    <a href="{% url 'user-delete' username=user.username %}">Delete User</a>
+  {% endif %}
+
+  {% if user_pages %}
+    <table>
+      <tr>
+        <th>Preview</th>
+        <th>Popularity</th>
+        <th>Webpage Title</th>
+      </tr>
+      {% for webpage in user_pages %}
+        <tr>
+          <td>
+            {% if "placeholder_img" not in webpage.thumbnail.url %}
+              <img src="{{ webpage.thumbnail.url }}">
+            {% else %}
+              Go to page itself to generate a thumbnail for it.
+            {% endif %}
+          </td>
+          <td>
+            {% with webpage.like_set.all.count as num_likes %}
+              {{ num_likes }} like{{ num_likes|pluralize }}
+            {% endwith %}
+          </td>
+          <td>
+            <a href="{% url 'webpage-view' pagename=webpage.name %}">{{ webpage.user_title }}</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>This user hasn't created any pages yet!</p>
+  {% endif %}
+
+{% endblock %}

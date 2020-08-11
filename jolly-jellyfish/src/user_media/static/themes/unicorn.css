@@ -1,0 +1,48 @@
+/**
+ * A theme with a rainbow background, calligraphy font and lots of unicorn gifs.
+ * Static files "static/images/unicorn0.gif" to "static/images/unicorn9.gif"
+ * should exist.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
+body {
+  background: url("../images/unicorn0.gif") left top / 33% 33% no-repeat,
+              url("../images/unicorn1.gif") left center / 33% 33% no-repeat,
+              url("../images/unicorn2.gif") left bottom / 33% 33% no-repeat,
+              url("../images/unicorn3.gif") center top / 33% 33% no-repeat,
+              url("../images/unicorn4.gif") center center / 33% 33% no-repeat,
+              url("../images/unicorn5.gif") center bottom / 33% 33% no-repeat,
+              url("../images/unicorn6.gif") right top / 33% 33% no-repeat,
+              url("../images/unicorn7.gif") right center / 33% 33% no-repeat,
+              url("../images/unicorn8.gif") right bottom / 33% 33% no-repeat,
+              url("../images/unicorn9.gif") left top / 33% 33% no-repeat,
+              linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 100% 100% repeat;
+  color: #FF69B4;
+  text-shadow: -1px -1px #fff, -1px 1px #fff, 1px -1px #fff, 1px 1px #fff;
+  font-family: Sacramento, cursive, sans-serif;
+  font-size: 30px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+img {
+  filter: saturate(300%) brightness(200%) contrast(150%);
+  width: 33vw;
+  height: 33vw;
+  padding: 10px;
+  transition: filter 5s;
+  float: left;
+  animation: switch-side 4s linear infinite;
+}
+
+img:hover {
+  filter: saturate(100%) brightness(100%) contrast(100%);
+}
+
+@keyframes switch-side {
+  0% {float: left}
+  50% {float: right}
+}

@@ -1,0 +1,11 @@
+# requirements.txt version of Pipfile
+# this may be out of date, but it should
+# be easier to read at the very least...
+
+# webpages:
+django ~= 3.0
+django-relativefilepathfield~=1.0.3
+
+# thumbnail generation:
+Pillow~=7.2.0
+selenium~=3.141.0

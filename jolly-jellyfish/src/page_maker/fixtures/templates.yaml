@@ -1,0 +1,14 @@
+- model: page_maker.template
+  pk: 1
+  fields:
+    name: hotdog
+    date_created: 2020-08-02 16:22:00+00:00
+    author: 1
+    style_sheet: styles/test.css
+- model: page_maker.template
+  pk: 2
+  fields:
+    name: doghot
+    date_created: 2020-08-02 19:51:03.603472+00:00
+    author: 1
+    style_sheet: styles/test2.css
