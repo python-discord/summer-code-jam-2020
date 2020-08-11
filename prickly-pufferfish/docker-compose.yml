@@ -1,0 +1,40 @@
+version: '3'
+    
+services:
+    db:
+        image: postgres
+        environment:
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: NotARealPassword
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+    web:
+        build: .
+        command: bash -c "
+            python3 arena/manage.py makemigrations &&
+            python3 arena/manage.py migrate &&
+            python3 arena/manage.py runserver 0.0.0.0:8000
+          "
+        volumes:
+            - .:/code
+        depends_on:
+            - db
+            - redis
+        expose:
+            - "8000"
+    redis:
+        image: redis
+    nginx:
+        image: nginx
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+            - ./mime.types:/etc/nginx/mime.types
+            - ./arena/static:/static
+        ports:
+            - "80:80"
+        depends_on:
+            - web
+
+volumes:
+    pgdata:

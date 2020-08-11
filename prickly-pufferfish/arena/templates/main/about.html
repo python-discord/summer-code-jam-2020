@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block title %}About The Arena{% endblock %}
+
+{% block content %}
+<h1 id="title">About The Arena</h1>
+<div id="about-text">
+    <h2>
+        The Arena is an early internet themed competition site where coders attempt to complete
+        a Python problem quickly. May the fastest win!
+    </h2>
+    <h2>
+        The Arena was written in Python3 with Django as the main driver for the site. Django Channels,
+        an addon, was used for handling websocket connections.
+    </h2>
+    <h2>
+        To manage everything, we used Docker Compose. We have used database images (Redis,
+        Postgres), an Nginx image, and a custom Python image that runs Django.
+    </h2>
+</div>
+{% endblock %}

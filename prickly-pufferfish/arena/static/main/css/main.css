@@ -1,0 +1,57 @@
+
+body {
+    background-color: black;
+    color: lime;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+#title {
+    background-color: dimgray;
+    font-size: 3rem;
+    padding: 1rem 10%;
+    margin-left: 10%;
+    margin-top: 2rem;
+    margin-right: 10%;
+}
+
+#enter {
+    color: yellow;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+nav#navbar {
+    background-color: dimgray;
+    text-align: left;
+    padding: 1.5rem 8%;
+    margin-bottom: 2rem;
+}
+
+nav#navbar a#brand {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 3rem;
+}
+
+nav#navbar a {
+    color: lime !important;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+#navbar-right {
+    text-align: right;
+    display: inline-block;
+}
+
+#about-text {
+    background-color: dimgray;
+    padding: 1rem 8%;
+    margin: 2rem 8%;
+}
+
+#about-text h2 {
+    font-weight: normal;
+}

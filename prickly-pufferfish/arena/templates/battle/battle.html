@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'battle/css/main.css' %}" />
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'battle/css/jquery-linedtextarea.css' %}"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css"
+    />
+    <title>Battle! The Arena</title>
+</head>
+<body>
+    <script id="global-vars">
+    const battleID = {{ battle_id|escapejs }};
+    const username = '{{ user.username|escapejs }}';
+    {% with challenger=user.challenges.get %}
+        const colorID = '{{ challenger.color|escapejs }}';
+    {% endwith %}
+    </script>
+    <div id="waiting">
+        <h1 id="waiting-heading" class="main-heading">Waiting for Challenger...</h1>
+        <h1 id="ready-heading" class="main-heading" hidden>
+            Waiting for both sides to be ready...
+        </h1>
+        <h1 id="activate-heading" class="main-heading" hidden>Good luck!</h1>
+        <h1 id="you-are">You are <span class="color color-name"></span>.</h1>
+        <button id="ready-btn" hidden>Ready!</button>
+        <h1 id="pre-ready">Waiting for a challenger...</h1>
+        <h1 id="not-ready" hidden>Click the button when you're ready.</h1>
+        <h1 id="ready-text" hidden>You're all set!</h1>
+    </div>
+    <div id="battle" hidden>
+        <h1 class="main-heading">Battle!</h1>
+        <div id="main">
+            <div id="question-pane"></div>
+            <div id="submission-pane">
+                <textarea id="submission-area"></textarea>
+                <div id="console"></div>
+            </div>
+        </div>
+    </div>
+    <div id="chat">
+        <div id="chat-view"></div>
+        <div id="chat-form">
+            <input type="text" id="chat-input" placeholder="Send something..." />
+            <button id="chat-submit">Send</button>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'battle/js/jquery-linedtextarea.js' %}"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"
+    ></script>
+    <script src="{% static 'battle/js/battle.js' %}"></script>
+</body>
+</html>
