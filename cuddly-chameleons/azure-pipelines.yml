@@ -1,0 +1,40 @@
+jobs:
+  - job: lint
+    displayName: 'Linting and Testing'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: UsePythonVersion@0
+        displayName: 'Set Python version'
+        name: python
+        inputs:
+          versionSpec: '3.8.x'
+          addToPath: true
+
+      - task: DockerCompose@0
+        displayName: 'Setup Database'
+        inputs:
+          action: Run a specific service
+          projectName: cuddly_chameleons
+          serviceName: postgres
+          ports: '7777:5432'
+
+      - script: |
+          cd cuddly-chameleons/
+          pip install "pipenv==2018.11.26"
+          pipenv install --system --deploy
+        displayName: 'Install dependencies'
+
+      - script: pip install flake8
+        displayName: 'Install Flake8'
+
+      - script: flake8 . --isolated --exclude=.cache,.venv,.svn,CVS,.bzr,.hg,.git,__pycache__,.tox,**/migrations/** --max-line-length=119 --verbose
+        displayName: 'Run linting'
+
+      - script: |
+          cd cuddly-chameleons/cuddly_chameleons/
+          python3 manage.py migrate
+          python3 manage.py test
+        env:
+          DATABASE_URL: postgresql://cuddly_chameleons:cuddly_chameleons@localhost:7777/jam_db
+        displayName: 'Run tests'
