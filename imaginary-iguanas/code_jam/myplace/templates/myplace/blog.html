@@ -1,0 +1,17 @@
+{% extends "myplace/base.html" %}
+{% block content %}
+    {% include "myplace/profile_short.html" %}
+
+    {% if profile.posts.all %}
+        <div class="blogs">
+        {% for post in profile.posts.all %}
+
+               {% include "myplace/post_snippet.html" with post_description=post.description|safe|truncatechars:150 post=post %}
+
+        {% endfor %}
+        </div>
+    {% else %}
+        <h1>No posts</h1>
+    {% endif %}
+
+{% endblock content %}

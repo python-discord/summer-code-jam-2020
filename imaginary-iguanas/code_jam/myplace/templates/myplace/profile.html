@@ -1,0 +1,70 @@
+{% extends "myplace/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="topLeft">
+		<div><h2 class="uName" id="name">{{ profile }}</h2></div>
+
+		{% include "myplace/profile_short.html" %}
+
+		<div class="boxInfo box">
+			<div class="boxHead"><b>Contacting <span class="uName">{{ profile.user.username }}</span></b></div>
+			<a href="#send"><div class="boxButton" id="sMsg">Send Message</div></a>
+			<a href="#report"><div class="boxButton" id="report">Report</div></a>
+			<a href="#invitation"><div class="boxButton" id="add">Add to friends</div></a>
+			<a href="#block"><div class="boxButton" id="block">Block</div></a>
+		</div>
+
+		<div class="url box">
+			<div><b>MyPlace URL:</b></div>
+			<div><a style='color:#000;text-decoration:none;' href="{% url 'user-profile' username_or_id=profile.user.username %}">{{ request.get_host }}{% url 'user-profile' username_or_id=profile.user.username %}</a></div>
+		</div>
+
+        {% if profile.audio_track %}
+		    <div class="player box">
+                <div class="songName"><b>Song:</b>
+                    <span class="songTitle">{{ profile.audio_track.filename }}</span>
+                    <a href="{{ profile.audio_track.url }}" download="{{ profile.audio_track.filename }}"><img style="height: 15px; float: right; padding-right: 2px;" src="TODO/img/download.svg"></a>
+                </div>
+                <audio controls autoplay src="{{ profile.audio_track.url }}"></audio>
+            </div>
+	    {% endif %}
+
+    </div>
+
+    <div class="new-comment">
+        {% if user.is_authenticated %}
+            <div>Leave a comment.
+                <form method="post">
+                    {% csrf_token %}
+                    {{ new_comment_form|crispy }}
+                    <button type="submit">Comment</button>
+                </form>
+            </div>
+        {% else %}
+            <div>Please login to leave a comment.</div>
+        {% endif %}
+    </div>
+
+    <div class="comments">
+    {% if profile.comments.all %}
+        <table id="user-comments">
+            {% for comment in profile.comments.all %}
+            <tr>
+                <td class="tableLeft">
+                    <a href="#">
+                        <div><b>{{ comment.user_profile.user.username }}</b></div>
+                        <img src="{{ comment.user_profile.image.url }}" height = "200" width = "200"></a>
+                </td>
+                <td class="tableRight">
+                    <div><b class="date">{{comment.creation_date}}</b></div>
+                    <div><p>{{ comment.content }}</p></div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div>No comments yet.</div>
+    {% endif %}
+    </div>
+
+{% endblock content %}
