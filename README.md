@@ -47,7 +47,7 @@ We have written several documents that you should read through if you haven't do
 
 ### 4. Create a pull request
 
-Open a pull request from your fork's `master` to the `master` branch of this repository in order to submit your project. **You should use the name of your team as the name of the pull request.** Please open you Pull Request at the start of the jam and ensure that the "Allow edits by maintainers" option is enabled.
+Open a pull request from your fork's `master` to the `master` branch of this repository in order to submit your project. **You should use the name of your team as the name of the pull request.** Please open you Pull Request at the start of the jam and ensure that the "Allow edits by maintainers" option is enabled. 
 
 ### 5. Commit to your master branch
 
@@ -80,7 +80,7 @@ Here are some pages that may help you get started:
 You should make sure your project is easy to set up for us, the reviewers. Ideally, it should not take us more than a few steps to get your project up and running, and those steps should be well-documented in your project’s README file. Consider using dependency management tools, like `pipenv` and `npm`, to make installing the dependencies of your projects as easy as possible. We would also encourage you to use `docker` and `docker-compose` to containerize your project, but this isn't a requirement.
 
 ### All projects will be merged into this repository
-Your project will be merged into this repository at the end of the jam. This means that your project will stay available after the jam ends and that you'll get contributions credits for this repository on your GitHub-account. Do keep in mind that this repository is licensed under the [MIT open source license], which means that all the code and assets you submit for the Code Jam should be compatible with that license. In addition, please make sure to provide credit to the source of all third-party assets, even if the license does not require you to do so.
+Your project will be merged into this repository at the end of the jam. This means that your project will stay available after the jam ends and that you'll get contributions credits for this repository on your GitHub-account. Do keep in mind that this repository is licensed under the [MIT open source license], which means that all the code and assets you submit for the Code Jam should be compatible with that license. In addition, please make sure to provide credit to the source of all third-party assets, even if the license does not require you to do so. 
 
 Please also make sure you follow the instructions in the [Getting Started](#getting-started) section. We can't merge Pull Requests that (would) create conflicts with the submissions of the other teams.
 
