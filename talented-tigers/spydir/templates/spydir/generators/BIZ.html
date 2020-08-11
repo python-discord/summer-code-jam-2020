@@ -1,0 +1,58 @@
+{% load static %}
+{% load generator_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: white;
+        }
+
+        .container{
+            text-align: center;
+        }
+
+        .content {
+            margin: 0 10%;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>{{ page.page_title }} Co.</h1>
+            <img src='{{ page.page_images.all.first.image }}' alt="Company Logo">
+            <h3>{{ page.page_title }} Co.'s official business page!</h3>
+        </div>
+    </header>
+
+    <div class="content">
+        <h1>About {{ page.page_title }} Co.</h1>
+        <p id="about">{{ page.business_about|safe }}</p>
+        <h1>Our Mission</h1>
+        <p> {{ page.business_mission|safe }} </p>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <h3>Contact Info:</h3>
+            <p>Phone Number -> {{ page.business_phone_num }}</p>
+            <p>Email -> {{ page.business_email }}</p>
+        </div>
+    </footer>
+
+    <script>
+        setTimeout(function(){window.location.reload()},10000)
+    </script>
+</body>
+</html>

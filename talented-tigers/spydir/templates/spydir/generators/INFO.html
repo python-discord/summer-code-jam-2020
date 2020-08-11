@@ -1,0 +1,51 @@
+{% load static %}
+{% load generator_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>All About {{ page.tab_description }}</title>
+    <style>
+        * {
+            {% if page.css_seed|mod:2 == 0 %}
+                font-family: 'Times New Roman', Times, serif;
+            {% else %}
+                font-family: "Comic Sans MS", "Comic Sans", cursive;
+            {% endif %}
+        }
+
+        .container{
+            text-align: center;
+        }
+
+        .content {
+            margin: 0 {{ page.css_seed|mod:20 }}%;
+            text-align: left;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>All About {{ page.page_title }}</h1>
+            {% if page.css_seed|mod:2 == 0 %}
+                <h3>Welcome to my crazy new website about {{ page.page_title }}!</h3>
+            {% endif %}
+            <h6>By: {{ page.page_author }}</h6>
+            <img src='{{ page.page_images.all.first.image }}'>
+        </div>
+    </header>
+
+    <div class="content">
+    {{ page.page_content|safe }}
+    </div>
+
+    <h5>
+        Source: {{ page.page_source_url }}
+    </h5>
+
+</body>
+</html>
