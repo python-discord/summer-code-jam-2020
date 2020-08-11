@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_DB: "thehtvms"
+      POSTGRES_PASSWORD: "thehtvms"
+      POSTGRES_USER: "thehtvms"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on:
+      - web
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    tty: true
+    privileged: true
+    environment:
+      DEBUG: "${DEBUG-}"
+      SMTP_PASS : "${STMP_PASS-}"
+      SMTP_USER : "${STMP_USER-}"
+      DATABASE_URL: "postgres:5432"
+    volumes:
+    - .:/app
+    - htvms-disk-volume:/var/htvms/disks
+
+volumes:
+  htvms-disk-volume:

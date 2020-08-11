@@ -1,0 +1,32 @@
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/template.css' %}">
+    <title>The HTMVs</title>
+    {% block head %}
+    {% endblock head %}
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'home' %}" {% if request.resolver_match.url_name == "home" %}class="active"{% endif %}>Home</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'disks' %}" {% if request.resolver_match.url_name == "disks" %}class"active"{% endif %} >Disks</a></li>
+            <li><a href="{% url 'create_new_vm' %}" {% if request.resolver_match.url_name == "create_new_vm" %}class"active"{% endif %} >Add new Virtual Machine</a></li>
+             <li><a href="{% url 'create_floppy' %}" {% if request.resolver_match.url_name == "create_floppy" %}class"active"{% endif %} >Add new Floppy to a specified VM</a></li>
+            <li style="float:right"><a href="{% url 'logout' %}"  {% if request.resolver_match.url_name == "logout" %}class="active"{% endif %} >Logout</a></li>
+        {% else %}
+              <li style="float:right"><a href="{% url 'login' %}"  {% if request.resolver_match.url_name == "login" %}class="active"{% endif %}>Login</a></li>
+              <li style="float:right"><a href="{% url 'register' %}"  {% if request.resolver_match.url_name == "register" %}class="active"{% endif %}>Register</a></li>
+        {% endif %}
+    </ul>
+  {% if messages %}
+            {% for message in messages %}
+              <div class = "alert">  {{ message }} </div>
+            {% endfor %}
+          {% endif %}
+   {% block content%}{% endblock %}
+
+</body>
+</html>
