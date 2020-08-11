@@ -1,0 +1,102 @@
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+}
+
+#banner {
+    width: 1000px;
+}
+
+#header {
+    background-color: black;
+    width: 100%;
+    padding: 2px;
+}
+
+#header a {
+    color: white;
+}
+
+#search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 5px;
+}
+
+#search-bar input {
+    margin: 0px 3px 0px 3px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+#topic-container {
+    padding: 10px;
+}
+
+.post {
+    box-sizing: border-box;
+    width: 500px;
+    height: 8em;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+.post:hover {
+    background-color: azure;
+}
+
+.rating-container {
+    width: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.rating-container span {
+    text-align: center;
+}
+
+.post-information {
+    border-style: solid;
+    border-width: 1px;
+    border-color: gainsboro;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.post-title {
+    background-color: darkblue;
+    color: white;
+    font-size: 20px;
+    padding: 2px 0px 2px 2px;
+}
+
+.post-description {
+    color: rgb(40, 40, 40);
+    padding: 3px;
+    flex-grow: 2;
+}
+
+.author-date {
+    padding: 2px 0px 2px 2px;
+    background-color: lightblue;
+}
+
+top-post-container {
+    padding: 10px;
+}
+
+h3 {
+    text-align: center;
+}

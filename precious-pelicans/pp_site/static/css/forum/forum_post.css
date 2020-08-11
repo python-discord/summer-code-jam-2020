@@ -1,0 +1,94 @@
+#reply-container {
+    margin-left: 10em;
+}
+
+#content-wrapper {
+    width: 900px;
+}
+
+img {
+    width: 400px;
+    margin: 10px;
+}
+
+.post {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: -1px;
+    position: relative;
+}
+
+.post:hover {
+    background-color: rgb(220, 247, 255);
+}
+
+#post-title {
+    display: flex;
+    flex-direction: row;
+}
+
+#post-title-text {
+    flex-grow: 1;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 4px;
+}
+
+#rating {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 5em;
+    flex-grow: 0;
+}
+
+#rating span {
+    margin: 0px 4px 0px 4px;
+}
+
+.reply-post {
+    border-top-style: hidden;
+}
+
+.author-date {
+    color: white;
+    background-color: #001FBC;
+    width: 100%;
+    padding: 2px;
+    padding-right: 0px;
+    margin: 0px;
+}
+
+.text {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2px;
+    background-color: black;
+    padding: 2px;
+    align-self: flex-start;
+    width: 100%;
+}
+
+a {
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#banner {
+    width: 1000px;
+}
+
+#page-selector a {
+    color: black;
+}

@@ -1,0 +1,82 @@
+{% extends 'base/forumbase.html' %}
+{% load static %}
+
+{% block head %}
+	<link rel="stylesheet" href="{% static "css/forum/index.css" %}">
+	<style>
+		html {
+			display: flex;
+			justify-content: center;
+		}
+	</style>
+{% endblock %}
+
+{% block title %}Post Index{% endblock %}
+
+{% block header %}
+    <a href="{% url 'home'">
+        << Home
+    </a>
+{% endblock %}
+
+{% block content %}
+    <form id="search-bar" method="post" action="{% url 'search-forum-posts' %}">
+        {% csrf_token %}
+        {{ search }}
+        <input type="submit" value="Enter">
+    </form>
+    <h2> All Posts </h2>
+    <main>
+        <div id="topic-container">
+            {% for post in post_list %}
+            <div class="post" onclick="location.href='/forum/{{ post.id }}'">
+                <div class="rating-container">
+                    <span>{{ post.rating }}</span>
+                </div>
+                <div class="post-information">
+                    <div class="post-title">
+                        <span>{{ post.title }}</span>
+                    </div>
+                    <div class="post-description">
+                        {% if post.description|wordcount > 30 %}
+                            {{ post.description|truncatewords:30 }}...
+                        {% else %}
+                            {{ post.description }}
+                        {% endif %}
+                    </div>
+                    <div class="author-date">
+                        Posted by {{ post.author }} on {{ post.created_at }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="top-post-container">
+            <h3>Post of the day</h3>
+            <div id="media-container">
+                {% if top_post.is_video %}
+                    <video controls width="400">
+                        <source src="{{ top_post.media_file.url }}">
+                    </video>
+                {% else %}
+                    <img src="{{ top_post.media_file.url }}" alt="{{ top_post.description }}">
+                {% endif %}
+            </div>
+            <div class="post-information">
+                <div class="post-title">
+                    {{ top_post.title }}
+                </div>
+                <div class="post-description">
+                    {% if top_post.description|wordcount > 30 %}
+                        {{ top_post.description|truncatewords:30 }}...
+                    {% else %}
+                        {{ top_post.description }}
+                    {% endif %}
+                </div>
+                <div class="author-date">
+                    Posted by {{ top_post.author }} on {{ top_post.created_at }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

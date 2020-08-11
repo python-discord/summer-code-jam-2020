@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+<!--{% load static %}-->
+
+{% block title %}Truths Index{% endblock %}
+
+{% block head %}
+    <style>
+        body {background-color:#9e9e9e;
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align:center"><em>You have been lied all your life!</em></h1>
+    <h3 style="text-align:center">Read all the truths here</h3>
+    <a href="/" style="text-align:left">Return Home</a>
+    <br>
+    <a href="{% url 'upload-truth' %}" style="text-align:right">Know a truth? share it with us.</a>
+    <hr>
+    <div id="papers">
+        {% for paper in papers_list %}
+        <div class="post" onclick="location.href='{% url 'truth-page' truth_id=paper.id %}'" style="background-color: azure">
+            <div class="post-information">
+                <div style="background-color: darkblue; color: white">
+                    <p><em>{{ paper.title }}</em></p>
+                </div>
+                <div class="post-description">
+                    {% if paper.content|wordcount > 30 %}
+                        {{ paper.content|truncatewords:30 }}...
+                    {% else %}
+                        {{ paper.content }}
+                    {% endif %}
+                </div>
+                <div class="author-date">
+                    Posted by {{ paper.author }} on {{ paper.created_at }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

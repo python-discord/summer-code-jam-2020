@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}oops{% endblock %}
+{% block head %}<link rel="stylesheet" href="">{% endblock %}
+{% block content %}
+    <h1>
+        <img src="{% static 'images/windows95_file_search.png' %}" alt="Windows 95 File Search Icon">
+        The page cannot be found
+    </h1>
+    <p>
+    The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+    </p>
+    <hr>
+    <h6>Please try the following</h6>
+    <ul>
+        <li>If you typed the page address in the Address bar, make sure that it is spelled correctly</li>
+        <li>Open the home page and then look for links to the information you want</li>
+        <li>Click the back button to try another link</li>
+        <li>Click <img src="{% static 'images/windows95_search_on_computer.png' %}" alt="search on computer">Search to look for information on the internet</li>
+    </ul>
+    <footer>HTTP 404 - File not found</footer>
+
+{% endblock %}
