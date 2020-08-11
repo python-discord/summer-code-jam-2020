@@ -1,0 +1,8 @@
+# Pytest cache
+.pytest_cache/
+
+# Collected static files
+staticfiles/
+
+# Database files
+*.sqlite3
