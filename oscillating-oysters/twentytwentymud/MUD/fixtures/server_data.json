@@ -1,0 +1,26 @@
+[
+{
+  "model": "MUD.server",
+  "pk": 1,
+  "fields": {
+    "name": "ARPANET",
+    "server_date": "1970-01-01T12:00:00Z"
+  }
+},
+{
+  "model": "MUD.server",
+  "pk": 2,
+  "fields": {
+    "name": "NSFNET",
+    "server_date": "1986-01-01T12:00:00Z"
+  }
+},
+{
+  "model": "MUD.server",
+  "pk": 3,
+  "fields": {
+    "name": "WorldWideWeb",
+    "server_date": "1991-01-01T12:00:00Z"
+  }
+}
+]

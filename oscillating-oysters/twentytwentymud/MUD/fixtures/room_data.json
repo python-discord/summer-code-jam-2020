@@ -1,0 +1,201 @@
+[
+{
+  "model": "MUD.room",
+  "pk": 1,
+  "fields": {
+    "name": "ARPANET-1",
+    "description": "You are at the Network Measurement Center in the University of California, Los Angeles (UCLA).\r\n\r\nThere is an SDS Sigma 7 computer here.",
+    "server": 1,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      2
+    ],
+    "secret_room_connects": [],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 2,
+  "fields": {
+    "name": "ARPANET-2",
+    "description": "You are at the Augmentation Research Center at Stanford Research Institute.\r\n\r\nThere is an SDS 940 computer here, named \"Genie\".",
+    "server": 1,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      1,
+      3
+    ],
+    "secret_room_connects": [],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 3,
+  "fields": {
+    "name": "ARPANET-3",
+    "description": "You are at the University of California, Santa Barbara (UCSB), in the Culler-Fried Interactive Mathematics Center.\r\n\r\nThere is an IBM 360/75 computer here, running OS/MVT.",
+    "server": 1,
+    "command_description": "There seems to be a glitch at a nearby port. Would you like to investigate the port?",
+    "command_keyword": "investigate",
+    "command_response": "This portal leads to another server! It looks like it exits at Cornell. Type: go Cornell",
+    "secret_connection_active": false,
+    "connections": [
+      2
+    ],
+    "secret_room_connects": [
+      7
+    ],
+    "next_server_connect": [
+      2
+    ]
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 4,
+  "fields": {
+    "name": "JVNC",
+    "description": "This seems to be the John von Neumann Center at Princeton University. \r\n\r\nThere's a PDP-11/73 minicomputer here.",
+    "server": 2,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      7,
+      8
+    ],
+    "secret_room_connects": [],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 5,
+  "fields": {
+    "name": "SDSC",
+    "description": "You've arrived at the San Diego Supercomputer Center at the University of California, San Diego.",
+    "server": 2,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      6,
+      9
+    ],
+    "secret_room_connects": [],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 6,
+  "fields": {
+    "name": "NCSA",
+    "description": "This is the National Center for Supercomputing Applications at the University of Illinois at Urbana-Champaign.",
+    "server": 2,
+    "command_description": "There's a book called \"Hitchhiker's Guide to the Internet\" written by Ed Krol here.",
+    "command_keyword": "read",
+    "command_response": "This books seems to be a manual on how to use the internet! It tells you how to connect to the next server: go HelloWorld",
+    "secret_connection_active": false,
+    "connections": [
+      5,
+      8,
+      9
+    ],
+    "secret_room_connects": [
+      10
+    ],
+    "next_server_connect": [
+      3
+    ]
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 7,
+  "fields": {
+    "name": "Cornell",
+    "description": "This is the Cornell University Theory Center",
+    "server": 2,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      4,
+      9
+    ],
+    "secret_room_connects": [
+      3
+    ],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 8,
+  "fields": {
+    "name": "PSC",
+    "description": "This is the Pittsburgh Supercomputer Center. There are accounts for Carnegie Mellon University, University of Pittsburgh, and Westinghouse Electric Company here.",
+    "server": 2,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      4,
+      6
+    ],
+    "secret_room_connects": [],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 9,
+  "fields": {
+    "name": "NCAR",
+    "description": "This is the National Center for Atmospheric Research",
+    "server": 2,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [
+      5,
+      6,
+      7
+    ],
+    "secret_room_connects": [],
+    "next_server_connect": []
+  }
+},
+{
+  "model": "MUD.room",
+  "pk": 10,
+  "fields": {
+    "name": "HelloWorld",
+    "description": "Welcome to the World Wide Web. This will take awhile to load, so please come back later once I've populated the information.",
+    "server": 3,
+    "command_description": "",
+    "command_keyword": "",
+    "command_response": "",
+    "secret_connection_active": false,
+    "connections": [],
+    "secret_room_connects": [
+      6
+    ],
+    "next_server_connect": []
+  }
+}
+]

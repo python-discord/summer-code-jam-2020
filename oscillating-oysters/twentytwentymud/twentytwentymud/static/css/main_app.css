@@ -1,0 +1,103 @@
+@font-face{
+    font-family: "Space Mono";
+    src: url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+}
+
+body {
+    background-color: #3F3F3F;
+    background-image: linear-gradient(rgb(44, 39, 39), rgb(0, 0, 0));
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+h1{
+    color: white;
+    text-align: center;
+    font-family: "Space Mono", monospace; 
+}
+
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    color: white;
+    margin: auto;
+    font-family: "Space Mono", monospace; 
+}
+
+.container form p{
+    display: block;
+    text-align: left;
+}
+
+.container p{
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+.line-break{
+    width:100%;
+}
+
+.btn {
+    background-color: grey;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    border-width: 5px;  
+    border-style: outset;
+    margin-bottom: 10px;
+}
+
+
+
+.pull-right{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pull-left{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-logout{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    background-color: grey;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+    border-width: 5px;  
+    border-style: outset;
+}
+
+button :hover{
+    color: white;
+}
+
+.btn a{
+    color: black;
+    text-decoration: none;
+}
+
+.btn :hover{
+    color: white;
+}
+
+.footer_left {
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    bottom: 0;
+    color: green;
+}

@@ -1,0 +1,18 @@
+version: "3"
+
+# 2 services: redis and the webservice
+services:
+  redis:
+    # pull latest image https://hub.docker.com/_/redis
+    image: redis:6-buster
+  web:
+    # build image from current directory
+    build: .
+    # run django webserver
+    command: python manage.py runserver 0.0.0.0:8000
+    # mount our code base in the container
+    volumes:
+      - .:/code
+    # map port 8000 on the container to 8000 on our local machine
+    ports:
+      - "8000:8000"

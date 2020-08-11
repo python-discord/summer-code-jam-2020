@@ -1,0 +1,4 @@
+Django
+channels
+channels_redis
+ansiwrap
