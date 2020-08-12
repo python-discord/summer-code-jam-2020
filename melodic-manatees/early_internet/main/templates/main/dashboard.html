@@ -1,0 +1,145 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+
+{% block herocontent %}
+    <div class="hero-head">
+        <div class="container is-fluid">
+            {% if user.is_authenticated %}
+                <h1 class="is-size-1 has-text-weight-semibold">Hello, 
+                {% if pref.name_preference %}
+                    {{ pref.name_preference }}
+                {% else %}
+                    {{ user.username }}
+                {% endif %}
+                </h1>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid dash">  
+            <div class="columns dash-xl">
+                <div class="column">
+                    <div class="box scroll-box is-transparent">
+                        <h2 class="title">Morning News</h2>
+                        {% for story in news %}
+                        <article class="media notification">
+                            <figure class="media-left image is-128x128">
+                                <img src="{{ story.img_small }}">
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <h3 class="title is-5">{{ story.title }}</h3>
+                                    <p>{{ story.abstract }}</p>
+                                    <a href="{{story.url}}">Full Article</a>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box scroll-box is-transparent">
+                        <h2 class="title">To Do</h2>
+                        {% if entries %}
+                            {% for entry in entries %}
+                                <article class="media notification">
+                                    <div class="media-content">
+                                        <div class="content">
+                                            <h3>{{ entry.title }}</h3>
+                                            <p>{{ entry.content }}</p>
+                                            <div class="field is-grouped">
+                                                <form action="{% url 'diary-update' entry.pk %}" method="GET">
+                                                    <input class="button is-link is-outlined" type="submit" value="Update">
+                                                </form>
+                                                <form action="{% url 'diary-delete' entry.pk %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input class="button is-danger is-outlined" type="submit" value="Delete">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% else %}
+                            <article class="media notification">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <h3>You have no entries</h3>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endif %}
+                        <button class="button is-link" id="journal-btn">Add a Journal Entry</button>
+                        <div class="modal" id="journal-modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">My Journal</p>
+                                    <button class="delete" aria-label="close" id="close-x"></button>
+                                </header>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <section class="modal-card-body">
+                                    <!-- Content ... -->
+                                        {% if user.is_authenticated %}
+                                        <fieldset>
+                                            <div class="field">
+                                                <div class="control">
+                                                    <p>
+                                                        <label class="label">{{ form.title.label_tag }}</label>
+                                                        {{ form.title|add_class:"input"}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="control">
+                                                    <p>
+                                                        <label class="label">{{ form.content.label_tag }}</label>
+                                                        {{ form.content|add_class:"textarea"}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        {% else %}
+                                            Please Sign In
+                                        {% endif %}
+                                    
+                                    </section>
+                                
+                                    <footer class="modal-card-foot">
+                                        <div class="field">
+                                            <div class="control">
+                                                <button class="button is-success" type="submit">Save</button>
+                                                <button class="button" id="cancel-btn">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="box is-transparent">
+                        <h2 class="title">Weather</h2>
+                        <h3>{{ weather.city}}, {{ weather.country }}</h3>
+                        <h4>{{ weather.temperature }} degC</h4>
+                        <h4>{{ weather.description }}</h4>
+                    </div>
+                    <div class="box is-transparent">
+                        <h2 class="title">Multitabs</h2>
+                        <article class="media notification">
+                            <div class="media-content">
+                                <div class="content">
+                                    <a href="{% url 'edit-multitab' %}" class="button is-link is-outlined">Set Multitabs</a>
+                                    <a href="{% url 'multitab-home' %}" class="button is-info">Launch Multitabs</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock herocontent %}
+

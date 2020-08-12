@@ -1,0 +1,91 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+
+{% block herocontent %}
+    <div class="hero-body">
+    
+        <div class="container grid">
+            <div class="box is-semitransparent">
+                <article class="media notification">
+                    <figure class="media-left image is-128x128">
+                    <!--profile picture here?-->
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                    <div class="media-content">
+                    <div class="content">
+                        <h2 class="title">{{ pref.name_preference }}</h2>
+                        <p class="subtitle">{{ user.username }}</p>
+                        <p class="subtitle">{{ user.email }}</p>
+                    </div>
+                    </div>
+                </article>
+                <!-- Update Profile Form Here -->
+                <div>
+                    <p class="is-size-6 has-text-weight-bold">Display Name:</p>
+                    <p class="subtitle is-6">{{ pref.name_preference }}</p>
+                    <p class="is-size-6 has-text-weight-bold">Temperature Preference:</p>
+                    {% if pref.weather_preference == 'WARM' %}
+                        <p class="subtitle is-6">
+                            I tend to run 
+                            <span class="tag is-danger">{{ pref.weather_preference }}</span>
+                        </p>
+                    {% elif pref.weather_preference == 'COLD' %}
+                        <p class="subtitle is-6">
+                            I tend to run 
+                            <span class="tag is-link">{{ pref.weather_preference }}</span>
+                        </p>
+                    {% else %}
+                        <p class="subtitle is-6">
+                            I tend to run 
+                            <span class="tag is-success">{{ pref.weather_preference }}</span>
+                        </p>
+                    {% endif %}
+
+                </div>
+                <div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <fieldset>
+                            <div class="control">
+                                <p>
+                                    <label class="label">{{ form.weather_preference.label_tag }}</label>
+                                    <div class="select is-small">{{ form.weather_preference }}</div>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <p>
+                                        <label class="label">{{ form.name_preference.label_tag }}</label>
+                                        {{ form.name_preference|add_class:"input" }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <p>
+                                        <label class="label">{{ form.city_name.label_tag }}</label>
+                                        {{ form.city_name|add_class:"input" }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <p>
+                                        <label class="label">{{ form.country_name.label_tag }}</label>
+                                        {{ form.country_name|add_class:"input" }}
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link" type="submit">Update Preferences</button>
+                            </div>
+                            <a class="button is-info" href={% url 'background-home' %}>Change Background</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock herocontent %}

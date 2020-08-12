@@ -1,0 +1,35 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+{% block herocontent%}
+<div class="hero-body">
+    <div class="container grid">
+        <div class="box is-semitransparent">
+            <h1 class="title">Edit Multitabs</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset>
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                        <label class="title is-4">Multitab {{ forloop.counter0|add:1 }}</label>
+                        {% for field in form %}
+                            
+                            <div class="field">
+                                <div class="control">
+                                    <label class="label">{{ field.label_tag }}</label>
+                                    {{ field|add_class:"input" }}
+                                </div>
+                            </div>
+                            
+                        {% endfor %}
+                    {% endfor %}
+                </fieldset>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-link" type="submit">Edit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>                
+</div>
+{% endblock herocontent %}

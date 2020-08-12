@@ -1,0 +1,34 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+{% block herocontent %}
+    <div class="hero-body"> 
+        <div class="container grid">
+            <div class="box is-semitransparent">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend class="subtitle">Register Now</legend>
+                        {% for field in form %}
+                            <div class="field">
+                                <p class="help is-danger">{{ field.errors }}</p>
+                                <label class="label">
+                                    {{ field.label_tag }}
+                                </label>
+                                {{ field|add_class:"input" }}
+                                {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <p class="help is-danger">{{ form.non_field_errors }}</p>
+                    </fieldset>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link" type="submit">Sign Up</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>   
+{% endblock herocontent %}

@@ -1,0 +1,82 @@
+{% extends 'main/main-base.html' %}
+
+{% block herocontent %}
+<div class="hero-body">
+    <div class="container grid">
+        <div class="box is-semitransparent">
+            <section>
+                <a class="button is-link" href="{% url 'add-background' %}">add background</a>
+                <a class="button is-light is-link" href="{% url 'main-home' %}">go back</a>
+                <h1 class="title">current backgrounds</h1>
+                {% if background_list|length > 1 %}
+                    <div class="container">
+				<!-- Start Carousel -->
+                        <div id="bg-carousel" class="carousel">
+                        {% for background in background_list %}
+                            
+                                <div class="card carousel-item">
+                                    <div clas="card-image">
+                                        <figure class="image is-16by9 is-covered">
+                                            <img src="{{ background.background_thumbnail.url }}" alt="No file">
+                                            <figcaption>{{ background.background_title}}</figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="field is-grouped">
+                                            <form action="{% url 'background-use' background.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <p class="control">
+                                                    <input class="button is-link is-outlined" type="submit" value="Use Background">
+                                                </p>
+                                            </form>
+                                            <form action="{% url 'background-delete' background.pk %}" method="POST">
+                                                {% csrf_token %}
+                                                <p class="control">
+                                                    <input class="button is-danger is-outlined" type="submit" value="Delete">
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        {% endfor %}
+                        </div>
+                        <!-- End Carousel -->
+                    </div>
+                {% elif background_list|length == 1 %}
+                    {% for background in background_list %}
+                    <div class="card">
+                        <div clas="card-image">
+                            <figure class="image is-16by9 is-covered">
+                                <img src="{{ background.background_thumbnail.url }}" alt="No file">
+                                <figcaption>{{ background.background_title}}</figcaption>
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="field is-grouped">
+                                <form action="{% url 'background-use' background.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <p class="control">
+                                        <input class="button is-link is-outlined" type="submit" value="Use Background">
+                                    </p>
+                                </form>
+                                <form action="{% url 'background-delete' background.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <p class="control">
+                                        <input class="button is-danger is-outlined" type="submit" value="Delete">
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>no user uploaded backgrounds</p>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock herocontent %}
+

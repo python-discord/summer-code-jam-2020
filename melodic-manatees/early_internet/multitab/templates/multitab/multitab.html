@@ -1,0 +1,68 @@
+{% extends 'main/main-base.html' %}
+
+{% block herocontent%}
+<div class="hero-body">
+    <div class="container grid">
+        <div class="box is-semitransparent">
+            <h1 class="title">Multitab Launcher</h1>
+    
+            <section>
+                <div class="tile is-vertical notification is-info is-light">
+                    <h2 class="title">{{title_1}}</h2>
+                    <h2 class="title is-4">Tabs:</h2>
+                    <p class="subtitle">- {{ site_1_1 }}</p>
+                    <p class="subtitle">- {{ site_1_2 }}</p>
+                    <p class="subtitle">- {{ site_1_3 }}</p>
+            
+                    <button class="button is-dark is-outlined" onclick="openTabs_1()">{{ title_1 }}</button>
+                    <script>
+                        function openTabs_1() {
+                        let tabs_to_open = [];
+                        if ('{{site_1_1}}'){
+                            tabs_to_open.push('{{site_1_1}}')
+                        }
+                        if ('{{site_1_2}}'){
+                            tabs_to_open.push('{{site_1_2}}')
+                        }
+                        if ('{{site_1_3}}'){
+                            tabs_to_open.push('{{site_1_3}}')
+                        }
+                        for (let i = 0; i < tabs_to_open.length; i++){
+                            window.open(tabs_to_open[i]);
+                        }
+                        }
+                    </script>
+                </div>
+                <div class="tile is-vertical notification is-info is-light">
+                    <h2 class="title">{{title_2}}</h2>
+                    <h2 class="title is-4">Tabs:</h2>
+                    <p class="subtitle">- {{ site_2_1 }}</p>
+                    <p class="subtitle">- {{ site_2_2 }}</p>
+                    <p class="subtitle">- {{ site_2_3 }}</p>
+                    <button class="button is-dark is-outlined" onclick="openTabs_2()">{{ title_2 }}</button>
+                    <script>
+                        function openTabs_2() {
+
+                        let tabs_to_open = [];
+                        if ('{{site_2_1}}'){
+                            tabs_to_open.push('{{site_2_1}}')
+                        }
+                        if ('{{site_2_2}}'){
+                            tabs_to_open.push('{{site_2_2}}')
+                        }
+                        if ('{{site_2_3}}'){
+                            tabs_to_open.push('{{site_2_3}}')
+                        }
+                        for (let i = 0; i < tabs_to_open.length; i++){
+                            window.open(tabs_to_open[i]);
+                        }
+                        }
+                    </script>
+                </div>
+                <a class="button is-info" href="{% url 'edit-multitab' %}">edit multitabs</a>
+                <a class="button is-info" href="{% url 'main-home' %}">home</a><br>
+            </section>
+        </div>
+    </div>            
+</div>
+{% endblock herocontent %}

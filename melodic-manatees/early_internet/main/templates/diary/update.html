@@ -1,0 +1,38 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+{% block herocontent%}
+    <div class="hero-body">
+        <div class="container grid">
+            <div class="box is-semitransparent">
+                <form method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="field">
+                            <legend class="subtitle">Update Entry</legend>
+                            <div class="control">
+                                <label class="label">
+                                    {{ form.title.label_tag }}
+                                </label>
+                                {{ form.title|add_class:"input" }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <label class="label">
+                                    {{ form.content.label_tag }}
+                                </label>
+                                {{ form.content|add_class:"textarea" }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="field">
+                        <div class="control">
+                            <input class="button is-link"type="submit" value="Save">
+                            <a class="button is-danger is-outlined" href="/">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock herocontent %}
