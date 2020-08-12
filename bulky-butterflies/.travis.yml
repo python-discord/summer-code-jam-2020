@@ -1,0 +1,18 @@
+language: python
+
+env: # Set env variables for pipenv
+  WORKON_HOME: .pipenv/venvs
+  PIP_CACHE_DIR: .pipenv/pipcache
+
+cache:
+    directories:
+    - .pipenv # Make sure travis-ci knows to always cache the .pipenv path
+
+python:
+    - "3.8"
+
+install:
+    - "pipenv sync -d"
+
+script:
+    - "pipenv run lint"
