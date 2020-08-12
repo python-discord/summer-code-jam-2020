@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <!-- <img class="rounded-circle article-img" src=""> -->
+        <div class="media-body">
+            <div class="article-metadata">
+                <!-- object is the class instance that is passed in by default -->
+                <a class="mr-2">{{ project.name }}</a>
+                <small class="text-muted">{{ project.user_id.username }}</small>
+                <br/>
+                <img src="{{ project.upload_version.url }}">
+                <form action="{% url 'submit-comment' project.user_id.username project.name %}"
+                      method="post" class="container">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Post">
+                </form>
+                {% for comment in comments %}
+                    <div>
+                        <h3>{{ comment.user_id.username }}</h3>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Profile Info</legend>
+    <div class="w3-row">
+      <div class="w3-col w3-container m4 l3" >
+      {% for field in u_form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      </div>
+      <div class="w3-col w3-container m8 l9" style="border-left: 1px solid #333;">
+      {% for field in p_form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      </div>
+    </div>
+  </fieldset>
+  <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Update</button>
+      <button class="btn btn-outline-info" onclick="javascript:window.history.back()">Cancel</button>
+  </div>
+</form>
+
+{% endblock content %}

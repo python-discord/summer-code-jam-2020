@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_DB=jam_db
+      - POSTGRES_USER=cuddly_chameleons
+      - POSTGRES_PASSWORD=cuddly_chameleons
+    ports:
+    - "127.0.0.1:7777:5432"
+  web:
+    build: .
+    command: python cuddly_chameleons/manage.py run
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://cuddly_chameleons:cuddly_chameleons@postgres:5432/jam_db
+      - SECRET_KEY=abc
+      - DEBUG=true

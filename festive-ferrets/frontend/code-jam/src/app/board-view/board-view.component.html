@@ -1,0 +1,15 @@
+<h1 style="text-align: center">{{board.title}} board</h1>
+<div class="btn"><button routerLink="create-post">Create a post</button></div>
+
+<mat-card *ngFor="let post of posts" routerLink="{{post.id}}">
+  <mat-card-title>
+    <mat-label>{{post.title}}</mat-label>
+  </mat-card-title>
+  <mat-card-subtitle>by {{post.poster}}</mat-card-subtitle>
+  <mat-label>{{post.text.substr(0, 300)}}...</mat-label>
+  <mat-card-subtitle style="text-align: end">Posted :{{post.publication_date}}</mat-card-subtitle>
+</mat-card>
+
+
+
+

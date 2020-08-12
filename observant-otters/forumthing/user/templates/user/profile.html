@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.username }}'s profile</title>
+</head>
+{% block content %}
+Hello, {{ user }}.<br><br>
+<form method="post">
+    {% csrf_token %}
+    {{ u_form }}
+    <button type="submit">Update Profile</button>
+</form>
+{% endblock %}
+</html>

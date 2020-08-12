@@ -1,0 +1,23 @@
+{% extends 'dating/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    <h1>Edit My Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <fieldset class="form-group">
+                {% for item in u_form %}
+                    <p><label style="font-size:large; font-weight:bold;
+                        text-align: right">{{ item.label }}</label> {{ item }}</p>
+                {% endfor %}
+
+                {% for item in p_form %}
+                    <p><label style="font-size:large; font-weight:bold;
+                        text-align: right">{{ item.label }}</label> {{ item }}</p>
+                {% endfor %}
+        </fieldset>
+
+        <button class="buttonmatch" type="submit">Submit Edits</button>
+        <a href= "{% url 'earlydating-yourprofile' %}" class="buttonmatch" type="cancel">Cancel Edits</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,78 @@
+body {
+    color: #CCCCCC;
+    /* background image from https://1-background.com/stars_1.htm */
+    background: url("../images/beautiful-blue-stars-fill.jpg");
+    animation: animatedBackground 15s linear infinite;
+    font-family: sans-serif;
+}
+
+@keyframes animatedBackground {
+    from {background-position: 0 0;}
+    to {background-position: 402px 0;}
+}
+
+a, a:visited, a:hover, a:active{
+    color: #CC8888;
+}
+
+td {
+    vertical-align: top;
+}
+
+.header-div, .body-div {
+    margin: auto;
+    background-color: #333355;
+    padding: 10px;
+}
+
+.full-width {
+    width: 1000px;
+}
+
+.header-table {
+    vertical-align: middle;
+}
+
+.logo {
+    max-height:50px;
+}
+
+.nav {
+}
+
+.nav-logo {
+    font-size: large;
+}
+
+.nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-lborder {
+    border-left: 1px solid #CCCCCC;
+}
+
+.page-header {
+    font-size: large;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 20px;
+}
+
+.center {
+  text-align: center;
+}
+
+.image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.guestbook-link {
+    width: 20%;
+}

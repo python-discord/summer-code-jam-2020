@@ -1,0 +1,42 @@
+<div id="nav-bar">
+  <ul class="nav flex-column">
+  <h6 class="nav-heading">Navigation</h6>
+  <li class="nav-item">
+    <a href="{% url 'homepage' %}">Home
+  </li>
+  {% if request.user.is_authenticated %}
+  <li class="nav-item">
+    <a href="{% url 'at_main' %}">Author Tools</a>
+  </li>
+  <li class="nav-item">
+    <p><a href="{% url 'logout_view' %}">Logout</a>
+  </li>
+  {% else %}
+  <li class="nav-item">
+    <a href="{% url 'login_view' %}">Login</a>
+  </li>
+  <li class="nav-item">
+    <a href="{% url 'register' %}">Register</a>
+  </li>
+  {% endif %}
+  </ul>
+  <hr style="width:70%;text-align:left;margin-left:0">
+  <h6 class="nav-heading">Top Stories</h6>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a href="{% url "category-view" "technology" %}">Technology</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url "category-view" "business" %}">Business</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url "category-view" "culture" %}">Culture</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url "category-view" "politics" %}">Politics</a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url "category-view" "general" %}">General News</a>
+    </li>
+  </ul>
+</div>

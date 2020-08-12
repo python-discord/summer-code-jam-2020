@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+flake8 = "*"
+pillow = "*"
+requests = "*"
+wikipedia = "*"
+randomwords = "*"
+faker = "*"
+nltk = "*"
+tensorflow = "==1.15"
+gpt-2-simple = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+start = 'python manage.py runserver'

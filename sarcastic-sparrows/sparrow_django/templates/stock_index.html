@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Stocks - Sparrow Capital{% endblock title %}
+
+{% block content%}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="header">
+                    <p>Stocks</p>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Stock</th>
+                            <th>Ticker</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stocks in Stock %}
+                            <tr>
+                                <td>{{ stocks.id }}</td>
+                                <td>{{ stocks.ticker_symbol }}</td>
+                                <td>{{ stocks.date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if Stock.has_other_pages %}
+                    <ul class="pagination">
+                        {% if Stock.has_previous %}
+                            <li><a href="?page={{ Stock.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for stocks in Stock.paginator.page_range %}
+                            {% if Stock.number == stocks %}
+                                <li class="active"><span>{{ stocks }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                            <li><a href="?page={{ stocks }}">{{ stocks }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if Stock.has_next %}
+                            <li><a href="?page={{ Stock.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

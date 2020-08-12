@@ -1,0 +1,27 @@
+<!-- Form Component -->
+{% load static  %}
+<div style="margin-left:3%; margin-right:2%;">
+    <form action="" method="POST" id="searchbar">
+        {% csrf_token %}
+        <div style='display:flex'>
+            <img src="{% static 'dashboard/img/mag_glass.png'  %}">
+            <input type="text" name="searchbar-query" style="margin-left: 1%; margin-right: 1%;" id ="search-query-field" placeholder="Search anything ..." class="nes-input">
+            <input type="submit" value="Search" style="border-radius: 15px;">
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+ // change form action based on input value
+
+ $('#searchbar').submit(function(){
+     var q = $('#search-query-field').val();
+     $(this).attr("action", q);
+     console.log("Querying: " + q);
+
+ })
+
+
+</script>

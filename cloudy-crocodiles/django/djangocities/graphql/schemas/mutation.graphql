@@ -1,0 +1,10 @@
+type Mutation {
+  login(data: LoginInput!): LogIn!
+  register(data: RegisterInput!): Boolean!
+
+  createPage(data: PageInput!): Page!
+  updatePage(page_id: ID!, data: PageInput!): Page!
+
+  createSite(data: SiteInput!): Site!
+  updateSite(site_id: ID!, data: SiteInput!): Site!
+}

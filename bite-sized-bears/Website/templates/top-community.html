@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="col-lg-9">
+      {% if user.is_authenticated %}
+          <div class="posts"><h3><b>Top communities of RSSit&nbsp;&nbsp;&nbsp;</b><a href="create_community"><button class="override">Create Community</button></a></h3></div>
+      {% else %}
+          <form action="/login" method="post">{% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <div class="posts"><h3><b>Top communities of RSSit&nbsp;&nbsp;&nbsp;</b><a href="create_community"> <input type="submit" value="Press to login/sign up, You need to be logged in to create communities" class="override"></a></h3></div>
+          </form>
+      {% endif %}
+      {% for community in object_list %}
+        <div class="posts">
+          <a href="/community/{{community.name}}"><h3><b>c/{{community.name}}</b></h3></a>
+          <p> - {{community.description}}</p>
+          <p>created by /u {{community.owner}}, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
+        </div>
+      {% endfor %}
+      <div class="pagination">
+        <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+        </span>
+`     </div>
+  </div>
+{% endblock %}

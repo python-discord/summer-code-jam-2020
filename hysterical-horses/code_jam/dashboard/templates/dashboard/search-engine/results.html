@@ -1,0 +1,117 @@
+{% extends 'dashboard/base.html' %}
+
+{% load static %}
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/search-engine/results.css' %}">
+{% endblock extra_css %}
+
+<br>
+<!-- This should navigate to releases  -->
+<div style="display: flex;">
+    <div style="margin-left: 10%;">
+        <h5 >Trending</h5>
+        <ul class="nes-list is-disc">
+            <li align="center"><a href="#"></a></li>
+        </ul>
+    </div>
+    <h3 class="nes-text" style="text-align:center; margin-right: 20%; margin-left: 20%;">Search Engine <u class="nes-text is-primary">v{{ version_number  }}</u></h3>
+    <div style="margin-right: 10%;">
+        <h5>History</h5>
+        <ul class="nes-list is-circle">
+            {% for e in past_history  %}
+            <li align="center"><a href="{{ e.1 }}">{{ e.0 }}</a></li>
+            {% endfor  %}
+        </ul>
+    </div>
+
+</div>
+<br>
+{% include 'dashboard/search-engine/searchbar.html'  %} <br>
+
+{% if desc == ''  %}
+
+{% else  %}
+<div id="desc" class="nes-container is-rounded" style="margin-left: 2%; margin-right: 2%;">
+    <p style="text-align: center">Description: </p>
+    <p style="text-align: center">{{ description  }}</p>
+</div> <br>
+{% endif  %}
+
+    <div id="engine-res" class="nes-container" style="margin-left: 2%; margin-right: 2%; overflow:hidden;">
+        <p id="time-complete" style="font-size:13px;">Collected {{ entries_length  }} results in {{ time_taken  }} seconds.</p>
+        <div style="display:flex; padding:5px; align-items: flex-start;">
+            <div id="top-res-container" class="nes-container with-title" style="float: left; width: 47%; margin: 2%;">
+                <p class="title">Top Results</p>
+                {% if top_results|length > 0  %}
+                <p class="nes-text" style="font-size:13px;">Click for more information. </p>
+                <div id="top-flex-box">
+                {% for t in top_results  %}
+                <section>
+                    <button  id="top-res" class="nes-btn search-res" align="center" onclick="document.getElementById('{{ forloop.counter0 }}').showModal();" style="width:95%; height:80px; text-align: left";>{{ t.title  }} <span class="nes-text is-warning" style="float: right;">#{{ forloop.counter  }}</span></button>
+                    <dialog class="nes-dialog" id='{{  forloop.counter0  }}'>
+                        <form method="dialog">
+                            <p class="title is-primary nes-text">{{ t.title  }}</p>
+                            <p>{{ t.info  }}</p>
+                            <menu class="dialog-menu">
+                                <button class="nes-btn is-error">Go Back</button>
+                                <a href='{{ t.further_info  }}' target="_blank"><button class="nes-btn is-primary" onclick="window.open('{{ t.further_info  }}', '_blank');">Learn More</button></a>
+                            </menu>
+                        </form>
+                    </dialog>
+                </section> <br> 
+                {% endfor  %}
+                </div>
+                {% else  %}
+                <p class="nes-text" style="text-align:center">No results found.</p>
+                {% endif  %}
+
+            </div>
+            <div id="other-res-container" class="nes-container with-title" style="float: right; width:47%; margin: 2%;">
+                <p class="title">Related Topics</p>
+                {% if other_results|length > 0  %}
+        <p class="nes-text" style="font-size:13px;">Click for more information. </p>
+        <div style="overflow-y:auto;" id="ot-flex-box">
+        {% for o in other_results  %}
+        <section>
+            <button  id="other-res" class="nes-btn search-res" align="center" onclick="document.getElementById('{{ forloop.counter0|add:3 }}').showModal();" style="width:95%; height:80px; text-align: left";>{{ o.title  }}</button>
+            <dialog class="nes-dialog" id='{{  forloop.counter0|add:3  }}'>
+                <form method="dialog">
+                    <p class="title is-primary nes-text">{{ o.title  }}</p>
+                    <p>{{ o.info  }}</p>
+                    <menu class="dialog-menu">
+                        <button class="nes-btn is-error">Go Back</button>
+                        <a href='{{ o.further_info  }}'><button class="nes-btn is-primary" onclick="window.open('{{ o.further_info  }}', '_blank');">Learn More</button></a>
+                    </menu>
+                </form>
+            </dialog>
+        </section> <br> 
+        {% endfor  %}
+        </div>
+        {% else  %}
+        <p class="nes-text" style="text-align:center">No related topics found.</p>
+        {% endif  %}
+    </div>
+    </div>
+</div>
+
+
+
+<!-- Thanks to DuckDuckGo for offering this awesome API  -->
+<br>
+<div>
+    <a href="https://duckduckgo.com/" target="_blank">Results from DuckDuckGo</a>
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/88/DuckDuckGo_logo.svg/1200px-DuckDuckGo_logo.svg.png" style="height: 50px;">
+    <p style="font-size: 10px">Thank you so much DuckDuckGo for having the only <a href="https://duckduckgo.com/api" target="_blank">free search engine</a>, you are all MVPs in our book <3</p>
+</div>
+
+{% endblock content  %}
+
+{% block extra_scripts %}
+
+<script>
+    document.getElementById("ot-flex-box").style.height = $("#top-flex-box").height() + 'px';
+</script>
+
+{% endblock  %}

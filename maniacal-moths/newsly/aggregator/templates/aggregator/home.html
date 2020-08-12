@@ -1,0 +1,35 @@
+{% extends "aggregator/base.html" %}
+{% block content %}
+<form action='refreshDatabase' method='GET'>
+	<button class="btn btn-outline-info" type="submit">Refresh Database</button>
+</form>
+{% for article in articles %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{ article.get_absolute_url }}">{{ article.author }}</a>
+            <small class="text-muted">{{ article.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <h2><a class="article-title" href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+        <p class="article-content">{{ article.summary }}</p>
+    </div>
+</article>
+{% endfor %}
+<div class=" pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1"><button class="btn btn-outline-success" type="submit">&laquo; first</button></a>
+        <a href="?page={{ page_obj.previous_page_number }}"><button class="btn btn-outline-success" type="submit">previous</button></a>
+        {% endif %}
+
+        <span class="current">
+            <button class="btn btn-outline-danger" disabled>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</button>
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}"><button class="btn btn-outline-success" type="submit">next</button></a>
+        <a href="?page={{ page_obj.paginator.num_pages }}"><button class="btn btn-outline-success" type="submit">last &raquo;</button></a>
+        {% endif %}
+    </span>
+</div>
+{% endblock content %}

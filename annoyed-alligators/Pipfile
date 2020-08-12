@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==3.0.8"
+python-dotenv = "*"
+googlenews = "*"
+pillow = "*"
+
+[dev-packages]
+flake8 = "*"

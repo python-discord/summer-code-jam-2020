@@ -1,0 +1,39 @@
+body {
+  font: 15px arial, sans-serif;
+  background-color: #D9D9D9;
+  padding: 15px 0px;
+}
+
+
+#bodybox {
+  margin: auto;
+  max-width: 550px;
+  font: 15px arial, sans-serif;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px 25px 25px 25px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+}
+
+#chatborder {
+  border-style: solid;
+  background-color: #F6F9F6;
+  border-width: 3px;
+  margin: 20px;
+  padding: 10px 20px 15px 15px;
+  border-radius: 15px;
+  position: relative;
+  height: auto;
+}
+
+.chatlog {
+   font: 15px arial, sans-serif;
+}
+
+#inputbox {
+  font: 17px arial, sans-serif;
+  height: 22px;
+  width: 100%;
+}

@@ -1,0 +1,11 @@
+<mat-grid-list cols="9" rowHeight="3:1">
+
+  <mat-grid-tile *ngFor="let board of boards" routerLink="{{board.id}}">
+    <mat-grid-tile-header><p style="font: 13px/1.231 arial,helvetica,clean,sans-serif;*font-size: small;">
+      {{board.title}}
+    </p></mat-grid-tile-header>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
+

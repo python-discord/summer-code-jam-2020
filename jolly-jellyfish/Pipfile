@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+pillow = "*"
+django-relativefilepathfield = "*"
+selenium = "*"
+pyyaml = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+start = "python src/manage.py runserver"
+# NOTE(a5): we cannot combine the following 2 commands:
+#  https://github.com/pypa/pipenv/issues/2283
+migrate = "python src/manage.py migrate"
+makemigrations = "python src/manage.py makemigrations"

@@ -1,0 +1,57 @@
+{% extends 'dating/base.html' %}
+
+
+{% block title %}Your Match{% endblock %}
+{% block content %}
+
+{% csrf_token %}
+
+<h1>Your Likes</h1>
+<div style="  ">
+<table style="border: 1px solid black; ">
+    <tr>
+
+    {% for item in obj_liked %}
+        <td  style="vertical-align:top; width=30%">
+            <p style="text-align: center; font-weight: bold; font-size: large; border-color: #003366;
+                border-style: inset; border-width: 4px">
+            <a href="{% url 'earlydating-profile' item.user.id %}">{{ item.user.username }}</a>
+            </p>
+
+            <p style="text-align: center;"><br>
+            <img src="/media/{{ item.user.profile.img }}" height="75px" ><br>
+            <h2 >{{item.user.profile.bio}}</h2>
+            <h3 style="margin-top: 20px"> Chat With Me! {{item.user.email}}</h3>
+        </td>
+
+            <!-- if last column in row -->
+            {% if forloop.counter is 3 or forloop.counter is 6 %}
+{% if not forloop.last %}
+    </tr><tr >
+{% endif %}
+            {% endif %}
+
+
+    {% endfor %}
+    </tr>
+</table>
+</div>
+<div class='pagination'>
+    <span class="step-links">
+        {% if obj_liked.has_previous %}
+            <a href="?page=1"><img src="{{ '\static\images\baseline_first_page_black_18dp.png' }}"></a>
+            <a href="?page={{ obj_liked.previous_page_number }}"><img src="{{ '\static\images\baseline_navigate_before_black_18dp.png' }}"></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ obj_liked.number }} of {{ obj_liked.paginator.num_pages }}.
+        </span>
+
+        {% if obj_liked.has_next %}
+        <a href="?page={{ obj_liked.next_page_number }}"><img src="{{'\static\images\baseline_navigate_next_black_18dp.png' }}"></a>
+        <a href="?page={{ obj_liked.paginator.num_pages }}"><img src="{{ '\static\images\baseline_last_page_black_18dp.png' }}"></a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+

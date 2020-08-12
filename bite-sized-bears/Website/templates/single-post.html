@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="col-lg-9">
+      <div class="posts">
+        <a href="/community/{{post.publisher}}"><b>r/{{post.publisher}}</b></a>
+          <p>submitted by /u <a href="/user/{{post.author}}/posts">{{post.author}}</a> on {{post.creation_date}}</p>
+        <h3>{{post.title}}</h3>
+        <p>{{post.description}}</p>
+      </div>
+
+      {% if user.is_authenticated %}
+          <form action="comment" method="POST">{% csrf_token %}
+            <input id="content" type="text" name="content" placeholder="Type comment" autocomplete="off" class="override">
+            <input type="submit" value="Add comment" class="override">
+          </form>
+      {% else %}
+          <form action="/login" method="post">{% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input id="fail" type="text" name="content" placeholder="Login to comment" autocomplete="off" disabled class="override">
+            <input type="submit" value="Press to login/sign up" class="override">
+          </form>
+      {% endif %}
+
+      {% for comment in comments %}
+        <div class="comment">
+          <h5><a href="/user/{{comment.author}}/posts">{{comment.author}}</a><span style="color:grey;"> on {{comment.creation_date}}</span></h5>
+          <p>{{comment.content}}</p>
+        </div>
+      {% endfor %}
+  </div>
+{% endblock %}

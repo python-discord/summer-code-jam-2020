@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h2> Welcome to {{ year|date:"Y" }} </h2>
+    <ul>
+    {% for article in articles %}
+        <a href="{% url 'article-detail' article.slug %}">{{ article.publication_date|date }} - {{ article.title }} -
+        {{ article.headline }}</a>
+        <p>{{ article.brief_body }}</p>    
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div>
+  <h6>Archives</h6>
+    <ul style="list-style-type:none">
+      {% if next_year %}
+        <li><a href="{% url 'article-archive-year' next_year|date:"Y" %}">{{ next_year|date:"Y"}}</a></li>
+
+      {% endif %}
+      {% if previous_year %}
+        <li><a href="{% url 'article-archive-year' previous_year|date:"Y" %}">{{ previous_year|date:"Y" }}</a></li>
+      {% endif %}
+</ul>
+    </div>
+{% endblock %}

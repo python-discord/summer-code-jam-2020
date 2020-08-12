@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row homepage pt-5">
+    {% if messages %}
+    <div class="col-sm-12 mb-5">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <div class="col-md-4 offset-md-1 text-center">
+        <h3>Earl of the day</h3>
+        <h2>{{ earl_of_the_day.first_name }} {{ earl_of_the_day.last_name }}</h2>
+        <img class="mt-2"
+            width="250"
+            height="270"
+            src="{{ earl_of_the_day.image.url }}"
+            title="{{ earl_of_the_day }}"/>
+        <p class="mt-2">{{ earl_of_the_day.short_bio }}</p>
+    </div>
+    <div class="col-md-4 offset-md-1 text-center">
+        <h3>Upcoming birthdays</h3>
+        <ul>
+        {% for birthday in upcoming %}
+            <li><span class="bday">{{ birthday.birthday }}</span><br><a href={% url 'earls:earldetail' birthday.id %}>{{ birthday }}</a></li>
+        {% endfor %}
+        </ul>
+        <p><a href="/calendar/">See all events</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+header{
+  background-color: #ee802f;
+  padding:0px 3px;
+  margin: 0 2px;
+  font-family:Georgia;
+}
+
+.headerlinks a{
+  margin: 0 3px;
+  color:#000;
+}
+
+body{
+background: #9c9c9c !important; 
+font-family:Georgia, 'Times New Roman', Times !important; 
+font-weight:500 !important;
+  }
+.post-container{
+  background:#9c9c9c ;
+}
+.posts{
+  background:whitesmoke;
+  padding:0px 5px 3px 5px;
+  border:4px solid grey;
+  margin:7px 1px;
+  border-radius:6px;
+}
+.users{
+  background:#000;
+}
+.fixed {
+  float:left;
+}
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+.online-users{
+  width:100%;
+  background:grey;
+  padding:3px;
+}
+
+.block-header{
+  padding:2px !important;
+  background:whitesmoke;
+  text-align:center;
+  color:#000;
+}
+.user{
+  padding:2px;
+  color:black;
+}
+.login{
+  padding:3px;
+}
+.login tr{
+  margin: 2px 0;
+}
+label { display: block; width: 6em; float: left; }
+
+.user{
+  width:100%;
+  background:yellow;
+  padding:1px;
+  text-align:center;
+}
+.comment{
+  background:white;
+  padding:0px 5px 3px 5px;
+  margin-left:25px;
+}
+.side-bar{
+  background:darkred;
+  color:white;
+}
+
+.community-bar{
+  padding:4px !important;
+  color: black;
+  background:ivory;
+}
+.community-links{
+background:#9c9c9c;
+}
+
+.community-links a{
+text-decoration:none;
+color:white !important;
+  padding:0px 3px;
+  margin: 0 2px;
+}
+
+.active{
+  color:black !important;
+}
+
+.chat-box{
+  max-width:800px;
+  max-height:400px;
+  margin-right:auto;
+  margin-left:auto;
+  display:block;
+  background:white;
+}

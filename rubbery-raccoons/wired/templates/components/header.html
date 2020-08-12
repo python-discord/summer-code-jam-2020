@@ -1,0 +1,6 @@
+{% load static %}
+<img src="{% static "images/banner.png" %}" alt="banner" class="banner">
+<form action="/search" method="GET" class="search-form">
+    <label><input type="search" name="search-field" id="search-field"></label>
+    <input type="submit" value="Search">
+</form>

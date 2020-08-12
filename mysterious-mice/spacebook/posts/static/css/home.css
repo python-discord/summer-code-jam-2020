@@ -1,0 +1,8 @@
+.imagepost-table {
+    width: 100%;
+}
+
+.imagepost-thumbnail {
+    max-width: 200px;
+    max-height: 200px;
+}

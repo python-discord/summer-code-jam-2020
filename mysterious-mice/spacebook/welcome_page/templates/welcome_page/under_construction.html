@@ -1,0 +1,19 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Spacebook
+{% endblock %}
+
+{% block body %}
+    <div class="body-div full-width">
+        <h2>Oops!</h2>
+        This page is currently under construction! Unfortunately we don't have profiles
+        for users from Earth set up yet, but keep checking in with us for when this feature
+        gets added!
+
+        Don't forget to share your suggestions with us in the
+        <a href="{% url 'guestbook:guestbook' %}">guestbook</a>!
+    </div>
+{% endblock %}

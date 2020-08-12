@@ -1,0 +1,16 @@
+- model: page_maker.comment
+  pk: 1
+  fields:
+    parent_page: 1
+    author: 1
+    title: wow
+    content: such nice page
+    date_created: 2020-08-03 20:24:16.214464+00:00
+- model: page_maker.comment
+  pk: 2
+  fields:
+    parent_page: 1
+    author: 2
+    title: yeah
+    content: really nice
+    date_created: 2020-08-03 20:24:28.706738+00:00

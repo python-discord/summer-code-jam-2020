@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Bulma CSS -->
+    {% load django_simple_bulma %}
+    {% bulma %}
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
+
+    <title>Main Base Template</title>
+    <style>
+
+.hero-body {
+    padding: .5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: [long-start] 1fr minmax(0, 624px) 1fr [long-end];
+}
+
+.grid * { grid-column: 2/3; }
+
+.dash {
+    display: grid;
+    grid-template-columns: [xl-start] 1fr 1fr 1fr [xl-end];
+    grid-template-rows: [tall-start] 1fr 1fr 1fr [tall-end];
+    grid-gap: 1rem;
+}
+
+.dash-xl {
+    grid-column: xl; 
+    grid-row: tall; 
+}
+
+.carousel-grid {
+    grid-column: long;
+}
+
+.box.scroll-box{
+    height: 450px;
+    overflow-y: auto;
+}
+
+.box.is-transparent {
+    background-color: hsla(0, 0%, 100%, 0.2);
+}
+
+.box.is-semitransparent {
+    background-color: hsla(0, 0%, 100%, 0.6);
+}
+
+fieldset {
+    margin: 1rem 0;
+}
+
+.errorlist {
+    color: red;
+}
+
+.hero.has-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-background.is-transparent {
+  opacity: 0.5;
+}
+
+    </style>
+</head>
+<body onload="startTime()">
+    <header>
+        <!-- Navbar in here-->
+        <nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">DASHBOARD</a>
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="right_nav">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-item" id="clock">
+                <script>
+                    function startTime() {
+                    var today = new Date();
+                    var h = today.getHours();
+                    var m = today.getMinutes();
+                    var s = today.getSeconds();
+                    m = checkTime(m);
+                    s = checkTime(s);
+                    document.getElementById('clock').innerHTML =
+                    h + ":" + m + ":" + s;
+                    var t = setTimeout(startTime, 500);
+                    }
+                    function checkTime(i) {
+                    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+                    return i;
+                    }
+                </script>
+            </div>
+        <!--Right side nav bar-->
+            <div id="right_nav" class="navbar-menu">
+                <div class="navbar-end">
+                    {% if user.is_authenticated %}
+                    <a class="navbar-item" href="{% url 'profile' %}">Profile</a>
+                    <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a class="navbar-item" href="{% url 'login' %}">Login</a>
+                    <a class="navbar-item" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="hero is-fullheight-with-navbar is-light has-background">
+        {% if user.is_authenticated %}
+            <img class="hero-background" src="{{ user.profile.background_image.url }}" alt="User Background failed to load" />
+        {% else %}
+            <img class="hero-background" src="{% static 'images/sunrise.jpg' %}" alt="Sunrise Over Mountains" />
+        {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="notification is-{{ message.tags }} is-light">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% block herocontent %}
+            
+        {% endblock herocontent %}
+    </div>
+    {% block content %}
+    {% endblock content %}
+
+    <!-- JavaScript -->
+    <script type="text/javascript" src="{% static 'main/js/bulma-modal.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>	
+    <script type="text/javascript" src="{% static 'main/js/carousel.js' %}"></script>
+</body>
+</html>

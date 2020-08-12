@@ -1,0 +1,9 @@
+{% extends "page_maker/base.html" %}
+
+{% block content %}
+  <h1>welcome</h1>
+  <a href="{% url 'webpage-create' %}">create page</a>
+  <a href="{% url 'template-create' %}">create template</a>
+  <a href="{% url 'webpage-list-top' %}">best pages</a>
+  <a href="{% url 'webpage-list-recent' %}">recent pages</a>
+{% endblock %}

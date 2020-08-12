@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}BullFrog Search{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'mail/main.css' %}">
+    <link rel="icon" href="{% static 'bullfrog_favicon.ico' %}">
+
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 id="product-title">Bullfrog Search</h1>
+
+    </div>
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <div class="footer mt-3">
+        &copy; Bouncy Bullfrogs 1999 <a href="#">Check us out</a>
+    </div>
+</body>
+
+</html>

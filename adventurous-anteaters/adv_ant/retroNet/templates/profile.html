@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="window-body" style="background-color: #e5e9e7;margin:auto 10px">
+    
+  <fieldset class="profile">
+              <legend>{{user}}'s Profile</legend>
+              <section class="above">
+                <div class="profile-img">
+                    <img src="{% static 'retroNet/images/example_img.jpg' %}" alt="">
+                </div>
+                <div class="tweets">
+                  <span class="profile-box-title">{{user}}'s Tweets</span>
+                  
+                  <div class="search-container">
+
+                    <form action="">
+                      <input type="text" placeholder="Search tweets.." name="search">
+                      <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                  </div>
+                  <div class="user-tweets">
+
+                      {% for tweet in data %}
+                        <div class="tweet">{{tweet.title}}{{tweet.content}}</div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="about">
+                  <span class="profile-box-title">  About</span>
+                  <div class="bio">
+                    <p>
+                      <b>Bio:</b>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                      Id voluptates reiciendis laboriosam eveniet inventore itaque nihil, 
+                      a nostrum vel sit quisquam.
+                    </p>
+                  </div>
+                  <div class="general-info">
+                    
+                    <fieldset><legend>Date-Born</legend> <span class="gen-info-content">{{birthdate}}</span></fieldset>
+                    <fieldset><legend>Date-Joined: </legend> <span class="gen-info-content">{{date_joined}}</span></fieldset>
+                    <fieldset><legend>Followers: </legend> <span class="gen-info-content">{{followers}}</span></fieldset>
+                    <fieldset><legend>Following: </legend> <span class="gen-info-content">{{following}</span></fieldset>
+                    <fieldset style="grid-column: 1/3;"><legend>All Time Likes: </legend> <span class="gen-info-content">{{all_time_likes}}</span></fieldset>
+                    
+                    <button onclick="window.location.href= '/post'">Post a Tweet</button>
+                  </div>
+                </div>
+              </section>
+              <section class="below"></section>
+              </aside>
+              
+  </fieldset>
+</div>
+{% endblock %}

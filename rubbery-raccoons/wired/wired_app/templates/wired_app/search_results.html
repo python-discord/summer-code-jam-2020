@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    <h1>Results for '{{ search_text }}'</h1>
+    <ul>
+    {% for article in articles %}
+        <li><a href="{% url 'article-detail' article.slug %}">{{ article.title }} - {{ article.headline }}</a></li>
+    {% empty %}
+        <li>No articles found.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

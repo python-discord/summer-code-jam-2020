@@ -1,0 +1,23 @@
+{% extends 'albatrosses_hub/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'authentication/css/register.css' %}" />
+{% endblock styles %}
+
+{% block content %}
+    <h1>Register to Albatrosses Hub</h1>
+    <br>
+    <div id="register-form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button name="register" type="submit">Register</button>
+        </form>
+        <br>
+        {% if error_message %}
+            <h5 style="color: red">{{ error_message }}<h5>
+        {% endif %}
+    </div>
+{% endblock content %}

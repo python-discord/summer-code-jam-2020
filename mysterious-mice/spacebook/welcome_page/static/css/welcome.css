@@ -1,0 +1,42 @@
+body {
+    color: #CCCCCC;
+    /*  url("../images/beautiful-blue-stars-fill.jpg")*/
+    background: black;
+    font-family: sans-serif;
+}
+h2{
+    text-align: center;
+}
+button {
+    background-color: #ccc;
+    border-left: 3px solid #ddd;
+    border-top: 3px solid #ddd;
+    border-right: 3px solid #666;
+    border-bottom: 3px solid #666;
+    text-align: center;
+    outline: none;
+}
+
+button:active {
+    border-left: 3px solid #444;
+    border-top: 3px solid #444;
+    border-right: 3px solid #222;
+    border-bottom: 3px solid #222;
+    outline: none;
+}
+
+.center_screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+.button_zoom{
+    text-align:center;
+}
+#star_holder {
+    position: fixed;
+    background: url("../images/beautiful-blue-stars-fill.jpg");
+    overflow: hidden;
+}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ category_title }} {% endblock %}
+
+{% block content %}
+    <h1> {{ category_title }} </h1>
+    <ul>
+    {% for article in articles %}
+        <li><a href="{% url 'article-detail' article.slug %}">{{ article.title }} - {{ article.headline }}</a></li>
+    {% empty %}
+        <li>No articles found.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block footer %}
+    {% include "components/archive_footer.html" %}
+{% endblock %}

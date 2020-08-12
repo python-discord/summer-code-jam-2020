@@ -1,0 +1,15 @@
+/* Core CSS */
+
+@font-face {
+    font-family: 'Tangerine';
+    src: local('Tangerine'),
+         url('../static/Tangerine-Regular.ttf') format("truetype");
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: Tangerine;
+}
+
+.body-content {
+    background-color: aqua;
+}

@@ -1,0 +1,28 @@
+.title {
+    font-weight: 700;
+}
+
+.chat-box {
+    width: 100%;
+}
+
+.some-text {
+    font-family: Arial;
+    color: white;
+}
+
+.chatroom {
+    width: 70vw;
+    justify-content: left;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.side-bar {
+    width: 20%;
+    margin-left: 2vw;
+}
+
+.chat-settings {
+    justify-content: right;
+}

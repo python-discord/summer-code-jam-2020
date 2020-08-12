@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'chat:chat-list' %}">Chat</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ object }}</li>
+    </ol>
+</nav>
+
+<div class="chat-header">
+    <img src="{{ object.image.url }}" class="float-left mr-3">
+    <h2 class="ml-auto"><small>Speaking to</small><br>{{ object }}</h2>
+</div>
+<!-- <a href="{% url 'chat:message-create' object.pk %}">Send message</a> -->
+
+<div class="chat-area mb-5 d-flex flex-column">
+    <div class="chat-messages mt-5" id="chat-messages-container">
+        {% for message in messages %}
+        <div class="msg {% if message.sender == user %}msg-self{% endif %}">
+            <div class="d-flex w-100 justify-content-between position-relative">
+                <img src="{{ message.sender.image.url }}" class="mr-3">
+                <div class="flex-fill">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ message.content }}</h5>
+                        <small>{{ message.date }}</small>
+                        {% if message.sender == user %}
+                        <form method="POST" action="{% url 'chat:message-delete' object.pk message.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" value="DELETE">✕</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="chat-composer">
+        <form method="POST" action="{% url 'chat:message-create' object.pk %}">
+            {% csrf_token %}
+            <div class="input-group">
+                <input class="form-control" type="text" name="content" placeholder="Message {{ object }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script src="{% static "js/chat.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<form action="/project/create" method="post" class="w3-container">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK">
+</form>
+{% if projects %}
+    <div class="card pmd-card">
+        <ul class="list-group pmd-list">
+            {% for project in projects %}
+                <li class="list-group-item d-flex flex-row">
+                    <img src="{% static 'gifapp/icons/project.png' %}" class="pmd-avatar-list-img"
+                    style="width:85px">
+                    <div class="media-body">
+                        <a href="project/{{ project.name }}">{{ project.name }}</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+{% endif %}
+{% endblock content %}

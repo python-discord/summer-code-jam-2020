@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <div class="span8">
+        <div class="row align-items-center">
+            <div class="col">
+                <h2>{{ title }}</h2>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <img src="{{ path }}">
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+        <div class="span4">
+            Sidebar
+            <div class="navbar-nav">
+                <li>
+                    <a class="nav-item nav-link" href="../{{ title }}">Back</a>
+                </li>
+                <li>
+                    <a class="nav-item nav-link" href="/project/{{ title }}/publish">Post</a>
+                </li>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

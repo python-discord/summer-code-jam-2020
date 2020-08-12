@@ -1,0 +1,214 @@
+body {
+    font-family: "Garamond", "Times New Roman", serif;
+    font-size: 20px;
+}
+
+/*
+ * Header
+ */
+.navbar {
+    padding: .5rem 0;
+}
+
+.nav-link {
+    font-weight: 700;
+    color: rgba(0, 0, 0, .7);
+    border-bottom: .25rem solid transparent;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: black;
+    border-bottom-color: rgba(0, 0, 0, .25);
+}
+
+.nav-link+.nav-link {
+    margin-left: 1rem;
+}
+
+.nav-link.active {
+    color: black;
+    border-bottom-color: black;
+}
+
+/*
+ * Cover
+ */
+.homepage h3 {
+    font-size: 1em;
+    text-transform: uppercase;
+    color: #848484;
+}
+
+.homepage ul {
+    list-style: none;
+    padding: 0;
+}
+
+.homepage ul li {
+    margin-bottom: 0.4em;
+}
+
+.bday {
+    font-size: 0.8em;
+    color: gray;
+}
+
+/* Calendar and Earl view */
+
+.calendar {
+    font-size: 13px;
+}
+
+.calendar tr,
+.calendar td {
+    border: 1px solid black;
+}
+
+.calendar th {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.calendar td {
+    width: 200px;
+    height: 150px;
+    padding: 20px 0px 0px 5px;
+    vertical-align: top;
+}
+
+.month {
+    font-size: 25px;
+}
+
+.date {
+    font-size: 16px;
+}
+
+
+.badge {
+    font-size: 1em;
+    padding: 0.3em 0.6em;
+    margin: 0.3em 0;
+}
+
+.badge a {
+    color: white;
+}
+
+/* Forms */
+.asteriskField {
+    display: none;
+}
+
+.account-img {
+    position: relative;
+}
+
+.account-img:hover:before {
+    content: "select new";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+/* Chat */
+.chat-area {
+    max-height: 80vh;
+    overflow: hidden;
+    clear: both;
+}
+
+.chat-header img {
+    width: 100px;
+    max-height: 100px;
+}
+
+.chat-messages {
+    overflow-y: scroll;
+    max-height: 100%;
+}
+
+.chat-messages .msg {
+    margin-bottom: 1em;
+    width: 80%;
+    float: left;
+    clear: both;
+    padding: 1em;
+    background: #ddd;
+    border-radius: 0.5em;
+}
+.chat-messages .msg.msg-self {
+    background: #d6daf2;
+    text-align: right;
+    float: right;
+}
+
+.chat-messages .msg form {
+    width: 0.7em;
+    height: 0.7em;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+}
+.chat-messages .msg form button {
+    display: none;
+    font-size: 0.4em;
+    background: red;
+    border: 0;
+    width: 1.7em;
+    height: 1.7em;
+    line-height: 1.8em;
+    border-radius: 2em;
+    color: white;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.chat-messages .msg:hover form button {
+    display: block;
+}
+
+.chat-messages img {
+    width: 50px;
+    max-height: 50px;
+}
+
+.chat-composer {
+    clear: both;
+    padding: 1em;
+    background: #d6daf2;
+    border-radius: 0.5em;
+}
+
+/* 404 */
+.four-oh-four {
+    height: 100vh;
+}
+
+.four-oh-four h1 {
+    font-size: 6em;
+    text-align: center;
+}
+
+.four-oh-four h2 {
+    text-align: center;
+}
+
+/* Public profile */
+.earl-details {
+    min-height: 80vh;
+}
+
+/*
+ * Footer
+ */
+footer {
+    color: #848484;
+}

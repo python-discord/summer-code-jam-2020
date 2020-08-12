@@ -1,0 +1,18 @@
+{% extends 'albatrosses_hub/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'authentication/css/logout.css' %}" />
+{% endblock styles %}
+
+{% block content %}
+    <h1>Are you sure to logout from Albatrosses Hub?</h1>
+    <br>
+    <div class="logout-button flex-row">
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="justify-content-center p-4">Yes</button>
+        </form>
+        <button onclick="location.href='{% url 'home:index' %}'" class="justify-content-center p-4">No</button>
+    </div>
+{% endblock content %}

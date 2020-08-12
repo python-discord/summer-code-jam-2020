@@ -1,0 +1,122 @@
+/**
+ * A global style sheet.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=News+Cycle&display=swap');
+
+@font-face {
+  font-family: 'hellovetica';
+  src: url('/static/fonts/hellovetica.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+21,U+22,U+27,U+2C-2E,U+3A,U+3B,U+3F,U+41-5A,U+61-7A;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background: #008081;
+    font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+    font-size: 10px;
+    min-height: 100%;
+    background: #008081 url("/static/images/win95-toolbar.png") center bottom / 100% auto no-repeat;
+}
+
+main {
+    background: #c0c0c0;
+    max-width: 890px;
+    margin: 50px 0 60px 30px;
+    padding: 10px;
+    box-shadow: -1px -1px 2px #000 inset, 1px 1px 2px #fff inset;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea {
+    background: white;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    padding: 3px;
+    font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+    font-size: 10px;
+    resize: none;
+}
+
+input[type="file"], input[type="submit"], button, select {
+    background: #c0c0c0;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 3px;
+    font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+    font-size: 10px;
+}
+
+input[type="file"]:hover, input[type="submit"]:hover, button:hover, select:hover {
+    background: #c0c0c0;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    padding: 3px;
+    font-family: hellovetica, "MS Sans Serif", "News Cycle", sans-serif;
+    font-size: 10px;
+}
+
+textarea {
+    display: block;
+}
+
+header {
+    position: fixed;
+    right: 30px;
+    top: 10px;
+    background: #c0c0c0;
+    padding: 1px 5px 10px 5px;
+    box-shadow: -1px -1px 2px #000 inset, 1px 1px 2px #fff inset;
+    width: auto;
+    width: 50ch;
+}
+
+header > *:first-child, main > div:last-child > *:first-child {
+  background: #010080 url("/static/images/win95-close.png") calc(100% - 1em + 12px) center no-repeat;
+  color: #fff;
+  padding: 5px;
+}
+
+a {
+    padding: 7px;
+    padding-right: 12px;
+    display: block;
+}
+
+a::after {
+    display: inline-block;
+    content: " ►";
+    transform: scale(0.75, 2.25) translate(5px, -2.5px);
+}
+
+header a::after {
+    float: right;
+}
+
+a:hover {
+    padding: 5px;
+    padding-right: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+td, th {
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 5px;
+    text-align: center;
+}

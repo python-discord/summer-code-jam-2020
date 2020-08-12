@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block title %}The Arena Landing Page{% endblock %}
+
+{% block content %}
+<h1 id="title">The Arena, an online coding battleground</h1>
+<h1>
+    There are many questions to complete to prove who is the best coder!
+</h1>
+<a href="{% url 'pre_battle' %}" id="enter">Do you dare enter?</a>
+{% endblock %}

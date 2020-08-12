@@ -1,0 +1,19 @@
+{% extends "chat/layout.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div id="messages"></div>
+    <form method="POST">
+    	{% csrf_token %}
+    	<div class="chat-input">
+    		<span class="username"><b>{{ request.user.username }}:</b></span>
+    	    <input id="input" type="text" name="sent_message" required="" id="id_sent_message" placeholder="Enter your message here">
+    	</div>
+    </form>
+</main>
+{% endblock content%}
+
+{% block javascript %}
+<script src="{% static 'scripts/main.js' %}"></script>
+{% endblock javascript %}

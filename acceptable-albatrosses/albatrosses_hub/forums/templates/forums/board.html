@@ -1,0 +1,27 @@
+{% extends "forums/base.html" %}
+{% load static %}
+
+{% block forumheader %}
+    <li class="breadcrumb-item active">
+        <a href="/forums/{{ board.name }}/">{{ board.name }}</a>
+    </li>
+{% endblock forumheader %}
+
+{% block forumcontent %}
+  <div class="mb-4">
+    <a href="{% url 'forums:post-create' board.name %}" class="btn btn-primary">New post</a>
+  </div>
+
+  {% for post in posts %}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="{% url 'forums:user-posts' post.created_by.username %}">@{{ post.created_by }}</a>
+          <small class="text-muted">Created on: {{ post.created_at }}</small>
+        </div>
+        <h2><a class="article-title" href="{{ post.id }}">{{ post.subject }}</a></h2>
+        <p class="article-content">{{ post.message }}</p>
+      </div>
+    </article>
+  {% endfor %}
+{% endblock forumcontent %}

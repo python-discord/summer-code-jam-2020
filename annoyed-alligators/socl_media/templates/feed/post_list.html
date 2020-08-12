@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="w3-row">
+      <div class="w3-col w3-container m1 l2"></div>
+      <div class="w3-col w3-container m10 l8">
+        <div class="window">
+          <p class="info">Enter command `n` to go to next page and `p` for previous page.</p>
+          <hr class="socl">
+          {% for post in post_list %}
+            <img src="{{ post.posted_by.profile.image.url }}" alt="profile_pic" class="post-profile-pic">
+            <span class="author">
+                  {{post.posted_by}}
+              </a>&nbsp;
+            </span>
+            <span class="hide">{{post.posted_by.profile.bio}}&nbsp;&nbsp;</span>
+            <span class="post-time">{{post.post_date_posted}}</span>
+            <p class="content">{{post.post_content}}</p>
+            {% if post.post_image %}
+              <p><img src="{{ post.post_image.url }}"></p>
+            {% endif %}
+            <p>Post number: {{ post.pk }}</p>
+            <hr class="socl">
+          {% endfor %}
+        </div>
+      </div>
+      <div class="w3-col w3-container m1 l2"></div>
+    </div>
+
+<style>
+.author {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.author:hover + span {
+  display: inline-block;
+  color: blue;
+}
+.content {
+    font-size: 1rem
+}
+.post-time {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #555;
+}
+.hide {
+  display: none;
+}
+.post-profile-pic {
+  border-radius: 50%;
+  width: 20px;
+}
+.socl {
+  border-top: 1px solid #555;
+  margin-right: 20px;
+}
+.info {
+  background-color: blue;
+  color: white;
+  position: static;
+  text-align: center;
+}
+</style>
+
+{% endblock content %}

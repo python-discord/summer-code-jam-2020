@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}MUD Terminal{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href= "{% static 'terminal/xterm.css' %}" />
+{% endblock %}
+
+{% block header_text %}--tWeNtY TwEnTy MUD--{% endblock %}
+
+{% block content %}
+  <div id="terminal" style="display:inline-block;"></div>
+{% endblock %}
+
+{% block script_block %}
+  <script src="{% static 'terminal/xterm.js' %}"></script>
+  <script src="{% static 'terminal/reconnecting-websocket.min.js' %}"></script>
+  <script src="{% static 'terminal/MUDTerminal.js' %}"></script>
+{% endblock %}

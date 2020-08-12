@@ -1,0 +1,28 @@
+html {
+    background-color: #000;
+    height: 100%;
+}
+
+marquee{
+    font-size: large;
+    color: red;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+div {
+    background-color: black;
+    width: 320px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 0;
+}
+
+td {
+    text-align: center;
+}

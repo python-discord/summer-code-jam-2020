@@ -1,0 +1,26 @@
+.profile-picture {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.top8-thumbnail {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.profile-column {
+    width: 350px;
+}
+
+.spacer-column {
+    width: 20px;
+}
+
+.content-column {
+    width: 650px;
+}
+
+.profile-div {
+    width: 1020px;
+    margin: auto;
+}

@@ -1,0 +1,83 @@
+
+body {
+    background-color: black;
+    color: lime;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+#title {
+    background-color: dimgray;
+    font-size: 3rem;
+    padding: 1rem 10%;
+    margin-left: 10%;
+    margin-top: 2rem;
+    margin-right: 10%;
+}
+
+nav#navbar {
+    background-color: dimgray;
+    padding: 1.5rem 8%;
+    margin-bottom: 2rem;
+}
+
+nav#navbar a#brand {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+nav#navbar a {
+    color: lime !important;
+    font-size: 1.5rem;
+}
+
+#navbar-right {
+    text-align: right;
+    display: inline-block;
+}
+
+#main-form {
+    background-color: dimgray;
+    padding: 1rem 8%;
+    margin: 2rem 8%;
+    font-size: 1.5rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+button {
+    font-size: inherit;
+    font-family: serif;
+    border-radius: 0px;
+    color: lime;
+    background-color: black;
+    border-color: lime;
+    border-style: solid;
+    cursor: pointer;
+}
+
+.error {
+    color: yellow;
+}
+
+#content {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#content a {
+    color: lime;
+}
+
+#next {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: yellow;
+}

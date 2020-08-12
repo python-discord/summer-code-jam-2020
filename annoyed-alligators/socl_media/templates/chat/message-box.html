@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w3-row">
+  <div class="w3-col w3-container m1 l2"></div>
+  <div class="w3-col w3-container m10 l8">
+    <div class="window">
+      {% for message in object_list %}
+        <p><strong>{{message.body}}</strong></p>
+          
+        <span style="color: #555;">Sent by:</span>
+           {{message.sender}}
+        <span class="post-time">
+          on {{message.sent_at}}
+        </span>
+        <p></p>
+        <hr style="border-top: 1px solid black;">
+      {% empty %}
+        <p>You don't have any messages</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="w3-col w3-container m1 l2"></div>
+</div>
+
+<style>
+  .post-time {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #555;
+  }
+</style>
+{% endblock content %}

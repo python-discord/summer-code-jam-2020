@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RSS it</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'css/script.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
+  </head>
+
+  <header>
+  <marquee>Front page of the Internet: Knock Knock.. "Who's there?" Bite-sized-bears</marquee>
+    <h1 style="font-family: 'Slackey', cursive;">RSSit</h1>
+    <div class="headerlinks">
+      <a href="/">popular</a>
+        <a href="{% url 'home' %}">home</a>
+      <a href="{% url 'top-communities' %}">communities</a>
+      <a href="{% url 'most-viewed' %}">most-viewed</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'my-communities' %}">my-communities</a>
+      <a href="/user/{{user.get_username}}/posts">my-posts</a>
+      <a href="/user/{{user.id}}">my-profile: {{user.username}}</a>
+      {% else %}
+      <a href="{% url 'login' %}">login</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        {% block content %}
+        {% endblock %}
+
+    {% if request.path != '/signup' and request.path != '/login'%}
+    <div class="col-sm-3 nopadding visible-lg side-bar">
+         {% if user.is_authenticated %}
+         <div class="login">
+             <div style="display:inline-block; align: center;vertical-align: middle;" >
+                 {% if user.avatar.url is not null %}
+                    <img src = "{{user.avatar.url}}" width="70px" height="70px" style="float:left;margin-right: 10px;">
+                 {% else %}
+                    <img src = "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png" width="70px" height="70px" style="float:left;margin-right: 10px;">
+                 {% endif %}
+             </div>
+            <div style="display:inline-block;vertical-align: middle;">
+                 <h5>Hi {{user.username}}</h5>
+             <p><a href="{% url 'logout' %}">logout</a></p>
+            </div>
+         </div>
+            {% else %}
+         <div class="login">
+           <h3>Login</h3>
+             <form method="post" action="/signup" id="signup">{% csrf_token %}</form>
+          <form method="post", action="/login">
+              {% csrf_token %}
+            <table>
+              <tr>
+               <td>
+                <label>Username:  </label>
+               </td>
+               <td>
+                <input type="text" name="username" style="color:black;" class="override">
+               </td>
+              </tr>
+              <tr>
+               <td>
+                <label>Password:  </label>
+               </td>
+               <td>
+                <input type="password" name="password" style="color:black;" class="override" required>
+                <input type="hidden" name="next" value="{{ request.path }}">
+               </td>
+              </tr>
+              <tr class="spacer"></tr>
+              <tr>
+                <td>
+                  <input type="submit" value="submit" class="override" style="color:black;">
+                </td>
+                <td>
+                  <input type="reset" value="reset"  class="override" style="color:black;">
+                </td>
+              </tr>
+            </table><br>
+                    <input type="hidden" name="next" value="{{ request.path }}" form="signup">
+                    <span>New here? <input type="submit", value="Sign up!" form="signup" style="color:black;" class="override"></span>
+          </form>
+         </div>
+         {% endif %}
+    </div>
+    {% endif %}
+
+      </div>
+    </div>
+  </body>
+</html>

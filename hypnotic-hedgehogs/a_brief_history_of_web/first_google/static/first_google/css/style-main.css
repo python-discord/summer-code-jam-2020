@@ -1,0 +1,65 @@
+.section-vertical {
+    display: flex;
+    align-items: center;
+    flex-direction: column
+}
+
+.section-horizontal {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row
+}
+
+.container {
+    margin: 0 10% 0 10%;
+    font-size: large;
+}
+
+#logo-image {
+    height:150px
+}
+
+.search {
+    width: 100%;
+    background-color: #80808017;
+    padding-bottom: 1.3rem;
+    margin-bottom: 0.1rem
+}
+
+#search-box {
+    width: 150%;
+    padding: 0.2rem;
+    margin-bottom: 0.3rem
+}
+
+.others {
+    width: 100%;
+}
+
+.special-search {
+    background-color: #33ffd6;
+    width:30%;
+    margin-right: 0.1rem;
+    padding: 0.8rem;
+}
+
+.helps {
+    background-color: #00e6b8;
+    width: 30%;
+    margin-right: 0.1rem;
+    padding: 0.8rem;
+}
+
+.subscribe {
+    background-color: #00b38f;
+    width: 40%;
+    padding: 0.8rem;
+}
+
+#subscribe-button {
+    margin-right: 0.3rem
+}
+
+footer {
+    margin-top: 2rem;
+}

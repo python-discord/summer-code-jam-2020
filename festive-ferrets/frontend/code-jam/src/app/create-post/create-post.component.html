@@ -1,0 +1,23 @@
+<mat-card style="margin-left: 25%;margin-right: 25%">
+  <mat-card-title>
+  <form style="display: inline-block">
+    <label>
+      <input #title placeholder="Enter title here...">
+    </label>
+  </form>
+  <form style="display: inline-block;position: relative;left: 50%" >
+    <label>
+      <input #username placeholder="Enter username here...">
+    </label>
+  </form>
+  <form style="margin-top: 50px">
+    <label>
+      <textarea #content rows="10" cols="100" placeholder="Enter content here..."></textarea>
+    </label>
+  </form>
+  </mat-card-title>
+  <mat-card-content>
+    <button (click)="createPost(title.value,username.value,content.value)">Create</button> <button style="position: relative;left: 80%" routerLink="../">Cancel</button>
+  </mat-card-content>
+
+</mat-card>

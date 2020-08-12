@@ -1,0 +1,50 @@
+{% extends "spydir/base.html" %}
+{% load static %}
+{% load index_tag %}
+{% block content %}
+    <script src="js/scripts.js"></script>
+
+  
+    <img class="center" src="{% static 'spydir\img\coollogo.gif' %}" style="margin-bottom: 4%">
+  
+    <marquee>Welcome to SpydirWeb!</marquee>
+    
+    <div class="center bevelBox">
+      <a class="center" style="text-align: center;" id="blink">Pages you explore will be added here!</a>
+      <table width="100%" style="border-spacing: 10px;">
+      <thead>
+        <tr>
+          <th>Blogs</th>
+          <th>Information</th>
+          <th>Businesses</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% with ''|center:MAX_LENGTH as range %}
+          {% for _ in range %}
+            <tr>
+              {% if forloop.counter <= BLOG_LENGTH %}
+                <td><a href="../page/{{ BLOG|index:forloop.counter0 }}">{{ BLOG|index:forloop.counter0 }}</a></td>{% else %}
+                <td></td>{% endif %}
+              {% if forloop.counter <= INFO_LENGTH %}
+                <td><a href="../page/{{ INFO|index:forloop.counter0 }}">{{ INFO|index:forloop.counter0 }}</a></td>{% else %}
+                <td></td>{% endif %}
+              {% if forloop.counter <= BIZ_LENGTH %}
+                <td><a href="../page/{{ BIZ|index:forloop.counter0 }}">{{ BIZ|index:forloop.counter0 }}</a></td>{% else %}
+                <td></td>{% endif %}
+            </tr>
+          {% endfor %}
+          {% endwith %}
+      </tbody>
+      </table>
+    </div>
+
+    <div class="center bevelBox" style="text-align: center;">
+      <h3>Start exploring with one of these links:</h3>
+        <a href="../page/Memes">Memes</a>
+        <a href="../page/Pencil">Pencil</a>
+        <a href="../page/Tigers">Tigers</a>
+    </div>
+
+    <img class="center" style="height: 8%; width: 8%;  margin-top: 25px; margin-bottom: 50px;" href="" src="{% static 'spydir\img\ie.gif' %}">
+{% endblock content %}

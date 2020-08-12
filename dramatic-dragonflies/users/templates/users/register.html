@@ -1,0 +1,35 @@
+{% extends 'users/base.html' %}
+  {% block content%}
+
+
+<div id = "main">
+		<div class = "login-grid">
+			<div class = "disk-item1">
+							{% if form.errors %}
+							{% for field in form %}
+								{% for error in field.errors %}
+								<ul>
+									<li>{{ error|escape }}</li>
+								</ul>
+								{% endfor %}
+						{% endfor %}
+
+					{% for error in form.non_field_errors %}
+							<ul>
+								<li>
+									{{ error|escape }}
+								</li>
+							</ul>
+					{% endfor %}
+				{% endif %}
+
+					<p style = "text-align: center;"> Register </p>
+					<form method="post">
+						{% csrf_token %}
+						{{ form.as_p }}
+				<input type = "submit" id = "submit" value = "Register">
+        </form>
+		    </div>
+	</div>
+</div>
+{% endblock %}

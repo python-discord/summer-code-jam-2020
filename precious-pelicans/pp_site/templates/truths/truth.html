@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block title %}A Truth{% endblock %}
+
+{% block head %}
+    <style>
+        body {
+            background-color: #{{ truth.background_color }};
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align:center">
+        <em> {{ truth.title }} </em>
+    </h1>
+
+    <a href="/truths"><< Index</a>
+
+    <hr>
+    <p>{{ truth.content }}</p>
+    <hr>
+
+    <h4 style="text-align:left">By:<br>{{ truth.author }}</h4>
+
+{% endblock %}

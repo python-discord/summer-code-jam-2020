@@ -1,0 +1,235 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/smore-inc/clippy.js/master/build/clippy.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?223326432">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/smore-inc/clippy.js/master/build/clippy.min.js"></script>
+    <title>Win95</title>
+</head>
+<body>
+    <div id="screen" style="width: 100%;height: 1080px;position: relative;">
+        <input type="checkbox" id="open-startmenu">
+        <input type="checkbox" id="open-poopup">
+        <input type="checkbox" id="open-poop" checked>
+        <input type="checkbox" id="open-notepad" checked>
+        <input type="checkbox" id="open-mine" checked>
+        <input type="checkbox" id="open-ie" checked>
+        <input type="radio" name="task" id="fore-notepad">
+        <input type="radio" name="task" id="fore-mine" checked>
+        <input type="radio" name="task" id="fore-ie">
+        <input type="radio" name="deskicon" id="focus-pc">
+        <input type="radio" name="deskicon" id="focus-recycle">
+        <div id="desktop">
+            <nav id="icons">
+                <label id="icon-pc" for="focus-pc">
+                    <i class="lg pc"></i>
+                    <span class="label">My Computer</span>
+                </label>
+                <label id="icon-recycle" for="focus-recycle">
+                    <i class="lg recycle"></i>
+                    <span class="label">Recycle Bin</span>
+                </label>
+            </nav>
+        </div>
+        <label id="close-startmenu" for="open-startmenu"></label>
+        <label id="close-poopup" for="open-poopup"></label>
+        <div id="taskbar">
+            <label id="start" for="open-startmenu">
+                <i class="sm win"></i>
+                <span class="label">Start</span>
+            </label>
+            <nav id="tasklist">
+
+                <label class="btn task-ie" id="task-ie" for="fore-ie">
+                    <span class="label">Microsoft Internet Explorer</span>
+                </label>
+                <label class="btn task-notepad" id="task-notepad" for="fore-ie">
+                    <span class="label">helloworld - Notepad</span>
+                </label>
+
+
+            </nav>
+            <div id="notify">
+                <label id="poop" for="open-poopup"><i class="sm poo"></i></label>
+                <div id="clock">
+                    <span>9:</span>
+                    <div class="digit">0</div>
+                    <div class="digit tictoc">0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</div>
+                    <span>&nbsp;AM</span>
+                </div>
+            </div>
+        </div>
+
+        <form class="internet-explorer" id="app-ie" role="dialog"
+              style="display: none;height: 720px !important;left: 300px !important;width: 1100px;top: 30px">
+
+            <h2>
+                <label class="label front-text" for="fore-ie" style="font-size: 12px;">Microsoft Internet Explorer</label>
+                <a class="btn min" href="#error"></a>
+                <a class="btn max" href="#error"></a>
+                <label class="btn close" for="open-ie"></label>
+            </h2>
+            <nav class="menu">
+                <a href="#error">File</a>
+                <a href="#error">Edit</a>
+                <a href="#error">View</a>
+                <a href="#error">Go</a>
+                <a href="#error">Favorites</a>
+                <a href="#error">Help</a>
+            </nav>
+            <nav class="menu">
+                <img src="{% static 'img/toolbar.png' %}">
+            </nav>
+            <div class="client">
+                <header>
+                    <div class="label">Address:</div>
+                    <div class="combo">
+                        <input spellcheck="false" value="about:blank" id="address-bar">
+                        <a class="dropdown" href="#"></a>
+                        <button type="button" style="background-color: #C0C0C0;border-style: solid;
+                      border-color: #fff #808080 #808080 #fff;
+                      " class="px-3" onclick="change_page()">Go
+                        </button>
+                    </div>
+                    <div class="win">
+                        <i class="clouds"></i>
+                        <i class="logo"></i>
+                    </div>
+                </header>
+                <div class="content" style="background-color: #FFFFFF;overflow-y: scroll;max-height: 600px !important;">
+                    <p class="h2 youtube-interface" style="overflow-y: scroll;border: none !important;">
+                    <div id="web-page">
+                    </div>
+                    </p>
+                    <span id="404-interface" class="404-interface container d-none" style="background-color: #FFFFFF;border: none !important">
+
+                      <img src="{% static 'img/404.png' %}">
+                      <span class="ml-1" style="font-weight: bold;font-size: 20px;">The page cannot be found</span>
+                      <div class="mt-3 ml-4">The page you are looking for might have been removed, had its name changed, or is temporarily unavaliable.</div>
+                      <hr>
+                      <div style="margin-left: 30px;">Please try to following:</div>
+                      <ul style="margin-left: 60px;margin-top:10px;">
+                        <li class="my-1"> - If you typed the page address in the Address bar, make sure that is spelled correctly.</li>
+
+
+                        </ul>
+
+                        <p style="margin-top: 100px;margin-bottom: 0;font-size: 12px;">HTTP 404 - File not found</p>
+                        <div style="font-size: 12px;">Internet Explorer</div>
+
+
+                    </span>
+                </div>
+
+            </div>
+        </form>
+        <form id="app-mine" role="dialog">
+
+            <h2>
+                <label class="label" for="fore-mine" style="font-size: 12px;">Connect To</label>
+                <a class="btn min" href="#error"></a>
+                <a class="btn max" href="#error"></a>
+                <label class="btn close" for="open-mine"></label>
+            </h2>
+            <div class="content">
+                <img src="{% static 'img/ccna.png' %}" class="ml-3">
+
+                <div style="margin-left: 20px;width: 230px;" class="mt-3">
+
+                    <label> <span style="text-decoration: underline;" for="">U</span>sername :
+                    </label>
+                    <input type="text" class="float-right" id="username">
+                    <div class="mt-1"></div>
+                    <label> <span style="text-decoration: underline;" for="">P</span>assword :
+                    </label>
+                    <input type="password" class="float-right" value="12345" readonly>
+                </div>
+
+            </div>
+            <img src="{% static 'img/secondbr.png' %}" class="ml-3 mt-3">
+            <div>
+
+                <div style="margin-left: 17px;width: 240px;" class="mt-3">
+                    <div class="form-group">
+                        <label> Phone <span style="text-decoration: underline;" for="">n</span>umber :
+                        </label>
+                        <input type="text" class="float-right" value="403-774-56-41" readonly>
+                    </div>
+                    <div class="mt-1"></div>
+                    <label>Dialing <span style="text-decoration: underline;" for="">f</span>rom :
+                    </label>
+                    <select style="width: 150px;" class="float-right">
+                        <option>Home</option>
+                    </select>
+                    <label class="float-right" style="width: 100px;" id="start" for="open-startmenu">
+                        <span class="label">Properties...</span>
+                    </label>
+
+                </div>
+                <img src="{% static 'img/secondbr.png' %}" class="ml-3 mt-3">
+                <div class="d-flex justify-content-end">
+                    <button type="button" onclick="hideIt()" style="height:22px;background-color: #C0C0C0;" class="px-2 ">
+                        Connect
+                    </button>
+                    <button style="height:22px;background-color: #C0C0C0;" class="px-2 mx-3">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <form id="app-notepad" role="dialog" style="left: 70px; !important;height: 340px">
+            <h2>
+                <label class="label" for="fore-notepad" style="font-size: 12px !important;">helloworld.txt - Notepad</label>
+                <a class="btn min" href="#error"></a>
+                <a class="btn max" href="#error"></a>
+                <label class="btn close" for="open-notepad"></label>
+            </h2>
+            <nav class="menu">
+                <a href="#error">File</a>
+                <a href="#error">Edit</a>
+                <a href="#error">Search</a>
+                <a href="#error">Help</a>
+            </nav>
+            <div class="client">
+                  <textarea rows="22" cols="25" spellcheck="false">
+                    &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Avaliable URL's:
+                    https://verycoolblog.com
+                    https://google.com
+                    https://youtube.com
+                    https://twitter.com
+                    https://blog-area.com
+                    &#32;
+                  </textarea>
+            </div>
+        </form>
+        <form id="app-mine2" style="width: 300px;height: 155px;;z-index: 99;display: none">
+            <img src="{% static 'img/dialup2.gif' %}" style="width:300px;">
+        </form>
+        <footer>
+            <div class="pane-1">&#8203;</div>
+            <div class="pane-2">&#8203;</div>
+            <div class="pane-3">&#8203;</div>
+        </footer>
+    </div>
+    </div>
+    <script src="{% static 'js/main.js'%}"></script>
+    <script src="{% static 'js/browser_mock.js' %}"></script>
+
+</body>
+</html>

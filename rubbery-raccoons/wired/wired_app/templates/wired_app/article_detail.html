@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ - {{ object.headline }}
+{%  endblock %}
+
+{% block extra_heads %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "/wired_app/article_detail.css" %}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{ art.headline }}</h1>
+    <p>{{ art.body | linebreaks }}</p>
+    <hr style="width:70%;text-align:left;margin-left:0">
+    <p>Reporter: {{ art.author }}</p>
+    <p>Published: {{ art.publication_date|date }}</p>
+    <p>Date: {{ now|date }}</p>
+
+    <h3>Comments</h3>
+    {% for comment in comments %}
+    <p><em>{{ comment.author.username|default:"Anonymous" }} says:</em> &nbsp; &nbsp; {{ comment.date }} </p>
+    <p>{{ comment.text | linebreaks }}
+    {% empty %}
+        <li>No comments yet.</li>
+    {% endfor %}
+
+    <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Add your thoughts:</legend>
+      {{ form.as_p }}
+    </fieldset>
+    <div class="form-group">
+      <button cls="btn btn-outline-info" type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
+{% endblock %}
+{% block footer %}{% endblock %}

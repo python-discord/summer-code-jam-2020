@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="col-lg-9">
+      <div class="community-bar"><h3>Top posts from communities</h3></div>
+        {% for post in object_list %}
+          <div class="posts">
+           <p><b><a href="/community/{{post.publisher}}" style="color: black;">c/{{post.publisher.name}}</a>   <a href="/user/{{post.author}}/posts"  style="color: black;">u/{{post.author}}</a> </b> has {{post.views.count}} views</p>
+           <a href="community/{{post.publisher.name}}/{{post.id}}/"><h3>{{post.title}}</h3></a>
+           <p>{{post.get_short_intro}}</p>
+          </div>
+        {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+        </span>
+`   </div>
+    </div>
+{% endblock %}

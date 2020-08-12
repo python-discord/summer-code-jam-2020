@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+  {{block.super}}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="content-wrapper center">
+
+  <div class="hero-banner">
+    <img src="{% static 'assets/images/coyote.png' %}" alt="coyote">
+    <div class="hero-banner-text">
+      <span class="rainbow-text">Concerned</span>
+      <span class="rainbow-text">Coyotes</span>
+    </div>
+  </div>
+
+  <form class="vertical" method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    {{ form.first_name|add_class:"text-input"|attr:"placeholder:First Name"}}
+    {{ form.email|add_class:"text-input"|attr:"placeholder:E-Mail"}}
+    {{ form.username|add_class:"text-input"|attr:"placeholder:Username"}}
+    {{ form.password|add_class:"text-input"|attr:"placeholder:Password"}}
+    {{ form.password2|add_class:"text-input"|attr:"placeholder:Password Confirm"}}
+
+    <button type="submit">Register</button>
+  </form>
+  <span>Already got an account? Login <a href="{% url 'login' %}">here</a></span>
+</div>
+{% endblock %}

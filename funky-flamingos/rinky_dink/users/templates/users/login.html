@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="window-center">
+	<div class="window" style="width: 300px">
+		<div class="title-bar">
+		<div class="title-bar-text">Login</div>
+		<div class="title-bar-controls">
+			<a href="{% url 'index' %}"><button aria-label="Close"></button></a>
+		</div>
+		</div>
+		<div class="window-body">
+      {% if user.is_authenticated %}
+        <span>Already logged in as {{request.user}}</span>
+        <div class="btn-row">
+          <div><a href="{% url 'dashboard' %}"><button class="btn-my-1">Continue to Dashboard</button></a></div>
+          <div><a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a></div>
+        </div>
+      {% else %}
+        <form action="{% url 'login'%}" method="POST">
+          {% csrf_token %}
+          <table>
+            <tbody>
+              <tr>
+                <td><label for="username">Username</label></td><td><input type="text" name="username" required></td>
+              </tr>
+              <tr>
+                <td><label for="password">Password</label></td><td><input type="password" name="password" required></td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <button type="submit" class="btn-my-1">Login</button>
+        </form>
+      {% endif %}
+			
+		</div>
+	</div>
+
+</div>
+
+
+
+{% endblock content%}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="parchment-border">
+    <div class="row">
+        <div class="col-md-12"><h1> WINNING TEAM: {{ tally_results.winner }} </h1></div>
+    </div>
+
+    <div class="row" style="padding-left: 20px;">
+
+        {% include "ranking_table.html" %}
+    </div>
+
+    <div class="row justify-content-end">
+        {% include "trivia_next_step_btn.html" %}
+    </div>
+</div>
+
+
+{% endblock %}

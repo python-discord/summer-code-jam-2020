@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'gifapp/css/draw.css'%}">
+    <link rel="stylesheet" href="https://code.divshot.com/geo-bootstrap/swatch/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body class="preview" id="top">
+    <div class="navbar">
+        <div class="container">
+            <div class="navbar-inner">
+                <a class="brand" href="{% url 'home' %}">Dank GIFs</a>
+                <button class="btn btn-navbar" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="nav-collapse in collapse">
+                    <div class="nav">
+                        <li>
+                            <a href="{% url 'home' %}">Home</a>
+                        </li>
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <ul class="nav pull-right">
+                        {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'projects' %}">New Project</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'register' %}">Register</a>
+                            </li>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!-- display any flashed messages (messages that only show up once) -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

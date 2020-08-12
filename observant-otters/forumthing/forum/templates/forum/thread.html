@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends "forum/base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ thread.title }}</title>
+</head>
+
+{% block content %}
+    <a href="{% url "new-thread" tpc=topic %}">Create New Thread</a>
+
+    <body>
+    <h1>{{ thread.title }}</h1>
+    <h3>{{ thread.author }}</h3>
+
+    {% if thread.author == user %}
+        <a href="{% url 'edit-thread' tpc=topic pk=pk %}">Edit Thread</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'delete-thread' tpc=topic pk=pk %}">Delete Thread</a><br>
+    {% endif %}
+
+    {% for s in messages %}
+        {% if forloop.counter == 1 %}  <!-- the django counter starts at 1 lol -->
+            {{ s.content }}<br>
+        {% else %}
+            <br>
+            {% if s.author == user %}
+                <a href={% url "edit-message" tpc=topic pk=pk msg_id=s.id%}>Edit</a>&nbsp;
+                <a href={% url "delete-message" tpc=topic pk=pk msg_id=s.id%}>Delete</a>
+                <br>
+            {% endif %}
+            {{ s.author }}:
+            {{ s.content }}
+            <br>
+        {% endif %}
+    {% endfor %}
+
+    <br>
+    <a href={% url "new-message" topic thread.id %}>Post A Message</a><br>
+
+    <!--commented out bc pagination hasn't been implemented yet-->
+    <!-- {% if prev_page %}
+        <a href="/forum/{{ topic }}/threads/{{ prev_page }}?p={{ prev_page }}">Previous Page</a>
+    {% endif %}
+    <a href="/forum/{{ topic }}/threads/{{ pk }}?p={{ next_page }}">Next Page</a> -->
+
+    <br>
+    {% if prev_pk %}   <!-- check if adjacent threads actually exists -->
+        <a href="/forum/{{ topic }}/threads/{{ prev_pk }}">Previous Thread</a>
+        <!-- <a href="/forum/{{ topic }}/threads/{{ prev_pk }}?p={{ page }}">Previous Thread</a> -->
+    {% endif %}
+
+    {% if next_pk %}
+        <a href="/forum/{{ topic }}/threads/{{ next_pk }}">Next Thread</a>
+        <!--<a href="/forum/{{ topic }}/threads/{{ next_pk }}?p={{ page }}">Next Thread</a>-->
+    {% endif %}
+    <br>
+    <a href="/">Home</a>
+    </body>
+{% endblock %}
+</html>

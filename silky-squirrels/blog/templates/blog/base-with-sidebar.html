@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+
+{% block sidebar %}
+<!--SIDEBAR-->
+<div class="col-md-4">
+    <div class="col-12 col-lg-12 mb-4 mb-lg-0">
+        <div class="card card-tertiary">
+            <div class="card-header">
+                {% if user.is_authenticated %}
+                    Welcome, {{ user.username }}!
+                {% else %}
+                    You are not signed in!
+                {% endif %}
+            </div>
+            <div class="card-body bg-white">
+                <p class="card-text">
+                {% if user.is_authenticated %}
+                    [TODO: navigation options, display profile info, profile link, customize status, enter recent chatrooms, view friends]
+                {% else %}
+                    Please log in or sign up!
+                {% endif %}
+                </p>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex">
+                    {% if user.is_authenticated %}
+                        <button class="btn btn-sm btn-primary" type="button"><span class="btn-text">temp button</span></button>
+                    {% else %}
+                        <button class="btn btn-sm btn-primary mr-2" type="button" onclick="window.location.href='{% url 'register' %}">
+                        <span class="btn-text">Sign up</span></button>
+
+                        <button class="btn btn-sm btn-primary" type="button" onclick="window.location.href='{% url 'register' %}">
+                        <span class="btn-text">Log in</span></button>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

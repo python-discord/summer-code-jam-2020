@@ -1,0 +1,35 @@
+{% extends 'dating/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <!--  START OF HOME.HTML CONTENT  -->
+    <script type="text/javascript">
+        function resetdoor() {
+            document.getElementById("door").checked = false;
+        }
+        function resetandgo() {
+            document.getElementById("door").checked = false;
+            window.location = "DateMatcher/";
+        }
+        function enter() {
+            setTimeout(resetandgo, 500);
+            return;
+        }
+    </script>
+
+{#    <div style="vertical-align:middle;" >#}
+    <div >
+
+        <div class="doorcontainer">
+        <p style="text-align: center; vertical-align: middle; width: 100%">
+              <input type="checkbox" id="door" onclick="enter()">
+              <label for="door">
+               <img src="/static/images/homedoor.png" ; alt="Home page door, with Enter";>
+             </label>
+        </p>
+
+        </div>
+    </div>
+
+{% endblock %}

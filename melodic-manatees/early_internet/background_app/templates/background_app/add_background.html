@@ -1,0 +1,48 @@
+{% extends 'main/main-base.html' %}
+{% load templatetags %}
+
+{% block herocontent %}
+<div class="hero-body">
+    <div class="container grid">
+        <div class="box is-semitransparent">
+            <section>
+                <h1 class="title">Background Selector</h1>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="control">
+                            <div class="file has-name">
+                                <label class="file-label">
+                                    {{ form.background_file|add_class:"file-input" }}
+                                    <span class="file-cta">
+                                        <span class="file-label">
+                                            Choose a background...
+                                        </span>
+                                    </span>
+                                    <span class="file-name">
+                                        No file selected...
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="field">
+                                <div class="control">
+                                    <p>
+                                        <label class="label">{{ form.background_title.label_tag }}</label>
+                                        {{ form.background_title|add_class:"input" }}
+                                    </p>
+                                </div>
+                            </div>
+                    </fieldset>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-link" type="submit">Add Background</button>
+                    </div>
+                </div>
+                <p>Find great backgrounds at <a href="https://unsplash.com/t/wallpapers">Unsplash</a></p>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock herocontent %}

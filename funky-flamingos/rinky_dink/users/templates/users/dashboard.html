@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block content%}
+
+<div class="window-center">
+  <div class="window" style="width: 350px">
+    <div class="title-bar">
+      <div class="title-bar-text">Dashboard</div>
+    </div>
+    <div class="window-body">
+      <h4> Welcome {{ request.user }}</h4>
+      <span>Your teams:</span>
+      
+        <ul class="tree-view">
+          {% if not teams %}
+            <span>You haven't joined any team yet.</span>
+          {% else %}
+            {% for team in teams %}
+              <li>{{ team.team.name }}</li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+        <div class="btn-row">
+          <div><a href="{% url 'teamjoin' %}"><button class="btn-my-1">Join team</button></a></div>
+          <div><a href="{% url 'teamregister' %}"><button class="btn-my-1">Create team</button></a></div>
+        </div>
+        <br />
+        <span>Recently uploaded files:</span>
+        <ul class="tree-view" style="font-size:12px">
+          {% if not files %}
+            <span>*crickets chirping*</span>
+          {% else %}
+            {% for record in files %}
+              
+              <details closed>
+                <summary>{{ record.title }}</summary>
+                  {% for file in record.files.all %}
+                    {% if forloop.first %}
+                      <li>
+                        <a href="{% url 'fhandler' name=file.title %}"><b>{{file.title}} [HEAD]</b></a>
+                        <span class="ml-1">Last Modified: {{file.uploaded_at}}</span>
+                      </li>
+                    {% else %}
+                      <li>
+                        <a href="{% url 'fhandler' name=file.title %}"><b>{{file.title}}</b></a>
+                        <span class="ml-1">Created: {{file.uploaded_at}}</span>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+              </details>
+
+          {% endfor %}
+        {% endif %}
+      </ul>
+      <div><a href="{% url 'upload' %}"><button class="btn-my-1">Upload a file</button></a></div>
+    </div>
+    <div class="btn-row mx-2">
+      <div><a href="{% url 'chat_index' %}"><button class="btn-my-1">Chat with friends</button></a></div>
+      <div><a href="{% url 'logout' %}"><button class="btn-my-1">Logout</button></a></div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

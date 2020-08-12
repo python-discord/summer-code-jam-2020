@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  webapp:
+    build: 
+      context: ./code_jam
+    volumes: 
+      - ./code_jam/code
+    ports:
+      - 8000:8000
+    depends_on: 
+      - redis
+    env_file: 
+      - prod.env
+  redis:
+    image: "redis"
+    ports: 
+      - 6379:6379

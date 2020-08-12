@@ -1,0 +1,200 @@
+{% extends 'Web95/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h1 style="display:inline">Web95 <h5 style="display:inline">By Juicy Jaguars</h1></h1>
+<p style="position: absolute; bottom: 25px; right: 10px; letter-spacing: 2px;">v1.3.2</p>
+
+<div class="card card-tertiary draggable" style="width: 400px; top: 50px; left: 450px;" tabindex="0">
+    <div class="card-header draggable-header">
+        <img class="header-icon" src="{% static 'images/icons/python_old.png' %}" height="20px">
+        Python Discord Summer Code Jam 2020
+
+        <button class="btn btn-sm btn-primary window-btn window-btn-close">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/close.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-maximise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/maximise.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-minimise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/minimise.png' %}"> </span>
+        </button>
+    </div>
+    <div class="card-body" padding=0>
+        <img src="{% static 'images/earlyinternet_header.png' %}" style="width: 100%; height: 100%;">
+    </div>
+</div>
+
+<!-- Easter Egg Here! Click OK -->
+
+<div class="card card-tertiary draggable" style="width: 200px; top: 80px; left: 900px;" tabindex="0">
+    <div class="card-header draggable-header">
+        <img class="header-icon" src="{% static 'images/icons/Dialog icons/Question.ico' %}" height=20px>
+        Question
+
+        <button class="btn btn-sm btn-primary window-btn window-btn-close">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/close.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-maximise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/maximise.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-minimise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/minimise.png' %}"> </span>
+        </button>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Check back later?</p>
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn btn-sm mr-2 btn-primary border-dark" type="button" onclick="window.location.href='//www.youtube.com/watch?v=dQw4w9WgXcQ'">
+                <span class="btn-text">OK</span>
+            </button>
+            <button class="btn btn-sm btn-primary" type="button">
+                <span class="btn-text">No</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Wonder what would happen if you tried to use Internet Explorer to visit a year... -->
+<!-- Maybe the year the version of Windows this site is based on is from? -->
+
+<!-- Wow, wouldn't it be nice if you could visit the motherland in Internet Explorer... -->
+<div class="card card-tertiary draggable" style="width: 700px; height: 500px; left: 450px; top: 250px;" tabindex="0">
+    <div class="card-header draggable-header">
+        <img class="header-icon" src="{% static 'images/icons/Logos/SMALL.ico' %}" height=20px>
+        Internet Explorer
+
+        <button class="btn btn-sm btn-primary window-btn window-btn-close">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/close.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-maximise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/maximise.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-minimise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/minimise.png' %}"> </span>
+        </button>
+    </div>
+    <ul class="app-bar flex-row">
+        <li class="app-bar-text-btn"><a><u>F</u>ile</a></li><li class="app-bar-text-btn">
+        <a><u>E</u>dit</a></li><li class="app-bar-text-btn">
+        <a><u>V</u>iew</a></li><li class="app-bar-text-btn">
+        <a>F<u>a</u>vorites</a></li><li class="app-bar-text-btn">
+        <a><u>H</u>elp</a></li>
+    </ul>
+    <hr class="app-bar-underline">
+    <ul class="app-bar flex-row">
+        <li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-open">
+                <img src="{% static 'images/icons/IE/open.png' %}">
+            </button>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-home" onclick="ie_home()">
+                <img src="{% static 'images/icons/IE/home.png' %}">
+            </button>
+        </li><li>
+            <div class="ie-spacer"></div>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-back">
+                <img src="{% static 'images/icons/IE/back.png' %}">
+            </button>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-forward">
+                <img src="{% static 'images/icons/IE/forward.png' %}">
+            </button>
+        </li><li>
+            <div class="ie-spacer"></div>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-stop" onclick="ie_blank()">
+                <img src="{% static 'images/icons/IE/stop.png' %}">
+            </button>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-refresh" onclick="ie_refresh()">
+                <img src="{% static 'images/icons/IE/reload.png' %}">
+            </button>
+        </li><li>
+            <div class="ie-spacer"></div>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-fontsize-up">
+                <img src="{% static 'images/icons/IE/fontsize-up.png' %}">
+            </button>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-fontsize-down">
+                <img src="{% static 'images/icons/IE/fontsize-down.png' %}">
+            </button>
+        </li><li>
+            <div class="ie-spacer"></div>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-cut">
+                <img src="{% static 'images/icons/IE/cut.png' %}">
+            </button>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-copy">
+                <img src="{% static 'images/icons/IE/copy.png' %}">
+            </button>
+        </li><li>
+            <button class="btn btn-sm btn-primary ie-btn-sq ie-btn-paste">
+                <img src="{% static 'images/icons/IE/paste.png' %}">
+            </button>
+        </li>
+    </ul>
+
+    <div class="flex-row ie-address-bar">
+        <p class="ie-address-bar-label">Address:</p>
+        <div class="ie-address-bar-container">
+            <input id="ie-addr-bar" type="text" class="form-control ie-address-bar-field" placeholder="http://example.com">
+            <button class="btn btn-sm btn-primary ie-btn-sm">
+                <img src="{% static 'images/icons/IE/down.png' %}">
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body ie-content" style="padding: 0;">
+        <iframe frameBorder="0" width="100%" height="100%" id="ie-iframe"></iframe>
+        <script src="{% static 'javascript/ie_manager.js' %}"></script>
+    </div>
+</div>
+
+<div class="card card-tertiary draggable" style="width: 350px; left: 50px; top: 65px;" tabindex="0">
+    <div class="card-header draggable-header">
+        <img class="header-icon" src="{% static 'images/icons/Dialog icons/Question.ico' %}" height=20px>
+        Help Dialog
+
+        <button class="btn btn-sm btn-primary window-btn window-btn-close">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/close.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-maximise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/maximise.png' %}"> </span>
+        </button>
+        <button class="btn btn-sm btn-primary window-btn window-btn-minimise">
+            <span class="btn-text window-btn-text"> <img src="{% static 'images/icons/minimise.png' %}"> </span>
+        </button>
+    </div>
+    <div class="card-body">
+        <h4 class="card-text"><img height="100%" src="{% static 'images/icons/Dialog icons/Question.ico' %}" style="margin-right: 10px;">Web95 Help</h4>
+        <hr>
+        <div class="help-menu">
+            <h6 class="card-text help-header">Functions
+                <ul class="help-list">
+                    <li class="card-text">Complete window manager functions: Minimise, maximise, and movable windows. The taskbar items also fully work</li>
+                    <li class="card-text">The Start menu functions, however the only menu with a function assigned is Settings. This menu allows changing of theme and wallpaper.</li>
+                    <li class="card-text">Internet Explorer functions almost completely as a browser. A few sites don't work at the moment, this is due to inherent limitations of how the site is served, although the vast majority function just fine. More details on IE's functions and problems below</li>
+                </ul>
+            </h6>
+            <h6 class="card-text help-header">Easter Eggs
+                <p class="card-text">We've placed 3 Easter Eggs in this site. See if you can find them!<br>Hint: Inspect Element?</p>
+            </h6>
+            <h6 class="card-text help-header">Internet Explorer
+                <p class="card-text">You can visit most sites by simply typing the URL into the address bar of Internet Explorer and hitting enter.</p>
+                <p class="card-text">&nbsp;&nbsp;Tip: This is IE 1.0, you can't search in the address bar like modern browsers! You need a URL.</p>
+                <p class="card-text">Only the Home, Stop and Reload buttons work. The other either would've been impossible, or too complex and outside the scope of this Code Jam. </p>
+                <p class="card-text">And for the sites biggest feature: Webpages are <i>Parsed</i> by the server to make them look older! Fonts, backgrounds, borders and more are all changed! Google and the Apple site look particularly good.</p>
+            </h6>
+            <hr>
+        </div>
+        <h6 class="card-text">We hope you enjoy Web95!</h6>
+    </div>
+</div>
+
+{% endblock %}

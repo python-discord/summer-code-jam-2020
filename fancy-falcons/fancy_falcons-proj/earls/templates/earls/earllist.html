@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script>
+    function toggleView() {
+        var grid = document.getElementById("grid");
+        var list = document.getElementById("list");
+        grid.style.display = grid.style.display == "none" ? "block" : "none";
+        list.style.display = list.style.display == "none" ? "block" : "none";
+    }
+</script>
+
+<div class="row">
+    <div class="col-sm-12 mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'earls:earl-list' %}">Earls</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Viewing all Earls</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container" id="grid" style="display: none">
+    <h2>Early list</h2>
+    <p>
+    This is a list of currently indexed Earls.
+    {% if earl_list %}
+        There{% if earl_list.count != 1 %} are {{earl_list.count}} Earls{% else %} is 1 Earl{% endif %} in the database.
+    {% else %}
+        There are no Earls in the database yet.
+    {% endif %}
+    To show a grid view of all indexed Earls, <a id="displayText" href="javascript:toggleView();">click here</a>.
+    </p>
+    {% if users %}
+        <h3>Users</h3>
+        <ul>
+        {% for earl in users %}
+            <li><a href="{% url 'earls:earldetail' earl.id %}"> {{ earl }} </a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if ficthist %}
+        <h3>Historical and Fictional Earls</h3>
+        <ul>
+        {% for earl in ficthist %}
+            <li><a href="{% url 'earls:earldetail' earl.id %}"> {{ earl }} </a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<div class="container" id="list" style="display: block">
+    <h2>Early grid</h2>
+    <p>
+    This is a grid view of currently indexed Earls.
+    {% if earl_list %}
+        There{% if earl_list.count != 1 %} are {{earl_list.count}} Earls{% else %} is 1 Earl{% endif %} in the database.
+    {% else %}
+        There are no Earls in the database yet.
+    {% endif %}
+    To show a list view of all indexed Earls, <a id="displayText" href="javascript:toggleView();">click here</a>.
+    </p>
+    {% if users %}
+        <h3>Users</h3>
+        <div class="grid">
+            <div style="width:100%">
+            {% for earl in users %}
+            <a href="{% url 'earls:earldetail' earl.id %}">
+                <img width="120"
+                    height="120"
+                    src="{{ earl.image.url }}"
+                    title="{{ earl }}"/>
+            </a>
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if ficthist %}
+        <h3>Historical and Fictional Earls</h3>
+        <div class="grid">
+            <div style="width:100%">
+            {% for earl in ficthist %}
+            <a href="{% url 'earls:earldetail' earl.id %}">
+                <img width="120"
+                    height="120"
+                    src="{{ earl.image.url }}"
+                    title="{{ earl }}"/>
+            </a>
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

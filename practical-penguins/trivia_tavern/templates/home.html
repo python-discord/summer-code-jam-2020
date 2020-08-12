@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-md-center">
+  <div class="parchment-border col-md-auto bulletin-title">
+      <h1 class="justify-content-center bulletin-title">Welcome Trivia Lovers</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="parchment-border">
+  <h3>Make yourselves at home in Ye Olde Trivia Tavern!</h3>
+  <p>This is a place to create, participate and run your own trivia nights!
+    Want to run a trivia night but your friends are quarentined and he doesn't internet?
+    No problem! Trivia Tavern uses the ancient technology called "texting" so even your
+    friend from 1992 can participate through the use of their phone!</p>
+
+  <h3>Want to run a trivia night?</h3>
+  <p>Simply create or login to an <a href="{% url 'login' %}">account</a> and run a list of prebuild trivia packs that is
+    available under <a href="{% url 'activequiz-list' %}">"Run Trivia"</a></p>
+  <h3>Want to create a trivia pack?</h3>
+  <p>Simply create or login to an <a href="{% url 'login' %}">account</a> and click on
+    <a href="{% url 'quiz-list' %}">"Create Trivia Pack"</a></p>
+  <h3>Invite your friend to a trivia session?</h3>
+  <p>After selecting a trivia pack in "Run Trivia" tab, have your friend text the session code to the phonenumber
+    linked to the quiz</p>
+  </div>
+</div>
+
+
+{% if is_paginated %}
+
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+{% endif %}
+{% endblock content %}

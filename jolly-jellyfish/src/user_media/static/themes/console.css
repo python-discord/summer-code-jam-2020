@@ -1,0 +1,111 @@
+/**
+ * Green on black monospace theme.
+ * Every paragraph begins with "> " and every header with ">>> ".
+ * The final paragraph ends with a blinking cursor, as well as every header.
+ * Headers are constantly deleted and rewritten, and must be written as:
+ *     <h1><span>Header Text</span></h1>
+ * (Compatible with hotdog theme)
+ * Images are displayed as thumbnails that open into a full page modal when hovered, and must be written as:
+ *     <div class="img-wrapper"><img .../></div>
+ */
+
+body {
+  background: black;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+  padding-left: 1ch;
+}
+
+.img-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.img-wrapper::before {
+  content: ">";
+}
+
+.img-wrapper:hover img {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  margin: auto;
+  z-index: 10;
+}
+
+.img-wrapper:hover {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 5;
+  background: #000d;
+}
+
+.img-wrapper:hover::before {
+  content: "<";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: flex;
+}
+
+h1 > span, h2 > span, h3 > span, h4 > span, h5 > span, h6 > span {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 20s steps(100, end) infinite;
+  display: inline-block;
+  padding-left: 1ch;
+}
+  
+@keyframes typing {
+  0% {max-width: 0}
+  50% {max-width: 100ch}
+  100% {max-width: 0}
+}
+
+h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+  content: ">>> ";
+}
+
+p::before {
+  content: "> ";
+}
+
+body > *:nth-last-child(1)::after {
+  content: " █";
+  animation: blink 1s infinite steps(1);
+}
+
+h1::after, h2::after, h3::after, h4::after, h5::after, h6::before {
+  content: "_";
+  animation: blink 0.8s infinite steps(1);
+}
+
+@keyframes blink {
+  0% {opacity: 0%}
+  40% {opacity: 100%}
+  100% {opacity: 0%}
+}
+
+textarea, input[type="text"], button {
+  border: 1px solid #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  background: black;
+  color: #0f0;
+}
+
+textarea:before {
+  content: ">";
+}
+
+textarea:after {
+  content: " █";
+  animation: blink 1s infinite steps(1);
+}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+{{ formset.media }}
+
+    <div class="parchment-border">
+        <h1>Create your trivia pack</h1>
+        <form method="post" data-formset-prefix="{{ formset.prefix }}">
+
+            {% csrf_token %}
+
+            {{ quiz_form|crispy }}
+
+            {{ question_formset.management_form }}
+            {% for question_form in question_formset %}
+                <div class="panel panel-default question-formset">
+                    {{ question_form|crispy }}
+                </div>
+            {% endfor %}
+
+            <input type="submit" class="stamp is-approved2" value="Create Quiz"/>
+        </form>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="{% static 'jquery.formset.js' %}"></script>
+        <script>
+            $('.question-formset').formset({
+                addCssClass: "stamp is-approved",
+                addText: 'add new question',
+<!--                deleteCssClass: "hidden stamp is-nope",-->
+                deleteText: 'remove previous question'
+            });
+
+        </script>
+    </div>
+{% endblock content %}
+<!--modeled from https://whoisnicoleharris.com/2015/01/06/implementing-django-formsets.html-->

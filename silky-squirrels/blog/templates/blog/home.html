@@ -1,0 +1,92 @@
+{% extends "blog/base-with-sidebar.html" %}
+{% block content %}
+
+  <div class="col-6 col-lg-6 mb-4 mb-lg-5">
+      <div class="card card-secondary">
+          <div class="card-header text-center">
+              <span class="icon icon-xs w95-window-empty"></span>
+              Welcome Home
+          </div>
+          <div class="card-body">
+              <p class="card-text">Windows 95 was available on either floppy
+                  disks or a CD-ROM. The
+                  floppy version shipped with 13 disks.</p>
+              <div class="d-flex mt-3">
+                  <button class="btn btn-sm mr-2 btn-primary border-dark"
+                      type="button"><span class="btn-text">OK</span></button>
+                  <button class="btn btn-sm btn-primary" type="button"><span
+                          class="btn-text">Cancel</span></button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <video
+        id="vid1"
+        class="early-tube video-js"
+        controls
+        width="640" height="264"
+        data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=lAkuJXGldrM"}] }'
+    >
+    </video>
+
+  {% if user.is_authenticated %}
+      <h4>Hello {{ user }}</h4>
+      {% if frequests %}
+        {% for frequest in frequests %}
+            <a href="{% url 'accept' frequest.id %}">Accept {{frequest.from_user}} as friend</a>
+            <br>
+        {% endfor %}
+      {% else %}
+        You have no friend requests!
+        <br>
+      {% endif %}
+      <br>
+      <h4>Your Friends</h4> 
+      {% for friend in profile.friends.all %}
+        {{ friend.user }}
+        <br>
+      {% endfor %}
+      <br>
+      <h4>Add someone!</h4>
+      {% for user in allusers %}
+          <a href="{% url 'add-friend' user.id %}">{{user}} +</a>
+          <br>
+      {% endfor %}
+  {% endif %}
+
+  {% for post in posts %}
+      <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          </div>
+          <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+      </article>
+  {% endfor %}
+  {% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+  {% endif %}
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="col-lg-9">
+        <div class="community-bar">
+            {% if user.is_authenticated %}
+            <a href="subscribe/"><button style="float:right;"
+                                         class="override"
+                {% if subscribed %}
+                     class="green"
+                 {% endif %}>
+                {% if subscribed %}
+                   Unsubscribe
+                    {% else %}
+                    Subscribe
+                   {% endif %}
+                  </button></a>
+            {% endif %}
+            <h1><b>c/{{community.name}}</b></h1>
+            <p> - {{community.description}}</p>
+            <p>created by /u <a href="/user/{{community.owner}}/posts">{{community.owner}}</a>, <span style="color:grey;"> has {{community.subscribers.count}} subscribers</span></p>
+            <p>location - {{community.location}}</p><br>
+            {% if subscribed %}
+            <a href="{% url 'chat' room_name=community.get_room_id %}"><button class="override">Enter Chat Room</button></a>
+            <a href="post"><button class="override">Create Post</button></a>
+            {% endif %}
+        </div>
+        <div class="posts"><h4><b>Recent posts of {{community.name}} community</b></h4></div>
+        {% for post in posts %}
+            <div class="comment">
+                <h5><a href="{{post.id}}">{{post.title}}</a><span style="color:grey;"> by <a href="/user/{{post.author}}/posts">{{post.author}}</a> on {{post.creation_date}}</span> has {{post.views.count}} views</h5>
+                <p>{{post.description}}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    Upload
+{% endblock %}
+
+{% block content %}
+    <h2> Upload </h2>
+    <div id="error-info">
+        {% block error %}
+            {{ block.super }}
+        {% endblock %}
+    </div>
+    <h2 style="text-align:center">Share your knowledge!</h2>
+    <form id="upload-form" method="post" action="{% url 'upload-truth' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ upload_form }}
+        <input type="submit" value="Submit">
+    </form>
+    
+{% endblock %}

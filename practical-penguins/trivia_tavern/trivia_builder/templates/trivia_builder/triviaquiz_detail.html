@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load settings_tag %}
+
+{% block content %}
+<div class="parchment-border">
+  <div class="row">
+      <div class="col-md-6"><h1>Trivia Name: {{ quiz.name }}</h1></div>
+  </div>
+
+  <p><strong>Trivia pack author:</strong> <a href="{% url 'user' quiz.author.username %}">{{ quiz.author }}</a></p>
+  <p><strong>created on:</strong> {{ quiz.date_posted }}</p>
+  <p><strong>Trivia description</strong> {{ quiz.description }}</p>
+  <p><strong>number of questions:</strong> {{ quiz.triviaquestion_set.count }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Question List</h4>
+
+    {% for question in quiz.triviaquestion_set.all %}
+      <hr>
+      <p><strong>question:</strong> {{ question.question_text }}</p>
+      <p><strong>answer:</strong> {{ question.question_answer }}</p>
+    {% endfor %}
+  </div>
+
+    <div class="row justify-content-center">
+        <form method="post">
+          {% csrf_token %}
+          <input type="submit" class="stamp is-approved" value="Run Quiz">
+        </form>
+
+        {% if user == quiz.author %}
+            <form action="{% url 'quiz-update' quiz.pk %}" method="post">
+              {% csrf_token %}
+              <input type="submit" class="stamp" value="Edit Quiz">
+            </form>
+
+            <form action="{% url 'quiz-delete' quiz.pk %}" method="post">
+              {% csrf_token %}
+              <input type="submit" class="stamp is-nope" value="Delete Quiz">
+            </form>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
+<!--modeled from https://whoisnicoleharris.com/2015/01/06/implementing-django-formsets.html-->

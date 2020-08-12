@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.page_author }}'s blog</title>
+    <style>
+        * {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #header {
+            text-align: center;
+        }
+
+        #post-container {
+            padding: 1% 10%;
+        }
+
+        .post {
+            text-align: left;
+            background-color: pink;
+            padding: 1% 2%;
+            margin: 3%;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Welcome to {{ page.page_author }}'s blog about {{ page.page_title }}!</h1>
+        <p>Hello, My name is {{ page.page_author }}. I am a {{ page.blogger_age }} year old from
+            {{ page.blogger_location }}. I really love {{ page.page_title }}, and I hope you like my blog about
+            {{ page.page_title }}!</p>
+    </div>
+
+    <div id="post-container">
+        {% for post in page.blog_posts.all %}
+        <div class="post">
+            <h3>{{ post.title }}</h3>
+            <p style="background-color: coral;">{{ post.content|safe }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        setTimeout(function(){window.location.reload()},10000)
+    </script>
+
+</body>
+</html>

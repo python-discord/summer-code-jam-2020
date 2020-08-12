@@ -1,0 +1,78 @@
+/**
+ * Yellow on red / red on yellow, switches every 5 seconds.
+ * Comic Sans, or Comic Neue from google fonts if Comic Sans not available.
+ * Headers all spin and move, and must be written as:
+ *      <h1><span><span>Header Text</span></span></h1>
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+body {
+  background: #f00;
+  color: #ff0;
+  animation: color-invert 2s steps(2, jump-none) infinite;
+  font-family: "Comic Sans MS", "Comic Neue", cursive, sans-serif;
+  overflow-x: hidden;
+}
+
+h1 > span, h2 > span, h3 > span, h4 > span, h5 > span, h6 > span {
+  transform-origin: center;
+  animation: spin 5s linear infinite;
+  display: inline-block;
+}
+
+h1 > span > span, h2 > span > span, h3 > span > span, h4 > span > span, h5 > span > span, h6 > span > span {
+  display: inline-block;
+  padding: 50% 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  animation: move 5s linear infinite;
+  max-width: 100%;
+}
+
+img {
+  max-width: 40vw;
+  max-height: 40vh;
+  animation: red-yellow-filter 2s steps(2, jump-none) infinite;
+  padding: 10px;
+}
+
+img:nth-of-type(even) {
+  float: left;
+}
+
+img:nth-of-type(odd) {
+  float: right;
+}
+
+@keyframes red-yellow-filter {
+  0% {filter: url("../filters.svg#yellow")}
+  100% {filter: url("../filters.svg#red")}
+}
+
+@keyframes move {
+  0% {transform: translateX(0%)}
+  50% {transform: translateX(100%)}
+}
+
+@keyframes blink {
+  to {visibility: hidden}
+}
+
+@keyframes spin {
+  0% {transform: rotate(0deg)}
+  50% {transform: translateX(-100%) rotate(180deg)}
+  100% {transform: rotate(360deg)}
+}
+
+@keyframes color-invert {
+  0% {
+    background: #f00;
+    color: #ff0;
+  }
+  100% {
+    background: #ff0;
+    color: #f00;
+  }
+}

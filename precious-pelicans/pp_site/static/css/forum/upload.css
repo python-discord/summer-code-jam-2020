@@ -1,0 +1,105 @@
+#error-info {
+    border-width: 2px;
+    border-color: red;
+    background: rgb(255, 186, 186);
+    padding: 10px;
+    border-style: solid;
+    box-sizing: border-box;
+}
+
+#banner {
+    width: 1000px;
+}
+
+#header {
+    background-color: black;
+    width: 100%;
+    padding: 2px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+#header a {
+    color: white;
+}
+
+#main-block {
+    display: flex;
+    flex-direction: row;
+}
+
+#upload-form {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 2px;
+    padding: 10px;
+    width: 25em;
+}
+
+.field-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4px;
+}
+
+.label-container {
+    width: 8em;
+}
+
+.input-container {
+    width: 100%;
+    flex-grow: 1;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    align-self: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    background-color: rgb(254, 255, 195);
+    padding: 2px;
+}
+
+#preview-area {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+    align-items: center;
+}
+
+#preview-area h4 {
+    margin: 5px;
+}
+
+#content-box {
+    width: 350px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: dashed;
+    border-width: 1px;
+}
+
+#content-box div {
+    font-size: 24px;
+    color: lightgray;
+}

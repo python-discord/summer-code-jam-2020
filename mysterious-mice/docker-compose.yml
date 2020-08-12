@@ -1,0 +1,10 @@
+version: "3.4"
+
+services:
+  mysteriousmice:
+    image: mysteriousmice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"

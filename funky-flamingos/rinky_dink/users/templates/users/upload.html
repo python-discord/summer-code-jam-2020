@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content%}
+<div class="window-center popup" id="helpbox">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+      <div class="title-bar-text">Help</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close" onclick="document.getElementById('helpbox').style.display='none';"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <div class="dialog-box">
+        <div><img src="{% static 'icons/directory.png' %}" alt="directory icon"></div>
+        <div class="ml-1"><h4>Uploading a file</h4></div>
+      </div>
+        <p>Click the 'Choose File' button to select a file for upload, then click the 'Upload File' button to upload it.<br />You will see a success message when your file has been uploaded to the server.</p>
+    </div>
+  </div>
+</div>
+
+<div class="window-center">
+  <div class="window" style="width: 300px">
+    <div class="title-bar">
+      <div class="title-bar-text">Hey {{ request.user }}!, Want to upload a new file?</div>
+      <div class="title-bar-controls">
+        <button aria-label="Help" onclick="document.getElementById('helpbox').style.display='block';"></button>
+        <a href="{% url 'dashboard' %}"><button aria-label="Close"></button></a>
+      </div>
+    </div>
+    <div class="window-body">
+        <div class="btn-row">
+          <button id="btn-uploader" onclick="document.getElementById('fileChooser').click();">Choose file</button>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input id="fileChooser" type="file" name="document" style="display: none;">
+            <button id="uploadBtn" type="submit" disabled>Upload file</button>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+  {% if url %}
+    <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+  {% endif %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<script>
+  setInterval(function() {
+    if (document.getElementById("fileChooser").value.length > 0) {
+        var btn = document.getElementById("btn-uploader");
+        btn.innerHTML = 'File Chosen';
+        document.getElementById("uploadBtn").disabled = false;
+     }
+  }, 100);
+</script>
+{% endblock content %}

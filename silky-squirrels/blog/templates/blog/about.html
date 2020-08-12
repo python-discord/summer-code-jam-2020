@@ -1,0 +1,21 @@
+{% extends "blog/base-with-sidebar.html" %}
+{% block content %}
+                                        
+<div class="col-12 col-lg-6 mb-4 mb-lg-0">
+    <div class="card">
+        <div class="card-header">
+            About
+        </div>
+        <div class="card-body">
+            <p class="card-text">Welcome to the Internet, a world where all is connected. You must be logged in
+            to access the majority of the site's features. Create an account today to enjoy
+            the wonders of Instant Messaging and meet new people online!</p>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-sm mr-2 btn-primary border-dark"
+                    type="button" onclick="window.location.href='{% url 'register' %}';"><span class="btn-text">Sign Up</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

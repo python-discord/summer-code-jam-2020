@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="parchment-border">
+        <div class="row">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+            <div>
+                <div class="row">
+                    <h2 class="account-heading">profile page of {{ user.username }} </h2>
+                </div>
+                <div class="row">
+                    <!-- this should only be one element in this list but the with is to make sure -->
+                    {% if current_hosted_session %}
+                        {% with current_hosted_session|first as current_hosted_session %}
+                            <h2 class="account-heading">Current status:
+                                <a class="article-title" href="{% url 'activequiz' current_hosted_session.pk %}">
+                                    hosting trivia session
+                                </a>
+                            </h2>
+                        {% endwith %}
+                    {% else %}
+                        <h2 class="account-heading">Current status: idle </h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user_quizzes %}
+        <div class="row justify-content-center parchment-border">
+            <h1> Here are Trivia packs made by {{ user.username }} </h1>
+        </div>
+        {% for quiz in user_quizzes %}
+            <article class="media parchment-border">
+              <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                </div>
+                <h2>
+                    <a class="article-title" href="{% url 'quiz-detail' quiz.id %}">{{ quiz.name }}</a>
+                </h2>
+                <p class="article-content">Trivia pack description: {{ quiz.description }}</p>
+                <p class="article-content">Number of questions: {{ quiz.triviaquestion_set.count }}</p>
+              </div>
+            </article>
+
+        {% endfor %}
+    {% else %}
+        <div class="row justify-content-center parchment-border">
+            <h1>No trivia packs made by {{ user.author }} found. </h1>
+        </div>
+    {% endif %}
+
+{% endblock content %}

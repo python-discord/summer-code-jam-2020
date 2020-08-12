@@ -1,0 +1,4 @@
+django
+BeautifulSoup4
+pillow
+requests 

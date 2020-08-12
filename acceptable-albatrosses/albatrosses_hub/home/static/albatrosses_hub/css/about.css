@@ -1,0 +1,47 @@
+/* Three columns side by side */
+.card-column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  
+  /* Display the columns below each other instead of side by side on small screens */
+  @media screen and (max-width: 650px) {
+    .card-column {
+      width: 100%;
+      display: block;
+    }
+  }
+    
+  /* Some left and right padding inside the container */
+  .card-container {
+    padding: 0 16px;
+  }
+  
+  /* Clear floats */
+  .card-container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  .button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: blue;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .button:hover {
+    color: greenyellow;
+  }

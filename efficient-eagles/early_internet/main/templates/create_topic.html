@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div style="width: 30%; margin: 0 auto;">
+  <form method='POST'>
+    {% csrf_token %}
+    <label for="id_name">Topic Name:</label>
+    <input style="width: 100%;" type="text" name="name" maxlength="20" required="" id="id_name">
+    <button class="w3-button w3-block w3-green w3-section w3-padding" type='submit'>Create</button>
+    
+    {% if error %}
+      <h6 style='color:red'>{{ error }}</h6>
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

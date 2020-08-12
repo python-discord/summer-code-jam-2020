@@ -1,0 +1,32 @@
+
+{% if user == active_trivia_quiz.session_master %}
+    <!--if current_question_index is less than zero (meaning that the quiz has ended)-->
+    {% if active_trivia_quiz.current_question_index == -1 %}
+        <form action="{% url 'activequiz-delete' active_trivia_quiz.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" class="stamp is-nope" name='end-quiz' value="End Quiz">
+        </form>
+    <!--if current_question_index is greater than zero (meaning it is on question <current_question_index>)-->
+    {% elif active_trivia_quiz.current_question_index == 0 %}
+        <form method="post"  action="{% url 'activequiz' active_trivia_quiz.pk %}">
+            {% csrf_token %}
+            <input type="submit" class="stamp is-approved" name='next-question' value="Start Quiz">
+        </form>
+    <!--if current_question_index is greater than zero (meaning it is on question <current_question_index>)-->
+    {% elif active_trivia_quiz.current_question_index < active_trivia_quiz.trivia_quiz.triviaquestion_set.count %}
+        <form method="post"  action="{% url 'activequiz' active_trivia_quiz.pk %}">
+            {% csrf_token %}
+            <input type="submit" class="stamp is-approved" name='next-question' value="Next question">
+        </form>
+    <!--if current_question_index is equal to zero (meaning it is currently on setup)-->
+    {% else %}
+        <form method="post"  action="{% url 'activequiz' active_trivia_quiz.pk %}">
+            {% csrf_token %}
+            <input type="submit" class="stamp is-approved" name='show-results' value="Show Results">
+        </form>
+{% endif %}
+
+
+
+{% endif %}
+

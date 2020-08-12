@@ -1,0 +1,183 @@
+$white:       #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:       #000;
+
+$blue:     #0084ff;
+$indigo:   #6610f2;
+$purple:   #6f42c1;
+$pink:     #d696bb;
+$red:      #fa3c4c;
+$orange:   #fd7e14;
+$yellow:   #ffc300;
+$green:    #28a745;
+$teal:     #20c997;
+$cyan:     #44bec7;
+
+$primary:       $indigo;
+$secondary:       $cyan;
+$success:         $pink;
+$info:            $cyan;
+$warning:       $yellow;
+$danger:         $white;
+$light:       $gray-100;
+$dark:        $gray-800;
+
+// Uncomment the following lines for IRC, AOL stylesheets
+// This will remove rounded buttons, etc for a less modern bootstrap look
+$enable-caret: false;
+$enable-rounded: false;
+$enable-transitions: false;
+
+
+
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+//@import "bootstrap/root";
+//@import "bootstrap/reboot";
+@import "bootstrap/type";
+//@import "bootstrap/images";
+//@import "bootstrap/code";
+//@import "bootstrap/grid";
+//@import "bootstrap/tables";
+//@import "bootstrap/forms";
+//@import "bootstrap/buttons";
+//@import "bootstrap/transitions";
+//@import "bootstrap/dropdown";
+//@import "bootstrap/button-group";
+@import "bootstrap/input-group";
+//@import "bootstrap/custom-forms";
+//@import "bootstrap/nav";
+//@import "bootstrap/navbar";
+//@import "bootstrap/card";
+//@import "bootstrap/breadcrumb";
+//@import "bootstrap/pagination";
+//@import "bootstrap/badge";
+//@import "bootstrap/jumbotron";
+//@import "bootstrap/alert";
+//@import "bootstrap/progress";
+//@import "bootstrap/media";
+//@import "bootstrap/list-group";
+//@import "bootstrap/close";
+//@import "bootstrap/toasts";
+//@import "bootstrap/modal";
+//@import "bootstrap/tooltip";
+//@import "bootstrap/popover";
+//@import "bootstrap/carousel";
+//@import "bootstrap/spinners";
+@import "bootstrap/utilities";
+//@import "bootstrap/print";
+
+@import "XP.css-main/gui/index";
+@import "XP.css-main/themes/98/index";
+
+#message-container{
+  padding-top: 10px;
+  padding-left: 200px;
+  width: 100%;
+  background: none;
+}
+
+#message-input{
+  width: 100%;
+  background: none;
+}
+
+#chat-name{
+/*  background: #ffffff;*/
+  color: white;
+  width: 100%;
+}
+
+.app{
+  height: 100vh;
+}
+
+#logo{
+  height: 300px;
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center;
+  /*  Placeholder image*/
+  background-image: url('https://www.plutora.com/wp-content/uploads/2018/11/irc_internet_relay_chat.png');
+}
+
+#login{
+  text-align: center;
+  display: none;
+}
+
+#login *{
+  width: 100%;
+
+}
+
+#chat-window{
+//  height: 90vh;
+//  overflow-y: scroll;
+  width: 100%;
+}
+
+.container-fluid {
+  overflow-y: visible;
+  overflow-x: hidden;
+  background-color: $black;
+  font-family: monospace;
+  color: white;
+  margin-left: 20vmin;
+  margin-right: 20vmin;
+}
+
+#prepend-input{
+  font-size: 12pt;
+}
+
+input{
+  position: absolute;
+  bottom: 0;
+  background:none;
+  color: white;
+  font-size: 12pt;
+  border: none;
+}
+
+input:focus{
+  outline: none;
+}
+
+button{
+  display: none;
+}
+
+#contacts{
+  display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px none;
+  border-radius: 0px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 1px;
+}

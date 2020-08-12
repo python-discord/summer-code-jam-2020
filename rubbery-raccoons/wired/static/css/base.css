@@ -1,0 +1,20 @@
+body {
+    margin: 4em 2em 2em 14em;
+}
+
+#nav-bar {
+    position: absolute;
+    top: 4em;
+    left: 2em;
+    width: 9em;
+
+    background-color: PaleGreen;
+}
+
+.nav-heading {
+    background-color: OrangeRed;
+}
+
+.banner {
+    padding-bottom: 2em;
+}

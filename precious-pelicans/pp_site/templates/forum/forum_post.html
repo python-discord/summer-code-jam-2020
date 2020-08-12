@@ -1,0 +1,100 @@
+{% extends 'base/forumbase.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/forum/forum_post.css" %}">
+{% endblock %}
+
+{% block title %}
+    {{ original_post.title }}
+{% endblock %}
+
+{% block header %}
+    <a href="/forum">
+        << Index
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="content-wrapper">
+        <div class="post">
+            <div id="post-title">
+                <div id="post-title-text">
+                    {{ original_post.title }}
+                </div>
+                <div id="rating">
+                    <form method="POST" action="{% url 'vote-forum-post' post_id=original_post.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="vote" value="up">
+                        <input type="submit" value="&#8593">
+                    </form>
+                    <form method="POST" action="{% url 'vote-forum-post' post_id=original_post.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="vote" value="down">
+                        <input type="submit" value="&#8595">
+                    </form>
+                    <span>{{ original_post.rating }}</span>
+                </div>
+            </div>
+
+            <p class="author-date">
+                Author: {{ original_post.author }} | Posted on: {{ original_post.created_at }}
+            </p>
+            <div id="media-container">
+                {% if original_post.is_video %}
+                    <video controls width="500">
+                        <source src="{{ original_post.media_file.url }}">
+                    </video>
+                {% else %}
+                    <img src="{{ original_post.media_file.url }}" alt="{{ original_post.title }}">
+                {% endif %}
+            </div>
+            <p class="text"> 
+                {{ original_post.description }}
+            </p>
+            <button id="reply-button" onclick="window.scrollTo(0, document.body.scrollHeight)">Reply</button>
+        </div>
+
+        <div id="reply-container">
+            {% for reply in page_obj %}
+                <div class="post">
+                    <p class="author-date">
+                        Author: {{ reply.author|upper }} | Posted on: {{ reply.created_at }}
+                    </p>
+                    <p class="text">
+                        {{ reply.content }}
+                    </p>
+                </div>
+            {% endfor %}
+
+            <div id="page-selector">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+<div class="reply-form">
+        <form action="{% url "post-forum-reply" post_id=original_post.id %}" method="POST">
+            {% csrf_token %}
+            {% for field in reply_form %}
+                <h6>{{ field.label_tag }}</h6>
+                <p>{{ field }}</p>
+            {% endfor %}
+            <input type="submit">
+        </form>
+</div>
+
+
+{% endblock %}

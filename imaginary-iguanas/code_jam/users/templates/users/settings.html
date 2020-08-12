@@ -1,0 +1,13 @@
+{% extends "myplace/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>{{user.username}} settings</h2>
+    <a href="{% url 'user-password-update' %}">Click here to go to Password Change Form</a>
+    <br/>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ password_form|crispy }}
+        {{ profile_form|crispy }}
+        <button type="submit">Update Profile</button>
+    </form>
+{% endblock content %}

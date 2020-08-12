@@ -1,0 +1,11 @@
+<div class="w3-bar" style='margin-bottom: 50px;'>
+  <a class='w3-btn' href="{% url 'home' %}">Feed</a>
+  <a class='w3-btn' href="{% url 'create_topic' %}">New Topic</a>
+  {% if user.is_authenticated and request.user == user %}
+    <a class='w3-btn' style="float: right;" href="{% url 'logout' %}?next={{request.path}}">Log out</a>
+    <a class='w3-btn' style="float: right;" href="/user/{{user}}">{{ user }}</a>
+  {% else %}
+    <a class='w3-btn' style="float: right;" href="{% url 'login' %}">Login</a>
+    <a class='w3-btn' style='float: right;' href="{% url 'register' %}">Sign up</a>
+  {% endif %}
+</div>

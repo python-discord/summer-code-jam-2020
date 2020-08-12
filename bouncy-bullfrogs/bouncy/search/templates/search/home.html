@@ -1,0 +1,18 @@
+{% extends "search/base.html" %}
+
+{% block body %}
+
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+
+<form action="{% url 'search:search-process' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <input autofocus class="form-control" type="text" name="q" placeholder="Search">
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Search">
+</form>
+
+{% endblock %}

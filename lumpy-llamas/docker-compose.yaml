@@ -1,0 +1,19 @@
+version: '2.0'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+    links:
+      - redis
+  redis:
+    image: redis:alpine
+    expose:
+      - "6379"

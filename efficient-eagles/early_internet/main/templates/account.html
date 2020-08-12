@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <div style='margin-left:auto; margin-right:auto; text-align:center;'>
+    <h1>Basic Information</h1>
+    <form method='POST' enctype="multipart/form-data">
+      {% csrf_token %}
+      {% if user.profile_img %}
+        <img src='{{user.profile_img.url}}' alt='Profile Picture' class='pfp'/>
+      {% else %}
+        <i class='fas fa-portrait' style='font-size:200px; color:black'></i>
+      {% endif %}
+      {{ form.as_p }}
+      <button class='w3-btn w3-green' name='save' type='submit'>Save </button><br><a href='{% url "change_password" %}'> Change Password?</a>
+    </form>
+  </div>
+{% endblock %}

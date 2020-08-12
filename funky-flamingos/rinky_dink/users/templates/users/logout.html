@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="window-center">
+	<div class="window" style="width: 300px">
+		<div class="title-bar">
+		<div class="title-bar-text">Logout</div>
+		<div class="title-bar-controls">
+			<a href="{% url 'index' %}"><button aria-label="Close"></button></a>
+		</div>
+		</div>
+		<div class="window-body">
+			<div class="dialog-box">
+				<div><img src="{% static 'icons/error.png' %}" alt="error icon"></div>
+				<div class="ml-1">You have been logged out!</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content%}

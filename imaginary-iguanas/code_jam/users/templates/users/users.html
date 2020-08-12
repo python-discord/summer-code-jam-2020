@@ -1,0 +1,18 @@
+{% extends "myplace/base.html" %}
+{% block content %}
+    {% if profiles %}
+        <div class="all_users">
+            <h1>All profiles ({{ profile_count }})</h1>
+            {% for profile in profiles %}
+                <div class="all_users_item">
+                  <a href="{% url 'user-profile' username_or_id=profile.user.username %}">
+                     <b>{{ profile.user.username }}</b>
+                     <div><img src="{{ profile.image.url }}" style="width: 100px; height: 100px;"></div>
+                  </a>
+               </div>
+            {% endfor %}
+        </div>
+    {% else %}
+         <h1>No registered user profiles.</h1>
+    {% endif %}
+{% endblock content %}
