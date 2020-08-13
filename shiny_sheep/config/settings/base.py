@@ -80,6 +80,7 @@ LOCAL_APPS = [
     "shiny_sheep.users.apps.UsersConfig",
     "shiny_sheep.frontend",
     "shiny_sheep.chat",
+    'shiny_sheep.games.apps.GamesConfig'
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -289,4 +290,3 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
-
