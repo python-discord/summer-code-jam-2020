@@ -29,6 +29,8 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+    # Rooms API
+    path("api/chat", include("shiny_sheep.chat.api.urls")),
 ]
 
 if settings.DEBUG:
