@@ -1,6 +1,6 @@
-import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+
 
 class GameExampleConsumer(WebsocketConsumer):
     def connect(self):
@@ -24,6 +24,4 @@ class GameExampleConsumer(WebsocketConsumer):
 
     # Receive message from WebSocket
     def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-
+        pass
