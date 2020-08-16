@@ -39,6 +39,12 @@ class TerminalConsumer(AsyncWebsocketConsumer):
                     else:
                         return False
 
+    @sync_to_async
+    def _create_vmcfg(self, storage_id: int, vm_id: int):
+        user = self.scope.get('user')
+        vm = VMachine.objects.get(id=vm_id)
+        return VMConfig('bash', vm.floppy_disks_id)
+
     async def connect(self) -> None:
         await self.accept()
         storage_id, vm_id = itemgetter('storage_id', 'vm_id')(self.scope['url_route']['kwargs'])
@@ -52,9 +58,9 @@ class TerminalConsumer(AsyncWebsocketConsumer):
             await self.close()
             return
         self.connected = True
-        vm = VMachine.objects.get(id=vm_id)
+        self.vmcfg = await self._create_vmcfg(storage_id, vm_id)
         self.process = await subprocess.create_subprocess_exec(
-            *start_vm(VMConfig('bash', vm.floppy_disks_id)), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            *start_vm(self.vmcfg), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.task_err = asyncio.tasks.create_task(
             self.handle_sending(self.process.stderr))
         self.task_out = asyncio.tasks.create_task(
