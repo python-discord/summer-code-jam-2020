@@ -80,6 +80,7 @@ LOCAL_APPS = [
     "shiny_sheep.users.apps.UsersConfig",
     "shiny_sheep.frontend",
     "shiny_sheep.chat",
+    'shiny_sheep.games.apps.GamesConfig'
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -264,7 +265,7 @@ LOGGING = {
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "username"
-ACCOUNT_USERNAME_REQUIRED=True
+ACCOUNT_USERNAME_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = False
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -289,4 +290,3 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
-

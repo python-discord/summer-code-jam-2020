@@ -5,6 +5,7 @@ from channels.generic.websocket import WebsocketConsumer
 
 command_re = re.compile(r'^/(?P<command>\w+) ?(?P<arguments>.*)')
 
+
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -48,6 +49,7 @@ class ChatConsumer(WebsocketConsumer):
             'message': message
         }))
 
+
 class IntroConsumer(WebsocketConsumer):
     def connect(self):
         # TODO: Check if the user is already logged in
@@ -68,4 +70,3 @@ class IntroConsumer(WebsocketConsumer):
                 self.send(json.dumps({
                     'message': 'Test commands works :)'
                 }))
-
