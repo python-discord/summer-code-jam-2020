@@ -44,3 +44,10 @@
 - Time Management (yeah, right!)
 
 [WE EVEN MADE A SHEET](https://docs.google.com/spreadsheets/d/1txXqRkj4V4D4RS1sVEganfGJPK0br0lnWWaH3P1boUM/edit#gid=873896706)
+
+
+
+### Credits:
+#### The assets came from these MIT licensed repos on Github: 
+[Packard Belle: A nostalgic component UI](https://github.com/padraigfl/packard-belle)
+[98.css](https://github.com/jdan/98.css)
