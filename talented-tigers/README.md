@@ -54,25 +54,30 @@ written inside of it (replace `your_key_here` with your API key)
 
 **Requirements (All)**:
   * [Git](https://git-scm.com/)
+  * [Python 3](https://python.org) (Make sure it is added to your system's path)
 
-**Setup (Windows) (Not Fully Tested)**:
-  * Install [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-  * Install [Docker](https://docs.docker.com/engine/install/) in the WSL 2 terminal.
-  * Open WSL 2 and clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
-  * Next install `pipenv` by running `pip3 install pipenv` in the WSL 2 terminal. (Make sure `pip` is installed: https://pip.pypa.io/en/stable/installing/)
+**Setup (Windows)**:
+  * Install [Docker for Windows](https://docs.docker.com/docker-for-windows) (or [Docker for Windows 10 *Home*](https://docs.docker.com/docker-for-windows/install-windows-home/)).
+  * Install pipenv with `pip install pipenv`
+  * Open a powershell window and clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
   * Then run these following commands:
     * `cd summer-code-jam-2020/talented-tigers`
-    * `pipenv run python3 run-linux.py`
-  * The last command will run the website locally, you will be able to view the website at the address `0.0.0.0:8000`.
+    * `pipenv run python run-windows.py`
+  * The last command will run the website locally, you will be able to view the website at the address `localhost:8000`.
 
 **Setup (Linux)**:
   * Install [Docker](https://docs.docker.com/engine/install/) (Or for Arch - [Docker on Arch](https://www.google.com/search?client=firefox-b-1-d&q=docker+arch))
   * Clone the repository by running `git clone https://github.com/thaniel-c/summer-code-jam-2020.git`
-  * Next install `pipenv` by running `pip3 install pipenv`
+  * Next install `pipenv` by running `pip3 install pipenv` (may require `sudo` if it isn't automatically added to path, you can test it with `pipenv --version`. Also make sure pip is installed: https://pip.pypa.io/en/stable/installing/)
+  * *If* `pipenv` can not automatically detect your system's path to Python, you may need to run `pipenv --python /path/to/python` to tell `pipenv` the path to Python.
   * Then run these following commands:
     * `cd summer-code-jam-2020/talented-tigers`
     * `pipenv run python3 run-linux.py`
-  * The last command will run the website locally, you will be able to view the website at the address `0.0.0.0:8000`.
+  * The last command will run the website locally, you will be able to view the website at the address `localhost:8000`.
+
+Installation and loading can take a while as we need to setup the models for the AI as well as the dictionary for the link parser. Hang in there!
+
+**Note**: Be sure to view the site at http://localhost:8000, other hosts may not work as expected.
 
 Installation and loading can take a while as we need to setup the models for the AI as well as the dictionary for the link parser. Hang in there!
 
