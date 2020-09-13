@@ -293,9 +293,10 @@ def command_move(game_data, direction):
 
         # Move dust storm
         cur_dust = game_data['obstacles']['dust_storm']
-        cur_dust[0] += game_data['wind'][0]
-        cur_dust[1] += game_data['wind'][1]
-        game_data['obstacles'].update({"dust_storm": cur_dust})
+        new_dust_x = cur_dust[0] + game_data['wind'][0]
+        new_dust_y = cur_dust[1] + game_data['wind'][1]
+        new_dust = (new_dust_x, new_dust_y)
+        game_data['obstacles'].update({"dust_storm": new_dust})
         # deplete battery
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
