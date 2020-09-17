@@ -18,12 +18,12 @@ cd path/to/desktop/summer-code-jam-2020/graceful-grasshoppers/PySpace
 - MacOS or Linux (bash): 
 ```
 python3 -m venv pyspace
-source venv/bin/activate
+source pyspace/bin/activate
 ```
 - Windows (cmd): 
 ```
 py -m venv pyspace
-.\venv\Scripts\activate
+.\pyspace\Scripts\activate
 ```
 Now you have your virtual environment activated. (to be sure, make sure the prompt is now `(pyspace) the/path/of/the/current/folder`)
 4. Install the requirements.
