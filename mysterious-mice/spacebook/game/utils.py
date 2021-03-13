@@ -1,7 +1,6 @@
 import math
 import random
 from .models import HighScore
-from mars_weather.services import get_week_weather
 
 
 # All coordinates are stored as tuples of (x, y)
@@ -12,22 +11,8 @@ def new_game(request):
     Generates a new game, resetting the location of all components and the rover.
     """
 
-    # Attempt to pull the weather for the current sol
-    # If weather data is missing for current sol, get data for previous sol
-    # If data is still missing, use default values
-    week_weather = get_week_weather(request)
-    for sol in range(-1, -3, -1):
-        sol_weather = week_weather["weekly_weather"][sol]
-        sol_weather_key = list(sol_weather.keys())[0]
-        sol_weather_data = sol_weather[sol_weather_key]
-        if "HWS" in sol_weather_data and "AT" in sol_weather_data:
-            wind_speed = sol_weather_data["HWS"]["av"]
-            temperature = sol_weather_data["AT"]["av"]
-            break
-    if wind_speed is None or wind_speed == "":
-        wind_speed = 6
-    if temperature is None or temperature == "":
-        temperature = -60
+    wind_speed = 6
+    temperature = -60
 
     # Get wind direction
     wind_direction = (random.randint(-1, 1), random.randint(-1, 1))
@@ -308,9 +293,10 @@ def command_move(game_data, direction):
 
         # Move dust storm
         cur_dust = game_data['obstacles']['dust_storm']
-        cur_dust[0] += game_data['wind'][0]
-        cur_dust[1] += game_data['wind'][1]
-        game_data['obstacles'].update({"dust_storm": cur_dust})
+        new_dust_x = cur_dust[0] + game_data['wind'][0]
+        new_dust_y = cur_dust[1] + game_data['wind'][1]
+        new_dust = (new_dust_x, new_dust_y)
+        game_data['obstacles'].update({"dust_storm": new_dust})
         # deplete battery
         game_data["battery"] = game_data["battery"] - game_data["power_usage"]
         if game_data["has_solar_panels"]:
