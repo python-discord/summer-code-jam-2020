@@ -1,18 +1,18 @@
-<h2>Newest Trades</h2>
+<h2 class="title">Newest Trades</h2>
 <table style="border-spacing: 10px 0;">
-    <tr>
-        <td>From</td>
-        <td>To</td>
-        <td>Item</td>
-        <td>Quantity</td>
+    <tr class="rows">
+        <td class="head m">From</td>
+        <td class="head m">To</td>
+        <td class="head m">Item</td>
+        <td class="head m">Quantity</td>
     </tr>
     {% for t in trades %}
     {% with item=t.listing.item %}
-    <tr>
-        <td>{{ item.owner.user.get_username }}</td>
-        <td>{{ t.buyer.user.get_username }}</td>
-        <td>{{ item.product.name }}</td>
-        <td>
+    <tr class="rows">
+        <td class="item m">{{ item.owner.user.get_username }}</td>
+        <td class="item m">{{ t.buyer.user.get_username }}</td>
+        <td class="item m">{{ item.product.name }}</td>
+        <td class="item m">
             {{ item.quantity }}
             {% if item.quantity_type == "G" %}
                 grams
